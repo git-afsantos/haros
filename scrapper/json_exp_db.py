@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Modified by
-# Andre Santos, November, 2014
+# Andre Santos, December 2014
 
 from people import Person, PersonSet
 from package import *
@@ -26,6 +26,7 @@ def jsonifyMultiItem(it):
 	except StopIteration:
 		pass
 	return s;
+
 
 # Takes a package object
 def jsonifyPackage(pkg_id, cur):
@@ -62,6 +63,8 @@ def jsonifyPackage(pkg_id, cur):
 	# runtime = dbe.getMatchVal(cur, 'Packages', ['runtime'],'id',pkg_id)
 	# s += '\t\t\t\"Runtime\": ' + str(runtime) + ',\n'
 
+	s += '\t\t\t\"Metrics\": {},\n'
+
 	s += '\t\t\t\"Repos\": [\n'
 	repo_ids = dbe.getMatchSet(cur,'PkgRepos',['repo_id'],'pkg_id', pkg_id)
 	repo_names = dbe.getMatchValFromSet(cur,'Repos','name','id',repo_ids)
@@ -90,20 +93,16 @@ def jsonifyPackage(pkg_id, cur):
 	s += '\t\t}'
 	return s
 
+
 def jsonifyPackages(cur):
-	s = ''
-	s +='[{\n'
-	s += '\t\"id\": \"ros.json\",\n'
-	s += '\t\"reports\": [\n'
+	s = '[\n'
 
 	pkg_ids = dbe.getTable(cur, 'Packages',['id'])
 	s += jsonifyPackage(pkg_ids[0][0], cur)
 	for pkg_id in pkg_ids[1:]:
 		s += ',\n' + jsonifyPackage(pkg_id[0], cur)
-	s += '\n'
 
-	s += '\t]\n'
-	s += '}]'
+	s += '\n]'
 	return s
 
 if __name__ == '__main__':
