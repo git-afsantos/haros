@@ -1,0 +1,1665 @@
+[
+		{
+			"Name": "ros_tutorials",
+			"Metapackage": true,
+			"Contains": [
+				"rospy_tutorials",
+				"turtlesim",
+				"roscpp_tutorials"
+			],
+			"Description": "ros_tutorials contains packages that demonstrate various features of ROS,as well as support packages which help demonstrate those features.",
+			"Wiki": "http://www.ros.org/wiki/ros_tutorials",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_tutorials",
+				"ros-gbp/ros_tutorials-release"
+			],
+			"Authors": [
+				"Ken Conley",
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rospy_tutorials",
+				"catkin",
+				"turtlesim",
+				"roscpp_tutorials"
+			]
+		},
+		{
+			"Name": "rosparam",
+			"Metapackage": false,
+			"Description": "rosparam contains the rosparam command-line tool for getting andsetting ROS Parameters on the",
+			"Wiki": "http://ros.org/wiki/rosparam",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin",
+				"rosgraph"
+			]
+		},
+		{
+			"Name": "catkin",
+			"Metapackage": false,
+			"Description": "Low-level build system macros and infrastructure for ROS.",
+			"Wiki": "http://www.ros.org/wiki/catkin",
+			"Metrics": {},
+			"Repos": [
+				"ros/catkin",
+				"ros-gbp/catkin-release"
+			],
+			"Authors": [
+				"Dirk Thomas",
+				"Morten Kjaergaard",
+				"Troy Straszheim",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "stereo_msgs",
+			"Metapackage": false,
+			"Description": "stereo_msgs contains messages specific to stereo processing, such as disparity images.",
+			"Wiki": "http://ros.org/wiki/stereo_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Patrick Mihelich",
+				"Kurt Konolige"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"sensor_msgs",
+				"message_runtime",
+				"catkin",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "rostest",
+			"Metapackage": false,
+			"Description": "Integration test suite based on roslaunch that is compatible with xUnit frameworks.",
+			"Wiki": "http://ros.org/wiki/rostest",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roslaunch",
+				"rospy",
+				"rosmaster",
+				"catkin",
+				"rosunit"
+			]
+		},
+		{
+			"Name": "actionlib_msgs",
+			"Metapackage": false,
+			"Description": "actionlib_msgs defines the common messages to interact with an action server and an action client.For full documentation of the actionlib API see the",
+			"Wiki": "http://ros.org/wiki/actionlib_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Vijay Pradeep"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"std_msgs",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "trajectory_msgs",
+			"Metapackage": false,
+			"Description": "This package defines messages for defining robot trajectories. These messages arealso the building blocks of most of the",
+			"Wiki": "http://ros.org/wiki/trajectory_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Stuart Glaser"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"catkin",
+				"message_runtime",
+				"std_msgs",
+				"geometry_msgs",
+				"message_generation",
+				"rosbag_migration_rule"
+			]
+		},
+		{
+			"Name": "roscpp_core",
+			"Metapackage": true,
+			"Contains": [
+				"roscpp_traits",
+				"cpp_common",
+				"rostime",
+				"roscpp_serialization"
+			],
+			"Description": "Underlying data libraries for roscpp messages.",
+			"Wiki": "http://www.ros.org/wiki/roscpp_core",
+			"Metrics": {},
+			"Repos": [
+				"ros/roscpp_core",
+				"ros-gbp/roscpp_core-release"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roscpp_traits",
+				"rostime",
+				"cpp_common",
+				"catkin",
+				"roscpp_serialization"
+			]
+		},
+		{
+			"Name": "shape_msgs",
+			"Metapackage": false,
+			"Description": "This package contains messages for defining shapes, such as simple solidobject primitives (cube, sphere, etc), planes, and meshes.",
+			"Wiki": "http://ros.org/wiki/shape_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Ioan Sucan"
+			],
+			"Maintainers": [
+				"Ioan Sucan"
+			],
+			"Edge": [
+				"message_generation",
+				"catkin",
+				"message_runtime",
+				"geometry_msgs",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "cmake_modules",
+			"Metapackage": false,
+			"Description": "A common repository for CMake Modules which are not distributed with CMake but are commonly used by ROS packages.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/cmake_modules-release",
+				"ros/cmake_modules"
+			],
+			"Authors": [
+				"William Woodall"
+			],
+			"Maintainers": [
+				"William Woodall"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "roslisp",
+			"Metapackage": false,
+			"Description": "",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros/roslisp",
+				"ros-gbp/roslisp-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "rosbuild",
+			"Metapackage": false,
+			"Description": "rosbuild contains scripts for managing the CMake-based build system for ROS.",
+			"Wiki": "http://ros.org/wiki/rosbuild",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Troy Straszheim",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"message_generation",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rospack",
+			"Metapackage": false,
+			"Description": "ROS Package Tool",
+			"Wiki": "http://wiki.ros.org/rospack",
+			"Metrics": {},
+			"Repos": [
+				"ros/rospack",
+				"ros-gbp/rospack-release"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Dirk Thomas",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"cmake_modules",
+				"catkin"
+			]
+		},
+		{
+			"Name": "ros",
+			"Metapackage": true,
+			"Contains": [
+				"rosmake",
+				"rosboost_cfg",
+				"catkin",
+				"rosbash",
+				"roslib",
+				"roscreate",
+				"mk",
+				"rosbuild",
+				"rosclean",
+				"rosunit",
+				"roslang"
+			],
+			"Description": "ROS packaging system",
+			"Wiki": "http://www.ros.org/wiki/ROS",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Jeremy Leibs",
+				"Eric Berger",
+				"Morgan Quigley",
+				"Tully Foote",
+				"Josh Faust",
+				"Rob Wheeler",
+				"Ken Conley",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosmake",
+				"rosboost_cfg",
+				"catkin",
+				"rosbash",
+				"roslib",
+				"roscreate",
+				"mk",
+				"rosbuild",
+				"rosclean",
+				"rosunit",
+				"roslang"
+			]
+		},
+		{
+			"Name": "nav_msgs",
+			"Metapackage": false,
+			"Description": "nav_msgs defines the common messages used to interact with the",
+			"Wiki": "http://ros.org/wiki/nav_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Tully Foote"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"catkin",
+				"actionlib_msgs",
+				"message_runtime",
+				"std_msgs",
+				"geometry_msgs",
+				"message_generation"
+			]
+		},
+		{
+			"Name": "rosmake",
+			"Metapackage": false,
+			"Description": "rosmake is a ros dependency aware build tool which can be used to build all dependencies in the correct order.",
+			"Wiki": "http://ros.org/wiki/rosmake",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Tully Foote"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosconsole",
+			"Metapackage": false,
+			"Description": "ROS console output library.",
+			"Wiki": "http://www.ros.org/wiki/rosconsole",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbuild",
+				"rostime",
+				"cpp_common",
+				"catkin",
+				"rosunit"
+			]
+		},
+		{
+			"Name": "rosbash",
+			"Metapackage": false,
+			"Description": "Assorted shell commands for using ros with bash.",
+			"Wiki": "http://www.ros.org/wiki/rosbash",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Thibault Kruse",
+				"Jeremy Leibs"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "gencpp",
+			"Metapackage": false,
+			"Description": "C++ ROS message and service generators.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/gencpp-release",
+				"ros/gencpp"
+			],
+			"Authors": [
+				"Josh Faust",
+				"Morgen Kjaergaard",
+				"Troy Straszheim"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genmsg",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roslib",
+			"Metapackage": false,
+			"Description": "Base dependencies and support libraries for ROS.roslib contains many of the common data structures and tools that are shared across ROS client library implementations.",
+			"Wiki": "http://ros.org/wiki/roslib",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Ken Conley",
+				"Josh Faust",
+				"Morgan Quigley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rospack",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosout",
+			"Metapackage": false,
+			"Description": "System-wide logging mechanism for messages sent to the /rosout topic.",
+			"Wiki": "http://ros.org/wiki/rosout",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosgraph_msgs",
+				"catkin",
+				"roscpp"
+			]
+		},
+		{
+			"Name": "roscpp_serialization",
+			"Metapackage": false,
+			"Description": "roscpp_serialization contains the code for serialization as described in",
+			"Wiki": "http://ros.org/wiki/roscpp_serialization",
+			"Metrics": {},
+			"Repos": [
+				"ros/roscpp_core",
+				"ros-gbp/roscpp_core-release"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roscpp_traits",
+				"rostime",
+				"cpp_common",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roscpp_traits",
+			"Metapackage": false,
+			"Description": "roscpp_traits contains the message traits code as described in",
+			"Wiki": "http://ros.org/wiki/roscpp_traits",
+			"Metrics": {},
+			"Repos": [
+				"ros/roscpp_core",
+				"ros-gbp/roscpp_core-release"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rostime",
+				"cpp_common",
+				"catkin"
+			]
+		},
+		{
+			"Name": "topic_tools",
+			"Metapackage": false,
+			"Description": "Tools for directing, throttling, selecting, and otherwise messing withROS topics at a meta level. None of the programs in this package actuallyknow about the topics whose streams they are altering; instead, thesetools deal with messages as generic binary blobs. This means they can beapplied to any ROS topic.",
+			"Wiki": "http://ros.org/wiki/topic_tools",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"catkin",
+				"roscpp",
+				"xmlrpcpp",
+				"std_msgs",
+				"message_runtime",
+				"rostime",
+				"rostest",
+				"rosunit",
+				"message_generation",
+				"cpp_common"
+			]
+		},
+		{
+			"Name": "rosclean",
+			"Metapackage": false,
+			"Description": "rosclean: cleanup filesystem resources (e.g. log files).",
+			"Wiki": "http://ros.org/wiki/rosclean",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "rostopic",
+			"Metapackage": false,
+			"Description": "rostopic contains the rostopic command-line tool for displayingdebug information aboutROS",
+			"Wiki": "http://ros.org/wiki/rostopic",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbag",
+				"rostest",
+				"rospy",
+				"catkin"
+			]
+		},
+		{
+			"Name": "visualization_msgs",
+			"Metapackage": false,
+			"Description": "visualization_msgs is a set of messages used by higher level packages, such as",
+			"Wiki": "http://ros.org/wiki/visualization_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Davis Gossow",
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"catkin",
+				"message_runtime",
+				"geometry_msgs",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "message_generation",
+			"Metapackage": false,
+			"Description": "Package modeling the build-time dependencies for generating language bindings of messages.",
+			"Wiki": "http://ros.org/wiki/message_generation",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/message_generation-release",
+				"ros/message_generation"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genlisp",
+				"genpy",
+				"genmsg",
+				"catkin",
+				"gencpp"
+			]
+		},
+		{
+			"Name": "cpp_common",
+			"Metapackage": false,
+			"Description": "cpp_common contains C++ code for doing things that are not necessarily ROSrelated, but are useful for multiple packages. This includes things likethe ROS_DEPRECATED and ROS_FORCE_INLINE macros, as well as code for gettingbacktraces.This package is a component of",
+			"Wiki": "http://www.ros.org/wiki/cpp_common",
+			"Metrics": {},
+			"Repos": [
+				"ros/roscpp_core",
+				"ros-gbp/roscpp_core-release"
+			],
+			"Authors": [
+				"John Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "genlisp",
+			"Metapackage": false,
+			"Description": "Common-Lisp ROS message and service generators.",
+			"Wiki": "http://www.ros.org/wiki/roslisp",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/genlisp-release",
+				"ros/genlisp"
+			],
+			"Authors": [
+				"Bhaskara Marti"
+			],
+			"Maintainers": [
+				"Georg Bartels",
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genmsg",
+				"catkin"
+			]
+		},
+		{
+			"Name": "genpy",
+			"Metapackage": false,
+			"Description": "Python ROS message and service generators.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/genpy-release",
+				"ros/genpy"
+			],
+			"Authors": [
+				"Ken Conley",
+				"Troy Straszheim",
+				"Morten Kjaergaard"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genmsg",
+				"catkin"
+			]
+		},
+		{
+			"Name": "ros_comm",
+			"Metapackage": true,
+			"Contains": [
+				"rosconsole",
+				"rosgraph",
+				"ros",
+				"roscpp",
+				"rosparam",
+				"rosout",
+				"topic_tools",
+				"rostest",
+				"rostopic",
+				"roswtf",
+				"roslaunch",
+				"roslisp",
+				"message_filters",
+				"rosservice",
+				"rospy",
+				"rosgraph_msgs",
+				"std_srvs",
+				"xmlrpcpp",
+				"rosmaster",
+				"rosmsg",
+				"rosnode",
+				"rosbag"
+			],
+			"Description": "ROS communications-related packages, including core client libraries (roscpp, rospy) and graph introspection tools (rostopic, rosnode, rosservice, rosparam).",
+			"Wiki": "http://www.ros.org/wiki/ros_comm",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Tim Field",
+				"Rosen Diankov",
+				"Jeremy Leibs",
+				"Eric Berger",
+				"Morgan Quigley",
+				"Tully Foote",
+				"Josh Faust",
+				"Rob Wheeler",
+				"Ken Conley",
+				"Troy Straszheim",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"catkin",
+				"rosgraph",
+				"ros",
+				"roscpp",
+				"rosparam",
+				"rosout",
+				"topic_tools",
+				"rostest",
+				"rostopic",
+				"roswtf",
+				"rosgraph_msgs",
+				"roslisp",
+				"message_filters",
+				"rosservice",
+				"rospy",
+				"roslaunch",
+				"std_srvs",
+				"xmlrpcpp",
+				"rosmaster",
+				"rosmsg",
+				"rosnode",
+				"rosbag"
+			]
+		},
+		{
+			"Name": "message_filters",
+			"Metapackage": false,
+			"Description": "A set of message filters which take in messages and may output those messages at a later time, based on the conditions that filter needs met.",
+			"Wiki": "http://ros.org/wiki/message_filters",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Vijay Pradeep",
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"catkin",
+				"roscpp",
+				"xmlrpcpp",
+				"rostest",
+				"rosunit"
+			]
+		},
+		{
+			"Name": "std_msgs",
+			"Metapackage": false,
+			"Description": "Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays.For common, generic robot-specific message types, please see",
+			"Wiki": "http://www.ros.org/wiki/std_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/std_msgs-release",
+				"ros/std_msgs"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Ken Conley",
+				"Jeremy Leibs"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "message_runtime",
+			"Metapackage": false,
+			"Description": "Package modeling the run-time dependencies for language bindings of messages.",
+			"Wiki": "http://ros.org/wiki/message_runtime",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/message_runtime-release",
+				"ros/message_runtime"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genpy",
+				"catkin",
+				"rostime",
+				"roscpp_serialization",
+				"roscpp_traits",
+				"cpp_common"
+			]
+		},
+		{
+			"Name": "rostime",
+			"Metapackage": false,
+			"Description": "Time and Duration implementations for C++ libraries, including roscpp.",
+			"Wiki": "http://ros.org/wiki/rostime",
+			"Metrics": {},
+			"Repos": [
+				"ros/roscpp_core",
+				"ros-gbp/roscpp_core-release"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"cpp_common",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roscreate",
+			"Metapackage": false,
+			"Description": "roscreate contains a tool that assists in the creation of ROS filesystem resources. It provides:",
+			"Wiki": "http://ros.org/wiki/roscreate",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "common_msgs",
+			"Metapackage": true,
+			"Contains": [
+				"nav_msgs",
+				"shape_msgs",
+				"stereo_msgs",
+				"actionlib_msgs",
+				"trajectory_msgs",
+				"sensor_msgs",
+				"geometry_msgs",
+				"visualization_msgs",
+				"diagnostic_msgs"
+			],
+			"Description": "common_msgs contains messages that are widely used by other ROS packages.These includes messages foractions (",
+			"Wiki": "http://www.ros.org/wiki/common_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"nav_msgs",
+				"shape_msgs",
+				"catkin",
+				"stereo_msgs",
+				"actionlib_msgs",
+				"trajectory_msgs",
+				"sensor_msgs",
+				"geometry_msgs",
+				"visualization_msgs",
+				"diagnostic_msgs"
+			]
+		},
+		{
+			"Name": "roswtf",
+			"Metapackage": false,
+			"Description": "roswtf is a tool for diagnosing issues with a running ROS system. Think of it as a FAQ implemented in code.",
+			"Wiki": "http://ros.org/wiki/roswtf",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roslaunch",
+				"catkin",
+				"roslib",
+				"rosgraph",
+				"rosbuild",
+				"rosservice",
+				"rostest",
+				"rosnode"
+			]
+		},
+		{
+			"Name": "rospy_tutorials",
+			"Metapackage": false,
+			"Description": "This package attempts to show the features of ROS python API step-by-step,including using messages, servers, parameters, etc. These tutorials are compatible with the nodes in roscpp_tutorial.",
+			"Wiki": "http://www.ros.org/wiki/rospy_tutorials",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_tutorials",
+				"ros-gbp/ros_tutorials-release"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin",
+				"message_runtime",
+				"std_msgs",
+				"rostest",
+				"rospy",
+				"message_generation"
+			]
+		},
+		{
+			"Name": "rosservice",
+			"Metapackage": false,
+			"Description": "rosservice contains the rosservice command-line tool for listingand querying ROS",
+			"Wiki": "http://ros.org/wiki/rosservice",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genpy",
+				"catkin",
+				"roslib",
+				"rosgraph",
+				"rospy",
+				"rosmsg"
+			]
+		},
+		{
+			"Name": "rospy",
+			"Metapackage": false,
+			"Description": "rospy is a pure Python client library for ROS. The rospy clientAPI enables Python programmers to quickly interface with ROS",
+			"Wiki": "http://ros.org/wiki/rospy",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosgraph_msgs",
+				"genpy",
+				"catkin",
+				"roscpp",
+				"rosgraph",
+				"roslib",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "rosunit",
+			"Metapackage": false,
+			"Description": "Unit-testing package for ROS. This is a lower-level library for rostest and handles unit tests, whereas rostest handles integration tests.",
+			"Wiki": "http://ros.org/wiki/rosunit",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roslib",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roscpp_tutorials",
+			"Metapackage": false,
+			"Description": "This package attempts to show the features of ROS step-by-step,including using messages, servers, parameters, etc.",
+			"Wiki": "http://www.ros.org/wiki/roscpp_tutorials",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_tutorials",
+				"ros-gbp/ros_tutorials-release"
+			],
+			"Authors": [
+				"Morgan Quigley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"catkin",
+				"roscpp",
+				"rostime",
+				"message_runtime",
+				"std_msgs",
+				"roscpp_serialization",
+				"message_generation"
+			]
+		},
+		{
+			"Name": "diagnostic_msgs",
+			"Metapackage": false,
+			"Description": "This package holds the diagnostic messages which provide thestandardized interface for the diagnostic and runtime monitoringsystems in ROS. These messages are currently used bythe",
+			"Wiki": "http://ros.org/wiki/diagnostic_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Tully Foote"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"std_msgs",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosbag_storage",
+			"Metapackage": false,
+			"Description": "This is a set of tools for recording from and playing back ROSmessage without relying on the ROS client library.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"roslz4",
+				"catkin",
+				"rostime",
+				"roscpp_serialization",
+				"roscpp_traits",
+				"cpp_common"
+			]
+		},
+		{
+			"Name": "roscpp",
+			"Metapackage": false,
+			"Description": "roscpp is a C++ implementation of ROS. It providesa",
+			"Wiki": "http://ros.org/wiki/roscpp",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Josh Faust",
+				"Troy Straszheim",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosgraph_msgs",
+				"rosconsole",
+				"cpp_common",
+				"catkin",
+				"xmlrpcpp",
+				"std_msgs",
+				"message_runtime",
+				"rostime",
+				"roscpp_serialization",
+				"roscpp_traits",
+				"message_generation",
+				"roslang"
+			]
+		},
+		{
+			"Name": "rosgraph_msgs",
+			"Metapackage": false,
+			"Description": "Messages relating to the ROS Computation Graph. These are generally considered to be low-level messages that end users do not interact with.",
+			"Wiki": "http://ros.org/wiki/rosgraph_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_comm_msgs",
+				"ros-gbp/ros_comm_msgs-release"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"message_generation",
+				"std_msgs",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roslang",
+			"Metapackage": false,
+			"Description": "roslang is a common package that all",
+			"Wiki": "http://ros.org/wiki/roslang",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"genmsg",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosboost_cfg",
+			"Metapackage": false,
+			"Description": "Contains scripts used by the rosboost-cfg tool for determining cflags/lflags/etc. of boost on your system",
+			"Wiki": "http://ros.org/wiki/rosboost_cfg",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "genmsg",
+			"Metapackage": false,
+			"Description": "Standalone Python library for generating ROS message and service data structures for various languages.",
+			"Wiki": "http://www.ros.org/wiki/genmsg",
+			"Metrics": {},
+			"Repos": [
+				"ros/genmsg",
+				"ros-gbp/genmsg-release"
+			],
+			"Authors": [
+				"Ken Conley",
+				"Troy Straszheim",
+				"Morten Kjaergaard"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "std_srvs",
+			"Metapackage": false,
+			"Description": "Common service definitions. Currently just the 'Empty' service.",
+			"Wiki": "http://ros.org/wiki/std_srvs",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_comm_msgs",
+				"ros-gbp/ros_comm_msgs-release"
+			],
+			"Authors": [
+				"Morgan Quigley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"message_generation",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosconsole_bridge",
+			"Metapackage": false,
+			"Description": "rosconsole_bridge is a package used in conjunction with console_bridge and rosconsole for connecting console_bridge-based logging to rosconsole-based logging.",
+			"Wiki": "http://www.ros.org/wiki/rosconsole_bridge",
+			"Metrics": {},
+			"Repos": [
+				"ros/rosconsole_bridge",
+				"ros-gbp/rosconsole_bridge-release"
+			],
+			"Authors": [
+				"Ioan Sucan"
+			],
+			"Maintainers": [
+				"Ioan Sucan",
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"catkin"
+			]
+		},
+		{
+			"Name": "ros_comm_msgs",
+			"Metapackage": true,
+			"Contains": [
+			],
+			"Description": "",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_comm_msgs",
+				"ros-gbp/ros_comm_msgs-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "roslaunch",
+			"Metapackage": false,
+			"Description": "roslaunch is a tool for easily launching multiple ROS",
+			"Wiki": "http://ros.org/wiki/roslaunch",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosgraph_msgs",
+				"roslib",
+				"catkin",
+				"rosparam",
+				"rosmaster",
+				"rosout",
+				"rosclean",
+				"rosunit"
+			]
+		},
+		{
+			"Name": "mk",
+			"Metapackage": false,
+			"Description": "A collection of .mk include files for building ROS architectural elements.Most package authors should use cmake .mk, which calls CMake for the build of the package.The other files in this package are intended for use in exotic situations that mostly arise when importing 3rdparty code.",
+			"Wiki": "http://www.ros.org/wiki/ROS",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros-release",
+				"ros/ros"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Brian Gerkey"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbuild",
+				"catkin"
+			]
+		},
+		{
+			"Name": "roslz4",
+			"Metapackage": false,
+			"Description": "A Python and C++ implementation of the LZ4 streaming format.Large datastreams are split into blocks which are compressed using the very fast LZ4compression algorithm.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ben Charrow"
+			],
+			"Maintainers": [
+				"Ben Charrow"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "xmlrpcpp",
+			"Metapackage": false,
+			"Description": "XmlRpc++ is a C++ implementation of the XML-RPC protocol. This version isheavily modified from the package available on SourceForge in order tosupport roscpp's threading model. As such, we are maintaining ourown fork.",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Morgan Quigley",
+				"Konstantin Pilipchuk",
+				"Chris Morley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"cpp_common",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosmaster",
+			"Metapackage": false,
+			"Description": "ROS",
+			"Wiki": "http://ros.org/wiki/rosmaster",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin",
+				"rosgraph"
+			]
+		},
+		{
+			"Name": "geometry_msgs",
+			"Metapackage": false,
+			"Description": "geometry_msgs provides messages for common geometric primitivessuch as points, vectors, and poses. These primitives are designedto provide a common data type and facilitate interoperabilitythroughout the system.",
+			"Wiki": "http://ros.org/wiki/geometry_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Tully Foote"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"std_msgs",
+				"message_runtime",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosmsg",
+			"Metapackage": false,
+			"Description": "rosmsg contains two command-line tools:",
+			"Wiki": "http://ros.org/wiki/rosmsg",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley",
+				"Tully Foote"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbag",
+				"roslib",
+				"catkin",
+				"genmsg"
+			]
+		},
+		{
+			"Name": "sensor_msgs",
+			"Metapackage": false,
+			"Description": "This package defines messages for commonly used sensors, includingcameras and scanning laser rangefinders.",
+			"Wiki": "http://ros.org/wiki/sensor_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"message_generation",
+				"catkin",
+				"message_runtime",
+				"geometry_msgs",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "rosgraph",
+			"Metapackage": false,
+			"Description": "rosgraph contains the rosgraph command-line tool, which printsinformation about the ROS Computation Graph. It also provides aninternal library that can be used by graphical tools.",
+			"Wiki": "http://ros.org/wiki/rosgraph",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"catkin"
+			]
+		},
+		{
+			"Name": "turtlesim",
+			"Metapackage": false,
+			"Description": "turtlesim is a tool made for teaching ROS and ROS packages.",
+			"Wiki": "http://www.ros.org/wiki/turtlesim",
+			"Metrics": {},
+			"Repos": [
+				"ros/ros_tutorials",
+				"ros-gbp/ros_tutorials-release"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"message_runtime",
+				"std_srvs",
+				"roscpp",
+				"rostime",
+				"roslib",
+				"std_msgs",
+				"roscpp_serialization",
+				"geometry_msgs",
+				"message_generation",
+				"catkin"
+			]
+		},
+		{
+			"Name": "rosnode",
+			"Metapackage": false,
+			"Description": "rosnode is a command-line tool for displaying debug informationabout ROS",
+			"Wiki": "http://ros.org/wiki/rosnode",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosgraph",
+				"rostest",
+				"catkin",
+				"rostopic"
+			]
+		},
+		{
+			"Name": "rosbag",
+			"Metapackage": false,
+			"Description": "This is a set of tools for recording from and playing back to ROStopics.It is intended to be high performance and avoidsdeserialization and reserialization of the messages.",
+			"Wiki": "http://ros.org/wiki/rosbag",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"James Bowman",
+				"Tim Field",
+				"Jeremy Leibs"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosconsole",
+				"genpy",
+				"genmsg",
+				"catkin",
+				"roscpp",
+				"xmlrpcpp",
+				"roslib",
+				"roscpp_serialization",
+				"topic_tools",
+				"rospy",
+				"cpp_common",
+				"rosbag_storage"
+			]
+		},
+		{
+			"Name": "rosbag_migration_rule",
+			"Metapackage": false,
+			"Description": "",
+			"Wiki": "",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/rosbag_migration_rule-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		}
+]

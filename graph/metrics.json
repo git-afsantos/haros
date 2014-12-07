@@ -1,0 +1,9 @@
+[{
+    "id": "1",
+    "name": "Lines of Code",
+    "description": "Lines of C++ code per ROS package.",
+    "target": "Package",
+    "min": 0,
+    "max": null,
+    "high": 10000
+}]

@@ -1,0 +1,360 @@
+/*
+COLORS:
+	#A4011B
+	#FFE0E5
+	#FFF2CC
+	#A16D00
+	#0F4BFF
+	#B3ECFF
+	#EADAEC
+	#9A38A2
+
+	#7F2389
+
+*/
+
+html, body {
+	height: 100%;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; /* Prevents selection, a common side effect of click-and-drag */
+}
+
+input, textarea {
+     -moz-user-select: text; /* But allow selection of text in text fields.. */
+}
+
+/* Generic control formatting */
+
+#controls {
+	display: block;
+	position: absolute;
+	top: 0.5%;
+	right: 0.5%;
+	padding: 0.5%;
+	background: lightgray; /*fallback*/
+	background: rgba(221,221,221,0.6);
+	border-radius: 5px;
+}
+
+#controls .row {
+	display: block;
+	min-height: 24px;
+	margin-top: 10px;
+}
+
+#controls .row .col {
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.caption {
+	font-weight: bold;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+	font-size: 0.8em;
+}
+
+/* Specific control elements */
+
+#hideshow_button {
+	float: right;
+}
+
+/*#hideshow_zone {
+	display: none;
+}*/
+
+.ui-autocomplete {
+	max-height: 250px;
+	overflow-y: auto;
+	overflow-x: hidden; /* prevent horizontal scrollbar */
+}
+
+#height_slider, #depth_slider {
+	min-width: 100px;
+}
+
+#color_info {
+	background: url(../img/info.png);
+	width: 24px;
+	height: 24px;
+}
+
+/* Key */
+
+#key {
+	width: 290px; /*300 with padding*/
+	height: 20px; /*30 with padding*/
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	padding: 5px;
+	padding-bottom: 0;
+	z-index: 1;
+}
+
+#lowest {
+	float: left;
+	color: white;
+}
+
+#key_label {
+	color: black;
+}
+
+#highest {
+	float: right;
+	color: white;
+}
+
+#key::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: url(../img/key.png);
+	opacity: 0.80; /*to match node colors*/
+	z-index: -1;
+}
+
+/* Graph visualization */
+
+.graph,.list {
+	cursor: default
+}
+
+.graph.animate .node {
+	opacity: 0;
+	transition: fill 0.5s, stroke 0.5s, opacity 1s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, opacity 1s;
+}
+
+.graph.animate .node.visible {
+	opacity: 1;
+	transition: fill 0.5s, stroke 0.5s, opacity 0.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, opacity 0.5s;
+}
+
+.graph.animate .node.visible.entering {
+	transition: fill 0.5s, stroke 0.5s, opacity 1.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, opacity 1.5s;
+}
+
+.hovering .graph .node.visible {
+	opacity: 0.2;
+}
+
+.hovering .graph.animate .node.visible {
+	transition: fill 0.5s, stroke 0.5s, opacity 0.4s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, opacity 0.4s;
+}
+
+.hovering .graph .node.visible.hovered,.hovering .graph .node.visible.selected
+	{
+	opacity: 1;
+}
+
+.hovering .graph .node.hovered.immediate rect {
+	stroke-width: 8px;
+	stroke: #A4011B;
+	stroke: #880022;
+	/*fill: #FFE0E5;*/
+}
+
+.graph .node rect {
+	fill: #FFF2CC;
+	stroke-width: 2px;
+	stroke: #A16D00;
+}
+
+.graph .node .focus {
+	stroke-width: 8px;
+	/*stroke: #104227;*/
+}
+
+.graph.animate .node rect {
+	transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s;
+}
+
+.graph .node text {
+	font-family: Verdana;
+}
+
+/*@-webkit-keyframes stroke-pulse {
+	0%, 100% {
+		stroke: #386AFF;
+	}
+	50% {
+		stroke: #A16D00;
+	}
+} needs other prefixes if implemented properly*/
+
+.graph .node.selected rect, .hovering .graph .node.selected rect, .hovering .graph .node.selected.hovered.immediate rect
+	{
+	stroke-width: 8px;
+	/*stroke: #0F4BFF;*/
+	stroke: #386AFF;
+	/*-webkit-animation: stroke-pulse 2s infinite;
+	-moz-animation: stroke-pulse 2s infinite;
+	-o-animation: stroke-pulse 2s infinite;
+	animation: stroke-pulse 2s infinite;*/
+	/*fill: #B3ECFF;*/
+}
+
+.graph .node.preview rect,.hovering .graph .node.preview rect {
+	fill: #EADAEC;
+	stroke: #9A38A2;
+}
+
+.graph .edge {
+	fill: none;
+	stroke-width: 2.5px;
+	stroke: #D19D00;
+	stroke-linejoin: round;
+	opacity: 0;
+	marker-end: url(#markerDot);
+}
+
+.graph .node .meta, .graph .edge.meta {
+	stroke-width: 5px;
+	stroke: seagreen;
+}
+
+.graph.animate .edge {
+	transition: fill 0.1s, stroke 0.1s, stroke-width 0.1s, opacity 0.3s;
+	-webkit-transition: fill 0.1s, stroke 0.1s, stroke-width 0.1s, opacity
+		0.3s;
+}
+
+.graph .edge.visible.preview {
+	stroke-width: 4px;
+	stroke: #9A38A2;
+}
+
+.graph .edge.visible.selected,.hovering .graph .edge.hovered.immediate.selected
+	{
+	stroke-width: 6px;
+	stroke: #386AFF;
+}
+
+
+.graph .edge.visible.preview,.hovering .graph .edge.hovered.immediate.preview
+	{
+	stroke: #9A38A2;
+}
+
+.graph .edge.visible {
+	opacity: 1;
+}
+
+.graph.animate .edge.visible {
+	transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity 0.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity
+		0.5s;
+}
+
+.graph.animate .edge.visible.entering {
+	transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity 1.5s;
+	transition-delay: 0, 0, 0, 0.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity
+		1.5s;
+	-webkit-transition-delay: 0, 0, 0, 0.5s;
+}
+
+.hovering .graph .edge.visible {
+	opacity: 0.1;
+}
+
+.hovering .graph.animate .edge.visible {
+	transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity 0.4s;
+	-webkit-transition: fill 0.5s, stroke 0.5s, stroke-width 0.5s, opacity
+		0.4s;
+}
+
+.hovering .graph .edge.visible.hovered,.hovering .graph .edge.selected {
+	opacity: 1;
+}
+
+.hovering .graph .edge.hovered.immediate {
+	stroke: #A4011B;
+	stroke-width: 4px;
+}
+
+.minimap .edge {
+	stroke-width: 2px;
+	stroke: black;
+	fill-opacity: 0;
+}
+
+.minimap .node rect {
+	fill: #ddd;
+	stroke-width: 2px;
+	stroke: black;
+}
+
+.list .item rect {
+	stroke: #0F4BFF;
+	fill: #B3ECFF;
+	fill-opacity: 0.5;
+	stroke-width: 1;
+	transition: fill 0.5s, stroke 0.5s;
+	-webkit-transition: fill 0.5s, stroke 0.5s;
+}
+
+.list .item:hover rect {
+	fill: #FFF2CC;
+	stroke: #A16D00;
+}
+
+.list .item text {
+	x: 50%;
+	dy: 1em;
+	text-anchor: middle;
+	dominant-baseline: central;
+}
+
+.xtrace-tooltip {
+	text-align: left;
+}
+
+.xtrace-tooltip .key {
+	display: block;
+	float: left;
+	width: 100px;
+	font-weight: bold;
+}
+
+.xtrace-tooltip .value {
+	display: block;
+	float: left;
+	word-wrap: break-word;
+	max-width: 400px;
+}
+
+.xtrace-tooltip .clear {
+	clear: both;
+}
+
+.context-menu .highlight {
+	color: #7F2389;
+}
+
+.context-menu a:hover .highlight {
+	color: #CA78D2;
+}
+
+text,tspan,.tipsy {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
