@@ -25,8 +25,10 @@ def makeEventsQuery(username):
 	email_query = 'https://api.github.com/users/'+username+'/events/public'
 	return email_query
 
-def executeQuery(query, email = email, token = token):
-	req = requests.get(query, auth=HTTPBasicAuth(email, token), verify = False)
+def executeQuery(query, git_user_file = "gituser.txt"):
+	lines = [line.strip() for line in open(git_user_file)]
+	req = requests.get(query,
+			auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
 	result = json.loads(req.text)
 	return result
 

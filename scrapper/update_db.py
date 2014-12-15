@@ -27,10 +27,13 @@ class DbUpdater:
         self.con = None
         self.cur = None
 
-    def connect(self, user="root", passwd="admin",
-                db="ROSdb", host="localhost", port=3306):
-        con, cur = dbc.conCur(user=user, passwd=passwd,
-                db=db, host=host, port=port)
+    def connect(self, db_user_file):
+        db_user = load_db_user(db_user_file)
+        con, cur = dbc.conCur(user = db_user["user"],
+                passwd = db_user["passwd"],
+                db = db_user["db"],
+                host = db_user["host"],
+                port = db_user["port"])
         self.con = con
         self.cur = cur
 
@@ -51,6 +54,18 @@ class DbUpdater:
         dbc.truncateTable(self.cur, table)
         self.con.commit()
 
+
+
+
+def load_db_user(db_user_file):
+    lines = [line.strip() for line in open(db_user_file)]
+    data = {}
+    data["user"] = lines[0]
+    data["passwd"] = lines[1]
+    data["db"] = lines[2]
+    data["host"] = lines[3]
+    data["port"] = int(lines[4])
+    return data
 
 
 
@@ -180,8 +195,12 @@ def updateDbAndExport(chronicle = False, writeJson = False,
     # con, cur = dbc.conCur(user='smartroswiki@az.engr.oregonstate.edu',
         # passwd='p0tyYjIr',
         # db='smartroswiki',host='engr-db.engr.oregonstate.edu',port=3307)
-    con, cur = dbc.conCur(user='root', passwd='admin',
-        db='ROSdb', host='localhost', port=3306)
+    db_user = load_db_user("dbuser.txt")
+    con, cur = dbc.conCur(user = db_user["user"],
+            passwd = db_user["passwd"],
+            db = db_user["db"],
+            host = db_user["host"],
+            port = db_user["port"])
 
     # Define what information will be extracted for pkgs & ppl and subsequently the column names
     pkg_cols = ['name','isMetapackage','description',
@@ -485,8 +504,12 @@ def update_local_packages():
 
     # Establish database connection
     print "\nConnecting to database"
-    con, cur = dbc.conCur(user='root', passwd='admin', db='ROSdb',
-                            host='localhost', port=3306)
+    db_user = load_db_user("dbuser.txt")
+    con, cur = dbc.conCur(user = db_user["user"],
+            passwd = db_user["passwd"],
+            db = db_user["db"],
+            host = db_user["host"],
+            port = db_user["port"])
 
     # Define what information will be extracted for pkgs & ppl and subsequently the column names
     pkg_cols = ['name','isMetapackage','description',
@@ -598,21 +621,21 @@ def update_local_packages():
 
 
 if __name__ == '__main__':
-    #import sys
-    #from datetime import datetime
-    #startTime = datetime.now()
-    #if len(sys.argv) > 1 and sys.argv[1] == "local":
-    #    update_local_packages()
-    #else:
-    #    updateDbAndExport(chronicle = True, 
-    #            writeJson = True, download = True)
-    #print "\nExecution time: ", (datetime.now()-startTime), '\n'
+    import sys
+    from datetime import datetime
+    startTime = datetime.now()
+    if len(sys.argv) > 1 and sys.argv[1] == "local":
+        update_local_packages()
+    else:
+        updateDbAndExport(chronicle = True, 
+                writeJson = True, download = True)
+    print "\nExecution time: ", (datetime.now()-startTime), '\n'
     
-    dbu = DbUpdater()
-    dbu.connect()
-    if dbu.con is None or dbu.cur is None:
-        print "Failure!"
+    # dbu = DbUpdater()
+    # dbu.connect("dbuser.txt")
+    # if dbu.con is None or dbu.cur is None:
+        # print "Failure!"
     # update_source_files(dbu, trunc_deps = True)
     # update_code_metrics(dbu, update_deps = True, calculate = True)
     # update_coding_standards(dbu, update_deps = True, calculate = True)
-    export_packages(dbu)
+    # export_packages(dbu)

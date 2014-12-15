@@ -3,8 +3,8 @@
 			"Name": "ros_tutorials",
 			"Metapackage": true,
 			"Contains": [
-				"rospy_tutorials",
 				"turtlesim",
+				"rospy_tutorials",
 				"roscpp_tutorials"
 			],
 			"Description": "ros_tutorials contains packages that demonstrate various features of ROS,as well as support packages which help demonstrate those features.",
@@ -22,9 +22,9 @@
 				"Dirk Thomas"
 			],
 			"Edge": [
-				"rospy_tutorials",
-				"catkin",
 				"turtlesim",
+				"catkin",
+				"rospy_tutorials",
 				"roscpp_tutorials"
 			]
 		},
@@ -72,31 +72,6 @@
 			]
 		},
 		{
-			"Name": "stereo_msgs",
-			"Metapackage": false,
-			"Description": "stereo_msgs contains messages specific to stereo processing, such as disparity images.",
-			"Wiki": "http://ros.org/wiki/stereo_msgs",
-			"Metrics": {},
-			"Repos": [
-				"ros/common_msgs",
-				"ros-gbp/common_msgs-release"
-			],
-			"Authors": [
-				"Patrick Mihelich",
-				"Kurt Konolige"
-			],
-			"Maintainers": [
-				"Tully Foote"
-			],
-			"Edge": [
-				"message_generation",
-				"sensor_msgs",
-				"message_runtime",
-				"catkin",
-				"std_msgs"
-			]
-		},
-		{
 			"Name": "rostest",
 			"Metapackage": false,
 			"Description": "Integration test suite based on roslaunch that is compatible with xUnit frameworks.",
@@ -121,6 +96,55 @@
 			]
 		},
 		{
+			"Name": "stereo_msgs",
+			"Metapackage": false,
+			"Description": "stereo_msgs contains messages specific to stereo processing, such as disparity images.",
+			"Wiki": "http://ros.org/wiki/stereo_msgs",
+			"Metrics": {},
+			"Repos": [
+				"ros/common_msgs",
+				"ros-gbp/common_msgs-release"
+			],
+			"Authors": [
+				"Patrick Mihelich",
+				"Kurt Konolige"
+			],
+			"Maintainers": [
+				"Tully Foote"
+			],
+			"Edge": [
+				"sensor_msgs",
+				"catkin",
+				"message_runtime",
+				"message_generation",
+				"std_msgs"
+			]
+		},
+		{
+			"Name": "rosconsole",
+			"Metapackage": false,
+			"Description": "ROS console output library.",
+			"Wiki": "http://www.ros.org/wiki/rosconsole",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Josh Faust"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbuild",
+				"rostime",
+				"cpp_common",
+				"catkin",
+				"rosunit"
+			]
+		},
+		{
 			"Name": "actionlib_msgs",
 			"Metapackage": false,
 			"Description": "actionlib_msgs defines the common messages to interact with an action server and an action client.For full documentation of the actionlib API see the",
@@ -138,9 +162,9 @@
 			],
 			"Edge": [
 				"message_generation",
-				"std_msgs",
+				"catkin",
 				"message_runtime",
-				"catkin"
+				"std_msgs"
 			]
 		},
 		{
@@ -192,9 +216,9 @@
 			],
 			"Edge": [
 				"roscpp_traits",
-				"rostime",
-				"cpp_common",
 				"catkin",
+				"cpp_common",
+				"rostime",
 				"roscpp_serialization"
 			]
 		},
@@ -216,10 +240,10 @@
 			],
 			"Edge": [
 				"message_generation",
-				"catkin",
-				"message_runtime",
 				"geometry_msgs",
-				"std_msgs"
+				"message_runtime",
+				"std_msgs",
+				"catkin"
 			]
 		},
 		{
@@ -402,30 +426,6 @@
 			]
 		},
 		{
-			"Name": "rosconsole",
-			"Metapackage": false,
-			"Description": "ROS console output library.",
-			"Wiki": "http://www.ros.org/wiki/rosconsole",
-			"Metrics": {},
-			"Repos": [
-				"ros-gbp/ros_comm-release",
-				"ros/ros_comm"
-			],
-			"Authors": [
-				"Josh Faust"
-			],
-			"Maintainers": [
-				"Dirk Thomas"
-			],
-			"Edge": [
-				"rosbuild",
-				"rostime",
-				"cpp_common",
-				"catkin",
-				"rosunit"
-			]
-		},
-		{
 			"Name": "rosbash",
 			"Metapackage": false,
 			"Description": "Assorted shell commands for using ros with bash.",
@@ -457,9 +457,9 @@
 				"ros/gencpp"
 			],
 			"Authors": [
+				"Troy Straszheim",
 				"Josh Faust",
-				"Morgen Kjaergaard",
-				"Troy Straszheim"
+				"Morgen Kjaergaard"
 			],
 			"Maintainers": [
 				"Dirk Thomas"
@@ -480,16 +480,16 @@
 				"ros/ros"
 			],
 			"Authors": [
-				"Ken Conley",
+				"Morgan Quigley",
 				"Josh Faust",
-				"Morgan Quigley"
+				"Ken Conley"
 			],
 			"Maintainers": [
 				"Dirk Thomas"
 			],
 			"Edge": [
-				"rospack",
-				"catkin"
+				"catkin",
+				"rospack"
 			]
 		},
 		{
@@ -554,9 +554,9 @@
 				"Dirk Thomas"
 			],
 			"Edge": [
-				"rostime",
+				"catkin",
 				"cpp_common",
-				"catkin"
+				"rostime"
 			]
 		},
 		{
@@ -581,9 +581,9 @@
 				"catkin",
 				"roscpp",
 				"xmlrpcpp",
-				"std_msgs",
-				"message_runtime",
 				"rostime",
+				"message_runtime",
+				"std_msgs",
 				"rostest",
 				"rosunit",
 				"message_generation",
@@ -611,10 +611,10 @@
 			]
 		},
 		{
-			"Name": "rostopic",
+			"Name": "roslaunch",
 			"Metapackage": false,
-			"Description": "rostopic contains the rostopic command-line tool for displayingdebug information aboutROS",
-			"Wiki": "http://ros.org/wiki/rostopic",
+			"Description": "roslaunch is a tool for easily launching multiple ROS",
+			"Wiki": "http://ros.org/wiki/roslaunch",
 			"Metrics": {},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -627,10 +627,14 @@
 				"Dirk Thomas"
 			],
 			"Edge": [
-				"rosbag",
-				"rostest",
-				"rospy",
-				"catkin"
+				"rosgraph_msgs",
+				"roslib",
+				"catkin",
+				"rosparam",
+				"rosmaster",
+				"rosout",
+				"rosclean",
+				"rosunit"
 			]
 		},
 		{
@@ -652,10 +656,10 @@
 			],
 			"Edge": [
 				"message_generation",
-				"catkin",
-				"message_runtime",
 				"geometry_msgs",
-				"std_msgs"
+				"message_runtime",
+				"std_msgs",
+				"catkin"
 			]
 		},
 		{
@@ -699,6 +703,30 @@
 			],
 			"Edge": [
 				"catkin"
+			]
+		},
+		{
+			"Name": "rostopic",
+			"Metapackage": false,
+			"Description": "rostopic contains the rostopic command-line tool for displayingdebug information aboutROS",
+			"Wiki": "http://ros.org/wiki/rostopic",
+			"Metrics": {},
+			"Repos": [
+				"ros-gbp/ros_comm-release",
+				"ros/ros_comm"
+			],
+			"Authors": [
+				"Ken Conley"
+			],
+			"Maintainers": [
+				"Dirk Thomas"
+			],
+			"Edge": [
+				"rosbag",
+				"genpy",
+				"rostest",
+				"catkin",
+				"rospy"
 			]
 		},
 		{
@@ -760,12 +788,12 @@
 				"rostest",
 				"rostopic",
 				"roswtf",
-				"roslaunch",
+				"rosgraph_msgs",
 				"roslisp",
 				"message_filters",
 				"rosservice",
 				"rospy",
-				"rosgraph_msgs",
+				"roslaunch",
 				"std_srvs",
 				"xmlrpcpp",
 				"rosmaster",
@@ -998,8 +1026,8 @@
 				"roslib",
 				"rosgraph",
 				"rosbuild",
-				"rosservice",
 				"rostest",
+				"rosservice",
 				"rosnode"
 			]
 		},
@@ -1145,9 +1173,9 @@
 			],
 			"Edge": [
 				"message_generation",
-				"std_msgs",
+				"catkin",
 				"message_runtime",
-				"catkin"
+				"std_msgs"
 			]
 		},
 		{
@@ -1199,9 +1227,9 @@
 				"cpp_common",
 				"catkin",
 				"xmlrpcpp",
-				"std_msgs",
-				"message_runtime",
 				"rostime",
+				"message_runtime",
+				"std_msgs",
 				"roscpp_serialization",
 				"roscpp_traits",
 				"message_generation",
@@ -1226,9 +1254,9 @@
 			],
 			"Edge": [
 				"message_generation",
-				"std_msgs",
+				"catkin",
 				"message_runtime",
-				"catkin"
+				"std_msgs"
 			]
 		},
 		{
@@ -1358,33 +1386,6 @@
 			]
 		},
 		{
-			"Name": "roslaunch",
-			"Metapackage": false,
-			"Description": "roslaunch is a tool for easily launching multiple ROS",
-			"Wiki": "http://ros.org/wiki/roslaunch",
-			"Metrics": {},
-			"Repos": [
-				"ros-gbp/ros_comm-release",
-				"ros/ros_comm"
-			],
-			"Authors": [
-				"Ken Conley"
-			],
-			"Maintainers": [
-				"Dirk Thomas"
-			],
-			"Edge": [
-				"rosgraph_msgs",
-				"roslib",
-				"catkin",
-				"rosparam",
-				"rosmaster",
-				"rosout",
-				"rosclean",
-				"rosunit"
-			]
-		},
-		{
 			"Name": "mk",
 			"Metapackage": false,
 			"Description": "A collection of .mk include files for building ROS architectural elements.Most package authors should use cmake .mk, which calls CMake for the build of the package.The other files in this package are intended for use in exotic situations that mostly arise when importing 3rdparty code.",
@@ -1488,9 +1489,9 @@
 			],
 			"Edge": [
 				"message_generation",
-				"std_msgs",
+				"catkin",
 				"message_runtime",
-				"catkin"
+				"std_msgs"
 			]
 		},
 		{
@@ -1534,10 +1535,10 @@
 			],
 			"Edge": [
 				"message_generation",
-				"catkin",
-				"message_runtime",
 				"geometry_msgs",
-				"std_msgs"
+				"message_runtime",
+				"std_msgs",
+				"catkin"
 			]
 		},
 		{
@@ -1579,7 +1580,7 @@
 			"Edge": [
 				"rosconsole",
 				"message_runtime",
-				"std_srvs",
+				"catkin",
 				"roscpp",
 				"rostime",
 				"roslib",
@@ -1587,7 +1588,7 @@
 				"roscpp_serialization",
 				"geometry_msgs",
 				"message_generation",
-				"catkin"
+				"std_srvs"
 			]
 		},
 		{
