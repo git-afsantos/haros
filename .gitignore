@@ -1,3 +1,6 @@
 unused
 lib
 img
+scrapper/*.pyc
+scrapper/dbuser.txt
+scrapper/gituser.txt
