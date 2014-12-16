@@ -42,6 +42,12 @@
     }
 
     function initialization() {
+        initMetricSelector();
+        calibrateMetrics();
+    }
+
+
+    function initMetricSelector() {
         $("#color_dataset").empty().append(function() {
             var a = eco.metrics, i = 0, len = a.length, output = "";
             for (; i < len; ++i) {
@@ -51,6 +57,36 @@
             }
             return output;
         })[0].selectedIndex = 0;
+    }
+
+
+    function calibrateMetrics() {
+        var m, max, avg, high, ts, t, j, v, len,
+            a = eco.metrics, i = a.length;
+        while (i--) {
+            m = a[i];
+            switch (m.target) {
+                case "Package":
+                    ts = eco.reports;
+                    break;
+                default:
+                    continue;
+            }
+            j = len = ts.length;
+            max = -Number.MAX_VALUE;
+            avg = 0;
+            high = m.high;
+            while (j--) {
+                t = ts[j];
+                v = t.Metrics[m.id] || 0;
+                max = Math.max(max, v);
+                avg += v / len;
+            }
+            if (len > 0) {
+                high = max == 0 && avg == 0 ? 1 : (max + avg) / 2;
+                m.high = high;
+            }
+        }
     }
 })();
 
