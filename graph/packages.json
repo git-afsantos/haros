@@ -62,7 +62,7 @@
 			"Wiki": "http://www.ros.org/wiki/catkin",
 			"Metrics": {
 				"0": 5138.0,
-				"1": 0.0
+				"1": 79.0
 			},
 			"Repos": [
 				"ros/catkin",
@@ -87,7 +87,7 @@
 			"Wiki": "http://ros.org/wiki/rostest",
 			"Metrics": {
 				"0": 1052.0,
-				"1": 0.0
+				"1": 218.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -142,7 +142,7 @@
 			"Wiki": "http://www.ros.org/wiki/rosconsole",
 			"Metrics": {
 				"0": 234.0,
-				"1": 0.0
+				"1": 1577.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -351,7 +351,7 @@
 			"Wiki": "http://wiki.ros.org/rospack",
 			"Metrics": {
 				"0": 73.0,
-				"1": 0.0
+				"1": 3077.0
 			},
 			"Repos": [
 				"ros/rospack",
@@ -531,7 +531,7 @@
 			"Wiki": "http://ros.org/wiki/roslib",
 			"Metrics": {
 				"0": 6199.0,
-				"1": 0.0
+				"1": 221.0
 			},
 			"Repos": [
 				"ros-gbp/ros-release",
@@ -557,7 +557,7 @@
 			"Wiki": "http://ros.org/wiki/rosout",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 160.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -582,7 +582,7 @@
 			"Wiki": "http://ros.org/wiki/roscpp_serialization",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 34.0
 			},
 			"Repos": [
 				"ros/roscpp_core",
@@ -608,7 +608,7 @@
 			"Wiki": "http://ros.org/wiki/roscpp_traits",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 392.0
 			},
 			"Repos": [
 				"ros/roscpp_core",
@@ -633,7 +633,7 @@
 			"Wiki": "http://ros.org/wiki/topic_tools",
 			"Metrics": {
 				"0": 312.0,
-				"1": 0.0
+				"1": 993.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -774,7 +774,7 @@
 			"Wiki": "http://www.ros.org/wiki/cpp_common",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 259.0
 			},
 			"Repos": [
 				"ros/roscpp_core",
@@ -954,7 +954,7 @@
 			"Wiki": "http://ros.org/wiki/message_filters",
 			"Metrics": {
 				"0": 572.0,
-				"1": 0.0
+				"1": 2595.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -983,7 +983,7 @@
 			"Wiki": "http://www.ros.org/wiki/std_msgs",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 98.0
 			},
 			"Repos": [
 				"ros-gbp/std_msgs-release",
@@ -1037,7 +1037,7 @@
 			"Wiki": "http://ros.org/wiki/rostime",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 1153.0
 			},
 			"Repos": [
 				"ros/roscpp_core",
@@ -1265,7 +1265,7 @@
 			"Wiki": "http://www.ros.org/wiki/roscpp_tutorials",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 491.0
 			},
 			"Repos": [
 				"ros/ros_tutorials",
@@ -1321,7 +1321,7 @@
 			"Wiki": "",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 1693.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -1348,7 +1348,7 @@
 			"Wiki": "http://ros.org/wiki/roscpp",
 			"Metrics": {
 				"0": 1021.0,
-				"1": 0.0
+				"1": 11519.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -1508,7 +1508,7 @@
 			"Wiki": "http://www.ros.org/wiki/rosconsole_bridge",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 89.0
 			},
 			"Repos": [
 				"ros/rosconsole_bridge",
@@ -1578,7 +1578,7 @@
 			"Wiki": "",
 			"Metrics": {
 				"0": 54.0,
-				"1": 0.0
+				"1": 119.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -1601,7 +1601,7 @@
 			"Wiki": "",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 2663.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
@@ -1704,7 +1704,7 @@
 			"Wiki": "http://ros.org/wiki/sensor_msgs",
 			"Metrics": {
 				"0": 195.0,
-				"1": 0.0
+				"1": 513.0
 			},
 			"Repos": [
 				"ros/common_msgs",
@@ -1753,7 +1753,7 @@
 			"Wiki": "http://www.ros.org/wiki/turtlesim",
 			"Metrics": {
 				"0": 0.0,
-				"1": 0.0
+				"1": 697.0
 			},
 			"Repos": [
 				"ros/ros_tutorials",
@@ -1812,7 +1812,7 @@
 			"Wiki": "http://ros.org/wiki/rosbag",
 			"Metrics": {
 				"0": 5452.0,
-				"1": 0.0
+				"1": 1266.0
 			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",

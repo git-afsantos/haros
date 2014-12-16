@@ -49,6 +49,8 @@ var DirectedAcyclicGraphTooltip = function(gravity) {
 				var value;
 				if (Array.isArray(report[key])) {
 					value = report[key].join(", ");
+				} else if (typeof report[key] == "object") {
+                    value = JSON.stringify(report[key]);
 				} else {
 					value = report[key];
 					if (!value) { //skip falsy stuff altogether, such as "Metapackage": false

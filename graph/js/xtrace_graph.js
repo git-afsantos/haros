@@ -337,7 +337,8 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
             // node.report["Quality"] = quality;
 
             // Set Lines of Code randomly
-            node.report.Metrics["1"] = Math.random() * 10000 | 0 + 100;
+            // node.report.Metrics["1"] = Math.random() * 10000 | 0 + 100;
+            // console.log(node.report.Metrics["1"]);
         }
 
         var narrow_focus = function() {
