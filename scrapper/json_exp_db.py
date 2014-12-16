@@ -63,11 +63,11 @@ def jsonifyPackage(pkg_id, cur):
 	# runtime = dbe.getMatchVal(cur, 'Packages', ['runtime'],'id',pkg_id)
 	# s += '\t\t\t\"Runtime\": ' + str(runtime) + ',\n'
 
-	pkg_metrics = dbe.getMatchVal(cur, "PackageMetrics",
+	pkg_metrics = dbe.getMatch(cur, "PackageMetrics",
 			["metric_id", "value"], "pkg_id", pkg_id)
 	s += '\t\t\t\"Metrics\": {\n'
 	for i, m in enumerate(pkg_metrics):
-		s += '\t\t\t\t\"' + m[0] + '\": ' + m[1]
+		s += '\t\t\t\t\"' + str(m[0]) + '\": ' + str(m[1])
 		if i < len(pkg_metrics) - 1:
 			s += ',\n'
 		else:

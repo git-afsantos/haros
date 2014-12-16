@@ -621,21 +621,21 @@ def update_local_packages():
 
 
 if __name__ == '__main__':
-    import sys
-    from datetime import datetime
-    startTime = datetime.now()
-    if len(sys.argv) > 1 and sys.argv[1] == "local":
-        update_local_packages()
-    else:
-        updateDbAndExport(chronicle = True, 
-                writeJson = True, download = True)
-    print "\nExecution time: ", (datetime.now()-startTime), '\n'
+    #import sys
+    #from datetime import datetime
+    #startTime = datetime.now()
+    #if len(sys.argv) > 1 and sys.argv[1] == "local":
+    #    update_local_packages()
+    #else:
+    #    updateDbAndExport(chronicle = True, 
+    #            writeJson = True, download = True)
+    #print "\nExecution time: ", (datetime.now()-startTime), '\n'
     
-    # dbu = DbUpdater()
-    # dbu.connect("dbuser.txt")
+    dbu = DbUpdater()
+    dbu.connect("dbuser.txt")
     # if dbu.con is None or dbu.cur is None:
         # print "Failure!"
     # update_source_files(dbu, trunc_deps = True)
     # update_code_metrics(dbu, update_deps = True, calculate = True)
     # update_coding_standards(dbu, update_deps = True, calculate = True)
-    # export_packages(dbu)
+    export_packages(dbu)

@@ -9,7 +9,10 @@
 			],
 			"Description": "ros_tutorials contains packages that demonstrate various features of ROS,as well as support packages which help demonstrate those features.",
 			"Wiki": "http://www.ros.org/wiki/ros_tutorials",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_tutorials",
 				"ros-gbp/ros_tutorials-release"
@@ -33,7 +36,10 @@
 			"Metapackage": false,
 			"Description": "rosparam contains the rosparam command-line tool for getting andsetting ROS Parameters on the",
 			"Wiki": "http://ros.org/wiki/rosparam",
-			"Metrics": {},
+			"Metrics": {
+				"0": 652.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -54,7 +60,10 @@
 			"Metapackage": false,
 			"Description": "Low-level build system macros and infrastructure for ROS.",
 			"Wiki": "http://www.ros.org/wiki/catkin",
-			"Metrics": {},
+			"Metrics": {
+				"0": 5138.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/catkin",
 				"ros-gbp/catkin-release"
@@ -76,7 +85,10 @@
 			"Metapackage": false,
 			"Description": "Integration test suite based on roslaunch that is compatible with xUnit frameworks.",
 			"Wiki": "http://ros.org/wiki/rostest",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1052.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -100,7 +112,10 @@
 			"Metapackage": false,
 			"Description": "stereo_msgs contains messages specific to stereo processing, such as disparity images.",
 			"Wiki": "http://ros.org/wiki/stereo_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -125,7 +140,10 @@
 			"Metapackage": false,
 			"Description": "ROS console output library.",
 			"Wiki": "http://www.ros.org/wiki/rosconsole",
-			"Metrics": {},
+			"Metrics": {
+				"0": 234.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -149,7 +167,10 @@
 			"Metapackage": false,
 			"Description": "actionlib_msgs defines the common messages to interact with an action server and an action client.For full documentation of the actionlib API see the",
 			"Wiki": "http://ros.org/wiki/actionlib_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 136.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -172,7 +193,10 @@
 			"Metapackage": false,
 			"Description": "This package defines messages for defining robot trajectories. These messages arealso the building blocks of most of the",
 			"Wiki": "http://ros.org/wiki/trajectory_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -203,7 +227,10 @@
 			],
 			"Description": "Underlying data libraries for roscpp messages.",
 			"Wiki": "http://www.ros.org/wiki/roscpp_core",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/roscpp_core",
 				"ros-gbp/roscpp_core-release"
@@ -227,7 +254,10 @@
 			"Metapackage": false,
 			"Description": "This package contains messages for defining shapes, such as simple solidobject primitives (cube, sphere, etc), planes, and meshes.",
 			"Wiki": "http://ros.org/wiki/shape_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -251,7 +281,10 @@
 			"Metapackage": false,
 			"Description": "A common repository for CMake Modules which are not distributed with CMake but are commonly used by ROS packages.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/cmake_modules-release",
 				"ros/cmake_modules"
@@ -271,7 +304,8 @@
 			"Metapackage": false,
 			"Description": "",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+			},
 			"Repos": [
 				"ros/roslisp",
 				"ros-gbp/roslisp-release"
@@ -288,7 +322,10 @@
 			"Metapackage": false,
 			"Description": "rosbuild contains scripts for managing the CMake-based build system for ROS.",
 			"Wiki": "http://ros.org/wiki/rosbuild",
-			"Metrics": {},
+			"Metrics": {
+				"0": 141.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -312,7 +349,10 @@
 			"Metapackage": false,
 			"Description": "ROS Package Tool",
 			"Wiki": "http://wiki.ros.org/rospack",
-			"Metrics": {},
+			"Metrics": {
+				"0": 73.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/rospack",
 				"ros-gbp/rospack-release"
@@ -348,7 +388,10 @@
 			],
 			"Description": "ROS packaging system",
 			"Wiki": "http://www.ros.org/wiki/ROS",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -385,7 +428,10 @@
 			"Metapackage": false,
 			"Description": "nav_msgs defines the common messages used to interact with the",
 			"Wiki": "http://ros.org/wiki/nav_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -410,7 +456,10 @@
 			"Metapackage": false,
 			"Description": "rosmake is a ros dependency aware build tool which can be used to build all dependencies in the correct order.",
 			"Wiki": "http://ros.org/wiki/rosmake",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1715.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -430,7 +479,10 @@
 			"Metapackage": false,
 			"Description": "Assorted shell commands for using ros with bash.",
 			"Wiki": "http://www.ros.org/wiki/rosbash",
-			"Metrics": {},
+			"Metrics": {
+				"0": 59.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -451,7 +503,10 @@
 			"Metapackage": false,
 			"Description": "C++ ROS message and service generators.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 316.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/gencpp-release",
 				"ros/gencpp"
@@ -474,7 +529,10 @@
 			"Metapackage": false,
 			"Description": "Base dependencies and support libraries for ROS.roslib contains many of the common data structures and tools that are shared across ROS client library implementations.",
 			"Wiki": "http://ros.org/wiki/roslib",
-			"Metrics": {},
+			"Metrics": {
+				"0": 6199.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -497,7 +555,10 @@
 			"Metapackage": false,
 			"Description": "System-wide logging mechanism for messages sent to the /rosout topic.",
 			"Wiki": "http://ros.org/wiki/rosout",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -519,7 +580,10 @@
 			"Metapackage": false,
 			"Description": "roscpp_serialization contains the code for serialization as described in",
 			"Wiki": "http://ros.org/wiki/roscpp_serialization",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/roscpp_core",
 				"ros-gbp/roscpp_core-release"
@@ -542,7 +606,10 @@
 			"Metapackage": false,
 			"Description": "roscpp_traits contains the message traits code as described in",
 			"Wiki": "http://ros.org/wiki/roscpp_traits",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/roscpp_core",
 				"ros-gbp/roscpp_core-release"
@@ -564,7 +631,10 @@
 			"Metapackage": false,
 			"Description": "Tools for directing, throttling, selecting, and otherwise messing withROS topics at a meta level. None of the programs in this package actuallyknow about the topics whose streams they are altering; instead, thesetools deal with messages as generic binary blobs. This means they can beapplied to any ROS topic.",
 			"Wiki": "http://ros.org/wiki/topic_tools",
-			"Metrics": {},
+			"Metrics": {
+				"0": 312.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -595,7 +665,10 @@
 			"Metapackage": false,
 			"Description": "rosclean: cleanup filesystem resources (e.g. log files).",
 			"Wiki": "http://ros.org/wiki/rosclean",
-			"Metrics": {},
+			"Metrics": {
+				"0": 251.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -615,7 +688,10 @@
 			"Metapackage": false,
 			"Description": "roslaunch is a tool for easily launching multiple ROS",
 			"Wiki": "http://ros.org/wiki/roslaunch",
-			"Metrics": {},
+			"Metrics": {
+				"0": 12177.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -642,7 +718,10 @@
 			"Metapackage": false,
 			"Description": "visualization_msgs is a set of messages used by higher level packages, such as",
 			"Wiki": "http://ros.org/wiki/visualization_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -667,7 +746,10 @@
 			"Metapackage": false,
 			"Description": "Package modeling the build-time dependencies for generating language bindings of messages.",
 			"Wiki": "http://ros.org/wiki/message_generation",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/message_generation-release",
 				"ros/message_generation"
@@ -690,7 +772,10 @@
 			"Metapackage": false,
 			"Description": "cpp_common contains C++ code for doing things that are not necessarily ROSrelated, but are useful for multiple packages. This includes things likethe ROS_DEPRECATED and ROS_FORCE_INLINE macros, as well as code for gettingbacktraces.This package is a component of",
 			"Wiki": "http://www.ros.org/wiki/cpp_common",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/roscpp_core",
 				"ros-gbp/roscpp_core-release"
@@ -710,7 +795,10 @@
 			"Metapackage": false,
 			"Description": "rostopic contains the rostopic command-line tool for displayingdebug information aboutROS",
 			"Wiki": "http://ros.org/wiki/rostopic",
-			"Metrics": {},
+			"Metrics": {
+				"0": 2819.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -734,7 +822,10 @@
 			"Metapackage": false,
 			"Description": "Common-Lisp ROS message and service generators.",
 			"Wiki": "http://www.ros.org/wiki/roslisp",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1057.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/genlisp-release",
 				"ros/genlisp"
@@ -756,7 +847,10 @@
 			"Metapackage": false,
 			"Description": "Python ROS message and service generators.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 7138.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/genpy-release",
 				"ros/genpy"
@@ -803,7 +897,10 @@
 			],
 			"Description": "ROS communications-related packages, including core client libraries (roscpp, rospy) and graph introspection tools (rostopic, rosnode, rosservice, rosparam).",
 			"Wiki": "http://www.ros.org/wiki/ros_comm",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -855,7 +952,10 @@
 			"Metapackage": false,
 			"Description": "A set of message filters which take in messages and may output those messages at a later time, based on the conditions that filter needs met.",
 			"Wiki": "http://ros.org/wiki/message_filters",
-			"Metrics": {},
+			"Metrics": {
+				"0": 572.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -881,7 +981,10 @@
 			"Metapackage": false,
 			"Description": "Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays.For common, generic robot-specific message types, please see",
 			"Wiki": "http://www.ros.org/wiki/std_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/std_msgs-release",
 				"ros/std_msgs"
@@ -905,7 +1008,10 @@
 			"Metapackage": false,
 			"Description": "Package modeling the run-time dependencies for language bindings of messages.",
 			"Wiki": "http://ros.org/wiki/message_runtime",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/message_runtime-release",
 				"ros/message_runtime"
@@ -929,7 +1035,10 @@
 			"Metapackage": false,
 			"Description": "Time and Duration implementations for C++ libraries, including roscpp.",
 			"Wiki": "http://ros.org/wiki/rostime",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/roscpp_core",
 				"ros-gbp/roscpp_core-release"
@@ -950,7 +1059,10 @@
 			"Metapackage": false,
 			"Description": "roscreate contains a tool that assists in the creation of ROS filesystem resources. It provides:",
 			"Wiki": "http://ros.org/wiki/roscreate",
-			"Metrics": {},
+			"Metrics": {
+				"0": 320.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -981,7 +1093,10 @@
 			],
 			"Description": "common_msgs contains messages that are widely used by other ROS packages.These includes messages foractions (",
 			"Wiki": "http://www.ros.org/wiki/common_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -1009,7 +1124,10 @@
 			"Metapackage": false,
 			"Description": "roswtf is a tool for diagnosing issues with a running ROS system. Think of it as a FAQ implemented in code.",
 			"Wiki": "http://ros.org/wiki/roswtf",
-			"Metrics": {},
+			"Metrics": {
+				"0": 2609.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1036,7 +1154,10 @@
 			"Metapackage": false,
 			"Description": "This package attempts to show the features of ROS python API step-by-step,including using messages, servers, parameters, etc. These tutorials are compatible with the nodes in roscpp_tutorial.",
 			"Wiki": "http://www.ros.org/wiki/rospy_tutorials",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1511.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_tutorials",
 				"ros-gbp/ros_tutorials-release"
@@ -1061,7 +1182,10 @@
 			"Metapackage": false,
 			"Description": "rosservice contains the rosservice command-line tool for listingand querying ROS",
 			"Wiki": "http://ros.org/wiki/rosservice",
-			"Metrics": {},
+			"Metrics": {
+				"0": 776.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1086,7 +1210,10 @@
 			"Metapackage": false,
 			"Description": "rospy is a pure Python client library for ROS. The rospy clientAPI enables Python programmers to quickly interface with ROS",
 			"Wiki": "http://ros.org/wiki/rospy",
-			"Metrics": {},
+			"Metrics": {
+				"0": 8747.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1112,7 +1239,10 @@
 			"Metapackage": false,
 			"Description": "Unit-testing package for ROS. This is a lower-level library for rostest and handles unit tests, whereas rostest handles integration tests.",
 			"Wiki": "http://ros.org/wiki/rosunit",
-			"Metrics": {},
+			"Metrics": {
+				"0": 3158.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -1133,7 +1263,10 @@
 			"Metapackage": false,
 			"Description": "This package attempts to show the features of ROS step-by-step,including using messages, servers, parameters, etc.",
 			"Wiki": "http://www.ros.org/wiki/roscpp_tutorials",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_tutorials",
 				"ros-gbp/ros_tutorials-release"
@@ -1160,7 +1293,10 @@
 			"Metapackage": false,
 			"Description": "This package holds the diagnostic messages which provide thestandardized interface for the diagnostic and runtime monitoringsystems in ROS. These messages are currently used bythe",
 			"Wiki": "http://ros.org/wiki/diagnostic_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -1183,7 +1319,10 @@
 			"Metapackage": false,
 			"Description": "This is a set of tools for recording from and playing back ROSmessage without relying on the ROS client library.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1207,7 +1346,10 @@
 			"Metapackage": false,
 			"Description": "roscpp is a C++ implementation of ROS. It providesa",
 			"Wiki": "http://ros.org/wiki/roscpp",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1021.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1241,7 +1383,10 @@
 			"Metapackage": false,
 			"Description": "Messages relating to the ROS Computation Graph. These are generally considered to be low-level messages that end users do not interact with.",
 			"Wiki": "http://ros.org/wiki/rosgraph_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_comm_msgs",
 				"ros-gbp/ros_comm_msgs-release"
@@ -1264,7 +1409,10 @@
 			"Metapackage": false,
 			"Description": "roslang is a common package that all",
 			"Wiki": "http://ros.org/wiki/roslang",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -1285,7 +1433,10 @@
 			"Metapackage": false,
 			"Description": "Contains scripts used by the rosboost-cfg tool for determining cflags/lflags/etc. of boost on your system",
 			"Wiki": "http://ros.org/wiki/rosboost_cfg",
-			"Metrics": {},
+			"Metrics": {
+				"0": 415.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -1305,7 +1456,10 @@
 			"Metapackage": false,
 			"Description": "Standalone Python library for generating ROS message and service data structures for various languages.",
 			"Wiki": "http://www.ros.org/wiki/genmsg",
-			"Metrics": {},
+			"Metrics": {
+				"0": 3530.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/genmsg",
 				"ros-gbp/genmsg-release"
@@ -1327,7 +1481,10 @@
 			"Metapackage": false,
 			"Description": "Common service definitions. Currently just the 'Empty' service.",
 			"Wiki": "http://ros.org/wiki/std_srvs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_comm_msgs",
 				"ros-gbp/ros_comm_msgs-release"
@@ -1349,7 +1506,10 @@
 			"Metapackage": false,
 			"Description": "rosconsole_bridge is a package used in conjunction with console_bridge and rosconsole for connecting console_bridge-based logging to rosconsole-based logging.",
 			"Wiki": "http://www.ros.org/wiki/rosconsole_bridge",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/rosconsole_bridge",
 				"ros-gbp/rosconsole_bridge-release"
@@ -1373,7 +1533,8 @@
 			],
 			"Description": "",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+			},
 			"Repos": [
 				"ros/ros_comm_msgs",
 				"ros-gbp/ros_comm_msgs-release"
@@ -1390,7 +1551,10 @@
 			"Metapackage": false,
 			"Description": "A collection of .mk include files for building ROS architectural elements.Most package authors should use cmake .mk, which calls CMake for the build of the package.The other files in this package are intended for use in exotic situations that mostly arise when importing 3rdparty code.",
 			"Wiki": "http://www.ros.org/wiki/ROS",
-			"Metrics": {},
+			"Metrics": {
+				"0": 58.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros-release",
 				"ros/ros"
@@ -1412,7 +1576,10 @@
 			"Metapackage": false,
 			"Description": "A Python and C++ implementation of the LZ4 streaming format.Large datastreams are split into blocks which are compressed using the very fast LZ4compression algorithm.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 54.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1432,7 +1599,10 @@
 			"Metapackage": false,
 			"Description": "XmlRpc++ is a C++ implementation of the XML-RPC protocol. This version isheavily modified from the package available on SourceForge in order tosupport roscpp's threading model. As such, we are maintaining ourown fork.",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1455,7 +1625,10 @@
 			"Metapackage": false,
 			"Description": "ROS",
 			"Wiki": "http://ros.org/wiki/rosmaster",
-			"Metrics": {},
+			"Metrics": {
+				"0": 4026.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1476,7 +1649,10 @@
 			"Metapackage": false,
 			"Description": "geometry_msgs provides messages for common geometric primitivessuch as points, vectors, and poses. These primitives are designedto provide a common data type and facilitate interoperabilitythroughout the system.",
 			"Wiki": "http://ros.org/wiki/geometry_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -1499,7 +1675,10 @@
 			"Metapackage": false,
 			"Description": "rosmsg contains two command-line tools:",
 			"Wiki": "http://ros.org/wiki/rosmsg",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1431.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1523,7 +1702,10 @@
 			"Metapackage": false,
 			"Description": "This package defines messages for commonly used sensors, includingcameras and scanning laser rangefinders.",
 			"Wiki": "http://ros.org/wiki/sensor_msgs",
-			"Metrics": {},
+			"Metrics": {
+				"0": 195.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/common_msgs",
 				"ros-gbp/common_msgs-release"
@@ -1546,7 +1728,10 @@
 			"Metapackage": false,
 			"Description": "rosgraph contains the rosgraph command-line tool, which printsinformation about the ROS Computation Graph. It also provides aninternal library that can be used by graphical tools.",
 			"Wiki": "http://ros.org/wiki/rosgraph",
-			"Metrics": {},
+			"Metrics": {
+				"0": 3786.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1566,7 +1751,10 @@
 			"Metapackage": false,
 			"Description": "turtlesim is a tool made for teaching ROS and ROS packages.",
 			"Wiki": "http://www.ros.org/wiki/turtlesim",
-			"Metrics": {},
+			"Metrics": {
+				"0": 0.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros/ros_tutorials",
 				"ros-gbp/ros_tutorials-release"
@@ -1596,7 +1784,10 @@
 			"Metapackage": false,
 			"Description": "rosnode is a command-line tool for displaying debug informationabout ROS",
 			"Wiki": "http://ros.org/wiki/rosnode",
-			"Metrics": {},
+			"Metrics": {
+				"0": 1300.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1619,7 +1810,10 @@
 			"Metapackage": false,
 			"Description": "This is a set of tools for recording from and playing back to ROStopics.It is intended to be high performance and avoidsdeserialization and reserialization of the messages.",
 			"Wiki": "http://ros.org/wiki/rosbag",
-			"Metrics": {},
+			"Metrics": {
+				"0": 5452.0,
+				"1": 0.0
+			},
 			"Repos": [
 				"ros-gbp/ros_comm-release",
 				"ros/ros_comm"
@@ -1652,7 +1846,8 @@
 			"Metapackage": false,
 			"Description": "",
 			"Wiki": "",
-			"Metrics": {},
+			"Metrics": {
+			},
 			"Repos": [
 				"ros-gbp/rosbag_migration_rule-release"
 			],
