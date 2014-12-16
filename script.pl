@@ -14,6 +14,7 @@ my $host = "localhost";
 my $port = "3306";
 my $user = "root";
 my $pw = "password";
+my $home = "/home/miguel/ros/repos";
 
 my $i;
 
@@ -54,7 +55,7 @@ sub main_file{
 	my $loc_py = '0';
 	my $loc_c = '0';
 	
-	$file = "/home/miguel/ros/repos@_";
+	$file = "$home@_";
 	
 	mkdir("temp_output",0777);
 
@@ -113,8 +114,8 @@ sub main_package{
 	my $package;
 	my $loc_py = '0';
 	my $loc_c = '0';
-	if($ARGV[0]){ $package = "/home/miguel/ros/repos$ARGV[0]"; }
-	else{ $package = "/home/miguel/ros/repos@_";}
+	
+	$package = "$home@_";
 	
 	mkdir("temp_output",0777);
 
