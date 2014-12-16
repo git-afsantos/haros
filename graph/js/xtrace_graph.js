@@ -290,6 +290,9 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
         console.log("draw begin");
         var begin = (new Date()).getTime();
         // var start = (new Date()).getTime();
+        // afs:
+        // this line binds the graph data to the graph svg
+        // and then, calling DAG, creates svg nodes and binds to graph nodes
         graphSVG.datum(graph).call(DAG);    // Draw a DAG at the graph attach
         // console.log("draw graph", new Date().getTime() - start);
         // start = (new Date()).getTime();
@@ -551,6 +554,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
                 // var dataset = colorby; //dataset is colorby forced into "Single capital case" on the next line
                 // dataset = dataset.charAt(0).toUpperCase() + dataset.slice(1).toLowerCase();
                 var datum = d.report.Metrics[colorby] || 0;
+                d.tooltipData.Metric = "" + datum;
                 var metric = window.Ecore.getMetric(colorby);
                 var min = metric.min || 0;
                 var max = Number.MAX_VALUE;
