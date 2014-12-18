@@ -19,6 +19,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
     var tred = (params["tred"]) ? params["tred"] : "standard";
     var metagroup = (params["metagroup"]) ? params["metagroup"] == "true" : false;
     var direction = (params["direction"]) ? params["direction"] : "TD";
+    var colorMode = document.getElementById("color_radio1").checked ? "absolute" : "relative";
     // afs
     // var colorby = (params["colorby"]) ? params["colorby"] : "Health";   //named after report entry
     var colorby = elDataset.options[elDataset.selectedIndex].value;
@@ -451,6 +452,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
 
         // Set Edges for all visible nodes
         var visible_nodes = graph.getVisibleNodes();
+        var metricSum = 0;
         for (var i = 0; i < visible_nodes.length; i++) {
             var node = visible_nodes[i];
             var edgelist = node.getVisibleParents();
@@ -459,6 +461,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
             for (var j = 0; j < edgelist.length; j++) {
                 node.edges[edgelist[j].id] = edgelist[j];
             }
+            metricSum += node.report.Metrics[colorby] || 0;
         }
 
         var transitiveReduction = function() {
@@ -505,14 +508,12 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
             .domain([.11, .22, .33, .44, .55, .66, .77, .88, 1])
             .range(["#d73027", "#f46d43", "#fdae61", "#fee090", "#ffffbf", "#e0f3f8", "#abd9e9", "#74add1", "#4575b4"]);
         var heatmap = function(input, scale, logscale) {
-
             var i;
 
             if (logscale) {
                 if (input == 0) {
                     return {red: 255, green: 255, blue: 255}        // force white for komodo's "no data" display
                 }
-
                 i = (Math.log(input) / Math.LN10) * 4 / scale;      // takes input from interval [10-inf)
                 if (i < 0) i = 0;                                   // no negative output please
             } else {
@@ -550,46 +551,61 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
         var colorByDataset = function() {
             // afs
             // $("#key_label").text(colorby);
-            graph.getNodes().forEach(function(d){
-                // var dataset = colorby; //dataset is colorby forced into "Single capital case" on the next line
-                // dataset = dataset.charAt(0).toUpperCase() + dataset.slice(1).toLowerCase();
-                var datum = d.report.Metrics[colorby] || 0;
-                d.tooltipData.Metric = "" + datum;
-                var metric = window.Ecore.getMetric(colorby);
-                var min = metric.min || 0;
-                var max = Number.MAX_VALUE;
-                max = Math.min(metric.high || max, metric.max || max);
-                datum = Math.min(datum, max);
-                // heatmap
-                // var scale = 1.0;
-                // var logscale = false;
-                // if (dataset == "Health") {
-                    // scale = 0.8;
-                // } else if (dataset == "Impact") {
-                    // scale = 0.5;
-                // } else if (dataset == "Runtime") {
-                    // scale = 6.0;
-                    // logscale = true;
-                // } else if (dataset == "Quality") {
-                    // // leave scale at 1.0
-                // } else if (dataset == "Loc") {
-                    // // leave scale at 1.0
-                    // datum = Math.min(datum, 10000) / 10000;
-                // } else {
-                    // console.error("Didn't recognize data set", dataset);
-                // }
-                // var heat = heatmap(datum, scale, logscale);
-                // d.color.red = heat.red;
-                // d.color.green = heat.green;
-                // d.color.blue = heat.blue;
+            if (colorMode === "absolute") {
+                graph.getNodes().forEach(function(d){
+                    // var dataset = colorby; //dataset is colorby forced into "Single capital case" on the next line
+                    // dataset = dataset.charAt(0).toUpperCase() + dataset.slice(1).toLowerCase();
+                    var datum = d.report.Metrics[colorby] || 0;
+                    d.tooltipData.Metric = "" + datum;
+                    var metric = window.Ecore.getMetric(colorby);
+                    var min = metric.min || 0;
+                    var max = Number.MAX_VALUE;
+                    max = Math.min(metric.high || max, metric.max || max);
+                    datum = Math.min(datum, max);
+                    // heatmap
+                    // var scale = 1.0;
+                    // var logscale = false;
+                    // if (dataset == "Health") {
+                        // scale = 0.8;
+                    // } else if (dataset == "Impact") {
+                        // scale = 0.5;
+                    // } else if (dataset == "Runtime") {
+                        // scale = 6.0;
+                        // logscale = true;
+                    // } else if (dataset == "Quality") {
+                        // // leave scale at 1.0
+                    // } else if (dataset == "Loc") {
+                        // // leave scale at 1.0
+                        // datum = Math.min(datum, 10000) / 10000;
+                    // } else {
+                        // console.error("Didn't recognize data set", dataset);
+                    // }
+                    // var heat = heatmap(datum, scale, logscale);
+                    // d.color.red = heat.red;
+                    // d.color.green = heat.green;
+                    // d.color.blue = heat.blue;
 
-                //ideally not used
-                d.color.hue = 220;
-                d.color.sat = 90;
-                // d.color.light = Math.floor(100 - datum * 50 / scale);
-                d.color.light = 100 - (datum / max * 70);
-                d.color.alpha = 0.80;
-            });
+                    //ideally not used
+                    d.color.hue = 220;
+                    d.color.sat = 90;
+                    // d.color.light = Math.floor(100 - datum * 50 / scale);
+                    d.color.light = 100 - (datum / max * 70);
+                    d.color.alpha = 0.80;
+                });
+            } else {
+                graph.getVisibleNodes().forEach(function (d) {
+                    var datum = d.report.Metrics[colorby] || 0;
+                    d.tooltipData.Metric = "" + datum;
+                    d.color.hue = 4;
+                    d.color.sat = 80;
+                    if (metricSum == 0) {
+                        d.color.light = 100;
+                    } else {
+                        d.color.light = 100 - (datum / metricSum * 80);
+                    }
+                    d.color.alpha = 0.80;
+                });
+            }
         };
         colorByDataset();
 
@@ -689,7 +705,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
         $("#color_dataset").selectmenu({
             width: "200px"      // I'm honestly clueless why this defaults to 0px.
         });                     // Could be some weird bug with jQuery 1.11.0, since selectmenus are new
-        $("#color_info").tipsy({html: true, gravity: 'e', opacity: 1});
+        // $("#color_info").tipsy({html: true, gravity: 'e', opacity: 1});
 
         if (direction == "LR") {
             $("#direction_radio1").prop("checked", false);
@@ -697,10 +713,17 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
         }
         $("#direction_radio").buttonset();
 
-        $("#meta_radio").buttonset();
+        if (colorMode == "relative") {
+            $("#color_radio1").prop("checked", false);
+            $("#color_radio2").prop("checked", true);
+        }
+        $("#color_radio").buttonset();
+
         $("#apply_button").button({
             label: "Apply"
         }).click(function() {
+            var e;
+
             $("#error-msg").hide();
             //update vars based on controls
             var root_val = $("#root_text").val();
@@ -725,6 +748,13 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
                 metagroup = true;
             } else {
                 metagroup = false;
+            }
+
+            e = document.getElementById("color_radio1");
+            if (e.checked) {
+                colorMode = e.value;
+            } else {
+                colorMode = document.getElementById("color_radio2").value;
             }
 
             // afs
