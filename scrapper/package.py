@@ -13,6 +13,7 @@ from people import Person, PersonSet
 # Holds all of the information for a single ROS package
 class Package:
     def __init__(self, name, repo):
+        self.id = None
         self.name = name
         self.repo = repo
 
@@ -59,6 +60,10 @@ class Package:
 
     def getAllDepend(self):
         return self.buildtool_depend | self.build_depend | self.run_depend
+
+    def asTuple(self):
+        return (self.id, self.name, self.isMetapackage,
+                self.description, self.wiki, self.git, self.branch, self.path)
 
 
 

@@ -3,11 +3,9 @@
 
 import pymysql as mdb # export PATH=$PATH:/usr/local/mysql/bin
 import db_extract as dbe
-import sys
-
-prefix = 'eco_'
 
 def namePref(name):
+	prefix = "eco_"
 	if name is None:
 		return None
 	elif type(name) == list:
@@ -20,7 +18,7 @@ def namePref(name):
 def conCur(user='root',passwd='root_pwd',db='ROSdb',host='localhost',port=None):
 	# establishes a connection and cursor with a database
 	if port != None:
-		print user, passwd, db, host, port
+		# print user, passwd, db, host, port
 		con = mdb.connect(user=user, passwd=passwd, db=db, host=host, port=port)
 	else:
 		con = mdb.connect(user=user, passwd=passwd, db=db, host=host)
@@ -49,6 +47,15 @@ def truncateTable(cur, name):
 	cmd = """TRUNCATE {0}""".format(name)
 	cur.execute(cmd)
 	setFKChecks(cur, 1)
+
+def safeTruncateTable(cur, name):
+	name = namePref(name)
+
+	if tableExists(cur, name):
+		setFKChecks(cur, 0)
+		cmd = """TRUNCATE {0}""".format(name)
+		cur.execute(cmd)
+		setFKChecks(cur, 1)
 
 def insertCmd(name, col_names):
 	name = namePref(name)

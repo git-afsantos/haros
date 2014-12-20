@@ -1,9 +1,10 @@
-import db_control as dbc
-import sys
+class InvalidQuery(Exception):
+	def __init__(self, msg):
+		self.msg = msg
 
-prefix = 'eco_'
 
 def tablePref(table):
+	prefix = "eco_"
 	if prefix not in table: 
 		return prefix + table
 	else:
@@ -14,8 +15,7 @@ def exFetch(cur, cmd, single = False):
 	try:
 		cur.execute(cmd)
 	except:
-		print "INVALID COMMAND:", cmd
-		sys.exit()
+		raise InvalidQuery("INVALID COMMAND: " + cmd)
 	ret = cur.fetchall()
 	if single:
 		return ret[0][0]
@@ -125,6 +125,12 @@ def getMostCom(cur, table, col, top_num):
 	ret = exFetch(cur, cmd)
 	return ret[:top_num]
 
+def getMaxVal(cur, table, col):
+	table = tablePref(table)
+	cmd = "SELECT MAX({0}) FROM {1}".format(col, table)
+	ret = exFetch(cur, cmd, single = True)
+	return ret
+
 
 
 
@@ -183,8 +189,3 @@ def writeTable(cur, table):
 	f = open(table + '.txt', 'w')
 	f.write(s)
 
-if __name__ == '__main__':
-	# con, cur = concur(user='smartroswiki', passwd='p0tyYjIr', db='smartroswiki', host='engr-db.engr.oregonstate.edu', port=3307)
-	con, cur = dbc.conCur(db='test2')
-	# selectCmd('PkgMntnrs', ['ppl_id'], cnt = True, dstnct = True)
-	# print getTable(cur, 'PkgMntnrs', ['ppl_id'], cnt = True)

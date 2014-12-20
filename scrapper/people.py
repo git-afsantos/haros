@@ -10,6 +10,7 @@ class Person:
         # alias, so we don't have to special-case it in the future.
         self.name = name
         self.email = None
+        self.id = None
 
         self.all_names = set([name])
         self.all_emails = set()
@@ -60,6 +61,9 @@ class Person:
     def merge(self, other):
         self.all_names |= other.all_names
         self.all_emails |= other.all_emails
+
+    def asTuple(self):
+        return (self.id, self.name, self.email)
 
 # Sets of people.  This is a thin wrapper around a set that gives us
 # some extra functionality.

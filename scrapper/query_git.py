@@ -5,9 +5,6 @@ from unidecode import unidecode
 from difflib import get_close_matches
 import sys
 
-token = ''
-email = ''
-
 def makeRepoQuery(repo_name):
 	repo_query = 'https://api.github.com/repos/' + repo_name
 	return repo_query
@@ -154,14 +151,14 @@ def getEmailFromEvents(username):
 			 		pass
 
 def getRepoInfo(repo_name, keys):
-	print '  ', repo_name
+	# print '  ', repo_name
 	repo_query = makeRepoQuery(repo_name)
 	repo_dict = executeQuery(repo_query)
 	repo_info = getRepoVals(repo_dict, keys)
 	return repo_info
 
 def getIssuesInfo(repo_name, keys):
-	print '  ', repo_name
+	# print '  ', repo_name
 	repo_issues_info = []
 	this_issues_info = []
 	page_num = 1
@@ -183,11 +180,11 @@ def getIssuesInfo(repo_name, keys):
 def getUserEmail(username):
 	user_email = getEmailFromUser(username)
 	if user_email != None: 
-		print '   ', username, ':', user_email, '  (Info)'
+		# print '   ', username, ':', user_email, '  (Info)'
 		return str(user_email)
 	else: # If they're email isn't public, try to find it in public events
 		user_email = getEmailFromEvents(username)
-		print '   ', username, ':', user_email, '  (Events)'
+		# print '   ', username, ':', user_email, '  (Events)'
 		return str(user_email)
 
 def getRemaininder():

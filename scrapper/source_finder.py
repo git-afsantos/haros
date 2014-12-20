@@ -2,6 +2,7 @@ import os
 
 class SourceFile:
     def __init__(self, name, path):
+        self.id         = None
         self.name       = name
         self.path       = path
 

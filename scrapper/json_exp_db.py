@@ -8,8 +8,7 @@ from package import *
 from operator import itemgetter
 
 import db_extract as dbe
-import db_control as dbc
-
+import db_manager as dbm
 
 # Takes a string
 def jsonifyItem(i):
@@ -114,11 +113,11 @@ def jsonifyPackages(cur):
 	s += '\n]'
 	return s
 
-if __name__ == '__main__':
-	con,cur = dbc.conCur()
-	# f_path = '/nfs/attic/smartw/users/reume04/roseco/pyscraper/rostest.json'
-	f_path = 'ros.json'
-	f = open(f_path, 'w')
-	f.write(jsonifyPackages(cur))
-	f.close()
-	print('package data written to ros.json')
+
+def export_packages(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    f = open(out_file, 'w')
+    f.write(jsonifyPackages(db.cur))
+    f.close()
+    db.disconnect()

@@ -7,6 +7,7 @@ from yaml import load
 
 class Repo:
     def __init__(self, name):
+        self.id = None
         self.name = name # The name listed in the distribution file
         self.urls = None 
         self.repo_names = None # The repositories names on github
@@ -32,14 +33,10 @@ class Repo:
 
 
 
-def getRepoData(dist_file):
+def get_repos_from_dist(dist_file):
     with open(dist_file, 'r') as open_file:
-        data = load(open_file)
-    return data['repositories']
-
-
-def makeReposDict(dist_file):
-    repo_data = getRepoData(dist_file)
+        dist_data = load(open_file)
+    repo_data = dist_data['repositories']
     repo_dict = {}
     for repo_name, data in repo_data.iteritems():
         repo = Repo(repo_name)
