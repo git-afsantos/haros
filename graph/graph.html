@@ -96,6 +96,15 @@ window.onload = function() {
                 </div>
             </div>
             <div class="row">
+                <label class="col caption" for="color_radio">Coloring Mode:</label>
+                <div class="col" id="color_radio">
+                    <input type="radio" id="color_radio1" name="color_radio" checked="checked" value="absolute">
+                    <label for="color_radio1">Absolute</label>
+                    <input type="radio" id="color_radio2" name="color_radio" value="relative">
+                    <label for="color_radio2">Relative</label>
+                </div>
+            </div>
+            <div class="row">
                 <label class="col caption" for="color_dataset">Color by:</label>
                 <select class="col" name="color_dataset" id="color_dataset">
                     <option selected="selected">No Metrics</option>

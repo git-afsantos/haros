@@ -277,6 +277,18 @@ var createGraphFromReports = function(reports, params) {
 		var id = report["Name"];
 		nodes[id] = new Node(id);
 		nodes[id].report = report;
+        // afs:
+        var tooltipData = nodes[id].tooltipData = {};
+        tooltipData.Name = report.Name;
+        if (report.Metapackage) {
+            tooltipData.Metapackage = "Yes";
+            tooltipData.Contains = report.Contains;
+        }
+        tooltipData.Description = report.Description;
+        tooltipData.Authors = report.Authors;
+        tooltipData.Maintainers = report.Maintainers;
+        tooltipData.Edges = report.Edge;
+        tooltipData.Metric = "0";
 	}
 
 	// Second link the nodes together

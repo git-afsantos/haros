@@ -18,7 +18,9 @@ var timestampToTimeString = function(timestamp) {
 var DirectedAcyclicGraphTooltip = function(gravity) {
 
 	var tooltip = Tooltip(gravity).title(function(d) {
-		var report = d.report;
+        // afs
+		// var report = d.report;
+		var report = d.tooltipData;
 
 		// var reserved = ["Source", "Operation", "Agent", "Label", "Class", "HRT", "Cycles", "Host", "ProcessID", "ThreadID", "ThreadName", "X-Trace"];
 
@@ -43,7 +45,7 @@ var DirectedAcyclicGraphTooltip = function(gravity) {
 		}
 		*/
 
-		// Do the remainder
+        // Do the remainder
 		for (var key in report) {
 			if (!seen[key]) {
 				var value;
