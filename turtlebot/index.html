@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--Libraries-->
+    <script type="text/javascript" src="lib/d3/d3.v3.min.js"></script>
+    <script type="text/javascript" src="lib/jQuery/jquery-1.11.1.js"></script>
+    <!-- <script type="text/javascript" src="lib/jQuery/jquery-ui-1.11.0.custom/jquery-ui.js"></script> -->
+    <script type="text/javascript" src="lib/jQuery/jquery.tipsy.js"></script>
+    <!-- <script type="text/javascript" src="lib/jQuery/jquery.contextMenu.js"></script> -->
+    <script type="text/javascript" src="lib/dagre/dagre.js"></script>
+    <script type="text/javascript" src="lib/underscore/underscore.js"></script>
+    <script type="text/javascript" src="lib/base64.js"></script>
+    <!--Scripts-->
+    <script type="text/javascript" src="js/Minimap.js"></script>
+    <script type="text/javascript" src="js/MinimapZoom.js"></script>
+    <script type="text/javascript" src="js/DirectedAcyclicGraph.js"></script>
+    <!-- <script type="text/javascript" src="js/List.js"></script> -->
+    <!-- <script type="text/javascript" src="js/Selectable.js"></script> -->
+    <script type="text/javascript" src="js/Graph.js"></script>
+    <!-- <script type="text/javascript" src="js/History.js"></script> -->
+    <script type="text/javascript" src="js/Tooltip.js"></script>
+    <!-- <script type="text/javascript" src="js/ContextMenu.js"></script> -->
+    <script type="text/javascript" src="js/xtrace_utils.js"></script>
+    <script type="text/javascript" src="js/xtrace_graph.js"></script>
+    <!--Stylesheets-->
+    <link href="stylesheets/xtrace.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/tipsy.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="toolbar">
+        <input type="text" id="focus-input" size="20"></input>
+        <button type="button" id="apply-focus">Apply focus</button>
+    </div>
+    <div class="legend">
+        <div class="legend-blue">Turtlebot and other packages</div>
+        <div class="legend-green">ROS packages</div>
+        <div class="legend-yellow">External libraries</div>
+        <div class="legend-red">Linux libraries</div>
+    </div>
+    <script src="js/init.js"></script>
+</body>
+</html>

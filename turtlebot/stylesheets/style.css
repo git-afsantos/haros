@@ -1,0 +1,48 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.toolbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 2px #d9d9d9 solid;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.legend {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    border: 2px #d9d9d9 solid;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.legend > div {
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.legend > div:last-child {
+    margin-bottom: 0;
+}
+
+.legend-red {
+    border-left: 20px #fac9b1 solid;
+}
+
+.legend-yellow {
+    border-left: 20px #faeeb1 solid;
+}
+
+.legend-green {
+    border-left: 20px #b1fab1 solid;
+}
+
+.legend-blue {
+    border-left: 20px #b1c9fa solid;
+}
