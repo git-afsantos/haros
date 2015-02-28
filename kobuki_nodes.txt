@@ -1,0 +1,248 @@
+$ rosnode list
+/gazebo
+/keyop
+/mobile_base_nodelet_manager
+/robot_state_publisher
+/rosout
+
+
+$ rosnode info gazebo
+--------------------------------------------------------------------------------
+Node [/gazebo]
+Publications: 
+ * /mobile_base/events/cliff [kobuki_msgs/CliffEvent]
+ * /gazebo/link_states [gazebo_msgs/LinkStates]
+ * /joint_states [sensor_msgs/JointState]
+ * /rosout [rosgraph_msgs/Log]
+ * /tf [tf2_msgs/TFMessage]
+ * /gazebo/model_states [gazebo_msgs/ModelStates]
+ * /clock [rosgraph_msgs/Clock]
+ * /gazebo/parameter_descriptions [dynamic_reconfigure/ConfigDescription]
+ * /mobile_base/events/bumper [kobuki_msgs/BumperEvent]
+ * /mobile_base/sensors/imu_data [sensor_msgs/Imu]
+ * /odom [nav_msgs/Odometry]
+ * /gazebo/parameter_updates [dynamic_reconfigure/Config]
+
+Subscriptions: 
+ * /gazebo/set_model_state [unknown type]
+ * /mobile_base/commands/motor_power [kobuki_msgs/MotorPower]
+ * /gazebo/set_link_state [unknown type]
+ * /mobile_base/commands/reset_odometry [unknown type]
+ * /clock [rosgraph_msgs/Clock]
+ * /mobile_base/commands/velocity [geometry_msgs/Twist]
+
+Services: 
+ * /gazebo/apply_joint_effort
+ * /gazebo/get_physics_properties
+ * /gazebo/set_link_state
+ * /gazebo/set_joint_properties
+ * /gazebo/set_logger_level
+ * /gazebo/reset_world
+ * /gazebo/set_model_configuration
+ * /gazebo/get_world_properties
+ * /gazebo/pause_physics
+ * /gazebo/spawn_sdf_model
+ * /gazebo/set_model_state
+ * /gazebo/unpause_physics
+ * /gazebo/spawn_urdf_model
+ * /gazebo/get_loggers
+ * /gazebo/spawn_gazebo_model
+ * /gazebo/set_parameters
+ * /gazebo/set_physics_properties
+ * /gazebo/set_link_properties
+ * /gazebo/reset_simulation
+ * /gazebo/delete_model
+ * /gazebo/get_joint_properties
+ * /gazebo/apply_body_wrench
+ * /gazebo/get_link_state
+ * /gazebo/clear_body_wrenches
+ * /gazebo/get_link_properties
+ * /gazebo/get_model_state
+ * /gazebo/clear_joint_forces
+ * /gazebo/get_model_properties
+
+
+contacting node http://andre-VirtualBox:37647/ ...
+Pid: 3247
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /gazebo
+    * direction: outbound
+    * transport: INTRAPROCESS
+ * topic: /clock
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /mobile_base_nodelet_manager
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /robot_state_publisher
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /keyop
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /joint_states
+    * to: /robot_state_publisher
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: INTRAPROCESS
+ * topic: /mobile_base/commands/motor_power
+    * to: /keyop (http://andre-VirtualBox:55357/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /mobile_base/commands/velocity
+    * to: /keyop (http://andre-VirtualBox:55357/)
+    * direction: inbound
+    * transport: TCPROS
+
+
+$ rosnode info keyop
+--------------------------------------------------------------------------------
+Node [/keyop]
+Publications: 
+ * /mobile_base/commands/motor_power [kobuki_msgs/MotorPower]
+ * /mobile_base/commands/velocity [geometry_msgs/Twist]
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: 
+ * /keyop/teleop [unknown type]
+ * /clock [rosgraph_msgs/Clock]
+
+Services: 
+ * /keyop/get_loggers
+ * /keyop/set_logger_level
+
+
+contacting node http://andre-VirtualBox:55357/ ...
+Pid: 4135
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /mobile_base/commands/velocity
+    * to: /gazebo
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /mobile_base/commands/motor_power
+    * to: /gazebo
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+
+
+$ rosnode info mobile_base_nodelet_manager
+--------------------------------------------------------------------------------
+Node [/mobile_base_nodelet_manager]
+Publications: 
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: 
+ * /clock [rosgraph_msgs/Clock]
+
+Services: 
+ * /mobile_base_nodelet_manager/set_logger_level
+ * /mobile_base_nodelet_manager/get_loggers
+ * /mobile_base_nodelet_manager/load_nodelet
+ * /mobile_base_nodelet_manager/list
+ * /mobile_base_nodelet_manager/unload_nodelet
+
+
+contacting node http://andre-VirtualBox:37072/ ...
+Pid: 3253
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+
+
+$ rosnode info robot_state_publisher
+--------------------------------------------------------------------------------
+Node [/robot_state_publisher]
+Publications: 
+ * /rosout [rosgraph_msgs/Log]
+ * /tf [tf2_msgs/TFMessage]
+
+Subscriptions: 
+ * /joint_states [sensor_msgs/JointState]
+ * /clock [rosgraph_msgs/Clock]
+
+Services: 
+ * /robot_state_publisher/get_loggers
+ * /robot_state_publisher/set_logger_level
+
+
+contacting node http://andre-VirtualBox:54753/ ...
+Pid: 3252
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /clock
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /joint_states
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+
+$ rosnode info rosout
+--------------------------------------------------------------------------------
+Node [/rosout]
+Publications: 
+ * /rosout_agg [rosgraph_msgs/Log]
+
+Subscriptions: 
+ * /rosout [rosgraph_msgs/Log]
+ * /clock [rosgraph_msgs/Clock]
+
+Services: 
+ * /rosout/set_logger_level
+ * /rosout/get_loggers
+
+
+contacting node http://andre-VirtualBox:33754/ ...
+Pid: 3211
+Connections:
+ * topic: /clock
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /rosout
+    * to: /robot_state_publisher (http://andre-VirtualBox:54753/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /rosout
+    * to: /mobile_base_nodelet_manager (http://andre-VirtualBox:37072/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /rosout
+    * to: /gazebo (http://andre-VirtualBox:37647/)
+    * direction: inbound
+    * transport: TCPROS
+ * topic: /rosout
+    * to: /keyop (http://andre-VirtualBox:55357/)
+    * direction: inbound
+    * transport: TCPROS
+
