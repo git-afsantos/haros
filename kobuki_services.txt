@@ -1,0 +1,90 @@
+$ rosservice list
+/gazebo/apply_body_wrench
+/gazebo/apply_joint_effort
+/gazebo/clear_body_wrenches
+/gazebo/clear_joint_forces
+/gazebo/delete_model
+/gazebo/get_joint_properties
+/gazebo/get_link_properties
+/gazebo/get_link_state
+/gazebo/get_loggers
+/gazebo/get_model_properties
+/gazebo/get_model_state
+/gazebo/get_physics_properties
+/gazebo/get_world_properties
+/gazebo/pause_physics
+/gazebo/reset_simulation
+/gazebo/reset_world
+/gazebo/set_joint_properties
+/gazebo/set_link_properties
+/gazebo/set_link_state
+/gazebo/set_logger_level
+/gazebo/set_model_configuration
+/gazebo/set_model_state
+/gazebo/set_parameters
+/gazebo/set_physics_properties
+/gazebo/spawn_gazebo_model
+/gazebo/spawn_sdf_model
+/gazebo/spawn_urdf_model
+/gazebo/unpause_physics
+/keyop/get_loggers
+/keyop/set_logger_level
+/mobile_base_nodelet_manager/get_loggers
+/mobile_base_nodelet_manager/list
+/mobile_base_nodelet_manager/load_nodelet
+/mobile_base_nodelet_manager/set_logger_level
+/mobile_base_nodelet_manager/unload_nodelet
+/robot_state_publisher/get_loggers
+/robot_state_publisher/set_logger_level
+/rosout/get_loggers
+/rosout/set_logger_level
+
+
+$ rosservice info /keyop/get_loggers
+Node: /keyop
+URI: rosrpc://andre-VirtualBox:38759
+Type: roscpp/GetLoggers
+Args: 
+
+
+$ rosservice info /keyop/set_logger_level
+Node: /keyop
+URI: rosrpc://andre-VirtualBox:38759
+Type: roscpp/SetLoggerLevel
+Args: logger level
+
+
+$ rosservice info /mobile_base_nodelet_manager/get_loggers
+Node: /mobile_base_nodelet_manager
+URI: rosrpc://andre-VirtualBox:39047
+Type: roscpp/GetLoggers
+Args: 
+
+
+$ rosservice info /mobile_base_nodelet_manager/set_logger_level
+Node: /mobile_base_nodelet_manager
+URI: rosrpc://andre-VirtualBox:39047
+Type: roscpp/SetLoggerLevel
+Args: logger level
+
+
+$ rosservice info /mobile_base_nodelet_manager/unload_nodelet
+Node: /mobile_base_nodelet_manager
+URI: rosrpc://andre-VirtualBox:39047
+Type: nodelet/NodeletUnload
+Args: name
+
+
+$ rosservice info /robot_state_publisher/get_loggers
+Node: /robot_state_publisher
+URI: rosrpc://andre-VirtualBox:38823
+Type: roscpp/GetLoggers
+Args: 
+
+
+rosservice info /robot_state_publisher/set_logger_level
+Node: /robot_state_publisher
+URI: rosrpc://andre-VirtualBox:38823
+Type: roscpp/SetLoggerLevel
+Args: logger level
+
