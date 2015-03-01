@@ -68,6 +68,20 @@ Type: roscpp/SetLoggerLevel
 Args: logger level
 
 
+$ rosservice info mobile_base_nodelet_manager/list
+Node: /mobile_base_nodelet_manager
+URI: rosrpc://andre-VirtualBox:34248
+Type: nodelet/NodeletList
+Args: 
+
+
+$ rosservice info mobile_base_nodelet_manager/load_nodelet
+Node: /mobile_base_nodelet_manager
+URI: rosrpc://andre-VirtualBox:34248
+Type: nodelet/NodeletLoad
+Args: name type remap_source_args remap_target_args my_argv bond_id
+
+
 $ rosservice info /mobile_base_nodelet_manager/unload_nodelet
 Node: /mobile_base_nodelet_manager
 URI: rosrpc://andre-VirtualBox:39047
