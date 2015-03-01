@@ -1,0 +1,292 @@
+{
+    "gazebo": {
+        "publications": [{
+            "topic": "/mobile_base/events/cliff",
+            "message": "kobuki_msgs/CliffEvent"
+        }, {
+            "topic": "/gazebo/link_states",
+            "message": "gazebo_msgs/LinkStates"
+        }, {
+            "topic": "/joint_states",
+            "message": "sensor_msgs/JointState"
+        }, {
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/tf",
+            "message": "tf2_msgs/TFMessage"
+        }, {
+            "topic": "/gazebo/model_states",
+            "message": "gazebo_msgs/ModelStates"
+        }, {
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }, {
+            "topic": "/gazebo/parameter_descriptions",
+            "message": "dynamic_reconfigure/ConfigDescription"
+        }, {
+            "topic": "/mobile_base/events/bumper",
+            "message": "kobuki_msgs/BumperEvent"
+        }, {
+            "topic": "/mobile_base/sensors/imu_data",
+            "message": "sensor_msgs/Imu"
+        }, {
+            "topic": "/odom",
+            "message": "nav_msgs/Odometry"
+        }, {
+            "topic": "/gazebo/parameter_updates",
+            "message": "dynamic_reconfigure/Config"
+        }],
+        "subscriptions": [{
+            "topic": "/gazebo/set_model_state",
+            "message": "unknown type"
+        }, {
+            "topic": "/mobile_base/commands/motor_power",
+            "message": "kobuki_msgs/MotorPower"
+        }, {
+            "topic": "/gazebo/set_link_state",
+            "message": "unknown type"
+        }, {
+            "topic": "/mobile_base/commands/reset_odometry",
+            "message": "unknown type"
+        }, {
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }, {
+            "topic": "/mobile_base/commands/velocity",
+            "message": "geometry_msgs/Twist"
+        }],
+        "services": [
+            "/gazebo/apply_joint_effort",
+            "/gazebo/get_physics_properties",
+            "/gazebo/set_link_state",
+            "/gazebo/set_joint_properties",
+            "/gazebo/set_logger_level",
+            "/gazebo/reset_world",
+            "/gazebo/set_model_configuration",
+            "/gazebo/get_world_properties",
+            "/gazebo/pause_physics",
+            "/gazebo/spawn_sdf_model",
+            "/gazebo/set_model_state",
+            "/gazebo/unpause_physics",
+            "/gazebo/spawn_urdf_model",
+            "/gazebo/get_loggers",
+            "/gazebo/spawn_gazebo_model",
+            "/gazebo/set_parameters",
+            "/gazebo/set_physics_properties",
+            "/gazebo/set_link_properties",
+            "/gazebo/reset_simulation",
+            "/gazebo/delete_model",
+            "/gazebo/get_joint_properties",
+            "/gazebo/apply_body_wrench",
+            "/gazebo/get_link_state",
+            "/gazebo/clear_body_wrenches",
+            "/gazebo/get_link_properties",
+            "/gazebo/get_model_state",
+            "/gazebo/clear_joint_forces",
+            "/gazebo/get_model_properties"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/gazebo",
+            "direction": "outbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/clock",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/mobile_base_nodelet_manager",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/robot_state_publisher",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/keyop",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/joint_states",
+            "to": "/robot_state_publisher",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base/commands/motor_power",
+            "to": "/keyop (http://andre-VirtualBox:55357/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base/commands/velocity",
+            "to": "/keyop (http://andre-VirtualBox:55357/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "keyop": {
+        "publications": [{
+            "topic": "/mobile_base/commands/motor_power",
+            "message": "kobuki_msgs/MotorPower"
+        }, {
+            "topic": "/mobile_base/commands/velocity",
+            "message": "geometry_msgs/Twist"
+        }, {
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }],
+        "subscriptions": [{
+            "topic": "/keyop/teleop",
+            "message": "unknown type"
+        }, {
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }],
+        "services": [
+            "/keyop/get_loggers",
+            "/keyop/set_logger_level"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base/commands/velocity",
+            "to": "/gazebo",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base/commands/motor_power",
+            "to": "/gazebo",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "mobile_base_nodelet_manager": {
+        "publications": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }],
+        "subscriptions": [{
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }],
+        "services": [
+            "/mobile_base_nodelet_manager/set_logger_level",
+            "/mobile_base_nodelet_manager/get_loggers",
+            "/mobile_base_nodelet_manager/load_nodelet",
+            "/mobile_base_nodelet_manager/list",
+            "/mobile_base_nodelet_manager/unload_nodelet"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "robot_state_publisher": {
+        "publications": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/tf",
+            "message": "tf2_msgs/TFMessage"
+        }],
+        "subscriptions": [{
+            "topic": "/joint_states",
+            "message": "sensor_msgs/JointState"
+        }, {
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }],
+        "services": [
+            "/robot_state_publisher/get_loggers",
+            "/robot_state_publisher/set_logger_level"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/clock",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/joint_states",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "rosout": {
+        "publications": [{
+            "topic": "/rosout_agg",
+            "message": "rosgraph_msgs/Log"
+        }],
+        "subscriptions": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/clock",
+            "message": "rosgraph_msgs/Clock"
+        }],
+        "services": [
+            "/rosout/set_logger_level",
+            "/rosout/get_loggers"
+        ],
+        "connections": [{
+            "topic": "/clock",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/rosout",
+            "to": "/robot_state_publisher (http://andre-VirtualBox:54753/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/rosout",
+            "to": "/mobile_base_nodelet_manager (http://andre-VirtualBox:37072/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/rosout",
+            "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/rosout",
+            "to": "/keyop (http://andre-VirtualBox:55357/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    }
+}

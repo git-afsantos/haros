@@ -1,0 +1,25 @@
+<div ui-content-for="title">
+  <span>Service</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="section">
+        <h3 class="page-header">{{ name }}</h3>
+        <table class="table"><tbody>
+            <tr>
+                <td class="col-xs-2 col-md-2"><b>Node</b></td>
+                <td>{{ service.node }}</td>
+            </tr>
+            <tr>
+                <td><b>Message</b></td>
+                <td>{{ service.type }}</td>
+            </tr>
+            <tr>
+                <td><b>Arguments</b></td>
+                <td>{{ service.args.join(', ') }}</td>
+            </tr>
+        </tbody></table>
+    </div>
+  </div>
+</div>

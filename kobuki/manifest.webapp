@@ -1,0 +1,14 @@
+{
+    "name": "NgMobileDemo",
+    "description": "Angular Mobile Demo",
+    "launch_path": "/index.html",
+    "icons": {
+        "128": "/icon_128px.png",
+        "60": "/icon.png"
+    },
+    "developer": {
+        "name": "afs",
+        "url": "http://example.com"
+    },
+    "default_locale": "en"
+}

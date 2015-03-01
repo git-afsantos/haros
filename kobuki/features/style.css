@@ -1,0 +1,25 @@
+h1 {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.app-content-loading {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  font-size: 50px;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+.list-group-item-home {
+  padding: 20px; 
+}
