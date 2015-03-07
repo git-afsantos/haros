@@ -2,11 +2,6 @@
 # Andre Santos, November 2014
 
 import query_git as qg
-import db_extract as dbe
-import time
-
-import package
-from sys import exit
 
 
 # Retrieves all people of every package

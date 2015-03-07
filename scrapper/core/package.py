@@ -178,21 +178,3 @@ def get_packages_from_repos(src_root, repos_dict):
     make_missing_packages_from_repos(repos_dict, pkg_dict)
     return pkg_dict
 
-
-
-
-
-if __name__ == '__main__':
-    import repo
-    repos_dict  = repo.makeReposDict('distribution.core.yaml')
-    src_root    = os.path.join(os.path.expanduser("~"), "ros", "repos")
-    packages    = get_packages_from_repos(src_root, repos_dict)
-    for p in packages.values():
-        print p.name, "[meta]:\n  " if p.isMetapackage else ":\n  ", p.path
-    print "\nFound {0} packages.".format(len(packages))
-    for r in repos_dict.values():
-        if not r.name in packages:
-            print r.name, "is missing!"
-        for s in r.subpackages:
-            if not s in packages:
-                print s, "is missing!"

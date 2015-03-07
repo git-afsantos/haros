@@ -191,5 +191,3 @@ def getRemaininder():
 	result = executeQuery('https://api.github.com/rate_limit')
 	print result['rate']['remaining']
 
-if __name__ == '__main__':
-	getRemaininder()

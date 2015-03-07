@@ -1,7 +1,5 @@
-import extractor
 import db_control as dbc
 import db_extract as dbe
-import json_exp_db as j_exp
 
 
 class DbManager:

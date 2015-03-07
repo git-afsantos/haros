@@ -62,27 +62,3 @@ def get_repos_from_dist(dist_file):
             repo_dict[repo_name] = repo
     return repo_dict
 
-
-
-if __name__ == '__main__':
-    Repos_dict = makeReposDict('distribution.yaml')
-    print len(Repos_dict)
-    c = [0,0,0]
-    for r in Repos_dict.values():
-        rel = False
-        norel = False
-        for url in r.urls:
-            if 'release' in url:
-                rel = True
-                print url
-            else:
-                norel = True
-        if rel == True and norel == False:
-            c[0] += 1
-        elif rel == True and norel == True:
-            c[1] +=1
-        elif rel == False and norel == True:
-            c[2] += 1
-        else:
-            print "NOOOOO"
-    print c

@@ -92,22 +92,4 @@ class PersonSet:
             if p == person:
                 return p
         return None
-    
 
-if __name__ == '__main__':
-    people = PersonSet()
-
-    p1 = Person('one')
-    p1.addName('wun')
-    p1.addEmails(['one@foo.com', '1@2.3'])
-
-    p2 = Person('two')
-    p2.addEmail('one@foo.com')
-    
-    people.add(p1)
-    people.add(p2)
-
-    print people
-    
-    print people.find(p2)
-    print people.find('1@2.3')

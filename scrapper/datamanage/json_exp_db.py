@@ -3,10 +3,6 @@
 # Modified by
 # Andre Santos, December 2014
 
-from people import Person, PersonSet
-from package import *
-from operator import itemgetter
-
 import db_extract as dbe
 import db_manager as dbm
 
@@ -53,14 +49,6 @@ def jsonifyPackage(pkg_id, cur):
 	wiki = dbe.getMatchVal(cur, 'Packages',['wiki'],'id',pkg_id)
 	if wiki is None: wiki = ''
 	s += '\t\t\t\"Wiki\": \"' + wiki + '\",\n'
-	
-	# imp = dbe.getMatchVal(cur, 'PkgImpact','impact','pkg_id', pkg_id)
-	# s += '\t\t\t\"Impact\": ' + str(imp) + ',\n'
-	# heal = dbe.getMatchVal(cur,'PkgRepoHealth','health','pkg_id', pkg_id)
-	# s += '\t\t\t\"Health\": ' + str(heal) + ',\n'
-	
-	# runtime = dbe.getMatchVal(cur, 'Packages', ['runtime'],'id',pkg_id)
-	# s += '\t\t\t\"Runtime\": ' + str(runtime) + ',\n'
 
 	pkg_metrics = dbe.getMatch(cur, "PackageMetrics",
 			["metric_id", "value"], "pkg_id", pkg_id)
@@ -121,3 +109,4 @@ def export_packages(out_file):
     f.write(jsonifyPackages(db.cur))
     f.close()
     db.disconnect()
+

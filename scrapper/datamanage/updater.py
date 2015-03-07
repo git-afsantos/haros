@@ -1,10 +1,8 @@
-import repo
-import package
-import people
+from core import repo, package, people
+from sourcemanage import clone_repos as crep, source_finder as sf
+
 import extractor
 import db_manager as dbm
-import clone_repos as crep
-import source_finder as sf
 
 import os
 
@@ -34,8 +32,7 @@ class DbUpdater:
         repos = repo.get_repos_from_dist(dist)
         if network:
             print "[Network] Cloning repositories to:", self.root, "(this may take a while)."
-            # TODO
-            #crep.clone_repos(repos, self.root)
+            crep.clone_repos(repos, self.root)
             print "[Network] Querying repository information (this may take a while)."
             repo_keys = [['owner', 'type'], 'created_at', 'updated_at',
                     'pushed_at', 'size', 'forks_count', 'watchers_count',

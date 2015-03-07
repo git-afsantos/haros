@@ -185,10 +185,3 @@ def insertRecords(con, cur, name, col_names, data, truncate=False):
 
     con.commit()
 
-
-if __name__ == '__main__':
-	# con, cur = concur(user='smartroswiki', passwd='p0tyYjIr', db='smartroswiki', host='engr-db.engr.oregonstate.edu', port=3307)
-	con, cur = conCur(user='dbuser',passwd='dbpass',db='test3',host='localhost',port=None)
-	# print updateColTypes(con,cur,'People',['id','name','emails'],['SMALLINT(6)','VARCHAR(100)','VARCHAR(50)'],None)
-	print insertCmd('Test',['id','name','emails'])
-	print createCmd('Test',['id','name','emails'], ['SMALLINT(6)','VARCHAR(100)','VARCHAR(50)'],'id','ppl_id', 'People(id)')

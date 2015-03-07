@@ -61,19 +61,3 @@ def find_source_files(repos_root, packages, tuples=False):
                 files[p.name] = find_source_for_package(repos_root, p)
     return files
 
-
-
-
-
-if __name__ == "__main__":
-    import repo
-    import package
-    src_root    = os.path.join(os.path.expanduser("~"), "ros", "repos")
-    repos_dict  = repo.makeReposDict('distribution.core.yaml')
-    packages    = package.get_packages_from_repos(src_root, repos_dict)
-    files       = find_source_files(src_root, packages)
-    for p, fs in files.iteritems():
-        print "\n[{0}]:".format(p)
-        for f in fs:
-            print "  {0}".format(os.path.join(f.path, f.name))
-    print "\nFound files for {0} packages.".format(len(files))

@@ -1,5 +1,4 @@
-import updater
-import json_exp_db as je
+from datamanage import updater, json_exp_db as je
 
 import sys
 import argparse
@@ -26,7 +25,7 @@ def parse_arguments(argv):
     group.add_argument("--update", "-u", dest="updated", metavar="U",
             choices=["source", "metrics", "rules", "repos"],
             action="append",
-            help=("what to update (source, metrics, rules, repos); "
+            help=("what to update ('source', 'metrics', 'rules', 'repos'); "
                     "defaults to all"))
     group.add_argument("--no-update", dest="updated", action="store_const",
             const="none", help="don't update the database")

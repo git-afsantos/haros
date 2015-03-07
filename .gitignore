@@ -4,3 +4,4 @@ img
 scrapper/*.pyc
 scrapper/dbuser.txt
 scrapper/gituser.txt
+scrapper/**/*.pyc
