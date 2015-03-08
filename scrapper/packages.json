@@ -1,0 +1,228 @@
+[
+		{
+			"Name": "yujin_ocs",
+			"Metapackage": true,
+			"Contains": [
+				"yocs_safety_controller",
+				"yocs_cmd_vel_mux",
+				"yocs_velocity_smoother"
+			],
+			"Description": "Yujin Robot's open-source control software",
+			"Wiki": "http://ros.org/wiki/yujin_ocs",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/yujin_ocs-release",
+				"yujinrobot/yujin_ocs"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"yocs_cmd_vel_mux",
+				"yocs_safety_controller",
+				"yocs_velocity_smoother"
+			]
+		},
+		{
+			"Name": "kobuki_core",
+			"Metapackage": true,
+			"Contains": [
+				"kobuki_driver"
+			],
+			"Description": "Non-ROS software for Kobuki, Yujin Robot's mobile research base.",
+			"Wiki": "http://ros.org/wiki/kobuki_core",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot/kobuki_core",
+				"yujinrobot-release/kobuki_core-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"kobuki_driver"
+			]
+		},
+		{
+			"Name": "yocs_safety_controller",
+			"Metapackage": false,
+			"Description": "A controller ensuring the safe operation of your robot.The SafetyController listens to ranger readings in order to stop (and move back), if obstacles get to close.This controller can be enabled/disabled.",
+			"Wiki": "http://ros.org/wiki/yocsd_safety_controller",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/yujin_ocs-release",
+				"yujinrobot/yujin_ocs"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "kobuki_random_walker",
+			"Metapackage": false,
+			"Description": "Random walker app for Kobuki",
+			"Wiki": "http://ros.org/wiki/kobuki_random_walker",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/kobuki-release",
+				"yujinrobot/kobuki"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"yocs_cmd_vel_mux"
+			]
+		},
+		{
+			"Name": "kobuki",
+			"Metapackage": true,
+			"Contains": [
+				"kobuki_random_walker",
+				"kobuki_keyop",
+				"kobuki_safety_controller",
+				"kobuki_node"
+			],
+			"Description": "Software for Kobuki, Yujin Robot's mobile research base.",
+			"Wiki": "http://ros.org/wiki/kobuki",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/kobuki-release",
+				"yujinrobot/kobuki"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"kobuki_random_walker",
+				"kobuki_keyop",
+				"kobuki_safety_controller",
+				"kobuki_node"
+			]
+		},
+		{
+			"Name": "kobuki_safety_controller",
+			"Metapackage": false,
+			"Description": "A controller ensuring the safe operation of Kobuki.The SafetyController keeps track of bumper, cliff and wheel drop events. In case of the first two,Kobuki is commanded to move back. In the latter case, Kobuki is stopped.This controller can be enabled/disabled.The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!",
+			"Wiki": "http://ros.org/wiki/kobuki_safety_controller",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/kobuki-release",
+				"yujinrobot/kobuki"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "yocs_cmd_vel_mux",
+			"Metapackage": false,
+			"Description": "A multiplexer for command velocity inputs. Arbitrates incoming cmd_vel messages from several topics, allowing one topic at a time to command the robot, based on priorities. It also deallocates current allowed topic if no messages are received after a configured timeout. All topics, together with their priority and timeout are configured through a YAML file, that can be reload at runtime.",
+			"Wiki": "http://ros.org/wiki/yocs_cmd_vel_mux",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/yujin_ocs-release",
+				"yujinrobot/yujin_ocs"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "kobuki_keyop",
+			"Metapackage": false,
+			"Description": "Keyboard teleoperation for Kobuki: relays commands from a keyboard to Kobuki.",
+			"Wiki": "http://ros.org/wiki/kobuki_keyop",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/kobuki-release",
+				"yujinrobot/kobuki"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"yocs_cmd_vel_mux",
+				"yocs_velocity_smoother"
+			]
+		},
+		{
+			"Name": "kobuki_node",
+			"Metapackage": false,
+			"Description": "ROS nodelet for Kobuki: ROS wrapper for the Kobuki driver.",
+			"Wiki": "http://ros.org/wiki/kobuki_node",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/kobuki-release",
+				"yujinrobot/kobuki"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+				"kobuki_keyop",
+				"kobuki_safety_controller",
+				"kobuki_driver"
+			]
+		},
+		{
+			"Name": "yocs_velocity_smoother",
+			"Metapackage": false,
+			"Description": "Bound incoming velocity messages according to robot velocity and acceleration limits.",
+			"Wiki": "http://ros.org/wiki/yocs_velocity_smoother",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot-release/yujin_ocs-release",
+				"yujinrobot/yujin_ocs"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		},
+		{
+			"Name": "kobuki_driver",
+			"Metapackage": false,
+			"Description": "C++ driver library for Kobuki:Pure C++ driver library for Kobuki. This is for those who do not wish to use ROS on their systems.",
+			"Wiki": "http://ros.org/wiki/kobuki_driver",
+			"Metrics": {
+			},
+			"Repos": [
+				"yujinrobot/kobuki_core",
+				"yujinrobot-release/kobuki_core-release"
+			],
+			"Authors": [
+			],
+			"Maintainers": [
+			],
+			"Edge": [
+			]
+		}
+]

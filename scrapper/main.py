@@ -70,11 +70,13 @@ def update_database(updated, truncate, download):
     dbu = updater.DbUpdater()
     if "repos" in updated:
         print "Updating repositories and metadata."
-        dbu.updateSource("distribution.core.yaml", network = download)
+        dbu.updateSource("distribution.yaml",
+                            dist_filter = "filter.yaml", network = download)
         dbu.updateMetadata(network = download)
     elif "source" in updated:
         print "Updating source code (no repository metadata)."
-        dbu.updateSource("distribution.core.yaml", network = download)
+        dbu.updateSource("distribution.yaml",
+                            dist_filter = "filter.yaml", network = download)
     if "metrics" in updated:
         print "Updating code metrics."
         dbu.updateMetrics()
@@ -114,14 +116,17 @@ def export_data(exported):
 
 
 def load_configs():
+    config_dict = {}
     with open("config.yaml", "r") as config_file:
         configs = yaml.load(config_file)
+    plugin_list = []
     plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
     for key, val in configs["plugins"].iteritems():
-        # print "Plugin", key, "of type", val["type"]
         p = import_plugin(key, plugin_root)
         if not p is None:
-            p.plugin_run()
+            plugin_list.append(p)
+    config_dict["plugins"] = plugin_list
+    return config_dict
 
 
 def import_plugin(name, plugin_root):
@@ -148,6 +153,7 @@ def import_plugin(name, plugin_root):
 
 def main(argv=None):
     args = parse_arguments(argv)
+    configs = load_configs()
     try:
         update_database(args.updated, args.truncate, args.download)
         run_analysis(args.analysed)
@@ -159,22 +165,5 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    #sys.exit(main())
-    load_configs()
+    sys.exit(main())
 
-    """startTime = datetime.now()
-    if len(sys.argv) > 1 and sys.argv[1] == "local":
-        update_local_packages()
-    else:
-        updateDbAndExport(chronicle = True, 
-                writeJson = True, download = True)
-    print "\nExecution time: ", (datetime.now()-startTime), "\n"
-
-    dbu = DbUpdater()
-    dbu.connect("dbuser.txt")
-    if dbu.con is None or dbu.cur is None:
-        print "Failure!"
-    update_source_files(dbu, trunc_deps = True)
-    update_code_metrics(dbu, update_deps = True, calculate = True)
-    update_coding_standards(dbu, update_deps = True, calculate = True)
-    export_packages(dbu)"""

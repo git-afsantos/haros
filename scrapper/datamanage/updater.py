@@ -27,9 +27,9 @@ class DbUpdater:
         self.rules_dirty    = False
 
 
-    def updateSource(self, dist, network = True):
+    def updateSource(self, dist, dist_filter = None, network = True):
         self.source_dirty = True
-        repos = repo.get_repos_from_dist(dist)
+        repos = repo.get_repos_from_dist(dist, dist_filter)
         if network:
             print "[Network] Cloning repositories to:", self.root, "(this may take a while)."
             crep.clone_repos(repos, self.root)

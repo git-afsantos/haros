@@ -174,7 +174,8 @@ def get_packages_from_repos(src_root, repos_dict):
     for repo in repos_dict.values():
         pkgs = get_packages_from_repo(src_root, repo)
         for pkg in pkgs:
-            pkg_dict[pkg.name] = pkg
+            if (pkg.name in repo.filtered_packages) or pkg.isMetapackage:
+                pkg_dict[pkg.name] = pkg
     make_missing_packages_from_repos(repos_dict, pkg_dict)
     return pkg_dict
 
