@@ -1,0 +1,7 @@
+%YAML 1.1
+# Configuration file
+# Plugins should have a plugin_run() function to execute and return results.
+---
+plugins:
+    plugtest:
+        type: analysis

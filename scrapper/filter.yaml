@@ -1,0 +1,16 @@
+%YAML 1.1
+# Filter for ROS distribution
+---
+packages:
+    kobuki:
+        - kobuki_keyop
+        - kobuki_node
+        - kobuki_random_walker
+        - kobuki_safety_controller
+    kobuki_core:
+        - kobuki_driver
+    yujin_ocs:
+        - yocs_cmd_vel_mux
+        - yocs_safety_controller
+        - yocs_velocity_smoother
+

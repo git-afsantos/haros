@@ -1,7 +1,10 @@
 from datamanage import updater, json_exp_db as je
 
+import os
+import imp
 import sys
 import argparse
+import yaml
 
 from datetime import datetime
 
@@ -110,6 +113,39 @@ def export_data(exported):
         # TODO
 
 
+def load_configs():
+    with open("config.yaml", "r") as config_file:
+        configs = yaml.load(config_file)
+    plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
+    for key, val in configs["plugins"].iteritems():
+        # print "Plugin", key, "of type", val["type"]
+        p = import_plugin(key, plugin_root)
+        if not p is None:
+            p.plugin_run()
+
+
+def import_plugin(name, plugin_root):
+    path = os.path.normpath(os.path.join(plugin_root, name))
+    pytime = 0
+    pyctime = 0
+    pyfile = path + ".py"
+    pycfile = path + ".pyc"
+    if os.path.exists(pyfile):
+        pytime = os.path.getmtime(pyfile)
+    if os.path.exists(pycfile):
+        pyctime = os.path.getmtime(pycfile)
+    if pytime > pyctime:
+        try:
+            return imp.load_source(name, path + ".py")
+        except:
+            print "Failed to load plugin", name
+    else:
+        try:
+            return imp.load_compiled(name, path + ".pyc")
+        except:
+            print "Failed to load plugin", name
+
+
 def main(argv=None):
     args = parse_arguments(argv)
     try:
@@ -123,8 +159,8 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
-    
+    #sys.exit(main())
+    load_configs()
 
     """startTime = datetime.now()
     if len(sys.argv) > 1 and sys.argv[1] == "local":
