@@ -190,7 +190,7 @@ class DbUpdater:
 			    pk="issue_id, label_id", fk=il_cols,
 			    fk_ref=["Issues(id)", "Labels(id)"])
 
-        db.updateTable("GitUsers", ["id", "username", "email"],
+        db.updateTable("Git_Users", ["id", "username", "email"],
                 ["SMALLINT(6)", "VARCHAR(50)", "VARCHAR(50)"],
                 self.git_users, pk="id")
 
@@ -202,7 +202,7 @@ class DbUpdater:
         db.updateTable("Git_People", git_ppl_cols,
                 ["SMALLINT(6)", "SMALLINT(6)", "SMALLINT(6)"], git_ppl, 
                 pk="id", fk=git_ppl_cols[1:],
-                fk_ref = ["GitUsers(id)", "People(id)"])
+                fk_ref = ["Git_Users(id)", "People(id)"])
 
 
     def _commitMetrics(self, db):
