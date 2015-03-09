@@ -1,4 +1,67 @@
 {
+    "cmd_vel_mux": {
+        "publications": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "subscriptions": [{
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "services": [
+            "/cmd_vel_mux/set_logger_level",
+            "/cmd_vel_mux/get_loggers"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux",
+            "direction": "outbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux (http://andre-VirtualBox:44308/)",
+            "direction": "inbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager (http://andre-VirtualBox:36123/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller (http://andre-VirtualBox:58482/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller (http://andre-VirtualBox:52403/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
     "gazebo": {
         "publications": [{
             "topic": "/mobile_base/events/cliff",
@@ -178,6 +241,132 @@
         }, {
             "topic": "/clock",
             "to": "/gazebo (http://andre-VirtualBox:37647/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "kobuki_random_walker_controller": {
+        "publications": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "subscriptions": [{
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "services": [
+            "/kobuki_random_walker_controller/get_loggers",
+            "/kobuki_random_walker_controller/set_logger_level"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller",
+            "direction": "outbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller (http://andre-VirtualBox:52403/)",
+            "direction": "inbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager (http://andre-VirtualBox:36123/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux (http://andre-VirtualBox:44308/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller (http://andre-VirtualBox:58482/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }]
+    },
+    "kobuki_safety_controller": {
+        "publications": [{
+            "topic": "/rosout",
+            "message": "rosgraph_msgs/Log"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "subscriptions": [{
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "message": "bond/Status"
+        }],
+        "services": [
+            "/kobuki_safety_controller/get_loggers",
+            "/kobuki_safety_controller/set_logger_level"
+        ],
+        "connections": [{
+            "topic": "/rosout",
+            "to": "/rosout",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller",
+            "direction": "outbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller",
+            "direction": "outbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_safety_controller (http://andre-VirtualBox:58482/)",
+            "direction": "inbound",
+            "transport": "INTRAPROCESS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/mobile_base_nodelet_manager (http://andre-VirtualBox:36123/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/cmd_vel_mux (http://andre-VirtualBox:44308/)",
+            "direction": "inbound",
+            "transport": "TCPROS"
+        }, {
+            "topic": "/mobile_base_nodelet_manager/bond",
+            "to": "/kobuki_random_walker_controller (http://andre-VirtualBox:52403/)",
             "direction": "inbound",
             "transport": "TCPROS"
         }]

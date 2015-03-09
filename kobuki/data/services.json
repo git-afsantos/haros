@@ -1,4 +1,19 @@
 {
+    "cmd_vel_mux/get_loggers": {
+        "node": "cmd_vel_mux",
+        "type": "roscpp/GetLoggers",
+        "args": []
+    },
+    "cmd_vel_mux/set_logger_level": {
+        "node": "cmd_vel_mux",
+        "type": "roscpp/GetLoggers",
+        "args": ["logger", "level"]
+    },
+    "cmd_vel_mux/set_parameters": {
+        "node": "cmd_vel_mux",
+        "type": "roscpp/GetLoggers",
+        "args": ["config"]
+    },
     "gazebo/apply_body_wrench": {
         "node": "gazebo",
         "type": "gazebo_msgs/ApplyBodyWrench",
@@ -146,6 +161,26 @@
     },
     "keyop/set_logger_level": {
         "node": "keyop",
+        "type": "roscpp/SetLoggerLevel",
+        "args": ["logger", "level"]
+    },
+    "kobuki_random_walker_controller/get_loggers": {
+        "node": "kobuki_random_walker_controller",
+        "type": "roscpp/GetLoggers",
+        "args": []
+    },
+    "kobuki_random_walker_controller/set_logger_level": {
+        "node": "kobuki_random_walker_controller",
+        "type": "roscpp/SetLoggerLevel",
+        "args": ["logger", "level"]
+    },
+    "kobuki_safety_controller/get_loggers": {
+        "node": "kobuki_safety_controller",
+        "type": "roscpp/GetLoggers",
+        "args": []
+    },
+    "kobuki_safety_controller/set_logger_level": {
+        "node": "kobuki_safety_controller",
         "type": "roscpp/SetLoggerLevel",
         "args": ["logger", "level"]
     },
