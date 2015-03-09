@@ -1,4 +1,4 @@
-ecore
+HAROS
 =====
 
-Static analysis of ROS-core code, with initial basis on the ROS Eco project.
+Static analysis of ROS-based code, with initial basis on the ROS Eco project.
