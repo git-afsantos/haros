@@ -1,4 +1,4 @@
-from datamanage import updater, json_exp_db as je
+from datamanage import updater, db_exporter as je
 
 import os
 import imp

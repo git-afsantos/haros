@@ -4,7 +4,7 @@ class InvalidQuery(Exception):
 
 
 def tablePref(table):
-	prefix = "eco_"
+	prefix = "haros_"
 	if prefix not in table: 
 		return prefix + table
 	else:
@@ -135,12 +135,12 @@ def getMaxVal(cur, table, col):
 
 
 # Used for finding dependency number orders
-def getDepOrders(cur, dep_id, table = 'PkgDeps'):
+def getDepOrders(cur, dep_id, table = 'Package_Dependencies'):
 	table = tablePref(table)
 
 	# Used for impact scoring
 	dep_orders = []
-	cmd = """SELECT DISTINCT pkg_id FROM {0} WHERE dep_id = {1}""".format(table, dep_id)
+	cmd = """SELECT DISTINCT package_id FROM {0} WHERE dependency_id = {1}""".format(table, dep_id)
 	result = exFetch(cur, cmd)
 
 	def addOrder(dep_orders, result):
@@ -157,9 +157,9 @@ def getDepOrders(cur, dep_id, table = 'PkgDeps'):
 	while_count = 0
 	while while_count < 10:
 		if while_count == 0:
-			cmd = cmd.replace('=','!=') + ' AND dep_id IN (' + cmd + ')'
+			cmd = cmd.replace('=','!=') + ' AND dependency_id IN (' + cmd + ')'
 		else:
-			cmd = cmd.replace(' AND dep_id IN ', ' AND dep_id NOT IN ') + ' AND dep_id IN (' + cmd + ')'
+			cmd = cmd.replace(' AND dependency_id IN ', ' AND dependency_id NOT IN ') + ' AND dependency_id IN (' + cmd + ')'
 		result = exFetch(cur, cmd)
 		if len(result) == 0:
 			break

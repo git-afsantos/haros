@@ -5,7 +5,7 @@ import pymysql as mdb # export PATH=$PATH:/usr/local/mysql/bin
 import db_extract as dbe
 
 def namePref(name):
-	prefix = "eco_"
+	prefix = "haros_"
 	if name is None:
 		return None
 	elif type(name) == list:

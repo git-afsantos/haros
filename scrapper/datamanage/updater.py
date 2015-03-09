@@ -34,9 +34,9 @@ class DbUpdater:
             print "[Network] Cloning repositories to:", self.root, "(this may take a while)."
             crep.clone_repos(repos, self.root)
             print "[Network] Querying repository information (this may take a while)."
-            repo_keys = [['owner', 'type'], 'created_at', 'updated_at',
-                    'pushed_at', 'size', 'forks_count', 'watchers_count',
-                    'subscribers_count']
+            repo_keys = [["owner", "type"], "created_at", "updated_at",
+                    "pushed_at", "size", "forks_count", "watchers_count",
+                    "subscribers_count"]
             repo_names = set()
             for r in repos.values():
                 for n in r.repo_names:
@@ -72,13 +72,13 @@ class DbUpdater:
         self.licenses = reduce(set.union, [p.licenses for p in pkgs])
         self.licenses = [p for p in enumerate(self.licenses, start = 1)]
         if network:
-            issues_keys = [['user', 'login'], ['assignee', 'login'],
-                    'created_at', 'closed_at', ['labels', 'name']]
+            issues_keys = [["user", "login"], ["assignee", "login"],
+                    "created_at", "closed_at", ["labels", "name"]]
             repo_ids = [(r[0], r[1]) for r in self.repos]
             print "[Network] Fetching Git issues (this may take a while)."
             issues_info = extractor.getIssuesLinkRepos(repo_ids, issues_keys)
-            issue_cols = ['id', 'created_by', 'assigned_to', 'created_at',
-                    'closed_at','labels','repo_id']
+            issue_cols = ["id", "created_by", "assigned_to", "created_at",
+                    "closed_at", "labels", "repository_id"]
             (issue_cols, issues_info, label_ids,
                 issues_labels) = extractor.getIssuesLabels(issue_cols,
                         issues_info)
@@ -126,95 +126,95 @@ class DbUpdater:
 
     def _commitSource(self, db):
         pkg_info = [p.asTuple() for p in self.packages.values()]
-        db.updateTable('Packages', ['id', 'name', 'isMetapackage',
-                'description', 'wiki','git','branch', 'path'],
-                ['MEDIUMINT(9)','VARCHAR(100)','TINYINT(1)','VARCHAR(2000)',
-                'VARCHAR(100)','VARCHAR(100)','VARCHAR(50)', 'VARCHAR(200)'],
-                pkg_info, pk='id')
+        db.updateTable("Packages", ["id", "name", "metapackage",
+                "description", "wiki", "git", "branch", "path"],
+                ["MEDIUMINT(9)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(2000)",
+                "VARCHAR(100)", "VARCHAR(100)", "VARCHAR(50)", "VARCHAR(200)"],
+                pkg_info, pk="id")
 
-        db.updateTable('Repos', ['id', 'name', 'owner_type', 'created_at',
-                'updated_at', 'pushed_at', 'size','forks_count',
-                'watchers_count','subscribers_count'],
-                ['MEDIUMINT(9)','VARCHAR(60)','VARCHAR(30)','CHAR(10)',
-                'CHAR(10)', 'CHAR(10)','MEDIUMINT(9)','SMALLINT(6)',
-                'SMALLINT(6)','SMALLINT(6)'], self.repos, pk='id')
+        db.updateTable("Repositories", ["id", "name", "owner_type", "created_at",
+                "updated_at", "pushed_at", "size", "forks_count",
+                "watchers_count", "subscribers_count"],
+                ["MEDIUMINT(9)", "VARCHAR(60)", "VARCHAR(30)", "CHAR(10)",
+                "CHAR(10)", "CHAR(10)", "MEDIUMINT(9)", "SMALLINT(6)",
+                "SMALLINT(6)", "SMALLINT(6)"], self.repos, pk="id")
 
         pkg_ids = [(p.id, p.name) for p in self.packages.values()]
         src_info = extractor.getPkgFiles(pkg_ids, self.sources)
-        db.updateTable('Files', ['id','pkg_id','name','path'],
-                ['MEDIUMINT(9)','MEDIUMINT(9)','VARCHAR(50)','VARCHAR(200)'],
-                src_info, pk='id', fk=['pkg_id'], fk_ref=['Packages(id)'])
+        db.updateTable("Files", ["id", "package_id", "name", "path"],
+                ["MEDIUMINT(9)", "MEDIUMINT(9)", "VARCHAR(50)", "VARCHAR(200)"],
+                src_info, pk="id", fk=["package_id"], fk_ref=["Packages(id)"])
 
-        dep_type_ids = [(1,'buildtool_depend'), (2,'build_depend'),
-                (3,'run_depend')]
-        db.updateTable('PkgDepTypes', ['id','dep_type'],
-                ['SMALLINT(6)','VARCHAR(16)'], dep_type_ids, pk='id')
+        dep_type_ids = [(1, "buildtool_depend"), (2, "build_depend"),
+                (3, "run_depend")]
+        db.updateTable("Package_Dependency_Types", ["id", "dependency_type"],
+                ["SMALLINT(6)", "VARCHAR(16)"], dep_type_ids, pk="id")
 
-        dep_cols = ['pkg_id','dep_id','type_id']
+        dep_cols = ["package_id", "dependency_id", "type_id"]
         pkg_deps = extractor.mapPkgDeps(pkg_ids, dep_type_ids, self.packages)
-        db.updateTable('PkgDeps', dep_cols,
-                ['MEDIUMINT(9)', 'MEDIUMINT(9)', 'SMALLINT(6)'], pkg_deps,
-                pk='pkg_id, dep_id, type_id', fk=dep_cols,
-                fk_ref=['Packages(id)','Packages(id)','PkgDepTypes(id)'])
+        db.updateTable("Package_Dependencies", dep_cols,
+                ["MEDIUMINT(9)", "MEDIUMINT(9)", "SMALLINT(6)"], pkg_deps,
+                pk="package_id, dependency_id, type_id", fk=dep_cols,
+                fk_ref=["Packages(id)", "Packages(id)", "Package_Dependency_Types(id)"])
 
         repo_ids = [(r[0], r[1]) for r in self.repos]
         pkg_repos = extractor.mapPkgRepos(pkg_ids, repo_ids, self.packages)
-        pr_cols = ['pkg_id','repo_id']
-        db.updateTable('PkgRepos', pr_cols,
-                ['MEDIUMINT(9)', 'MEDIUMINT(9)'], pkg_repos,
-			    pk = 'pkg_id, repo_id', fk = pr_cols,
-			    fk_ref = ['Packages(id)', 'Repos(id)'])
+        pr_cols = ["package_id", "repository_id"]
+        db.updateTable("Repository_Packages", pr_cols,
+                ["MEDIUMINT(9)", "MEDIUMINT(9)"], pkg_repos,
+			    pk = "package_id, repository_id", fk = pr_cols,
+			    fk_ref = ["Packages(id)", "Repositories(id)"])
 
 
     def _commitMetadata(self, db):
         ppl_info = [p.asTuple() for p in self.people]
-        db.updateTable('People', ['id', 'name', 'email'],
-                ['SMALLINT(6)', 'VARCHAR(150)', 'VARCHAR(50)'],
-                ppl_info, pk='id')
+        db.updateTable("People", ["id", "name", "email"],
+                ["SMALLINT(6)", "VARCHAR(150)", "VARCHAR(50)"],
+                ppl_info, pk="id")
 
-        db.updateTable('Licenses', ['id', 'name'],
-                ['SMALLINT(6)', 'VARCHAR(150)'], self.licenses, pk='id')
+        db.updateTable("Licenses", ["id", "name"],
+                ["SMALLINT(6)", "VARCHAR(150)"], self.licenses, pk="id")
 
-        db.updateTable('Issues', ['id', 'created_by', 'assigned_to',
-                'created_at', 'closed_at','repo_id'],
-                ['MEDIUMINT(9)','VARCHAR(50)','VARCHAR(50)',
-                'CHAR(10)','CHAR(10)','MEDIUMINT(9)'], self.issues,
-                pk='id', fk='repo_id', fk_ref='Repos(id)')
+        db.updateTable("Issues", ["id", "created_by", "assigned_to",
+                "created_at", "closed_at", "repository_id"],
+                ["MEDIUMINT(9)", "VARCHAR(50)", "VARCHAR(50)",
+                "CHAR(10)", "CHAR(10)", "MEDIUMINT(9)"], self.issues,
+                pk="id", fk="repository_id", fk_ref="Repositories(id)")
 
-        db.updateTable('Labels', ['id','name'],
-                ['SMALLINT(6)', 'VARCHAR(50)'], self.labels, pk='id')
+        db.updateTable("Labels", ["id", "name"],
+                ["SMALLINT(6)", "VARCHAR(50)"], self.labels, pk="id")
 
-        il_cols = ['issue_id','label_id']
-        db.updateTable('IssuesLabels', il_cols,
-                ['MEDIUMINT(9)', 'SMALLINT(6)'], self.issues_labels,
-			    pk='issue_id, label_id', fk=il_cols,
-			    fk_ref=['Issues(id)','Labels(id)'])
+        il_cols = ["issue_id", "label_id"]
+        db.updateTable("Issue_Labels", il_cols,
+                ["MEDIUMINT(9)", "SMALLINT(6)"], self.issues_labels,
+			    pk="issue_id, label_id", fk=il_cols,
+			    fk_ref=["Issues(id)", "Labels(id)"])
 
-        db.updateTable('GitUsers', ['id', 'username', 'email'],
-                ['SMALLINT(6)', 'VARCHAR(50)', 'VARCHAR(50)'],
-                self.git_users, pk='id')
+        db.updateTable("GitUsers", ["id", "username", "email"],
+                ["SMALLINT(6)", "VARCHAR(50)", "VARCHAR(50)"],
+                self.git_users, pk="id")
 
         # Link the git users to the people from package manifests
         git_emails = [(u[0], u[2]) for u in self.git_users]
         ppl_emails = [(u[0], u[2]) for u in ppl_info]
         git_ppl = extractor.mapGitPpl(git_emails, ppl_emails)
-        git_ppl_cols = ['id', 'git_id','ppl_id']
-        db.updateTable('GitPpl', git_ppl_cols,
-                ['SMALLINT(6)', 'SMALLINT(6)','SMALLINT(6)'], git_ppl, 
-                pk='id', fk=git_ppl_cols[1:],
-                fk_ref = ['GitUsers(id)','People(id)'])
+        git_ppl_cols = ["id", "git_id", "person_id"]
+        db.updateTable("Git_People", git_ppl_cols,
+                ["SMALLINT(6)", "SMALLINT(6)", "SMALLINT(6)"], git_ppl, 
+                pk="id", fk=git_ppl_cols[1:],
+                fk_ref = ["GitUsers(id)", "People(id)"])
 
 
     def _commitMetrics(self, db):
-        db.updateTable('Metrics', ['id','name','description'],
-                ['SMALLINT(6)','VARCHAR(50)','VARCHAR(2000)'],
-                self.metrics, pk='id')
+        db.updateTable("Metrics", ["id", "name", "description"],
+                ["SMALLINT(6)", "VARCHAR(50)", "VARCHAR(2000)"],
+                self.metrics, pk="id")
 
 
     def _commitRules(self, db):
-        db.updateTable('Rules', ['id','category','isVerifiable','compliance'],
-                ['SMALLINT(6)','VARCHAR(100)','TINYINT(1)','VARCHAR(30)'],
-                self.rules, pk='id')
+        db.updateTable("Rules", ["id", "category", "isVerifiable", "compliance"],
+                ["SMALLINT(6)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(30)"],
+                self.rules, pk="id")
 
 
     def _commitRelationships(self, db):
@@ -223,71 +223,71 @@ class DbUpdater:
 
             pkg_licenses = extractor.mapPkgLicenses(pkg_ids,
                     self.licenses, self.packages)
-            lic_cols = ['pkg_id','lic_id']
-            db.updateTable('PkgLicenses', lic_cols,
-                    ['MEDIUMINT(9)', 'SMALLINT(6)'], pkg_licenses,
-			         pk='pkg_id, lic_id', fk=lic_cols,
-			         fk_ref=['Packages(id)','Licenses(id)'])
+            lic_cols = ["package_id", "lic_id"]
+            db.updateTable("Package_Licenses", lic_cols,
+                    ["MEDIUMINT(9)", "SMALLINT(6)"], pkg_licenses,
+			         pk="package_id, lic_id", fk=lic_cols,
+			         fk_ref=["Packages(id)", "Licenses(id)"])
 
             ppl_ids = [(p.id, p.name) for p in self.people]
-            am_cols = ['pkg_id','ppl_id']
-            am_col_t = ['MEDIUMINT(9)', 'SMALLINT(6)']
-            am_fk_refs = ['Packages(id)','People(id)']
+            am_cols = ["package_id", "person_id"]
+            am_col_t = ["MEDIUMINT(9)", "SMALLINT(6)"]
+            am_fk_refs = ["Packages(id)", "People(id)"]
             pkg_authors, pkg_mntnrs = extractor.mapPkgAMs(pkg_ids,
                     ppl_ids, self.packages)
-            db.updateTable('PkgAuthors', am_cols, am_col_t, pkg_authors,
-                    pk = 'pkg_id, ppl_id', fk = am_cols, fk_ref = am_fk_refs)
-            db.updateTable('PkgMntnrs', am_cols, am_col_t, pkg_mntnrs,
-                    pk = 'pkg_id, ppl_id', fk = am_cols, fk_ref = am_fk_refs)
+            db.updateTable("Package_Authors", am_cols, am_col_t, pkg_authors,
+                    pk = "package_id, person_id", fk = am_cols, fk_ref = am_fk_refs)
+            db.updateTable("Package_Maintainers", am_cols, am_col_t, pkg_mntnrs,
+                    pk = "package_id, person_id", fk = am_cols, fk_ref = am_fk_refs)
         if self.source_dirty and self.metrics_dirty:
-            db.updateTable('FileMetrics', ['file_id','metric_id','value'],
-                    ['MEDIUMINT(9)','SMALLINT(6)','FLOAT'], None,
-		            pk='file_id, metric_id', fk=['file_id','metric_id'],
-		            fk_ref=['Files(id)','Metrics(id)'])
-            db.updateTable('PackageMetrics', ['pkg_id','metric_id','value'],
-                    ['MEDIUMINT(9)','SMALLINT(6)','FLOAT'], None,
-		            pk='pkg_id, metric_id', fk=['pkg_id','metric_id'],
-		            fk_ref=['Packages(id)','Metrics(id)'])
-            db.updateTable('FileClassMetrics',
-                    ['file_id','class_name','line','metric_id','value'],
-                    ['MEDIUMINT(9)','VARCHAR(50)','MEDIUMINT(9)',
-                    'SMALLINT(6)','FLOAT'], None,
-		            pk='file_id, class_name, line, metric_id',
-                    fk=['file_id','metric_id'],
-                    fk_ref=['Files(id)','Metrics(id)'])
-            db.updateTable('FileFunctionMetrics',
-                    ['file_id','function_name','line','metric_id','value'],
-                    ['MEDIUMINT(9)','VARCHAR(100)','MEDIUMINT(9)',
-                    'SMALLINT(6)','FLOAT'], None,
-		            pk='file_id, function_name, line, metric_id',
-                    fk=['file_id','metric_id'],
-                    fk_ref=['Files(id)','Metrics(id)'])
+            db.updateTable("File_Metrics", ["file_id", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, metric_id", fk=["file_id", "metric_id"],
+		            fk_ref=["Files(id)", "Metrics(id)"])
+            db.updateTable("Package_Metrics", ["package_id", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
+		            pk="package_id, metric_id", fk=["package_id", "metric_id"],
+		            fk_ref=["Packages(id)", "Metrics(id)"])
+            db.updateTable("File_Class_Metrics",
+                    ["file_id", "class_name", "line", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "VARCHAR(50)", "MEDIUMINT(9)",
+                    "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, class_name, line, metric_id",
+                    fk=["file_id", "metric_id"],
+                    fk_ref=["Files(id)", "Metrics(id)"])
+            db.updateTable("File_Function_Metrics",
+                    ["file_id", "function_name", "line", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "VARCHAR(100)", "MEDIUMINT(9)",
+                    "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, function_name, line, metric_id",
+                    fk=["file_id", "metric_id"],
+                    fk_ref=["Files(id)", "Metrics(id)"])
         if self.source_dirty and self.rules_dirty:
-            db.updateTable('FileNonCompliance', ['file_id','rule_id','count'],
-                ['MEDIUMINT(9)','SMALLINT(6)','MEDIUMINT(9)'], None,
-		        pk='file_id, rule_id', fk=['file_id','rule_id'],
-		        fk_ref=['Files(id)','Rules(id)'])
+            db.updateTable("File_Non_Compliance", ["file_id", "rule_id", "count"],
+                ["MEDIUMINT(9)", "SMALLINT(6)", "MEDIUMINT(9)"], None,
+		        pk="file_id, rule_id", fk=["file_id", "rule_id"],
+		        fk_ref=["Files(id)", "Rules(id)"])
 
 
     def _truncateRelationships(self, db):
         tables = set()
         if self.source_dirty:
-            tables.update(["PkgRepos", "PkgMntnrs", "PkgAuthors",
-                    "PkgLicenses", "PkgDeps", "PackageMetrics",
-                    "FileNonCompliance", "FileMetrics",
-                    "FileClassMetrics", "FileFunctionMetrics"])
+            tables.update(["Repository_Packages", "Package_Maintainers", "Package_Authors",
+                    "Package_Licenses", "Package_Dependencies", "Package_Metrics",
+                    "File_Non_Compliance", "File_Metrics",
+                    "File_Class_Metrics", "File_Function_Metrics"])
         if self.meta_dirty:
-            tables.update(["GitPpl", "IssuesLabels", "PkgAuthors",
-                    "PkgMntnrs", "PkgLicenses"])
+            tables.update(["Git_People", "Issue_Labels", "Package_Authors",
+                    "Package_Maintainers", "Package_Licenses"])
         if self.metrics_dirty:
-            tables.update(["FileMetrics", "PackageMetrics",
-                    "FileClassMetrics", "FileFunctionMetrics"])
+            tables.update(["File_Metrics", "Package_Metrics",
+                    "File_Class_Metrics", "File_Function_Metrics"])
         if self.rules_dirty:
-            tables.update(["FileNonCompliance"])
+            tables.update(["File_Non_Compliance"])
         for table in tables:
             db.truncate(table)
         if self.source_dirty:
-            db.truncate("PkgDepTypes")
+            db.truncate("Package_Dependency_Types")
 
 
     def _resetState(self):
