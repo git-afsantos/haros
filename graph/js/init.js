@@ -36,7 +36,9 @@
             if (!--queued) {
                 // Set data and visualize stuff.
                 initialization();
-                window.xtrace = new XTraceDAG(document.body, eco.reports, {});
+                window.xtrace = new XTraceDAG(document.body, eco.reports, {
+                    focus: "_"
+                });
             }
         });
     }

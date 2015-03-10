@@ -265,6 +265,26 @@ var createGraphFromReports = function(reports, params) {
 		reports = filter_yarnchild_reports(reports);
 	}
 */
+    // temp
+    var fn = {
+        Name: "_",
+        Description: "",
+        Authors: [],
+        Maintainers: [],
+        Edge: [],
+        Metrics: {}
+    };
+    for (var i = 0; i < reports.length; ++i) {
+        var report = reports[i];
+		if (!report.hasOwnProperty("Name")) {
+			console.error("Bad report found with no Name:", report);
+		}
+        //fn.Edge.push(report.Name);
+        report.Edge.push("_");
+    }
+    reports.push(fn);
+
+
 
 	// Create nodes
 	console.info("Creating graph nodes");
@@ -304,8 +324,9 @@ var createGraphFromReports = function(reports, params) {
 	}
 
 	// Hide really heavily depended nodes
-	nodes["catkin"].never_visible = true;
+	// nodes["catkin"].never_visible = true;
 	// nodes["std_msgs"].never_visible = true;
+    nodes["_"].never_visible = true;
 
 	// Create the graph and add the nodes
 	var graph = new Graph();

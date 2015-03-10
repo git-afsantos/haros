@@ -727,6 +727,7 @@ function XTraceDAG(attachPoint, reports, /*optional*/ params) {
             $("#error-msg").hide();
             //update vars based on controls
             var root_val = $("#root_text").val();
+            if (root_val == "") root_val = "_";
             if (graph.nodes[root_val]) {
                 focus = root_val;
             } else {
