@@ -1,4 +1,6 @@
+
 from datamanage import updater, db_exporter as je
+from sourcemanage import source_analyser as sanalyser
 
 import os
 import imp
@@ -86,14 +88,14 @@ def update_database(updated, truncate, download):
     dbu.commit()
 
 
-def run_analysis(analysed):
+def run_analysis(analysed, configs):
     if analysed == "none":
         return
     if analysed is None:
         analysed = ["metrics", "rules"]
     if "metrics" in analysed:
         print "Running analysis on code metrics."
-        # TODO
+        sanalyser.analyse_metrics(configs["plugins"]["analysis"]["metrics"])
     if "rules" in analysed:
         print "Running analysis on coding rules."
         # TODO
@@ -116,16 +118,22 @@ def export_data(exported):
 
 
 def load_configs():
-    config_dict = {}
+    config_dict = {
+        "plugins": {
+            "analysis": {
+                "metrics": []
+            }
+        }
+    }
     with open("config.yaml", "r") as config_file:
         configs = yaml.load(config_file)
-    plugin_list = []
+    pd = config_dict["plugins"]
     plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
     for key, val in configs["plugins"].iteritems():
-        p = import_plugin(key, plugin_root)
-        if not p is None:
-            plugin_list.append(p)
-    config_dict["plugins"] = plugin_list
+        if val["type"] in pd and val["subtype"] in pd[val["type"]]:
+            p = import_plugin(key, plugin_root)
+            if not p is None:
+                pd[val["type"]][val["subtype"]].append(p)
     return config_dict
 
 
@@ -156,7 +164,7 @@ def main(argv=None):
     configs = load_configs()
     try:
         update_database(args.updated, args.truncate, args.download)
-        run_analysis(args.analysed)
+        run_analysis(args.analysed, configs)
         export_data(args.exported)
         return 0
     except ExpectedError, err:

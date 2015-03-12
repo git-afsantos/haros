@@ -1,12 +1,10 @@
 from core import repo
 
-def plugin_run():
+def plugin_run(db):
     print "Plugin running!"
-    repos = repo.get_repos_from_dist("distribution.yaml", "filter.yaml")
-    print "Repositories:", len(repos)
-    for key, val in repos.iteritems():
-        print "  ", key
-        print "    ", ", ".join(val.filtered_packages)
+    pkgs = db.getPackageIds()
+    for pkg in pkgs:
+        print "  ", pkg[0], pkg[1]
 
 print "Plugin imported!"
 
