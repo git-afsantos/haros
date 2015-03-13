@@ -1,0 +1,39 @@
+%YAML 1.1
+# List of all analysed metrics.
+---
+-
+    name: LOC_PY
+    description: Number of Lines of Code (Python)
+-
+    name: LOC_CPP
+    description: Number of Lines of Code (C++)
+-
+    name: COM
+    description: Number of Lines of Comments
+-
+    name: CC
+    description: Cyclomatic Complexity
+-
+    name: FC
+    description: Number of Function Calls
+-
+    name: MNC
+    description: Maximum Nesting of Control
+-
+    name: ESP
+    description: Estimated Static Path count
+-
+    name: CBO
+    description: Coupling between objects
+-
+    name: NOC
+    description: Number of Children
+-
+    name: WMC
+    description: Weighted Methods per Class
+-
+    name: DIT
+    description: Depth of Inheritance Tree
+-
+    name: MAC
+    description: Number of Methods Available in Class

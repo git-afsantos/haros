@@ -5,7 +5,7 @@ import extractor
 import db_manager as dbm
 
 import os
-
+import yaml
 
 class DbUpdater:
     def __init__(self):
@@ -95,9 +95,12 @@ class DbUpdater:
             i += 1
 
 
-    def updateMetrics(self):
+    def updateMetrics(self, metrics_file):
         self.metrics_dirty = True
-        self.metrics = None
+        with open(metrics_file, "r") as mf:
+            self.metrics = yaml.load(mf)
+            self.metrics = [(ind + 1, m["name"], m["description"])
+                    for ind, m in enumerate(self.metrics)]
 
 
     def updateRules(self):

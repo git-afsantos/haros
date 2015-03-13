@@ -81,7 +81,7 @@ def update_database(updated, truncate, download):
                             dist_filter = "filter.yaml", network = download)
     if "metrics" in updated:
         print "Updating code metrics."
-        dbu.updateMetrics()
+        dbu.updateMetrics("metrics.yaml")
     if "rules" in updated:
         print "Updating coding rules."
         dbu.updateRules()
