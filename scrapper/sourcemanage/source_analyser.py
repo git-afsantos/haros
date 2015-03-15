@@ -1,7 +1,7 @@
 
 from datamanage import db_manager as dbm
 
-class DbWrapper:
+class PluginContext:
     def __init__(self, db):
         self.db = db
         self.metric_ids = None
@@ -9,6 +9,9 @@ class DbWrapper:
         self.package_buffer = []
         self.file_ids = None
         self.file_buffer = []
+
+    def getRoot(self):
+        return os.path.join(os.path.expanduser("~"), "ros", "repos")
 
     def getMetricIds(self):
         if self.metric_ids is None:
@@ -53,9 +56,9 @@ class DbWrapper:
 def analyse_metrics(plugin_list):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
-    wrapper = DbWrapper(db)
+    ctx = PluginContext(db)
     for p in plugin_list:
-        p.plugin_run(wrapper)
-        wrapper._commit()
+        p.plugin_run(ctx)
+        ctx._commit()
     db.disconnect()
 
