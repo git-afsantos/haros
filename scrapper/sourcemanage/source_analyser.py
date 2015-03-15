@@ -5,9 +5,9 @@ class PluginContext:
     def __init__(self, db):
         self.db = db
         self.metric_ids = None
-        self.package_ids = None
+        self.package_info = None
         self.package_buffer = []
-        self.file_ids = None
+        self.file_info = None
         self.file_buffer = []
 
     def getRoot(self):
@@ -18,15 +18,15 @@ class PluginContext:
             self.metric_ids = self.db.get("Metrics", ["id", "name"])
         return self.metric_ids
 
-    def getPackageIds(self):
-        if self.package_ids is None:
-            self.package_ids = self.db.get("Packages", ["id", "name"])
-        return self.package_ids
+    def getPackageInfo(self):
+        if self.package_info is None:
+            self.package_info = self.db.get("Packages", ["id", "name", "path"])
+        return self.package_info
 
-    def getFileIds(self):
-        if self.file_ids is None:
-            self.file_ids = self.db.get("Files", ["id", "name", "path"])
-        return self.file_ids
+    def getFileInfo(self):
+        if self.file_info is None:
+            self.file_info = self.db.get("Files", ["id", "name", "path"])
+        return self.file_info
 
     def writePackageMetric(self, package, metric, value):
         self.package_buffer.append((package, metric, value))
