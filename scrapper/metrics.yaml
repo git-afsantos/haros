@@ -37,3 +37,6 @@
 -
     name: MAC
     description: Number of Methods Available in Class
+-
+    name: FUN_PARAM
+    description: Function Parameters
