@@ -1,17 +1,29 @@
 
 from datamanage import db_manager as dbm
 
+import os
+import shutil
+
 class PluginContext:
     def __init__(self, db):
-        self.db = db
-        self.metric_ids = None
-        self.package_info = None
-        self.package_buffer = []
-        self.file_info = None
-        self.file_buffer = []
+        self.db                 = db
+        self.metric_ids         = None
+        self.package_info       = None
+        self.package_buffer     = []
+        self.file_info          = None
+        self.file_buffer        = []
+        self.class_buffer       = []
+        self.function_buffer    = []
 
     def getRoot(self):
         return os.path.join(os.path.expanduser("~"), "ros", "repos")
+
+    def getPath(self, relative, file_name = None):
+        if relative[0] == "/":
+            relative = relative[1:]
+        if not file_name is None:
+            relative = os.path.join(relative, file_name)
+        return os.path.join(self.getRoot(), relative)
 
     def getMetricIds(self):
         if self.metric_ids is None:
@@ -38,6 +50,16 @@ class PluginContext:
         if len(self.file_buffer) == 100:
             self._commit()
 
+    def writeClassMetric(self, file_id, cname, line, metric, value):
+        self.class_buffer.append((file_id, cname, line, metric, value))
+        if len(self.class_buffer) == 100:
+            self._commit()
+
+    def writeFunctionMetric(self, file_id, fname, line, metric, value):
+        self.function_buffer.append((file_id, fname, line, metric, value))
+        if len(self.function_buffer) == 100:
+            self._commit()
+
 
     def _commit(self):
         if len(self.package_buffer) > 0:
@@ -50,6 +72,16 @@ class PluginContext:
                     ["file_id", "metric_id", "value"],
                     self.file_buffer)
             self.file_buffer = []
+        if len(self.class_buffer) > 0:
+            self.db.insert("File_Class_Metrics",
+                    ["file_id", "class_name", "line", "metric_id", "value"],
+                    self.class_buffer)
+            self.class_buffer = []
+        if len(self.function_buffer) > 0:
+            self.db.insert("File_Function_Metrics",
+                    ["file_id", "function_name", "line", "metric_id", "value"],
+                    self.function_buffer)
+            self.function_buffer = []
 
 
 
@@ -57,8 +89,13 @@ def analyse_metrics(plugin_list):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
     ctx = PluginContext(db)
-    for p in plugin_list:
-        p.plugin_run(ctx)
-        ctx._commit()
-    db.disconnect()
+    if not os.path.exists("plugin_out"):
+        os.makedirs("plugin_out")
+    try:
+        for p in plugin_list:
+            p.plugin_run(ctx)
+            ctx._commit()
+    finally:
+        shutil.rmtree("plugin_out")
+        db.disconnect()
 
