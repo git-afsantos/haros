@@ -85,9 +85,14 @@ class PluginContext:
 
 
 
-def analyse_metrics(plugin_list):
+def analyse_metrics(plugin_list, truncate):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
+    if truncate:
+        db.truncate("File_Metrics")
+        db.truncate("File_Class_Metrics")
+        db.truncate("File_Function_Metrics")
+        db.truncate("Package_Metrics")
     ctx = PluginContext(db)
     if not os.path.exists("plugin_out"):
         os.makedirs("plugin_out")

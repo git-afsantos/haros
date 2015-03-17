@@ -31,8 +31,6 @@ def analyse_python_file(db, file_id, file_path, metrics):
         subprocess.call(["radon", "raw", file_path], stdout = radon_file)
     if os.path.exists(out):
         parse_radon_metrics(db, file_id, metrics, out)
-    else:
-        db.writeFileMetric(file_id, metrics["LOC_PY"], 0)
 
 
 
@@ -44,18 +42,24 @@ def parse_radon_metrics(db, file_id, metrics, radon_file):
         loc_match = re_loc.match(line)
         if loc_match:
             value = int(loc_match.group(1))
-            db.writeFileMetric(file_id, metrics["LOC_PY"], value)
+            if value > 0:
+                db.writeFileMetric(file_id, metrics["LOC_PY"], value)
 
 
 
 def analyse_cpp_file(db, file_id, file_path, metrics):
     outdir = os.path.join(".", "plugin_out", "cccc", str(file_id))
     os.makedirs(outdir)
-    subprocess.call(["cccc", file_path, "--outdir=" + outdir])
-    parse_cccc_metrics(db, file_id, metrics, outdir)
-    for f in os.listdir(outdir):
-        if f.endswith(".xml") and not f == "cccc.xml":
-            parse_cccc_function_metrics(f, db, file_id, metrics, outdir)
+    FNULL = open(os.devnull, 'w')
+    try:
+        subprocess.call(["cccc", file_path, "--outdir=" + outdir],
+                stdout=FNULL, stderr=subprocess.STDOUT)
+        parse_cccc_metrics(db, file_id, metrics, outdir)
+        for f in os.listdir(outdir):
+            if f.endswith(".xml") and not f == "cccc.xml":
+                parse_cccc_function_metrics(f, db, file_id, metrics, outdir)
+    finally:
+        FNULL.close()
     
 
 
@@ -65,13 +69,12 @@ def parse_cccc_metrics(db, file_id, metrics, outdir):
         tree    = ET.parse(xml)
         root    = tree.getroot()
         project = root.find("project_summary")
-        loc     = project.find("lines_of_code").get("value")
-        com     = project.find("lines_of_comment").get("value")
-        db.writeFileMetric(file_id, metrics["LOC_CPP"], int(loc))
-        db.writeFileMetric(file_id, metrics["COM"], int(com))
-    else:
-        db.writeFileMetric(file_id, metrics["LOC_CPP"], 0)
-        db.writeFileMetric(file_id, metrics["COM"], 0)
+        loc     = int(project.find("lines_of_code").get("value"))
+        com     = int(project.find("lines_of_comment").get("value"))
+        if loc > 0:
+            db.writeFileMetric(file_id, metrics["LOC_CPP"], loc)
+        if com > 0:
+            db.writeFileMetric(file_id, metrics["COM"], com)
 
 
 
@@ -81,36 +84,57 @@ def parse_cccc_function_metrics(xml_file, db, file_id, metrics, outdir):
     tree        = ET.parse(xml_file)
     root        = tree.getroot()
     summary     = root.find("module_summary")
-    cbo = summary.find("coupling_between_objects").get("value")
-    noc = summary.find("number_of_children").get("value")
-    wmc = summary.find("weighted_methods_per_class_unity").get("value")
-    dit = summary.find("depth_of_inheritance_tree").get("value")
-    mac = summary.find("weighted_methods_per_class_visibility").get("value")
-    db.writeClassMetric(file_id, module_name, 0, metrics["CBO"], int(cbo))
-    db.writeClassMetric(file_id, module_name, 0, metrics["NOC"], int(noc))
-    db.writeClassMetric(file_id, module_name, 0, metrics["WMC"], int(wmc))
-    db.writeClassMetric(file_id, module_name, 0, metrics["DIT"], int(dit))
-    db.writeClassMetric(file_id, module_name, 0, metrics["MAC"], int(mac))
+    write_cccc_class_metrics(summary, db, file_id, module_name, metrics)
     summary = root.find("procedural_detail")
     for function in summary.findall("member_function"):
-        split_name  = function.find("name").text.split("(")
-        name        = split_name[0]
-        params      = split_name[1][:-1]
-        if params == "":
-            params  = 0
+        line = function.find("extent").find("source_reference")
+        if not line is None:
+            line = int(line.get("line"))
         else:
-            params  = len(params.split(","))
-        line    = function.find("source_reference").get("line")
-        cyclo   = function.find("McCabes_cyclomatic_complexity").get("value")
-        loc     = function.find("lines_of_code").get("value")
-        com     = function.find("lines_of_comment").get("value")
-        db.writeFunctionMetric(file_id, name, line,
-                metrics["LOC_CPP"], int(loc))
-        db.writeFunctionMetric(file_id, name, line,
-                metrics["COM"], int(com))
-        db.writeFunctionMetric(file_id, name, line,
-                metrics["CC"], int(cyclo))
-        db.writeFunctionMetric(file_id, name, line,
+            # Skip functions with no line number (not sure if this happens).
+            continue
+        write_cccc_function_metrics(function, db, file_id, line, metrics)
+
+
+
+def write_cccc_class_metrics(xml, db, file_id, cname, metrics):
+    cbo = int(xml.find("coupling_between_objects").get("value"))
+    noc = int(xml.find("number_of_children").get("value"))
+    wmc = int(xml.find("weighted_methods_per_class_unity").get("value"))
+    dit = int(xml.find("depth_of_inheritance_tree").get("value"))
+    mac = int(xml.find("weighted_methods_per_class_visibility").get("value"))
+    if cbo > 0:
+        db.writeClassMetric(file_id, cname, 0, metrics["CBO"], cbo)
+    if noc > 0:
+        db.writeClassMetric(file_id, cname, 0, metrics["NOC"], noc)
+    if wmc > 0:
+        db.writeClassMetric(file_id, cname, 0, metrics["WMC"], wmc)
+    if dit > 0:
+        db.writeClassMetric(file_id, cname, 0, metrics["DIT"], dit)
+    if mac > 0:
+        db.writeClassMetric(file_id, cname, 0, metrics["MAC"], mac)
+
+
+
+def write_cccc_function_metrics(xml, db, file_id, line, metrics):
+    split_name  = xml.find("name").text.split("(")
+    fname       = split_name[0]
+    params      = split_name[1][:-1]
+    if params == "":
+        params  = 0
+    else:
+        params  = len(params.split(","))
+    cyclo   = int(xml.find("McCabes_cyclomatic_complexity").get("value"))
+    loc     = int(xml.find("lines_of_code").get("value"))
+    com     = int(xml.find("lines_of_comment").get("value"))
+    if loc > 0:
+        db.writeFunctionMetric(file_id, fname, line, metrics["LOC_CPP"], loc)
+    if com > 0:
+        db.writeFunctionMetric(file_id, fname, line, metrics["COM"], com)
+    if cyclo > 0:
+        db.writeFunctionMetric(file_id, fname, line, metrics["CC"], cyclo)
+    if params > 0:
+        db.writeFunctionMetric(file_id, fname, line,
                 metrics["FUN_PARAM"], params)
 
 

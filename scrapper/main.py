@@ -63,8 +63,8 @@ def parse_arguments(argv):
 
 
 def update_database(updated, truncate, download):
-    if truncate:
-        print "Truncating tables."
+    # if truncate:
+        # print "Truncating tables."
     if updated == "none":
         return
     if updated is None:
@@ -88,14 +88,15 @@ def update_database(updated, truncate, download):
     dbu.commit()
 
 
-def run_analysis(analysed, configs):
+def run_analysis(analysed, truncate, configs):
     if analysed == "none":
         return
     if analysed is None:
         analysed = ["metrics", "rules"]
     if "metrics" in analysed:
         print "Running analysis on code metrics."
-        sanalyser.analyse_metrics(configs["plugins"]["analysis"]["metrics"])
+        sanalyser.analyse_metrics(configs["plugins"]["analysis"]["metrics"],
+                truncate)
     if "rules" in analysed:
         print "Running analysis on coding rules."
         # TODO
@@ -164,7 +165,7 @@ def main(argv=None):
     configs = load_configs()
     try:
         update_database(args.updated, args.truncate, args.download)
-        run_analysis(args.analysed, configs)
+        run_analysis(args.analysed, args.truncate, configs)
         export_data(args.exported)
         return 0
     except ExpectedError, err:

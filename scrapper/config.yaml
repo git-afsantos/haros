@@ -3,6 +3,6 @@
 # Plugins should have a plugin_run() function to execute and return results.
 ---
 plugins:
-    plugtest:
+    basic_metrics:
         type: analysis
         subtype: metrics
