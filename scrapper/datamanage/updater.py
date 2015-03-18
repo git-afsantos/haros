@@ -21,6 +21,7 @@ class DbUpdater:
         self.metrics    = None
         self.rules      = None
         self.tags       = None
+        self.rule_tags  = None
         self.issues_labels  = None
         self.source_dirty   = False
         self.meta_dirty     = False
@@ -278,6 +279,12 @@ class DbUpdater:
                         "VARCHAR(100)", "VARCHAR(250)"],
                     None, pk="id", fk=["rule_id", "package_id", "file_id"],
                     fk_ref=["Rules(id)", "Packages(id)", "Files(id)"])
+        if self.rules_dirty:
+            db.updateTable("Rule_Tags", ["rule_id", "tag_id"],
+                    ["SMALLINT(6)", "SMALLINT(6)"],
+                    self.rule_tags, pk="rule_id, tag_id",
+                    fk=["rule_id", "tag_id"],
+                    fk_ref=["Rules(id)", "Tags(id)"])
 
 
     def _truncateRelationships(self, db):
@@ -294,7 +301,7 @@ class DbUpdater:
             tables.update(["File_Metrics", "Package_Metrics",
                     "File_Class_Metrics", "File_Function_Metrics"])
         if self.rules_dirty:
-            tables.update(["Non_Compliance"])
+            tables.update(["Non_Compliance", "Rule_Tags"])
         for table in tables:
             db.truncate(table)
         if self.source_dirty:
@@ -312,6 +319,8 @@ class DbUpdater:
         self.git_users  = None
         self.metrics    = None
         self.rules      = None
+        self.tags       = None
+        self.rule_tags  = None
         self.issues_labels  = None
         self.source_dirty   = False
         self.meta_dirty     = False
