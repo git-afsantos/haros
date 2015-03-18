@@ -271,11 +271,13 @@ class DbUpdater:
                     fk_ref=["Files(id)", "Metrics(id)"])
         if self.source_dirty and self.rules_dirty:
             db.updateTable("Non_Compliance",
-                    ["id", "rule_id", "package_id", "comment"],
-                    ["MEDIUMINT(9)", "SMALLINT(6)",
-                        "SMALLINT(6)", "VARCHAR(250)"],
-                    None, pk="id", fk=["rule_id, package_id"],
-                    fk_ref=["Rules(id)", "Packages(id)"])
+                    ["id", "rule_id", "package_id", "file_id",
+                        "line", "function", "comment"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "MEDIUMINT(9)",
+                        "MEDIUMINT(9)", "MEDIUMINT(9)",
+                        "VARCHAR(100)", "VARCHAR(250)"],
+                    None, pk="id", fk=["rule_id", "package_id", "file_id"],
+                    fk_ref=["Rules(id)", "Packages(id)", "Files(id)"])
 
 
     def _truncateRelationships(self, db):
@@ -283,7 +285,7 @@ class DbUpdater:
         if self.source_dirty:
             tables.update(["Repository_Packages", "Package_Maintainers", "Package_Authors",
                     "Package_Licenses", "Package_Dependencies", "Package_Metrics",
-                    "File_Non_Compliance", "File_Metrics",
+                    "Non_Compliance", "File_Metrics",
                     "File_Class_Metrics", "File_Function_Metrics"])
         if self.meta_dirty:
             tables.update(["Git_People", "Issue_Labels", "Package_Authors",
@@ -292,7 +294,7 @@ class DbUpdater:
             tables.update(["File_Metrics", "Package_Metrics",
                     "File_Class_Metrics", "File_Function_Metrics"])
         if self.rules_dirty:
-            tables.update(["File_Non_Compliance"])
+            tables.update(["Non_Compliance"])
         for table in tables:
             db.truncate(table)
         if self.source_dirty:

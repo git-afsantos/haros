@@ -1,8 +1,9 @@
+%YAML 1.1
 ---
 Packages:
     id:                 INT, pk
     name:               STRING
-    isMetapackage:      BOOLEAN
+    metapackage:        BOOLEAN
     description:        STRING
     wiki:               STRING
     git:                STRING
@@ -11,7 +12,7 @@ Packages:
 
 Files:
     id:                 INT, pk
-    pkg_id:             INT, fk(Packages.id)
+    package_id:         INT, fk(Packages.id)
     name:               STRING
     path:               STRING
 
@@ -20,24 +21,24 @@ Metrics:
     name:               STRING
     description:        STRING
 
-FileMetrics:
+File_Metrics:
     file_id:            INT, pk, fk(Files.id)
     metric_id:          INT, pk, fk(Metrics.id)
     value:              FLOAT
 
-PackageMetrics:
-    pkg_id:             INT, pk, fk(Packages.id)
+Package_Metrics:
+    package_id:         INT, pk, fk(Packages.id)
     metric_id:          INT, pk, fk(Metrics.id)
     value:              FLOAT
 
-FileClassMetrics:
+File_Class_Metrics:
     file_id:            INT, pk, fk(Files.id)
     class_name:         STRING, pk
     line:               INT, pk
     metric_id:          INT, pk, fk(Metrics.id)
     value:              FLOAT
 
-FileFunctionMetrics:
+File_Function_Metrics:
     file_id:            INT, pk, fk(Files.id)
     function_name:      STRING, pk
     line:               INT, pk
@@ -46,14 +47,21 @@ FileFunctionMetrics:
 
 Rules:
     id:                 INT, pk
-    category:           STRING
-    isVerifiable:       BOOLEAN
-    compliance:         STRING
+    name:               STRING
+    description:        STRING
 
-FileNonCompliance:
-    file_id:            INT, pk, fk(Files.id)
-    rule_id:            INT, pk, fk(Rules.id)
-    count:              INT
+Tags:
+    id:                 INT, pk
+    name:               STRING
+
+Non_Compliance:
+    id:                 INT, pk
+    rule_id:            INT, fk(Rules.id)
+    package_id:         INT, fk(Packages.id)
+    file_id:            INT, fk(Files.id)
+    line:               INT
+    function:           STRING
+    comment:            STRING
 
 People:
     id:                 INT, pk
@@ -64,28 +72,28 @@ Licenses:
     id:                 INT, pk
     name:               STRING
 
-PkgDepTypes:
+Package_Dependency_Types:
     id:                 INT, pk
-    dep_type:           STRING
+    dependency_type:    STRING
 
-PkgDeps:
-    pkg_id:             INT, pk, fk(Packages.id)
-    dep_id:             INT, pk, fk(Packages.id)
-    type_id:            INT, pk, fk(PkgDepTypes.id)
+Package_Dependencies:
+    package_id:         INT, pk, fk(Packages.id)
+    dependency_id:      INT, pk, fk(Packages.id)
+    type_id:            INT, pk, fk(Package_Dependency_Types.id)
 
-PkgLicenses:
-    pkg_id:             INT, pk, fk(Packages.id)
-    lic_id:             INT, pk, fk(Licenses.id)
+Package_Licenses:
+    package_id:         INT, pk, fk(Packages.id)
+    licence_id:         INT, pk, fk(Licenses.id)
 
-PkgAuthors:
-    pkg_id:             INT, pk, fk(Packages.id)
-    ppl_id:             INT, pk, fk(People.id)
+Package_Authors:
+    package_id:         INT, pk, fk(Packages.id)
+    person_id:          INT, pk, fk(People.id)
 
-PkgMntnrs:
-    pkg_id:             INT, pk, fk(Packages.id)
-    ppl_id:             INT, pk, fk(People.id)
+Package_Maintainers:
+    package_id:         INT, pk, fk(Packages.id)
+    person_id:          INT, pk, fk(People.id)
 
-Repos:
+Repositories:
     id:                 INT, pk
     name:               STRING
     owner_type:         STRING
@@ -97,9 +105,9 @@ Repos:
     watchers_count:     INT
     subscribers_count:  INT
 
-PkgRepos:
-    pkg_id:             INT, pk, fk(Packages.id)
-    repo_id:            INT, pk, fk(Repos.id)
+Repository_Packages:
+    package_id:         INT, pk, fk(Packages.id)
+    repository_id:      INT, pk, fk(Repositories.id)
 
 Issues:
     id:                 INT, pk
@@ -107,127 +115,22 @@ Issues:
     assigned_to:        STRING
     created_at:         STRING
     closed_at:          STRING
-    repo_id:            INT, fk(Repos.id)
+    repository_id:      INT, fk(Repositories.id)
 
 Labels:
     id:                 INT, pk
     name:               STRING
 
-IssuesLabels:
+Issue_Labels:
     issue_id:           INT, pk, fk(Issues.id)
     label_id:           INT, pk, fk(Labels.id)
 
-GitUsers:
+Git_Users:
     id:                 INT, pk
     username:           STRING
     email:              STRING
 
-GitPpl:
+Git_People:
     id:                 INT, pk
-    git_id:             INT, fk(GitUsers.id)
-    ppl_id:             INT, fk(People.id)
-
-PkgImpact:
-    pkg_id:             INT, pk, fk(Packages.id)
-    impact:             FLOAT
-
-PkgHealth:
-    pkg_id:             INT, pk, fk(Packages.id)
-    health:             FLOAT
-
-RepoHealth:
-    repo_id:            INT, pk, fk(Repos.id)
-    health:             FLOAT
-
-GitActivity:
-    git_id:             INT, pk, fk(GitPpl.id)
-    activity:           FLOAT
-
-PplImpact:
-    ppl_id:             INT, pk, fk(People.id)
-    impact:             FLOAT
-
-GitPplImpactivity:
-    git_ppl_id:         INT, pk, fk(GitPpl.id)
-    impactivity:        FLOAT
-
-PkgRepoHealth:
-    pkg_id:             INT, pk, fk(Packages.id)
-    health:             FLOAT
-
-Issues_Hist:
-    open:               INT
-    closed:             INT
-    open_unassigned:    INT
-    days_open:          INT
-
-Labels_Hist:
-    l1:                 STRING
-    l1_count:           INT
-    l2:                 STRING
-    l2_count:           INT
-    l3:                 STRING
-    l3_count:           INT
-
-Licenses_Hist:
-    l1:                 STRING
-    l1_count:           INT
-    l2:                 STRING
-    l2_count:           INT
-    l3:                 STRING
-    l3_count:           INT
-
-Packages_Hist:
-    pkgs:               INT
-    metapkgs:           INT
-
-People_Hist:
-    ppl:                INT
-    edu_ppl:            INT
-    osrf_ppl:           INT
-    willow_ppl:         INT
-
-PkgMntnrs_Hist:
-    mntnrs:             INT
-    mntnr_links:        INT
-    pkgs_with_mntnr:    INT
-    pkgs_with_2plus:    INT
-
-PkgAuthors_Hist:
-    auths:              INT
-    auths_links:        INT
-    pkgs_with_auth:     INT
-    pkgs_with_2plus:    INT
-
-PkgDeps_Hist:
-    all_deps:           INT
-    buildtool:          INT
-    build:              INT
-    run:                INT
-    p1:                 STRING
-    deps_onp1:          INT
-    p2:                 STRING
-    deps_onp2:          INT
-    p3:                 STRING
-    deps_onp3:          INT
-
-GitPpl_Hist:
-    gitppl:             INT
-
-GitUsers_Hist:
-    users:              INT
-
-Repos_Hist:
-    repos:              INT
-    release_repos:      INT
-    orgs_repos:         INT
-    user_repos:         INT
-    days_unupdated:     INT
-    forks:              INT
-    watchers:           INT
-    subrs:              INT
-    total_size:         INT
-
-PkgRepos_Hist:
-    pkgs_with_1repo:    INT
-    pkgs_with_2repos:   INT
+    git_id:             INT, fk(Git_Users.id)
+    person_id:          INT, fk(People.id)
