@@ -20,6 +20,7 @@ class DbUpdater:
         self.git_users  = None
         self.metrics    = None
         self.rules      = None
+        self.tags       = None
         self.issues_labels  = None
         self.source_dirty   = False
         self.meta_dirty     = False
@@ -106,6 +107,7 @@ class DbUpdater:
     def updateRules(self):
         self.rules_dirty = True
         self.rules = None
+        self.tags = None
 
 
     def commit(self, truncate = True):
@@ -215,8 +217,10 @@ class DbUpdater:
 
 
     def _commitRules(self, db):
-        db.updateTable("Rules", ["id", "category", "isVerifiable", "compliance"],
-                ["SMALLINT(6)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(30)"],
+        db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
+                self.tags, pk="id")
+        db.updateTable("Rules", ["id", "name", "description"],
+                ["SMALLINT(6)", "VARCHAR(30)", "VARCHAR(120)"],
                 self.rules, pk="id")
 
 
@@ -266,10 +270,12 @@ class DbUpdater:
                     fk=["file_id", "metric_id"],
                     fk_ref=["Files(id)", "Metrics(id)"])
         if self.source_dirty and self.rules_dirty:
-            db.updateTable("File_Non_Compliance", ["file_id", "rule_id", "count"],
-                ["MEDIUMINT(9)", "SMALLINT(6)", "MEDIUMINT(9)"], None,
-		        pk="file_id, rule_id", fk=["file_id", "rule_id"],
-		        fk_ref=["Files(id)", "Rules(id)"])
+            db.updateTable("Non_Compliance",
+                    ["id", "rule_id", "package_id", "comment"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)",
+                        "SMALLINT(6)", "VARCHAR(250)"],
+                    None, pk="id", fk=["rule_id, package_id"],
+                    fk_ref=["Rules(id)", "Packages(id)"])
 
 
     def _truncateRelationships(self, db):
