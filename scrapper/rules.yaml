@@ -1,0 +1,20 @@
+%YAML 1.1
+# Rules file.
+---
+-
+    name:           TEST1
+    scope:          package
+    description:    Template rule for testing.
+    tags:
+        - ros
+        - test
+-
+    name:           TEST2
+    scope:          file
+    description:    Template rule for testing.
+    tags:
+        - google
+        - misra-c++
+        - hic++
+        - jsf-av-c++
+

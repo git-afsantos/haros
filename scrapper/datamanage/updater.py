@@ -221,7 +221,7 @@ class DbUpdater:
         db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
                 self.tags, pk="id")
         db.updateTable("Rules", ["id", "name", "scope", "description"],
-                ["SMALLINT(6)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(120)"],
+                ["MEDIUMINT(9)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(120)"],
                 self.rules, pk="id")
 
 
@@ -274,14 +274,14 @@ class DbUpdater:
             db.updateTable("Non_Compliance",
                     ["id", "rule_id", "package_id", "file_id",
                         "line", "function", "comment"],
-                    ["MEDIUMINT(9)", "SMALLINT(6)", "MEDIUMINT(9)",
+                    ["MEDIUMINT(9)", "MEDIUMINT(9)", "MEDIUMINT(9)",
                         "MEDIUMINT(9)", "MEDIUMINT(9)",
                         "VARCHAR(100)", "VARCHAR(250)"],
                     None, pk="id", fk=["rule_id", "package_id", "file_id"],
                     fk_ref=["Rules(id)", "Packages(id)", "Files(id)"])
         if self.rules_dirty:
             db.updateTable("Rule_Tags", ["rule_id", "tag_id"],
-                    ["SMALLINT(6)", "SMALLINT(6)"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)"],
                     self.rule_tags, pk="rule_id, tag_id",
                     fk=["rule_id", "tag_id"],
                     fk_ref=["Rules(id)", "Tags(id)"])
