@@ -220,8 +220,8 @@ class DbUpdater:
     def _commitRules(self, db):
         db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
                 self.tags, pk="id")
-        db.updateTable("Rules", ["id", "name", "description"],
-                ["SMALLINT(6)", "VARCHAR(30)", "VARCHAR(120)"],
+        db.updateTable("Rules", ["id", "name", "scope", "description"],
+                ["SMALLINT(6)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(120)"],
                 self.rules, pk="id")
 
 

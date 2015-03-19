@@ -48,6 +48,7 @@ File_Function_Metrics:
 Rules:
     id:                 INT, pk
     name:               STRING
+    scope:              STRING
     description:        STRING
 
 Tags:
