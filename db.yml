@@ -54,6 +54,10 @@ Tags:
     id:                 INT, pk
     name:               STRING
 
+Rule_Tags:
+    rule_id:            INT, pk, fk(Rules.id)
+    tag_id:             INT, pk, fk(Tags.id)
+
 Non_Compliance:
     id:                 INT, pk
     rule_id:            INT, fk(Rules.id)
