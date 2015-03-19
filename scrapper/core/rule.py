@@ -21,3 +21,21 @@ def load_rules_from_file(rule_file):
                 rule["description"], rule["tags"]))
     return rules
 
+
+def extract_rules_and_tags(rule_list):
+    rules       = []
+    tags        = []
+    rule_tags   = []
+    tagdict     = {}
+    tagid       = 1
+    for r in rule_list:
+        rules.append(r.asTuple())
+        for t in r.tags:
+            if t in tagdict:
+                rule_tags.append((r.id, tagdict[t]))
+            else:
+                tagdict[t] = tagid
+                tags.append((tagid, t))
+                rule_tags.append((r.id, tagid))
+                tagid += 1
+    return (rules, tags, rule_tags)

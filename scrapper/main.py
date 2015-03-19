@@ -84,7 +84,7 @@ def update_database(updated, truncate, download):
         dbu.updateMetrics("metrics.yaml")
     if "rules" in updated:
         print "Updating coding rules."
-        dbu.updateRules()
+        dbu.updateRules("rules.yaml")
     dbu.commit()
 
 

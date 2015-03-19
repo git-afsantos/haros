@@ -1,4 +1,4 @@
-from core import repo, package, people
+from core import rule, repo, package, people
 from sourcemanage import clone_repos as crep, source_finder as sf
 
 import extractor
@@ -105,10 +105,10 @@ class DbUpdater:
                     for ind, m in enumerate(self.metrics)]
 
 
-    def updateRules(self):
+    def updateRules(self, rule_file):
         self.rules_dirty = True
-        self.rules = None
-        self.tags = None
+        rules = rule.load_rules_from_file(rule_file)
+        (self.rules, self.tags, self.rule_tags) = rule.extract_rules_and_tags(rules)
 
 
     def commit(self, truncate = True):
