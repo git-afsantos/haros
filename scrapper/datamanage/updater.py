@@ -221,7 +221,7 @@ class DbUpdater:
         db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
                 self.tags, pk="id")
         db.updateTable("Rules", ["id", "name", "scope", "description"],
-                ["MEDIUMINT(9)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(120)"],
+                ["MEDIUMINT(9)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(250)"],
                 self.rules, pk="id")
 
 
