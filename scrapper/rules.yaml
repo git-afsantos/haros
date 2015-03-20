@@ -4,7 +4,7 @@
 -
     name:           MIN_COM_RATIO
     scope:          file
-    description:    Minimum lines of comments: 20%
+    description:    "Minimum lines of comments: 20%"
     tags:
         - metrics
         - nasa-satc
@@ -16,7 +16,7 @@
 -
     name:           MAX_COM_RATIO
     scope:          file
-    description:    Maximum lines of comments: 30%
+    description:    "Maximum lines of comments: 30%"
     tags:
         - metrics
         - nasa-satc
@@ -25,7 +25,7 @@
 -
     name:           MAX_COM_RATIO
     scope:          file
-    description:    Maximum lines of comments: 40%
+    description:    "Maximum lines of comments: 40%"
     tags:
         - metrics
         - uai
@@ -34,7 +34,7 @@
 -
     name:           MIN_CC
     scope:          function
-    description:    Minimum cyclomatic complexity: 1
+    description:    "Minimum cyclomatic complexity: 1"
     tags:
         - metrics
         - nasa-satc
@@ -45,7 +45,7 @@
 -
     name:           MAX_CC
     scope:          function
-    description:    Maximum cyclomatic complexity: 10
+    description:    "Maximum cyclomatic complexity: 10"
     tags:
         - metrics
         - nasa-satc
@@ -54,7 +54,7 @@
 -
     name:           MAX_CC
     scope:          function
-    description:    Maximum cyclomatic complexity: 15
+    description:    "Maximum cyclomatic complexity: 15"
     tags:
         - metrics
         - kth
@@ -63,7 +63,7 @@
 -
     name:           MIN_EXE_LINES
     scope:          function
-    description:    Minimum executable lines: 1
+    description:    "Minimum executable lines: 1"
     tags:
         - metrics
         - nasa-satc
@@ -74,7 +74,7 @@
 -
     name:           MAX_EXE_LINES
     scope:          function
-    description:    Maximum executable lines: 50
+    description:    "Maximum executable lines: 50"
     tags:
         - metrics
         - nasa-satc
@@ -83,7 +83,7 @@
 -
     name:           MAX_EXE_LINES
     scope:          function
-    description:    Maximum executable lines: 70
+    description:    "Maximum executable lines: 70"
     tags:
         - metrics
         - kth
@@ -92,7 +92,7 @@
 -
     name:           MIN_FUN_CALLS
     scope:          function
-    description:    Minimum function calls: 1
+    description:    "Minimum function calls: 1"
     tags:
         - metrics
         - his
@@ -102,7 +102,7 @@
 -
     name:           MAX_FUN_CALLS
     scope:          function
-    description:    Maximum function calls: 7
+    description:    "Maximum function calls: 7"
     tags:
         - metrics
         - his
@@ -110,7 +110,7 @@
 -
     name:           MAX_FUN_CALLS
     scope:          function
-    description:    Maximum function calls: 10
+    description:    "Maximum function calls: 10"
     tags:
         - metrics
         - kth
@@ -119,7 +119,7 @@
 -
     name:           MAX_NEST_CONTROL
     scope:          function
-    description:    Maximum nesting of control structures: 4
+    description:    "Maximum nesting of control structures: 4"
     tags:
         - metrics
         - his
@@ -127,7 +127,7 @@
 -
     name:           MAX_NEST_CONTROL
     scope:          function
-    description:    Maximum nesting of control structures: 5
+    description:    "Maximum nesting of control structures: 5"
     tags:
         - metrics
         - kth
@@ -136,7 +136,7 @@
 -
     name:           MIN_STATIC_PATH
     scope:          function
-    description:    Minimum estimated static paths: 1
+    description:    "Minimum estimated static paths: 1"
     tags:
         - metrics
         - his
@@ -146,7 +146,7 @@
 -
     name:           MAX_STATIC_PATH
     scope:          function
-    description:    Maximum estimated static paths: 80
+    description:    "Maximum estimated static paths: 80"
     tags:
         - metrics
         - his
@@ -154,7 +154,7 @@
 -
     name:           MAX_STATIC_PATH
     scope:          function
-    description:    Maximum estimated static paths: 250
+    description:    "Maximum estimated static paths: 250"
     tags:
         - metrics
         - kth
@@ -163,7 +163,7 @@
 -
     name:           MAX_COUPLING
     scope:          class
-    description:    Maximum coupling between objects: 5
+    description:    "Maximum coupling between objects: 5"
     tags:
         - metrics
         - nasa-satc
@@ -172,7 +172,7 @@
 -
     name:           MAX_CHILDREN
     scope:          class
-    description:    Maximum immediate children: 10
+    description:    "Maximum immediate children: 10"
     tags:
         - metrics
         - uai
@@ -181,7 +181,7 @@
 -
     name:           MIN_WEIGHT_METHODS
     scope:          class
-    description:    Minimum weighted methods per class: 1
+    description:    "Minimum weighted methods per class: 1"
     tags:
         - metrics
         - uai
@@ -190,7 +190,7 @@
 -
     name:           MAX_WEIGHT_METHODS
     scope:          class
-    description:    Maximum weighted methods per class: 50
+    description:    "Maximum weighted methods per class: 50"
     tags:
         - metrics
         - uai
@@ -198,7 +198,7 @@
 -
     name:           MAX_WEIGHT_METHODS
     scope:          class
-    description:    Maximum weighted methods per class: 100
+    description:    "Maximum weighted methods per class: 100"
     tags:
         - metrics
         - nasa-satc
@@ -207,7 +207,7 @@
 -
     name:           MAX_INHERIT_LEVEL
     scope:          class
-    description:    Deepest level of inheritance: 5
+    description:    "Deepest level of inheritance: 5"
     tags:
         - metrics
         - nasa-satc
@@ -217,7 +217,7 @@
 -
     name:           MIN_AVAILABLE_METHODS
     scope:          class
-    description:    Minimum available methods per class: 1
+    description:    "Minimum available methods per class: 1"
     tags:
         - metrics
         - nasa-satc
@@ -226,7 +226,7 @@
 -
     name:           MAX_AVAILABLE_METHODS
     scope:          class
-    description:    Maximum available methods per class: 20
+    description:    "Maximum available methods per class: 20"
     tags:
         - metrics
         - nasa-satc

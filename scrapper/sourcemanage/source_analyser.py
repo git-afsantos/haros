@@ -71,7 +71,7 @@ class PluginContext:
 
     def writeNonCompliance(self, rule_id, package_id, file_id = None,
             line = None, function = None, comment = None):
-        self.compliance_buffer.append((self.compliance_id, rule_id, package_id
+        self.compliance_buffer.append((self.compliance_id, rule_id, package_id,
                 file_id, line, function, comment))
         self.compliance_id += 1
         if len(self.compliance_buffer) == 100:
