@@ -99,7 +99,8 @@ def run_analysis(analysed, truncate, configs):
                 truncate)
     if "rules" in analysed:
         print "Running analysis on coding rules."
-        # TODO
+        sanalyser.analyse_rules(configs["plugins"]["analysis"]["rules"],
+                truncate)
 
 
 def export_data(exported):

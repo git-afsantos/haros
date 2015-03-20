@@ -44,7 +44,7 @@ class DbManager:
         return dbe.getTable(self.cur, table, cols)
 
     def getNextId(self, table):
-        return dbe.getMaxVal(self.cur, table, "id") + 1
+        return (dbe.getMaxVal(self.cur, table, "id") or 0) + 1
 
     def truncate(self, table):
         dbc.safeTruncateTable(self.cur, table)
