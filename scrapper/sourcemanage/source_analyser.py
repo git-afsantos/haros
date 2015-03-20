@@ -45,7 +45,8 @@ class PluginContext:
 
     def getFileInfo(self):
         if self.file_info is None:
-            self.file_info = self.db.get("Files", ["id", "name", "path"])
+            self.file_info = self.db.get("Files", ["id", "name", "path",
+                    "package_id"])
         return self.file_info
 
     def writePackageMetric(self, package, metric, value):
