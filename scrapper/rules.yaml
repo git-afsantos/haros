@@ -2,19 +2,233 @@
 # Rules file.
 ---
 -
-    name:           TEST1
-    scope:          package
-    description:    Template rule for testing.
-    tags:
-        - ros
-        - test
--
-    name:           TEST2
+    name:           MIN_COM_RATIO
     scope:          file
-    description:    Template rule for testing.
+    description:    Minimum lines of comments: 20%
     tags:
-        - google
-        - misra-c++
-        - hic++
-        - jsf-av-c++
-
+        - metrics
+        - nasa-satc
+        - his
+        - uai
+        - ros
+        - comments
+        - comment-ratio
+-
+    name:           MAX_COM_RATIO
+    scope:          file
+    description:    Maximum lines of comments: 30%
+    tags:
+        - metrics
+        - nasa-satc
+        - comments
+        - comment-ratio
+-
+    name:           MAX_COM_RATIO
+    scope:          file
+    description:    Maximum lines of comments: 40%
+    tags:
+        - metrics
+        - uai
+        - comments
+        - comment-ratio
+-
+    name:           MIN_CC
+    scope:          function
+    description:    Minimum cyclomatic complexity: 1
+    tags:
+        - metrics
+        - nasa-satc
+        - his
+        - kth
+        - ros
+        - cyclomatic-complexity
+-
+    name:           MAX_CC
+    scope:          function
+    description:    Maximum cyclomatic complexity: 10
+    tags:
+        - metrics
+        - nasa-satc
+        - his
+        - cyclomatic-complexity
+-
+    name:           MAX_CC
+    scope:          function
+    description:    Maximum cyclomatic complexity: 15
+    tags:
+        - metrics
+        - kth
+        - ros
+        - cyclomatic-complexity
+-
+    name:           MIN_EXE_LINES
+    scope:          function
+    description:    Minimum executable lines: 1
+    tags:
+        - metrics
+        - nasa-satc
+        - his
+        - kth
+        - ros
+        - executable-lines
+-
+    name:           MAX_EXE_LINES
+    scope:          function
+    description:    Maximum executable lines: 50
+    tags:
+        - metrics
+        - nasa-satc
+        - his
+        - executable-lines
+-
+    name:           MAX_EXE_LINES
+    scope:          function
+    description:    Maximum executable lines: 70
+    tags:
+        - metrics
+        - kth
+        - ros
+        - executable-lines
+-
+    name:           MIN_FUN_CALLS
+    scope:          function
+    description:    Minimum function calls: 1
+    tags:
+        - metrics
+        - his
+        - kth
+        - ros
+        - function-calls
+-
+    name:           MAX_FUN_CALLS
+    scope:          function
+    description:    Maximum function calls: 7
+    tags:
+        - metrics
+        - his
+        - function-calls
+-
+    name:           MAX_FUN_CALLS
+    scope:          function
+    description:    Maximum function calls: 10
+    tags:
+        - metrics
+        - kth
+        - ros
+        - function-calls
+-
+    name:           MAX_NEST_CONTROL
+    scope:          function
+    description:    Maximum nesting of control structures: 4
+    tags:
+        - metrics
+        - his
+        - nesting-control
+-
+    name:           MAX_NEST_CONTROL
+    scope:          function
+    description:    Maximum nesting of control structures: 5
+    tags:
+        - metrics
+        - kth
+        - ros
+        - nesting-control
+-
+    name:           MIN_STATIC_PATH
+    scope:          function
+    description:    Minimum estimated static paths: 1
+    tags:
+        - metrics
+        - his
+        - kth
+        - ros
+        - static-path
+-
+    name:           MAX_STATIC_PATH
+    scope:          function
+    description:    Maximum estimated static paths: 80
+    tags:
+        - metrics
+        - his
+        - static-path
+-
+    name:           MAX_STATIC_PATH
+    scope:          function
+    description:    Maximum estimated static paths: 250
+    tags:
+        - metrics
+        - kth
+        - ros
+        - static-path
+-
+    name:           MAX_COUPLING
+    scope:          class
+    description:    Maximum coupling between objects: 5
+    tags:
+        - metrics
+        - nasa-satc
+        - ros
+        - coupling
+-
+    name:           MAX_CHILDREN
+    scope:          class
+    description:    Maximum immediate children: 10
+    tags:
+        - metrics
+        - uai
+        - ros
+        - immediate-children
+-
+    name:           MIN_WEIGHT_METHODS
+    scope:          class
+    description:    Minimum weighted methods per class: 1
+    tags:
+        - metrics
+        - uai
+        - ros
+        - weighted-methods
+-
+    name:           MAX_WEIGHT_METHODS
+    scope:          class
+    description:    Maximum weighted methods per class: 50
+    tags:
+        - metrics
+        - uai
+        - weighted-methods
+-
+    name:           MAX_WEIGHT_METHODS
+    scope:          class
+    description:    Maximum weighted methods per class: 100
+    tags:
+        - metrics
+        - nasa-satc
+        - ros
+        - weighted-methods
+-
+    name:           MAX_INHERIT_LEVEL
+    scope:          class
+    description:    Deepest level of inheritance: 5
+    tags:
+        - metrics
+        - nasa-satc
+        - uai
+        - ros
+        - inheritance-level
+-
+    name:           MIN_AVAILABLE_METHODS
+    scope:          class
+    description:    Minimum available methods per class: 1
+    tags:
+        - metrics
+        - nasa-satc
+        - ros
+        - available-methods
+-
+    name:           MAX_AVAILABLE_METHODS
+    scope:          class
+    description:    Maximum available methods per class: 20
+    tags:
+        - metrics
+        - nasa-satc
+        - ros
+        - available-methods
