@@ -9,3 +9,6 @@ plugins:
     radon_rules:
         type: analysis
         subtype: rules
+    cccc_rules:
+        type: analysis
+        subtype: rules
