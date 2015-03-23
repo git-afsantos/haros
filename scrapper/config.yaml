@@ -6,3 +6,6 @@ plugins:
     basic_metrics:
         type: analysis
         subtype: metrics
+    radon_rules:
+        type: analysis
+        subtype: rules
