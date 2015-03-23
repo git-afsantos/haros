@@ -33,10 +33,14 @@ class PluginContext:
             self.metric_ids = self.db.get("Metrics", ["id", "name"])
         return self.metric_ids
 
-    def getRuleInfo(self):
-        if self.rule_info is None:
-            self.rule_info = self.db.get("Rules", ["id", "name", "scope"])
-        return self.rule_info
+    def getRuleInfo(self, rule_name=None):
+        if rule:
+            return self.db.get("Rules", ["id", "name", "scope"],
+                    match=("name", rule_name))
+        else:
+            if self.rule_info is None:
+                self.rule_info = self.db.get("Rules", ["id", "name", "scope"])
+            return self.rule_info
 
     def getPackageInfo(self):
         if self.package_info is None:
