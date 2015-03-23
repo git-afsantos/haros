@@ -123,7 +123,8 @@ def load_configs():
     config_dict = {
         "plugins": {
             "analysis": {
-                "metrics": []
+                "metrics": [],
+                "rules": []
             }
         }
     }

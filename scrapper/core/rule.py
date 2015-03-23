@@ -16,8 +16,8 @@ def load_rules_from_file(rule_file):
     with open(rule_file, "r") as rf:
         rule_data = load(rf)
     rules = []
-    for index, rule in enumerate(rule_data, start=1):
-        rules.append(Rule(index, rule["name"], rule["scope"],
+    for rule in rule_data:
+        rules.append(Rule(int(rule["id"]), rule["name"], rule["scope"],
                 rule["description"], rule["tags"]))
     return rules
 

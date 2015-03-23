@@ -33,10 +33,10 @@ class PluginContext:
             self.metric_ids = self.db.get("Metrics", ["id", "name"])
         return self.metric_ids
 
-    def getRuleInfo(self, rule_name=None):
-        if rule:
+    def getRuleInfo(self, name=None):
+        if name:
             return self.db.get("Rules", ["id", "name", "scope"],
-                    match=("name", rule_name))
+                    match=("name", name))
         else:
             if self.rule_info is None:
                 self.rule_info = self.db.get("Rules", ["id", "name", "scope"])
@@ -47,11 +47,15 @@ class PluginContext:
             self.package_info = self.db.get("Packages", ["id", "name", "path"])
         return self.package_info
 
-    def getFileInfo(self):
-        if self.file_info is None:
-            self.file_info = self.db.get("Files", ["id", "name", "path",
-                    "package_id"])
-        return self.file_info
+    def getFileInfo(self, ext=None):
+        if ext:
+            return self.db.get("Files", ["id", "name", "path", "package_id"],
+                    match=("name", "." + ext), exact=False)
+        else:
+            if self.file_info is None:
+                self.file_info = self.db.get("Files", ["id", "name", "path",
+                        "package_id"])
+            return self.file_info
 
     def writePackageMetric(self, package, metric, value):
         self.package_buffer.append((package, metric, value))

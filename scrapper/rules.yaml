@@ -2,6 +2,7 @@
 # Rules file.
 ---
 -
+    id:             1
     name:           MIN_COM_RATIO
     scope:          file
     description:    "Minimum lines of comments: 20%"
@@ -14,6 +15,7 @@
         - comments
         - comment-ratio
 -
+    id:             2
     name:           MAX_COM_RATIO
     scope:          file
     description:    "Maximum lines of comments: 30%"
@@ -23,6 +25,7 @@
         - comments
         - comment-ratio
 -
+    id:             3
     name:           MAX_COM_RATIO
     scope:          file
     description:    "Maximum lines of comments: 40%"
@@ -32,6 +35,7 @@
         - comments
         - comment-ratio
 -
+    id:             4
     name:           MIN_CC
     scope:          function
     description:    "Minimum cyclomatic complexity: 1"
@@ -43,6 +47,7 @@
         - ros
         - cyclomatic-complexity
 -
+    id:             5
     name:           MAX_CC
     scope:          function
     description:    "Maximum cyclomatic complexity: 10"
@@ -52,6 +57,7 @@
         - his
         - cyclomatic-complexity
 -
+    id:             6
     name:           MAX_CC
     scope:          function
     description:    "Maximum cyclomatic complexity: 15"
@@ -61,6 +67,7 @@
         - ros
         - cyclomatic-complexity
 -
+    id:             7
     name:           MIN_EXE_LINES
     scope:          function
     description:    "Minimum executable lines: 1"
@@ -72,6 +79,7 @@
         - ros
         - executable-lines
 -
+    id:             8
     name:           MAX_EXE_LINES
     scope:          function
     description:    "Maximum executable lines: 50"
@@ -81,6 +89,7 @@
         - his
         - executable-lines
 -
+    id:             9
     name:           MAX_EXE_LINES
     scope:          function
     description:    "Maximum executable lines: 70"
@@ -90,6 +99,7 @@
         - ros
         - executable-lines
 -
+    id:             10
     name:           MIN_FUN_CALLS
     scope:          function
     description:    "Minimum function calls: 1"
@@ -100,6 +110,7 @@
         - ros
         - function-calls
 -
+    id:             11
     name:           MAX_FUN_CALLS
     scope:          function
     description:    "Maximum function calls: 7"
@@ -108,6 +119,7 @@
         - his
         - function-calls
 -
+    id:             12
     name:           MAX_FUN_CALLS
     scope:          function
     description:    "Maximum function calls: 10"
@@ -117,6 +129,7 @@
         - ros
         - function-calls
 -
+    id:             13
     name:           MAX_NEST_CONTROL
     scope:          function
     description:    "Maximum nesting of control structures: 4"
@@ -125,6 +138,7 @@
         - his
         - nesting-control
 -
+    id:             14
     name:           MAX_NEST_CONTROL
     scope:          function
     description:    "Maximum nesting of control structures: 5"
@@ -134,6 +148,7 @@
         - ros
         - nesting-control
 -
+    id:             15
     name:           MIN_STATIC_PATH
     scope:          function
     description:    "Minimum estimated static paths: 1"
@@ -144,6 +159,7 @@
         - ros
         - static-path
 -
+    id:             16
     name:           MAX_STATIC_PATH
     scope:          function
     description:    "Maximum estimated static paths: 80"
@@ -152,6 +168,7 @@
         - his
         - static-path
 -
+    id:             17
     name:           MAX_STATIC_PATH
     scope:          function
     description:    "Maximum estimated static paths: 250"
@@ -161,6 +178,7 @@
         - ros
         - static-path
 -
+    id:             18
     name:           MAX_COUPLING
     scope:          class
     description:    "Maximum coupling between objects: 5"
@@ -170,6 +188,7 @@
         - ros
         - coupling
 -
+    id:             19
     name:           MAX_CHILDREN
     scope:          class
     description:    "Maximum immediate children: 10"
@@ -179,6 +198,7 @@
         - ros
         - immediate-children
 -
+    id:             20
     name:           MIN_WEIGHT_METHODS
     scope:          class
     description:    "Minimum weighted methods per class: 1"
@@ -188,6 +208,7 @@
         - ros
         - weighted-methods
 -
+    id:             21
     name:           MAX_WEIGHT_METHODS
     scope:          class
     description:    "Maximum weighted methods per class: 50"
@@ -196,6 +217,7 @@
         - uai
         - weighted-methods
 -
+    id:             22
     name:           MAX_WEIGHT_METHODS
     scope:          class
     description:    "Maximum weighted methods per class: 100"
@@ -205,6 +227,7 @@
         - ros
         - weighted-methods
 -
+    id:             23
     name:           MAX_INHERIT_LEVEL
     scope:          class
     description:    "Deepest level of inheritance: 5"
@@ -215,6 +238,7 @@
         - ros
         - inheritance-level
 -
+    id:             24
     name:           MIN_AVAILABLE_METHODS
     scope:          class
     description:    "Minimum available methods per class: 1"
@@ -224,6 +248,7 @@
         - ros
         - available-methods
 -
+    id:             25
     name:           MAX_AVAILABLE_METHODS
     scope:          class
     description:    "Maximum available methods per class: 20"
