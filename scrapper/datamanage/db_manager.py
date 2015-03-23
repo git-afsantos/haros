@@ -40,8 +40,12 @@ class DbManager:
                 cols, types, data,
                 pk = pk, fk = fk, fk_ref = fk_ref)
 
-    def get(self, table, cols):
-        return dbe.getTable(self.cur, table, cols)
+    # match is a pair (col, val) to filter
+    def get(self, table, cols, match=None):
+        if match:
+            return dbe.getMatch(self.cur, table, cols, match[0], match[1])
+        else:
+            return dbe.getTable(self.cur, table, cols)
 
     def getNextId(self, table):
         return (dbe.getMaxVal(self.cur, table, "id") or 0) + 1
