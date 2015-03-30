@@ -1,65 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<script type="text/javascript">
-/*
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-31064652-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-*/
-</script>
-<!--Libraries-->
-<script type="text/javascript" src="lib/d3/d3.v3.min.js"></script>
-<script type="text/javascript" src="lib/jQuery/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="lib/jQuery/jquery-ui-1.11.0.custom/jquery-ui.js"></script>
-<script type="text/javascript" src="lib/jQuery/jquery.tipsy.js"></script>
-<script type="text/javascript" src="lib/jQuery/jquery.contextMenu.js"></script>
-<script type="text/javascript" src="lib/dagre/dagre.js"></script>
-<script type="text/javascript" src="lib/underscore/underscore.js"></script>
-<script type="text/javascript" src="lib/base64.js"></script>
-<!--Scripts-->
-<script type="text/javascript" src="js/Minimap.js"></script>
-<script type="text/javascript" src="js/MinimapZoom.js"></script>
-<script type="text/javascript" src="js/DirectedAcyclicGraph.js"></script>
-<script type="text/javascript" src="js/List.js"></script>
-<script type="text/javascript" src="js/Selectable.js"></script>
-<script type="text/javascript" src="js/Graph.js"></script>
-<script type="text/javascript" src="js/History.js"></script>
-<script type="text/javascript" src="js/Tooltip.js"></script>
-<script type="text/javascript" src="js/ContextMenu.js"></script>
-<script type="text/javascript" src="js/xtrace_utils.js"></script>
-<script type="text/javascript" src="js/xtrace_graph.js"></script>
-<!--Stylesheets-->
-<link href="stylesheets/xtrace.css" rel="stylesheet" type="text/css" />
-<link href="stylesheets/tipsy.css" rel="stylesheet" type="text/css" />
-<link href="stylesheets/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
-<link href="lib/jQuery/jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet" type="text/css" />
-<!-- <script>
-window.onload = function() {
-    var params = getParameters();
-    var id = params["id"];
-    var callback = function(data) {
-        console.log("Reports received, accessible as window.data", data);
-        window.data = data;
-        window.xtrace = new XTraceDAG(document.body, data[0].reports, params);
-    };
-    var errback = function(message, error) {
-        console.log("Error retrieving reports", error);
-    };
-    if (id == null) {
-        document.body.appendChild(document.createTextNode("No Trace ID specified"));
-    } else {
-        getReports(id, callback, errback);
-    }
-}
-</script> -->
+    <meta charset="utf-8">
+    <!--Libraries-->
+    <script type="text/javascript" src="lib/d3/d3.v3.min.js"></script>
+    <script type="text/javascript" src="lib/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="lib/jQuery/jquery-ui-1.11.0.custom/jquery-ui.js"></script>
+    <script type="text/javascript" src="lib/jQuery/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="lib/jQuery/jquery.contextMenu.js"></script>
+    <script type="text/javascript" src="lib/dagre/dagre.js"></script>
+    <script type="text/javascript" src="lib/underscore/underscore.js"></script>
+    <!-- <script type="text/javascript" src="lib/base64.js"></script> -->
+    <!--Scripts-->
+    <script type="text/javascript" src="js/Minimap.js"></script>
+    <script type="text/javascript" src="js/MinimapZoom.js"></script>
+    <script type="text/javascript" src="js/DirectedAcyclicGraph.js"></script>
+    <script type="text/javascript" src="js/List.js"></script>
+    <script type="text/javascript" src="js/Selectable.js"></script>
+    <script type="text/javascript" src="js/Graph.js"></script>
+    <script type="text/javascript" src="js/History.js"></script>
+    <script type="text/javascript" src="js/Tooltip.js"></script>
+    <script type="text/javascript" src="js/ContextMenu.js"></script>
+    <script type="text/javascript" src="js/xtrace_utils.js"></script>
+    <script type="text/javascript" src="js/xtrace_graph.js"></script>
+    <!--Stylesheets-->
+    <link href="css/xtrace.css" rel="stylesheet" type="text/css" />
+    <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
+    <link href="css/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+    <link href="lib/jQuery/jquery-ui-1.11.0.custom/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
 </head>
 <body width="100%" height="100%" style="margin: 0">
     <div id="controls">
@@ -137,6 +107,6 @@ window.onload = function() {
         </div>
         <div id="key-scale"></div>
     </div> -->
-<script src="js/init.js"></script>
+    <script src="js/init.js"></script>
 </body>
 </html>

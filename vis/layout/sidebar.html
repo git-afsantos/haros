@@ -1,0 +1,59 @@
+<div class="scrollable">
+  <h1 class="scrollable-header app-name">HAROS <small>Visualiser</small></h1>  
+  <div class="scrollable-content">
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="input-group">
+                <span class="input-group-addon" id="focus-addon">Focus</span>
+                <input type="text" class="form-control" placeholder="Package Name" aria-describedby="focus-addon" ng-model="uiData.focus" ng-keypress="setFocus($event)"/>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="input-group">
+                <span class="input-group-addon" id="tags-addon">Tags</span>
+                <input type="text" class="form-control" placeholder="Add a tag" aria-describedby="tags-addon" ng-model="uiData.tag" ng-keypress="addTag($event)"/>
+            </div>
+            <!-- <div class="panel panel-default margin-top">
+                <div class="panel-body line-lg">
+                    <span ng-repeat="tag in tags track by $index">
+                        <span class="clickable label label-default" ng-click="removeTag($index)">{{tag}}</span>
+                    </span>
+                </div>
+            </div> -->
+            <p class="margin-top hpadding line-lg">
+                <span ng-repeat="tag in tags track by $index">
+                    <span class="clickable label label-default" ng-click="removeTag($index)">{{tag}}</span>
+                </span>
+            </p>
+        </div>
+        <div class="list-group-item">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Package Details</h3>
+                </div>
+                <div class="panel-body">
+                    <p ng-show="!uiData.node.name">No package selected.</p>
+                    <div ng-show="!!uiData.node.name">
+                        <h4>Name</h4>
+                        <p>{{uiData.node.name}}</p>
+                        <h4>Description</h4>
+                        <p>{{uiData.node.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="list-group" ui-turn-off='uiSidebarLeft'>
+      <a class="list-group-item" href="#/">Home <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/scroll">Scroll <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/toggle">Toggle <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/tabs">Tabs <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/accordion">Accordion <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/overlay">Overlay <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/forms">Forms <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/dropdown">Dropdown <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/drag">Drag 1 <span class="label label-danger">Experimental</span> <i class="fa fa-chevron-right pull-right"></i></a>
+      <a class="list-group-item" href="#/carousel">Drag 2 <span class="label label-danger">Experimental</span> <i class="fa fa-chevron-right pull-right"></i></a>
+    </div> -->
+  </div>
+</div>

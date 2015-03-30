@@ -1,0 +1,52 @@
+#graph_container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+h1 {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.hpadding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.line-lg {
+    line-height: 2;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.app-content-loading {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  font-size: 50px;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+pre {
+  text-align: left !important;
+}
+
+input.scrollable-header {
+  border-bottom: 3px solid #ccc;
+}
