@@ -12,6 +12,7 @@
         return {
             readFrom: readFrom,
             onClick: onClick,
+            setFocus: setFocus,
             draw: draw
         };
 
@@ -37,9 +38,17 @@
         }
 
 
+        function setFocus(focus) {
+            graphView.focus = focus || "_";
+            graphView.draw();
+        }
+
+
         function draw(attachPoint) {
-            graphView = new SvgGraph(attachPoint, graph);
-            if (onclick) graphView.onClick(onclick);
+            if (!graphView) {
+                graphView = new SvgGraph(attachPoint, graph);
+                if (onclick) graphView.onClick(onclick);
+            }
             graphView.draw();
         }
 
@@ -458,6 +467,7 @@
         this.textNodes = this.gsvg.selectAll("text");
         this.direction = "TB";
         this.focus = "_";
+        this._selectedNode = null;
     }
 
     SvgGraph.prototype = Object.create(null);
@@ -475,8 +485,31 @@
 
     SvgGraph.prototype._onClick = function (d) {};
 
+    // http://stackoverflow.com/questions/13090321/custom-context-menu-in-d3-and-svg
     SvgGraph.prototype.onClick = function (cb) {
-        this._onClick = cb;
+        var _this = this;
+        this._onClick = function (d) {
+            var prev;
+            if (_this._selectedNode) {
+                _this._selectedNode.classed("selected", false);
+                prev = _this._selectedNode.datum().id;
+            }
+            if (prev != d.id) {
+                _this.gsvg.classed("hovering", true);
+                _this._selectedNode = d3.select(this).classed("selected", true);
+                _this._highlightPath(d);
+                cb({
+                    id: d.id,
+                    description: d.report.description
+                });
+            } else {
+                _this.nodes.classed("hovered", false);
+                _this.edges.classed({hovered: false, selected: false});
+                _this.gsvg.classed("hovering", false);
+                _this._selectedNode = null;
+                cb(null);
+            }
+        };
         return this;
     };
 
@@ -758,6 +791,22 @@
     };
 
 
+    SvgGraph.prototype._highlightPath = function (n) {
+        var parents = n.parent_nodes,
+            children = n.child_nodes;
+        this.nodes.classed("hovered", function (d) {
+            return d.id in parents || d.id in children || d.id == n.id;
+        });
+        this.edges.classed("hovered", function (d) {
+            return (d.source.id in parents && d.target.id in parents) ||
+                (d.source.id in children && d.target.id in children);
+        });
+        this.edges.classed("selected", function (d) {
+            return d.source.id == n.id || d.target.id == n.id;
+        });
+    };
+
+
     SvgGraph.prototype._resetViewport = function () {
         var ow = this.svg.node().parentNode.offsetWidth,
             oh = this.svg.node().parentNode.offsetHeight,
@@ -768,7 +817,7 @@
                 width: curbbox.width + 50,
                 height: curbbox.height + 50
             },
-            scale = Math.max(Math.min(ow / bbox.width, oh / bbox.height), 0.125),
+            scale = Math.max(Math.min(ow / bbox.width, oh / bbox.height), 0.0625),
             w = ow / scale,
             h = oh / scale,
             tx = ((w - bbox.width) / 2 - bbox.x + 25) * scale,

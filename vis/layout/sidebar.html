@@ -29,13 +29,15 @@
         <div class="list-group-item">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Package Details</h3>
+                    <h3 class="panel-title">
+                        {{uiData.node.name || "Package Details"}}
+                    </h3>
                 </div>
                 <div class="panel-body">
                     <p ng-show="!uiData.node.name">No package selected.</p>
                     <div ng-show="!!uiData.node.name">
-                        <h4>Name</h4>
-                        <p>{{uiData.node.name}}</p>
+                        <h4>Analysis</h4>
+                        <p>---</p>
                         <h4>Description</h4>
                         <p>{{uiData.node.description}}</p>
                     </div>

@@ -48,7 +48,7 @@
 
         $scope.setFocus = function ($event) {
             if ($event.which === 13) {
-                
+                GraphService.setFocus($scope.uiData.focus);
                 $event.preventDefault();
             }
         };
@@ -66,8 +66,13 @@
 
         GraphService.onClick(function (d) {
             $scope.$apply(function () {
-                $scope.uiData.node.name = d.id;
-                $scope.uiData.node.description = d.report.description;
+                if (d) {
+                    $scope.uiData.node.name = d.id;
+                    $scope.uiData.node.description = d.description;
+                } else {
+                    $scope.uiData.node.name = "";
+                    $scope.uiData.node.description = "";
+                }
             });
         });
 
