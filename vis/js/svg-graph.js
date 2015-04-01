@@ -45,11 +45,7 @@ SvgGraph.prototype.onClick = function (cb) {
             _this.gsvg.classed("hovering", true);
             _this._selectedNode = d3.select(this).classed("selected", true);
             _this._highlightPath(d);
-            cb({
-                id: d.id,
-                description: d.report.description,
-                dependencies: d.report.dependencies.slice(0, -1)
-            });
+            cb(d);
         } else {
             _this.nodes.classed("hovered", false);
             _this.edges.classed({hovered: false, selected: false});

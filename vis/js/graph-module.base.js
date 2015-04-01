@@ -31,9 +31,18 @@
 
 
         function onClick(cb) {
-            onclick = cb;
+            onclick = function (d) {
+                if (d) {
+                    d = {
+                        id: d.id,
+                        description: d.report.description,
+                        dependencies: d.report.dependencies.slice(0, -1)
+                    };
+                }
+                cb(d);
+            };
             if (graphView) {
-                graphView.onClick(cb);
+                graphView.onClick(onclick);
             }
         }
 
