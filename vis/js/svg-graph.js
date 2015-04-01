@@ -47,7 +47,8 @@ SvgGraph.prototype.onClick = function (cb) {
             _this._highlightPath(d);
             cb({
                 id: d.id,
-                description: d.report.description
+                description: d.report.description,
+                dependencies: d.report.dependencies.slice(0, -1)
             });
         } else {
             _this.nodes.classed("hovered", false);
@@ -58,6 +59,15 @@ SvgGraph.prototype.onClick = function (cb) {
         }
     };
     return this;
+};
+
+SvgGraph.prototype.setFocus = function (n) {
+    if (n && (n in this.graph.nodes)) {
+        this.focus = n;
+        return n;
+    }
+    this.focus = "_";
+    return "";
 };
 
 SvgGraph.prototype.draw = function () {
@@ -200,13 +210,13 @@ SvgGraph.prototype._draw = function() {
     newNodes.each(this._drawNode)
         .on("click", this._onClick);
     curNodes.each(this._sizeNode);
-    // remNodes.each(this._removeNode);
     remNodes.classed("visible", false).remove();
     // if (animate) removed_edges.classed("visible", false).transition().duration(500).remove();
     remEdges.classed("visible", false).remove();
 
     this.nodes = this.gsvg.selectAll(".node");
     this.edges = this.gsvg.selectAll(".edge");
+    this.textNodes = this.gsvg.selectAll("text");
 
     this._layout(nodes, edges, curNodes);
 
@@ -267,11 +277,6 @@ SvgGraph._styleNode = function (d, rect, text) {
         d.color.sat + "%, " + d.color.light + "%, " + d.color.alpha + ");");
     // rect.attr("style", "fill: rgba(" + d.color.red + ", " + d.color.green + ", " + d.color.blue + ", " + d.color.alpha + ");");
 };
-
-/*SvgGraph.prototype._removeNode = function (d) {
-    // if (animate) d3.select(this).classed("visible", false).transition().duration(200).remove();
-    d3.select(this).classed("visible", false).remove();
-};*/
 
 // Dagre requires the width, height, and bbox of each node to be attached to that node's data
 SvgGraph.prototype._layout = function(nodes, edges, preNodes) {

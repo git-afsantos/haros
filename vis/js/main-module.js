@@ -40,6 +40,7 @@
             node: {
                 name: "",
                 description: "",
+                dependencies: "",
                 noncompliance: ""
             }
         };
@@ -48,7 +49,7 @@
 
         $scope.setFocus = function ($event) {
             if ($event.which === 13) {
-                GraphService.setFocus($scope.uiData.focus);
+                $scope.uiData.focus = GraphService.setFocus($scope.uiData.focus);
                 $event.preventDefault();
             }
         };
@@ -69,9 +70,11 @@
                 if (d) {
                     $scope.uiData.node.name = d.id;
                     $scope.uiData.node.description = d.description;
+                    $scope.uiData.node.dependencies = d.dependencies.join(", ") || "---";
                 } else {
                     $scope.uiData.node.name = "";
                     $scope.uiData.node.description = "";
+                    $scope.uiData.node.dependencies = "";
                 }
             });
         });

@@ -1,8 +1,4 @@
-/*
- * This file contains the prototypes for Graph and Node
- */
-
-var Node = function(id) {
+function Node(id) {
 	// Save the arguments
 	this.id = id;
 
@@ -125,8 +121,7 @@ Node.prototype.getVisibleChildren = function() {
 	return values(visible_children_map[this.id]);
 };
 
-var Graph = function() {
-	// Default values for internal variables
+function Graph() {
 	this.nodelist = [];
 	this.nodes = {};
 };
@@ -149,45 +144,6 @@ Graph.prototype.getVisibleNodes = function() {
 };
 
 Graph.prototype.getVisibleLinks = function() {
-	/*var visible_parent_map = {};
-
-	var explore_node = function(node) {
-		if (visible_parent_map[node.id]) {
-			return;
-		}
-		visible_parent_map[node.id] = {};
-		var parents = node.parent_nodes;
-		for (var pid in parents) {
-			var parent = parents[pid];
-			if (parent.visible()) {
-				visible_parent_map[node.id][pid] = true;
-			} else {
-				explore_node(parent);
-				var grandparents = visible_parent_map[pid];
-				for (var gpid in grandparents) {
-					visible_parent_map[node.id][gpid] = true;
-				}
-			}
-		}
-	};
-
-	for (var i = 0; i < this.nodelist.length; i++) {
-		explore_node(this.nodelist[i]);
-	}
-
-	var nodes = this.nodes;
-	var ret = [];
-	var visible_nodes = this.getVisibleNodes();
-	for (var i = 0; i < visible_nodes.length; i++) {
-		var node = visible_nodes[i];
-		var parentids = visible_parent_map[node.id];
-		Object.keys(parentids).forEach(function(pid) {
-			ret.push({source: nodes[pid], target: node});
-		});
-	}
-
-	return ret;*/
-
 	var nodes = this.nodes;
 	var ret = [];
 	var visible_nodes = this.getVisibleNodes();
@@ -199,174 +155,9 @@ Graph.prototype.getVisibleLinks = function() {
 			ret.push({source: edges[j], target: node});
 		}
 	}
-
 	return ret;
-
 };
-
-/*
- * The functions below are just simple utility functions
- */
-
-function getNodesBetween(a, b) {
-	// Returns a list containing all the nodes between a and b, including a and b
-	var between = {};
-	var nodesBetween = [a, b];
-	var get = function(p) {
-		if (between[p.id] == null) {
-			if (p==b) {
-				nodesBetween.push(p);
-				between[p.id] = true;
-			} else if (p.getParents().map(get).indexOf(true)!=-1) {
-				nodesBetween.push(p);
-				between[p.id] = true;
-			} else {
-				between[p.id] = false;
-			}
-		}
-		return between[p.id];
-	};
-	get(a);
-	return nodesBetween;
-}
-
-function getEntirePathNodes(center) {
-	// Returns a list containing all edges leading into or from the center node
-	var visible_parent_map = {};
-	var visible_child_map = {};
-	var nodes = {};
-
-	var explore_parents = function(node) {
-		if (visible_parent_map[node.id]) {
-			return;
-		}
-		visible_parent_map[node.id] = {};
-		nodes[node.id] = node;
-		var parents = node.parent_nodes;
-		for (var pid in parents) {
-			var parent = parents[pid];
-			if (parent.visible()) {
-				visible_parent_map[node.id][pid] = true;
-				explore_parents(parent);
-			} else {
-				explore_parents(parent);
-				var grandparents = visible_parent_map[pid];
-				for (var gpid in grandparents) {
-					visible_parent_map[node.id][gpid] = true;
-				}
-			}
-		}
-	};
-
-	var explore_children = function(node) {
-		if (visible_child_map[node.id]) {
-			return;
-		}
-		visible_child_map[node.id] = {};
-		nodes[node.id] = node;
-		var children = node.child_nodes;
-		for (var cid in children) {
-			var child = children[cid];
-			if (child.visible()) {
-				visible_child_map[node.id][cid] = true;
-				explore_children(child);
-			} else {
-				explore_children(child);
-				var grandchildren = visible_child_map[cid];
-				for (var gcid in grandchildren) {
-					visible_child_map[node.id][gcid] = true;
-				}
-			}
-		}
-	};
-
-	explore_parents(center);
-	explore_children(center);
-
-	return values(nodes);
-}
-
-function getEntirePathLinks(center) {
-	// Returns a list containing all edges leading into or from the center node
-	var visible_parent_map = {};
-	var visible_child_map = {};
-	var nodes = {};
-
-	var explore_parents = function(node) {
-		if (visible_parent_map[node.id]) {
-			return;
-		}
-		visible_parent_map[node.id] = {};
-		nodes[node.id] = node;
-		var parents = node.parent_nodes;
-		for (var pid in parents) {
-			var parent = parents[pid];
-			if (parent.visible()) {
-				visible_parent_map[node.id][pid] = true;
-				explore_parents(parent);
-			} else {
-				explore_parents(parent);
-				var grandparents = visible_parent_map[pid];
-				for (var gpid in grandparents) {
-					visible_parent_map[node.id][gpid] = true;
-				}
-			}
-		}
-	}
-
-	var explore_children = function(node) {
-		if (visible_child_map[node.id]) {
-			return;
-		}
-		visible_child_map[node.id] = {};
-		nodes[node.id] = node;
-		var children = node.child_nodes;
-		for (var cid in children) {
-			var child = children[cid];
-			if (child.visible()) {
-				visible_child_map[node.id][cid] = true;
-				explore_children(child);
-			} else {
-				explore_children(child);
-				var grandchildren = visible_child_map[cid];
-				for (var gcid in grandchildren) {
-					visible_child_map[node.id][gcid] = true;
-				}
-			}
-		}
-	}
-
-	explore_parents(center);
-	explore_children(center);
-
-	var path = [];
-
-	for (var targetid in visible_parent_map) {
-		var target = nodes[targetid];
-		var sourceids = visible_parent_map[targetid];
-		for (var sourceid in sourceids) {
-			var source = nodes[sourceid];
-			path.push({source: source, target: target});
-		}
-	}
-
-	for (var sourceid in visible_child_map) {
-		var source = nodes[sourceid];
-		var targetids = visible_child_map[sourceid];
-		for (var targetid in targetids) {
-			var target = nodes[targetid];
-			path.push({source: source, target: target});
-		}
-	}
-
-	return path;
-}
 
 function values(obj) {
 	return Object.keys(obj).map(function(key) { return obj[key]; });
-}
-
-function flatten(arrays) {
-	var flattened = [];
-	return flattened.concat.apply(flattened, arrays);
 }
