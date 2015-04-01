@@ -65,10 +65,7 @@
 
         function graphFromReports(reports) {
             // Create abstract report to be the focus
-            reports._ = {
-                dependencies: []
-            };
-
+            reports._ = { dependencies: [] };
             // Create nodes
             var nodes = {};
             Object.keys(reports).forEach(function (key, index) {
@@ -76,26 +73,12 @@
                     report = reports[key];
                 nodes[id] = new Node(id);
                 nodes[id].report = report;
-                var tooltipData = nodes[id].tooltipData = {};
-                tooltipData.Name = id;
-                if (report.metapackage) {
-                    tooltipData.Metapackage = "Yes";
-                    // tooltipData.Contains = report.dependencies;
-                }
-                if (report.ros) {
-                    tooltipData.ROS = report.ros;
-                }
-                if (report.linux || report.library) {
-                    tooltipData.Library = "Yes";
-                }
-                tooltipData.Description = report.description;
-                if (report.dependencies.length) {
-                    tooltipData.Dependencies = report.dependencies.slice();
-                }
                 report.dependencies.push("_");
             });
-
-            // Second link the nodes together
+            reports._.dependencies = [];
+            // Link the nodes together
+            // Create the graph and add the nodes
+            var graph = new Graph();
             for (var nodeid in nodes) {
                 var node = nodes[nodeid];
                 node.report.dependencies.forEach(function(childId) {
@@ -105,17 +88,10 @@
                         n.addParent(node);
                     }
                 });
+                graph.addNode(node);
             }
-
-            // Hide really heavily depended nodes
-            nodes["_"].never_visible = true;
-
-            // Create the graph and add the nodes
-            var graph = new Graph();
-            for (var id in nodes) {
-                graph.addNode(nodes[id]);
-            }
-
+            // Hide heavily depended nodes
+            nodes._.never_visible = true;
             return graph;
         }
     }
