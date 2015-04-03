@@ -134,6 +134,16 @@ def getMaxVal(cur, table, col):
 
 
 
+def getNonComplianceSummary(cur, package_id):
+    # SELECT T.name, R.tag_id, R.rule_id, count(*) as count FROM ((haros_Non_Compliance AS N JOIN haros_Rule_Tags AS R ON N.rule_id = R.rule_id) JOIN haros_Tags AS T ON R.tag_id = T.id) WHERE package_id = 6 GROUP BY R.tag_id, R.rule_id;
+    t1 = tablePref("Non_Compliance")
+    t2 = tablePref("Rule_Tags")
+    t3 = tablePref("Tags")
+    cmd = "SELECT T.name, count(*) as count FROM (({0} AS N JOIN {1} AS R ON N.rule_id = R.rule_id) JOIN {2} AS T ON R.tag_id = T.id) WHERE package_id = {3} GROUP BY R.tag_id".format(t1, t2, t3, package_id)
+    result = exFetch(cur, cmd)
+    return result
+
+
 # Used for finding dependency number orders
 def getDepOrders(cur, dep_id, table = 'Package_Dependencies'):
 	table = tablePref(table)

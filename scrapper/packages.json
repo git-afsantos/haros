@@ -21,6 +21,10 @@
         "Maintainers": [
             "Jihoon Lee"
         ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
         "Edge": [
             "yocs_cmd_vel_mux",
             "yocs_safety_controller",
@@ -50,6 +54,10 @@
         "Maintainers": [
             "Daniel Stonier"
         ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
         "Edge": [
             "kobuki_driver"
         ]
@@ -71,6 +79,21 @@
         "Maintainers": [
             "Marcus Liebhardt"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 24,
+                "nasa-satc": 16,
+                "his": 6,
+                "uai": 10,
+                "ros": 24,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 4,
+                "cyclomatic-complexity": 4,
+                "weighted-methods": 8,
+                "available-methods": 10
+            }
+        },
         "Edge": [
         ]
     },
@@ -91,6 +114,21 @@
         "Maintainers": [
             "Marcus Liebhardt"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 16,
+                "nasa-satc": 10,
+                "his": 3,
+                "uai": 6,
+                "ros": 14,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 3,
+                "cyclomatic-complexity": 3,
+                "weighted-methods": 5,
+                "available-methods": 6
+            }
+        },
         "Edge": [
             "yocs_cmd_vel_mux"
         ]
@@ -121,6 +159,10 @@
         "Maintainers": [
             "Daniel Stonier"
         ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
         "Edge": [
             "kobuki_random_walker",
             "kobuki_keyop",
@@ -145,6 +187,21 @@
         "Maintainers": [
             "Marcus Liebhardt"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 14,
+                "nasa-satc": 9,
+                "his": 3,
+                "uai": 5,
+                "ros": 12,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 3,
+                "cyclomatic-complexity": 3,
+                "weighted-methods": 4,
+                "available-methods": 5
+            }
+        },
         "Edge": [
         ]
     },
@@ -165,6 +222,21 @@
         "Maintainers": [
             "Jihoon Lee"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 19,
+                "nasa-satc": 12,
+                "his": 2,
+                "uai": 7,
+                "ros": 15,
+                "comments": 4,
+                "comment-ratio": 4,
+                "kth": 2,
+                "cyclomatic-complexity": 2,
+                "weighted-methods": 5,
+                "available-methods": 8
+            }
+        },
         "Edge": [
         ]
     },
@@ -185,6 +257,21 @@
         "Maintainers": [
             "Daniel Stonier"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 11,
+                "nasa-satc": 9,
+                "his": 4,
+                "uai": 2,
+                "ros": 9,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 4,
+                "cyclomatic-complexity": 4,
+                "weighted-methods": 1,
+                "available-methods": 4
+            }
+        },
         "Edge": [
             "yocs_cmd_vel_mux",
             "yocs_velocity_smoother"
@@ -209,6 +296,22 @@
         "Maintainers": [
             "Daniel Stonier"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 98,
+                "nasa-satc": 66,
+                "his": 13,
+                "uai": 35,
+                "ros": 89,
+                "comments": 10,
+                "comment-ratio": 10,
+                "kth": 8,
+                "cyclomatic-complexity": 10,
+                "coupling": 3,
+                "weighted-methods": 30,
+                "available-methods": 45
+            }
+        },
         "Edge": [
             "kobuki_keyop",
             "kobuki_safety_controller",
@@ -232,6 +335,21 @@
         "Maintainers": [
             "Jihoon Lee"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 26,
+                "nasa-satc": 17,
+                "his": 6,
+                "uai": 9,
+                "ros": 24,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 5,
+                "cyclomatic-complexity": 6,
+                "weighted-methods": 8,
+                "available-methods": 10
+            }
+        },
         "Edge": [
         ]
     },
@@ -254,6 +372,22 @@
         "Maintainers": [
             "Daniel Stonier"
         ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 156,
+                "nasa-satc": 108,
+                "his": 48,
+                "uai": 46,
+                "ros": 133,
+                "comments": 18,
+                "comment-ratio": 18,
+                "kth": 44,
+                "cyclomatic-complexity": 50,
+                "coupling": 3,
+                "weighted-methods": 37,
+                "available-methods": 48
+            }
+        },
         "Edge": [
         ]
     }

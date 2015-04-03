@@ -80,6 +80,18 @@ def jsonifyPackage(pkg_id, cur):
 	if None in mntnr_names: mntnr_names.remove(None)
 	s += jsonifyMultiItem(iter(mntnr_names))
 	s += "        ],\n"
+
+	s += "        \"Analysis\": {\n"
+	s += "            \"Noncompliance\": {\n"
+	non_cpl = dbe.getNonComplianceSummary(cur, pkg_id)
+	for i, n in enumerate(non_cpl):
+		s += "                \"" + n[0] + "\": " + str(n[1])
+		if i < len(non_cpl) - 1:
+			s += ",\n"
+		else:
+			s += "\n"
+	s += "            }\n"
+	s += "        },\n"
 	
 	s += "        \"Edge\": [\n"
 	# dep_ids defined above, in case meta
