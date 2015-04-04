@@ -13,6 +13,8 @@
             readFrom: readFrom,
             onClick: onClick,
             setFocus: setFocus,
+            addFilter: addFilter,
+            removeFilter: removeFilter,
             draw: draw
         };
 
@@ -35,8 +37,9 @@
                 if (d) {
                     d = {
                         id: d.id,
-                        description: d.report.description,
-                        dependencies: d.report.dependencies.slice(0, -1)
+                        description: d.report.Description,
+                        dependencies: d.report.Edge.slice(0, -1),
+                        noncompliance: d.analysis
                     };
                 }
                 cb(d);
@@ -54,21 +57,77 @@
         }
 
 
+        function addFilter(filter, cb) {
+            graphView.addFilter(filter, function (d) {
+                cb({ id: d.id, noncompliance: d.analysis });
+            }).repaint();
+            return this;
+        }
+
+
+        function removeFilter(filter, cb) {
+            graphView.removeFilter(filter, function (d) {
+                cb({ id: d.id, noncompliance: d.analysis });
+            }).repaint();
+            return this;
+        }
+
+
         function draw(attachPoint) {
             if (!graphView) {
                 graphView = new SvgGraph(attachPoint, graph);
                 if (onclick) graphView.onClick(onclick);
             }
             graphView.draw();
+            return this;
         }
 
 
         function graphFromReports(reports) {
-            // Create abstract report to be the focus
-            reports._ = {
-                dependencies: []
-            };
+            var i, j, len, len2, r, node, es,
+                graph = new Graph();
+            reports.push({
+                Name: "_",
+                Analysis: {
+                    Noncompliance: {}
+                },
+                Edge: []
+            });
+            for (i = 0, len = reports.length; i < len; ++i) {
+                r = reports[i];
+                node = new Node(r.Name);
+                node.report = r;
+                r.Edge.push("_");
+                graph.addNode(node);
+                processAnalysis(r, node);
+            }
+            reports[len - 1].Edge = [];
+            for (i = 0, len = graph.nodelist.length; i < len; ++i) {
+                node = graph.nodelist[i];
+                es = node.report.Edge;
+                for (j = 0, len2 = es.length; j < len2; ++j) {
+                    r = graph.nodes[es[j]];
+                    node.addChild(r);
+                    r.addParent(node);
+                }
+            }
+            graph.nodes._.never_visible = true;
+            return graph;
+        }
 
+
+        function processAnalysis(report, node) {
+            var key, r = report.Analysis.Noncompliance;
+            node.analysis = 0;
+            for (key in r) if (r.hasOwnProperty(key)) {
+                node.analysis += r[key];
+            }
+        }
+
+
+        /*function graphFromReports(reports) {
+            // Create abstract report to be the focus
+            reports._ = { dependencies: [] };
             //  Create nodes
             var nodes = {};
             Object.keys(reports).forEach(function (key, index) {
@@ -76,26 +135,12 @@
                     report = reports[key];
                 nodes[id] = new Node(id);
                 nodes[id].report = report;
-                var tooltipData = nodes[id].tooltipData = {};
-                tooltipData.Name = id;
-                if (report.metapackage) {
-                    tooltipData.Metapackage = "Yes";
-                    //   tooltipData.Contains = report.dependencies;
-                }
-                if (report.ros) {
-                    tooltipData.ROS = report.ros;
-                }
-                if (report.linux || report.library) {
-                    tooltipData.Library = "Yes";
-                }
-                tooltipData.Description = report.description;
-                if (report.dependencies.length) {
-                    tooltipData.Dependencies = report.dependencies.slice();
-                }
                 report.dependencies.push("_");
             });
-
-            //    Second link the nodes together
+            reports._.dependencies = [];
+            //   Link the nodes together
+            //    Create the graph and add the nodes
+            var graph = new Graph();
             for (var nodeid in nodes) {
                 var node = nodes[nodeid];
                 node.report.dependencies.forEach(function(childId) {
@@ -105,19 +150,12 @@
                         n.addParent(node);
                     }
                 });
+                graph.addNode(node);
             }
-
-            //     Hide really heavily depended nodes
-            nodes["_"].never_visible = true;
-
-            //      Create the graph and add the nodes
-            var graph = new Graph();
-            for (var id in nodes) {
-                graph.addNode(nodes[id]);
-            }
-
+            //     Hide heavily depended nodes
+            nodes._.never_visible = true;
             return graph;
-        }
+        }*/
     }
 
 
@@ -317,6 +355,8 @@
         this.direction = "TB";
         this.focus = "_";
         this._selectedNode = null;
+        this.colorFilters = [];
+        this._maxColor = 0;
     }
 
     SvgGraph.prototype = Object.create(null);
@@ -373,6 +413,28 @@
         return this;
     };
 
+    SvgGraph.prototype.repaint = function () {
+        this.nodes.each(this._repaintNode);
+        return this;
+    };
+
+    SvgGraph.prototype.addFilter = function (f, cb) {
+        this.colorFilters.push(f);
+        this._updateColorFilters(this.graph.nodelist);
+        if (cb) _.each(this.graph.nodelist, cb);
+        return this;
+    };
+
+    SvgGraph.prototype.removeFilter = function (f, cb) {
+        var c = this.colorFilters, i = c.length;
+        while (i--) if (c[i] == f) {
+            c.splice(i, 1);
+        }
+        this._updateColorFilters(this.graph.nodelist);
+        if (cb) _.each(this.graph.nodelist, cb);
+        return this;
+    };
+
     SvgGraph.prototype._initialize = function () {
         var i, j, len, node, visible_nodes, edges,
             nodes = this.graph.nodes,
@@ -398,7 +460,8 @@
             }
         }
         this._transitiveReduction(visible_nodes);
-        this._paintNodes(this.graph.getNodes());
+        this._updateColorFilters(nodelist);
+        this._paintNodes(nodelist);
     };
 
     SvgGraph.prototype._narrowFocus = function(nodes) {
@@ -474,11 +537,42 @@
         }
     };
 
+    SvgGraph.prototype._updateColorFilters = function (nodes) {
+        var i, j, node, sum,
+            len     = nodes.length,
+            filters = this.colorFilters,
+            len2    = filters.length,
+            max     = 0;
+        if (len2) {
+            for (i = 0; i < len; ++i) {
+                sum = 0;
+                node = nodes[i];
+                for (j = 0, len2 = filters.length; j < len2; ++j) {
+                    sum += node.report.Analysis.Noncompliance[filters[j]] || 0;
+                }
+                max = Math.max(max, sum);
+                node.analysis = sum;
+            }
+        } else {
+            for (i = 0; i < len; ++i) {
+                node = nodes[i];
+                filters = node.report.Analysis.Noncompliance;
+                sum = 0;
+                for (j in filters) if (filters.hasOwnProperty(j)) {
+                    sum += filters[j];
+                }
+                max = Math.max(max, sum);
+                node.analysis = sum;
+            }
+        }
+        this._maxColor = max = max || 1;
+    };
+
     SvgGraph.prototype._paintNodes = function (nodes) {
-        var i, len, node;
+        var i, len, node, max = this._maxColor;
         for (i = 0, len = nodes.length; i < len; ++i) {
             node = nodes[i];
-            if (node.report.linux) {
+            /* if (node.report.linux) {
                 node.color.hue = 20;
             } else if (node.report.library) {
                 node.color.hue = 50;
@@ -489,7 +583,11 @@
             }
             node.color.sat = 90;
             node.color.light = 80;
-            node.color.alpha = 0.80;
+            node.color.alpha = 0.80; */
+            node.color.hue = 220;
+            node.color.sat = 90;
+            node.color.alpha = 0.8;
+            node.color.light = (100 - (node.analysis / max * 70)) | 0;
         }
     };
 
@@ -564,6 +662,13 @@
         rect.attr("x", -node_bbox.width/2).attr("y", -node_bbox.height/2);
         rect.attr("width", node_bbox.width).attr("height", node_bbox.height);
         text.attr("x", -text_bbox.width/2).attr("y", -text_bbox.height/2);
+        SvgGraph._styleNode(d, rect, text);
+    };
+
+    SvgGraph.prototype._repaintNode = function (d) {
+        var _this = d3.select(this),
+            rect = _this.select("rect"),
+            text = _this.select("text");
         SvgGraph._styleNode(d, rect, text);
     };
 

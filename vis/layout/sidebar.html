@@ -31,14 +31,22 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         {{uiData.node.name || "Package Details"}}
+                        <!-- <span class="pull-right badge">Meta</span> -->
                     </h3>
                 </div>
                 <div class="panel-body">
                     <p ng-show="!uiData.node.name">No package selected.</p>
                     <div ng-show="!!uiData.node.name">
                         <h4>Analysis</h4>
-                        <p>---</p>
-                        <h4>Description</h4>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">Non-compliance</div>
+                                <div class="col-md-4 text-right">
+                                    <span class="badge">{{uiData.node.noncompliance}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="margin-top">Description</h4>
                         <p>{{uiData.node.description}}</p>
                         <h4>Dependencies</h4>
                         <p>{{uiData.node.dependencies}}</p>

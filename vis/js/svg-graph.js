@@ -16,6 +16,8 @@ function SvgGraph(el, data) {
     this.direction = "TB";
     this.focus = "_";
     this._selectedNode = null;
+    this.colorFilters = [];
+    this._maxColor = 0;
 }
 
 SvgGraph.prototype = Object.create(null);
@@ -72,6 +74,28 @@ SvgGraph.prototype.draw = function () {
     return this;
 };
 
+SvgGraph.prototype.repaint = function () {
+    this.nodes.each(this._repaintNode);
+    return this;
+};
+
+SvgGraph.prototype.addFilter = function (f, cb) {
+    this.colorFilters.push(f);
+    this._updateColorFilters(this.graph.nodelist);
+    if (cb) _.each(this.graph.nodelist, cb);
+    return this;
+};
+
+SvgGraph.prototype.removeFilter = function (f, cb) {
+    var c = this.colorFilters, i = c.length;
+    while (i--) if (c[i] == f) {
+        c.splice(i, 1);
+    }
+    this._updateColorFilters(this.graph.nodelist);
+    if (cb) _.each(this.graph.nodelist, cb);
+    return this;
+};
+
 SvgGraph.prototype._initialize = function () {
     var i, j, len, node, visible_nodes, edges,
         nodes = this.graph.nodes,
@@ -97,7 +121,8 @@ SvgGraph.prototype._initialize = function () {
         }
     }
     this._transitiveReduction(visible_nodes);
-    this._paintNodes(this.graph.getNodes());
+    this._updateColorFilters(nodelist);
+    this._paintNodes(nodelist);
 };
 
 SvgGraph.prototype._narrowFocus = function(nodes) {
@@ -173,11 +198,42 @@ SvgGraph.prototype._transitiveReduction = function (nodes) {
     }
 };
 
+SvgGraph.prototype._updateColorFilters = function (nodes) {
+    var i, j, node, sum,
+        len     = nodes.length,
+        filters = this.colorFilters,
+        len2    = filters.length,
+        max     = 0;
+    if (len2) {
+        for (i = 0; i < len; ++i) {
+            sum = 0;
+            node = nodes[i];
+            for (j = 0, len2 = filters.length; j < len2; ++j) {
+                sum += node.report.Analysis.Noncompliance[filters[j]] || 0;
+            }
+            max = Math.max(max, sum);
+            node.analysis = sum;
+        }
+    } else {
+        for (i = 0; i < len; ++i) {
+            node = nodes[i];
+            filters = node.report.Analysis.Noncompliance;
+            sum = 0;
+            for (j in filters) if (filters.hasOwnProperty(j)) {
+                sum += filters[j];
+            }
+            max = Math.max(max, sum);
+            node.analysis = sum;
+        }
+    }
+    this._maxColor = max = max || 1;
+};
+
 SvgGraph.prototype._paintNodes = function (nodes) {
-    var i, len, node;
+    var i, len, node, max = this._maxColor;
     for (i = 0, len = nodes.length; i < len; ++i) {
         node = nodes[i];
-        if (node.report.linux) {
+        /* if (node.report.linux) {
             node.color.hue = 20;
         } else if (node.report.library) {
             node.color.hue = 50;
@@ -188,7 +244,11 @@ SvgGraph.prototype._paintNodes = function (nodes) {
         }
         node.color.sat = 90;
         node.color.light = 80;
-        node.color.alpha = 0.80;
+        node.color.alpha = 0.80; */
+        node.color.hue = 220;
+        node.color.sat = 90;
+        node.color.alpha = 0.8;
+        node.color.light = (100 - (node.analysis / max * 70)) | 0;
     }
 };
 
@@ -263,6 +323,13 @@ SvgGraph.prototype._sizeNode = function (d) {
     rect.attr("x", -node_bbox.width/2).attr("y", -node_bbox.height/2);
     rect.attr("width", node_bbox.width).attr("height", node_bbox.height);
     text.attr("x", -text_bbox.width/2).attr("y", -text_bbox.height/2);
+    SvgGraph._styleNode(d, rect, text);
+};
+
+SvgGraph.prototype._repaintNode = function (d) {
+    var _this = d3.select(this),
+        rect = _this.select("rect"),
+        text = _this.select("text");
     SvgGraph._styleNode(d, rect, text);
 };
 

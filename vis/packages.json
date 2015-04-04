@@ -1,0 +1,394 @@
+[
+    {
+        "Name": "yujin_ocs",
+        "Metapackage": true,
+        "Contains": [
+            "yocs_safety_controller",
+            "yocs_cmd_vel_mux",
+            "yocs_velocity_smoother"
+        ],
+        "Description": "Yujin Robot's open-source control software",
+        "Wiki": "http://ros.org/wiki/yujin_ocs",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/yujin_ocs-release",
+            "yujinrobot/yujin_ocs"
+        ],
+        "Authors": [
+            "Yujin Robot"
+        ],
+        "Maintainers": [
+            "Jihoon Lee"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
+        "Edge": [
+            "yocs_cmd_vel_mux",
+            "yocs_safety_controller",
+            "yocs_velocity_smoother"
+        ]
+    },
+    {
+        "Name": "kobuki_core",
+        "Metapackage": true,
+        "Contains": [
+            "kobuki_driver"
+        ],
+        "Description": "Non-ROS software for Kobuki, Yujin Robot's mobile research base.",
+        "Wiki": "http://ros.org/wiki/kobuki_core",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot/kobuki_core",
+            "yujinrobot-release/kobuki_core-release"
+        ],
+        "Authors": [
+            "Jorge Santos Simon",
+            "Daniel Stonier",
+            "Marcus Liebhardt",
+            "Younghun Ju"
+        ],
+        "Maintainers": [
+            "Daniel Stonier"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
+        "Edge": [
+            "kobuki_driver"
+        ]
+    },
+    {
+        "Name": "yocs_safety_controller",
+        "Metapackage": false,
+        "Description": "A controller ensuring the safe operation of your robot.The SafetyController listens to ranger readings in order to stop (and move back), if obstacles get to close.This controller can be enabled/disabled.",
+        "Wiki": "http://ros.org/wiki/yocsd_safety_controller",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/yujin_ocs-release",
+            "yujinrobot/yujin_ocs"
+        ],
+        "Authors": [
+            "Marcus Liebhardt"
+        ],
+        "Maintainers": [
+            "Marcus Liebhardt"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 24,
+                "nasa-satc": 16,
+                "his": 6,
+                "uai": 10,
+                "ros": 24,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 4,
+                "cyclomatic-complexity": 4,
+                "weighted-methods": 8,
+                "available-methods": 10
+            }
+        },
+        "Edge": [
+        ]
+    },
+    {
+        "Name": "kobuki_random_walker",
+        "Metapackage": false,
+        "Description": "Random walker app for Kobuki",
+        "Wiki": "http://ros.org/wiki/kobuki_random_walker",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/kobuki-release",
+            "yujinrobot/kobuki"
+        ],
+        "Authors": [
+            "Marcus Liebhardt"
+        ],
+        "Maintainers": [
+            "Marcus Liebhardt"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 16,
+                "nasa-satc": 10,
+                "his": 3,
+                "uai": 6,
+                "ros": 14,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 3,
+                "cyclomatic-complexity": 3,
+                "weighted-methods": 5,
+                "available-methods": 6
+            }
+        },
+        "Edge": [
+            "yocs_cmd_vel_mux"
+        ]
+    },
+    {
+        "Name": "kobuki",
+        "Metapackage": true,
+        "Contains": [
+            "kobuki_random_walker",
+            "kobuki_keyop",
+            "kobuki_safety_controller",
+            "kobuki_node"
+        ],
+        "Description": "Software for Kobuki, Yujin Robot's mobile research base.",
+        "Wiki": "http://ros.org/wiki/kobuki",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/kobuki-release",
+            "yujinrobot/kobuki"
+        ],
+        "Authors": [
+            "Jorge Santos Simon",
+            "Daniel Stonier",
+            "Marcus Liebhardt",
+            "Younghun Ju"
+        ],
+        "Maintainers": [
+            "Daniel Stonier"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+            }
+        },
+        "Edge": [
+            "kobuki_random_walker",
+            "kobuki_keyop",
+            "kobuki_safety_controller",
+            "kobuki_node"
+        ]
+    },
+    {
+        "Name": "kobuki_safety_controller",
+        "Metapackage": false,
+        "Description": "A controller ensuring the safe operation of Kobuki.The SafetyController keeps track of bumper, cliff and wheel drop events. In case of the first two,Kobuki is commanded to move back. In the latter case, Kobuki is stopped.This controller can be enabled/disabled.The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!",
+        "Wiki": "http://ros.org/wiki/kobuki_safety_controller",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/kobuki-release",
+            "yujinrobot/kobuki"
+        ],
+        "Authors": [
+            "Marcus Liebhardt"
+        ],
+        "Maintainers": [
+            "Marcus Liebhardt"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 14,
+                "nasa-satc": 9,
+                "his": 3,
+                "uai": 5,
+                "ros": 12,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 3,
+                "cyclomatic-complexity": 3,
+                "weighted-methods": 4,
+                "available-methods": 5
+            }
+        },
+        "Edge": [
+        ]
+    },
+    {
+        "Name": "yocs_cmd_vel_mux",
+        "Metapackage": false,
+        "Description": "A multiplexer for command velocity inputs. Arbitrates incoming cmd_vel messages from several topics, allowing one topic at a time to command the robot, based on priorities. It also deallocates current allowed topic if no messages are received after a configured timeout. All topics, together with their priority and timeout are configured through a YAML file, that can be reload at runtime.",
+        "Wiki": "http://ros.org/wiki/yocs_cmd_vel_mux",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/yujin_ocs-release",
+            "yujinrobot/yujin_ocs"
+        ],
+        "Authors": [
+            "Jorge Santos Simon"
+        ],
+        "Maintainers": [
+            "Jihoon Lee"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 19,
+                "nasa-satc": 12,
+                "his": 2,
+                "uai": 7,
+                "ros": 15,
+                "comments": 4,
+                "comment-ratio": 4,
+                "kth": 2,
+                "cyclomatic-complexity": 2,
+                "weighted-methods": 5,
+                "available-methods": 8
+            }
+        },
+        "Edge": [
+        ]
+    },
+    {
+        "Name": "kobuki_keyop",
+        "Metapackage": false,
+        "Description": "Keyboard teleoperation for Kobuki: relays commands from a keyboard to Kobuki.",
+        "Wiki": "http://ros.org/wiki/kobuki_keyop",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/kobuki-release",
+            "yujinrobot/kobuki"
+        ],
+        "Authors": [
+            "Daniel Stonier"
+        ],
+        "Maintainers": [
+            "Daniel Stonier"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 11,
+                "nasa-satc": 9,
+                "his": 4,
+                "uai": 2,
+                "ros": 9,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 4,
+                "cyclomatic-complexity": 4,
+                "weighted-methods": 1,
+                "available-methods": 4
+            }
+        },
+        "Edge": [
+            "yocs_cmd_vel_mux",
+            "yocs_velocity_smoother"
+        ]
+    },
+    {
+        "Name": "kobuki_node",
+        "Metapackage": false,
+        "Description": "ROS nodelet for Kobuki: ROS wrapper for the Kobuki driver.",
+        "Wiki": "http://ros.org/wiki/kobuki_node",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/kobuki-release",
+            "yujinrobot/kobuki"
+        ],
+        "Authors": [
+            "Jorge Santos Simon",
+            "Daniel Stonier",
+            "Younghun Ju"
+        ],
+        "Maintainers": [
+            "Daniel Stonier"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 98,
+                "nasa-satc": 66,
+                "his": 13,
+                "uai": 35,
+                "ros": 89,
+                "comments": 10,
+                "comment-ratio": 10,
+                "kth": 8,
+                "cyclomatic-complexity": 10,
+                "coupling": 3,
+                "weighted-methods": 30,
+                "available-methods": 45
+            }
+        },
+        "Edge": [
+            "kobuki_keyop",
+            "kobuki_safety_controller",
+            "kobuki_driver"
+        ]
+    },
+    {
+        "Name": "yocs_velocity_smoother",
+        "Metapackage": false,
+        "Description": "Bound incoming velocity messages according to robot velocity and acceleration limits.",
+        "Wiki": "http://ros.org/wiki/yocs_velocity_smoother",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot-release/yujin_ocs-release",
+            "yujinrobot/yujin_ocs"
+        ],
+        "Authors": [
+            "Jorge Santos Simon"
+        ],
+        "Maintainers": [
+            "Jihoon Lee"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 26,
+                "nasa-satc": 17,
+                "his": 6,
+                "uai": 9,
+                "ros": 24,
+                "comments": 2,
+                "comment-ratio": 2,
+                "kth": 5,
+                "cyclomatic-complexity": 6,
+                "weighted-methods": 8,
+                "available-methods": 10
+            }
+        },
+        "Edge": [
+        ]
+    },
+    {
+        "Name": "kobuki_driver",
+        "Metapackage": false,
+        "Description": "C++ driver library for Kobuki:Pure C++ driver library for Kobuki. This is for those who do not wish to use ROS on their systems.",
+        "Wiki": "http://ros.org/wiki/kobuki_driver",
+        "Metrics": {
+        },
+        "Repositories": [
+            "yujinrobot/kobuki_core",
+            "yujinrobot-release/kobuki_core-release"
+        ],
+        "Authors": [
+            "Jorge Santos Simon",
+            "Daniel Stonier",
+            "Younghun Ju"
+        ],
+        "Maintainers": [
+            "Daniel Stonier"
+        ],
+        "Analysis": {
+            "Noncompliance": {
+                "metrics": 156,
+                "nasa-satc": 108,
+                "his": 48,
+                "uai": 46,
+                "ros": 133,
+                "comments": 18,
+                "comment-ratio": 18,
+                "kth": 44,
+                "cyclomatic-complexity": 50,
+                "coupling": 3,
+                "weighted-methods": 37,
+                "available-methods": 48
+            }
+        },
+        "Edge": [
+        ]
+    }
+]

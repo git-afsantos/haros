@@ -55,14 +55,19 @@
         };
 
         $scope.addTag = function ($event) {
+            var tag;
             if ($event.which === 13) {
-                $scope.tags.push($scope.uiData.tag);
+                tag = $scope.uiData.tag;
                 $scope.uiData.tag = "";
+                if (_.indexOf($scope.tags, tag) < 0) {
+                    $scope.tags.push(tag);
+                    GraphService.addFilter(tag, updateFocusData);
+                }
                 $event.preventDefault();
             }
         };
         $scope.removeTag = function (i) {
-            $scope.tags.splice(i, 1);
+            GraphService.removeFilter($scope.tags.splice(i, 1)[0], updateFocusData);
         };
 
         GraphService.onClick(function (d) {
@@ -71,10 +76,12 @@
                     $scope.uiData.node.name = d.id;
                     $scope.uiData.node.description = d.description;
                     $scope.uiData.node.dependencies = d.dependencies.join(", ") || "---";
+                    $scope.uiData.node.noncompliance = "" + d.noncompliance;
                 } else {
                     $scope.uiData.node.name = "";
                     $scope.uiData.node.description = "";
                     $scope.uiData.node.dependencies = "";
+                    $scope.uiData.node.noncompliance = "";
                 }
             });
         });
@@ -92,6 +99,13 @@
             $scope.notices.splice(index, 1);
             }
         };
+
+
+        function updateFocusData(d) {
+            if (d.id == $scope.uiData.node.name) {
+                $scope.uiData.node.noncompliance = "" + d.noncompliance;
+            }
+        }
     }
 
 
@@ -99,7 +113,8 @@
     // http://stackoverflow.com/questions/17405638/d3-js-zooming-and-panning-a-collapsible-tree-diagram
     GraphController.$inject = ["$scope", "GraphService"];
     function GraphController($scope, GraphService) {
-        GraphService.readFrom("turtlebot.json")
+        // GraphService.readFrom("turtlebot.json")
+        GraphService.readFrom("packages.json")
             .then(function () {
                 GraphService.draw(document.getElementById("graph_container"));
             });

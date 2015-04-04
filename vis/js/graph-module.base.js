@@ -13,6 +13,8 @@
             readFrom: readFrom,
             onClick: onClick,
             setFocus: setFocus,
+            addFilter: addFilter,
+            removeFilter: removeFilter,
             draw: draw
         };
 
@@ -35,8 +37,9 @@
                 if (d) {
                     d = {
                         id: d.id,
-                        description: d.report.description,
-                        dependencies: d.report.dependencies.slice(0, -1)
+                        description: d.report.Description,
+                        dependencies: d.report.Edge.slice(0, -1),
+                        noncompliance: d.analysis
                     };
                 }
                 cb(d);
@@ -54,16 +57,75 @@
         }
 
 
+        function addFilter(filter, cb) {
+            graphView.addFilter(filter, function (d) {
+                cb({ id: d.id, noncompliance: d.analysis });
+            }).repaint();
+            return this;
+        }
+
+
+        function removeFilter(filter, cb) {
+            graphView.removeFilter(filter, function (d) {
+                cb({ id: d.id, noncompliance: d.analysis });
+            }).repaint();
+            return this;
+        }
+
+
         function draw(attachPoint) {
             if (!graphView) {
                 graphView = new SvgGraph(attachPoint, graph);
                 if (onclick) graphView.onClick(onclick);
             }
             graphView.draw();
+            return this;
         }
 
 
         function graphFromReports(reports) {
+            var i, j, len, len2, r, node, es,
+                graph = new Graph();
+            reports.push({
+                Name: "_",
+                Analysis: {
+                    Noncompliance: {}
+                },
+                Edge: []
+            });
+            for (i = 0, len = reports.length; i < len; ++i) {
+                r = reports[i];
+                node = new Node(r.Name);
+                node.report = r;
+                r.Edge.push("_");
+                graph.addNode(node);
+                processAnalysis(r, node);
+            }
+            reports[len - 1].Edge = [];
+            for (i = 0, len = graph.nodelist.length; i < len; ++i) {
+                node = graph.nodelist[i];
+                es = node.report.Edge;
+                for (j = 0, len2 = es.length; j < len2; ++j) {
+                    r = graph.nodes[es[j]];
+                    node.addChild(r);
+                    r.addParent(node);
+                }
+            }
+            graph.nodes._.never_visible = true;
+            return graph;
+        }
+
+
+        function processAnalysis(report, node) {
+            var key, r = report.Analysis.Noncompliance;
+            node.analysis = 0;
+            for (key in r) if (r.hasOwnProperty(key)) {
+                node.analysis += r[key];
+            }
+        }
+
+
+        /*function graphFromReports(reports) {
             // Create abstract report to be the focus
             reports._ = { dependencies: [] };
             // Create nodes
@@ -93,7 +155,7 @@
             // Hide heavily depended nodes
             nodes._.never_visible = true;
             return graph;
-        }
+        }*/
     }
 
 
