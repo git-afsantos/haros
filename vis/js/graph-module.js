@@ -39,7 +39,8 @@
                         id: d.id,
                         description: d.report.Description,
                         dependencies: d.report.Edge.slice(0, -1),
-                        noncompliance: d.analysis
+                        noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                        score: d.analysis
                     };
                 }
                 cb(d);
@@ -59,7 +60,11 @@
 
         function addFilter(filter, cb) {
             graphView.addFilter(filter, function (d) {
-                cb({ id: d.id, noncompliance: d.analysis });
+                cb({
+                    id: d.id,
+                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    score: d.analysis
+                });
             }).repaint();
             return this;
         }
@@ -67,7 +72,11 @@
 
         function removeFilter(filter, cb) {
             graphView.removeFilter(filter, function (d) {
-                cb({ id: d.id, noncompliance: d.analysis });
+                cb({
+                    id: d.id,
+                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    score: d.analysis
+                });
             }).repaint();
             return this;
         }

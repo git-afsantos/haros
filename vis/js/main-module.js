@@ -41,7 +41,8 @@
                 name: "",
                 description: "",
                 dependencies: "",
-                noncompliance: ""
+                noncompliance: "",
+                score: ""
             }
         };
 
@@ -72,16 +73,19 @@
 
         GraphService.onClick(function (d) {
             $scope.$apply(function () {
+                var n = $scope.uiData.node;
                 if (d) {
-                    $scope.uiData.node.name = d.id;
-                    $scope.uiData.node.description = d.description;
-                    $scope.uiData.node.dependencies = d.dependencies.join(", ") || "---";
-                    $scope.uiData.node.noncompliance = "" + d.noncompliance;
+                    n.name = d.id;
+                    n.description = d.description;
+                    n.dependencies = d.dependencies.join(", ") || "---";
+                    n.noncompliance = "" + d.noncompliance;
+                    n.score = "" + d.score;
                 } else {
-                    $scope.uiData.node.name = "";
-                    $scope.uiData.node.description = "";
-                    $scope.uiData.node.dependencies = "";
-                    $scope.uiData.node.noncompliance = "";
+                    n.name = "";
+                    n.description = "";
+                    n.dependencies = "";
+                    n.noncompliance = "";
+                    n.score = "";
                 }
             });
         });
@@ -96,7 +100,7 @@
         $scope.deleteNotice = function(notice) {
             var index = $scope.notices.indexOf(notice);
             if (index > -1) {
-            $scope.notices.splice(index, 1);
+                $scope.notices.splice(index, 1);
             }
         };
 
@@ -104,6 +108,7 @@
         function updateFocusData(d) {
             if (d.id == $scope.uiData.node.name) {
                 $scope.uiData.node.noncompliance = "" + d.noncompliance;
+                $scope.uiData.node.score = "" + d.score;
             }
         }
     }
