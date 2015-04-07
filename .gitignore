@@ -3,6 +3,7 @@ lib
 img
 scrapper/*.pyc
 scrapper/dbuser.txt
+scrapper/export
 scrapper/gituser.txt
 scrapper/**/*.pyc
 /vis/js/*.bat

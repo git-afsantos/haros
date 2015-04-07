@@ -52,9 +52,9 @@ def parse_arguments(argv):
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--export", "-e", dest="exported", metavar="E",
-            choices=["packages", "metrics", "rules"],
+            choices=["packages", "analysis", "metrics", "rules"],
             action="append",
-            help=("what to export ('packages', 'metrics', 'rules'); "
+            help=("what to export ('packages', 'analysis', 'metrics', 'rules'); "
                     "defaults to all"))
     group.add_argument("--no-export", dest="exported", action="store_const",
             const="none", help="don't export results")
@@ -107,10 +107,13 @@ def export_data(exported):
     if exported == "none":
         return
     if exported is None:
-        exported = ["packages", "metrics", "rules"]
+        exported = ["packages", "analysis", "metrics", "rules"]
     if "packages" in exported:
         print "Exporting package data."
         je.export_packages("packages.json")
+    if "analysis" in exported:
+        print "Exporting analysis data."
+        je.export_analysis("export")
     if "metrics" in exported:
         print "Exporting code metrics."
         # TODO

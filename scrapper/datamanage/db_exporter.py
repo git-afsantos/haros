@@ -6,6 +6,8 @@
 import db_extract as dbe
 import db_manager as dbm
 
+import os
+
 # Takes a string
 def jsonifyItem(i):
 	return "            \"" + i + "\""
@@ -121,4 +123,38 @@ def export_packages(out_file):
     f.write(jsonifyPackages(db.cur))
     f.close()
     db.disconnect()
+
+
+
+
+
+def export_analysis(out_dir):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    pkgs = db.get("Packages", ("id", "name"))
+    for pkg in pkgs:
+        ncpl = db.get("Non_Compliance",
+                ("rule_id", "file_id", "line", "function", "comment"),
+                match=("package_id", pkg[0]))
+        with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
+            f.write(jsonifyNonCompliance(ncpl))
+    db.disconnect()
+
+
+def jsonifyNonCompliance(violations):
+    s = "[\n"
+    for i, v in enumerate(violations):
+        s += "  {\n"
+        s += '      "rule": ' + str(v[0]) + ",\n"
+        s += '      "file": ' + str(v[1] or "null") + ",\n"
+        s += '      "line": ' + str(v[2] or "null") + ",\n"
+        s += '      "function": ' + ('"'+v[3]+'"' if v[3] else "null") + ",\n"
+        s += '      "comment": "' + str(v[4] or "") + "\",\n"
+        s += '      "tags": ' + "[]" + "\n"
+        if i < len(violations) - 1:
+            s += "  },\n"
+        else:
+            s += "  }\n"
+    s += "]"
+    return s
 
