@@ -81,17 +81,17 @@
         ],
         "Analysis": {
             "Noncompliance": {
-                "metrics": 24,
-                "nasa-satc": 16,
-                "his": 6,
-                "uai": 10,
-                "ros": 24,
-                "comments": 2,
-                "comment-ratio": 2,
-                "kth": 4,
-                "cyclomatic-complexity": 4,
-                "weighted-methods": 8,
-                "available-methods": 10
+                "metrics": 184,
+                "nasa-satc": 166,
+                "his": 156,
+                "uai": 140,
+                "ros": 164,
+                "comments": 22,
+                "comment-ratio": 32,
+                "kth": 44,
+                "cyclomatic-complexity": 34,
+                "weighted-methods": 58,
+                "available-methods": 60
             }
         },
         "Edge": [
@@ -119,7 +119,7 @@
                 "metrics": 16,
                 "nasa-satc": 10,
                 "his": 3,
-                "uai": 6,
+                "uai": 206,
                 "ros": 14,
                 "comments": 2,
                 "comment-ratio": 2,

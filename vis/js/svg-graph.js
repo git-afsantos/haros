@@ -75,6 +75,7 @@ SvgGraph.prototype.draw = function () {
 };
 
 SvgGraph.prototype.repaint = function () {
+    this._paintNodes(this.graph.nodelist);
     this.nodes.each(this._repaintNode);
     return this;
 };
