@@ -1,0 +1,210 @@
+[
+  {
+      "rule": "Minimum lines of comments: 20%",
+      "file": "test_translational_input.py",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is below 20%",
+      "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 337,
+      "function": "PLUGINLIB_EXPORT_CLASS",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 42,
+      "function": "reconfigCB",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Maximum cyclomatic complexity: 10",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 109,
+      "function": "spin",
+      "comment": "CC is greater than 10",
+      "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Maximum cyclomatic complexity: 15",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 109,
+      "function": "spin",
+      "comment": "CC is greater than 15",
+      "tags": ["metrics","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "NodeHandle: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "uint32_t: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Thread: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 298,
+      "function": "VelocitySmootherNodelet",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": 299,
+      "function": "~VelocitySmootherNodelet",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "string: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "shared_ptr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Nodelet: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "paramsConfig: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "ConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "velocity_smoother_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  }
+]

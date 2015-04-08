@@ -1,0 +1,786 @@
+[
+  {
+      "rule": "Minimum lines of comments: 20%",
+      "file": "getOdom2D.py",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is below 20%",
+      "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum lines of comments: 20%",
+      "file": "getYaw.py",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is below 20%",
+      "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "LedConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MotorPowerConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "TwistConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "EmptyConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum coupling between objects: 5",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "CBO is greater than 5, KobukiRos, 8",
+      "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum cyclomatic complexity: 10",
+      "file": "subscriber_callbacks.cpp",
+      "line": 104,
+      "function": "subscribeExternalPowerCommand",
+      "comment": "CC is greater than 10",
+      "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "SoundConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "ControllerInfoConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "ExternalPowerConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "DigitalOutputConstPtr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "subscriber_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "kobuki_ros.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum lines of comments: 40%",
+      "file": "kobuki_ros.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 40%",
+      "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_ros.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "kobuki_ros.cpp",
+      "line": 61,
+      "function": "KobukiRos",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "kobuki_ros.cpp",
+      "line": null,
+      "function": null,
+      "comment": "string: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_ros.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "NodeHandle: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Vector3d: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Pose2D: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "string: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "odometry.cpp",
+      "line": 26,
+      "function": "Odometry",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Quaternion: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "odometry.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "InputEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "BufferType: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "PowerEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum coupling between objects: 5",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "CBO is greater than 5, KobukiRos, 11",
+      "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "slot_callbacks.cpp",
+      "line": 49,
+      "function": "processStreamData",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "VersionInfo: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "WheelEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "RobotEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Buffer: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "CliffEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "ButtonEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "BumperEvent: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "vector: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "slot_callbacks.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum lines of comments: 20%",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is below 20%",
+      "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum coupling between objects: 5",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "CBO is greater than 5, DiagnosticStatusWrapper, 10",
+      "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "DiagnosticStatusWrapper: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "diagnostics.cpp",
+      "line": 159,
+      "function": "run",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum cyclomatic complexity: 10",
+      "file": "diagnostics.cpp",
+      "line": 25,
+      "function": "run",
+      "comment": "CC is greater than 10",
+      "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "diagnostics.cpp",
+      "line": 148,
+      "function": "run",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "diagnostics.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum lines of comments: 40%",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 40%",
+      "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": 91,
+      "function": "PLUGINLIB_EXPORT_CLASS",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Thread: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": 51,
+      "function": "KobukiNodelet",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": 52,
+      "function": "~KobukiNodelet",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "bool: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "shared_ptr: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Nodelet: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "kobuki_nodelet.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  }
+]

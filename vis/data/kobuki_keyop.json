@@ -1,0 +1,90 @@
+[
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "keyop_core.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "keyop_core.cpp",
+      "line": 67,
+      "function": "cmd_stamped",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "keyop_core.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "keyop_core.cpp",
+      "line": 62,
+      "function": "KeyOpCore",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "keyop_core.cpp",
+      "line": 272,
+      "function": "remoteKeyInputReceived",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum cyclomatic complexity: 1",
+      "file": "keyop_core.cpp",
+      "line": 78,
+      "function": "~KeyOpCore",
+      "comment": "CC is less than 1",
+      "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
+  },
+  {
+      "rule": "Minimum weighted methods per class: 1",
+      "file": "keyop_core.cpp",
+      "line": null,
+      "function": null,
+      "comment": "KeyboardInput: WMC < 1 (0)",
+      "tags": ["metrics","uai","ros","weighted-methods"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "keyop_core.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  },
+  {
+      "rule": "Maximum lines of comments: 30%",
+      "file": "main.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 30%",
+      "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+      "rule": "Maximum lines of comments: 40%",
+      "file": "main.cpp",
+      "line": null,
+      "function": null,
+      "comment": "Comment ratio is above 40%",
+      "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+      "rule": "Minimum available methods per class: 1",
+      "file": "main.cpp",
+      "line": null,
+      "function": null,
+      "comment": "MAC is less than 1",
+      "tags": ["metrics","nasa-satc","ros","available-methods"]
+  }
+]
