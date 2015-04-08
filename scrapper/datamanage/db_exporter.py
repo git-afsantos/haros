@@ -132,25 +132,31 @@ def export_analysis(out_dir):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
     pkgs = db.get("Packages", ("id", "name"))
+    rules = dbe.getRulesWithTags(db.cur)
     for pkg in pkgs:
         ncpl = db.get("Non_Compliance",
                 ("rule_id", "file_id", "line", "function", "comment"),
                 match=("package_id", pkg[0]))
+        files = db.get("Files", ("id", "name"), match=("package_id", pkg[0]))
+        file_dict = {}
+        for f in files:
+            file_dict[f[0]] = f[1]
+        files = file_dict
         with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
-            f.write(jsonifyNonCompliance(ncpl))
+            f.write(jsonifyNonCompliance(ncpl, rules, files))
     db.disconnect()
 
 
-def jsonifyNonCompliance(violations):
+def jsonifyNonCompliance(violations, rules, files):
     s = "[\n"
     for i, v in enumerate(violations):
         s += "  {\n"
-        s += '      "rule": ' + str(v[0]) + ",\n"
-        s += '      "file": ' + str(v[1] or "null") + ",\n"
+        s += '      "rule": "' + rules[v[0]][0] + '",\n'
+        s += '      "file": ' + ('"'+files[v[1]]+'"' if v[1] else "null") + ",\n"
         s += '      "line": ' + str(v[2] or "null") + ",\n"
         s += '      "function": ' + ('"'+v[3]+'"' if v[3] else "null") + ",\n"
         s += '      "comment": "' + str(v[4] or "") + "\",\n"
-        s += '      "tags": ' + "[]" + "\n"
+        s += '      "tags": ["' + '","'.join(rules[v[0]][1]) + '"]\n'
         if i < len(violations) - 1:
             s += "  },\n"
         else:

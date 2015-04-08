@@ -144,6 +144,17 @@ def getNonComplianceSummary(cur, package_id):
     return result
 
 
+def getRulesWithTags(cur):
+    rule_dict = {}
+    base_cmd = "SELECT T.name FROM {0} AS R JOIN {1} AS T ON R.tag_id = T.id WHERE R.rule_id = ".format(tablePref("Rule_Tags"), tablePref("Tags"))
+    rules = getTable(cur, "Rules", ("id", "description"))
+    for r in rules:
+        tags = exFetch(cur, base_cmd + str(r[0]))
+        rule_dict[r[0]] = (r[1], [t[0] for t in tags])
+    return rule_dict
+
+
+
 # Used for finding dependency number orders
 def getDepOrders(cur, dep_id, table = 'Package_Dependencies'):
 	table = tablePref(table)
