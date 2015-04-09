@@ -3,7 +3,8 @@
         "ngRoute",
         "mobile-angular-ui",
         "mobile-angular-ui.gestures",
-        "GraphModule"
+        "GraphModule",
+        "DataModule"
     ]).
         config(Configs).
         controller("MainController", MainController).
@@ -13,15 +14,15 @@
     Configs.$inject = ["$routeProvider"];
     function Configs($routeProvider) {
         $routeProvider.when("/", {
-            template: '<div id="graph_container"></div>',
+            templateUrl: "layout/graph.html",
             controller: "GraphController",
             reloadOnSearch: false
         });
     }
 
 
-    MainController.$inject = ["$rootScope", "$scope", "GraphService"];
-    function MainController($rootScope, $scope, GraphService) {
+    MainController.$inject = ["$rootScope", "$scope", "GraphService", "DataService"];
+    function MainController($rootScope, $scope, GraphService, DataService) {
         // User agent displayed in home page
         $scope.userAgent = navigator.userAgent;
 
@@ -35,6 +36,7 @@
         });
 
         $scope.uiData = {
+            loading: true,
             focus: "",
             tag: "",
             node: {
@@ -43,6 +45,12 @@
                 dependencies: "",
                 noncompliance: "",
                 score: ""
+            },
+            noncompliance: {
+                tag: "",
+                filters: [],
+                visibleData: [],
+                data: []
             }
         };
 
@@ -71,6 +79,26 @@
             GraphService.removeFilter($scope.tags.splice(i, 1)[0], updateFocusData);
         };
 
+
+        $scope.addFilter = function ($event, key) {
+            var tag, d = $scope.uiData[key];
+            if ($event.which === 13) {
+                tag = d.tag;
+                d.tag = "";
+                if (_.indexOf(d.filters, tag) < 0) {
+                    d.filters.push(tag);
+                    d.visibleData = _.filter(d.data, updateFilters, d.filters);
+                }
+                $event.preventDefault();
+            }
+        };
+
+        $scope.removeFilter = function (i, key) {
+            var d = $scope.uiData[key];
+            d.filters.splice(i, 1);
+            d.visibleData = _.filter(d.data, updateFilters, d.filters);
+        };
+
         GraphService.onClick(function (d) {
             $scope.$apply(function () {
                 var n = $scope.uiData.node;
@@ -89,20 +117,15 @@
                 }
             });
         });
-
-        // "Drag" screen
-        $scope.notices = [];
-
-        for (var j = 0; j < 10; j++) {
-            $scope.notices.push({icon: "envelope", message: "Notice " + (j + 1) });
+        
+        $scope.fetchNonCompliance = function () {
+            $scope.uiData.loading = true;
+            DataService.getNonCompliance($scope.uiData.node.name, function (data) {
+                $scope.uiData.loading = false;
+                $scope.uiData.noncompliance.data = data;
+                $scope.uiData.noncompliance.visibleData = data;
+            });
         }
-
-        $scope.deleteNotice = function(notice) {
-            var index = $scope.notices.indexOf(notice);
-            if (index > -1) {
-                $scope.notices.splice(index, 1);
-            }
-        };
 
 
         function updateFocusData(d) {
@@ -110,6 +133,14 @@
                 $scope.uiData.node.noncompliance = "" + d.noncompliance;
                 $scope.uiData.node.score = "" + d.score;
             }
+        }
+
+        function updateFilters(item) {
+            var i = this.length;
+            while (i--) {
+                if (!_.contains(item.tags, this[i])) { return false; }
+            }
+            return true;
         }
     }
 
