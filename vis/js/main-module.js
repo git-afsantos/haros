@@ -93,6 +93,14 @@
             }
         };
 
+        $scope.applyFilter = function (tag, key) {
+            var d = $scope.uiData[key];
+            if (_.indexOf(d.filters, tag) < 0) {
+                d.filters.push(tag);
+                d.visibleData = _.filter(d.data, updateFilters, d.filters);
+            }
+        };
+
         $scope.removeFilter = function (i, key) {
             var d = $scope.uiData[key];
             d.filters.splice(i, 1);

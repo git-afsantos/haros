@@ -55,7 +55,7 @@
                                 <p>{{item.comment}}</p>
                                 <p class="margin-top hpadding line-lg">
                                     <span ng-repeat="tag in item.tags track by $index">
-                                        <span class="label label-default">{{tag}}</span>
+                                        <span class="clickable label label-default" ng-click="applyFilter(tag, 'noncompliance')">{{tag}}</span>
                                     </span>
                                 </p>
                             </div>
