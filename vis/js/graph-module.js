@@ -594,10 +594,10 @@
             node.color.sat = 90;
             node.color.light = 80;
             node.color.alpha = 0.80; */
-            node.color.hue = 220;
+            node.color.hue = 15;
             node.color.sat = 90;
             node.color.alpha = 0.8;
-            node.color.light = (100 - (node.analysis / max * 70)) | 0;
+            node.color.light = (100 - (node.analysis / max * 60)) | 0;
         }
     };
 
@@ -655,6 +655,9 @@
             pos = d.dagre;
         text.append("tspan").attr("x", 0).attr("dy", "0.85em")
             .attr("style", "font-size: 1.4em;").text(d.id);
+        if (d.report.Metapackage) {
+            text.append("tspan").attr("x", 0).attr("dy", "1.25em").text("Metapackage");
+        }
         if (pos != null) {
             _this.attr("transform", "translate(" + pos.x + "," + pos.y + ")");
         }
