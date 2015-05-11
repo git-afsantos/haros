@@ -257,3 +257,90 @@
         - nasa-satc
         - ros
         - available-methods
+-
+    id:             10000
+    name:           MIXED_LINE_ENDINGS
+    scope:          file
+    description:    No file should mix LF and CRLF line endings.
+    tags:
+        - code-standards
+        - formatting
+        - whitespace
+        - newline
+-
+    id:             10001
+    name:           MAX_LINE_LENGTH
+    scope:          file
+    description:    No line should exceed 80 characters in length.
+    tags:
+        - code-standards
+        - formatting
+        - line-length
+        - google-cpp
+-
+    id:             10002
+    name:           MAX_LINE_LENGTH
+    scope:          file
+    description:    No line should exceed 120 characters in length.
+    tags:
+        - code-standards
+        - formatting
+        - line-length
+        - ros
+        - ros-cpp
+-
+    id:             10003
+    name:           SPACES_OVER_TABS
+    scope:          file
+    description:    Indent each block by 2 spaces. Never insert literal tab characters.
+    tags:
+        - code-standards
+        - formatting
+        - whitespace
+        - indentation
+        - ros
+        - ros-cpp
+        - google-cpp
+-
+    id:             10004
+    name:           OPEN_CURLY_BRACE
+    scope:          file
+    description:    The open curly brace is always at the end of the same line as the last parameter.
+    tags:
+        - code-standards
+        - formatting
+        - curly-braces
+        - google-cpp
+-
+    id:             10005
+    name:           OPEN_CURLY_BRACE
+    scope:          file
+    description:    The open curly brace is always on its own line.
+    tags:
+        - code-standards
+        - formatting
+        - curly-braces
+        - ros
+        - ros-cpp
+-
+    id:             10100
+    name:           LICENSE_STATEMENT
+    scope:          file
+    description:    Every source and header file must contain a license and copyright statement at the beginning of the file.
+    tags:
+        - code-standards
+        - comments
+        - license
+        - copyright
+        - google-cpp
+        - ros
+        - ros-cpp
+-
+    id:             10101
+    name:           MULTILINE_COMMENTS_END
+    scope:          file
+    description:    Multi-line comments must have an end.
+    tags:
+        - code-standards
+        - comments
+        - multiline-comments
