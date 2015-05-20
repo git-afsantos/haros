@@ -3648,7 +3648,7 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 175,
       "function": null,
@@ -3680,7 +3680,7 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 176,
       "function": null,
@@ -3712,7 +3712,7 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 177,
       "function": null,
@@ -3768,7 +3768,7 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 198,
       "function": null,
@@ -3784,7 +3784,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 199,
       "function": null,
@@ -3800,7 +3800,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "slot_callbacks.cpp",
       "line": 200,
       "function": null,
@@ -4648,7 +4648,7 @@
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 27,
       "function": null,
@@ -4664,7 +4664,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 31,
       "function": null,
@@ -4680,7 +4680,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 35,
       "function": null,
@@ -4696,7 +4696,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 39,
       "function": null,
@@ -4744,7 +4744,7 @@
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 65,
       "function": null,
@@ -4792,7 +4792,7 @@
       "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 70,
       "function": null,
@@ -4832,7 +4832,7 @@
       "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "diagnostics.cpp",
       "line": 75,
       "function": null,

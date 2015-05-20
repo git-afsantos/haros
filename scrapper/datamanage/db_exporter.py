@@ -151,7 +151,7 @@ def jsonifyNonCompliance(violations, rules, files):
     s = "[\n"
     for i, v in enumerate(violations):
         s += "  {\n"
-        s += '      "rule": "' + rules[v[0]][0] + '",\n'
+        s += '      "rule": "' + rules[v[0]][0].replace('"', "'") + '",\n'
         s += '      "file": ' + ('"'+files[v[1]]+'"' if v[1] else "null") + ",\n"
         s += '      "line": ' + str(v[2] or "null") + ",\n"
         s += '      "function": ' + ('"'+v[3]+'"' if v[3] else "null") + ",\n"

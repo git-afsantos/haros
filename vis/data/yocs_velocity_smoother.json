@@ -944,7 +944,7 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg "f( 3, 4 )"). We make an exception for nested parens ( (a+b) + c ).",
+      "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
       "file": "velocity_smoother_nodelet.cpp",
       "line": 188,
       "function": null,
