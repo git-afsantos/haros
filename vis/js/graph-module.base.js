@@ -39,7 +39,8 @@
                         id: d.id,
                         description: d.report.Description,
                         dependencies: d.report.Edge.slice(0, -1),
-                        noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                        noncompliance: (d.report.Analysis.Noncompliance.metrics +
+                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
                         score: d.analysis
                     };
                 }
