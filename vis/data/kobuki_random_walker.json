@@ -4,8 +4,7 @@
       "file": "random_walker_controller.hpp",
       "line": null,
       "function": null,
-      "comment": "random_walker_controller.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "random_walker_controller.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -13,8 +12,7 @@
       "file": "random_walker_controller.hpp",
       "line": 24,
       "function": null,
-      "comment": "random_walker_controller.hpp:24:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:24:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -22,8 +20,7 @@
       "file": "random_walker_controller.hpp",
       "line": 25,
       "function": null,
-      "comment": "random_walker_controller.hpp:25:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:25:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -31,8 +28,7 @@
       "file": "random_walker_controller.hpp",
       "line": 26,
       "function": null,
-      "comment": "random_walker_controller.hpp:26:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:26:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -40,8 +36,7 @@
       "file": "random_walker_controller.hpp",
       "line": 27,
       "function": null,
-      "comment": "random_walker_controller.hpp:27:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:27:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -49,8 +44,7 @@
       "file": "random_walker_controller.hpp",
       "line": 28,
       "function": null,
-      "comment": "random_walker_controller.hpp:28:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:28:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -58,8 +52,7 @@
       "file": "random_walker_controller.hpp",
       "line": 29,
       "function": null,
-      "comment": "random_walker_controller.hpp:29:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:29:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -67,8 +60,7 @@
       "file": "random_walker_controller.hpp",
       "line": 30,
       "function": null,
-      "comment": "random_walker_controller.hpp:30:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:30:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -76,8 +68,7 @@
       "file": "random_walker_controller.hpp",
       "line": 31,
       "function": null,
-      "comment": "random_walker_controller.hpp:31:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:31:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -85,8 +76,7 @@
       "file": "random_walker_controller.hpp",
       "line": 34,
       "function": null,
-      "comment": "random_walker_controller.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -94,8 +84,7 @@
       "file": "random_walker_controller.hpp",
       "line": 43,
       "function": null,
-      "comment": "random_walker_controller.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -103,8 +92,7 @@
       "file": "random_walker_controller.hpp",
       "line": 44,
       "function": null,
-      "comment": "random_walker_controller.hpp:44:  public: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]
-",
+      "comment": "random_walker_controller.hpp:44:  public: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -112,8 +100,7 @@
       "file": "random_walker_controller.hpp",
       "line": 45,
       "function": null,
-      "comment": "random_walker_controller.hpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -121,8 +108,7 @@
       "file": "random_walker_controller.hpp",
       "line": 46,
       "function": null,
-      "comment": "random_walker_controller.hpp:46:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:46:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -130,8 +116,7 @@
       "file": "random_walker_controller.hpp",
       "line": 47,
       "function": null,
-      "comment": "random_walker_controller.hpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -139,8 +124,7 @@
       "file": "random_walker_controller.hpp",
       "line": 48,
       "function": null,
-      "comment": "random_walker_controller.hpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -148,8 +132,7 @@
       "file": "random_walker_controller.hpp",
       "line": 49,
       "function": null,
-      "comment": "random_walker_controller.hpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -157,8 +140,7 @@
       "file": "random_walker_controller.hpp",
       "line": 50,
       "function": null,
-      "comment": "random_walker_controller.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -166,8 +148,7 @@
       "file": "random_walker_controller.hpp",
       "line": 51,
       "function": null,
-      "comment": "random_walker_controller.hpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -175,8 +156,7 @@
       "file": "random_walker_controller.hpp",
       "line": 52,
       "function": null,
-      "comment": "random_walker_controller.hpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -184,8 +164,7 @@
       "file": "random_walker_controller.hpp",
       "line": 53,
       "function": null,
-      "comment": "random_walker_controller.hpp:53:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:53:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -193,8 +172,7 @@
       "file": "random_walker_controller.hpp",
       "line": 54,
       "function": null,
-      "comment": "random_walker_controller.hpp:54:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:54:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -202,8 +180,7 @@
       "file": "random_walker_controller.hpp",
       "line": 55,
       "function": null,
-      "comment": "random_walker_controller.hpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -211,8 +188,7 @@
       "file": "random_walker_controller.hpp",
       "line": 56,
       "function": null,
-      "comment": "random_walker_controller.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -220,8 +196,7 @@
       "file": "random_walker_controller.hpp",
       "line": 57,
       "function": null,
-      "comment": "random_walker_controller.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -229,8 +204,7 @@
       "file": "random_walker_controller.hpp",
       "line": 58,
       "function": null,
-      "comment": "random_walker_controller.hpp:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -238,8 +212,7 @@
       "file": "random_walker_controller.hpp",
       "line": 59,
       "function": null,
-      "comment": "random_walker_controller.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -247,8 +220,7 @@
       "file": "random_walker_controller.hpp",
       "line": 60,
       "function": null,
-      "comment": "random_walker_controller.hpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -256,8 +228,7 @@
       "file": "random_walker_controller.hpp",
       "line": 62,
       "function": null,
-      "comment": "random_walker_controller.hpp:62:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:62:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -265,8 +236,7 @@
       "file": "random_walker_controller.hpp",
       "line": 69,
       "function": null,
-      "comment": "random_walker_controller.hpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -274,8 +244,7 @@
       "file": "random_walker_controller.hpp",
       "line": 70,
       "function": null,
-      "comment": "random_walker_controller.hpp:70:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:70:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -283,8 +252,7 @@
       "file": "random_walker_controller.hpp",
       "line": 71,
       "function": null,
-      "comment": "random_walker_controller.hpp:71:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:71:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -292,8 +260,7 @@
       "file": "random_walker_controller.hpp",
       "line": 72,
       "function": null,
-      "comment": "random_walker_controller.hpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -301,8 +268,7 @@
       "file": "random_walker_controller.hpp",
       "line": 73,
       "function": null,
-      "comment": "random_walker_controller.hpp:73:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:73:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -310,8 +276,7 @@
       "file": "random_walker_controller.hpp",
       "line": 75,
       "function": null,
-      "comment": "random_walker_controller.hpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -319,8 +284,7 @@
       "file": "random_walker_controller.hpp",
       "line": 76,
       "function": null,
-      "comment": "random_walker_controller.hpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -328,8 +292,7 @@
       "file": "random_walker_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "random_walker_controller.hpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -337,8 +300,7 @@
       "file": "random_walker_controller.hpp",
       "line": 83,
       "function": null,
-      "comment": "random_walker_controller.hpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -346,8 +308,7 @@
       "file": "random_walker_controller.hpp",
       "line": 86,
       "function": null,
-      "comment": "random_walker_controller.hpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -355,8 +316,7 @@
       "file": "random_walker_controller.hpp",
       "line": 97,
       "function": null,
-      "comment": "random_walker_controller.hpp:97:  private: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]
-",
+      "comment": "random_walker_controller.hpp:97:  private: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -364,8 +324,7 @@
       "file": "random_walker_controller.hpp",
       "line": 105,
       "function": null,
-      "comment": "random_walker_controller.hpp:105:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:105:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -373,8 +332,7 @@
       "file": "random_walker_controller.hpp",
       "line": 179,
       "function": null,
-      "comment": "random_walker_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -382,8 +340,7 @@
       "file": "random_walker_controller.hpp",
       "line": 181,
       "function": null,
-      "comment": "random_walker_controller.hpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -391,8 +348,7 @@
       "file": "random_walker_controller.hpp",
       "line": 184,
       "function": null,
-      "comment": "random_walker_controller.hpp:184:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:184:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -400,8 +356,7 @@
       "file": "random_walker_controller.hpp",
       "line": 185,
       "function": null,
-      "comment": "random_walker_controller.hpp:185:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:185:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -409,8 +364,7 @@
       "file": "random_walker_controller.hpp",
       "line": 191,
       "function": null,
-      "comment": "random_walker_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -418,8 +372,7 @@
       "file": "random_walker_controller.hpp",
       "line": 193,
       "function": null,
-      "comment": "random_walker_controller.hpp:193:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:193:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -427,8 +380,7 @@
       "file": "random_walker_controller.hpp",
       "line": 196,
       "function": null,
-      "comment": "random_walker_controller.hpp:196:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:196:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -436,8 +388,7 @@
       "file": "random_walker_controller.hpp",
       "line": 197,
       "function": null,
-      "comment": "random_walker_controller.hpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -445,8 +396,7 @@
       "file": "random_walker_controller.hpp",
       "line": 202,
       "function": null,
-      "comment": "random_walker_controller.hpp:202:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:202:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -454,8 +404,7 @@
       "file": "random_walker_controller.hpp",
       "line": 203,
       "function": null,
-      "comment": "random_walker_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -463,8 +412,7 @@
       "file": "random_walker_controller.hpp",
       "line": 204,
       "function": null,
-      "comment": "random_walker_controller.hpp:204:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:204:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -472,8 +420,7 @@
       "file": "random_walker_controller.hpp",
       "line": 205,
       "function": null,
-      "comment": "random_walker_controller.hpp:205:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:205:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -481,8 +428,7 @@
       "file": "random_walker_controller.hpp",
       "line": 207,
       "function": null,
-      "comment": "random_walker_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -490,8 +436,7 @@
       "file": "random_walker_controller.hpp",
       "line": 209,
       "function": null,
-      "comment": "random_walker_controller.hpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -499,8 +444,7 @@
       "file": "random_walker_controller.hpp",
       "line": 212,
       "function": null,
-      "comment": "random_walker_controller.hpp:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -508,8 +452,7 @@
       "file": "random_walker_controller.hpp",
       "line": 219,
       "function": null,
-      "comment": "random_walker_controller.hpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -517,8 +460,7 @@
       "file": "random_walker_controller.hpp",
       "line": 226,
       "function": null,
-      "comment": "random_walker_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -526,8 +468,7 @@
       "file": "random_walker_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "random_walker_controller.hpp:233:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:233:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -535,8 +476,7 @@
       "file": "random_walker_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "random_walker_controller.hpp:233:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:233:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -544,8 +484,7 @@
       "file": "random_walker_controller.hpp",
       "line": 234,
       "function": null,
-      "comment": "random_walker_controller.hpp:234:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:234:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -553,8 +492,7 @@
       "file": "random_walker_controller.hpp",
       "line": 236,
       "function": null,
-      "comment": "random_walker_controller.hpp:236:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:236:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -562,8 +500,7 @@
       "file": "random_walker_controller.hpp",
       "line": 237,
       "function": null,
-      "comment": "random_walker_controller.hpp:237:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:237:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -571,8 +508,7 @@
       "file": "random_walker_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "random_walker_controller.hpp:238:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:238:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -580,8 +516,7 @@
       "file": "random_walker_controller.hpp",
       "line": 239,
       "function": null,
-      "comment": "random_walker_controller.hpp:239:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:239:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -589,8 +524,7 @@
       "file": "random_walker_controller.hpp",
       "line": 242,
       "function": null,
-      "comment": "random_walker_controller.hpp:242:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:242:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -598,8 +532,7 @@
       "file": "random_walker_controller.hpp",
       "line": 243,
       "function": null,
-      "comment": "random_walker_controller.hpp:243:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:243:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -607,8 +540,7 @@
       "file": "random_walker_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "random_walker_controller.hpp:250:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:250:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -616,8 +548,7 @@
       "file": "random_walker_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "random_walker_controller.hpp:250:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:250:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -625,8 +556,7 @@
       "file": "random_walker_controller.hpp",
       "line": 251,
       "function": null,
-      "comment": "random_walker_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -634,8 +564,7 @@
       "file": "random_walker_controller.hpp",
       "line": 259,
       "function": null,
-      "comment": "random_walker_controller.hpp:259:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:259:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -643,8 +572,7 @@
       "file": "random_walker_controller.hpp",
       "line": 265,
       "function": null,
-      "comment": "random_walker_controller.hpp:265:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:265:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -652,8 +580,7 @@
       "file": "random_walker_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "random_walker_controller.hpp:266:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:266:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -661,8 +588,7 @@
       "file": "random_walker_controller.hpp",
       "line": 268,
       "function": null,
-      "comment": "random_walker_controller.hpp:268:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:268:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -670,8 +596,7 @@
       "file": "random_walker_controller.hpp",
       "line": 270,
       "function": null,
-      "comment": "random_walker_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -679,8 +604,7 @@
       "file": "random_walker_controller.hpp",
       "line": 273,
       "function": null,
-      "comment": "random_walker_controller.hpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -688,8 +612,7 @@
       "file": "random_walker_controller.hpp",
       "line": 280,
       "function": null,
-      "comment": "random_walker_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -697,8 +620,7 @@
       "file": "random_walker_controller.hpp",
       "line": 287,
       "function": null,
-      "comment": "random_walker_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -706,8 +628,7 @@
       "file": "random_walker_controller.hpp",
       "line": 294,
       "function": null,
-      "comment": "random_walker_controller.hpp:294:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:294:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -715,8 +636,7 @@
       "file": "random_walker_controller.hpp",
       "line": 294,
       "function": null,
-      "comment": "random_walker_controller.hpp:294:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:294:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -724,8 +644,7 @@
       "file": "random_walker_controller.hpp",
       "line": 295,
       "function": null,
-      "comment": "random_walker_controller.hpp:295:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:295:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -733,8 +652,7 @@
       "file": "random_walker_controller.hpp",
       "line": 297,
       "function": null,
-      "comment": "random_walker_controller.hpp:297:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:297:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -742,8 +660,7 @@
       "file": "random_walker_controller.hpp",
       "line": 298,
       "function": null,
-      "comment": "random_walker_controller.hpp:298:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:298:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -751,8 +668,7 @@
       "file": "random_walker_controller.hpp",
       "line": 299,
       "function": null,
-      "comment": "random_walker_controller.hpp:299:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:299:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -760,8 +676,7 @@
       "file": "random_walker_controller.hpp",
       "line": 300,
       "function": null,
-      "comment": "random_walker_controller.hpp:300:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:300:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -769,8 +684,7 @@
       "file": "random_walker_controller.hpp",
       "line": 303,
       "function": null,
-      "comment": "random_walker_controller.hpp:303:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:303:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -778,8 +692,7 @@
       "file": "random_walker_controller.hpp",
       "line": 304,
       "function": null,
-      "comment": "random_walker_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -787,8 +700,7 @@
       "file": "random_walker_controller.hpp",
       "line": 311,
       "function": null,
-      "comment": "random_walker_controller.hpp:311:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:311:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -796,8 +708,7 @@
       "file": "random_walker_controller.hpp",
       "line": 311,
       "function": null,
-      "comment": "random_walker_controller.hpp:311:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:311:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -805,8 +716,7 @@
       "file": "random_walker_controller.hpp",
       "line": 312,
       "function": null,
-      "comment": "random_walker_controller.hpp:312:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:312:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -814,8 +724,7 @@
       "file": "random_walker_controller.hpp",
       "line": 320,
       "function": null,
-      "comment": "random_walker_controller.hpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -823,8 +732,7 @@
       "file": "random_walker_controller.hpp",
       "line": 325,
       "function": null,
-      "comment": "random_walker_controller.hpp:325:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:325:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -832,8 +740,7 @@
       "file": "random_walker_controller.hpp",
       "line": 326,
       "function": null,
-      "comment": "random_walker_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -841,8 +748,7 @@
       "file": "random_walker_controller.hpp",
       "line": 328,
       "function": null,
-      "comment": "random_walker_controller.hpp:328:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:328:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -850,8 +756,7 @@
       "file": "random_walker_controller.hpp",
       "line": 330,
       "function": null,
-      "comment": "random_walker_controller.hpp:330:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:330:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -859,8 +764,7 @@
       "file": "random_walker_controller.hpp",
       "line": 333,
       "function": null,
-      "comment": "random_walker_controller.hpp:333:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:333:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -868,8 +772,7 @@
       "file": "random_walker_controller.hpp",
       "line": 339,
       "function": null,
-      "comment": "random_walker_controller.hpp:339:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:339:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -877,8 +780,7 @@
       "file": "random_walker_controller.hpp",
       "line": 345,
       "function": null,
-      "comment": "random_walker_controller.hpp:345:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:345:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -886,8 +788,7 @@
       "file": "random_walker_controller.hpp",
       "line": 345,
       "function": null,
-      "comment": "random_walker_controller.hpp:345:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:345:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -895,8 +796,7 @@
       "file": "random_walker_controller.hpp",
       "line": 346,
       "function": null,
-      "comment": "random_walker_controller.hpp:346:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:346:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -904,8 +804,7 @@
       "file": "random_walker_controller.hpp",
       "line": 348,
       "function": null,
-      "comment": "random_walker_controller.hpp:348:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:348:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -913,8 +812,7 @@
       "file": "random_walker_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "random_walker_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -922,8 +820,7 @@
       "file": "random_walker_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "random_walker_controller.hpp:350:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:350:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -931,8 +828,7 @@
       "file": "random_walker_controller.hpp",
       "line": 353,
       "function": null,
-      "comment": "random_walker_controller.hpp:353:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:353:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -940,8 +836,7 @@
       "file": "random_walker_controller.hpp",
       "line": 354,
       "function": null,
-      "comment": "random_walker_controller.hpp:354:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:354:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -949,8 +844,7 @@
       "file": "random_walker_controller.hpp",
       "line": 363,
       "function": null,
-      "comment": "random_walker_controller.hpp:363:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:363:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -958,8 +852,7 @@
       "file": "random_walker_controller.hpp",
       "line": 363,
       "function": null,
-      "comment": "random_walker_controller.hpp:363:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:363:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -967,8 +860,7 @@
       "file": "random_walker_controller.hpp",
       "line": 364,
       "function": null,
-      "comment": "random_walker_controller.hpp:364:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:364:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -976,8 +868,7 @@
       "file": "random_walker_controller.hpp",
       "line": 374,
       "function": null,
-      "comment": "random_walker_controller.hpp:374:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:374:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -985,8 +876,7 @@
       "file": "random_walker_controller.hpp",
       "line": 380,
       "function": null,
-      "comment": "random_walker_controller.hpp:380:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:380:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -994,8 +884,7 @@
       "file": "random_walker_controller.hpp",
       "line": 381,
       "function": null,
-      "comment": "random_walker_controller.hpp:381:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:381:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1003,8 +892,7 @@
       "file": "random_walker_controller.hpp",
       "line": 382,
       "function": null,
-      "comment": "random_walker_controller.hpp:382:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:382:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1012,8 +900,7 @@
       "file": "random_walker_controller.hpp",
       "line": 388,
       "function": null,
-      "comment": "random_walker_controller.hpp:388:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:388:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1021,8 +908,7 @@
       "file": "random_walker_controller.hpp",
       "line": 389,
       "function": null,
-      "comment": "random_walker_controller.hpp:389:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:389:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1030,8 +916,7 @@
       "file": "random_walker_controller.hpp",
       "line": 389,
       "function": null,
-      "comment": "random_walker_controller.hpp:389:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:389:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1039,8 +924,7 @@
       "file": "random_walker_controller.hpp",
       "line": 394,
       "function": null,
-      "comment": "random_walker_controller.hpp:394:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:394:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1048,8 +932,7 @@
       "file": "random_walker_controller.hpp",
       "line": 396,
       "function": null,
-      "comment": "random_walker_controller.hpp:396:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:396:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1057,8 +940,7 @@
       "file": "random_walker_controller.hpp",
       "line": 398,
       "function": null,
-      "comment": "random_walker_controller.hpp:398:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:398:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1066,8 +948,7 @@
       "file": "random_walker_controller.hpp",
       "line": 398,
       "function": null,
-      "comment": "random_walker_controller.hpp:398:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]
-",
+      "comment": "random_walker_controller.hpp:398:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -1075,8 +956,7 @@
       "file": "random_walker_controller.hpp",
       "line": 400,
       "function": null,
-      "comment": "random_walker_controller.hpp:400:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]
-",
+      "comment": "random_walker_controller.hpp:400:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -1084,8 +964,7 @@
       "file": "random_walker_controller.hpp",
       "line": 401,
       "function": null,
-      "comment": "random_walker_controller.hpp:401:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:401:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1093,8 +972,7 @@
       "file": "random_walker_controller.hpp",
       "line": 404,
       "function": null,
-      "comment": "random_walker_controller.hpp:404:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:404:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1102,8 +980,7 @@
       "file": "random_walker_controller.hpp",
       "line": 405,
       "function": null,
-      "comment": "random_walker_controller.hpp:405:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:405:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1111,8 +988,7 @@
       "file": "random_walker_controller.hpp",
       "line": 410,
       "function": null,
-      "comment": "random_walker_controller.hpp:410:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:410:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1120,8 +996,7 @@
       "file": "random_walker_controller.hpp",
       "line": 415,
       "function": null,
-      "comment": "random_walker_controller.hpp:415:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:415:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1129,8 +1004,7 @@
       "file": "random_walker_controller.hpp",
       "line": 417,
       "function": null,
-      "comment": "random_walker_controller.hpp:417:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:417:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1138,8 +1012,7 @@
       "file": "random_walker_controller.hpp",
       "line": 421,
       "function": null,
-      "comment": "random_walker_controller.hpp:421:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:421:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1147,8 +1020,7 @@
       "file": "random_walker_controller.hpp",
       "line": 422,
       "function": null,
-      "comment": "random_walker_controller.hpp:422:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:422:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1156,8 +1028,7 @@
       "file": "random_walker_controller.hpp",
       "line": 426,
       "function": null,
-      "comment": "random_walker_controller.hpp:426:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:426:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1165,8 +1036,7 @@
       "file": "random_walker_controller.hpp",
       "line": 427,
       "function": null,
-      "comment": "random_walker_controller.hpp:427:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:427:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1174,8 +1044,7 @@
       "file": "random_walker_controller.hpp",
       "line": 434,
       "function": null,
-      "comment": "random_walker_controller.hpp:434:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:434:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1183,8 +1052,7 @@
       "file": "random_walker_controller.hpp",
       "line": 101,
       "function": null,
-      "comment": "random_walker_controller.hpp:101:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "random_walker_controller.hpp:101:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -1192,8 +1060,7 @@
       "file": "random_walker_controller.hpp",
       "line": null,
       "function": null,
-      "comment": "random_walker_controller.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "random_walker_controller.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -1201,8 +1068,7 @@
       "file": "random_walker_controller.hpp",
       "line": 24,
       "function": null,
-      "comment": "random_walker_controller.hpp:24:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:24:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1210,8 +1076,7 @@
       "file": "random_walker_controller.hpp",
       "line": 25,
       "function": null,
-      "comment": "random_walker_controller.hpp:25:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:25:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1219,8 +1084,7 @@
       "file": "random_walker_controller.hpp",
       "line": 26,
       "function": null,
-      "comment": "random_walker_controller.hpp:26:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:26:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1228,8 +1092,7 @@
       "file": "random_walker_controller.hpp",
       "line": 27,
       "function": null,
-      "comment": "random_walker_controller.hpp:27:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:27:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1237,8 +1100,7 @@
       "file": "random_walker_controller.hpp",
       "line": 28,
       "function": null,
-      "comment": "random_walker_controller.hpp:28:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:28:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1246,8 +1108,7 @@
       "file": "random_walker_controller.hpp",
       "line": 29,
       "function": null,
-      "comment": "random_walker_controller.hpp:29:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:29:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1255,8 +1116,7 @@
       "file": "random_walker_controller.hpp",
       "line": 30,
       "function": null,
-      "comment": "random_walker_controller.hpp:30:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:30:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1264,8 +1124,7 @@
       "file": "random_walker_controller.hpp",
       "line": 31,
       "function": null,
-      "comment": "random_walker_controller.hpp:31:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "random_walker_controller.hpp:31:  Found C system header after C++ system header. Should be: random_walker_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1273,8 +1132,7 @@
       "file": "random_walker_controller.hpp",
       "line": 34,
       "function": null,
-      "comment": "random_walker_controller.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1282,8 +1140,7 @@
       "file": "random_walker_controller.hpp",
       "line": 43,
       "function": null,
-      "comment": "random_walker_controller.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1291,8 +1148,7 @@
       "file": "random_walker_controller.hpp",
       "line": 44,
       "function": null,
-      "comment": "random_walker_controller.hpp:44:  public: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]
-",
+      "comment": "random_walker_controller.hpp:44:  public: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1300,8 +1156,7 @@
       "file": "random_walker_controller.hpp",
       "line": 45,
       "function": null,
-      "comment": "random_walker_controller.hpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1309,8 +1164,7 @@
       "file": "random_walker_controller.hpp",
       "line": 46,
       "function": null,
-      "comment": "random_walker_controller.hpp:46:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:46:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1318,8 +1172,7 @@
       "file": "random_walker_controller.hpp",
       "line": 47,
       "function": null,
-      "comment": "random_walker_controller.hpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1327,8 +1180,7 @@
       "file": "random_walker_controller.hpp",
       "line": 48,
       "function": null,
-      "comment": "random_walker_controller.hpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1336,8 +1188,7 @@
       "file": "random_walker_controller.hpp",
       "line": 49,
       "function": null,
-      "comment": "random_walker_controller.hpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1345,8 +1196,7 @@
       "file": "random_walker_controller.hpp",
       "line": 50,
       "function": null,
-      "comment": "random_walker_controller.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1354,8 +1204,7 @@
       "file": "random_walker_controller.hpp",
       "line": 51,
       "function": null,
-      "comment": "random_walker_controller.hpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1363,8 +1212,7 @@
       "file": "random_walker_controller.hpp",
       "line": 52,
       "function": null,
-      "comment": "random_walker_controller.hpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1372,8 +1220,7 @@
       "file": "random_walker_controller.hpp",
       "line": 53,
       "function": null,
-      "comment": "random_walker_controller.hpp:53:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:53:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1381,8 +1228,7 @@
       "file": "random_walker_controller.hpp",
       "line": 54,
       "function": null,
-      "comment": "random_walker_controller.hpp:54:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:54:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1390,8 +1236,7 @@
       "file": "random_walker_controller.hpp",
       "line": 55,
       "function": null,
-      "comment": "random_walker_controller.hpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1399,8 +1244,7 @@
       "file": "random_walker_controller.hpp",
       "line": 56,
       "function": null,
-      "comment": "random_walker_controller.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1408,8 +1252,7 @@
       "file": "random_walker_controller.hpp",
       "line": 57,
       "function": null,
-      "comment": "random_walker_controller.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1417,8 +1260,7 @@
       "file": "random_walker_controller.hpp",
       "line": 58,
       "function": null,
-      "comment": "random_walker_controller.hpp:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1426,8 +1268,7 @@
       "file": "random_walker_controller.hpp",
       "line": 59,
       "function": null,
-      "comment": "random_walker_controller.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1435,8 +1276,7 @@
       "file": "random_walker_controller.hpp",
       "line": 60,
       "function": null,
-      "comment": "random_walker_controller.hpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1444,8 +1284,7 @@
       "file": "random_walker_controller.hpp",
       "line": 62,
       "function": null,
-      "comment": "random_walker_controller.hpp:62:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:62:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -1453,8 +1292,7 @@
       "file": "random_walker_controller.hpp",
       "line": 69,
       "function": null,
-      "comment": "random_walker_controller.hpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1462,8 +1300,7 @@
       "file": "random_walker_controller.hpp",
       "line": 70,
       "function": null,
-      "comment": "random_walker_controller.hpp:70:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:70:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1471,8 +1308,7 @@
       "file": "random_walker_controller.hpp",
       "line": 71,
       "function": null,
-      "comment": "random_walker_controller.hpp:71:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:71:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1480,8 +1316,7 @@
       "file": "random_walker_controller.hpp",
       "line": 72,
       "function": null,
-      "comment": "random_walker_controller.hpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1489,8 +1324,7 @@
       "file": "random_walker_controller.hpp",
       "line": 73,
       "function": null,
-      "comment": "random_walker_controller.hpp:73:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:73:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1498,8 +1332,7 @@
       "file": "random_walker_controller.hpp",
       "line": 75,
       "function": null,
-      "comment": "random_walker_controller.hpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1507,8 +1340,7 @@
       "file": "random_walker_controller.hpp",
       "line": 76,
       "function": null,
-      "comment": "random_walker_controller.hpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1516,8 +1348,7 @@
       "file": "random_walker_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "random_walker_controller.hpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1525,8 +1356,7 @@
       "file": "random_walker_controller.hpp",
       "line": 83,
       "function": null,
-      "comment": "random_walker_controller.hpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1534,8 +1364,7 @@
       "file": "random_walker_controller.hpp",
       "line": 86,
       "function": null,
-      "comment": "random_walker_controller.hpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1543,8 +1372,7 @@
       "file": "random_walker_controller.hpp",
       "line": 97,
       "function": null,
-      "comment": "random_walker_controller.hpp:97:  private: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]
-",
+      "comment": "random_walker_controller.hpp:97:  private: should be indented +1 space inside class RandomWalkerController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1552,8 +1380,7 @@
       "file": "random_walker_controller.hpp",
       "line": 105,
       "function": null,
-      "comment": "random_walker_controller.hpp:105:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:105:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1561,8 +1388,7 @@
       "file": "random_walker_controller.hpp",
       "line": 179,
       "function": null,
-      "comment": "random_walker_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1570,8 +1396,7 @@
       "file": "random_walker_controller.hpp",
       "line": 181,
       "function": null,
-      "comment": "random_walker_controller.hpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1579,8 +1404,7 @@
       "file": "random_walker_controller.hpp",
       "line": 184,
       "function": null,
-      "comment": "random_walker_controller.hpp:184:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:184:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1588,8 +1412,7 @@
       "file": "random_walker_controller.hpp",
       "line": 185,
       "function": null,
-      "comment": "random_walker_controller.hpp:185:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:185:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1597,8 +1420,7 @@
       "file": "random_walker_controller.hpp",
       "line": 191,
       "function": null,
-      "comment": "random_walker_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1606,8 +1428,7 @@
       "file": "random_walker_controller.hpp",
       "line": 193,
       "function": null,
-      "comment": "random_walker_controller.hpp:193:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:193:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1615,8 +1436,7 @@
       "file": "random_walker_controller.hpp",
       "line": 196,
       "function": null,
-      "comment": "random_walker_controller.hpp:196:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:196:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1624,8 +1444,7 @@
       "file": "random_walker_controller.hpp",
       "line": 197,
       "function": null,
-      "comment": "random_walker_controller.hpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1633,8 +1452,7 @@
       "file": "random_walker_controller.hpp",
       "line": 202,
       "function": null,
-      "comment": "random_walker_controller.hpp:202:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:202:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1642,8 +1460,7 @@
       "file": "random_walker_controller.hpp",
       "line": 203,
       "function": null,
-      "comment": "random_walker_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1651,8 +1468,7 @@
       "file": "random_walker_controller.hpp",
       "line": 204,
       "function": null,
-      "comment": "random_walker_controller.hpp:204:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:204:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1660,8 +1476,7 @@
       "file": "random_walker_controller.hpp",
       "line": 205,
       "function": null,
-      "comment": "random_walker_controller.hpp:205:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:205:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1669,8 +1484,7 @@
       "file": "random_walker_controller.hpp",
       "line": 207,
       "function": null,
-      "comment": "random_walker_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1678,8 +1492,7 @@
       "file": "random_walker_controller.hpp",
       "line": 209,
       "function": null,
-      "comment": "random_walker_controller.hpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1687,8 +1500,7 @@
       "file": "random_walker_controller.hpp",
       "line": 212,
       "function": null,
-      "comment": "random_walker_controller.hpp:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1696,8 +1508,7 @@
       "file": "random_walker_controller.hpp",
       "line": 219,
       "function": null,
-      "comment": "random_walker_controller.hpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1705,8 +1516,7 @@
       "file": "random_walker_controller.hpp",
       "line": 226,
       "function": null,
-      "comment": "random_walker_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1714,8 +1524,7 @@
       "file": "random_walker_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "random_walker_controller.hpp:233:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:233:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1723,8 +1532,7 @@
       "file": "random_walker_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "random_walker_controller.hpp:233:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:233:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1732,8 +1540,7 @@
       "file": "random_walker_controller.hpp",
       "line": 234,
       "function": null,
-      "comment": "random_walker_controller.hpp:234:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:234:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1741,8 +1548,7 @@
       "file": "random_walker_controller.hpp",
       "line": 236,
       "function": null,
-      "comment": "random_walker_controller.hpp:236:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:236:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1750,8 +1556,7 @@
       "file": "random_walker_controller.hpp",
       "line": 237,
       "function": null,
-      "comment": "random_walker_controller.hpp:237:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:237:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1759,8 +1564,7 @@
       "file": "random_walker_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "random_walker_controller.hpp:238:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:238:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1768,8 +1572,7 @@
       "file": "random_walker_controller.hpp",
       "line": 239,
       "function": null,
-      "comment": "random_walker_controller.hpp:239:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:239:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1777,8 +1580,7 @@
       "file": "random_walker_controller.hpp",
       "line": 242,
       "function": null,
-      "comment": "random_walker_controller.hpp:242:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:242:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1786,8 +1588,7 @@
       "file": "random_walker_controller.hpp",
       "line": 243,
       "function": null,
-      "comment": "random_walker_controller.hpp:243:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:243:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1795,8 +1596,7 @@
       "file": "random_walker_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "random_walker_controller.hpp:250:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:250:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1804,8 +1604,7 @@
       "file": "random_walker_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "random_walker_controller.hpp:250:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:250:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1813,8 +1612,7 @@
       "file": "random_walker_controller.hpp",
       "line": 251,
       "function": null,
-      "comment": "random_walker_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1822,8 +1620,7 @@
       "file": "random_walker_controller.hpp",
       "line": 259,
       "function": null,
-      "comment": "random_walker_controller.hpp:259:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:259:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1831,8 +1628,7 @@
       "file": "random_walker_controller.hpp",
       "line": 265,
       "function": null,
-      "comment": "random_walker_controller.hpp:265:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:265:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1840,8 +1636,7 @@
       "file": "random_walker_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "random_walker_controller.hpp:266:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:266:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1849,8 +1644,7 @@
       "file": "random_walker_controller.hpp",
       "line": 268,
       "function": null,
-      "comment": "random_walker_controller.hpp:268:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:268:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1858,8 +1652,7 @@
       "file": "random_walker_controller.hpp",
       "line": 270,
       "function": null,
-      "comment": "random_walker_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1867,8 +1660,7 @@
       "file": "random_walker_controller.hpp",
       "line": 273,
       "function": null,
-      "comment": "random_walker_controller.hpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1876,8 +1668,7 @@
       "file": "random_walker_controller.hpp",
       "line": 280,
       "function": null,
-      "comment": "random_walker_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1885,8 +1676,7 @@
       "file": "random_walker_controller.hpp",
       "line": 287,
       "function": null,
-      "comment": "random_walker_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1894,8 +1684,7 @@
       "file": "random_walker_controller.hpp",
       "line": 294,
       "function": null,
-      "comment": "random_walker_controller.hpp:294:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:294:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1903,8 +1692,7 @@
       "file": "random_walker_controller.hpp",
       "line": 294,
       "function": null,
-      "comment": "random_walker_controller.hpp:294:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:294:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1912,8 +1700,7 @@
       "file": "random_walker_controller.hpp",
       "line": 295,
       "function": null,
-      "comment": "random_walker_controller.hpp:295:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:295:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1921,8 +1708,7 @@
       "file": "random_walker_controller.hpp",
       "line": 297,
       "function": null,
-      "comment": "random_walker_controller.hpp:297:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:297:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1930,8 +1716,7 @@
       "file": "random_walker_controller.hpp",
       "line": 298,
       "function": null,
-      "comment": "random_walker_controller.hpp:298:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:298:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1939,8 +1724,7 @@
       "file": "random_walker_controller.hpp",
       "line": 299,
       "function": null,
-      "comment": "random_walker_controller.hpp:299:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:299:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1948,8 +1732,7 @@
       "file": "random_walker_controller.hpp",
       "line": 300,
       "function": null,
-      "comment": "random_walker_controller.hpp:300:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:300:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1957,8 +1740,7 @@
       "file": "random_walker_controller.hpp",
       "line": 303,
       "function": null,
-      "comment": "random_walker_controller.hpp:303:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:303:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1966,8 +1748,7 @@
       "file": "random_walker_controller.hpp",
       "line": 304,
       "function": null,
-      "comment": "random_walker_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1975,8 +1756,7 @@
       "file": "random_walker_controller.hpp",
       "line": 311,
       "function": null,
-      "comment": "random_walker_controller.hpp:311:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:311:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1984,8 +1764,7 @@
       "file": "random_walker_controller.hpp",
       "line": 311,
       "function": null,
-      "comment": "random_walker_controller.hpp:311:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:311:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1993,8 +1772,7 @@
       "file": "random_walker_controller.hpp",
       "line": 312,
       "function": null,
-      "comment": "random_walker_controller.hpp:312:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:312:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2002,8 +1780,7 @@
       "file": "random_walker_controller.hpp",
       "line": 320,
       "function": null,
-      "comment": "random_walker_controller.hpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2011,8 +1788,7 @@
       "file": "random_walker_controller.hpp",
       "line": 325,
       "function": null,
-      "comment": "random_walker_controller.hpp:325:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:325:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2020,8 +1796,7 @@
       "file": "random_walker_controller.hpp",
       "line": 326,
       "function": null,
-      "comment": "random_walker_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2029,8 +1804,7 @@
       "file": "random_walker_controller.hpp",
       "line": 328,
       "function": null,
-      "comment": "random_walker_controller.hpp:328:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:328:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2038,8 +1812,7 @@
       "file": "random_walker_controller.hpp",
       "line": 330,
       "function": null,
-      "comment": "random_walker_controller.hpp:330:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:330:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2047,8 +1820,7 @@
       "file": "random_walker_controller.hpp",
       "line": 333,
       "function": null,
-      "comment": "random_walker_controller.hpp:333:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:333:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2056,8 +1828,7 @@
       "file": "random_walker_controller.hpp",
       "line": 339,
       "function": null,
-      "comment": "random_walker_controller.hpp:339:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:339:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2065,8 +1836,7 @@
       "file": "random_walker_controller.hpp",
       "line": 345,
       "function": null,
-      "comment": "random_walker_controller.hpp:345:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:345:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2074,8 +1844,7 @@
       "file": "random_walker_controller.hpp",
       "line": 345,
       "function": null,
-      "comment": "random_walker_controller.hpp:345:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:345:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -2083,8 +1852,7 @@
       "file": "random_walker_controller.hpp",
       "line": 346,
       "function": null,
-      "comment": "random_walker_controller.hpp:346:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:346:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2092,8 +1860,7 @@
       "file": "random_walker_controller.hpp",
       "line": 348,
       "function": null,
-      "comment": "random_walker_controller.hpp:348:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:348:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2101,8 +1868,7 @@
       "file": "random_walker_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "random_walker_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2110,8 +1876,7 @@
       "file": "random_walker_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "random_walker_controller.hpp:350:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:350:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2119,8 +1884,7 @@
       "file": "random_walker_controller.hpp",
       "line": 353,
       "function": null,
-      "comment": "random_walker_controller.hpp:353:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:353:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2128,8 +1892,7 @@
       "file": "random_walker_controller.hpp",
       "line": 354,
       "function": null,
-      "comment": "random_walker_controller.hpp:354:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:354:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2137,8 +1900,7 @@
       "file": "random_walker_controller.hpp",
       "line": 363,
       "function": null,
-      "comment": "random_walker_controller.hpp:363:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:363:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2146,8 +1908,7 @@
       "file": "random_walker_controller.hpp",
       "line": 363,
       "function": null,
-      "comment": "random_walker_controller.hpp:363:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:363:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2155,8 +1916,7 @@
       "file": "random_walker_controller.hpp",
       "line": 364,
       "function": null,
-      "comment": "random_walker_controller.hpp:364:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:364:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2164,8 +1924,7 @@
       "file": "random_walker_controller.hpp",
       "line": 374,
       "function": null,
-      "comment": "random_walker_controller.hpp:374:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:374:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2173,8 +1932,7 @@
       "file": "random_walker_controller.hpp",
       "line": 380,
       "function": null,
-      "comment": "random_walker_controller.hpp:380:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:380:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2182,8 +1940,7 @@
       "file": "random_walker_controller.hpp",
       "line": 381,
       "function": null,
-      "comment": "random_walker_controller.hpp:381:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:381:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -2191,8 +1948,7 @@
       "file": "random_walker_controller.hpp",
       "line": 382,
       "function": null,
-      "comment": "random_walker_controller.hpp:382:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:382:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2200,8 +1956,7 @@
       "file": "random_walker_controller.hpp",
       "line": 388,
       "function": null,
-      "comment": "random_walker_controller.hpp:388:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:388:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2209,8 +1964,7 @@
       "file": "random_walker_controller.hpp",
       "line": 389,
       "function": null,
-      "comment": "random_walker_controller.hpp:389:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:389:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2218,8 +1972,7 @@
       "file": "random_walker_controller.hpp",
       "line": 389,
       "function": null,
-      "comment": "random_walker_controller.hpp:389:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:389:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -2227,8 +1980,7 @@
       "file": "random_walker_controller.hpp",
       "line": 394,
       "function": null,
-      "comment": "random_walker_controller.hpp:394:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:394:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2236,8 +1988,7 @@
       "file": "random_walker_controller.hpp",
       "line": 396,
       "function": null,
-      "comment": "random_walker_controller.hpp:396:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "random_walker_controller.hpp:396:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2245,8 +1996,7 @@
       "file": "random_walker_controller.hpp",
       "line": 398,
       "function": null,
-      "comment": "random_walker_controller.hpp:398:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:398:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2254,8 +2004,7 @@
       "file": "random_walker_controller.hpp",
       "line": 398,
       "function": null,
-      "comment": "random_walker_controller.hpp:398:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]
-",
+      "comment": "random_walker_controller.hpp:398:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -2263,8 +2012,7 @@
       "file": "random_walker_controller.hpp",
       "line": 400,
       "function": null,
-      "comment": "random_walker_controller.hpp:400:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]
-",
+      "comment": "random_walker_controller.hpp:400:  Using C-style cast.  Use static_cast<double>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -2272,8 +2020,7 @@
       "file": "random_walker_controller.hpp",
       "line": 401,
       "function": null,
-      "comment": "random_walker_controller.hpp:401:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:401:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2281,8 +2028,7 @@
       "file": "random_walker_controller.hpp",
       "line": 404,
       "function": null,
-      "comment": "random_walker_controller.hpp:404:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:404:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2290,8 +2036,7 @@
       "file": "random_walker_controller.hpp",
       "line": 405,
       "function": null,
-      "comment": "random_walker_controller.hpp:405:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:405:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2299,8 +2044,7 @@
       "file": "random_walker_controller.hpp",
       "line": 410,
       "function": null,
-      "comment": "random_walker_controller.hpp:410:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "random_walker_controller.hpp:410:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2308,8 +2052,7 @@
       "file": "random_walker_controller.hpp",
       "line": 415,
       "function": null,
-      "comment": "random_walker_controller.hpp:415:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:415:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2317,8 +2060,7 @@
       "file": "random_walker_controller.hpp",
       "line": 417,
       "function": null,
-      "comment": "random_walker_controller.hpp:417:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:417:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2326,8 +2068,7 @@
       "file": "random_walker_controller.hpp",
       "line": 421,
       "function": null,
-      "comment": "random_walker_controller.hpp:421:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:421:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2335,8 +2076,7 @@
       "file": "random_walker_controller.hpp",
       "line": 422,
       "function": null,
-      "comment": "random_walker_controller.hpp:422:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:422:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2344,8 +2084,7 @@
       "file": "random_walker_controller.hpp",
       "line": 426,
       "function": null,
-      "comment": "random_walker_controller.hpp:426:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "random_walker_controller.hpp:426:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2353,8 +2092,7 @@
       "file": "random_walker_controller.hpp",
       "line": 427,
       "function": null,
-      "comment": "random_walker_controller.hpp:427:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "random_walker_controller.hpp:427:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2362,8 +2100,7 @@
       "file": "random_walker_controller.hpp",
       "line": 434,
       "function": null,
-      "comment": "random_walker_controller.hpp:434:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "random_walker_controller.hpp:434:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -2371,8 +2108,7 @@
       "file": "random_walker_controller.hpp",
       "line": 101,
       "function": null,
-      "comment": "random_walker_controller.hpp:101:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "random_walker_controller.hpp:101:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -2380,8 +2116,7 @@
       "file": "nodelet.cpp",
       "line": null,
       "function": null,
-      "comment": "nodelet.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "nodelet.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -2389,8 +2124,7 @@
       "file": "nodelet.cpp",
       "line": 14,
       "function": null,
-      "comment": "nodelet.cpp:14:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "nodelet.cpp:14:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -2398,8 +2132,7 @@
       "file": "nodelet.cpp",
       "line": 15,
       "function": null,
-      "comment": "nodelet.cpp:15:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "nodelet.cpp:15:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -2407,8 +2140,7 @@
       "file": "nodelet.cpp",
       "line": 16,
       "function": null,
-      "comment": "nodelet.cpp:16:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "nodelet.cpp:16:  Found C system header after C++ system header. Should be: nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -2416,8 +2148,7 @@
       "file": "nodelet.cpp",
       "line": 21,
       "function": null,
-      "comment": "nodelet.cpp:21:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:21:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2425,8 +2156,7 @@
       "file": "nodelet.cpp",
       "line": 27,
       "function": null,
-      "comment": "nodelet.cpp:27:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:27:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2434,8 +2164,7 @@
       "file": "nodelet.cpp",
       "line": 28,
       "function": null,
-      "comment": "nodelet.cpp:28:  public: should be indented +1 space inside class RandomWalkerControllerNodelet  [whitespace/indent] [3]
-",
+      "comment": "nodelet.cpp:28:  public: should be indented +1 space inside class RandomWalkerControllerNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -2443,8 +2172,7 @@
       "file": "nodelet.cpp",
       "line": 29,
       "function": null,
-      "comment": "nodelet.cpp:29:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "nodelet.cpp:29:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -2452,8 +2180,7 @@
       "file": "nodelet.cpp",
       "line": 31,
       "function": null,
-      "comment": "nodelet.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2461,8 +2188,7 @@
       "file": "nodelet.cpp",
       "line": 33,
       "function": null,
-      "comment": "nodelet.cpp:33:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:33:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2470,8 +2196,7 @@
       "file": "nodelet.cpp",
       "line": 44,
       "function": null,
-      "comment": "nodelet.cpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2479,8 +2204,7 @@
       "file": "nodelet.cpp",
       "line": 56,
       "function": null,
-      "comment": "nodelet.cpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2488,8 +2212,7 @@
       "file": "nodelet.cpp",
       "line": 60,
       "function": null,
-      "comment": "nodelet.cpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2497,8 +2220,7 @@
       "file": "nodelet.cpp",
       "line": 61,
       "function": null,
-      "comment": "nodelet.cpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2506,8 +2228,7 @@
       "file": "nodelet.cpp",
       "line": 64,
       "function": null,
-      "comment": "nodelet.cpp:64:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "nodelet.cpp:64:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -2515,8 +2236,7 @@
       "file": "nodelet.cpp",
       "line": 65,
       "function": null,
-      "comment": "nodelet.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2524,8 +2244,7 @@
       "file": "nodelet.cpp",
       "line": 66,
       "function": null,
-      "comment": "nodelet.cpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -2533,8 +2252,7 @@
       "file": "nodelet.cpp",
       "line": 70,
       "function": null,
-      "comment": "nodelet.cpp:70:  private: should be indented +1 space inside class RandomWalkerControllerNodelet  [whitespace/indent] [3]
-",
+      "comment": "nodelet.cpp:70:  private: should be indented +1 space inside class RandomWalkerControllerNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -2542,8 +2260,7 @@
       "file": "nodelet.cpp",
       "line": 84,
       "function": null,
-      "comment": "nodelet.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2551,8 +2268,7 @@
       "file": "nodelet.cpp",
       "line": 87,
       "function": null,
-      "comment": "nodelet.cpp:87:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:87:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -2560,8 +2276,7 @@
       "file": "nodelet.cpp",
       "line": 94,
       "function": null,
-      "comment": "nodelet.cpp:94:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "nodelet.cpp:94:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {

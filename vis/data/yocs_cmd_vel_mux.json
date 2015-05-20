@@ -4,8 +4,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -13,8 +12,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 21,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:21:  Include "geometry_msgs/Twist.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:21:  Include 'geometry_msgs/Twist.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -22,8 +20,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 29,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -31,8 +28,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 55,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -40,8 +36,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 56,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:56:  public: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:56:  public: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -49,8 +44,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 57,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:57:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:57:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
   },
   {
@@ -58,8 +52,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 62,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -67,8 +60,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 63,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:63:  public: should be indented +1 space inside class CmdVelSubs  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:63:  public: should be indented +1 space inside class CmdVelSubs  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -76,8 +68,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 64,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -85,8 +76,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 70,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -94,8 +84,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:74:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:74:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -103,8 +92,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:74:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:74:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -112,8 +100,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 82,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:82:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "cmd_vel_subscribers.hpp:82:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -121,8 +108,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 82,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:82:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:82:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -130,8 +116,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -139,8 +124,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -148,8 +132,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  Extra space before [  [whitespace/braces] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  Extra space before [  [whitespace/braces] [5]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","brackets"]
   },
   {
@@ -157,8 +140,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 97,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:97:  private: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:97:  private: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -166,8 +148,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 101,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:101:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:101:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -175,8 +156,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 71,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:71:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:71:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -184,8 +164,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 98,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:98:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:98:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -193,8 +172,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -202,8 +180,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 21,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:21:  Include "nodelet/nodelet.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:21:  Include 'nodelet/nodelet.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -211,8 +188,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 22,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:22:  Include "dynamic_reconfigure/server.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:22:  Include 'dynamic_reconfigure/server.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -220,8 +196,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 25,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:25:  Include "yocs_cmd_vel_mux/cmd_vel_subscribers.hpp" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:25:  Include 'yocs_cmd_vel_mux/cmd_vel_subscribers.hpp' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -229,8 +204,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 38,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -238,8 +212,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 39,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:39:  public: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:39:  public: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -247,8 +220,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 43,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -256,8 +228,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 48,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -265,8 +236,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 53,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:53:  private: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:53:  private: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -274,8 +244,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 59,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -283,8 +252,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 64,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -292,8 +260,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 65,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -301,8 +268,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 66,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -310,8 +276,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 66,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: yocs_cmd_vel_mux::reloadConfig &config  [runtime/references] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: yocs_cmd_vel_mux::reloadConfig &config  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -319,8 +284,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 71,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -328,8 +292,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 73,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -337,8 +300,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:74:  private: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:74:  private: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -346,8 +308,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 78,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:78:  public: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:78:  public: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -355,8 +316,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 81,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:81:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:81:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -364,8 +324,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 85,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -373,8 +332,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 90,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -382,8 +340,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 92,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:92:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:92:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -391,8 +348,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 93,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:93:  private: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:93:  private: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -400,8 +356,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:97:  public: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:97:  public: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -409,8 +364,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -418,8 +372,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 104,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:104:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:104:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -427,8 +380,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 110,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:110:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:110:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -436,8 +388,7 @@
       "file": "exceptions.hpp",
       "line": null,
       "function": null,
-      "comment": "exceptions.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "exceptions.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -445,8 +396,7 @@
       "file": "exceptions.hpp",
       "line": 33,
       "function": null,
-      "comment": "exceptions.hpp:33:  public: should be indented +1 space inside class FileNotFoundException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:33:  public: should be indented +1 space inside class FileNotFoundException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -454,8 +404,7 @@
       "file": "exceptions.hpp",
       "line": 34,
       "function": null,
-      "comment": "exceptions.hpp:34:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "exceptions.hpp:34:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -463,8 +412,7 @@
       "file": "exceptions.hpp",
       "line": 40,
       "function": null,
-      "comment": "exceptions.hpp:40:  public: should be indented +1 space inside class EmptyCfgException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:40:  public: should be indented +1 space inside class EmptyCfgException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -472,8 +420,7 @@
       "file": "exceptions.hpp",
       "line": 47,
       "function": null,
-      "comment": "exceptions.hpp:47:  public: should be indented +1 space inside class YamlException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:47:  public: should be indented +1 space inside class YamlException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -481,8 +428,7 @@
       "file": "exceptions.hpp",
       "line": 48,
       "function": null,
-      "comment": "exceptions.hpp:48:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "exceptions.hpp:48:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -490,8 +436,7 @@
       "file": "exceptions.hpp",
       "line": 53,
       "function": null,
-      "comment": "exceptions.hpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "exceptions.hpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -499,8 +444,7 @@
       "file": "exceptions.hpp",
       "line": 48,
       "function": null,
-      "comment": "exceptions.hpp:48:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "exceptions.hpp:48:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -508,8 +452,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -517,8 +460,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 21,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:21:  Include "geometry_msgs/Twist.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:21:  Include 'geometry_msgs/Twist.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -526,8 +468,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 29,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -535,8 +476,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 55,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -544,8 +484,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 56,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:56:  public: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:56:  public: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -553,8 +492,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 57,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:57:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:57:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
   },
   {
@@ -562,8 +500,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 62,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -571,8 +508,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 63,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:63:  public: should be indented +1 space inside class CmdVelSubs  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:63:  public: should be indented +1 space inside class CmdVelSubs  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -580,8 +516,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 64,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -589,8 +524,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 70,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -598,8 +532,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:74:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:74:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -607,8 +540,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:74:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:74:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -616,8 +548,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 82,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:82:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "cmd_vel_subscribers.hpp:82:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -625,8 +556,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 82,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:82:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:82:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -634,8 +564,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -643,8 +572,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -652,8 +580,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 83,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:83:  Extra space before [  [whitespace/braces] [5]
-",
+      "comment": "cmd_vel_subscribers.hpp:83:  Extra space before [  [whitespace/braces] [5]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","brackets"]
   },
   {
@@ -661,8 +588,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 97,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:97:  private: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_subscribers.hpp:97:  private: should be indented +1 space inside class CmdVelSubscribers  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -670,8 +596,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 101,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:101:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_subscribers.hpp:101:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -679,8 +604,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 71,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:71:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:71:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -688,8 +612,7 @@
       "file": "cmd_vel_subscribers.hpp",
       "line": 98,
       "function": null,
-      "comment": "cmd_vel_subscribers.hpp:98:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]
-",
+      "comment": "cmd_vel_subscribers.hpp:98:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -697,8 +620,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -706,8 +628,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 21,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:21:  Include "nodelet/nodelet.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:21:  Include 'nodelet/nodelet.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -715,8 +636,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 22,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:22:  Include "dynamic_reconfigure/server.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:22:  Include 'dynamic_reconfigure/server.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -724,8 +644,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 25,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:25:  Include "yocs_cmd_vel_mux/cmd_vel_subscribers.hpp" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:25:  Include 'yocs_cmd_vel_mux/cmd_vel_subscribers.hpp' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -733,8 +652,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 38,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -742,8 +660,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 39,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:39:  public: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:39:  public: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -751,8 +668,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 43,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -760,8 +676,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 48,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -769,8 +684,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 53,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:53:  private: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:53:  private: should be indented +1 space inside class CmdVelMuxNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -778,8 +692,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 59,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -787,8 +700,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 64,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -796,8 +708,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 65,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -805,8 +716,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 66,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -814,8 +724,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 66,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: yocs_cmd_vel_mux::reloadConfig &config  [runtime/references] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: yocs_cmd_vel_mux::reloadConfig &config  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -823,8 +732,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 71,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -832,8 +740,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 73,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -841,8 +748,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:74:  private: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:74:  private: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -850,8 +756,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 78,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:78:  public: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:78:  public: should be indented +1 space inside class CmdVelFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -859,8 +764,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 81,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:81:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:81:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -868,8 +772,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 85,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -877,8 +780,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 90,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -886,8 +788,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 92,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:92:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:92:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -895,8 +796,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 93,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:93:  private: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:93:  private: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -904,8 +804,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:97:  public: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:97:  public: should be indented +1 space inside class TimerFunctor  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -913,8 +812,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -922,8 +820,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 104,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:104:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:104:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -931,8 +828,7 @@
       "file": "cmd_vel_mux_nodelet.hpp",
       "line": 110,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.hpp:110:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.hpp:110:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -940,8 +836,7 @@
       "file": "exceptions.hpp",
       "line": null,
       "function": null,
-      "comment": "exceptions.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "exceptions.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -949,8 +844,7 @@
       "file": "exceptions.hpp",
       "line": 33,
       "function": null,
-      "comment": "exceptions.hpp:33:  public: should be indented +1 space inside class FileNotFoundException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:33:  public: should be indented +1 space inside class FileNotFoundException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -958,8 +852,7 @@
       "file": "exceptions.hpp",
       "line": 34,
       "function": null,
-      "comment": "exceptions.hpp:34:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "exceptions.hpp:34:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -967,8 +860,7 @@
       "file": "exceptions.hpp",
       "line": 40,
       "function": null,
-      "comment": "exceptions.hpp:40:  public: should be indented +1 space inside class EmptyCfgException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:40:  public: should be indented +1 space inside class EmptyCfgException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -976,8 +868,7 @@
       "file": "exceptions.hpp",
       "line": 47,
       "function": null,
-      "comment": "exceptions.hpp:47:  public: should be indented +1 space inside class YamlException  [whitespace/indent] [3]
-",
+      "comment": "exceptions.hpp:47:  public: should be indented +1 space inside class YamlException  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -985,8 +876,7 @@
       "file": "exceptions.hpp",
       "line": 48,
       "function": null,
-      "comment": "exceptions.hpp:48:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "exceptions.hpp:48:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -994,8 +884,7 @@
       "file": "exceptions.hpp",
       "line": 53,
       "function": null,
-      "comment": "exceptions.hpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "exceptions.hpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1003,8 +892,7 @@
       "file": "exceptions.hpp",
       "line": 48,
       "function": null,
-      "comment": "exceptions.hpp:48:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "exceptions.hpp:48:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -1012,8 +900,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_subscribers.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -1021,8 +908,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 29,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.cpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1030,8 +916,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 44,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:44:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-",
+      "comment": "cmd_vel_subscribers.cpp:44:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
   },
   {
@@ -1039,8 +924,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 47,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:47:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.cpp:47:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1048,8 +932,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 53,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1057,8 +940,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 64,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:64:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.cpp:64:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1066,8 +948,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 68,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:68:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_subscribers.cpp:68:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1075,8 +956,7 @@
       "file": "cmd_vel_subscribers.cpp",
       "line": 74,
       "function": null,
-      "comment": "cmd_vel_subscribers.cpp:74:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_subscribers.cpp:74:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1084,8 +964,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": null,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -1093,8 +972,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 14,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:14:  Found C system header after C++ system header. Should be: cmd_vel_mux_nodelet.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:14:  Found C system header after C++ system header. Should be: cmd_vel_mux_nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1102,8 +980,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 15,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:15:  Found C system header after C++ system header. Should be: cmd_vel_mux_nodelet.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:15:  Found C system header after C++ system header. Should be: cmd_vel_mux_nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1111,8 +988,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 30,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:30:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:30:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1120,8 +996,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 31,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1129,8 +1004,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 36,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:36:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:36:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1138,8 +1012,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 43,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1147,8 +1020,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 45,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:45:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:45:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1156,8 +1028,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 58,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1165,8 +1036,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 59,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1174,8 +1044,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 61,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1183,8 +1052,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 75,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:75:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:75:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1192,8 +1060,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 81,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1201,8 +1068,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 82,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1210,8 +1076,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 85,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:85:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:85:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1219,8 +1084,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 85,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:85:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:85:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1228,8 +1092,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 92,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:92:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:92:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1237,8 +1100,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 96,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1246,8 +1108,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 97,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:97:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:97:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1255,8 +1116,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 101,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:101:  Missing space before ( in if(  [whitespace/parens] [5]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:101:  Missing space before ( in if(  [whitespace/parens] [5]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
@@ -1264,8 +1124,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 102,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1273,8 +1132,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 106,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:106:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:106:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1282,8 +1140,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 107,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1291,8 +1148,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 116,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1300,8 +1156,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 117,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:117:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:117:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1309,8 +1164,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 152,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:152:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:152:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1318,8 +1172,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 155,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:155:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:155:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1327,8 +1180,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 160,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:160:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:160:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1336,8 +1188,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 162,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:162:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:162:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1345,8 +1196,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 166,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:166:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:166:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1354,8 +1204,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 168,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:168:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:168:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1363,8 +1212,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 177,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:177:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:177:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1372,8 +1220,7 @@
       "file": "cmd_vel_mux_nodelet.cpp",
       "line": 155,
       "function": null,
-      "comment": "cmd_vel_mux_nodelet.cpp:155:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "cmd_vel_mux_nodelet.cpp:155:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {

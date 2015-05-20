@@ -4,8 +4,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": null,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -13,8 +12,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 21,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:21:  Include "nav_msgs/Odometry.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:21:  Include 'nav_msgs/Odometry.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -22,8 +20,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 34,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -31,8 +28,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 35,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:35:  public: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:35:  public: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -40,8 +36,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 36,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:36:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:36:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -49,8 +44,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","indentation"]
   },
   {
@@ -58,8 +52,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -67,8 +60,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -76,8 +68,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 40,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:40:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:40:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -85,8 +76,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 45,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -94,8 +84,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 47,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:47:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "velocity_smoother_nodelet.hpp:47:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -103,8 +92,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 47,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:47:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:47:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -112,8 +100,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 49,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:49:  private: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:49:  private: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -121,8 +108,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 51,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -130,8 +116,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 68,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -139,8 +124,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 72,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:72:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:72:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -148,8 +132,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 73,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -157,8 +140,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 76,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -166,8 +148,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 84,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:84:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "velocity_smoother_nodelet.hpp:84:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -175,8 +156,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 84,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:84:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:84:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -184,8 +164,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 90,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:90:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:90:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -193,8 +172,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 95,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:95:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:95:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -202,8 +180,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 96,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -211,8 +188,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:97:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:97:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -220,8 +196,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:97:  Is this a non-const reference? If so, make const or use a pointer: yocs_velocity_smoother::paramsConfig &config  [runtime/references] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:97:  Is this a non-const reference? If so, make const or use a pointer: yocs_velocity_smoother::paramsConfig &config  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -229,8 +204,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:100:  Namespace should be terminated with "// namespace yocs_velocity_smoother"  [readability/namespace] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:100:  Namespace should be terminated with '// namespace yocs_velocity_smoother'  [readability/namespace] [5]",
       "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
   },
   {
@@ -238,8 +212,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:100:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:100:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -247,8 +220,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 57,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:57:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:57:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -256,8 +228,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 86,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:86:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:86:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -265,8 +236,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": null,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -274,8 +244,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 21,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:21:  Include "nav_msgs/Odometry.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:21:  Include 'nav_msgs/Odometry.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -283,8 +252,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 34,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -292,8 +260,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 35,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:35:  public: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:35:  public: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -301,8 +268,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 36,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:36:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:36:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
       "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
@@ -310,8 +276,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","indentation"]
   },
   {
@@ -319,8 +284,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -328,8 +292,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 37,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:37:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:37:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -337,8 +300,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 40,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:40:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:40:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -346,8 +308,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 45,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -355,8 +316,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 47,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:47:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "velocity_smoother_nodelet.hpp:47:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -364,8 +324,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 47,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:47:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:47:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -373,8 +332,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 49,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:49:  private: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.hpp:49:  private: should be indented +1 space inside class VelocitySmoother  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -382,8 +340,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 51,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -391,8 +348,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 68,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -400,8 +356,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 72,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:72:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:72:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -409,8 +364,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 73,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -418,8 +372,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 76,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -427,8 +380,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 84,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:84:  More than one command on the same line  [whitespace/newline] [0]
-",
+      "comment": "velocity_smoother_nodelet.hpp:84:  More than one command on the same line  [whitespace/newline] [0]",
       "tags": ["code-standards","formatting","google-cpp"]
   },
   {
@@ -436,8 +388,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 84,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:84:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:84:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -445,8 +396,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 90,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:90:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:90:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -454,8 +404,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 95,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:95:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:95:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -463,8 +412,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 96,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:96:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -472,8 +420,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:97:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:97:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -481,8 +428,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 97,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:97:  Is this a non-const reference? If so, make const or use a pointer: yocs_velocity_smoother::paramsConfig &config  [runtime/references] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:97:  Is this a non-const reference? If so, make const or use a pointer: yocs_velocity_smoother::paramsConfig &config  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -490,8 +436,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:100:  Namespace should be terminated with "// namespace yocs_velocity_smoother"  [readability/namespace] [5]
-",
+      "comment": "velocity_smoother_nodelet.hpp:100:  Namespace should be terminated with '// namespace yocs_velocity_smoother'  [readability/namespace] [5]",
       "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
   },
   {
@@ -499,8 +444,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 100,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:100:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.hpp:100:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -508,8 +452,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 57,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:57:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:57:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -517,8 +460,7 @@
       "file": "velocity_smoother_nodelet.hpp",
       "line": 86,
       "function": null,
-      "comment": "velocity_smoother_nodelet.hpp:86:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.hpp:86:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -526,8 +468,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": null,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
-",
+      "comment": "velocity_smoother_nodelet.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
       "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
@@ -535,8 +476,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 14,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:14:  Include "nodelet/nodelet.h" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:14:  Include 'nodelet/nodelet.h' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -544,8 +484,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 42,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -553,8 +492,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 43,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -562,8 +500,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 45,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -571,8 +508,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 57,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -580,8 +516,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 58,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -589,8 +524,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 59,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -598,8 +532,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 61,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -607,8 +540,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 64,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:64:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:64:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -616,8 +548,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 65,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -625,8 +556,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 74,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -634,8 +564,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 75,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -643,8 +572,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 78,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:78:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:78:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -652,8 +580,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 79,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -661,8 +588,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 88,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:88:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:88:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -670,8 +596,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 90,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:90:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:90:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -679,8 +604,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 94,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:94:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:94:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -688,8 +612,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 102,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -697,8 +620,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 110,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:110:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:110:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -706,8 +628,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 114,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:114:  Extra space for operator !   [whitespace/operators] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:114:  Extra space for operator !   [whitespace/operators] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
   },
   {
@@ -715,8 +636,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 115,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:115:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:115:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -724,8 +644,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 117,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:117:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:117:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -733,8 +652,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 118,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -742,8 +660,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 119,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:119:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:119:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -751,8 +668,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 120,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:120:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:120:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -760,8 +676,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 121,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:121:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:121:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -769,8 +684,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 122,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:122:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:122:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -778,8 +692,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 126,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:126:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:126:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -787,8 +700,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 127,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:127:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:127:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -796,8 +708,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 128,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:128:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:128:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -805,8 +716,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 133,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:133:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:133:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -814,8 +724,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 134,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:134:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:134:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -823,8 +732,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 134,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:134:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:134:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -832,8 +740,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 137,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:137:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:137:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -841,8 +748,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 138,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:138:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:138:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -850,8 +756,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 139,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:139:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:139:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -859,8 +764,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 140,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:140:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:140:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -868,8 +772,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 141,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:141:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:141:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -877,8 +780,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 141,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:141:  Missing username in TODO; it should look like "// TODO(my_username): Stuff."  [readability/todo] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:141:  Missing username in TODO; it should look like '// TODO(my_username): Stuff.'  [readability/todo] [2]",
       "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
@@ -886,8 +788,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 143,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:143:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:143:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -895,8 +796,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 144,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:144:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:144:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -904,8 +804,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 145,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:145:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:145:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -913,8 +812,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 157,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:157:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:157:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -922,8 +820,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 158,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:158:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:158:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -931,8 +828,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 164,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:164:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:164:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -940,8 +836,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 165,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:165:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:165:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -949,8 +844,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 166,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:166:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:166:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -958,8 +852,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 169,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:169:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:169:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -967,8 +860,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 170,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:170:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:170:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -976,8 +868,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 171,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:171:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:171:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -985,8 +876,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 175,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:175:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:175:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -994,8 +884,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 176,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:176:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:176:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1003,8 +892,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 177,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:177:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:177:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1012,8 +900,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 180,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:180:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:180:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1021,8 +908,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 181,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1030,8 +916,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 182,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:182:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:182:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1039,8 +924,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 185,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:185:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:185:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1048,8 +932,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 186,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:186:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:186:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1057,8 +940,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 187,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:187:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:187:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1066,8 +948,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 188,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:188:  Extra space after ( in function call  [whitespace/parens] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:188:  Extra space after ( in function call  [whitespace/parens] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
@@ -1075,8 +956,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 198,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:198:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:198:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1084,8 +964,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 202,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:202:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:202:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1093,8 +972,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 203,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1102,8 +980,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 209,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1111,8 +988,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 215,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:215:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:215:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1120,8 +996,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 223,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:223:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:223:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1129,8 +1004,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 224,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:224:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:224:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1138,8 +1012,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 225,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:225:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:225:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1147,8 +1020,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 240,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:240:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:240:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1156,8 +1028,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 242,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:242:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:242:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1165,8 +1036,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 244,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:244:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:244:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1174,8 +1044,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 251,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:251:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:251:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -1183,8 +1052,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 253,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:253:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:253:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
       "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
@@ -1192,8 +1060,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 254,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:254:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:254:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1201,8 +1068,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 255,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:255:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:255:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1210,8 +1076,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 265,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:265:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:265:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1219,8 +1084,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 272,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:272:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:272:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1228,8 +1092,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 282,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:282:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:282:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1237,8 +1100,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 283,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:283:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:283:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1246,8 +1108,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 284,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:284:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:284:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1255,8 +1116,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 296,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:296:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:296:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1264,8 +1124,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 297,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:297:  public: should be indented +1 space inside class VelocitySmootherNodelet  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.cpp:297:  public: should be indented +1 space inside class VelocitySmootherNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1273,8 +1132,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 300,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1282,8 +1140,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 313,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:313:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:313:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1291,8 +1148,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 315,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:315:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:315:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1300,8 +1156,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 315,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:315:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:315:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1309,8 +1164,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 316,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:316:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:316:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1318,8 +1172,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 317,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:317:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:317:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1327,8 +1180,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 320,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1336,8 +1188,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 321,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:321:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:321:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1345,8 +1196,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 324,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:324:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:324:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1354,8 +1204,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 325,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:325:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:325:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1363,8 +1212,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 326,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:326:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:326:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1372,8 +1220,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 330,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:330:  private: should be indented +1 space inside class VelocitySmootherNodelet  [whitespace/indent] [3]
-",
+      "comment": "velocity_smoother_nodelet.cpp:330:  private: should be indented +1 space inside class VelocitySmootherNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1381,8 +1228,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 335,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:335:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:335:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1390,8 +1236,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 337,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:337:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "velocity_smoother_nodelet.cpp:337:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1399,8 +1244,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 316,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:316:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:316:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
@@ -1408,8 +1252,7 @@
       "file": "velocity_smoother_nodelet.cpp",
       "line": 117,
       "function": null,
-      "comment": "velocity_smoother_nodelet.cpp:117:  Add #include <algorithm> for min  [build/include_what_you_use] [4]
-",
+      "comment": "velocity_smoother_nodelet.cpp:117:  Add #include <algorithm> for min  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {

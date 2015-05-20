@@ -4,8 +4,7 @@
       "file": "safety_controller.hpp",
       "line": 53,
       "function": null,
-      "comment": "safety_controller.hpp:53:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:53:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -13,8 +12,7 @@
       "file": "safety_controller.hpp",
       "line": 54,
       "function": null,
-      "comment": "safety_controller.hpp:54:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:54:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -22,8 +20,7 @@
       "file": "safety_controller.hpp",
       "line": 55,
       "function": null,
-      "comment": "safety_controller.hpp:55:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:55:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -31,8 +28,7 @@
       "file": "safety_controller.hpp",
       "line": 56,
       "function": null,
-      "comment": "safety_controller.hpp:56:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:56:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -40,8 +36,7 @@
       "file": "safety_controller.hpp",
       "line": 57,
       "function": null,
-      "comment": "safety_controller.hpp:57:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:57:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -49,8 +44,7 @@
       "file": "safety_controller.hpp",
       "line": 58,
       "function": null,
-      "comment": "safety_controller.hpp:58:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:58:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -58,8 +52,7 @@
       "file": "safety_controller.hpp",
       "line": 59,
       "function": null,
-      "comment": "safety_controller.hpp:59:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:59:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -67,8 +60,7 @@
       "file": "safety_controller.hpp",
       "line": 62,
       "function": null,
-      "comment": "safety_controller.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -76,8 +68,7 @@
       "file": "safety_controller.hpp",
       "line": 76,
       "function": null,
-      "comment": "safety_controller.hpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -85,8 +76,7 @@
       "file": "safety_controller.hpp",
       "line": 77,
       "function": null,
-      "comment": "safety_controller.hpp:77:  public: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]
-",
+      "comment": "safety_controller.hpp:77:  public: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -94,8 +84,7 @@
       "file": "safety_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]
-",
+      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -103,8 +92,7 @@
       "file": "safety_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: std::string& name  [runtime/references] [2]
-",
+      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: std::string& name  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -112,8 +100,7 @@
       "file": "safety_controller.hpp",
       "line": 89,
       "function": null,
-      "comment": "safety_controller.hpp:89:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-",
+      "comment": "safety_controller.hpp:89:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -121,8 +108,7 @@
       "file": "safety_controller.hpp",
       "line": 91,
       "function": null,
-      "comment": "safety_controller.hpp:91:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "safety_controller.hpp:91:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -130,8 +116,7 @@
       "file": "safety_controller.hpp",
       "line": 92,
       "function": null,
-      "comment": "safety_controller.hpp:92:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "safety_controller.hpp:92:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -139,8 +124,7 @@
       "file": "safety_controller.hpp",
       "line": 99,
       "function": null,
-      "comment": "safety_controller.hpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -148,8 +132,7 @@
       "file": "safety_controller.hpp",
       "line": 100,
       "function": null,
-      "comment": "safety_controller.hpp:100:  Should have a space between // and comment  [whitespace/comments] [4]
-",
+      "comment": "safety_controller.hpp:100:  Should have a space between // and comment  [whitespace/comments] [4]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -157,8 +140,7 @@
       "file": "safety_controller.hpp",
       "line": 102,
       "function": null,
-      "comment": "safety_controller.hpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -166,8 +148,7 @@
       "file": "safety_controller.hpp",
       "line": 103,
       "function": null,
-      "comment": "safety_controller.hpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -175,8 +156,7 @@
       "file": "safety_controller.hpp",
       "line": 104,
       "function": null,
-      "comment": "safety_controller.hpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -184,8 +164,7 @@
       "file": "safety_controller.hpp",
       "line": 105,
       "function": null,
-      "comment": "safety_controller.hpp:105:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:105:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -193,8 +172,7 @@
       "file": "safety_controller.hpp",
       "line": 106,
       "function": null,
-      "comment": "safety_controller.hpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -202,8 +180,7 @@
       "file": "safety_controller.hpp",
       "line": 107,
       "function": null,
-      "comment": "safety_controller.hpp:107:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:107:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -211,8 +188,7 @@
       "file": "safety_controller.hpp",
       "line": 108,
       "function": null,
-      "comment": "safety_controller.hpp:108:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:108:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -220,8 +196,7 @@
       "file": "safety_controller.hpp",
       "line": 109,
       "function": null,
-      "comment": "safety_controller.hpp:109:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:109:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -229,8 +204,7 @@
       "file": "safety_controller.hpp",
       "line": 110,
       "function": null,
-      "comment": "safety_controller.hpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -238,8 +212,7 @@
       "file": "safety_controller.hpp",
       "line": 119,
       "function": null,
-      "comment": "safety_controller.hpp:119:  private: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]
-",
+      "comment": "safety_controller.hpp:119:  private: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -247,8 +220,7 @@
       "file": "safety_controller.hpp",
       "line": 123,
       "function": null,
-      "comment": "safety_controller.hpp:123:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:123:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -256,8 +228,7 @@
       "file": "safety_controller.hpp",
       "line": 132,
       "function": null,
-      "comment": "safety_controller.hpp:132:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:132:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -265,8 +236,7 @@
       "file": "safety_controller.hpp",
       "line": 177,
       "function": null,
-      "comment": "safety_controller.hpp:177:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:177:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -274,8 +244,7 @@
       "file": "safety_controller.hpp",
       "line": 179,
       "function": null,
-      "comment": "safety_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -283,8 +252,7 @@
       "file": "safety_controller.hpp",
       "line": 182,
       "function": null,
-      "comment": "safety_controller.hpp:182:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:182:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -292,8 +260,7 @@
       "file": "safety_controller.hpp",
       "line": 183,
       "function": null,
-      "comment": "safety_controller.hpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -301,8 +268,7 @@
       "file": "safety_controller.hpp",
       "line": 189,
       "function": null,
-      "comment": "safety_controller.hpp:189:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:189:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -310,8 +276,7 @@
       "file": "safety_controller.hpp",
       "line": 191,
       "function": null,
-      "comment": "safety_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -319,8 +284,7 @@
       "file": "safety_controller.hpp",
       "line": 194,
       "function": null,
-      "comment": "safety_controller.hpp:194:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:194:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -328,8 +292,7 @@
       "file": "safety_controller.hpp",
       "line": 195,
       "function": null,
-      "comment": "safety_controller.hpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -337,8 +300,7 @@
       "file": "safety_controller.hpp",
       "line": 201,
       "function": null,
-      "comment": "safety_controller.hpp:201:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:201:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -346,8 +308,7 @@
       "file": "safety_controller.hpp",
       "line": 203,
       "function": null,
-      "comment": "safety_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -355,8 +316,7 @@
       "file": "safety_controller.hpp",
       "line": 207,
       "function": null,
-      "comment": "safety_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -364,8 +324,7 @@
       "file": "safety_controller.hpp",
       "line": 208,
       "function": null,
-      "comment": "safety_controller.hpp:208:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:208:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -373,8 +332,7 @@
       "file": "safety_controller.hpp",
       "line": 209,
       "function": null,
-      "comment": "safety_controller.hpp:209:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:209:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -382,8 +340,7 @@
       "file": "safety_controller.hpp",
       "line": 210,
       "function": null,
-      "comment": "safety_controller.hpp:210:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:210:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -391,8 +348,7 @@
       "file": "safety_controller.hpp",
       "line": 213,
       "function": null,
-      "comment": "safety_controller.hpp:213:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:213:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -400,8 +356,7 @@
       "file": "safety_controller.hpp",
       "line": 213,
       "function": null,
-      "comment": "safety_controller.hpp:213:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:213:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -409,8 +364,7 @@
       "file": "safety_controller.hpp",
       "line": 214,
       "function": null,
-      "comment": "safety_controller.hpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -418,8 +372,7 @@
       "file": "safety_controller.hpp",
       "line": 215,
       "function": null,
-      "comment": "safety_controller.hpp:215:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:215:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -427,8 +380,7 @@
       "file": "safety_controller.hpp",
       "line": 217,
       "function": null,
-      "comment": "safety_controller.hpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -436,8 +388,7 @@
       "file": "safety_controller.hpp",
       "line": 218,
       "function": null,
-      "comment": "safety_controller.hpp:218:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:218:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -445,8 +396,7 @@
       "file": "safety_controller.hpp",
       "line": 219,
       "function": null,
-      "comment": "safety_controller.hpp:219:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:219:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -454,8 +404,7 @@
       "file": "safety_controller.hpp",
       "line": 220,
       "function": null,
-      "comment": "safety_controller.hpp:220:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:220:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -463,8 +412,7 @@
       "file": "safety_controller.hpp",
       "line": 226,
       "function": null,
-      "comment": "safety_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -472,8 +420,7 @@
       "file": "safety_controller.hpp",
       "line": 228,
       "function": null,
-      "comment": "safety_controller.hpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -481,8 +428,7 @@
       "file": "safety_controller.hpp",
       "line": 232,
       "function": null,
-      "comment": "safety_controller.hpp:232:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:232:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -490,8 +436,7 @@
       "file": "safety_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "safety_controller.hpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -499,8 +444,7 @@
       "file": "safety_controller.hpp",
       "line": 234,
       "function": null,
-      "comment": "safety_controller.hpp:234:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:234:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -508,8 +452,7 @@
       "file": "safety_controller.hpp",
       "line": 235,
       "function": null,
-      "comment": "safety_controller.hpp:235:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:235:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -517,8 +460,7 @@
       "file": "safety_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "safety_controller.hpp:238:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:238:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -526,8 +468,7 @@
       "file": "safety_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "safety_controller.hpp:238:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:238:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -535,8 +476,7 @@
       "file": "safety_controller.hpp",
       "line": 239,
       "function": null,
-      "comment": "safety_controller.hpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -544,8 +484,7 @@
       "file": "safety_controller.hpp",
       "line": 240,
       "function": null,
-      "comment": "safety_controller.hpp:240:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:240:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -553,8 +492,7 @@
       "file": "safety_controller.hpp",
       "line": 242,
       "function": null,
-      "comment": "safety_controller.hpp:242:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:242:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -562,8 +500,7 @@
       "file": "safety_controller.hpp",
       "line": 243,
       "function": null,
-      "comment": "safety_controller.hpp:243:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:243:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -571,8 +508,7 @@
       "file": "safety_controller.hpp",
       "line": 244,
       "function": null,
-      "comment": "safety_controller.hpp:244:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:244:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -580,8 +516,7 @@
       "file": "safety_controller.hpp",
       "line": 245,
       "function": null,
-      "comment": "safety_controller.hpp:245:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:245:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -589,8 +524,7 @@
       "file": "safety_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "safety_controller.hpp:250:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:250:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -598,8 +532,7 @@
       "file": "safety_controller.hpp",
       "line": 251,
       "function": null,
-      "comment": "safety_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -607,8 +540,7 @@
       "file": "safety_controller.hpp",
       "line": 253,
       "function": null,
-      "comment": "safety_controller.hpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -616,8 +548,7 @@
       "file": "safety_controller.hpp",
       "line": 256,
       "function": null,
-      "comment": "safety_controller.hpp:256:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:256:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -625,8 +556,7 @@
       "file": "safety_controller.hpp",
       "line": 260,
       "function": null,
-      "comment": "safety_controller.hpp:260:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:260:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -634,8 +564,7 @@
       "file": "safety_controller.hpp",
       "line": 260,
       "function": null,
-      "comment": "safety_controller.hpp:260:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:260:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -643,8 +572,7 @@
       "file": "safety_controller.hpp",
       "line": 261,
       "function": null,
-      "comment": "safety_controller.hpp:261:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:261:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -652,8 +580,7 @@
       "file": "safety_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "safety_controller.hpp:266:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:266:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -661,8 +588,7 @@
       "file": "safety_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "safety_controller.hpp:266:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:266:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -670,8 +596,7 @@
       "file": "safety_controller.hpp",
       "line": 267,
       "function": null,
-      "comment": "safety_controller.hpp:267:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:267:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -679,8 +604,7 @@
       "file": "safety_controller.hpp",
       "line": 270,
       "function": null,
-      "comment": "safety_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -688,8 +612,7 @@
       "file": "safety_controller.hpp",
       "line": 274,
       "function": null,
-      "comment": "safety_controller.hpp:274:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:274:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -697,8 +620,7 @@
       "file": "safety_controller.hpp",
       "line": 274,
       "function": null,
-      "comment": "safety_controller.hpp:274:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:274:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -706,8 +628,7 @@
       "file": "safety_controller.hpp",
       "line": 275,
       "function": null,
-      "comment": "safety_controller.hpp:275:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:275:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -715,8 +636,7 @@
       "file": "safety_controller.hpp",
       "line": 280,
       "function": null,
-      "comment": "safety_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -724,8 +644,7 @@
       "file": "safety_controller.hpp",
       "line": 281,
       "function": null,
-      "comment": "safety_controller.hpp:281:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:281:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -733,8 +652,7 @@
       "file": "safety_controller.hpp",
       "line": 287,
       "function": null,
-      "comment": "safety_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -742,8 +660,7 @@
       "file": "safety_controller.hpp",
       "line": 296,
       "function": null,
-      "comment": "safety_controller.hpp:296:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:296:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -751,8 +668,7 @@
       "file": "safety_controller.hpp",
       "line": 300,
       "function": null,
-      "comment": "safety_controller.hpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -760,8 +676,7 @@
       "file": "safety_controller.hpp",
       "line": 302,
       "function": null,
-      "comment": "safety_controller.hpp:302:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:302:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -769,8 +684,7 @@
       "file": "safety_controller.hpp",
       "line": 304,
       "function": null,
-      "comment": "safety_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -778,8 +692,7 @@
       "file": "safety_controller.hpp",
       "line": 314,
       "function": null,
-      "comment": "safety_controller.hpp:314:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:314:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -787,8 +700,7 @@
       "file": "safety_controller.hpp",
       "line": 315,
       "function": null,
-      "comment": "safety_controller.hpp:315:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:315:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -796,8 +708,7 @@
       "file": "safety_controller.hpp",
       "line": 325,
       "function": null,
-      "comment": "safety_controller.hpp:325:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:325:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -805,8 +716,7 @@
       "file": "safety_controller.hpp",
       "line": 326,
       "function": null,
-      "comment": "safety_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -814,8 +724,7 @@
       "file": "safety_controller.hpp",
       "line": 337,
       "function": null,
-      "comment": "safety_controller.hpp:337:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:337:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -823,8 +732,7 @@
       "file": "safety_controller.hpp",
       "line": 338,
       "function": null,
-      "comment": "safety_controller.hpp:338:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:338:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -832,8 +740,7 @@
       "file": "safety_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "safety_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -841,8 +748,7 @@
       "file": "safety_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "safety_controller.hpp:349:  Should have a space between // and comment  [whitespace/comments] [4]
-",
+      "comment": "safety_controller.hpp:349:  Should have a space between // and comment  [whitespace/comments] [4]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -850,8 +756,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-",
+      "comment": "safety_controller.hpp:350:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -859,8 +764,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:350:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -868,8 +772,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
-",
+      "comment": "safety_controller.hpp:350:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
   },
   {
@@ -877,8 +780,7 @@
       "file": "safety_controller.hpp",
       "line": 351,
       "function": null,
-      "comment": "safety_controller.hpp:351:  Tab found; better to use spaces  [whitespace/tab] [1]
-",
+      "comment": "safety_controller.hpp:351:  Tab found; better to use spaces  [whitespace/tab] [1]",
       "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
   },
   {
@@ -886,8 +788,7 @@
       "file": "safety_controller.hpp",
       "line": 357,
       "function": null,
-      "comment": "safety_controller.hpp:357:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:357:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -895,8 +796,7 @@
       "file": "safety_controller.hpp",
       "line": 53,
       "function": null,
-      "comment": "safety_controller.hpp:53:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:53:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -904,8 +804,7 @@
       "file": "safety_controller.hpp",
       "line": 54,
       "function": null,
-      "comment": "safety_controller.hpp:54:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:54:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -913,8 +812,7 @@
       "file": "safety_controller.hpp",
       "line": 55,
       "function": null,
-      "comment": "safety_controller.hpp:55:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:55:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -922,8 +820,7 @@
       "file": "safety_controller.hpp",
       "line": 56,
       "function": null,
-      "comment": "safety_controller.hpp:56:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:56:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -931,8 +828,7 @@
       "file": "safety_controller.hpp",
       "line": 57,
       "function": null,
-      "comment": "safety_controller.hpp:57:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:57:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -940,8 +836,7 @@
       "file": "safety_controller.hpp",
       "line": 58,
       "function": null,
-      "comment": "safety_controller.hpp:58:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:58:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -949,8 +844,7 @@
       "file": "safety_controller.hpp",
       "line": 59,
       "function": null,
-      "comment": "safety_controller.hpp:59:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]
-",
+      "comment": "safety_controller.hpp:59:  Found C system header after C++ system header. Should be: safety_controller.h, c system, c++ system, other.  [build/include_order] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -958,8 +852,7 @@
       "file": "safety_controller.hpp",
       "line": 62,
       "function": null,
-      "comment": "safety_controller.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -967,8 +860,7 @@
       "file": "safety_controller.hpp",
       "line": 76,
       "function": null,
-      "comment": "safety_controller.hpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -976,8 +868,7 @@
       "file": "safety_controller.hpp",
       "line": 77,
       "function": null,
-      "comment": "safety_controller.hpp:77:  public: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]
-",
+      "comment": "safety_controller.hpp:77:  public: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -985,8 +876,7 @@
       "file": "safety_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]
-",
+      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -994,8 +884,7 @@
       "file": "safety_controller.hpp",
       "line": 78,
       "function": null,
-      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: std::string& name  [runtime/references] [2]
-",
+      "comment": "safety_controller.hpp:78:  Is this a non-const reference? If so, make const or use a pointer: std::string& name  [runtime/references] [2]",
       "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
@@ -1003,8 +892,7 @@
       "file": "safety_controller.hpp",
       "line": 89,
       "function": null,
-      "comment": "safety_controller.hpp:89:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-",
+      "comment": "safety_controller.hpp:89:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1012,8 +900,7 @@
       "file": "safety_controller.hpp",
       "line": 91,
       "function": null,
-      "comment": "safety_controller.hpp:91:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "safety_controller.hpp:91:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -1021,8 +908,7 @@
       "file": "safety_controller.hpp",
       "line": 92,
       "function": null,
-      "comment": "safety_controller.hpp:92:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "safety_controller.hpp:92:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -1030,8 +916,7 @@
       "file": "safety_controller.hpp",
       "line": 99,
       "function": null,
-      "comment": "safety_controller.hpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1039,8 +924,7 @@
       "file": "safety_controller.hpp",
       "line": 100,
       "function": null,
-      "comment": "safety_controller.hpp:100:  Should have a space between // and comment  [whitespace/comments] [4]
-",
+      "comment": "safety_controller.hpp:100:  Should have a space between // and comment  [whitespace/comments] [4]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1048,8 +932,7 @@
       "file": "safety_controller.hpp",
       "line": 102,
       "function": null,
-      "comment": "safety_controller.hpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1057,8 +940,7 @@
       "file": "safety_controller.hpp",
       "line": 103,
       "function": null,
-      "comment": "safety_controller.hpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1066,8 +948,7 @@
       "file": "safety_controller.hpp",
       "line": 104,
       "function": null,
-      "comment": "safety_controller.hpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1075,8 +956,7 @@
       "file": "safety_controller.hpp",
       "line": 105,
       "function": null,
-      "comment": "safety_controller.hpp:105:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:105:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1084,8 +964,7 @@
       "file": "safety_controller.hpp",
       "line": 106,
       "function": null,
-      "comment": "safety_controller.hpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1093,8 +972,7 @@
       "file": "safety_controller.hpp",
       "line": 107,
       "function": null,
-      "comment": "safety_controller.hpp:107:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:107:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1102,8 +980,7 @@
       "file": "safety_controller.hpp",
       "line": 108,
       "function": null,
-      "comment": "safety_controller.hpp:108:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:108:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1111,8 +988,7 @@
       "file": "safety_controller.hpp",
       "line": 109,
       "function": null,
-      "comment": "safety_controller.hpp:109:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]
-",
+      "comment": "safety_controller.hpp:109:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1120,8 +996,7 @@
       "file": "safety_controller.hpp",
       "line": 110,
       "function": null,
-      "comment": "safety_controller.hpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1129,8 +1004,7 @@
       "file": "safety_controller.hpp",
       "line": 119,
       "function": null,
-      "comment": "safety_controller.hpp:119:  private: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]
-",
+      "comment": "safety_controller.hpp:119:  private: should be indented +1 space inside class SafetyController  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1138,8 +1012,7 @@
       "file": "safety_controller.hpp",
       "line": 123,
       "function": null,
-      "comment": "safety_controller.hpp:123:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:123:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1147,8 +1020,7 @@
       "file": "safety_controller.hpp",
       "line": 132,
       "function": null,
-      "comment": "safety_controller.hpp:132:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:132:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1156,8 +1028,7 @@
       "file": "safety_controller.hpp",
       "line": 177,
       "function": null,
-      "comment": "safety_controller.hpp:177:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:177:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1165,8 +1036,7 @@
       "file": "safety_controller.hpp",
       "line": 179,
       "function": null,
-      "comment": "safety_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1174,8 +1044,7 @@
       "file": "safety_controller.hpp",
       "line": 182,
       "function": null,
-      "comment": "safety_controller.hpp:182:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:182:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1183,8 +1052,7 @@
       "file": "safety_controller.hpp",
       "line": 183,
       "function": null,
-      "comment": "safety_controller.hpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1192,8 +1060,7 @@
       "file": "safety_controller.hpp",
       "line": 189,
       "function": null,
-      "comment": "safety_controller.hpp:189:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:189:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1201,8 +1068,7 @@
       "file": "safety_controller.hpp",
       "line": 191,
       "function": null,
-      "comment": "safety_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:191:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1210,8 +1076,7 @@
       "file": "safety_controller.hpp",
       "line": 194,
       "function": null,
-      "comment": "safety_controller.hpp:194:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:194:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1219,8 +1084,7 @@
       "file": "safety_controller.hpp",
       "line": 195,
       "function": null,
-      "comment": "safety_controller.hpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1228,8 +1092,7 @@
       "file": "safety_controller.hpp",
       "line": 201,
       "function": null,
-      "comment": "safety_controller.hpp:201:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:201:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1237,8 +1100,7 @@
       "file": "safety_controller.hpp",
       "line": 203,
       "function": null,
-      "comment": "safety_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1246,8 +1108,7 @@
       "file": "safety_controller.hpp",
       "line": 207,
       "function": null,
-      "comment": "safety_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1255,8 +1116,7 @@
       "file": "safety_controller.hpp",
       "line": 208,
       "function": null,
-      "comment": "safety_controller.hpp:208:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:208:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1264,8 +1124,7 @@
       "file": "safety_controller.hpp",
       "line": 209,
       "function": null,
-      "comment": "safety_controller.hpp:209:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:209:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1273,8 +1132,7 @@
       "file": "safety_controller.hpp",
       "line": 210,
       "function": null,
-      "comment": "safety_controller.hpp:210:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:210:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1282,8 +1140,7 @@
       "file": "safety_controller.hpp",
       "line": 213,
       "function": null,
-      "comment": "safety_controller.hpp:213:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:213:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1291,8 +1148,7 @@
       "file": "safety_controller.hpp",
       "line": 213,
       "function": null,
-      "comment": "safety_controller.hpp:213:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:213:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1300,8 +1156,7 @@
       "file": "safety_controller.hpp",
       "line": 214,
       "function": null,
-      "comment": "safety_controller.hpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1309,8 +1164,7 @@
       "file": "safety_controller.hpp",
       "line": 215,
       "function": null,
-      "comment": "safety_controller.hpp:215:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:215:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1318,8 +1172,7 @@
       "file": "safety_controller.hpp",
       "line": 217,
       "function": null,
-      "comment": "safety_controller.hpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1327,8 +1180,7 @@
       "file": "safety_controller.hpp",
       "line": 218,
       "function": null,
-      "comment": "safety_controller.hpp:218:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:218:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1336,8 +1188,7 @@
       "file": "safety_controller.hpp",
       "line": 219,
       "function": null,
-      "comment": "safety_controller.hpp:219:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:219:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1345,8 +1196,7 @@
       "file": "safety_controller.hpp",
       "line": 220,
       "function": null,
-      "comment": "safety_controller.hpp:220:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:220:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1354,8 +1204,7 @@
       "file": "safety_controller.hpp",
       "line": 226,
       "function": null,
-      "comment": "safety_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1363,8 +1212,7 @@
       "file": "safety_controller.hpp",
       "line": 228,
       "function": null,
-      "comment": "safety_controller.hpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1372,8 +1220,7 @@
       "file": "safety_controller.hpp",
       "line": 232,
       "function": null,
-      "comment": "safety_controller.hpp:232:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:232:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1381,8 +1228,7 @@
       "file": "safety_controller.hpp",
       "line": 233,
       "function": null,
-      "comment": "safety_controller.hpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1390,8 +1236,7 @@
       "file": "safety_controller.hpp",
       "line": 234,
       "function": null,
-      "comment": "safety_controller.hpp:234:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:234:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1399,8 +1244,7 @@
       "file": "safety_controller.hpp",
       "line": 235,
       "function": null,
-      "comment": "safety_controller.hpp:235:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:235:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1408,8 +1252,7 @@
       "file": "safety_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "safety_controller.hpp:238:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:238:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1417,8 +1260,7 @@
       "file": "safety_controller.hpp",
       "line": 238,
       "function": null,
-      "comment": "safety_controller.hpp:238:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:238:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1426,8 +1268,7 @@
       "file": "safety_controller.hpp",
       "line": 239,
       "function": null,
-      "comment": "safety_controller.hpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1435,8 +1276,7 @@
       "file": "safety_controller.hpp",
       "line": 240,
       "function": null,
-      "comment": "safety_controller.hpp:240:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:240:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1444,8 +1284,7 @@
       "file": "safety_controller.hpp",
       "line": 242,
       "function": null,
-      "comment": "safety_controller.hpp:242:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:242:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1453,8 +1292,7 @@
       "file": "safety_controller.hpp",
       "line": 243,
       "function": null,
-      "comment": "safety_controller.hpp:243:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:243:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1462,8 +1300,7 @@
       "file": "safety_controller.hpp",
       "line": 244,
       "function": null,
-      "comment": "safety_controller.hpp:244:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:244:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1471,8 +1308,7 @@
       "file": "safety_controller.hpp",
       "line": 245,
       "function": null,
-      "comment": "safety_controller.hpp:245:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:245:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1480,8 +1316,7 @@
       "file": "safety_controller.hpp",
       "line": 250,
       "function": null,
-      "comment": "safety_controller.hpp:250:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:250:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1489,8 +1324,7 @@
       "file": "safety_controller.hpp",
       "line": 251,
       "function": null,
-      "comment": "safety_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:251:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1498,8 +1332,7 @@
       "file": "safety_controller.hpp",
       "line": 253,
       "function": null,
-      "comment": "safety_controller.hpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1507,8 +1340,7 @@
       "file": "safety_controller.hpp",
       "line": 256,
       "function": null,
-      "comment": "safety_controller.hpp:256:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:256:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1516,8 +1348,7 @@
       "file": "safety_controller.hpp",
       "line": 260,
       "function": null,
-      "comment": "safety_controller.hpp:260:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:260:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1525,8 +1356,7 @@
       "file": "safety_controller.hpp",
       "line": 260,
       "function": null,
-      "comment": "safety_controller.hpp:260:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:260:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1534,8 +1364,7 @@
       "file": "safety_controller.hpp",
       "line": 261,
       "function": null,
-      "comment": "safety_controller.hpp:261:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:261:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1543,8 +1372,7 @@
       "file": "safety_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "safety_controller.hpp:266:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:266:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1552,8 +1380,7 @@
       "file": "safety_controller.hpp",
       "line": 266,
       "function": null,
-      "comment": "safety_controller.hpp:266:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:266:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1561,8 +1388,7 @@
       "file": "safety_controller.hpp",
       "line": 267,
       "function": null,
-      "comment": "safety_controller.hpp:267:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:267:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1570,8 +1396,7 @@
       "file": "safety_controller.hpp",
       "line": 270,
       "function": null,
-      "comment": "safety_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:270:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1579,8 +1404,7 @@
       "file": "safety_controller.hpp",
       "line": 274,
       "function": null,
-      "comment": "safety_controller.hpp:274:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:274:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1588,8 +1412,7 @@
       "file": "safety_controller.hpp",
       "line": 274,
       "function": null,
-      "comment": "safety_controller.hpp:274:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:274:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1597,8 +1420,7 @@
       "file": "safety_controller.hpp",
       "line": 275,
       "function": null,
-      "comment": "safety_controller.hpp:275:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:275:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1606,8 +1428,7 @@
       "file": "safety_controller.hpp",
       "line": 280,
       "function": null,
-      "comment": "safety_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1615,8 +1436,7 @@
       "file": "safety_controller.hpp",
       "line": 281,
       "function": null,
-      "comment": "safety_controller.hpp:281:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:281:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1624,8 +1444,7 @@
       "file": "safety_controller.hpp",
       "line": 287,
       "function": null,
-      "comment": "safety_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1633,8 +1452,7 @@
       "file": "safety_controller.hpp",
       "line": 296,
       "function": null,
-      "comment": "safety_controller.hpp:296:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:296:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1642,8 +1460,7 @@
       "file": "safety_controller.hpp",
       "line": 300,
       "function": null,
-      "comment": "safety_controller.hpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1651,8 +1468,7 @@
       "file": "safety_controller.hpp",
       "line": 302,
       "function": null,
-      "comment": "safety_controller.hpp:302:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:302:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1660,8 +1476,7 @@
       "file": "safety_controller.hpp",
       "line": 304,
       "function": null,
-      "comment": "safety_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:304:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1669,8 +1484,7 @@
       "file": "safety_controller.hpp",
       "line": 314,
       "function": null,
-      "comment": "safety_controller.hpp:314:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:314:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1678,8 +1492,7 @@
       "file": "safety_controller.hpp",
       "line": 315,
       "function": null,
-      "comment": "safety_controller.hpp:315:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:315:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1687,8 +1500,7 @@
       "file": "safety_controller.hpp",
       "line": 325,
       "function": null,
-      "comment": "safety_controller.hpp:325:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:325:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1696,8 +1508,7 @@
       "file": "safety_controller.hpp",
       "line": 326,
       "function": null,
-      "comment": "safety_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:326:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1705,8 +1516,7 @@
       "file": "safety_controller.hpp",
       "line": 337,
       "function": null,
-      "comment": "safety_controller.hpp:337:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:337:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1714,8 +1524,7 @@
       "file": "safety_controller.hpp",
       "line": 338,
       "function": null,
-      "comment": "safety_controller.hpp:338:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "safety_controller.hpp:338:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1723,8 +1532,7 @@
       "file": "safety_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "safety_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "safety_controller.hpp:349:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1732,8 +1540,7 @@
       "file": "safety_controller.hpp",
       "line": 349,
       "function": null,
-      "comment": "safety_controller.hpp:349:  Should have a space between // and comment  [whitespace/comments] [4]
-",
+      "comment": "safety_controller.hpp:349:  Should have a space between // and comment  [whitespace/comments] [4]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1741,8 +1548,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-",
+      "comment": "safety_controller.hpp:350:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1750,8 +1556,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "safety_controller.hpp:350:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1759,8 +1564,7 @@
       "file": "safety_controller.hpp",
       "line": 350,
       "function": null,
-      "comment": "safety_controller.hpp:350:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
-",
+      "comment": "safety_controller.hpp:350:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1768,8 +1572,7 @@
       "file": "safety_controller.hpp",
       "line": 351,
       "function": null,
-      "comment": "safety_controller.hpp:351:  Tab found; better to use spaces  [whitespace/tab] [1]
-",
+      "comment": "safety_controller.hpp:351:  Tab found; better to use spaces  [whitespace/tab] [1]",
       "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
   },
   {
@@ -1777,8 +1580,7 @@
       "file": "safety_controller.hpp",
       "line": 357,
       "function": null,
-      "comment": "safety_controller.hpp:357:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "safety_controller.hpp:357:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1786,8 +1588,7 @@
       "file": "nodelet.cpp",
       "line": 45,
       "function": null,
-      "comment": "nodelet.cpp:45:  Include "ecl/threads/thread.hpp" not in alphabetical order  [build/include_alpha] [4]
-",
+      "comment": "nodelet.cpp:45:  Include 'ecl/threads/thread.hpp' not in alphabetical order  [build/include_alpha] [4]",
       "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
@@ -1795,8 +1596,7 @@
       "file": "nodelet.cpp",
       "line": 50,
       "function": null,
-      "comment": "nodelet.cpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1804,8 +1604,7 @@
       "file": "nodelet.cpp",
       "line": 53,
       "function": null,
-      "comment": "nodelet.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1813,8 +1612,7 @@
       "file": "nodelet.cpp",
       "line": 54,
       "function": null,
-      "comment": "nodelet.cpp:54:  public: should be indented +1 space inside class SafetyControllerNodelet  [whitespace/indent] [3]
-",
+      "comment": "nodelet.cpp:54:  public: should be indented +1 space inside class SafetyControllerNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1822,8 +1620,7 @@
       "file": "nodelet.cpp",
       "line": 55,
       "function": null,
-      "comment": "nodelet.cpp:55:  You don't need a ; after a }  [readability/braces] [4]
-",
+      "comment": "nodelet.cpp:55:  You don't need a ; after a }  [readability/braces] [4]",
       "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
@@ -1831,8 +1628,7 @@
       "file": "nodelet.cpp",
       "line": 57,
       "function": null,
-      "comment": "nodelet.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1840,8 +1636,7 @@
       "file": "nodelet.cpp",
       "line": 63,
       "function": null,
-      "comment": "nodelet.cpp:63:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:63:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1849,8 +1644,7 @@
       "file": "nodelet.cpp",
       "line": 72,
       "function": null,
-      "comment": "nodelet.cpp:72:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:72:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1858,8 +1652,7 @@
       "file": "nodelet.cpp",
       "line": 73,
       "function": null,
-      "comment": "nodelet.cpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1867,8 +1660,7 @@
       "file": "nodelet.cpp",
       "line": 77,
       "function": null,
-      "comment": "nodelet.cpp:77:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
-",
+      "comment": "nodelet.cpp:77:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
@@ -1876,8 +1668,7 @@
       "file": "nodelet.cpp",
       "line": 78,
       "function": null,
-      "comment": "nodelet.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1885,8 +1676,7 @@
       "file": "nodelet.cpp",
       "line": 79,
       "function": null,
-      "comment": "nodelet.cpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-",
+      "comment": "nodelet.cpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
@@ -1894,8 +1684,7 @@
       "file": "nodelet.cpp",
       "line": 82,
       "function": null,
-      "comment": "nodelet.cpp:82:  private: should be indented +1 space inside class SafetyControllerNodelet  [whitespace/indent] [3]
-",
+      "comment": "nodelet.cpp:82:  private: should be indented +1 space inside class SafetyControllerNodelet  [whitespace/indent] [3]",
       "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
@@ -1903,8 +1692,7 @@
       "file": "nodelet.cpp",
       "line": 84,
       "function": null,
-      "comment": "nodelet.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1912,8 +1700,7 @@
       "file": "nodelet.cpp",
       "line": 86,
       "function": null,
-      "comment": "nodelet.cpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "nodelet.cpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1921,8 +1708,7 @@
       "file": "nodelet.cpp",
       "line": 87,
       "function": null,
-      "comment": "nodelet.cpp:87:  Extra space for operator !   [whitespace/operators] [4]
-",
+      "comment": "nodelet.cpp:87:  Extra space for operator !   [whitespace/operators] [4]",
       "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
   },
   {
@@ -1930,8 +1716,7 @@
       "file": "nodelet.cpp",
       "line": 88,
       "function": null,
-      "comment": "nodelet.cpp:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-",
+      "comment": "nodelet.cpp:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
       "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
@@ -1939,8 +1724,7 @@
       "file": "nodelet.cpp",
       "line": 99,
       "function": null,
-      "comment": "nodelet.cpp:99:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-",
+      "comment": "nodelet.cpp:99:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
       "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
@@ -1948,8 +1732,7 @@
       "file": "nodelet.cpp",
       "line": 66,
       "function": null,
-      "comment": "nodelet.cpp:66:  Add #include <string> for string  [build/include_what_you_use] [4]
-",
+      "comment": "nodelet.cpp:66:  Add #include <string> for string  [build/include_what_you_use] [4]",
       "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
