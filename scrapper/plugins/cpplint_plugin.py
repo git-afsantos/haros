@@ -156,13 +156,13 @@ def Error(rule_id, linenum, category, confidence, message, fname=None, cname=Non
     # if _ShouldPrintError(category, confidence, linenum):
     _cpplint_state.IncrementErrorCount(category)
     if _cpplint_state.output_format == 'vs7':
-        message = ('%s(%s):  %s  [%s] [%d]\n' % (
+        message = ('%s(%s):  %s  [%s] [%d]' % (
             filename, linenum, message, category, confidence))
     elif _cpplint_state.output_format == 'eclipse':
-        message = ('%s:%s: warning: %s  [%s] [%d]\n' % (
+        message = ('%s:%s: warning: %s  [%s] [%d]' % (
             filename, linenum, message, category, confidence))
     else:
-        message = ('%s:%s:  %s  [%s] [%d]\n' % (
+        message = ('%s:%s:  %s  [%s] [%d]' % (
             filename, linenum, message, category, confidence))
     _cpplint_state.context.writeNonCompliance(rule_id, pid,
             file_id=fid, line=linenum, function=fname,

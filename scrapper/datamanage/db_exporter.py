@@ -155,7 +155,7 @@ def jsonifyNonCompliance(violations, rules, files):
         s += '      "file": ' + ('"'+files[v[1]]+'"' if v[1] else "null") + ",\n"
         s += '      "line": ' + str(v[2] or "null") + ",\n"
         s += '      "function": ' + ('"'+v[3]+'"' if v[3] else "null") + ",\n"
-        s += '      "comment": "' + str(v[4] or "") + "\",\n"
+        s += '      "comment": "' + (str(v[4] or "")).replace('"', "'").replace("\n", "") + "\",\n"
         s += '      "tags": ["' + '","'.join(rules[v[0]][1]) + '"]\n'
         if i < len(violations) - 1:
             s += "  },\n"
