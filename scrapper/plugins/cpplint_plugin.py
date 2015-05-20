@@ -26,8 +26,20 @@ def plugin_run(ctx):
 
 
 def get_file_list(ctx):
-    return [(1, "keyop_core.cpp", "kobuki/kobuki_keyop/src", 1),
-            (2, "keyop_core.hpp", "kobuki/kobuki_keyop/include/keyop_core", 1)]
+    cpp = ctx.getFileInfo(ext="cpp")
+    cc  = ctx.getFileInfo(ext="cc")
+    hpp = ctx.getFileInfo(ext="hpp")
+    h   = ctx.getFileInfo(ext="h")
+    files = []
+    for f in h:
+        files.append(f)
+    for f in hpp:
+        files.append(f)
+    for f in cpp:
+        files.append(f)
+    for f in cc:
+        files.append(f)
+    return files
 
 
 
@@ -75,8 +87,7 @@ def preprocess_file(ctx, file_info, fpath):
 
 
 def get_file_path(ctx, file_info):
-    return os.path.join(os.path.expanduser("~"), "ros", "repos",
-            file_info[2], file_info[1])
+    return ctx.getPath(file_info[2], file_name=file_info[1])
 
 
 
@@ -165,7 +176,8 @@ class _CppLintState(object):
     self.verbose_level = 1  # global setting.
     self.error_count = 0    # global count of reported errors
     # filters to apply when emitting error messages
-    self.filters = _DEFAULT_FILTERS[:]
+    # self.filters = _DEFAULT_FILTERS[:]
+    self.filters = []
     # backup of filter list. Used to restore the state after each file.
     self._filters_backup = self.filters[:]
     self.counting = 'total'  # In what way are we counting errors?
@@ -955,7 +967,7 @@ class _FunctionState(object):
       base_trigger = self._NORMAL_TRIGGER
     trigger = base_trigger * 2**_VerboseLevel()
 
-    if self.lines_in_function > 40:
+    if self.lines_in_function > trigger:
       error_level = int(math.log(self.lines_in_function / base_trigger, 2))
       # 50 => 0, 100 => 1, 200 => 2, 400 => 3, 800 => 4, 1600 => 5, ...
       if error_level > 5:
@@ -5974,3 +5986,8 @@ def FlagCxx11Features(filename, clean_lines, linenum, error):
             ('std::%s is an unapproved C++11 class or function.  Send c-style '
              'an example of where it would make your code more readable, and '
              'they may let you use it.') % top_name)
+
+
+if __name__ == "__main__":
+    print "hello"
+

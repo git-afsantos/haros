@@ -748,7 +748,7 @@
     id:             10108
     name:           TODO_COMMENT_FORMAT
     scope:          file
-    description:    To-do comments should look like "// TODO(my_username): Stuff.".
+    description:    "To-do comments should look like '// TODO(my_username): Stuff.'."
     tags:
         - code-standards
         - formatting
