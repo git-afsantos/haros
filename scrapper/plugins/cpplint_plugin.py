@@ -28,12 +28,9 @@ def plugin_run(ctx):
 def get_file_list(ctx):
     cpp = ctx.getFileInfo(ext="cpp")
     cc  = ctx.getFileInfo(ext="cc")
-    hpp = ctx.getFileInfo(ext="hpp")
     h   = ctx.getFileInfo(ext="h")
     files = []
     for f in h:
-        files.append(f)
-    for f in hpp:
         files.append(f)
     for f in cpp:
         files.append(f)
