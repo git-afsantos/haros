@@ -13,15 +13,32 @@
             <i class="fa fa-spinner fa-spin loading-spinner"></i>
         </h1>
         <div ng-show="!uiData.loading && !!uiData.noncompliance.data.length">
-            <div class="input-group">
-                <span class="input-group-addon" id="ncpl-tags-addon">Tags</span>
-                <input type="text" class="form-control" placeholder="Filter by tag" aria-describedby="ncpl-tags-addon" ng-model="uiData.noncompliance.tag" ng-keypress="addFilter($event, 'noncompliance')"/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="ncpl-tags-addon">Show</span>
+                            <input type="text" class="form-control" placeholder="Filter by tag" aria-describedby="ncpl-tags-addon" ng-model="uiData.noncompliance.tag" ng-keypress="addModalFilter($event, 'noncompliance')"/>
+                        </div>
+                        <p class="margin-top hpadding line-lg">
+                            <span ng-repeat="tag in uiData.noncompliance.filters track by $index">
+                                <span class="clickable label label-default" ng-click="removeModalFilter($index, 'noncompliance')">{{tag}}</span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="ncpl-ignore-addon">Ignore</span>
+                            <input type="text" class="form-control" placeholder="Ignore tag" aria-describedby="ncpl-ignore-addon" ng-model="uiData.noncompliance.ignore" ng-keypress="addModalIgnoreFilter($event, 'noncompliance')"/>
+                        </div>
+                        <p class="margin-top hpadding line-lg">
+                            <span ng-repeat="tag in uiData.noncompliance.ignored track by $index">
+                                <span class="clickable label label-default" ng-click="removeModalIgnoreFilter($index, 'noncompliance')">{{tag}}</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <p class="margin-top hpadding line-lg">
-                <span ng-repeat="tag in uiData.noncompliance.filters track by $index">
-                    <span class="clickable label label-default" ng-click="removeFilter($index, 'noncompliance')">{{tag}}</span>
-                </span>
-            </p>
 
             <div class="relative-position light-border">
                 <!-- Template div that will be hidden by scrollable, so that the parent div has enough height to display an item. -->
@@ -55,7 +72,7 @@
                                 <p>{{item.comment}}</p>
                                 <p class="margin-top hpadding line-lg">
                                     <span ng-repeat="tag in item.tags track by $index">
-                                        <span class="clickable label label-default" ng-click="applyFilter(tag, 'noncompliance')">{{tag}}</span>
+                                        <span class="clickable label label-default" ng-click="applyModalFilter(tag, 'noncompliance')">{{tag}}</span>
                                     </span>
                                 </p>
                             </div>

@@ -59,11 +59,12 @@
         }
 
 
-        function addFilter(filter, cb) {
-            graphView.addFilter(filter, function (d) {
+        function addFilter(filter, cb, ignore) {
+            graphView.addFilter(filter, !!ignore, function (d) {
                 cb({
                     id: d.id,
-                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
+                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
                     score: d.analysis
                 });
             }).repaint();
@@ -71,11 +72,12 @@
         }
 
 
-        function removeFilter(filter, cb) {
-            graphView.removeFilter(filter, function (d) {
+        function removeFilter(filter, cb, ignore) {
+            graphView.removeFilter(filter, !!ignore, function (d) {
                 cb({
                     id: d.id,
-                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
+                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
                     score: d.analysis
                 });
             }).repaint();
@@ -366,6 +368,7 @@
         this.focus = "_";
         this._selectedNode = null;
         this.colorFilters = [];
+        this.ignoreFilters = [];
         this._maxColor = 0;
     }
 
@@ -429,15 +432,17 @@
         return this;
     };
 
-    SvgGraph.prototype.addFilter = function (f, cb) {
-        this.colorFilters.push(f);
+    SvgGraph.prototype.addFilter = function (f, ignore, cb) {
+        if (ignore) { this.ignoreFilters.push(f); }
+        else { this.colorFilters.push(f); }
         this._updateColorFilters(this.graph.nodelist);
         if (cb) _.each(this.graph.nodelist, cb);
         return this;
     };
 
-    SvgGraph.prototype.removeFilter = function (f, cb) {
-        var c = this.colorFilters, i = c.length;
+    SvgGraph.prototype.removeFilter = function (f, ignore, cb) {
+        var c = ignore ? this.ignoreFilters : this.colorFilters,
+            i = c.length;
         while (i--) if (c[i] == f) {
             c.splice(i, 1);
         }
@@ -565,12 +570,15 @@
                 node.analysis = sum;
             }
         } else {
+            // No 'show' filters, 'ignore' filters kick in.
             for (i = 0; i < len; ++i) {
                 node = nodes[i];
                 filters = node.report.Analysis.Noncompliance;
                 sum = 0;
                 for (j in filters) if (filters.hasOwnProperty(j)) {
-                    sum += filters[j];
+                    if (_.indexOf(this.ignoreFilters, j) == -1) {
+                        sum += filters[j];
+                    }
                 }
                 max = Math.max(max, sum);
                 node.analysis = sum;

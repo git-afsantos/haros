@@ -39,6 +39,7 @@
             loading: true,
             focus: "",
             tag: "",
+            ignore: "",
             node: {
                 name: "",
                 description: "",
@@ -48,13 +49,16 @@
             },
             noncompliance: {
                 tag: "",
+                ignore: "",
                 filters: [],
+                ignored: [],
                 visibleData: [],
                 data: []
             }
         };
 
         $scope.tags = [];
+        $scope.ignored = [];
 
         $scope.setFocus = function ($event) {
             if ($event.which === 13) {
@@ -64,47 +68,102 @@
         };
 
         $scope.addTag = function ($event) {
-            var tag;
+            var tag, i;
             if ($event.which === 13) {
                 tag = $scope.uiData.tag;
                 $scope.uiData.tag = "";
                 if (_.indexOf($scope.tags, tag) < 0) {
+                    if ((i = _.indexOf($scope.ignored, tag)) >= 0) {
+                        $scope.ignored.splice(i, 1);
+                        GraphService.removeFilter(tag, skip, true);
+                    }
                     $scope.tags.push(tag);
-                    GraphService.addFilter(tag, updateFocusData);
+                    GraphService.addFilter(tag, updateFocusData, false);
                 }
                 $event.preventDefault();
             }
         };
         $scope.removeTag = function (i) {
-            GraphService.removeFilter($scope.tags.splice(i, 1)[0], updateFocusData);
+            GraphService.removeFilter($scope.tags.splice(i, 1)[0],
+                    updateFocusData, false);
+        };
+
+        $scope.addIgnore = function ($event) {
+            var tag, i;
+            if ($event.which === 13) {
+                tag = $scope.uiData.ignore;
+                $scope.uiData.ignore = "";
+                if (_.indexOf($scope.ignored, tag) < 0) {
+                    if ((i = _.indexOf($scope.tags, tag)) >= 0) {
+                        $scope.tags.splice(i, 1);
+                        GraphService.removeFilter(tag, skip, false);
+                    }
+                    $scope.ignored.push(tag);
+                    GraphService.addFilter(tag, updateFocusData, true);
+                }
+                $event.preventDefault();
+            }
+        };
+        $scope.removeIgnore = function (i) {
+            GraphService.removeFilter($scope.ignored.splice(i, 1)[0],
+                    updateFocusData, true);
         };
 
 
-        $scope.addFilter = function ($event, key) {
-            var tag, d = $scope.uiData[key];
+        $scope.addModalFilter = function ($event, key) {
+            var tag, i, d = $scope.uiData[key];
             if ($event.which === 13) {
                 tag = d.tag;
                 d.tag = "";
                 if (_.indexOf(d.filters, tag) < 0) {
+                    if ((i = _.indexOf(d.ignored, tag)) >= 0) {
+                        d.ignored.splice(i, 1);
+                    }
                     d.filters.push(tag);
-                    d.visibleData = _.filter(d.data, updateFilters, d.filters);
+                    d.visibleData = _.filter(d.data, updateModalFilters, d);
                 }
                 $event.preventDefault();
             }
         };
 
-        $scope.applyFilter = function (tag, key) {
-            var d = $scope.uiData[key];
-            if (_.indexOf(d.filters, tag) < 0) {
-                d.filters.push(tag);
-                d.visibleData = _.filter(d.data, updateFilters, d.filters);
+
+        $scope.addModalIgnoreFilter = function ($event, key) {
+            var tag, i, d = $scope.uiData[key];
+            if ($event.which === 13) {
+                tag = d.ignore;
+                d.ignore = "";
+                if (_.indexOf(d.ignored, tag) < 0) {
+                    if ((i = _.indexOf(d.filters, tag)) >= 0) {
+                        d.filters.splice(i, 1);
+                    }
+                    d.ignored.push(tag);
+                    d.visibleData = _.filter(d.data, updateModalFilters, d);
+                }
+                $event.preventDefault();
             }
         };
 
-        $scope.removeFilter = function (i, key) {
+        $scope.applyModalFilter = function (tag, key) {
+            var i, d = $scope.uiData[key];
+            if (_.indexOf(d.filters, tag) < 0) {
+                if ((i = _.indexOf(d.ignored, tag)) >= 0) {
+                    d.ignored.splice(i, 1);
+                }
+                d.filters.push(tag);
+                d.visibleData = _.filter(d.data, updateModalFilters, d);
+            }
+        };
+
+        $scope.removeModalFilter = function (i, key) {
             var d = $scope.uiData[key];
             d.filters.splice(i, 1);
-            d.visibleData = _.filter(d.data, updateFilters, d.filters);
+            d.visibleData = _.filter(d.data, updateModalFilters, d);
+        };
+
+        $scope.removeModalIgnoreFilter = function (i, key) {
+            var d = $scope.uiData[key];
+            d.ignored.splice(i, 1);
+            d.visibleData = _.filter(d.data, updateModalFilters, d);
         };
 
         GraphService.onClick(function (d) {
@@ -144,13 +203,20 @@
             }
         }
 
-        function updateFilters(item) {
-            var i = this.length;
+        function updateModalFilters(item) {
+            var i = this.ignored.length;
             while (i--) {
-                if (!_.contains(item.tags, this[i])) { return false; }
+                if (_.contains(item.tags, this.ignored[i])) { return false; }
+            }
+            i = this.filters.length;
+            while (i--) {
+                if (!_.contains(item.tags, this.filters[i])) { return false; }
             }
             return true;
         }
+
+
+        function skip() {}
     }
 
 

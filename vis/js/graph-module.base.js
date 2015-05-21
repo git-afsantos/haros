@@ -59,11 +59,12 @@
         }
 
 
-        function addFilter(filter, cb) {
-            graphView.addFilter(filter, function (d) {
+        function addFilter(filter, cb, ignore) {
+            graphView.addFilter(filter, !!ignore, function (d) {
                 cb({
                     id: d.id,
-                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
+                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
                     score: d.analysis
                 });
             }).repaint();
@@ -71,11 +72,12 @@
         }
 
 
-        function removeFilter(filter, cb) {
-            graphView.removeFilter(filter, function (d) {
+        function removeFilter(filter, cb, ignore) {
+            graphView.removeFilter(filter, !!ignore, function (d) {
                 cb({
                     id: d.id,
-                    noncompliance: d.report.Analysis.Noncompliance.metrics || 0,
+                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
+                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
                     score: d.analysis
                 });
             }).repaint();

@@ -17,6 +17,7 @@ function SvgGraph(el, data) {
     this.focus = "_";
     this._selectedNode = null;
     this.colorFilters = [];
+    this.ignoreFilters = [];
     this._maxColor = 0;
 }
 
@@ -80,15 +81,17 @@ SvgGraph.prototype.repaint = function () {
     return this;
 };
 
-SvgGraph.prototype.addFilter = function (f, cb) {
-    this.colorFilters.push(f);
+SvgGraph.prototype.addFilter = function (f, ignore, cb) {
+    if (ignore) { this.ignoreFilters.push(f); }
+    else { this.colorFilters.push(f); }
     this._updateColorFilters(this.graph.nodelist);
     if (cb) _.each(this.graph.nodelist, cb);
     return this;
 };
 
-SvgGraph.prototype.removeFilter = function (f, cb) {
-    var c = this.colorFilters, i = c.length;
+SvgGraph.prototype.removeFilter = function (f, ignore, cb) {
+    var c = ignore ? this.ignoreFilters : this.colorFilters,
+        i = c.length;
     while (i--) if (c[i] == f) {
         c.splice(i, 1);
     }
@@ -216,12 +219,15 @@ SvgGraph.prototype._updateColorFilters = function (nodes) {
             node.analysis = sum;
         }
     } else {
+        // No 'show' filters, 'ignore' filters kick in.
         for (i = 0; i < len; ++i) {
             node = nodes[i];
             filters = node.report.Analysis.Noncompliance;
             sum = 0;
             for (j in filters) if (filters.hasOwnProperty(j)) {
-                sum += filters[j];
+                if (_.indexOf(this.ignoreFilters, j) == -1) {
+                    sum += filters[j];
+                }
             }
             max = Math.max(max, sum);
             node.analysis = sum;

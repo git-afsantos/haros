@@ -10,8 +10,8 @@
         </div>
         <div class="list-group-item">
             <div class="input-group">
-                <span class="input-group-addon" id="tags-addon">Tags</span>
-                <input type="text" class="form-control" placeholder="Add a tag" aria-describedby="tags-addon" ng-model="uiData.tag" ng-keypress="addTag($event)"/>
+                <span class="input-group-addon" id="tags-addon">Show</span>
+                <input type="text" class="form-control" placeholder="Filter by tag" aria-describedby="tags-addon" ng-model="uiData.tag" ng-keypress="addTag($event)"/>
             </div>
             <!-- <div class="panel panel-default margin-top">
                 <div class="panel-body line-lg">
@@ -26,6 +26,17 @@
                 </span>
             </p>
         </div>
+        <!--<div class="list-group-item">
+            <div class="input-group">
+                <span class="input-group-addon" id="ignore-addon">Ignore</span>
+                <input type="text" class="form-control" placeholder="Ignore tag" aria-describedby="ignore-addon" ng-model="uiData.ignore" ng-keypress="addIgnore($event)"/>
+            </div>
+            <p class="margin-top hpadding line-lg">
+                <span ng-repeat="tag in ignored track by $index">
+                    <span class="clickable label label-default" ng-click="removeIgnore($index)">{{tag}}</span>
+                </span>
+            </p>
+        </div>-->
         <div class="list-group-item">
             <div class="panel panel-default">
                 <div class="panel-heading">
