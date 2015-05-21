@@ -338,38 +338,6 @@
   {
       "rule": "Avoid non-const reference parameters. Use const or pointers.",
       "file": "command.hpp",
-      "line": 120,
-      "function": null,
-      "comment": "command.hpp:120:  Is this a non-const reference? If so, make const or use a pointer: char &type  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "command.hpp",
-      "line": 121,
-      "function": null,
-      "comment": "command.hpp:121:  Is this a non-const reference? If so, make const or use a pointer: int &p_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "command.hpp",
-      "line": 122,
-      "function": null,
-      "comment": "command.hpp:122:  Is this a non-const reference? If so, make const or use a pointer: int &i_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "command.hpp",
-      "line": 123,
-      "function": null,
-      "comment": "command.hpp:123:  Is this a non-const reference? If so, make const or use a pointer: int &d_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "command.hpp",
       "line": 128,
       "function": null,
       "comment": "command.hpp:128:  Is this a non-const reference? If so, make const or use a pointer: Buffer &buffer  [runtime/references] [2]",
@@ -880,44 +848,12 @@
       "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "kobuki.hpp",
-      "line": 160,
-      "function": null,
-      "comment": "kobuki.hpp:160:  Is this a non-const reference? If so, make const or use a pointer: char &type  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "kobuki.hpp",
-      "line": 160,
-      "function": null,
-      "comment": "kobuki.hpp:160:  Is this a non-const reference? If so, make const or use a pointer: int &p_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
       "rule": "No line should exceed 80 characters in length.",
       "file": "kobuki.hpp",
       "line": 161,
       "function": null,
       "comment": "kobuki.hpp:161:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
       "tags": ["code-standards","formatting","line-length","google-cpp"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "kobuki.hpp",
-      "line": 161,
-      "function": null,
-      "comment": "kobuki.hpp:161:  Is this a non-const reference? If so, make const or use a pointer: int &i_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
-  },
-  {
-      "rule": "Avoid non-const reference parameters. Use const or pointers.",
-      "file": "kobuki.hpp",
-      "line": 161,
-      "function": null,
-      "comment": "kobuki.hpp:161:  Is this a non-const reference? If so, make const or use a pointer: int &d_gain  [runtime/references] [2]",
-      "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
       "rule": "Access modifiers should be indented by one space.",
