@@ -15,11 +15,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "id": 4,
-    "description": "Minimum cyclomatic complexity: 1",
-    "tags": ["metrics","nasa-satc","his","ros","kth","cyclomatic-complexity"]
-  },
-  {
     "id": 5,
     "description": "Maximum cyclomatic complexity: 10",
     "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
@@ -27,12 +22,7 @@
   {
     "id": 6,
     "description": "Maximum cyclomatic complexity: 15",
-    "tags": ["metrics","ros","kth","cyclomatic-complexity"]
-  },
-  {
-    "id": 7,
-    "description": "Minimum executable lines: 1",
-    "tags": ["metrics","nasa-satc","his","ros","kth","executable-lines"]
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
   },
   {
     "id": 8,
@@ -43,11 +33,6 @@
     "id": 9,
     "description": "Maximum executable lines: 70",
     "tags": ["metrics","ros","kth","executable-lines"]
-  },
-  {
-    "id": 10,
-    "description": "Minimum function calls: 1",
-    "tags": ["metrics","his","ros","kth","function-calls"]
   },
   {
     "id": 11,
@@ -68,11 +53,6 @@
     "id": 14,
     "description": "Maximum nesting of control structures: 5",
     "tags": ["metrics","ros","kth","nesting-control"]
-  },
-  {
-    "id": 15,
-    "description": "Minimum estimated static paths: 1",
-    "tags": ["metrics","his","ros","kth","static-path"]
   },
   {
     "id": 16,
