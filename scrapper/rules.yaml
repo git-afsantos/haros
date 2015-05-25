@@ -35,18 +35,6 @@
         - comments
         - comment-ratio
 -
-    id:             4
-    name:           MIN_CC
-    scope:          function
-    description:    "Minimum cyclomatic complexity: 1"
-    tags:
-        - metrics
-        - nasa-satc
-        - his
-        - kth
-        - ros
-        - cyclomatic-complexity
--
     id:             5
     name:           MAX_CC
     scope:          function
@@ -67,18 +55,6 @@
         - ros
         - cyclomatic-complexity
 -
-    id:             7
-    name:           MIN_EXE_LINES
-    scope:          function
-    description:    "Minimum executable lines: 1"
-    tags:
-        - metrics
-        - nasa-satc
-        - his
-        - kth
-        - ros
-        - executable-lines
--
     id:             8
     name:           MAX_EXE_LINES
     scope:          function
@@ -98,17 +74,6 @@
         - kth
         - ros
         - executable-lines
--
-    id:             10
-    name:           MIN_FUN_CALLS
-    scope:          function
-    description:    "Minimum function calls: 1"
-    tags:
-        - metrics
-        - his
-        - kth
-        - ros
-        - function-calls
 -
     id:             11
     name:           MAX_FUN_CALLS
@@ -147,17 +112,6 @@
         - kth
         - ros
         - nesting-control
--
-    id:             15
-    name:           MIN_STATIC_PATH
-    scope:          function
-    description:    "Minimum estimated static paths: 1"
-    tags:
-        - metrics
-        - his
-        - kth
-        - ros
-        - static-path
 -
     id:             16
     name:           MAX_STATIC_PATH

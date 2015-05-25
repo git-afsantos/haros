@@ -119,9 +119,6 @@ def get_metric_handlers():
 
 
 def handle_cc(ctx, package_id, file_id, function, line, value):
-    if value < 1:
-        ctx.writeNonCompliance(4, package_id, file_id=file_id,
-                line=line, function=function, comment="CC is less than 1")
     if value > 10:
         ctx.writeNonCompliance(5, package_id, file_id=file_id,
                 line=line, function=function, comment="CC is greater than 10")
