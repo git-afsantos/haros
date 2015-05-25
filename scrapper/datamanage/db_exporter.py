@@ -86,9 +86,11 @@ def jsonifyPackage(pkg_id, cur):
 	s += "    \"Analysis\": {\n"
 	s += "      \"Noncompliance\": {\n"
 	non_cpl = dbe.getNonComplianceIdSummary(cur, pkg_id)
+	c = len(non_cpl)
 	for i, n in non_cpl.iteritems():
 		s += "        \"" + str(i) + "\": " + str(n)
-		if i < len(non_cpl) - 1:
+		c -= 1
+		if c > 0:
 			s += ",\n"
 		else:
 			s += "\n"
