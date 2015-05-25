@@ -28,11 +28,18 @@
 
         // Needed for the loading screen
         $rootScope.$on("$routeChangeStart", function(){
-            $rootScope.loading = true;
+            ++$rootScope.loading;
         });
 
         $rootScope.$on("$routeChangeSuccess", function(){
-            $rootScope.loading = false;
+            $rootScope.loading = Math.max($rootScope.loading - 1, 0);
+        });
+
+        $scope.rules = [];
+        ++$rootScope.loading;
+        DataService.getRules(function (data) {
+            $scope.rules = data;
+            --$rootScope.loading;
         });
 
         $scope.uiData = {
@@ -226,7 +233,7 @@
     GraphController.$inject = ["$scope", "GraphService"];
     function GraphController($scope, GraphService) {
         // GraphService.readFrom("turtlebot.json")
-        GraphService.readFrom("packages.json")
+        GraphService.readFrom("data/packages.json")
             .then(function () {
                 GraphService.draw(document.getElementById("graph_container"));
             });

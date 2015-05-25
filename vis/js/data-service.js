@@ -13,10 +13,15 @@
             };
 
         return {
+            getRules: getRules,
             getNonCompliance: getNonCompliance
         };
 
         ////////////////////////
+
+        function getRules(cb) {
+            $http.get("data/rules.json").success(cb);
+        }
 
         function getNonCompliance(id, cb) {
             var c = cache.noncompliance,
@@ -26,7 +31,7 @@
                     return cb(c[i].data);
                 }
             }
-            $http.get("data/" + id + ".json")
+            $http.get("data/compliance/" + id + ".json")
                 .success(function (data) {
                     put({ id: id, data: data }, "noncompliance");
                     cb(data);
