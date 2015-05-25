@@ -110,16 +110,16 @@ def export_data(exported):
         exported = ["packages", "analysis", "metrics", "rules"]
     if "packages" in exported:
         print "Exporting package data."
-        je.export_packages("packages.json")
+        je.export_packages(os.path.join("export", "packages.json"))
     if "analysis" in exported:
         print "Exporting analysis data."
-        je.export_analysis("export")
+        je.export_analysis(os.path.join("export", "compliance"))
     if "metrics" in exported:
         print "Exporting code metrics."
         # TODO
     if "rules" in exported:
         print "Exporting coding rules."
-        # TODO
+        je.export_rules(os.path.join("export", "rules.json"))
 
 
 def load_configs():

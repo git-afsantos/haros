@@ -164,3 +164,32 @@ def jsonifyNonCompliance(violations, rules, files):
     s += "]"
     return s
 
+
+
+
+def export_rules(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    f = open(out_file, "w")
+    rules = dbe.getRulesWithTags(db.cur)
+    f.write(jsonifyRules(rules))
+    f.close()
+    db.disconnect()
+
+
+def jsonifyRules(rules):
+    c = len(rules)
+    s = "[\n"
+    for k, v in rules.iteritems():
+        s += "  {\n"
+        s += '    "id": ' + str(k) + ',\n'
+        s += '    "description": "' + (str(v[0] or "")).replace('"', "'").replace("\n", "") + "\",\n"
+        s += '    "tags": ["' + '","'.join(v[1]) + '"]\n'
+        c -= 1
+        if c > 0:
+            s += "  },\n"
+        else:
+            s += "  }\n"
+    s += "]"
+    return s
+
