@@ -144,6 +144,18 @@ def getNonComplianceSummary(cur, package_id):
     return result
 
 
+def getNonComplianceIdSummary(cur, package_id):
+    d = {}
+    t1 = tablePref("Non_Compliance")
+    cmd = "SELECT rule_id FROM {0} WHERE package_id = {1}".format(t1, package_id)
+    rs = exFetch(cur, cmd)
+    for r in rs:
+        if not r[0] in d:
+            d[r[0]] = 0
+        d[r[0]] += 1
+    return d
+
+
 def getRulesWithTags(cur):
     rule_dict = {}
     base_cmd = "SELECT T.name FROM {0} AS R JOIN {1} AS T ON R.tag_id = T.id WHERE R.rule_id = ".format(tablePref("Rule_Tags"), tablePref("Tags"))
