@@ -190,6 +190,7 @@
             DataService.getNonCompliance($scope.uiData.node.name, function (data) {
                 $scope.uiData.loading = false;
                 $scope.uiData.noncompliance.filters = [];
+                $scope.uiData.noncompliance.ignored = [];
                 $scope.uiData.noncompliance.data = data;
                 $scope.uiData.noncompliance.visibleData = data;
             });
