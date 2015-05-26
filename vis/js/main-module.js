@@ -220,11 +220,12 @@
         $scope.fetchNonCompliance = function () {
             $scope.uiData.loading = true;
             DataService.getNonCompliance($scope.uiData.node.name, function (data) {
+                var d = $scope.uiData.noncompliance;
                 $scope.uiData.loading = false;
-                $scope.uiData.noncompliance.filters = [];
-                $scope.uiData.noncompliance.ignored = [];
-                $scope.uiData.noncompliance.data = data;
-                $scope.uiData.noncompliance.visibleData = data;
+                d.filters = $scope.tags.slice();
+                d.ignored = $scope.ignored.slice();
+                d.data = data;
+                d.visibleData = _.filter(data, updateModalFilters, d);
             });
         }
 
