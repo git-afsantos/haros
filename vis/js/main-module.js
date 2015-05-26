@@ -103,25 +103,19 @@
                 $scope.uiData.tag = "";
                 if (_.indexOf($scope.tags, tag) < 0) {
                     if ((i = _.indexOf($scope.ignored, tag)) >= 0) {
+                        spliceFilters($scope.ignored, $scope.ignoreRules, i);
                         $scope.ignored.splice(i, 1);
-                        $scope.ignoreRules = _.flatten(_.map($scope.ignored, function (t) {
-                            return $scope.tagMap[t];
-                        }));
                     }
+                    pushFilters(tag, $scope.passRules);
                     $scope.tags.push(tag);
-                    $scope.passRules = _.flatten(_.map($scope.tags, function (t) {
-                        return $scope.tagMap[t];
-                    }));
                     GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
                 }
                 $event.preventDefault();
             }
         };
         $scope.removeTag = function (i) {
-            var tag = $scope.tags.splice(i, 1)[0];
-            $scope.passRules = _.flatten(_.map($scope.tags, function (t) {
-                return $scope.tagMap[t];
-            }));
+            spliceFilters($scope.tags, $scope.passRules, i);
+            $scope.tags.splice(i, 1);
             GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
         };
 
@@ -132,18 +126,21 @@
                 $scope.uiData.ignore = "";
                 if (_.indexOf($scope.ignored, tag) < 0) {
                     if ((i = _.indexOf($scope.tags, tag)) >= 0) {
+                        spliceFilters($scope.tags, $scope.passRules, i);
                         $scope.tags.splice(i, 1);
-                        GraphService.removeFilters($scope.tagMap[tag], skip, false);
                     }
+                    pushFilters(tag, $scope.ignoreRules);
                     $scope.ignored.push(tag);
-                    GraphService.addFilters($scope.tagMap[tag], updateFocusData, true);
+                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
                 }
                 $event.preventDefault();
             }
         };
+
         $scope.removeIgnore = function (i) {
-            GraphService.removeFilters($scope.tagMap[$scope.ignored.splice(i, 1)[0]],
-                    updateFocusData, true);
+            spliceFilters($scope.ignored, $scope.ignoreRules, i);
+            $scope.ignored.splice(i, 1);
+            GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
         };
 
 
@@ -252,6 +249,22 @@
 
 
         function skip() {}
+
+        function pushFilters(tag, rules) {
+            var r = $scope.tagMap[tag] || [],
+                i = r.length;
+            while (i--) {
+                rules.push(r[i]);
+            }
+        }
+
+        function spliceFilters(tags, rules, index) {
+            var c = 0, j = 0;
+            for (; j < index; ++j) {
+                c += ($scope.tagMap[tags[j]] || []).length;
+            }
+            rules.splice(c, ($scope.tagMap[tags[index]] || []).length);
+        }
     }
 
 

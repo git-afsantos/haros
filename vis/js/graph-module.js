@@ -58,8 +58,6 @@
 
         function updateFilters(pass, ignore, cb) {
             var v, r, n, ns = graph.nodes;
-            console.log(pass);
-            console.log(ignore);
             for (n in ns) if (ns.hasOwnProperty(n)) {
                 ns[n].score = 0;
                 r = ns[n].report.Analysis.Noncompliance;
