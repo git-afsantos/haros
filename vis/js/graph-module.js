@@ -13,8 +13,7 @@
             readFrom: readFrom,
             onClick: onClick,
             setFocus: setFocus,
-            addFilter: addFilter,
-            removeFilter: removeFilter,
+            updateFilters: updateFilters,
             draw: draw
         };
 
@@ -39,9 +38,7 @@
                         id: d.id,
                         description: d.report.Description,
                         dependencies: d.report.Edge.slice(0, -1),
-                        noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                        score: d.analysis
+                        noncompliance: d.score
                     };
                 }
                 cb(d);
@@ -59,28 +56,24 @@
         }
 
 
-        function addFilter(filter, cb, ignore) {
-            graphView.addFilter(filter, !!ignore, function (d) {
+        function updateFilters(pass, ignore, cb) {
+            var v, r, n, ns = graph.nodes;
+            console.log(pass);
+            console.log(ignore);
+            for (n in ns) if (ns.hasOwnProperty(n)) {
+                ns[n].score = 0;
+                r = ns[n].report.Analysis.Noncompliance;
+                for (v in r) if (r.hasOwnProperty(v)) {
+                    if (_.contains(ignore, v)) { continue; }
+                    if (pass.length && !_.contains(pass, v)) { continue; }
+                    ns[n].score += r[v];
+                }
                 cb({
-                    id: d.id,
-                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                    score: d.analysis
+                    id: ns[n].id,
+                    noncompliance: ns[n].score
                 });
-            }).repaint();
-            return this;
-        }
-
-
-        function removeFilter(filter, cb, ignore) {
-            graphView.removeFilter(filter, !!ignore, function (d) {
-                cb({
-                    id: d.id,
-                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                    score: d.analysis
-                });
-            }).repaint();
+            }
+            graphView.repaint();
             return this;
         }
 
@@ -130,9 +123,9 @@
 
         function processAnalysis(report, node) {
             var key, r = report.Analysis.Noncompliance;
-            node.analysis = 0;
+            node.score = 0;
             for (key in r) if (r.hasOwnProperty(key)) {
-                node.analysis += r[key];
+                node.score += r[key];
             }
         }
 
@@ -168,6 +161,8 @@
             nodes._.never_visible = true;
             return graph;
         }*/
+
+        function skip() {}
     }
 
 
@@ -194,6 +189,7 @@
     	this.metapackage			= null; // points to metapackage that contains this node
     	this.isFocus				= false; // I added this
     	this.level					= null;
+    	this.score					= 0;
     	this.color					= {hue: 0, sat: 0, light: 0, alpha: 1, red: 0, green: 0, blue: 0};
     };
 
@@ -367,8 +363,6 @@
         this.direction = "TB";
         this.focus = "_";
         this._selectedNode = null;
-        this.colorFilters = [];
-        this.ignoreFilters = [];
         this._maxColor = 0;
     }
 
@@ -432,25 +426,6 @@
         return this;
     };
 
-    SvgGraph.prototype.addFilter = function (f, ignore, cb) {
-        if (ignore) { this.ignoreFilters.push(f); }
-        else { this.colorFilters.push(f); }
-        this._updateColorFilters(this.graph.nodelist);
-        if (cb) _.each(this.graph.nodelist, cb);
-        return this;
-    };
-
-    SvgGraph.prototype.removeFilter = function (f, ignore, cb) {
-        var c = ignore ? this.ignoreFilters : this.colorFilters,
-            i = c.length;
-        while (i--) if (c[i] == f) {
-            c.splice(i, 1);
-        }
-        this._updateColorFilters(this.graph.nodelist);
-        if (cb) _.each(this.graph.nodelist, cb);
-        return this;
-    };
-
     SvgGraph.prototype._initialize = function () {
         var i, j, len, node, visible_nodes, edges,
             nodes = this.graph.nodes,
@@ -476,7 +451,6 @@
             }
         }
         this._transitiveReduction(visible_nodes);
-        this._updateColorFilters(nodelist);
         this._paintNodes(nodelist);
     };
 
@@ -553,42 +527,12 @@
         }
     };
 
-    SvgGraph.prototype._updateColorFilters = function (nodes) {
-        var i, j, node, sum,
-            len     = nodes.length,
-            filters = this.colorFilters,
-            len2    = filters.length,
-            max     = 0;
-        if (len2) {
-            for (i = 0; i < len; ++i) {
-                sum = 0;
-                node = nodes[i];
-                for (j = 0, len2 = filters.length; j < len2; ++j) {
-                    sum += node.report.Analysis.Noncompliance[filters[j]] || 0;
-                }
-                max = Math.max(max, sum);
-                node.analysis = sum;
-            }
-        } else {
-            // No 'show' filters, 'ignore' filters kick in.
-            for (i = 0; i < len; ++i) {
-                node = nodes[i];
-                filters = node.report.Analysis.Noncompliance;
-                sum = 0;
-                for (j in filters) if (filters.hasOwnProperty(j)) {
-                    if (_.indexOf(this.ignoreFilters, j) == -1) {
-                        sum += filters[j];
-                    }
-                }
-                max = Math.max(max, sum);
-                node.analysis = sum;
-            }
-        }
-        this._maxColor = max = max || 1;
-    };
-
     SvgGraph.prototype._paintNodes = function (nodes) {
-        var i, len, node, max = this._maxColor;
+        var i, len, node, max = 1;
+        for (i = 0, len = nodes.length; i < len; ++i) {
+            max = Math.max(max, nodes[i].score);
+        }
+        this._maxColor = max;
         for (i = 0, len = nodes.length; i < len; ++i) {
             node = nodes[i];
             /* if (node.report.linux) {
@@ -606,7 +550,7 @@
             node.color.hue = 15;
             node.color.sat = 90;
             node.color.alpha = 0.8;
-            node.color.light = (100 - (node.analysis / max * 60)) | 0;
+            node.color.light = (100 - (node.score / max * 60)) | 0;
         }
     };
 

@@ -28,18 +28,39 @@
 
         // Needed for the loading screen
         $rootScope.$on("$routeChangeStart", function(){
-            ++$rootScope.loading;
+            $rootScope.loading = true;
         });
 
         $rootScope.$on("$routeChangeSuccess", function(){
-            $rootScope.loading = Math.max($rootScope.loading - 1, 0);
+            $rootScope.loading = false;
         });
 
-        $scope.rules = [];
-        ++$rootScope.loading;
+        $scope.$on("view:ready:graph", function () {
+            if ($scope.rules != null) {
+                $scope.$broadcast("data:load:rules", $scope.rules);
+            }
+        });
+
+        $scope.rules = null;
+        $scope.tagMap = {};
         DataService.getRules(function (data) {
+            var r, j, ts, t,
+                i = data.length,
+                tm = $scope.tagMap;
+            while (i--) {
+                r = data[i];
+                ts = r.tags;
+                j = ts.length;
+                while (j--) {
+                    t = ts[j];
+                    if (!(t in tm) || !tm[t].length) {
+                        tm[t] = [];
+                    }
+                    tm[t].push("" + r.id);
+                }
+            }
             $scope.rules = data;
-            --$rootScope.loading;
+            $rootScope.$broadcast("data:load:rules", data);
         });
 
         $scope.uiData = {
@@ -51,8 +72,7 @@
                 name: "",
                 description: "",
                 dependencies: "",
-                noncompliance: "",
-                score: ""
+                noncompliance: ""
             },
             noncompliance: {
                 tag: "",
@@ -66,6 +86,8 @@
 
         $scope.tags = [];
         $scope.ignored = [];
+        $scope.passRules = [];
+        $scope.ignoreRules = [];
 
         $scope.setFocus = function ($event) {
             if ($event.which === 13) {
@@ -82,17 +104,25 @@
                 if (_.indexOf($scope.tags, tag) < 0) {
                     if ((i = _.indexOf($scope.ignored, tag)) >= 0) {
                         $scope.ignored.splice(i, 1);
-                        GraphService.removeFilter(tag, skip, true);
+                        $scope.ignoreRules = _.flatten(_.map($scope.ignored, function (t) {
+                            return $scope.tagMap[t];
+                        }));
                     }
                     $scope.tags.push(tag);
-                    GraphService.addFilter(tag, updateFocusData, false);
+                    $scope.passRules = _.flatten(_.map($scope.tags, function (t) {
+                        return $scope.tagMap[t];
+                    }));
+                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
                 }
                 $event.preventDefault();
             }
         };
         $scope.removeTag = function (i) {
-            GraphService.removeFilter($scope.tags.splice(i, 1)[0],
-                    updateFocusData, false);
+            var tag = $scope.tags.splice(i, 1)[0];
+            $scope.passRules = _.flatten(_.map($scope.tags, function (t) {
+                return $scope.tagMap[t];
+            }));
+            GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
         };
 
         $scope.addIgnore = function ($event) {
@@ -103,16 +133,16 @@
                 if (_.indexOf($scope.ignored, tag) < 0) {
                     if ((i = _.indexOf($scope.tags, tag)) >= 0) {
                         $scope.tags.splice(i, 1);
-                        GraphService.removeFilter(tag, skip, false);
+                        GraphService.removeFilters($scope.tagMap[tag], skip, false);
                     }
                     $scope.ignored.push(tag);
-                    GraphService.addFilter(tag, updateFocusData, true);
+                    GraphService.addFilters($scope.tagMap[tag], updateFocusData, true);
                 }
                 $event.preventDefault();
             }
         };
         $scope.removeIgnore = function (i) {
-            GraphService.removeFilter($scope.ignored.splice(i, 1)[0],
+            GraphService.removeFilters($scope.tagMap[$scope.ignored.splice(i, 1)[0]],
                     updateFocusData, true);
         };
 
@@ -181,13 +211,11 @@
                     n.description = d.description;
                     n.dependencies = d.dependencies.join(", ") || "---";
                     n.noncompliance = "" + d.noncompliance;
-                    n.score = "" + d.score;
                 } else {
                     n.name = "";
                     n.description = "";
                     n.dependencies = "";
                     n.noncompliance = "";
-                    n.score = "";
                 }
             });
         });
@@ -207,7 +235,6 @@
         function updateFocusData(d) {
             if (d.id == $scope.uiData.node.name) {
                 $scope.uiData.node.noncompliance = "" + d.noncompliance;
-                $scope.uiData.node.score = "" + d.score;
             }
         }
 
@@ -230,12 +257,17 @@
 
     // Cool tree diagram:
     // http://stackoverflow.com/questions/17405638/d3-js-zooming-and-panning-a-collapsible-tree-diagram
-    GraphController.$inject = ["$scope", "GraphService"];
-    function GraphController($scope, GraphService) {
-        // GraphService.readFrom("turtlebot.json")
-        GraphService.readFrom("data/packages.json")
-            .then(function () {
-                GraphService.draw(document.getElementById("graph_container"));
-            });
+    GraphController.$inject = ["$scope", "$rootScope", "GraphService"];
+    function GraphController($scope, $rootScope, GraphService) {
+        $scope.loading = true;
+        $scope.$on("data:load:rules", function (e) {
+            GraphService.readFrom("data/packages.json")
+                .then(function (data) {
+                    $scope.loading = false;
+                    $rootScope.$broadcast("data:load:packages", data);
+                    GraphService.draw(document.getElementById("graph_container"));
+                });
+        });
+        $scope.$emit("view:ready:graph");
     }
 })();

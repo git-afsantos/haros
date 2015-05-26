@@ -14,6 +14,7 @@ function Node(id) {
 	this.metapackage			= null; // points to metapackage that contains this node
 	this.isFocus				= false; // I added this
 	this.level					= null;
+	this.score					= 0;
 	this.color					= {hue: 0, sat: 0, light: 0, alpha: 1, red: 0, green: 0, blue: 0};
 };
 

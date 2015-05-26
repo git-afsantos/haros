@@ -13,8 +13,7 @@
             readFrom: readFrom,
             onClick: onClick,
             setFocus: setFocus,
-            addFilter: addFilter,
-            removeFilter: removeFilter,
+            updateFilters: updateFilters,
             draw: draw
         };
 
@@ -39,9 +38,7 @@
                         id: d.id,
                         description: d.report.Description,
                         dependencies: d.report.Edge.slice(0, -1),
-                        noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                        score: d.analysis
+                        noncompliance: d.score
                     };
                 }
                 cb(d);
@@ -59,28 +56,24 @@
         }
 
 
-        function addFilter(filter, cb, ignore) {
-            graphView.addFilter(filter, !!ignore, function (d) {
+        function updateFilters(pass, ignore, cb) {
+            var v, r, n, ns = graph.nodes;
+            console.log(pass);
+            console.log(ignore);
+            for (n in ns) if (ns.hasOwnProperty(n)) {
+                ns[n].score = 0;
+                r = ns[n].report.Analysis.Noncompliance;
+                for (v in r) if (r.hasOwnProperty(v)) {
+                    if (_.contains(ignore, v)) { continue; }
+                    if (pass.length && !_.contains(pass, v)) { continue; }
+                    ns[n].score += r[v];
+                }
                 cb({
-                    id: d.id,
-                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                    score: d.analysis
+                    id: ns[n].id,
+                    noncompliance: ns[n].score
                 });
-            }).repaint();
-            return this;
-        }
-
-
-        function removeFilter(filter, cb, ignore) {
-            graphView.removeFilter(filter, !!ignore, function (d) {
-                cb({
-                    id: d.id,
-                    noncompliance: (d.report.Analysis.Noncompliance.metrics +
-                                d.report.Analysis.Noncompliance["code-standards"]) || 0,
-                    score: d.analysis
-                });
-            }).repaint();
+            }
+            graphView.repaint();
             return this;
         }
 
@@ -130,9 +123,9 @@
 
         function processAnalysis(report, node) {
             var key, r = report.Analysis.Noncompliance;
-            node.analysis = 0;
+            node.score = 0;
             for (key in r) if (r.hasOwnProperty(key)) {
-                node.analysis += r[key];
+                node.score += r[key];
             }
         }
 
@@ -168,6 +161,8 @@
             nodes._.never_visible = true;
             return graph;
         }*/
+
+        function skip() {}
     }
 
 
