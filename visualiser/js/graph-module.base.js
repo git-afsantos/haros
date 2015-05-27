@@ -56,14 +56,14 @@
         }
 
 
-        function updateFilters(pass, ignore, cb) {
+        function updateFilters(pass, ignore, strict, cb) {
             var v, r, n, ns = graph.nodes;
             for (n in ns) if (ns.hasOwnProperty(n)) {
                 ns[n].score = 0;
                 r = ns[n].report.Analysis.Noncompliance;
                 for (v in r) if (r.hasOwnProperty(v)) {
                     if (_.contains(ignore, v)) { continue; }
-                    if (pass.length && !_.contains(pass, v)) { continue; }
+                    if (strict && !_.contains(pass, v)) { continue; }
                     ns[n].score += r[v];
                 }
                 cb({

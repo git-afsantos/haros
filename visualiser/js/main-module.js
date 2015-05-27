@@ -108,7 +108,8 @@
                     }
                     pushFilters(tag, $scope.passRules);
                     $scope.tags.push(tag);
-                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
+                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, 
+                            true, updateFocusData);
                 }
                 $event.preventDefault();
             }
@@ -116,7 +117,8 @@
         $scope.removeTag = function (i) {
             spliceFilters($scope.tags, $scope.passRules, i);
             $scope.tags.splice(i, 1);
-            GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
+            GraphService.updateFilters($scope.passRules, $scope.ignoreRules,
+                    !!$scope.tags.length, updateFocusData);
         };
 
         $scope.addIgnore = function ($event) {
@@ -131,7 +133,8 @@
                     }
                     pushFilters(tag, $scope.ignoreRules);
                     $scope.ignored.push(tag);
-                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
+                    GraphService.updateFilters($scope.passRules, $scope.ignoreRules, 
+                            !!$scope.tags.length, updateFocusData);
                 }
                 $event.preventDefault();
             }
@@ -140,7 +143,8 @@
         $scope.removeIgnore = function (i) {
             spliceFilters($scope.ignored, $scope.ignoreRules, i);
             $scope.ignored.splice(i, 1);
-            GraphService.updateFilters($scope.passRules, $scope.ignoreRules, updateFocusData);
+            GraphService.updateFilters($scope.passRules, $scope.ignoreRules, 
+                    !!$scope.tags.length, updateFocusData);
         };
 
 
