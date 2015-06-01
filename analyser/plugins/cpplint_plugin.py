@@ -1634,6 +1634,19 @@ def GetIndentLevel(line):
     return 0
 
 
+def GetHeaderGuardROSCPPVariable(filename):
+    """ Replacement for the function which determines the header guard variable, to pick one which
+        matches ROS C++ Style. """
+    var_parts = list()
+    head = filename
+    while head:
+        head, tail = os.path.split(head)
+        var_parts.insert(0, tail)
+        if head.endswith('include') or tail == "":
+            break
+    return re.sub(r'[-./\s]', '_', "_".join(var_parts)).upper()
+
+
 def GetHeaderGuardCPPVariable(filename):
   """Returns the CPP variable that should be used as a header guard.
 
@@ -1684,6 +1697,7 @@ def CheckForHeaderGuard(filename, clean_lines, error):
       return
 
   cppvar = GetHeaderGuardCPPVariable(filename)
+  roscppvar = GetHeaderGuardROSCPPVariable(filename)
 
   ifndef = ''
   ifndef_linenum = 0
@@ -1707,8 +1721,7 @@ def CheckForHeaderGuard(filename, clean_lines, error):
 
   if not ifndef or not define or ifndef != define:
     error(10200, 0, 'build/header_guard', 5,
-          'No #ifndef header guard found, suggested CPP variable is: %s' %
-          cppvar)
+          'No #ifndef header guard found.')
     return
 
   # The guard should be PATH_FILE_H_, but we also allow PATH_FILE_H__
@@ -1722,6 +1735,14 @@ def CheckForHeaderGuard(filename, clean_lines, error):
                             error)
     error(10201, ifndef_linenum, 'build/header_guard', error_level,
           '#ifndef header guard has wrong style, please use: %s' % cppvar)
+
+  # The guard should be PACKAGE_PATH_FILE_H for ROS.
+  if ifndef != roscppvar:
+    error_level = 5
+    ParseNolintSuppressions(filename, raw_lines[ifndef_linenum], ifndef_linenum,
+                            error)
+    error(10202, ifndef_linenum, 'build/header_guard', error_level,
+          '#ifndef header guard has wrong style, please use: %s' % roscppvar)
 
   # Check for "//" comments on endif line.
   ParseNolintSuppressions(filename, raw_lines[endif_linenum], endif_linenum,
@@ -3992,6 +4013,34 @@ def CheckBraces(filename, clean_lines, linenum, error):
                   'If/else bodies with multiple statements require braces')
 
 
+def CheckBracesROS(filename, clean_lines, linenum, error):
+    """ Complete replacement for cpplint.CheckBraces, since the brace rules for ROS C++ Style
+        are completely different from the Google style guide ones. """
+    line = clean_lines.elided[linenum]
+    if Match(r'^(.*){(.*)}.?$', line):
+        # Special case when both braces are on the same line together, as is the
+        # case for one-line getters and setters, for example, or rows of a multi-
+        # dimenstional array initializer.
+        pass
+    else:
+        # Line does not contain both an opening and closing brace.
+        m = Match(r'^(.*){(.*)$', line)
+        if m and not (IsBlankLine(m.group(1))):
+            # Line contains a starting brace and is not empty, uh oh.
+            if "=" in line:
+                # Opening brace is permissable in case of an initializer.
+                pass
+            else:
+                error(10005, linenum, 'whitespace/braces', 4,
+                      'when starting a new scope, { should be on a line by itself')
+        m = Match(r'^(.*)}(.*)$', line)
+        if m and (not IsBlankLine(m.group(1)) or not IsBlankLine(m.group(2))):
+            if m.group(2) != ";":
+                error(10036, linenum, 'whitespace/braces', 4,
+                      '} should be on a line by itself')
+    pass
+
+
 def CheckTrailingSemicolon(filename, clean_lines, linenum, error):
   """Looks for redundant trailing semicolon.
 
@@ -4422,9 +4471,12 @@ def CheckStyle(filename, clean_lines, linenum, file_extension, nesting_state,
   is_header_guard = False
   if file_extension == 'h':
     cppvar = GetHeaderGuardCPPVariable(filename)
+    roscppvar = GetHeaderGuardROSCPPVariable(filename)
     if (line.startswith('#ifndef %s' % cppvar) or
         line.startswith('#define %s' % cppvar) or
-        line.startswith('#endif  // %s' % cppvar)):
+        line.startswith('#endif  // %s' % cppvar) or
+        line.startswith('#ifndef %s' % roscppvar) or
+        line.startswith('#define %s' % roscppvar)):
       is_header_guard = True
   # #include lines and header guards can be long, since there's no clean way to
   # split them.
@@ -4461,6 +4513,7 @@ def CheckStyle(filename, clean_lines, linenum, file_extension, nesting_state,
 
   # Some more style checks
   CheckBraces(filename, clean_lines, linenum, error)
+  CheckBracesROS(filename, clean_lines, linenum, error)
   CheckTrailingSemicolon(filename, clean_lines, linenum, error)
   CheckEmptyBlockBody(filename, clean_lines, linenum, error)
   CheckAccess(filename, clean_lines, linenum, nesting_state, error)

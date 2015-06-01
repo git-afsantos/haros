@@ -607,6 +607,17 @@
         - namespace
         - google-cpp
 -
+    id:             10036
+    name:           CLOSE_CURLY_BRACE
+    scope:          file
+    description:    The closing curly brace is always on its own line.
+    tags:
+        - code-standards
+        - formatting
+        - curly-braces
+        - ros
+        - ros-cpp
+-
     id:             10100
     name:           LICENSE_STATEMENT
     scope:          file
@@ -748,7 +759,7 @@
     id:             10202
     name:           HEADER_GUARD_FORMAT
     scope:          file
-    description:    The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H_.
+    description:    The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.
     tags:
         - code-standards
         - header
@@ -760,7 +771,7 @@
     id:             10203
     name:           HEADER_GUARD_CLOSE
     scope:          file
-    description:    The format of the guard's end should be "#endif  // <PACKAGE>_<PATH>_<FILE>_H_" or "#endif  /* <PACKAGE>_<PATH>_<FILE>_H_ */".
+    description:    The format of the guard's end should be "#endif  // <PROJECT>_<PATH>_<FILE>_H_" or "#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */".
     tags:
         - code-standards
         - header
