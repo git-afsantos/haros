@@ -24,6 +24,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_subscribers.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "cmd_vel_subscribers.hpp:45:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "cmd_vel_subscribers.hpp",
     "line": 55,
@@ -198,6 +206,14 @@
     "function": null,
     "comment": "cmd_vel_mux_nodelet.hpp:25:  Include 'yocs_cmd_vel_mux/cmd_vel_subscribers.hpp' not in alphabetical order  [build/include_alpha] [4]",
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.hpp:31:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -392,6 +408,22 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "exceptions.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "exceptions.hpp:26:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "exceptions.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "exceptions.hpp:32:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "exceptions.hpp",
     "line": 33,
@@ -408,12 +440,28 @@
     "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "exceptions.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "exceptions.hpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "exceptions.hpp",
     "line": 40,
     "function": null,
     "comment": "exceptions.hpp:40:  public: should be indented +1 space inside class EmptyCfgException  [whitespace/indent] [3]",
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "exceptions.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "exceptions.hpp:46:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -456,12 +504,36 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_subscribers.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "cmd_vel_subscribers.cpp:22:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "cmd_vel_subscribers.cpp",
     "line": 29,
     "function": null,
     "comment": "cmd_vel_subscribers.cpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_subscribers.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "cmd_vel_subscribers.cpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_subscribers.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "cmd_vel_subscribers.cpp:43:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Leave no redundant blank lines in code blocks.",
@@ -486,6 +558,14 @@
     "function": null,
     "comment": "cmd_vel_subscribers.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_subscribers.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "cmd_vel_subscribers.cpp:60:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -534,6 +614,14 @@
     "function": null,
     "comment": "cmd_vel_mux_nodelet.cpp:15:  Found C system header after C++ system header. Should be: cmd_vel_mux_nodelet.h, c system, c++ system, other.  [build/include_order] [4]",
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.cpp:24:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -712,12 +800,44 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.cpp:134:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.cpp:148:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.cpp:151:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "cmd_vel_mux_nodelet.cpp",
     "line": 152,
     "function": null,
     "comment": "cmd_vel_mux_nodelet.cpp:152:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "cmd_vel_mux_nodelet.cpp:154:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",

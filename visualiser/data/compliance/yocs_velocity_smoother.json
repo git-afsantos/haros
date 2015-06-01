@@ -16,6 +16,14 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "velocity_smoother_nodelet.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "velocity_smoother_nodelet.hpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "velocity_smoother_nodelet.hpp",
     "line": 34,
@@ -112,6 +120,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "velocity_smoother_nodelet.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "velocity_smoother_nodelet.hpp:55:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "velocity_smoother_nodelet.hpp",
     "line": 68,
@@ -158,6 +174,14 @@
     "function": null,
     "comment": "velocity_smoother_nodelet.hpp:84:  You don't need a ; after a }  [readability/braces] [4]",
     "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "velocity_smoother_nodelet.hpp",
+    "line": 86,
+    "function": null,
+    "comment": "velocity_smoother_nodelet.hpp:86:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Do not use meaningless empty statements.",
@@ -246,6 +270,14 @@
     "function": null,
     "comment": "velocity_smoother_nodelet.cpp:14:  Include 'nodelet/nodelet.h' not in alphabetical order  [build/include_alpha] [4]",
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "velocity_smoother_nodelet.cpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -902,6 +934,14 @@
     "function": null,
     "comment": "velocity_smoother_nodelet.cpp:300:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 306,
+    "function": null,
+    "comment": "velocity_smoother_nodelet.cpp:306:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",

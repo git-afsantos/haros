@@ -40,6 +40,22 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "odometry.hpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "odometry.hpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "odometry.hpp",
     "line": 40,
@@ -120,6 +136,22 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "diagnostics.hpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "diagnostics.hpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 40,
@@ -142,6 +174,14 @@
     "function": null,
     "comment": "diagnostics.hpp:45:  private: should be indented +1 space inside class BatteryTask  [whitespace/indent] [3]",
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "diagnostics.hpp:52:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -168,6 +208,14 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "diagnostics.hpp:66:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 67,
@@ -184,6 +232,14 @@
     "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 70,
+    "function": null,
+    "comment": "diagnostics.hpp:70:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Avoid more than one command per line.",
     "file": "diagnostics.hpp",
     "line": 71,
@@ -198,6 +254,14 @@
     "function": null,
     "comment": "diagnostics.hpp:74:  private: should be indented +1 space inside class CliffSensorTask  [whitespace/indent] [3]",
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "diagnostics.hpp:82:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -224,6 +288,14 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "diagnostics.hpp:95:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 96,
@@ -248,6 +320,14 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 109,
+    "function": null,
+    "comment": "diagnostics.hpp:109:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 110,
@@ -270,6 +350,14 @@
     "function": null,
     "comment": "diagnostics.hpp:115:  private: should be indented +1 space inside class MotorCurrentTask  [whitespace/indent] [3]",
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 122,
+    "function": null,
+    "comment": "diagnostics.hpp:122:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -312,6 +400,14 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "diagnostics.hpp:135:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 136,
@@ -336,6 +432,14 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 148,
+    "function": null,
+    "comment": "diagnostics.hpp:148:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Access modifiers should be indented by one space.",
     "file": "diagnostics.hpp",
     "line": 149,
@@ -358,6 +462,14 @@
     "function": null,
     "comment": "diagnostics.hpp:154:  private: should be indented +1 space inside class DigitalInputTask  [whitespace/indent] [3]",
     "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.hpp",
+    "line": 161,
+    "function": null,
+    "comment": "diagnostics.hpp:161:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -800,6 +912,14 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "kobuki_ros.hpp",
+    "line": 178,
+    "function": null,
+    "comment": "kobuki_ros.hpp:178:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Binary operators should be preceeded and followed by whitespace.",
     "file": "kobuki_ros.hpp",
     "line": 179,
@@ -1032,6 +1152,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "subscriber_callbacks.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "subscriber_callbacks.cpp:71:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "subscriber_callbacks.cpp",
     "line": 71,
@@ -1086,6 +1214,14 @@
     "function": null,
     "comment": "subscriber_callbacks.cpp:82:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "subscriber_callbacks.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "subscriber_callbacks.cpp:83:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -1512,6 +1648,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "subscriber_callbacks.cpp",
+    "line": 230,
+    "function": null,
+    "comment": "subscriber_callbacks.cpp:230:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "subscriber_callbacks.cpp",
     "line": 230,
@@ -1798,6 +1942,14 @@
     "function": null,
     "comment": "kobuki_ros.cpp:211:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
     "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "kobuki_ros.cpp",
+    "line": 212,
+    "function": null,
+    "comment": "kobuki_ros.cpp:212:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2224,12 +2376,28 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "odometry.cpp:20:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
     "file": "odometry.cpp",
     "line": 26,
     "function": null,
     "comment": "odometry.cpp:26:  Extra space before ( in function call  [whitespace/parens] [4]",
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "odometry.cpp:33:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2240,12 +2408,36 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "odometry.cpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 40,
     "function": null,
     "comment": "odometry.cpp:40:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "odometry.cpp:41:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "odometry.cpp:41:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2256,12 +2448,36 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "odometry.cpp:45:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 46,
     "function": null,
     "comment": "odometry.cpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "odometry.cpp:47:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "odometry.cpp:47:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2272,12 +2488,60 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "odometry.cpp:51:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 52,
     "function": null,
     "comment": "odometry.cpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "odometry.cpp:53:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "odometry.cpp:53:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "odometry.cpp:54:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "odometry.cpp:56:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "odometry.cpp:56:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2288,12 +2552,60 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "odometry.cpp:61:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 62,
     "function": null,
     "comment": "odometry.cpp:62:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "odometry.cpp:63:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "odometry.cpp:63:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "odometry.cpp:64:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "odometry.cpp:66:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "odometry.cpp:66:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -2320,6 +2632,14 @@
     "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "odometry.cpp:79:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 80,
@@ -2328,12 +2648,44 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "odometry.cpp:80:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "odometry.cpp:82:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "odometry.cpp:82:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "odometry.cpp",
     "line": 87,
     "function": null,
     "comment": "odometry.cpp:87:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "odometry.cpp:88:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Use one space before comment text.",
@@ -2350,6 +2702,14 @@
     "function": null,
     "comment": "odometry.cpp:98:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "odometry.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "odometry.cpp:100:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2432,12 +2792,36 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "slot_callbacks.cpp:49:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "slot_callbacks.cpp",
     "line": 62,
     "function": null,
     "comment": "slot_callbacks.cpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "slot_callbacks.cpp:63:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "slot_callbacks.cpp:64:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -2928,6 +3312,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 272,
+    "function": null,
+    "comment": "slot_callbacks.cpp:272:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "slot_callbacks.cpp",
     "line": 272,
@@ -2966,6 +3358,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:274:  More than one command on the same line  [whitespace/newline] [0]",
     "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 277,
+    "function": null,
+    "comment": "slot_callbacks.cpp:277:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -3040,6 +3440,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 292,
+    "function": null,
+    "comment": "slot_callbacks.cpp:292:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "slot_callbacks.cpp",
     "line": 292,
@@ -3078,6 +3486,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:294:  More than one command on the same line  [whitespace/newline] [0]",
     "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 297,
+    "function": null,
+    "comment": "slot_callbacks.cpp:297:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -3152,6 +3568,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 312,
+    "function": null,
+    "comment": "slot_callbacks.cpp:312:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "slot_callbacks.cpp",
     "line": 312,
@@ -3190,6 +3614,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:314:  More than one command on the same line  [whitespace/newline] [0]",
     "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 317,
+    "function": null,
+    "comment": "slot_callbacks.cpp:317:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -3264,6 +3696,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 333,
+    "function": null,
+    "comment": "slot_callbacks.cpp:333:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "slot_callbacks.cpp",
     "line": 333,
@@ -3302,6 +3742,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:335:  More than one command on the same line  [whitespace/newline] [0]",
     "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 338,
+    "function": null,
+    "comment": "slot_callbacks.cpp:338:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -3358,6 +3806,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:350:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 352,
+    "function": null,
+    "comment": "slot_callbacks.cpp:352:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
@@ -3480,6 +3936,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 387,
+    "function": null,
+    "comment": "slot_callbacks.cpp:387:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
     "file": "slot_callbacks.cpp",
     "line": 387,
@@ -3536,6 +4000,14 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 412,
+    "function": null,
+    "comment": "slot_callbacks.cpp:412:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "At least two spaces is best between code and comments.",
     "file": "slot_callbacks.cpp",
     "line": 412,
@@ -3574,6 +4046,14 @@
     "function": null,
     "comment": "slot_callbacks.cpp:439:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 439,
+    "function": null,
+    "comment": "slot_callbacks.cpp:439:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -3640,6 +4120,14 @@
     "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "slot_callbacks.cpp",
+    "line": 474,
+    "function": null,
+    "comment": "slot_callbacks.cpp:474:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "slot_callbacks.cpp",
     "line": 478,
@@ -3672,6 +4160,38 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "diagnostics.cpp:19:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "diagnostics.cpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "diagnostics.cpp:26:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "diagnostics.cpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
     "file": "diagnostics.cpp",
     "line": 27,
@@ -3686,6 +4206,14 @@
     "function": null,
     "comment": "diagnostics.cpp:27:  Extra space before )  [whitespace/parens] [2]",
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "diagnostics.cpp:31:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
@@ -3704,6 +4232,14 @@
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "diagnostics.cpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
     "file": "diagnostics.cpp",
     "line": 35,
@@ -3718,6 +4254,14 @@
     "function": null,
     "comment": "diagnostics.cpp:35:  Extra space before )  [whitespace/parens] [2]",
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "diagnostics.cpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
@@ -3760,12 +4304,60 @@
     "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "diagnostics.cpp:50:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
     "file": "diagnostics.cpp",
     "line": 50,
     "function": null,
     "comment": "diagnostics.cpp:50:  Mismatching spaces inside () in switch  [whitespace/parens] [5]",
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "diagnostics.cpp:51:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "diagnostics.cpp:55:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "diagnostics.cpp:59:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "diagnostics.cpp:64:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "diagnostics.cpp:65:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
@@ -3816,6 +4408,14 @@
     "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "diagnostics.cpp:70:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
     "file": "diagnostics.cpp",
     "line": 70,
@@ -3856,6 +4456,14 @@
     "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "diagnostics.cpp:75:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
     "file": "diagnostics.cpp",
     "line": 75,
@@ -3870,6 +4478,70 @@
     "function": null,
     "comment": "diagnostics.cpp:75:  Extra space before )  [whitespace/parens] [2]",
     "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "diagnostics.cpp:84:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "diagnostics.cpp:85:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "diagnostics.cpp:87:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "diagnostics.cpp:87:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "diagnostics.cpp:92:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "diagnostics.cpp:93:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "diagnostics.cpp:95:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "diagnostics.cpp:95:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -3896,12 +4568,92 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "diagnostics.cpp:104:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "diagnostics.cpp:105:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "diagnostics.cpp:107:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "diagnostics.cpp:107:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 116,
+    "function": null,
+    "comment": "diagnostics.cpp:116:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "diagnostics.cpp:117:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "diagnostics.cpp:119:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "diagnostics.cpp:119:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "diagnostics.cpp:127:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "diagnostics.cpp",
     "line": 128,
     "function": null,
     "comment": "diagnostics.cpp:128:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "diagnostics.cpp:128:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -3928,6 +4680,46 @@
     "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "diagnostics.cpp:130:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "diagnostics.cpp:130:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "diagnostics.cpp:138:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "diagnostics.cpp:141:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "diagnostics.cpp:141:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "Don't use deprecated casting styles.",
     "file": "diagnostics.cpp",
     "line": 145,
@@ -3936,12 +4728,36 @@
     "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "diagnostics.cpp:148:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "No line should exceed 80 characters in length.",
     "file": "diagnostics.cpp",
     "line": 150,
     "function": null,
     "comment": "diagnostics.cpp:150:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
     "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "diagnostics.cpp:153:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "diagnostics.cpp",
+    "line": 159,
+    "function": null,
+    "comment": "diagnostics.cpp:159:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",

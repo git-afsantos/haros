@@ -784,6 +784,14 @@
     "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
   },
   {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "safety_controller.hpp",
+    "line": 351,
+    "function": null,
+    "comment": "safety_controller.hpp:351:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
     "rule": "At least two spaces is best between code and comments.",
     "file": "safety_controller.hpp",
     "line": 357,

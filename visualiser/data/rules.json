@@ -425,9 +425,9 @@
     "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
   },
   {
-    "id": 30004,
-    "description": "Do not use const string& members. Use pointers or simple constants instead.",
-    "tags": ["code-standards","google-cpp","strings","constants","references"]
+    "id": 10036,
+    "description": "The closing curly brace is always on its own line.",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
     "id": 30005,
@@ -443,6 +443,11 @@
     "id": 30007,
     "description": "DISALLOW macros must be in the private section.",
     "tags": ["code-standards","google-cpp","class","macros","private"]
+  },
+  {
+    "id": 30004,
+    "description": "Do not use const string& members. Use pointers or simple constants instead.",
+    "tags": ["code-standards","google-cpp","strings","constants","references"]
   },
   {
     "id": 30000,
@@ -526,12 +531,12 @@
   },
   {
     "id": 10202,
-    "description": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H_.",
+    "description": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
     "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
   },
   {
     "id": 10203,
-    "description": "The format of the guard's end should be '#endif  // <PACKAGE>_<PATH>_<FILE>_H_' or '#endif  /* <PACKAGE>_<PATH>_<FILE>_H_ */'.",
+    "description": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
     "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
   },
   {
