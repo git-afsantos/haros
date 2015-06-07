@@ -1151,6 +1151,49 @@
         - rendundancy
         - google-cpp
 -
+    id:             10400
+    name:           INITIALIZE_MEMBER_VARIABLES
+    scope:          class
+    description:    All member variables of a class should be initialized after calling the constructor.
+    tags:
+        - code-standards
+        - classes
+        - member-variables
+        - uninitialized-variables
+        - constructors
+        - google-cpp
+        - jsf-av++
+        - misra-c++
+        - hic++
+-
+    id:             10401
+    name:           UNUSED_VARIABLES
+    scope:          file
+    description:    There shall be no unused variables.
+    tags:
+        - code-standards
+        - variables
+        - unused-variables
+        - misra-c++
+-
+    id:             10402
+    name:           REDUNDANT_EXPRESSIONS
+    scope:          function
+    description:    Ensure that no expression is redundant.
+    tags:
+        - code-standards
+        - redundancy
+        - hic++
+-
+    id:             10403
+    name:           SMALLEST_SCOPE
+    scope:          file
+    description:    Declarations should be at the smallest feasible scope.
+    tags:
+        - code-standards
+        - scope
+        - jsf-av++
+-
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS
     scope:          file

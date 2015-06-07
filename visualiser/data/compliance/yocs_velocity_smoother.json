@@ -1064,6 +1064,14 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "There shall be no unused variables.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 312,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Minimum lines of comments: 20%",
     "file": "test_translational_input.py",
     "line": null,

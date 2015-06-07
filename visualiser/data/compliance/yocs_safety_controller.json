@@ -600,6 +600,14 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "There shall be no unused variables.",
+    "file": "nodelet.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Maximum lines of comments: 30%",
     "file": "safety_controller.hpp",
     "line": null,

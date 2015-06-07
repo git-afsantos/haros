@@ -1224,6 +1224,22 @@
     "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "nodelet.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "Member variable 'RandomWalkerControllerNodelet::update_rate_' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "nodelet.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Minimum weighted methods per class: 1",
     "file": "random_walker_controller.hpp",
     "line": null,

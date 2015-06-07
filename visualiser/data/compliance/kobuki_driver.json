@@ -12352,6 +12352,358 @@
     "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "core_sensors.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "Member variable 'CoreSensors::data' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::last_radius' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::last_vx' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::last_wz' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::command_vx' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::command_wz' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::linear_acceleration_max' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::linear_deceleration_max' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::angular_acceleration_max' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "acceleration_limiter.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "Member variable 'AccelerationLimiter::angular_deceleration_max' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "command.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "Member variable 'Data::duration' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "command.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "Member variable 'Data::segment_name' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "command.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "Member variable 'Data::frame_id' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "command.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "Member variable 'Data::reserved' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "diff_drive.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "Member variable 'DiffDrive::last_timestamp' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "diff_drive.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "Member variable 'DiffDrive::last_diff_time' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "diff_drive.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "Member variable 'DiffDrive::imu_heading_offset' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "inertia.hpp",
+    "line": 37,
+    "function": null,
+    "comment": "Member variable 'Inertia::data' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "three_axis_gyro.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "Member variable 'ThreeAxisGyro::data' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "kobuki.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "Member variable 'Kobuki::kobuki_command' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "packet_finder.cpp",
+    "line": 228,
+    "function": null,
+    "comment": "The scope of the variable 'first_byte' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i ",
+    "tags": ["code-standards","jsf-av++","scope"]
+  },
+  {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "packet_finder.cpp",
+    "line": 230,
+    "function": null,
+    "comment": "Variable 'first_byte' is assigned a value that is never used.",
+    "tags": ["code-standards","hic++","redundancy"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_stx' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_etx' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_length_field' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::variable_size_payload' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_max_payload' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_payload' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "packet_finder.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "Member variable 'PacketFinderBase::size_checksum_field' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "velocity_commands.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "Variable 'vx' is reassigned a value before the old one has been used.",
+    "tags": ["code-standards","hic++","redundancy"]
+  },
+  {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "velocity_commands.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "Variable 'wz' is reassigned a value before the old one has been used.",
+    "tags": ["code-standards","hic++","redundancy"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "packet_finder.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "The function 'enableVerbose' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 426,
+    "function": null,
+    "comment": "The function 'getAngularVelocity' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 509,
+    "function": null,
+    "comment": "The function 'getControllerGain' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "velocity_commands.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "The function 'getVW' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 489,
+    "function": null,
+    "comment": "The function 'playSoundSequence' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 610,
+    "function": null,
+    "comment": "The function 'printSigSlotConnections' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "sigslots.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "The function 'processStreamData' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "version_info.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "The function 'processVersionInfo' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 436,
+    "function": null,
+    "comment": "The function 'resetOdometry' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 494,
+    "function": null,
+    "comment": "The function 'setControllerGain' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 476,
+    "function": null,
+    "comment": "The function 'setDigitalOutput' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 480,
+    "function": null,
+    "comment": "The function 'setExternalPower' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki.cpp",
+    "line": 471,
+    "function": null,
+    "comment": "The function 'setLed' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Maximum lines of comments: 30%",
     "file": "parameters.hpp",
     "line": null,

@@ -896,6 +896,38 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "Variable 'nh' is assigned a value that is never used.",
+    "tags": ["code-standards","hic++","redundancy"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "The function 'cmdVelCallback' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "The function 'timerCallback' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Maximum lines of comments: 30%",
     "file": "cmd_vel_subscribers.hpp",
     "line": null,

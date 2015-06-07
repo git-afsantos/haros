@@ -2,10 +2,11 @@
 # Configuration file
 # Plugins should have a plugin_run() function to execute and return results.
 ---
-plugins:
+plugins_unused:
     basic_metrics:
         type: analysis
         subtype: metrics
+plugins:
     radon_rules:
         type: analysis
         subtype: rules
@@ -13,5 +14,12 @@ plugins:
         type: analysis
         subtype: rules
     cpplint_plugin:
+        type: analysis
+        subtype: rules
+    cppcheck_plugin:
+        type: analysis
+        subtype: rules
+plugins_test:
+    cppcheck_plugin:
         type: analysis
         subtype: rules

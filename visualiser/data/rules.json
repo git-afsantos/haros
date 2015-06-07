@@ -245,6 +245,26 @@
     "tags": ["code-standards","google-cpp","functions","override","final","rendundancy"]
   },
   {
+    "id": 10400,
+    "description": "All member variables of a class should be initialized after calling the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "id": 10401,
+    "description": "There shall be no unused variables.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "id": 10402,
+    "description": "Ensure that no expression is redundant.",
+    "tags": ["code-standards","hic++","redundancy"]
+  },
+  {
+    "id": 10403,
+    "description": "Declarations should be at the smallest feasible scope.",
+    "tags": ["code-standards","jsf-av++","scope"]
+  },
+  {
     "id": 10000,
     "description": "No file should mix LF and CRLF line endings.",
     "tags": ["code-standards","formatting","whitespace","newline"]

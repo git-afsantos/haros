@@ -4904,6 +4904,134 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "All member variables of a class should be initialized after calling the constructor.",
+    "file": "diagnostics.hpp",
+    "line": 124,
+    "function": null,
+    "comment": "Member variable 'MotorStateTask::state' is not initialized in the constructor.",
+    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki_nodelet.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "The function 'processStreamData' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 287,
+    "function": null,
+    "comment": "The function 'publishBumperEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 267,
+    "function": null,
+    "comment": "The function 'publishButtonEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 307,
+    "function": null,
+    "comment": "The function 'publishCliffEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 247,
+    "function": null,
+    "comment": "The function 'publishControllerInfo' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 371,
+    "function": null,
+    "comment": "The function 'publishInputEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 347,
+    "function": null,
+    "comment": "The function 'publishPowerEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 472,
+    "function": null,
+    "comment": "The function 'publishRawControlCommand' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 410,
+    "function": null,
+    "comment": "The function 'publishRawDataCommand' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 437,
+    "function": null,
+    "comment": "The function 'publishRawDataStream' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 382,
+    "function": null,
+    "comment": "The function 'publishRobotEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "The function 'publishVersionInfo' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "slot_callbacks.cpp",
+    "line": 328,
+    "function": null,
+    "comment": "The function 'publishWheelEvent' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "diagnostics.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "The function 'run' is never used.",
+    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+  },
+  {
     "rule": "Minimum lines of comments: 20%",
     "file": "getOdom2D.py",
     "line": null,

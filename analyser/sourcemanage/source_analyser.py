@@ -47,7 +47,10 @@ class PluginContext:
             self.package_info = self.db.get("Packages", ["id", "name", "path"])
         return self.package_info
 
-    def getFileInfo(self, ext=None):
+    def getFileInfo(self, package_id=None, ext=None):
+        if not package_id is None:
+            return self.db.get("Files", ["id", "name", "path", "package_id"],
+                    match=("package_id", package_id))
         if ext:
             return self.db.get("Files", ["id", "name", "path", "package_id"],
                     match=("name", "." + ext), exact=False)
