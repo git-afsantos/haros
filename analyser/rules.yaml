@@ -43,6 +43,7 @@
         - metrics
         - nasa-satc
         - his
+        - hicpp
         - cyclomatic-complexity
 -
     id:             6
@@ -211,6 +212,15 @@
         - nasa-satc
         - ros
         - available-methods
+-
+    id:             26
+    name:           MAX_STATIC_PATH
+    scope:          function
+    description:    "Maximum estimated static paths: 200"
+    tags:
+        - metrics
+        - hicpp
+        - static-path
 -
     id:             10000
     name:           MIXED_LINE_ENDINGS
@@ -843,7 +853,7 @@
         - headers
         - preprocessor
         - invalid-code
-        - c++11
+        - cpp11
         - google-cpp
 -
     id:             10210
@@ -855,7 +865,7 @@
         - class
         - functions
         - invalid-code
-        - c++11
+        - cpp11
         - google-cpp
 -
     id:             10300
@@ -1016,6 +1026,8 @@
         - using-directives
         - using-declarations
         - google-cpp
+        - hicpp
+        - misra-cpp
 -
     id:             10315
     name:           VARIABLE_LENGTH_ARRAYS
@@ -1109,7 +1121,7 @@
     description:    Either omit template arguments from make_pair, or use pair directly, or construct a pair directly.
     tags:
         - code-standards
-        - c++11
+        - cpp11
         - compatibility
         - templates
         - pair
@@ -1162,9 +1174,9 @@
         - uninitialized-variables
         - constructors
         - google-cpp
-        - jsf-av++
-        - misra-c++
-        - hic++
+        - jsf-av-cpp
+        - misra-cpp
+        - hicpp
 -
     id:             10401
     name:           UNUSED_VARIABLES
@@ -1174,7 +1186,7 @@
         - code-standards
         - variables
         - unused-variables
-        - misra-c++
+        - misra-cpp
 -
     id:             10402
     name:           REDUNDANT_EXPRESSIONS
@@ -1183,7 +1195,7 @@
     tags:
         - code-standards
         - redundancy
-        - hic++
+        - hicpp
 -
     id:             10403
     name:           SMALLEST_SCOPE
@@ -1192,7 +1204,7 @@
     tags:
         - code-standards
         - scope
-        - jsf-av++
+        - jsf-av-cpp
 -
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS
