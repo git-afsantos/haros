@@ -13,19 +13,26 @@ def plugin_run(ctx):
         path = ctx.getPath(p[2])
         process_package(ctx, p[0], path, outdir)
         parse_xml(ctx, p[0], outdir, rules, files)
+        # manual_checks(ctx, p[0], outdir, rules, files)
 
 
 
 def process_package(ctx, pid, path, outdir):
     outpath = os.path.join(outdir, str(pid) + ".xml")
+    # simplepath = os.path.join(outdir, str(pid) + ".simple")
     outfile = open(outpath, "w")
+    # simplified = open(simplepath, "w")
     FNULL = open(os.devnull, "w")
     try:
         subprocess.call(["cppcheck", "--xml-version=2", "--enable=all", path],
                 stdout=FNULL, stderr=outfile)
+        # subprocess.call(["cppcheck", '--rule=.+',
+                # "--template={file}\n{message}", path],
+                # stdout=FNULL, stderr=simplified)
     finally:
         FNULL.close()
         outfile.close()
+        # simplified.close()
 
 
 
@@ -37,6 +44,23 @@ def parse_xml(ctx, pid, outdir, rules, files):
         errors  = root.find("errors")
         for e in errors:
             handleReport(ctx, pid, rules, files, e)
+
+
+
+def manual_checks(ctx, pid, outdir, rules, files):
+    fpath = os.path.join(outdir, str(pid) + ".simple")
+    fmap = {}
+    with open(fpath, "r") as s:
+        lines = [line.rstrip('\n') for line in s]
+        for i in range(0, len(lines), 2):
+            # Two lines at once
+            # First line is the file
+            # Second line is the source
+            fid = getFileId(files, lines[i])
+            source = lines[i+1][7:-1]
+            fmap[fid] = source
+    for k, v in fmap.iteritems():
+        print k, v
 
 
 
