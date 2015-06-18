@@ -868,6 +868,19 @@
         - cpp11
         - google-cpp
 -
+    id:             10211
+    name:           C_SYSTEM_HEADERS
+    scope:          file
+    description:    Do not include the C standard headers. Use the C++ headers instead.
+    tags:
+        - code-standards
+        - include
+        - headers
+        - preprocessor
+        - deprecation
+        - c
+        - hicpp
+-
     id:             10300
     name:           INVALID_INCREMENT
     scope:          file

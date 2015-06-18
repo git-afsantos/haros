@@ -499,6 +499,35 @@ _CPP_HEADERS = frozenset([
     'cwctype',
     ])
 
+_C_DEPRECATED_HEADERS = frozenset([
+    "stdlib.h",
+    "signal.h",
+    "setjmp.h",
+    "stdarg.h",
+    "time.h",
+    "stddef.h",
+    "limits.h",
+    "float.h",
+    "stdint.h",
+    "inttypes.h",
+    "assert.h",
+    "errno.h",
+    "ctype.h",
+    "wctype.h",
+    "string.h",
+    "wchar.h",
+    "uchar.h",
+    "math.h",
+    "fenv.h",
+    "stdio.h",
+    "locale.h",
+    "iso646.h",
+    "complex.h",
+    "tgmath.h",
+    "stdalign.h",
+    "stdbool.h"
+    ])
+
 
 # These headers are excluded from [build/include] and [build/include_order]
 # checks:
@@ -4715,6 +4744,10 @@ def CheckIncludeLine(filename, clean_lines, linenum, include_state, error):
         error(10206, linenum, 'build/include_alpha', 4,
               'Include "%s" not in alphabetical order' % include)
       include_state.SetLastHeader(canonical_include)
+
+    if include in _C_DEPRECATED_HEADERS:
+      error(10211, linenum, "build/include", 5,
+            "Include '%s' instead of '%s'." % ("c" + include[:-2], include))
 
 
 
