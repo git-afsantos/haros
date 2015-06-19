@@ -66,11 +66,22 @@ def manual_checks(ctx, pid, outdir, rules, files):
 
 def ruleIds():
     return {
-        "uninitMemberVar":      10400,
-        "unusedFunction":       10401,
-        "redundantAssignment":  10402,
-        "unreadVariable":       10402,
-        "variableScope":        10403
+        "uninitMemberVar":          10400,
+        "unusedFunction":           10401,
+        "redundantAssignment":      10402,
+        "unreadVariable":           10402,
+        "variableScope":            10403,
+        "harosDeprecatedSTL":       10212,
+        "harosRegisterKeyword":     10213,
+        "harosThrowSpecification":  10214,
+        "harosCaseWithoutBreak":    10404,
+        "harosBooleanCase":         10405,
+        "harosEnumWithoutBase":     10406,
+        "harosInlineAssembly":      10407,
+        "harosDoublePointer":       10408,
+        "harosTriplePointer":       10409,
+        "harosSixParams":           1000,
+        "harosConstUniquePtr":      10410
     }
 
 
@@ -87,8 +98,8 @@ def handleReport(ctx, pid, rules, files, error):
         fpath = loc.get("file")
         line = int(loc.get("line", default="0"))
         fid = getFileId(files, fpath)
-    ctx.writeNonCompliance(rid, pid, file_id=fid, line=line,
-            comment=error.get("verbose"))
+        msg = error.get("verbose") or error.get("msg")
+    ctx.writeNonCompliance(rid, pid, file_id=fid, line=line, comment=msg)
 
 
 

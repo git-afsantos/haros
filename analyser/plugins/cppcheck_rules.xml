@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> register </pattern>
+    <message>
+        <id>harosRegisterKeyword</id>
+        <severity>warning</severity>
+        <summary>Do not use the deprecated register keyword.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> std :: (?:auto_ptr|bind1st|bind2nd|ptr_mem_fun|ptr_mem_fun_ref|unary_function|binary_function) </pattern>
+    <message>
+        <id>harosDeprecatedSTL</id>
+        <severity>warning</severity>
+        <summary>Do not use deprecated STL features.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern>\) throw \( \w+ \)</pattern>
+    <message>
+        <id>harosThrowSpecification</id>
+        <severity>warning</severity>
+        <summary>Do not use throw exception specifications. Use noexcept instead.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> case[^:]+: ;(?:(?! break ;)[^;]*;)+?(?= (?:case|default))</pattern>
+    <message>
+        <id>harosCaseWithoutBreak</id>
+        <severity>warning</severity>
+        <summary>Non-empty case without a break statement.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> case (?:true|false) :</pattern>
+    <message>
+        <id>harosBooleanCase</id>
+        <severity>warning</severity>
+        <summary>Do not use booleans as case labels.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> enum (?:class )?\w+ {</pattern>
+    <message>
+        <id>harosEnumWithoutBase</id>
+        <severity>warning</severity>
+        <summary>Specify a base type for an enum.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> asm \(</pattern>
+    <message>
+        <id>harosInlineAssembly</id>
+        <severity>warning</severity>
+        <summary>Found use of inline assembly.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> (?:\* ){2,}(?!argv)\w+</pattern>
+    <message>
+        <id>harosDoublePointer</id>
+        <severity>warning</severity>
+        <summary>Found two or more levels of pointer indirection.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> (?:\* )+(?:(?!argv)\w+) \[ \]</pattern>
+    <message>
+        <id>harosDoublePointer</id>
+        <severity>warning</severity>
+        <summary>Found two or more levels of pointer indirection.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> (?:\* ){3,}\w+</pattern>
+    <message>
+        <id>harosTriplePointer</id>
+        <severity>warning</severity>
+        <summary>Found three or more levels of pointer indirection.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> (?:\* ){2,}\w+ \[ \]</pattern>
+    <message>
+        <id>harosTriplePointer</id>
+        <severity>warning</severity>
+        <summary>Found three or more levels of pointer indirection.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> \w+ (?:\* )*\w+ \( (?:[^,)]+,){6,}[^)]+\)</pattern>
+    <message>
+        <id>harosSixParams</id>
+        <severity>warning</severity>
+        <summary>Found function with 7 or more parameters.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ \w+ \((?:[^,)]+,)* std :: unique_ptr <[^>]+> const & \w+[^)]+\)]]></pattern>
+    <message>
+        <id>harosConstUniquePtr</id>
+        <severity>warning</severity>
+        <summary>Found const reference of std::unique_ptr.</summary>
+    </message>
+</rule>
+

@@ -222,6 +222,16 @@
         - hicpp
         - static-path
 -
+    id:             1000
+    name:           MAX_FUNCTION_PARAMETERS
+    scope:          function
+    description:    "Maximum number of function parameters: 6"
+    tags:
+        - code-standards
+        - functions
+        - parameters
+        - hicpp
+-
     id:             10000
     name:           MIXED_LINE_ENDINGS
     scope:          file
@@ -881,6 +891,39 @@
         - c
         - hicpp
 -
+    id:             10212
+    name:           DEPRECATED_FUNCTIONS
+    scope:          file
+    description:    Do not use deprecated STL library features.
+    tags:
+        - code-standards
+        - deprecation
+        - functions
+        - hicpp
+-
+    id:             10213
+    name:           REGISTER_KEYWORD
+    scope:          file
+    description:    Do not use the deprecated register keyword.
+    tags:
+        - code-standards
+        - deprecation
+        - register
+        - cpp11
+        - hicpp
+-
+    id:             10214
+    name:           THROW_SPECIFICATION
+    scope:          function
+    description:    Do not use throw exception specifications. Use noexcept instead.
+    tags:
+        - code-standards
+        - deprecation
+        - cpp11
+        - exceptions
+        - throw
+        - hicpp
+-
     id:             10300
     name:           INVALID_INCREMENT
     scope:          file
@@ -1218,6 +1261,81 @@
         - code-standards
         - scope
         - jsf-av-cpp
+-
+    id:             10404
+    name:           CASE_FALL_THROUGH
+    scope:          function
+    description:    Non-empty case blocks must not fall through to the next case.
+    tags:
+        - code-standards
+        - switch
+        - case
+        - fall-through
+        - hicpp
+-
+    id:             10405
+    name:           MIN_TWO_CASES
+    scope:          function
+    description:    A switch should have at least two cases distinct from the default case.
+    tags:
+        - code-standards
+        - switch
+        - hicpp
+        - misra-cpp
+        - jsf-av-cpp
+-
+    id:             10406
+    name:           ENUM_BASE
+    scope:          file
+    description:    Ensure that an enum has a specified base type able to accomodate all its values.
+    tags:
+        - code-standards
+        - enum
+        - types
+        - hicpp
+-
+    id:             10407
+    name:           ASM_DECLARATIONS
+    scope:          file
+    description:    Do not use asm declarations.
+    tags:
+        - code-standards
+        - assembly
+        - asm
+        - hicpp
+-
+    id:             10408
+    name:           MAX_POINTER_INDIRECTION
+    scope:          file
+    description:    Use at most one level of pointer indirection.
+    tags:
+        - code-standards
+        - pointers
+        - multiple-pointers
+        - hicpp
+-
+    id:             10409
+    name:           MAX_POINTER_INDIRECTION
+    scope:          file
+    description:    Use at most two levels of pointer indirection.
+    tags:
+        - code-standards
+        - pointers
+        - multiple-pointers
+        - misra-cpp
+        - jsf-av-cpp
+-
+    id:             10410
+    name:           UNIQUE_POINTER_CONST_REFERENCE
+    scope:          function
+    description:    "Do not pass a std::unique_ptr by const reference."
+    tags:
+        - code-standards
+        - pointers
+        - std-unique-ptr
+        - const
+        - references
+        - hicpp
 -
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS
