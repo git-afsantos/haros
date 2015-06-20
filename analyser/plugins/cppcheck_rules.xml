@@ -116,4 +116,22 @@
         <summary>Found const reference of std::unique_ptr.</summary>
     </message>
 </rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> \w+ (?:\* )*\w+ \((?:[^,)]+,)* [^=)]+= [^)]+\)</pattern>
+    <message>
+        <id>harosDefaultArguments</id>
+        <severity>warning</severity>
+        <summary>Found function with default arguments.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ std :: vector < bool >]]></pattern>
+    <message>
+        <id>harosBooleanVector</id>
+        <severity>warning</severity>
+        <summary>Found std::vector of bool.</summary>
+    </message>
+</rule>
 

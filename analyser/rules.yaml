@@ -1337,6 +1337,29 @@
         - references
         - hicpp
 -
+    id:             10411
+    name:           DEFAULT_ARGUMENTS
+    scope:          function
+    description:    Do not use default arguments.
+    tags:
+        - code-standards
+        - functions
+        - default-arguments
+        - arguments
+        - parameters
+        - hicpp
+-
+    id:             10412
+    name:           STD_VECTOR_BOOL
+    scope:          file
+    description:    "Do not use std::vector<bool>. It does not conform to the requirements of a container."
+    tags:
+        - code-standards
+        - std-vector
+        - boolean
+        - hicpp
+        - misra-cpp
+-
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS
     scope:          file

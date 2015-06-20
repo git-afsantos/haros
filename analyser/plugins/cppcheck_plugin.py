@@ -81,7 +81,9 @@ def ruleIds():
         "harosDoublePointer":       10408,
         "harosTriplePointer":       10409,
         "harosSixParams":           1000,
-        "harosConstUniquePtr":      10410
+        "harosConstUniquePtr":      10410,
+        "harosDefaultArguments":    10411,
+        "harosBooleanVector":       10412
     }
 
 
