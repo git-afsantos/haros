@@ -134,4 +134,31 @@
         <summary>Found std::vector of bool.</summary>
     </message>
 </rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> union \w+ {</pattern>
+    <message>
+        <id>harosUnion</id>
+        <severity>warning</severity>
+        <summary>Found an union. Use polymorphic types instead.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ (?:unsigned )?(?:int|short|long) (?:\* |& )?(?:(?!double)\w+)]]></pattern>
+    <message>
+        <id>harosIntegerTypes</id>
+        <severity>warning</severity>
+        <summary>Found implementation defined integer type.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> \w+ = (?:(?:\+\+ \w+)|(?:-- \w+)|(?:\w+ \+\+)|(?:\w+ --))</pattern>
+    <message>
+        <id>harosAssignIncrement</id>
+        <severity>warning</severity>
+        <summary>Found increment or decrement as a subexpression.</summary>
+    </message>
+</rule>
 

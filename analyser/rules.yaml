@@ -1360,6 +1360,32 @@
         - hicpp
         - misra-cpp
 -
+    id:             10413
+    name:           UNIONS
+    scope:          file
+    description:    Do not use unions. Use a safe polymorphic abstraction, instead.
+    tags:
+        - code-standards
+        - unions
+        - polymorphism
+        - type-safety
+        - hicpp
+        - misra-cpp
+        - jsf-av-cpp
+-
+    id:             10414
+    name:           INTEGER_TYPES
+    scope:          file
+    description:    Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.
+    tags:
+        - code-standards
+        - integer-types
+        - type-safety
+        - portability
+        - hicpp
+        - misra-cpp
+        - jsf-av-cpp
+-
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS
     scope:          file

@@ -83,7 +83,9 @@ def ruleIds():
         "harosSixParams":           1000,
         "harosConstUniquePtr":      10410,
         "harosDefaultArguments":    10411,
-        "harosBooleanVector":       10412
+        "harosBooleanVector":       10412,
+        "harosUnion":               10413,
+        "harosIntegerTypes":        10414
     }
 
 
