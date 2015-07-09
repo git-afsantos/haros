@@ -85,7 +85,16 @@ def ruleIds():
         "harosDefaultArguments":    10411,
         "harosBooleanVector":       10412,
         "harosUnion":               10413,
-        "harosIntegerTypes":        10414
+        "harosIntegerTypes":        10414,
+        "harosAssignIncrement":     10415,
+        "harosAssignAssignment":    10415,
+        "harosFloatEquality":       10416,
+        "harosOverrideUnaryAnd":    10417,
+        "harosOverrideBinaryAnd":   10417,
+        "harosOverrideBinaryOr":    10417,
+        "harosOverrideComma":       10417,
+        "harosUsingErrno":          10215,
+        "harosRvalueStdArray":      10418
     }
 
 

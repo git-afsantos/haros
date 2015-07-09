@@ -924,6 +924,18 @@
         - throw
         - hicpp
 -
+    id:             10215
+    name:           C_STANDARD_LIBRARY
+    scope:          file
+    description:    Wrap use of the C Standard Library.
+    tags:
+        - code-standards
+        - c
+        - libraries
+        - c-standard-library
+        - hicpp
+        - misra-cpp
+-
     id:             10300
     name:           INVALID_INCREMENT
     scope:          file
@@ -1385,6 +1397,50 @@
         - hicpp
         - misra-cpp
         - jsf-av-cpp
+-
+    id:             10415
+    name:           ORDER_OF_EVALUATION
+    scope:          file
+    description:    Do not rely on the sequence of evaluation within an expression.
+    tags:
+        - code-standards
+        - evaluation-order
+        - expressions
+        - hicpp
+        - misra-cpp
+        - jsf-av-cpp
+-
+    id:             10416
+    name:           FLOAT_ACCURACY
+    scope:          file
+    description:    Do not write code that expects floating point calculations to yield exact results.
+    tags:
+        - code-standards
+        - floats
+        - floating-point
+        - hicpp
+-
+    id:             10417
+    name:           OVERLOAD_SPECIAL_OPERATORS
+    scope:          function
+    description:    Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.
+    tags:
+        - code-standards
+        - overload
+        - operators
+        - hicpp
+        - misra-cpp
+        - jsf-av-cpp
+-
+    id:             10418
+    name:           STD_ARRAY_RVALUE
+    scope:          function
+    description:    "Do not create an rvalue reference of std::array."
+    tags:
+        - code-standards
+        - std-array
+        - rvalue-reference
+        - hicpp
 -
     id:             20000
     name:           THREAD_SAFE_FUNCTIONS

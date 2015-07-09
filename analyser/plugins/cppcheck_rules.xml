@@ -154,11 +154,83 @@
 </rule>
 <rule>
     <tokenlist>simple</tokenlist>
-    <pattern> \w+ = (?:(?:\+\+ \w+)|(?:-- \w+)|(?:\w+ \+\+)|(?:\w+ --))</pattern>
+    <pattern> \w+ = [^;{]*?(?:(?:\+\+ \w+)|(?:-- \w+)|(?:\w+ \+\+)|(?:\w+ --))</pattern>
     <message>
         <id>harosAssignIncrement</id>
         <severity>warning</severity>
         <summary>Found increment or decrement as a subexpression.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> \w+ = [^;{]*?\w+ = </pattern>
+    <message>
+        <id>harosAssignAssignment</id>
+        <severity>warning</severity>
+        <summary>Found assignment as a subexpression.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> (?:\d+\.\d+ ==)|(?:== \d+\.\d+)</pattern>
+    <message>
+        <id>harosFloatEquality</id>
+        <severity>warning</severity>
+        <summary>Found float equality check.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ operator& \([^)]*\)]]></pattern>
+    <message>
+        <id>harosOverrideUnaryAnd</id>
+        <severity>warning</severity>
+        <summary>Found override of the unary address-of operator.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ operator&& \([^)]*\)]]></pattern>
+    <message>
+        <id>harosOverrideBinaryAnd</id>
+        <severity>warning</severity>
+        <summary>Found override of the binary and operator.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> operator\|\| \([^)]*\)</pattern>
+    <message>
+        <id>harosOverrideBinaryOr</id>
+        <severity>warning</severity>
+        <summary>Found override of the binary or operator.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> operator , \([^)]*\)</pattern>
+    <message>
+        <id>harosOverrideComma</id>
+        <severity>warning</severity>
+        <summary>Found override of the comma operator.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern> errno </pattern>
+    <message>
+        <id>harosUsingErrno</id>
+        <severity>warning</severity>
+        <summary>Found use of errno.</summary>
+    </message>
+</rule>
+<rule>
+    <tokenlist>simple</tokenlist>
+    <pattern><![CDATA[ std :: array <[^>]+> (?:const )?&& ]]></pattern>
+    <message>
+        <id>harosRvalueStdArray</id>
+        <severity>warning</severity>
+        <summary>Found an rvalue reference of a std::array.</summary>
     </message>
 </rule>
 
