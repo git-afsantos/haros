@@ -175,10 +175,7 @@ def get_metric_handlers():
 def handle_cc(ctx, package_id, file_id, function, line, value, file_path):
     if value < 1:
         if file_path.endswith(".hpp"): 
-            #print "False Positive (Header file)"
-        else:
-            ctx.writeNonCompliance(4, package_id, file_id=file_id,
-                line=line, function=function, comment="CC is less than 1")
+            pass
     if value > 10:
         ctx.writeNonCompliance(5, package_id, file_id=file_id,
                 line=line, function=function, comment="CC is greater than 10")
