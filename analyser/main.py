@@ -126,7 +126,6 @@ def load_configs():
     config_dict = {
         "plugins": {
             "analysis": {
-                "metrics": [],
                 "rules": []
             }
         }
@@ -139,6 +138,11 @@ def load_configs():
         if val["type"] in pd and val["subtype"] in pd[val["type"]]:
             p = import_plugin(key, plugin_root)
             if not p is None:
+                args = []
+                if "needs" in val:
+                    for a in val["needs"]:
+                        args.append(os.path.join(plugin_root, a))
+                p = (p, args)
                 pd[val["type"]][val["subtype"]].append(p)
     return config_dict
 

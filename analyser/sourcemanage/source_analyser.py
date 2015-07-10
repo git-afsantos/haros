@@ -17,6 +17,7 @@ class PluginContext:
         self.function_buffer    = []
         self.compliance_buffer  = []
         self.compliance_id      = db.getNextId("Non_Compliance")
+        self.plugin_args        = []
 
     def getRoot(self):
         return os.path.join(os.path.expanduser("~"), "ros", "repos")
@@ -59,6 +60,9 @@ class PluginContext:
                 self.file_info = self.db.get("Files", ["id", "name", "path",
                         "package_id"])
             return self.file_info
+
+    def getPluginArguments(self):
+        return self.plugin_args
 
     def writePackageMetric(self, package, metric, value):
         self.package_buffer.append((package, metric, value))
@@ -149,7 +153,8 @@ def analyse_rules(plugin_list, truncate):
         os.makedirs("plugin_out")
     try:
         for p in plugin_list:
-            p.plugin_run(ctx)
+            ctx.plugin_args = p[1]
+            p[0].plugin_run(ctx)
             ctx._commit()
     finally:
         shutil.rmtree("plugin_out")
