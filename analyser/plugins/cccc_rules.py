@@ -12,7 +12,7 @@ def plugin_run(ctx):
     for f in files:
        file_path = ctx.getPath(f[2], file_name = f[1])
        process_metrics(ctx, f[0], file_path, f[3], handlers)
-       npath_complex(ctx, f[0], file_path, f[3], handlers)
+       #npath_complex(ctx, f[0], file_path, f[3], handlers)
        
        
 def npath_complex(ctx, file_id, filename, package_id, handlers):
