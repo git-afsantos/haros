@@ -85,7 +85,7 @@
     "line": 45,
     "function": null,
     "comment": "velocity_smoother_nodelet.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid more than one command per line.",
@@ -221,7 +221,7 @@
     "line": 97,
     "function": null,
     "comment": "velocity_smoother_nodelet.hpp:97:  Is this a non-const reference? If so, make const or use a pointer: yocs_velocity_smoother::paramsConfig &config  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Namespaces should have a comment at the end.",
@@ -1064,12 +1064,36 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 248,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 307,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not write code that expects floating point calculations to yield exact results.",
+    "file": "velocity_smoother_nodelet.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "Found float equality check.",
+    "tags": ["hicpp","code-standards","floats","floating-point"]
+  },
+  {
     "rule": "There shall be no unused variables.",
     "file": "velocity_smoother_nodelet.cpp",
     "line": 312,
     "function": null,
     "comment": "The function 'onInit' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "Minimum lines of comments: 20%",
@@ -1088,54 +1112,6 @@
     "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "velocity_smoother_nodelet.cpp",
     "line": null,
@@ -1144,28 +1120,12 @@
     "tags": ["metrics","nasa-satc","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "velocity_smoother_nodelet.cpp",
     "line": 109,
     "function": "spin",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 15",
@@ -1174,133 +1134,5 @@
     "function": "spin",
     "comment": "CC is greater than 15",
     "tags": ["metrics","ros","cyclomatic-complexity","kth"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Thread: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "shared_ptr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Nodelet: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "paramsConfig: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "ConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_smoother_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   }
 ]

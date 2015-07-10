@@ -69,7 +69,7 @@
     "line": 42,
     "function": null,
     "comment": "odometry.hpp:42:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -85,7 +85,7 @@
     "line": 44,
     "function": null,
     "comment": "odometry.hpp:44:  Is this a non-const reference? If so, make const or use a pointer: ecl::linear_algebra::Vector3d &pose_update_rates  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -165,7 +165,7 @@
     "line": 42,
     "function": null,
     "comment": "diagnostics.hpp:42:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -197,7 +197,7 @@
     "line": 55,
     "function": null,
     "comment": "diagnostics.hpp:55:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -229,7 +229,7 @@
     "line": 69,
     "function": null,
     "comment": "diagnostics.hpp:69:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace is always on its own line.",
@@ -277,7 +277,7 @@
     "line": 85,
     "function": null,
     "comment": "diagnostics.hpp:85:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -309,7 +309,7 @@
     "line": 98,
     "function": null,
     "comment": "diagnostics.hpp:98:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -341,7 +341,7 @@
     "line": 112,
     "function": null,
     "comment": "diagnostics.hpp:112:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -373,7 +373,7 @@
     "line": 125,
     "function": null,
     "comment": "diagnostics.hpp:125:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid more than one command per line.",
@@ -421,7 +421,7 @@
     "line": 138,
     "function": null,
     "comment": "diagnostics.hpp:138:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -453,7 +453,7 @@
     "line": 151,
     "function": null,
     "comment": "diagnostics.hpp:151:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -485,7 +485,7 @@
     "line": 164,
     "function": null,
     "comment": "diagnostics.hpp:164:  Is this a non-const reference? If so, make const or use a pointer: diagnostic_updater::DiagnosticStatusWrapper &stat  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -749,7 +749,7 @@
     "line": 87,
     "function": null,
     "comment": "kobuki_ros.hpp:87:  Is this a non-const reference? If so, make const or use a pointer: std::string& node_name  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
@@ -765,7 +765,7 @@
     "line": 89,
     "function": null,
     "comment": "kobuki_ros.hpp:89:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -869,7 +869,7 @@
     "line": 118,
     "function": null,
     "comment": "kobuki_ros.hpp:118:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -877,7 +877,7 @@
     "line": 119,
     "function": null,
     "comment": "kobuki_ros.hpp:119:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -1061,7 +1061,7 @@
     "line": 197,
     "function": null,
     "comment": "kobuki_ros.hpp:197:  Is this a non-const reference? If so, make const or use a pointer: Command::Buffer &buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -1069,7 +1069,7 @@
     "line": 198,
     "function": null,
     "comment": "kobuki_ros.hpp:198:  Is this a non-const reference? If so, make const or use a pointer: PacketFinder::BufferType &buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Do not use the verboten C basic types.",
@@ -1686,6 +1686,14 @@
     "function": null,
     "comment": "subscriber_callbacks.cpp:241:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
     "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "kobuki_ros.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "kobuki_ros.cpp:39:  Include 'cfloat' instead of 'float.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
   },
   {
     "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
@@ -4909,7 +4917,63 @@
     "line": 124,
     "function": null,
     "comment": "Member variable 'MotorStateTask::state' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "slot_callbacks.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "slot_callbacks.cpp",
+    "line": 163,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "slot_callbacks.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "slot_callbacks.cpp",
+    "line": 376,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "slot_callbacks.cpp",
+    "line": 458,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "subscriber_callbacks.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "subscriber_callbacks.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4917,7 +4981,7 @@
     "line": 58,
     "function": null,
     "comment": "The function 'onInit' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4925,7 +4989,7 @@
     "line": 49,
     "function": null,
     "comment": "The function 'processStreamData' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4933,7 +4997,7 @@
     "line": 287,
     "function": null,
     "comment": "The function 'publishBumperEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4941,7 +5005,7 @@
     "line": 267,
     "function": null,
     "comment": "The function 'publishButtonEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4949,7 +5013,7 @@
     "line": 307,
     "function": null,
     "comment": "The function 'publishCliffEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4957,7 +5021,7 @@
     "line": 247,
     "function": null,
     "comment": "The function 'publishControllerInfo' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4965,7 +5029,7 @@
     "line": 371,
     "function": null,
     "comment": "The function 'publishInputEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4973,7 +5037,7 @@
     "line": 347,
     "function": null,
     "comment": "The function 'publishPowerEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4981,7 +5045,7 @@
     "line": 472,
     "function": null,
     "comment": "The function 'publishRawControlCommand' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4989,7 +5053,7 @@
     "line": 410,
     "function": null,
     "comment": "The function 'publishRawDataCommand' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -4997,7 +5061,7 @@
     "line": 437,
     "function": null,
     "comment": "The function 'publishRawDataStream' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -5005,7 +5069,7 @@
     "line": 382,
     "function": null,
     "comment": "The function 'publishRobotEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -5013,7 +5077,7 @@
     "line": 216,
     "function": null,
     "comment": "The function 'publishVersionInfo' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -5021,7 +5085,7 @@
     "line": 328,
     "function": null,
     "comment": "The function 'publishWheelEvent' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -5029,7 +5093,7 @@
     "line": 25,
     "function": null,
     "comment": "The function 'run' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "Minimum lines of comments: 20%",
@@ -5064,188 +5128,12 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Time: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "TransformBroadcaster: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Vector3d: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Duration: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Pose2D: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "TransformStamped: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Publisher: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum coupling between objects: 5",
     "file": "odometry.hpp",
     "line": null,
     "function": null,
     "comment": "CBO is greater than 5, Odometry, 11",
     "tags": ["metrics","nasa-satc","ros","coupling"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Quaternion: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -5262,22 +5150,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Battery: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum coupling between objects: 5",
@@ -5288,22 +5160,6 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "DiagnosticStatusWrapper: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum coupling between objects: 5",
     "file": "diagnostics.hpp",
     "line": null,
@@ -5312,172 +5168,12 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "DiagnosticTask: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Data: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "int16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint8_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "kobuki_ros.hpp",
     "line": 178,
     "function": "rosNamed",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -5488,70 +5184,6 @@
     "tags": ["metrics","nasa-satc","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "LedConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MotorPowerConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "TwistConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "EmptyConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum coupling between objects: 5",
     "file": "subscriber_callbacks.cpp",
     "line": null,
@@ -5560,84 +5192,12 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "subscriber_callbacks.cpp",
     "line": 104,
     "function": "subscribeExternalPowerCommand",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "SoundConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "ControllerInfoConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "ExternalPowerConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "DigitalOutputConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "subscriber_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -5656,30 +5216,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_ros.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_ros.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "odometry.cpp",
     "line": null,
@@ -5688,148 +5224,12 @@
     "tags": ["metrics","nasa-satc","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Vector3d: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Pose2D: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Quaternion: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "odometry.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "slot_callbacks.cpp",
     "line": null,
     "function": null,
     "comment": "Comment ratio is above 30%",
     "tags": ["metrics","nasa-satc","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "InputEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "BufferType: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "PowerEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum coupling between objects: 5",
@@ -5838,142 +5238,6 @@
     "function": null,
     "comment": "CBO is greater than 5, KobukiRos, 11",
     "tags": ["metrics","nasa-satc","ros","coupling"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "VersionInfo: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "WheelEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "RobotEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Buffer: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "CliffEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "ButtonEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "BumperEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "slot_callbacks.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Minimum lines of comments: 20%",
@@ -5992,108 +5256,12 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "DiagnosticStatusWrapper: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "diagnostics.cpp",
     "line": 25,
     "function": "run",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diagnostics.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -6110,77 +5278,5 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Thread: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "shared_ptr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Nodelet: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   }
 ]

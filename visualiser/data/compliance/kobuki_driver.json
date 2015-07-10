@@ -269,7 +269,7 @@
     "line": 113,
     "function": null,
     "comment": "command.hpp:113:  Is this a non-const reference? If so, make const or use a pointer: Command::Data &current_data  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -285,7 +285,7 @@
     "line": 114,
     "function": null,
     "comment": "command.hpp:114:  Is this a non-const reference? If so, make const or use a pointer: Command::Data &current_data  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -301,7 +301,7 @@
     "line": 115,
     "function": null,
     "comment": "command.hpp:115:  Is this a non-const reference? If so, make const or use a pointer: Command::Data &current_data  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -317,7 +317,7 @@
     "line": 116,
     "function": null,
     "comment": "command.hpp:116:  Is this a non-const reference? If so, make const or use a pointer: Command::Data &current_data  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -325,7 +325,7 @@
     "line": 118,
     "function": null,
     "comment": "command.hpp:118:  Is this a non-const reference? If so, make const or use a pointer: DiffDrive& diff_drive  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -341,7 +341,7 @@
     "line": 128,
     "function": null,
     "comment": "command.hpp:128:  Is this a non-const reference? If so, make const or use a pointer: Buffer &buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -349,7 +349,7 @@
     "line": 129,
     "function": null,
     "comment": "command.hpp:129:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -365,7 +365,7 @@
     "line": 130,
     "function": null,
     "comment": "command.hpp:130:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -381,7 +381,7 @@
     "line": 135,
     "function": null,
     "comment": "command.hpp:135:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -398,6 +398,14 @@
     "function": null,
     "comment": "event_manager.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "event_manager.hpp",
+    "line": 20,
+    "function": null,
+    "comment": "event_manager.hpp:20:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
   },
   {
     "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
@@ -949,7 +957,7 @@
     "line": 95,
     "function": null,
     "comment": "kobuki.hpp:95:  Is this a non-const reference? If so, make const or use a pointer: Parameters &parameters  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -989,7 +997,7 @@
     "line": 107,
     "function": null,
     "comment": "kobuki.hpp:107:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -1029,7 +1037,7 @@
     "line": 142,
     "function": null,
     "comment": "kobuki.hpp:142:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_left_angle  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -1037,7 +1045,7 @@
     "line": 142,
     "function": null,
     "comment": "kobuki.hpp:142:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_left_angle_rate  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -1053,7 +1061,7 @@
     "line": 143,
     "function": null,
     "comment": "kobuki.hpp:143:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_right_angle  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -1061,7 +1069,7 @@
     "line": 143,
     "function": null,
     "comment": "kobuki.hpp:143:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_right_angle_rate  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -1069,7 +1077,7 @@
     "line": 144,
     "function": null,
     "comment": "kobuki.hpp:144:  Is this a non-const reference? If so, make const or use a pointer: ecl::Pose2D<double> &pose_update  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -1077,7 +1085,7 @@
     "line": 145,
     "function": null,
     "comment": "kobuki.hpp:145:  Is this a non-const reference? If so, make const or use a pointer: ecl::linear_algebra::Vector3d &pose_update_rates  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -1336,6 +1344,14 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "version_info.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "version_info.hpp:22:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
     "rule": "The open curly brace is always on its own line.",
     "file": "version_info.hpp",
     "line": 29,
@@ -1549,7 +1565,7 @@
     "line": 46,
     "function": null,
     "comment": "inertia.hpp:46:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -1565,7 +1581,7 @@
     "line": 58,
     "function": null,
     "comment": "inertia.hpp:58:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -1757,7 +1773,7 @@
     "line": 46,
     "function": null,
     "comment": "controller_info.hpp:46:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -1773,7 +1789,7 @@
     "line": 57,
     "function": null,
     "comment": "controller_info.hpp:57:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -1917,7 +1933,7 @@
     "line": 43,
     "function": null,
     "comment": "dock_ir.hpp:43:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -1933,7 +1949,7 @@
     "line": 53,
     "function": null,
     "comment": "dock_ir.hpp:53:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2101,7 +2117,7 @@
     "line": 45,
     "function": null,
     "comment": "cliff.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2117,7 +2133,7 @@
     "line": 55,
     "function": null,
     "comment": "cliff.hpp:55:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2277,7 +2293,7 @@
     "line": 50,
     "function": null,
     "comment": "gp_input.hpp:50:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2325,7 +2341,7 @@
     "line": 66,
     "function": null,
     "comment": "gp_input.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2517,7 +2533,7 @@
     "line": 52,
     "function": null,
     "comment": "three_axis_gyro.hpp:52:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2541,7 +2557,7 @@
     "line": 64,
     "function": null,
     "comment": "three_axis_gyro.hpp:64:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2701,7 +2717,7 @@
     "line": 48,
     "function": null,
     "comment": "current.hpp:48:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2717,7 +2733,7 @@
     "line": 57,
     "function": null,
     "comment": "current.hpp:57:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2869,7 +2885,7 @@
     "line": 47,
     "function": null,
     "comment": "eeprom.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -2893,7 +2909,7 @@
     "line": 59,
     "function": null,
     "comment": "eeprom.hpp:59:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3045,7 +3061,7 @@
     "line": 43,
     "function": null,
     "comment": "hardware.hpp:43:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3061,7 +3077,7 @@
     "line": 52,
     "function": null,
     "comment": "hardware.hpp:52:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3240,6 +3256,14 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "core_sensors.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "core_sensors.hpp:22:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "core_sensors.hpp",
     "line": 29,
@@ -3301,7 +3325,7 @@
     "line": 87,
     "function": null,
     "comment": "core_sensors.hpp:87:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -3309,7 +3333,7 @@
     "line": 90,
     "function": null,
     "comment": "core_sensors.hpp:90:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -3317,7 +3341,7 @@
     "line": 91,
     "function": null,
     "comment": "core_sensors.hpp:91:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -3389,7 +3413,7 @@
     "line": 46,
     "function": null,
     "comment": "unique_device_id.hpp:46:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3405,7 +3429,7 @@
     "line": 56,
     "function": null,
     "comment": "unique_device_id.hpp:56:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3549,7 +3573,7 @@
     "line": 51,
     "function": null,
     "comment": "firmware.hpp:51:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3565,7 +3589,7 @@
     "line": 60,
     "function": null,
     "comment": "firmware.hpp:60:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -3912,6 +3936,14 @@
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "diff_drive.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "diff_drive.hpp:22:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
     "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
     "file": "diff_drive.hpp",
     "line": 23,
@@ -3965,7 +3997,7 @@
     "line": 44,
     "function": null,
     "comment": "diff_drive.hpp:44:  Is this a non-const reference? If so, make const or use a pointer: ecl::Pose2D<double> &pose_update  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -3973,7 +4005,7 @@
     "line": 45,
     "function": null,
     "comment": "diff_drive.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: ecl::linear_algebra::Vector3d &pose_update_rates  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -3989,7 +4021,7 @@
     "line": 47,
     "function": null,
     "comment": "diff_drive.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_left_angle  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -3997,7 +4029,7 @@
     "line": 47,
     "function": null,
     "comment": "diff_drive.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_left_angle_rate  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -4013,7 +4045,7 @@
     "line": 48,
     "function": null,
     "comment": "diff_drive.hpp:48:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_right_angle  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -4021,7 +4053,7 @@
     "line": 48,
     "function": null,
     "comment": "diff_drive.hpp:48:  Is this a non-const reference? If so, make const or use a pointer: double &wheel_right_angle_rate  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Do not use the verboten C basic types.",
@@ -4238,6 +4270,14 @@
     "function": null,
     "comment": "acceleration_limiter.hpp:24:  Found C system header after C++ system header. Should be: acceleration_limiter.h, c system, c++ system, other.  [build/include_order] [4]",
     "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "acceleration_limiter.hpp",
+    "line": 24,
+    "function": null,
+    "comment": "acceleration_limiter.hpp:24:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
   },
   {
     "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
@@ -4624,6 +4664,14 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "battery.hpp",
+    "line": 20,
+    "function": null,
+    "comment": "battery.hpp:20:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
     "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
     "file": "battery.hpp",
     "line": 22,
@@ -4752,6 +4800,14 @@
     "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "payload_base.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "payload_base.hpp:21:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
     "rule": "The open curly brace should almost never be on its own line.",
     "file": "payload_base.hpp",
     "line": 28,
@@ -4781,7 +4837,7 @@
     "line": 41,
     "function": null,
     "comment": "payload_base.hpp:41:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
@@ -4813,7 +4869,7 @@
     "line": 74,
     "function": null,
     "comment": "payload_base.hpp:74:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Assignment operators should be preceeded and followed by whitespace.",
@@ -4829,7 +4885,7 @@
     "line": 75,
     "function": null,
     "comment": "payload_base.hpp:75:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & byteStream  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -4853,7 +4909,7 @@
     "line": 82,
     "function": null,
     "comment": "payload_base.hpp:82:  Is this a non-const reference? If so, make const or use a pointer: T & V  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -4861,7 +4917,7 @@
     "line": 82,
     "function": null,
     "comment": "payload_base.hpp:82:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -4885,7 +4941,7 @@
     "line": 96,
     "function": null,
     "comment": "payload_base.hpp:96:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -4917,7 +4973,7 @@
     "line": 113,
     "function": null,
     "comment": "payload_base.hpp:113:  Is this a non-const reference? If so, make const or use a pointer: float & V  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -4925,7 +4981,7 @@
     "line": 113,
     "function": null,
     "comment": "payload_base.hpp:113:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -4957,7 +5013,7 @@
     "line": 130,
     "function": null,
     "comment": "payload_base.hpp:130:  Is this a non-const reference? If so, make const or use a pointer: ecl::PushAndPop<unsigned char> & buffer  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -5093,7 +5149,7 @@
     "line": 87,
     "function": null,
     "comment": "packet_finder.hpp:87:  Do not leave a blank line after 'protected:'  [whitespace/blank_line] [3]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -5141,7 +5197,7 @@
     "line": 117,
     "function": null,
     "comment": "packet_finder.hpp:117:  Is this a non-const reference? If so, make const or use a pointer: BufferType & bufferRef  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -5149,7 +5205,7 @@
     "line": 118,
     "function": null,
     "comment": "packet_finder.hpp:118:  Is this a non-const reference? If so, make const or use a pointer: BufferType & bufferRef  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Access modifiers should be indented by one space.",
@@ -5173,7 +5229,7 @@
     "line": 123,
     "function": null,
     "comment": "packet_finder.hpp:123:  Is this a non-const reference? If so, make const or use a pointer: bool & foundPacket  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -5189,7 +5245,7 @@
     "line": 124,
     "function": null,
     "comment": "packet_finder.hpp:124:  Is this a non-const reference? If so, make const or use a pointer: bool & foundPacket  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Namespaces should have a comment at the end.",
@@ -8173,7 +8229,7 @@
     "line": 75,
     "function": null,
     "comment": "kobuki.cpp:75:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -9837,7 +9893,7 @@
     "line": 611,
     "function": null,
     "comment": "kobuki.cpp:611:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "At least two spaces is best between code and comments.",
@@ -11077,7 +11133,7 @@
     "line": 55,
     "function": null,
     "comment": "velocity_commands.cpp:55:  Is this a non-const reference? If so, make const or use a pointer: int & desiredSpeed  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -11085,7 +11141,7 @@
     "line": 55,
     "function": null,
     "comment": "velocity_commands.cpp:55:  Is this a non-const reference? If so, make const or use a pointer: int & desiredRadius  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -11245,7 +11301,7 @@
     "line": 83,
     "function": null,
     "comment": "velocity_commands.cpp:83:  Is this a non-const reference? If so, make const or use a pointer: double & leftWheelVel  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -11253,7 +11309,7 @@
     "line": 83,
     "function": null,
     "comment": "velocity_commands.cpp:83:  Is this a non-const reference? If so, make const or use a pointer: double & rightWheelVel  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -11333,7 +11389,7 @@
     "line": 89,
     "function": null,
     "comment": "velocity_commands.cpp:89:  Is this a non-const reference? If so, make const or use a pointer: int & leftWheelVelocity  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -11341,7 +11397,7 @@
     "line": 89,
     "function": null,
     "comment": "velocity_commands.cpp:89:  Is this a non-const reference? If so, make const or use a pointer: int & rightWheelVelocity  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -12357,7 +12413,127 @@
     "line": 38,
     "function": null,
     "comment": "Member variable 'CoreSensors::data' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 121,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 134,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "payload_base.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "battery.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "battery.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "battery.hpp",
+    "line": 69,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "battery.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not rely on the sequence of evaluation within an expression.",
+    "file": "payload_base.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "Found assignment as a subexpression.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","evaluation-order","expressions"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12365,7 +12541,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::last_radius' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12373,7 +12549,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::last_vx' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12381,7 +12557,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::last_wz' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12389,7 +12565,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::command_vx' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12397,7 +12573,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::command_wz' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12405,7 +12581,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::linear_acceleration_max' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12413,7 +12589,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::linear_deceleration_max' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12421,7 +12597,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::angular_acceleration_max' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12429,7 +12605,7 @@
     "line": 52,
     "function": null,
     "comment": "Member variable 'AccelerationLimiter::angular_deceleration_max' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12437,7 +12613,7 @@
     "line": 68,
     "function": null,
     "comment": "Member variable 'Data::duration' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12445,7 +12621,7 @@
     "line": 68,
     "function": null,
     "comment": "Member variable 'Data::segment_name' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12453,7 +12629,7 @@
     "line": 68,
     "function": null,
     "comment": "Member variable 'Data::frame_id' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12461,7 +12637,183 @@
     "line": 68,
     "function": null,
     "comment": "Member variable 'Data::reserved' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Do not use default arguments.",
+    "file": "acceleration_limiter.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "Found function with default arguments.",
+    "tags": ["hicpp","code-standards","functions","parameters","default-arguments","arguments"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "digital_output.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.hpp",
+    "line": 71,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.hpp",
+    "line": 80,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "acceleration_limiter.hpp",
+    "line": 127,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "acceleration_limiter.hpp",
+    "line": 128,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 74,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 104,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 121,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 122,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "command.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not rely on the sequence of evaluation within an expression.",
+    "file": "acceleration_limiter.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found assignment as a subexpression.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","evaluation-order","expressions"]
+  },
+  {
+    "rule": "Do not rely on the sequence of evaluation within an expression.",
+    "file": "acceleration_limiter.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found assignment as a subexpression.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","evaluation-order","expressions"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12469,7 +12821,7 @@
     "line": 25,
     "function": null,
     "comment": "Member variable 'DiffDrive::last_timestamp' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12477,7 +12829,7 @@
     "line": 25,
     "function": null,
     "comment": "Member variable 'DiffDrive::last_diff_time' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12485,7 +12837,143 @@
     "line": 25,
     "function": null,
     "comment": "Member variable 'DiffDrive::imu_heading_offset' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "diff_drive.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 70,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.hpp",
+    "line": 133,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "event_manager.cpp",
+    "line": 285,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12493,7 +12981,7 @@
     "line": 37,
     "function": null,
     "comment": "Member variable 'Inertia::data' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12501,7 +12989,7 @@
     "line": 43,
     "function": null,
     "comment": "Member variable 'ThreeAxisGyro::data' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12509,7 +12997,399 @@
     "line": 50,
     "function": null,
     "comment": "Member variable 'Kobuki::kobuki_command' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Maximum number of function parameters: 6",
+    "file": "packet_finder.hpp",
+    "line": 109,
+    "function": null,
+    "comment": "Found function with 7 or more parameters.",
+    "tags": ["hicpp","code-standards","functions","parameters"]
+  },
+  {
+    "rule": "Do not use unions. Use a safe polymorphic abstraction, instead.",
+    "file": "kobuki.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "Found an union. Use polymorphic types instead.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","unions","polymorphism","type-safety"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "gp_input.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "gp_input.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "gp_input.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "gp_input.hpp",
+    "line": 91,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 122,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 125,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 126,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 128,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "firmware.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "three_axis_gyro.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "three_axis_gyro.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "three_axis_gyro.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "controller_info.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "controller_info.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "controller_info.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 90,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 92,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 110,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 111,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 122,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.hpp",
+    "line": 124,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.hpp",
+    "line": 160,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.hpp",
+    "line": 161,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.hpp",
+    "line": 218,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 302,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 386,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 387,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 388,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 389,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 402,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 403,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 494,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 495,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki.cpp",
+    "line": 577,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "Declarations should be at the smallest feasible scope.",
@@ -12517,7 +13397,7 @@
     "line": 228,
     "function": null,
     "comment": "The scope of the variable 'first_byte' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i ",
-    "tags": ["code-standards","jsf-av++","scope"]
+    "tags": ["code-standards","jsf-av-cpp","scope"]
   },
   {
     "rule": "Ensure that no expression is redundant.",
@@ -12525,7 +13405,7 @@
     "line": 230,
     "function": null,
     "comment": "Variable 'first_byte' is assigned a value that is never used.",
-    "tags": ["code-standards","hic++","redundancy"]
+    "tags": ["hicpp","code-standards","redundancy"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12533,7 +13413,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_stx' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12541,7 +13421,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_etx' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12549,7 +13429,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_length_field' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12557,7 +13437,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::variable_size_payload' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12565,7 +13445,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_max_payload' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12573,7 +13453,7 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_payload' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
     "rule": "All member variables of a class should be initialized after calling the constructor.",
@@ -12581,7 +13461,215 @@
     "line": 27,
     "function": null,
     "comment": "Member variable 'PacketFinderBase::size_checksum_field' is not initialized in the constructor.",
-    "tags": ["code-standards","google-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av++","misra-c++","hic++"]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
+  },
+  {
+    "rule": "Non-empty case blocks must not fall through to the next case.",
+    "file": "packet_finder.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "Non-empty case without a break statement.",
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
+  },
+  {
+    "rule": "Non-empty case blocks must not fall through to the next case.",
+    "file": "packet_finder.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "Non-empty case without a break statement.",
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
+  },
+  {
+    "rule": "Non-empty case blocks must not fall through to the next case.",
+    "file": "packet_finder.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "Non-empty case without a break statement.",
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
+  },
+  {
+    "rule": "Non-empty case blocks must not fall through to the next case.",
+    "file": "packet_finder.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "Non-empty case without a break statement.",
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
+  },
+  {
+    "rule": "Non-empty case blocks must not fall through to the next case.",
+    "file": "packet_finder.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "Non-empty case without a break statement.",
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 212,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 225,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 229,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 236,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 291,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 292,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 313,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 316,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 341,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 358,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "packet_finder.cpp",
+    "line": 365,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "initialisation.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "sigslots.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "simple_loop.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "simple_loop.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "Ensure that no expression is redundant.",
@@ -12589,7 +13677,7 @@
     "line": 160,
     "function": null,
     "comment": "Variable 'vx' is reassigned a value before the old one has been used.",
-    "tags": ["code-standards","hic++","redundancy"]
+    "tags": ["hicpp","code-standards","redundancy"]
   },
   {
     "rule": "Ensure that no expression is redundant.",
@@ -12597,7 +13685,135 @@
     "line": 161,
     "function": null,
     "comment": "Variable 'wz' is reassigned a value before the old one has been used.",
-    "tags": ["code-standards","hic++","redundancy"]
+    "tags": ["hicpp","code-standards","redundancy"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "velocity_commands.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "simple_keyop.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "simple_keyop.cpp",
+    "line": 381,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "simple_keyop.cpp",
+    "line": 389,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "version_info.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12605,7 +13821,7 @@
     "line": 68,
     "function": null,
     "comment": "The function 'enableVerbose' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12613,7 +13829,7 @@
     "line": 426,
     "function": null,
     "comment": "The function 'getAngularVelocity' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12621,7 +13837,7 @@
     "line": 509,
     "function": null,
     "comment": "The function 'getControllerGain' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12629,7 +13845,7 @@
     "line": 44,
     "function": null,
     "comment": "The function 'getVW' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12637,7 +13853,7 @@
     "line": 489,
     "function": null,
     "comment": "The function 'playSoundSequence' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12645,7 +13861,7 @@
     "line": 610,
     "function": null,
     "comment": "The function 'printSigSlotConnections' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12653,7 +13869,7 @@
     "line": 46,
     "function": null,
     "comment": "The function 'processStreamData' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12661,7 +13877,7 @@
     "line": 40,
     "function": null,
     "comment": "The function 'processVersionInfo' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12669,7 +13885,7 @@
     "line": 436,
     "function": null,
     "comment": "The function 'resetOdometry' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12677,7 +13893,7 @@
     "line": 494,
     "function": null,
     "comment": "The function 'setControllerGain' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12685,7 +13901,7 @@
     "line": 476,
     "function": null,
     "comment": "The function 'setDigitalOutput' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12693,7 +13909,7 @@
     "line": 480,
     "function": null,
     "comment": "The function 'setExternalPower' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -12701,7 +13917,7 @@
     "line": 471,
     "function": null,
     "comment": "The function 'setLed' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -12720,38 +13936,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "parameters.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "parameters.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "parameters.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "parameters.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "command.hpp",
     "line": null,
@@ -12766,38 +13950,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.hpp",
-    "line": null,
-    "function": null,
-    "comment": "int16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -12832,14 +13984,6 @@
     "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "version_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "inertia.hpp",
     "line": null,
@@ -12854,54 +13998,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "int16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "inertia.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -12920,46 +14016,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "controller_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "controller_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "controller_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "controller_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "controller_info.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "dock_ir.hpp",
     "line": null,
@@ -12974,62 +14030,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "dock_ir.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13048,62 +14048,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cliff.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "gp_input.hpp",
     "line": null,
@@ -13118,78 +14062,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "gp_input.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13208,54 +14080,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "short: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "three_axis_gyro.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "current.hpp",
     "line": null,
@@ -13270,62 +14094,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "current.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13344,78 +14112,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint8_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "eeprom.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "hardware.hpp",
     "line": null,
@@ -13432,102 +14128,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "hardware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "core_sensors.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "core_sensors.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "core_sensors.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "core_sensors.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint8_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "core_sensors.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "unique_device_id.hpp",
     "line": null,
@@ -13542,62 +14142,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "unique_device_id.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13614,14 +14158,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 10",
@@ -13629,55 +14165,7 @@
     "line": 60,
     "function": "deserialise",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "payloadBase: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "firmware.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13694,22 +14182,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "digital_output.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "digital_output.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13744,14 +14216,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "led_array.hpp",
     "line": null,
@@ -13784,78 +14248,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "short: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "TimeStamp: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "acceleration_limiter.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "battery.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "payload_headers.hpp",
     "line": null,
@@ -13870,22 +14262,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "payload_headers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Header: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "payload_headers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13904,38 +14280,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "payload_base.hpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "payload_base.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "payload_base.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "payload_base.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "version_info.cpp",
     "line": null,
@@ -13950,22 +14294,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "version_info.cpp",
-    "line": null,
-    "function": null,
-    "comment": "KobukiManager: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "version_info.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -13992,118 +14320,6 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "termios: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Slot: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Thread: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Pose2D: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Kobuki: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_keyop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "core_sensors.cpp",
     "line": null,
@@ -14120,92 +14336,12 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "core_sensors.cpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "core_sensors.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "core_sensors.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "BufferType: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "packet_finder.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "packet_finder.cpp",
     "line": 131,
     "function": "update",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 15",
@@ -14221,7 +14357,7 @@
     "line": 313,
     "function": "waitForPayloadAndEtx",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 10",
@@ -14229,31 +14365,7 @@
     "line": 225,
     "function": "waitForPayloadSize",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Data: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 10",
@@ -14261,7 +14373,7 @@
     "line": 43,
     "function": "update",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 15",
@@ -14272,236 +14384,12 @@
     "tags": ["metrics","ros","cyclomatic-complexity","kth"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "event_manager.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Vector3d: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "short: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Pose2D: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "uint16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "diff_drive.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "kobuki.cpp",
     "line": null,
     "function": null,
     "comment": "Comment ratio is above 30%",
     "tags": ["metrics","nasa-satc","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Parameters: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Command: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Vector3d: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Pose2D: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum coupling between objects: 5",
@@ -14512,20 +14400,12 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "kobuki.cpp",
     "line": 176,
     "function": "spin",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum cyclomatic complexity: 15",
@@ -14536,30 +14416,6 @@
     "tags": ["metrics","ros","cyclomatic-complexity","kth"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "DigitalOutput: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "kobuki.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "command.cpp",
     "line": null,
@@ -14574,38 +14430,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Data: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "DiffDrive: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum coupling between objects: 5",
@@ -14616,84 +14440,12 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum cyclomatic complexity: 10",
     "file": "command.cpp",
     "line": 210,
     "function": "serialise",
     "comment": "CC is greater than 10",
-    "tags": ["metrics","nasa-satc","his","cyclomatic-complexity"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "int16_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "PushAndPop: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Buffer: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "DigitalOutput: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "command.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -14712,30 +14464,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "battery.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "battery.cpp",
-    "line": null,
-    "function": null,
-    "comment": "uint8_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "battery.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "initialisation.cpp",
     "line": null,
@@ -14752,30 +14480,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "initialisation.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "initialisation.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Kobuki: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "initialisation.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "sigslots.cpp",
     "line": null,
@@ -14790,22 +14494,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "sigslots.cpp",
-    "line": null,
-    "function": null,
-    "comment": "KobukiManager: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "sigslots.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Minimum lines of comments: 20%",
@@ -14816,14 +14504,6 @@
     "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "velocity_commands.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "simple_loop.cpp",
     "line": null,
@@ -14838,21 +14518,5 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "simple_loop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "KobukiManager: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "simple_loop.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   }
 ]

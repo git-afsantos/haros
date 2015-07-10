@@ -77,7 +77,7 @@
     "line": 38,
     "function": null,
     "comment": "safety_controller.hpp:38:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh_priv  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Avoid non-const reference parameters. Use const or pointers.",
@@ -85,7 +85,7 @@
     "line": 38,
     "function": null,
     "comment": "safety_controller.hpp:38:  Is this a non-const reference? If so, make const or use a pointer: std::string& name  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "Do not use meaningless empty statements.",
@@ -600,12 +600,20 @@
     "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "nodelet.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
     "rule": "There shall be no unused variables.",
     "file": "nodelet.cpp",
     "line": 25,
     "function": null,
     "comment": "The function 'onInit' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -624,150 +632,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Time: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "RangeConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Duration: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Subscriber: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "EmptyConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Controller: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum coupling between objects: 5",
     "file": "safety_controller.hpp",
     "line": null,
@@ -776,46 +640,6 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Publisher: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "TwistPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "safety_controller.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Minimum lines of comments: 20%",
     "file": "library.cpp",
     "line": null,
@@ -824,155 +648,11 @@
     "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "RangeConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "NodeHandle: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "EmptyConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "library.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Minimum lines of comments: 20%",
     "file": "nodelet.cpp",
     "line": null,
     "function": null,
     "comment": "Comment ratio is below 20%",
     "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Thread: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "shared_ptr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Nodelet: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   }
 ]

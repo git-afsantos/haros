@@ -53,7 +53,7 @@
     "line": 57,
     "function": null,
     "comment": "cmd_vel_subscribers.hpp:57:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -293,7 +293,7 @@
     "line": 66,
     "function": null,
     "comment": "cmd_vel_mux_nodelet.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: yocs_cmd_vel_mux::reloadConfig &config  [runtime/references] [2]",
-    "tags": ["code-standards","google-cpp","parameters","const","pointers","references"]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
     "rule": "No line should exceed 80 characters in length.",
@@ -541,7 +541,7 @@
     "line": 44,
     "function": null,
     "comment": "cmd_vel_subscribers.cpp:44:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
-    "tags": ["code-standards","formatting","whitespace","google-cpp","functions","code-blocks"]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
     "rule": "The open curly brace should almost never be on its own line.",
@@ -901,7 +901,39 @@
     "line": 99,
     "function": null,
     "comment": "Variable 'nh' is assigned a value that is never used.",
-    "tags": ["code-standards","hic++","redundancy"]
+    "tags": ["hicpp","code-standards","redundancy"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "cmd_vel_mux_nodelet.cpp",
+    "line": 159,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "cmd_vel_subscribers.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -909,7 +941,7 @@
     "line": 30,
     "function": null,
     "comment": "The function 'cmdVelCallback' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -917,7 +949,7 @@
     "line": 74,
     "function": null,
     "comment": "The function 'onInit' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "There shall be no unused variables.",
@@ -925,7 +957,7 @@
     "line": 58,
     "function": null,
     "comment": "The function 'timerCallback' is never used.",
-    "tags": ["code-standards","variables","misra-c++","unused-variables"]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -944,126 +976,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Node: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Subscriber: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "bool: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Timer: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "vector: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "cmd_vel_mux_nodelet.hpp",
     "line": null,
@@ -1078,22 +990,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "CallbackType: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum coupling between objects: 5",
@@ -1104,134 +1000,6 @@
     "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Nodelet: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "reloadConfig: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Publisher: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "Server: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "CmdVelSubscribers: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "ConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "TimerEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "exceptions.hpp",
     "line": null,
@@ -1246,62 +1014,6 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "runtime_error: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "string: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "exceptions.hpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
     "rule": "Maximum lines of comments: 30%",
@@ -1320,30 +1032,6 @@
     "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_subscribers.cpp",
-    "line": null,
-    "function": null,
-    "comment": "Node: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_subscribers.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
     "rule": "Maximum lines of comments: 30%",
     "file": "cmd_vel_mux_nodelet.cpp",
     "line": null,
@@ -1358,85 +1046,5 @@
     "function": null,
     "comment": "Comment ratio is above 40%",
     "tags": ["metrics","uai","comments","comment-ratio"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "uint32_t: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "reloadConfig: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "ConstPtr: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
-  },
-  {
-    "rule": "Minimum weighted methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "TimerEvent: WMC < 1 (0)",
-    "tags": ["metrics","uai","ros","weighted-methods"]
-  },
-  {
-    "rule": "Minimum available methods per class: 1",
-    "file": "cmd_vel_mux_nodelet.cpp",
-    "line": null,
-    "function": null,
-    "comment": "MAC is less than 1",
-    "tags": ["metrics","nasa-satc","ros","available-methods"]
   }
 ]
