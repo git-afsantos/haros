@@ -19,7 +19,11 @@ plugins:
     cppcheck_plugin:
         type: analysis
         subtype: rules
+        needs:
+            - cppcheck_rules.xml
 plugins_test:
     cppcheck_plugin:
         type: analysis
         subtype: rules
+        needs:
+            - cppcheck_rules.xml

@@ -8,24 +8,28 @@ def plugin_run(ctx):
     os.makedirs(outdir)
     packages = ctx.getPackageInfo()
     rules = ruleIds()
+    args = ctx.getPluginArguments()
     for p in packages:
         files = ctx.getFileInfo(package_id=p[0])
         path = ctx.getPath(p[2])
-        process_package(ctx, p[0], path, outdir)
+        process_package(ctx, p[0], path, outdir, args)
         parse_xml(ctx, p[0], outdir, rules, files)
         # manual_checks(ctx, p[0], outdir, rules, files)
 
 
 
-def process_package(ctx, pid, path, outdir):
+def process_package(ctx, pid, path, outdir, args):
     outpath = os.path.join(outdir, str(pid) + ".xml")
     # simplepath = os.path.join(outdir, str(pid) + ".simple")
     outfile = open(outpath, "w")
     # simplified = open(simplepath, "w")
     FNULL = open(os.devnull, "w")
     try:
-        subprocess.call(["cppcheck", "--xml-version=2", "--enable=all", path],
-                stdout=FNULL, stderr=outfile)
+        cmd = ["cppcheck", "--xml-version=2", "--enable=all"]
+        if len(args) > 0:
+            cmd.append("--rule-file=" + args[0])
+        cmd.append(path)
+        subprocess.call(cmd, stdout=FNULL, stderr=outfile)
         # subprocess.call(["cppcheck", '--rule=.+',
                 # "--template={file}\n{message}", path],
                 # stdout=FNULL, stderr=simplified)
