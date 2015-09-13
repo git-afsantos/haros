@@ -90,7 +90,8 @@ class DbUpdater:
             print "[Network] Fetching e-mails for Git users (this may take a while)."
             git_names = set([i[1] for i in issues_info])
             self.git_users = extractor.getGitEmails(git_names)
-
+        else:
+            self.git_users = []
         i = 1
         for p in self.people:
             p.id = i
