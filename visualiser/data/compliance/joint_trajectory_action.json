@@ -1,0 +1,706 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "joint_trajectory_action.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:33:  Include 'actionlib/server/action_server.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "joint_trajectory_action.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:36:  Include 'pr2_controllers_msgs/JointTrajectoryAction.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:42:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:43:  private: should be indented +1 space inside class JointTrajectoryExecuter  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:44:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:46:  public: should be indented +1 space inside class JointTrajectoryExecuter  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:47:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:47:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:55:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:66:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:67:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:71:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:87:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:95:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:101:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:103:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:111:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:112:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:122:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:128:  private: should be indented +1 space inside class JointTrajectoryExecuter  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:129:  Do not leave a blank line after 'private:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:130:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:131:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:141:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:150:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:155:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 158,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:158:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:160:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:162:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:162:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 163,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:163:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:165:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:170:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 184,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:184:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:187:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:216:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 218,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:218:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 243,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:243:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:244:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 248,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:248:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 249,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:249:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 250,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:250:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 258,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:258:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 262,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:262:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 268,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:268:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 270,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:270:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 276,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:276:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 280,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:280:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 288,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:288:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 293,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:293:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 294,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:294:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 297,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:297:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 298,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:298:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 306,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:306:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 313,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:313:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 317,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:317:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 318,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:318:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 321,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:321:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 322,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:322:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 327,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:327:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 334,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:334:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 336,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:336:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:244:  Add #include <map> for map<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:244:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "joint_trajectory_action.cpp:242:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 267,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 275,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 297,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 333,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 215,
+    "function": null,
+    "comment": "The function 'cancelCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "joint_trajectory_action.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "The function 'goalCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "joint_trajectory_action.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "joint_trajectory_action.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, JointTrajectoryExecuter, 12",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "joint_trajectory_action.cpp",
+    "line": 249,
+    "function": "controllerStateCB",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "joint_trajectory_action.cpp",
+    "line": 249,
+    "function": "controllerStateCB",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  }
+]

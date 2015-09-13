@@ -1,0 +1,514 @@
+[
+  {
+    "rule": "All headers must be protected against multiple inclusion by",
+    "file": "controller_provider.h",
+    "line": null,
+    "function": null,
+    "comment": "controller_provider.h:0:  No #ifndef header guard found.  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","google-cpp","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller_provider.h",
+    "line": 49,
+    "function": null,
+    "comment": "controller_provider.h:49:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller_provider.h",
+    "line": 54,
+    "function": null,
+    "comment": "controller_provider.h:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "controller_provider.h",
+    "line": 55,
+    "function": null,
+    "comment": "controller_provider.h:55:  public: should be indented +1 space inside class ControllerProvider  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller_provider.h",
+    "line": 56,
+    "function": null,
+    "comment": "controller_provider.h:56:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller_provider.h",
+    "line": 57,
+    "function": null,
+    "comment": "controller_provider.h:57:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller_provider.h",
+    "line": 59,
+    "function": null,
+    "comment": "controller_provider.h:59:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "controller_provider.h",
+    "line": 59,
+    "function": null,
+    "comment": "controller_provider.h:59:  Is this a non-const reference? If so, make const or use a pointer: ControllerType*& c  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller_provider.h",
+    "line": 60,
+    "function": null,
+    "comment": "controller_provider.h:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller_provider.h",
+    "line": 62,
+    "function": null,
+    "comment": "controller_provider.h:62:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller_provider.h",
+    "line": 66,
+    "function": null,
+    "comment": "controller_provider.h:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "controller_provider.h",
+    "line": 74,
+    "function": null,
+    "comment": "controller_provider.h:74:  private: should be indented +1 space inside class ControllerProvider  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller_provider.h",
+    "line": 75,
+    "function": null,
+    "comment": "controller_provider.h:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "controller_provider.h",
+    "line": 79,
+    "function": null,
+    "comment": "controller_provider.h:79:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "controller_provider.h",
+    "line": 81,
+    "function": null,
+    "comment": "controller_provider.h:81:  Namespace should be terminated with '// namespace pr2_controller_interface'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "controller_provider.h",
+    "line": 75,
+    "function": null,
+    "comment": "controller_provider.h:75:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "All headers must be protected against multiple inclusion by",
+    "file": "controller.h",
+    "line": null,
+    "function": null,
+    "comment": "controller.h:0:  No #ifndef header guard found.  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","google-cpp","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "controller.h",
+    "line": 46,
+    "function": null,
+    "comment": "controller.h:46:  Include 'pr2_mechanism_model/robot.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "controller.h",
+    "line": 47,
+    "function": null,
+    "comment": "controller.h:47:  Include 'pr2_controller_interface/controller_provider.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "controller.h",
+    "line": 48,
+    "function": null,
+    "comment": "controller.h:48:  Include 'controller_interface/controller.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 51,
+    "function": null,
+    "comment": "controller.h:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 53,
+    "function": null,
+    "comment": "controller.h:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 54,
+    "function": null,
+    "comment": "controller.h:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "controller.h",
+    "line": 55,
+    "function": null,
+    "comment": "controller.h:55:  public: should be indented +1 space inside class Controller  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 58,
+    "function": null,
+    "comment": "controller.h:58:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 59,
+    "function": null,
+    "comment": "controller.h:59:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 62,
+    "function": null,
+    "comment": "controller.h:62:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "controller.h",
+    "line": 62,
+    "function": null,
+    "comment": "controller.h:62:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 65,
+    "function": null,
+    "comment": "controller.h:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "controller.h",
+    "line": 66,
+    "function": null,
+    "comment": "controller.h:66:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 68,
+    "function": null,
+    "comment": "controller.h:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 71,
+    "function": null,
+    "comment": "controller.h:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "controller.h",
+    "line": 72,
+    "function": null,
+    "comment": "controller.h:72:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 87,
+    "function": null,
+    "comment": "controller.h:87:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "controller.h",
+    "line": 87,
+    "function": null,
+    "comment": "controller.h:87:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 90,
+    "function": null,
+    "comment": "controller.h:90:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "controller.h",
+    "line": 90,
+    "function": null,
+    "comment": "controller.h:90:  Is this a non-const reference? If so, make const or use a pointer: ControllerType*& c  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 91,
+    "function": null,
+    "comment": "controller.h:91:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 92,
+    "function": null,
+    "comment": "controller.h:92:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "controller.h",
+    "line": 96,
+    "function": null,
+    "comment": "controller.h:96:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 96,
+    "function": null,
+    "comment": "controller.h:96:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "controller.h",
+    "line": 102,
+    "function": null,
+    "comment": "controller.h:102:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "controller.h",
+    "line": 102,
+    "function": null,
+    "comment": "controller.h:102:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 102,
+    "function": null,
+    "comment": "controller.h:102:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 103,
+    "function": null,
+    "comment": "controller.h:103:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 111,
+    "function": null,
+    "comment": "controller.h:111:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 116,
+    "function": null,
+    "comment": "controller.h:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 122,
+    "function": null,
+    "comment": "controller.h:122:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 124,
+    "function": null,
+    "comment": "controller.h:124:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "controller.h",
+    "line": 129,
+    "function": null,
+    "comment": "controller.h:129:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 135,
+    "function": null,
+    "comment": "controller.h:135:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "controller.h",
+    "line": 137,
+    "function": null,
+    "comment": "controller.h:137:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "controller.h",
+    "line": 142,
+    "function": null,
+    "comment": "controller.h:142:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "controller.h",
+    "line": 146,
+    "function": null,
+    "comment": "controller.h:146:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "controller.h",
+    "line": 146,
+    "function": null,
+    "comment": "controller.h:146:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 147,
+    "function": null,
+    "comment": "controller.h:147:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "controller.h",
+    "line": 153,
+    "function": null,
+    "comment": "controller.h:153:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "controller.h",
+    "line": 166,
+    "function": null,
+    "comment": "controller.h:166:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "controller.h",
+    "line": 166,
+    "function": null,
+    "comment": "controller.h:166:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "controller.h",
+    "line": 168,
+    "function": null,
+    "comment": "controller.h:168:  private: should be indented +1 space inside class Controller  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "controller.h",
+    "line": 172,
+    "function": null,
+    "comment": "controller.h:172:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "controller.h",
+    "line": 175,
+    "function": null,
+    "comment": "controller.h:175:  Namespace should be terminated with '// namespace pr2_controller_interface'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "controller.h",
+    "line": 164,
+    "function": null,
+    "comment": "controller.h:164:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "controller.h",
+    "line": 164,
+    "function": null,
+    "comment": "controller.h:164:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  }
+]

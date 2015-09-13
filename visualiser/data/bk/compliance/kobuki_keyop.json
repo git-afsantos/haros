@@ -1,0 +1,826 @@
+[
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "keyop_core.hpp:49:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "keyop_core.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "keyop_core.hpp:50:  Include 'ecl/threads.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "keyop_core.hpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "keyop_core.hpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.hpp",
+    "line": 70,
+    "function": null,
+    "comment": "keyop_core.hpp:70:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "keyop_core.hpp",
+    "line": 71,
+    "function": null,
+    "comment": "keyop_core.hpp:71:  public: should be indented +1 space inside class KeyOpCore  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "keyop_core.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "keyop_core.hpp:84:  private: should be indented +1 space inside class KeyOpCore  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "keyop_core.hpp:123:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "keyop_core.hpp",
+    "line": 96,
+    "function": null,
+    "comment": "keyop_core.hpp:96:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "keyop_core.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "keyop_core.cpp:42:  Include 'ecl/time.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "keyop_core.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "keyop_core.cpp:43:  Include 'ecl/exceptions.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "keyop_core.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "keyop_core.cpp:45:  Include 'kobuki_msgs/MotorPower.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "keyop_core.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "keyop_core.cpp:62:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "keyop_core.cpp:62:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "keyop_core.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "keyop_core.cpp:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "keyop_core.cpp:75:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "keyop_core.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "keyop_core.cpp:87:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "keyop_core.cpp:101:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "keyop_core.cpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "keyop_core.cpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "keyop_core.cpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "keyop_core.cpp:109:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "keyop_core.cpp:115:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "keyop_core.cpp:131:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "keyop_core.cpp:138:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "keyop_core.cpp:140:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "keyop_core.cpp:145:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "keyop_core.cpp:149:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "keyop_core.cpp:150:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "keyop_core.cpp:153:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 157,
+    "function": null,
+    "comment": "keyop_core.cpp:157:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "keyop_core.cpp:166:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "keyop_core.cpp:170:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "keyop_core.cpp:171:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 194,
+    "function": null,
+    "comment": "keyop_core.cpp:194:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 198,
+    "function": null,
+    "comment": "keyop_core.cpp:198:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 200,
+    "function": null,
+    "comment": "keyop_core.cpp:200:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 201,
+    "function": null,
+    "comment": "keyop_core.cpp:201:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "keyop_core.cpp:202:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "keyop_core.cpp:206:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 207,
+    "function": null,
+    "comment": "keyop_core.cpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "keyop_core.cpp:216:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 219,
+    "function": null,
+    "comment": "keyop_core.cpp:219:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 220,
+    "function": null,
+    "comment": "keyop_core.cpp:220:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 239,
+    "function": null,
+    "comment": "keyop_core.cpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 259,
+    "function": null,
+    "comment": "keyop_core.cpp:259:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 261,
+    "function": null,
+    "comment": "keyop_core.cpp:261:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "keyop_core.cpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 283,
+    "function": null,
+    "comment": "keyop_core.cpp:283:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 292,
+    "function": null,
+    "comment": "keyop_core.cpp:292:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 352,
+    "function": null,
+    "comment": "keyop_core.cpp:352:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 359,
+    "function": null,
+    "comment": "keyop_core.cpp:359:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 360,
+    "function": null,
+    "comment": "keyop_core.cpp:360:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 366,
+    "function": null,
+    "comment": "keyop_core.cpp:366:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 367,
+    "function": null,
+    "comment": "keyop_core.cpp:367:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 379,
+    "function": null,
+    "comment": "keyop_core.cpp:379:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 387,
+    "function": null,
+    "comment": "keyop_core.cpp:387:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 394,
+    "function": null,
+    "comment": "keyop_core.cpp:394:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 395,
+    "function": null,
+    "comment": "keyop_core.cpp:395:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 404,
+    "function": null,
+    "comment": "keyop_core.cpp:404:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 406,
+    "function": null,
+    "comment": "keyop_core.cpp:406:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 408,
+    "function": null,
+    "comment": "keyop_core.cpp:408:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 411,
+    "function": null,
+    "comment": "keyop_core.cpp:411:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 413,
+    "function": null,
+    "comment": "keyop_core.cpp:413:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 414,
+    "function": null,
+    "comment": "keyop_core.cpp:414:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 423,
+    "function": null,
+    "comment": "keyop_core.cpp:423:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 425,
+    "function": null,
+    "comment": "keyop_core.cpp:425:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 427,
+    "function": null,
+    "comment": "keyop_core.cpp:427:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 430,
+    "function": null,
+    "comment": "keyop_core.cpp:430:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 432,
+    "function": null,
+    "comment": "keyop_core.cpp:432:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 433,
+    "function": null,
+    "comment": "keyop_core.cpp:433:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 442,
+    "function": null,
+    "comment": "keyop_core.cpp:442:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 444,
+    "function": null,
+    "comment": "keyop_core.cpp:444:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 446,
+    "function": null,
+    "comment": "keyop_core.cpp:446:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 449,
+    "function": null,
+    "comment": "keyop_core.cpp:449:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 451,
+    "function": null,
+    "comment": "keyop_core.cpp:451:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 452,
+    "function": null,
+    "comment": "keyop_core.cpp:452:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 461,
+    "function": null,
+    "comment": "keyop_core.cpp:461:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 463,
+    "function": null,
+    "comment": "keyop_core.cpp:463:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 465,
+    "function": null,
+    "comment": "keyop_core.cpp:465:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "keyop_core.cpp",
+    "line": 468,
+    "function": null,
+    "comment": "keyop_core.cpp:468:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 470,
+    "function": null,
+    "comment": "keyop_core.cpp:470:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 471,
+    "function": null,
+    "comment": "keyop_core.cpp:471:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 477,
+    "function": null,
+    "comment": "keyop_core.cpp:477:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 479,
+    "function": null,
+    "comment": "keyop_core.cpp:479:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "keyop_core.cpp",
+    "line": 484,
+    "function": null,
+    "comment": "keyop_core.cpp:484:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "keyop_core.cpp",
+    "line": 485,
+    "function": null,
+    "comment": "keyop_core.cpp:485:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "keyop_core.cpp",
+    "line": 490,
+    "function": null,
+    "comment": "keyop_core.cpp:490:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "main.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "main.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "main.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "main.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "main.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "main.cpp:61:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "main.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "main.cpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "keyop_core.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "keyop_core.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "main.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "keyop_core.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "keyop_core.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "keyop_core.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, KeyOpCore, 9",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "main.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "main.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

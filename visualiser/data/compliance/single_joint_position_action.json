@@ -1,0 +1,394 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:37:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:38:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:40:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:41:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:42:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "single_joint_position_action.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:43:  Found C system header after C++ system header. Should be: single_joint_position_action.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:46:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "single_joint_position_action.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:47:  private: should be indented +1 space inside class SingleJointPositionNode  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "single_joint_position_action.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:50:  public: should be indented +1 space inside class SingleJointPositionNode  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "single_joint_position_action.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:51:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:75:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:79:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:85:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "single_joint_position_action.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:89:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:91:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:96:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:97:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:104:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:123:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:125:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "single_joint_position_action.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:150:  private: should be indented +1 space inside class SingleJointPositionNode  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:167:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:172:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:175:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:177:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:179:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "single_joint_position_action.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:179:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 180,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:180:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 182,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:182:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:187:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 201,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:201:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 203,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 215,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:215:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:216:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "single_joint_position_action.cpp",
+    "line": 231,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:231:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 232,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:232:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "single_joint_position_action.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:237:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "single_joint_position_action.cpp",
+    "line": 241,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:241:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "single_joint_position_action.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "single_joint_position_action.cpp:151:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "single_joint_position_action.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "single_joint_position_action.cpp",
+    "line": 200,
+    "function": null,
+    "comment": "The function 'cancelCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "single_joint_position_action.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "The function 'goalCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "single_joint_position_action.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, SingleJointPositionNode, 11",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  }
+]

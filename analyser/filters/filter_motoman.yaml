@@ -1,0 +1,19 @@
+%YAML 1.1
+# Filter for ROS distribution
+---
+packages:
+    motoman:
+        - motoman
+        - motoman_driver
+    industrial_core:
+        - industrial_robot_client
+        - industrial_utils
+        - simple_message
+meta:
+    motoman:
+        commits:        275
+        contributors:   14
+    industrial_core:
+        commits:        212
+        contributors:   12
+

@@ -1,0 +1,2074 @@
+[
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "power_monitor.h",
+    "line": 35,
+    "function": null,
+    "comment": "power_monitor.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_POWER_MONITOR_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "power_monitor.h",
+    "line": 35,
+    "function": null,
+    "comment": "power_monitor.h:35:  #ifndef header guard has wrong style, please use: POWER_MONITOR_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "power_monitor.h",
+    "line": 109,
+    "function": null,
+    "comment": "power_monitor.h:109:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_POWER_MONITOR_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "power_monitor.h",
+    "line": 38,
+    "function": null,
+    "comment": "power_monitor.h:38:  Include 'cstdlib' instead of 'stdlib.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "power_monitor.h",
+    "line": 39,
+    "function": null,
+    "comment": "power_monitor.h:39:  Include 'boost/thread/mutex.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "power_monitor.h",
+    "line": 42,
+    "function": null,
+    "comment": "power_monitor.h:42:  Include 'dynamic_reconfigure/server.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "power_monitor.h",
+    "line": 50,
+    "function": null,
+    "comment": "power_monitor.h:50:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "power_monitor.h",
+    "line": 52,
+    "function": null,
+    "comment": "power_monitor.h:52:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.h",
+    "line": 60,
+    "function": null,
+    "comment": "power_monitor.h:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_monitor.h",
+    "line": 61,
+    "function": null,
+    "comment": "power_monitor.h:61:  public: should be indented +1 space inside class PowerMonitor  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 66,
+    "function": null,
+    "comment": "power_monitor.h:66:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 67,
+    "function": null,
+    "comment": "power_monitor.h:67:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 68,
+    "function": null,
+    "comment": "power_monitor.h:68:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "power_monitor.h",
+    "line": 68,
+    "function": null,
+    "comment": "power_monitor.h:68:  Is this a non-const reference? If so, make const or use a pointer: power_monitor::PowerMonitorConfig& config  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_monitor.h",
+    "line": 70,
+    "function": null,
+    "comment": "power_monitor.h:70:  private: should be indented +1 space inside class PowerMonitor  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_monitor.h",
+    "line": 83,
+    "function": null,
+    "comment": "power_monitor.h:83:  private: should be indented +1 space inside class PowerMonitor  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 84,
+    "function": null,
+    "comment": "power_monitor.h:84:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 90,
+    "function": null,
+    "comment": "power_monitor.h:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 92,
+    "function": null,
+    "comment": "power_monitor.h:92:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.h",
+    "line": 93,
+    "function": null,
+    "comment": "power_monitor.h:93:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "power_monitor.h",
+    "line": 107,
+    "function": null,
+    "comment": "power_monitor.h:107:  Namespace should be terminated with '// namespace power_monitor'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_monitor.h",
+    "line": 93,
+    "function": null,
+    "comment": "power_monitor.h:93:  Add #include <map> for map<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_monitor.h",
+    "line": 92,
+    "function": null,
+    "comment": "power_monitor.h:92:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "observation.h",
+    "line": 35,
+    "function": null,
+    "comment": "observation.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_OBSERVATION_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "observation.h",
+    "line": 35,
+    "function": null,
+    "comment": "observation.h:35:  #ifndef header guard has wrong style, please use: OBSERVATION_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "observation.h",
+    "line": 109,
+    "function": null,
+    "comment": "observation.h:109:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_OBSERVATION_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "observation.h",
+    "line": 38,
+    "function": null,
+    "comment": "observation.h:38:  Include 'cstdlib' instead of 'stdlib.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "observation.h",
+    "line": 44,
+    "function": null,
+    "comment": "observation.h:44:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.h",
+    "line": 52,
+    "function": null,
+    "comment": "observation.h:52:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "observation.h",
+    "line": 53,
+    "function": null,
+    "comment": "observation.h:53:  public: should be indented +1 space inside class PowerObservation  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.h",
+    "line": 55,
+    "function": null,
+    "comment": "observation.h:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "observation.h",
+    "line": 69,
+    "function": null,
+    "comment": "observation.h:69:  private: should be indented +1 space inside class PowerObservation  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.h",
+    "line": 79,
+    "function": null,
+    "comment": "observation.h:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "observation.h",
+    "line": 80,
+    "function": null,
+    "comment": "observation.h:80:  public: should be indented +1 space inside class BatteryObservation  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.h",
+    "line": 81,
+    "function": null,
+    "comment": "observation.h:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.h",
+    "line": 82,
+    "function": null,
+    "comment": "observation.h:82:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "observation.h",
+    "line": 96,
+    "function": null,
+    "comment": "observation.h:96:  private: should be indented +1 space inside class BatteryObservation  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "observation.h",
+    "line": 107,
+    "function": null,
+    "comment": "observation.h:107:  Namespace should be terminated with '// namespace power_monitor'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "observation.h",
+    "line": 72,
+    "function": null,
+    "comment": "observation.h:72:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "power_state_estimator.h",
+    "line": 35,
+    "function": null,
+    "comment": "power_state_estimator.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_POWER_STATE_ESTIMATOR_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "power_state_estimator.h",
+    "line": 35,
+    "function": null,
+    "comment": "power_state_estimator.h:35:  #ifndef header guard has wrong style, please use: POWER_STATE_ESTIMATOR_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "power_state_estimator.h",
+    "line": 125,
+    "function": null,
+    "comment": "power_state_estimator.h:125:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_POWER_STATE_ESTIMATOR_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "power_state_estimator.h",
+    "line": 38,
+    "function": null,
+    "comment": "power_state_estimator.h:38:  Include 'cstdlib' instead of 'stdlib.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "power_state_estimator.h",
+    "line": 42,
+    "function": null,
+    "comment": "power_state_estimator.h:42:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 44,
+    "function": null,
+    "comment": "power_state_estimator.h:44:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 47,
+    "function": null,
+    "comment": "power_state_estimator.h:47:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 56,
+    "function": null,
+    "comment": "power_state_estimator.h:56:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_state_estimator.h",
+    "line": 57,
+    "function": null,
+    "comment": "power_state_estimator.h:57:  public: should be indented +1 space inside class PowerStateEstimator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_state_estimator.h",
+    "line": 70,
+    "function": null,
+    "comment": "power_state_estimator.h:70:  protected: should be indented +1 space inside class PowerStateEstimator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 78,
+    "function": null,
+    "comment": "power_state_estimator.h:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_state_estimator.h",
+    "line": 79,
+    "function": null,
+    "comment": "power_state_estimator.h:79:  public: should be indented +1 space inside class FuelGaugePowerStateEstimator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 88,
+    "function": null,
+    "comment": "power_state_estimator.h:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_state_estimator.h",
+    "line": 89,
+    "function": null,
+    "comment": "power_state_estimator.h:89:  public: should be indented +1 space inside class AdvancedPowerStateEstimator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.h",
+    "line": 91,
+    "function": null,
+    "comment": "power_state_estimator.h:91:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "power_state_estimator.h",
+    "line": 109,
+    "function": null,
+    "comment": "power_state_estimator.h:109:  private: should be indented +1 space inside class AdvancedPowerStateEstimator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.h",
+    "line": 112,
+    "function": null,
+    "comment": "power_state_estimator.h:112:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "power_state_estimator.h",
+    "line": 112,
+    "function": null,
+    "comment": "power_state_estimator.h:112:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "power_state_estimator.h",
+    "line": 112,
+    "function": null,
+    "comment": "power_state_estimator.h:112:  Is this a non-const reference? If so, make const or use a pointer: std::vector<std::string>& tokens  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "power_state_estimator.h",
+    "line": 114,
+    "function": null,
+    "comment": "power_state_estimator.h:114:  Is this a non-const reference? If so, make const or use a pointer: std::vector<LogRecord>& log  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "power_state_estimator.h",
+    "line": 123,
+    "function": null,
+    "comment": "power_state_estimator.h:123:  Namespace should be terminated with '// namespace power_monitor'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_state_estimator.h",
+    "line": 120,
+    "function": null,
+    "comment": "power_state_estimator.h:120:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_state_estimator.h",
+    "line": 118,
+    "function": null,
+    "comment": "power_state_estimator.h:118:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "power_monitor.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "power_monitor.cpp:35:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "power_monitor.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "power_monitor.cpp:37:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "power_monitor.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "power_monitor.cpp:38:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "power_monitor.cpp:42:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "power_monitor.cpp:62:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "power_monitor.cpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "power_monitor.cpp:71:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "power_monitor.cpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "power_monitor.cpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "power_monitor.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "power_monitor.cpp:79:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "power_monitor.cpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "power_monitor.cpp:83:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "power_monitor.cpp:84:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "power_monitor.cpp:85:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "power_monitor.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "power_monitor.cpp:91:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "power_monitor.cpp:95:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "power_monitor.cpp:96:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "power_monitor.cpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "power_monitor.cpp:101:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "power_monitor.cpp:108:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "power_monitor.cpp:110:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "power_monitor.cpp:117:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "power_monitor.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "power_monitor.cpp:121:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "power_monitor.cpp:126:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "power_monitor.cpp:127:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "power_monitor.cpp:130:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "power_monitor.cpp:134:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "power_monitor.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "power_monitor.cpp:143:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "power_monitor.cpp:145:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "power_monitor.cpp:156:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "power_monitor.cpp:160:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "power_monitor.cpp:161:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "power_monitor.cpp:167:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 193,
+    "function": null,
+    "comment": "power_monitor.cpp:193:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "power_monitor.cpp:195:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 203,
+    "function": null,
+    "comment": "power_monitor.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 205,
+    "function": null,
+    "comment": "power_monitor.cpp:205:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "power_monitor.cpp:206:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "power_monitor.cpp:216:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "power_monitor.cpp:217:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 218,
+    "function": null,
+    "comment": "power_monitor.cpp:218:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 219,
+    "function": null,
+    "comment": "power_monitor.cpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 220,
+    "function": null,
+    "comment": "power_monitor.cpp:220:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 228,
+    "function": null,
+    "comment": "power_monitor.cpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 234,
+    "function": null,
+    "comment": "power_monitor.cpp:234:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 239,
+    "function": null,
+    "comment": "power_monitor.cpp:239:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "power_monitor.cpp:242:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 248,
+    "function": null,
+    "comment": "power_monitor.cpp:248:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_monitor.cpp",
+    "line": 250,
+    "function": null,
+    "comment": "power_monitor.cpp:250:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_monitor.cpp",
+    "line": 265,
+    "function": null,
+    "comment": "power_monitor.cpp:265:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_monitor.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "power_monitor.cpp:242:  Add #include <map> for map<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_monitor.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "power_monitor.cpp:142:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_monitor.cpp",
+    "line": 159,
+    "function": null,
+    "comment": "power_monitor.cpp:159:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "observation.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "observation.cpp:35:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "observation.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "observation.cpp:37:  Found C system header after other header. Should be: observation.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "observation.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "observation.cpp:37:  Include 'cstdlib' instead of 'stdlib.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "observation.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "observation.cpp:38:  Found C++ system header after other header. Should be: observation.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "observation.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "observation.cpp:39:  Found C++ system header after other header. Should be: observation.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "observation.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "observation.cpp:43:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "observation.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "observation.cpp:44:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "observation.cpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "observation.cpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "observation.cpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "observation.cpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "observation.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "observation.cpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "observation.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "observation.cpp:91:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "observation.cpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "observation.cpp:112:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "observation.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "observation.cpp:145:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "observation.cpp:151:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "observation.cpp:176:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "observation.cpp:177:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "observation.cpp:178:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "observation.cpp:179:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 180,
+    "function": null,
+    "comment": "observation.cpp:180:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 181,
+    "function": null,
+    "comment": "observation.cpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 186,
+    "function": null,
+    "comment": "observation.cpp:186:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "observation.cpp:187:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "observation.cpp:188:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "observation.cpp:189:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "observation.cpp:190:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "observation.cpp:191:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "observation.cpp",
+    "line": 192,
+    "function": null,
+    "comment": "observation.cpp:192:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "observation.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "observation.cpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "observation.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "observation.cpp:166:  Add #include <algorithm> for max  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "observation.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "observation.cpp:54:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "power_state_estimator.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "power_state_estimator.cpp:35:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "power_state_estimator.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "power_state_estimator.cpp:37:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "power_state_estimator.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "power_state_estimator.cpp:38:  Include 'cstdlib' instead of 'stdlib.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "power_state_estimator.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "power_state_estimator.cpp:41:  Found C system header after C++ system header. Should be: power_state_estimator.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "power_state_estimator.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "power_state_estimator.cpp:42:  Found C system header after C++ system header. Should be: power_state_estimator.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "power_state_estimator.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "power_state_estimator.cpp:43:  Found C system header after C++ system header. Should be: power_state_estimator.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "power_state_estimator.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "power_state_estimator.cpp:47:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "power_state_estimator.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "power_state_estimator.cpp:48:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "power_state_estimator.cpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "power_state_estimator.cpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "power_state_estimator.cpp:66:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "power_state_estimator.cpp:67:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "power_state_estimator.cpp:70:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "power_state_estimator.cpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "power_state_estimator.cpp:80:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "power_state_estimator.cpp:83:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "power_state_estimator.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "power_state_estimator.cpp:95:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "power_state_estimator.cpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "power_state_estimator.cpp:123:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "power_state_estimator.cpp:124:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "power_state_estimator.cpp:132:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "power_state_estimator.cpp:135:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "power_state_estimator.cpp:137:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "power_state_estimator.cpp:141:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "power_state_estimator.cpp:142:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "power_state_estimator.cpp:144:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "power_state_estimator.cpp:145:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "power_state_estimator.cpp:156:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "power_state_estimator.cpp:160:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "power_state_estimator.cpp:164:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "power_state_estimator.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "power_state_estimator.cpp:164:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "power_state_estimator.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "power_state_estimator.cpp:166:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "power_state_estimator.cpp:167:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "power_state_estimator.cpp:171:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "power_state_estimator.cpp:172:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 173,
+    "function": null,
+    "comment": "power_state_estimator.cpp:173:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "power_state_estimator.cpp:175:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 182,
+    "function": null,
+    "comment": "power_state_estimator.cpp:182:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "power_state_estimator.cpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "power_state_estimator.cpp:188:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 197,
+    "function": null,
+    "comment": "power_state_estimator.cpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "power_state_estimator.cpp:206:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 207,
+    "function": null,
+    "comment": "power_state_estimator.cpp:207:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 213,
+    "function": null,
+    "comment": "power_state_estimator.cpp:213:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 224,
+    "function": null,
+    "comment": "power_state_estimator.cpp:224:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 226,
+    "function": null,
+    "comment": "power_state_estimator.cpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 228,
+    "function": null,
+    "comment": "power_state_estimator.cpp:228:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 229,
+    "function": null,
+    "comment": "power_state_estimator.cpp:229:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 230,
+    "function": null,
+    "comment": "power_state_estimator.cpp:230:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 231,
+    "function": null,
+    "comment": "power_state_estimator.cpp:231:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 232,
+    "function": null,
+    "comment": "power_state_estimator.cpp:232:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 233,
+    "function": null,
+    "comment": "power_state_estimator.cpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 234,
+    "function": null,
+    "comment": "power_state_estimator.cpp:234:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 241,
+    "function": null,
+    "comment": "power_state_estimator.cpp:241:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 249,
+    "function": null,
+    "comment": "power_state_estimator.cpp:249:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 250,
+    "function": null,
+    "comment": "power_state_estimator.cpp:250:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 254,
+    "function": null,
+    "comment": "power_state_estimator.cpp:254:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 260,
+    "function": null,
+    "comment": "power_state_estimator.cpp:260:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 264,
+    "function": null,
+    "comment": "power_state_estimator.cpp:264:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "power_state_estimator.cpp:273:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 281,
+    "function": null,
+    "comment": "power_state_estimator.cpp:281:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 290,
+    "function": null,
+    "comment": "power_state_estimator.cpp:290:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 293,
+    "function": null,
+    "comment": "power_state_estimator.cpp:293:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 294,
+    "function": null,
+    "comment": "power_state_estimator.cpp:294:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "power_state_estimator.cpp",
+    "line": 299,
+    "function": null,
+    "comment": "power_state_estimator.cpp:299:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 300,
+    "function": null,
+    "comment": "power_state_estimator.cpp:300:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 306,
+    "function": null,
+    "comment": "power_state_estimator.cpp:306:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "power_state_estimator.cpp",
+    "line": 307,
+    "function": null,
+    "comment": "power_state_estimator.cpp:307:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "power_state_estimator.cpp",
+    "line": 307,
+    "function": null,
+    "comment": "power_state_estimator.cpp:307:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_state_estimator.cpp",
+    "line": 269,
+    "function": null,
+    "comment": "power_state_estimator.cpp:269:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_state_estimator.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "power_state_estimator.cpp:146:  Add #include <algorithm> for min  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "power_state_estimator.cpp",
+    "line": 220,
+    "function": null,
+    "comment": "power_state_estimator.cpp:220:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "observation.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_monitor.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_monitor.cpp",
+    "line": 173,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_monitor.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_monitor.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_monitor.cpp",
+    "line": 264,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not write code that expects floating point calculations to yield exact results.",
+    "file": "power_monitor.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "Found float equality check.",
+    "tags": ["hicpp","code-standards","floats","floating-point"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_state_estimator.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_state_estimator.cpp",
+    "line": 211,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_state_estimator.cpp",
+    "line": 262,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_state_estimator.cpp",
+    "line": 278,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "power_state_estimator.cpp",
+    "line": 290,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Wrap use of the C Standard Library.",
+    "file": "power_state_estimator.cpp",
+    "line": 294,
+    "function": null,
+    "comment": "Found use of errno.",
+    "tags": ["hicpp","code-standards","c","libraries","c-standard-library","misra-cpp"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "observation.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "The function 'getCurrent' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "power_monitor.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, PowerMonitor, 7",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "observation.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "observation.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "power_state_estimator.cpp",
+    "line": 249,
+    "function": "saveObservation",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  }
+]

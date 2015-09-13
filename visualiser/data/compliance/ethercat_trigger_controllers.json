@@ -1,0 +1,1962 @@
+[
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "projector_controller.h",
+    "line": 35,
+    "function": null,
+    "comment": "projector_controller.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_PROJECTOR_CONTROLLER_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "projector_controller.h",
+    "line": 83,
+    "function": null,
+    "comment": "projector_controller.h:83:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_PROJECTOR_CONTROLLER_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "projector_controller.h",
+    "line": 39,
+    "function": null,
+    "comment": "projector_controller.h:39:  Include 'pr2_controller_interface/controller.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "projector_controller.h",
+    "line": 43,
+    "function": null,
+    "comment": "projector_controller.h:43:  Include 'boost/scoped_ptr.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.h",
+    "line": 46,
+    "function": null,
+    "comment": "projector_controller.h:46:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.h",
+    "line": 48,
+    "function": null,
+    "comment": "projector_controller.h:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "projector_controller.h",
+    "line": 49,
+    "function": null,
+    "comment": "projector_controller.h:49:  public: should be indented +1 space inside class ProjectorController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "projector_controller.h",
+    "line": 58,
+    "function": null,
+    "comment": "projector_controller.h:58:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "projector_controller.h",
+    "line": 60,
+    "function": null,
+    "comment": "projector_controller.h:60:  private: should be indented +1 space inside class ProjectorController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "projector_controller.h",
+    "line": 78,
+    "function": null,
+    "comment": "projector_controller.h:78:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "projector_controller.h",
+    "line": 81,
+    "function": null,
+    "comment": "projector_controller.h:81:  Namespace should be terminated with '// namespace controller'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "projector_controller.h",
+    "line": 74,
+    "function": null,
+    "comment": "projector_controller.h:74:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "trigger_controller.h",
+    "line": 35,
+    "function": null,
+    "comment": "trigger_controller.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_TRIGGER_CONTROLLER_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "trigger_controller.h",
+    "line": 247,
+    "function": null,
+    "comment": "trigger_controller.h:247:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_TRIGGER_CONTROLLER_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "trigger_controller.h",
+    "line": 39,
+    "function": null,
+    "comment": "trigger_controller.h:39:  Include 'pr2_controller_interface/controller.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "trigger_controller.h",
+    "line": 41,
+    "function": null,
+    "comment": "trigger_controller.h:41:  Include 'ethercat_trigger_controllers/SetWaveform.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "trigger_controller.h",
+    "line": 44,
+    "function": null,
+    "comment": "trigger_controller.h:44:  Include 'boost/scoped_ptr.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 53,
+    "function": null,
+    "comment": "trigger_controller.h:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 54,
+    "function": null,
+    "comment": "trigger_controller.h:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 59,
+    "function": null,
+    "comment": "trigger_controller.h:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "trigger_controller.h",
+    "line": 60,
+    "function": null,
+    "comment": "trigger_controller.h:60:  public: should be indented +1 space inside class TriggerController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "trigger_controller.h",
+    "line": 67,
+    "function": null,
+    "comment": "trigger_controller.h:67:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 83,
+    "function": null,
+    "comment": "trigger_controller.h:83:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 102,
+    "function": null,
+    "comment": "trigger_controller.h:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 120,
+    "function": null,
+    "comment": "trigger_controller.h:120:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 121,
+    "function": null,
+    "comment": "trigger_controller.h:121:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 139,
+    "function": null,
+    "comment": "trigger_controller.h:139:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 140,
+    "function": null,
+    "comment": "trigger_controller.h:140:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 158,
+    "function": null,
+    "comment": "trigger_controller.h:158:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 159,
+    "function": null,
+    "comment": "trigger_controller.h:159:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 177,
+    "function": null,
+    "comment": "trigger_controller.h:177:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 178,
+    "function": null,
+    "comment": "trigger_controller.h:178:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "trigger_controller.h",
+    "line": 194,
+    "function": null,
+    "comment": "trigger_controller.h:194:  Is this a non-const reference? If so, make const or use a pointer: trigger_configuration &config  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 195,
+    "function": null,
+    "comment": "trigger_controller.h:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "trigger_controller.h",
+    "line": 211,
+    "function": null,
+    "comment": "trigger_controller.h:211:  Is this a non-const reference? If so, make const or use a pointer: trigger_configuration &config  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.h",
+    "line": 212,
+    "function": null,
+    "comment": "trigger_controller.h:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.h",
+    "line": 216,
+    "function": null,
+    "comment": "trigger_controller.h:216:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "trigger_controller.h",
+    "line": 216,
+    "function": null,
+    "comment": "trigger_controller.h:216:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "trigger_controller.h",
+    "line": 221,
+    "function": null,
+    "comment": "trigger_controller.h:221:  private: should be indented +1 space inside class TriggerController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "trigger_controller.h",
+    "line": 224,
+    "function": null,
+    "comment": "trigger_controller.h:224:  Is this a non-const reference? If so, make const or use a pointer: trigger_configuration &req  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "trigger_controller.h",
+    "line": 225,
+    "function": null,
+    "comment": "trigger_controller.h:225:  Is this a non-const reference? If so, make const or use a pointer: ethercat_trigger_controllers::SetWaveform::Response &resp  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "trigger_controller.h",
+    "line": 245,
+    "function": null,
+    "comment": "trigger_controller.h:245:  Namespace should be terminated with '// namespace controller'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "trigger_controller.h",
+    "line": 242,
+    "function": null,
+    "comment": "trigger_controller.h:242:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "multi_trigger_controller.h",
+    "line": 35,
+    "function": null,
+    "comment": "multi_trigger_controller.h:35:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_MULTI_TRIGGER_CONTROLLER_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "multi_trigger_controller.h",
+    "line": 35,
+    "function": null,
+    "comment": "multi_trigger_controller.h:35:  #ifndef header guard has wrong style, please use: MULTI_TRIGGER_CONTROLLER_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "multi_trigger_controller.h",
+    "line": 95,
+    "function": null,
+    "comment": "multi_trigger_controller.h:95:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_MULTI_TRIGGER_CONTROLLER_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "multi_trigger_controller.h",
+    "line": 39,
+    "function": null,
+    "comment": "multi_trigger_controller.h:39:  Include 'pr2_controller_interface/controller.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "multi_trigger_controller.h",
+    "line": 41,
+    "function": null,
+    "comment": "multi_trigger_controller.h:41:  Include 'ethercat_trigger_controllers/SetMultiWaveform.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "multi_trigger_controller.h",
+    "line": 42,
+    "function": null,
+    "comment": "multi_trigger_controller.h:42:  Include 'ethercat_trigger_controllers/MultiWaveform.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "multi_trigger_controller.h",
+    "line": 45,
+    "function": null,
+    "comment": "multi_trigger_controller.h:45:  Include 'boost/scoped_ptr.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.h",
+    "line": 54,
+    "function": null,
+    "comment": "multi_trigger_controller.h:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.h",
+    "line": 56,
+    "function": null,
+    "comment": "multi_trigger_controller.h:56:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "multi_trigger_controller.h",
+    "line": 58,
+    "function": null,
+    "comment": "multi_trigger_controller.h:58:  public: should be indented +1 space inside class MultiTriggerController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "multi_trigger_controller.h",
+    "line": 65,
+    "function": null,
+    "comment": "multi_trigger_controller.h:65:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle &n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "multi_trigger_controller.h",
+    "line": 67,
+    "function": null,
+    "comment": "multi_trigger_controller.h:67:  private: should be indented +1 space inside class MultiTriggerController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "multi_trigger_controller.h",
+    "line": 68,
+    "function": null,
+    "comment": "multi_trigger_controller.h:68:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "multi_trigger_controller.h",
+    "line": 71,
+    "function": null,
+    "comment": "multi_trigger_controller.h:71:  Is this a non-const reference? If so, make const or use a pointer: ethercat_trigger_controllers::SetMultiWaveform::Request &req  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "multi_trigger_controller.h",
+    "line": 72,
+    "function": null,
+    "comment": "multi_trigger_controller.h:72:  Is this a non-const reference? If so, make const or use a pointer: ethercat_trigger_controllers::SetMultiWaveform::Response &resp  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.h",
+    "line": 86,
+    "function": null,
+    "comment": "multi_trigger_controller.h:86:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "multi_trigger_controller.h",
+    "line": 93,
+    "function": null,
+    "comment": "multi_trigger_controller.h:93:  Namespace should be terminated with '// namespace controller'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "multi_trigger_controller.h",
+    "line": 90,
+    "function": null,
+    "comment": "multi_trigger_controller.h:90:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "multi_trigger_controller.h",
+    "line": 86,
+    "function": null,
+    "comment": "multi_trigger_controller.h:86:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "multi_trigger_controller.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:40:  Include 'pluginlib/class_list_macros.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "multi_trigger_controller.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:42:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:45:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:58:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:59:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:64:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:68:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:68:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:72:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:72:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:74:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:80:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:83:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:87:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:94:  Is this a non-const reference? If so, make const or use a pointer: std::vector<T> &rslt  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:95:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:102:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:108:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:111:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:112:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 116,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:116:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:117:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:120:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:126:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:126:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:127:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:131:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:133:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:134:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 147,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:147:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:148:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:149:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:150:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:151:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:153:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:153:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:156:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 158,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:158:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 173,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:173:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 184,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:184:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:188:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:190:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:191:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 197,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:202:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 204,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:204:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 209,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:209:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 210,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:210:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 214,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:214:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:216:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:217:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:217:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 224,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:224:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 229,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:229:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 230,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:230:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 231,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:231:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 233,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:233:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 236,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:236:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 236,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:236:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:237:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 239,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:240:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 241,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:241:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 243,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:243:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 256,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:256:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 258,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:258:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:144:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "multi_trigger_controller.cpp:237:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "trigger_controller.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "trigger_controller.cpp:62:  Include 'pluginlib/class_list_macros.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "trigger_controller.cpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "trigger_controller.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "trigger_controller.cpp:64:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "trigger_controller.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "trigger_controller.cpp:67:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "trigger_controller.cpp:70:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "trigger_controller.cpp:75:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "trigger_controller.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "trigger_controller.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "trigger_controller.cpp:90:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "trigger_controller.cpp:92:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "trigger_controller.cpp:94:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "trigger_controller.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "trigger_controller.cpp:97:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "trigger_controller.cpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "trigger_controller.cpp:100:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "trigger_controller.cpp:101:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "trigger_controller.cpp:105:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "trigger_controller.cpp:109:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "trigger_controller.cpp:110:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "trigger_controller.cpp:110:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 116,
+    "function": null,
+    "comment": "trigger_controller.cpp:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "trigger_controller.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "trigger_controller.cpp:121:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "trigger_controller.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "trigger_controller.cpp:123:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "trigger_controller.cpp:124:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "trigger_controller.cpp:125:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "trigger_controller.cpp:125:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "trigger_controller.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "trigger_controller.cpp:128:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "trigger_controller.cpp:129:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "trigger_controller.cpp:131:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "trigger_controller.cpp:134:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "trigger_controller.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "trigger_controller.cpp:136:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "trigger_controller.cpp:137:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "trigger_controller.cpp:138:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "trigger_controller.cpp:138:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "trigger_controller.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "trigger_controller.cpp:141:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "trigger_controller.cpp:142:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "trigger_controller.cpp:149:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "trigger_controller.cpp:150:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "trigger_controller.cpp:154:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "trigger_controller.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "trigger_controller.cpp:155:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "trigger_controller.cpp",
+    "line": 158,
+    "function": null,
+    "comment": "trigger_controller.cpp:158:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "trigger_controller.cpp:164:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "trigger_controller.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "trigger_controller.cpp:164:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "trigger_controller.cpp:169:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "trigger_controller.cpp:171:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 199,
+    "function": null,
+    "comment": "trigger_controller.cpp:199:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 201,
+    "function": null,
+    "comment": "trigger_controller.cpp:201:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "trigger_controller.cpp:202:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "trigger_controller.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "trigger_controller.cpp:206:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "trigger_controller.cpp",
+    "line": 214,
+    "function": null,
+    "comment": "trigger_controller.cpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "trigger_controller.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "trigger_controller.cpp:217:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "trigger_controller.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "trigger_controller.cpp:66:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "projector_controller.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "projector_controller.cpp:37:  Include 'pluginlib/class_list_macros.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "projector_controller.cpp:39:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "projector_controller.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "projector_controller.cpp:39:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "projector_controller.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "projector_controller.cpp:42:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "projector_controller.cpp:45:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "projector_controller.cpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "projector_controller.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "projector_controller.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "projector_controller.cpp:61:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "projector_controller.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "projector_controller.cpp:68:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "projector_controller.cpp:69:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "projector_controller.cpp:69:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "projector_controller.cpp:70:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "projector_controller.cpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "projector_controller.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "projector_controller.cpp:80:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "projector_controller.cpp:80:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "projector_controller.cpp:81:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "projector_controller.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "projector_controller.cpp:92:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "projector_controller.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "projector_controller.cpp:95:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "projector_controller.cpp:95:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "projector_controller.cpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "projector_controller.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "projector_controller.cpp:102:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "projector_controller.cpp:106:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "projector_controller.cpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "projector_controller.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "projector_controller.cpp:111:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "projector_controller.cpp:117:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "projector_controller.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "projector_controller.cpp:117:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "projector_controller.cpp:122:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "projector_controller.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "projector_controller.cpp:123:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "projector_controller.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "projector_controller.cpp:128:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "projector_controller.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "projector_controller.cpp:132:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "projector_controller.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "projector_controller.cpp:136:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "projector_controller.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "projector_controller.cpp:41:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "The scope of the variable 'maxloops' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i = ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 157,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 193,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "The function 'init' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "projector_controller.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "The function 'starting' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "projector_controller.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "The function 'stopping' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "multi_trigger_controller.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "The function 'update' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "multi_trigger_controller.cpp",
+    "line": 111,
+    "function": "init",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "multi_trigger_controller.cpp",
+    "line": 180,
+    "function": "setMultiWaveformSrv",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "trigger_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "trigger_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "trigger_controller.cpp",
+    "line": 83,
+    "function": "update",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "projector_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "projector_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

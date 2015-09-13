@@ -1,0 +1,1338 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:38:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:39:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:41:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:42:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:43:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:44:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:46:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:47:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:48:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:49:  Found C system header after C++ system header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:54:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:55:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:56:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:57:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:59:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:60:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:61:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:63:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:65:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:66:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:67:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pr2_point_frame.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:68:  Found C system header after other header. Should be: pr2_point_frame.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:72:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "pr2_point_frame.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:74:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "pr2_point_frame.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:79:  private: should be indented +1 space inside class ControlHead  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "pr2_point_frame.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:118:  public: should be indented +1 space inside class ControlHead  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "pr2_point_frame.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:119:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "pr2_point_frame.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:120:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:129:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:131:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:134:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:135:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:143:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:146:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 147,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:147:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:151:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:151:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:155:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:155:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:161:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:165:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:169:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:170:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:172:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 174,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:174:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:175:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 184,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:184:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:189:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 196,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:196:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 197,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 198,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:198:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:202:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 203,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 204,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:204:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 207,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:207:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 209,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:209:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 210,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:210:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 213,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:213:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 214,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:214:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:217:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 218,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:218:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 221,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:221:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 222,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:222:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:223:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 227,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:227:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 228,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:228:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 233,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:233:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "pr2_point_frame.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:240:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 243,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:243:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 245,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:245:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 246,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:246:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 249,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:249:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 259,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:259:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 260,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:260:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 261,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:261:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 262,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:262:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 263,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:263:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 264,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:264:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 278,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:278:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 283,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:283:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 292,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:292:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 297,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:297:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 298,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:298:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 299,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:299:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 306,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:306:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 307,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:307:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 310,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:310:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "pr2_point_frame.cpp",
+    "line": 311,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:311:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 319,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:319:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 320,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:320:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "pr2_point_frame.cpp",
+    "line": 321,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:321:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 330,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:330:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 331,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:331:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 335,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:335:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 336,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:336:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 337,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:337:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "pr2_point_frame.cpp",
+    "line": 338,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:338:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 339,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:339:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "pr2_point_frame.cpp",
+    "line": 339,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:339:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 347,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:347:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 350,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:350:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 352,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:352:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 354,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:354:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "pr2_point_frame.cpp",
+    "line": 355,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:355:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 360,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:360:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 360,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:360:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 360,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:360:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 361,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:361:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 361,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:361:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 361,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:361:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 368,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:368:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 368,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:368:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pr2_point_frame.cpp",
+    "line": 368,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:368:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 369,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:369:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 374,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:374:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 377,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:377:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 378,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:378:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 386,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:386:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 402,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:402:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 404,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:404:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 433,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:433:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 435,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:435:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 440,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:440:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 443,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:443:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 445,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:445:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 447,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:447:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "pr2_point_frame.cpp",
+    "line": 447,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:447:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 448,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:448:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 450,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:450:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 455,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:455:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 470,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:470:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 472,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:472:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 484,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:484:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 485,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:485:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 486,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:486:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 495,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:495:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "pr2_point_frame.cpp",
+    "line": 497,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:497:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 507,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:507:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "pr2_point_frame.cpp",
+    "line": 510,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:510:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 517,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:517:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 523,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:523:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "pr2_point_frame.cpp",
+    "line": 528,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:528:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pr2_point_frame.cpp",
+    "line": 532,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:532:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "pr2_point_frame.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:244:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "pr2_point_frame.cpp",
+    "line": 380,
+    "function": null,
+    "comment": "pr2_point_frame.cpp:380:  Add #include <algorithm> for min  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 173,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 215,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 275,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 306,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 315,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 316,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 347,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 351,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 354,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 377,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 497,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "pr2_point_frame.cpp",
+    "line": 531,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "pr2_point_frame.cpp",
+    "line": 469,
+    "function": null,
+    "comment": "The function 'cancelCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "pr2_point_frame.cpp",
+    "line": 168,
+    "function": null,
+    "comment": "The function 'goalCB' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "pr2_point_frame.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "The function 'printVector3' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "pr2_point_frame.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "pr2_point_frame.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, ControlHead, 21",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "pr2_point_frame.cpp",
+    "line": 168,
+    "function": "goalCB",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "pr2_point_frame.cpp",
+    "line": 168,
+    "function": "goalCB",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  }
+]

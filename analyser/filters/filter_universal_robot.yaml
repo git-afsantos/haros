@@ -1,0 +1,13 @@
+%YAML 1.1
+# Filter for ROS distribution
+---
+packages:
+    universal_robot:
+        - universal_robot
+        - ur_driver
+        - ur_kinematics
+meta:
+    universal_robot:
+        commits:        557
+        contributors:   21
+

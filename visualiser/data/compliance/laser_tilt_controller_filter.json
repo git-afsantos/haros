@@ -1,0 +1,754 @@
+[
+  {
+    "rule": "All headers must be protected against multiple inclusion by",
+    "file": "laser_tilt_controller_filter.h",
+    "line": null,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:0:  No #ifndef header guard found.  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","google-cpp","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 40,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:40:  Include 'filters/filter_base.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 42,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:42:  Include 'boost/thread/mutex.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 44,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:44:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 45,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:45:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not indent within a namespace.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 50,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:50:  Do not indent within a namespace  [runtime/indentation_namespace] [4]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 50,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:50:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 51,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 52,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:52:  public: should be indented +1 space inside class LaserTiltControllerFilter  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 53,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:53:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 55,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:55:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 55,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:55:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 58,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:58:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 58,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:58:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 58,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:58:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 58,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:58:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 59,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 59,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:59:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 63,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:63:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 63,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:63:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 68,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:68:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 69,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:69:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 69,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:69:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 72,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:72:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 73,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:73:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 73,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:73:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 78,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:78:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 80,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:80:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 87,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:87:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 87,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:87:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 89,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:89:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 89,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:89:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 89,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:89:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 89,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:89:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 94,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:94:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 94,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:94:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 99,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:99:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 99,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:99:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 99,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:99:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 100,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:100:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 104,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:104:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 105,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:105:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 105,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:105:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 108,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:108:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 109,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:109:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 109,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:109:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 109,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:109:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 114,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:114:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 114,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:114:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 116,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:116:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 123,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:123:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 123,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:123:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 128,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:128:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 132,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:132:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 132,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:132:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 134,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:134:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 134,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:134:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 135,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:135:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 135,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:135:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 141,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:141:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 141,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:141:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 141,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:141:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 141,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:141:  Is this a non-const reference? If so, make const or use a pointer: sensor_msgs::LaserScan& scan_out  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 142,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:142:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 143,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:143:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 143,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:143:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 144,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:144:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 144,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:144:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 144,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:144:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 150,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:150:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 152,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:152:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 153,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:153:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 157,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:157:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 158,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:158:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 158,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:158:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 159,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:159:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 159,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:159:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 161,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:161:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 161,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:161:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 161,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:161:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 166,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:166:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 168,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:168:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 169,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:169:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 169,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:169:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 170,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:170:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 170,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:170:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 179,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:179:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 180,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:180:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 187,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:187:  private: should be indented +1 space inside class LaserTiltControllerFilter  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 196,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:196:  Namespace should be terminated with '// namespace laser_tilt_controller_filter'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "laser_tilt_controller_filter.h",
+    "line": 189,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.h:189:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "laser_tilt_controller_filter.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "laser_tilt_controller_filter.cpp:41:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "laser_tilt_controller_filter.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "laser_tilt_controller_filter.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

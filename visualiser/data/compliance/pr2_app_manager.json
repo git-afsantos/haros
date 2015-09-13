@@ -1,0 +1,10 @@
+[
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "control.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  }
+]
