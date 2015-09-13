@@ -81,6 +81,8 @@ def repo_from_dist(repo_name, dist):
                 subs = nstd.get('packages')
                 if not subs is None:
                     repo.subpackages = subs
+                else:
+                    repo.subpackages = [repo_name]
     if 'status' in data:
         repo.status = data['status']
     if not repo.urls is None:
