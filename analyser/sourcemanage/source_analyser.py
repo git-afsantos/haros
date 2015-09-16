@@ -7,7 +7,7 @@ import shutil
 class PluginContext:
     def __init__(self, db):
         self.db                 = db
-        self.metric_ids         = None
+        self.metric_info        = None
         self.rule_info          = None
         self.package_info       = None
         self.package_buffer     = []
@@ -29,10 +29,13 @@ class PluginContext:
             relative = os.path.join(relative, file_name)
         return os.path.join(self.getRoot(), relative)
 
-    def getMetricIds(self):
-        if self.metric_ids is None:
-            self.metric_ids = self.db.get("Metrics", ["id", "name"])
-        return self.metric_ids
+    def getMetricInfo(self, name=None):
+        if name:
+            return self.db.get("Metrics", ["id", "name"], match=("name", name))
+        else:
+            if self.metric_info is None:
+                self.metric_info = self.db.get("Metrics", ["id", "name"])
+            return self.metric_info
 
     def getRuleInfo(self, name=None):
         if name:
