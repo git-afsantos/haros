@@ -1,11 +1,10 @@
-from core import rule, repo, package, people
+from core import metric, rule, repo, package, people
 from sourcemanage import clone_repos as crep, source_finder as sf
 
 import extractor
 import db_manager as dbm
 
 import os
-import yaml
 
 class DbUpdater:
     def __init__(self):
@@ -100,10 +99,8 @@ class DbUpdater:
 
     def updateMetrics(self, metrics_file):
         self.metrics_dirty = True
-        with open(metrics_file, "r") as mf:
-            self.metrics = yaml.load(mf)
-            self.metrics = [(ind + 1, m["name"], m["description"])
-                    for ind, m in enumerate(self.metrics)]
+        self.metrics = metric.load_metrics_from_file(metrics_file)
+        self.metrics = [m.asTuple() for m in self.metrics]
 
 
     def updateRules(self, rule_file):
