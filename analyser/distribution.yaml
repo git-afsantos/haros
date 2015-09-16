@@ -2647,6 +2647,17 @@ repositories:
       url: https://github.com/g/grizzly_desktop.git
       version: indigo-devel
     status: maintained
+  grizzly_robot:
+    release:
+      packages:
+      - grizzly_base
+      - grizzly_bringup
+      - grizzly_robot
+    source:
+      type: git
+      url: https://github.com/g/grizzly_robot.git
+      version: indigo-devel
+    status: manually added
   grizzly_simulator:
     doc:
       type: git
@@ -9318,6 +9329,41 @@ repositories:
       url: https://github.com/shadow-robot/sr-config.git
       version: indigo-devel
     status: developed
+  sr_core:
+    release:
+      packages:
+      - sr_core
+      - sr_gazebo_sim
+      - sr_hand
+      - sr_hardware_interface
+      - sr_mechanism_controllers
+      - sr_mechanism_model
+      - sr_self_test
+      - sr_tactile_sensors
+      - sr_utilities
+    source:
+      type: git
+      url: https://github.com/shadow-robot/sr_core.git
+      version: indigo-devel
+    status: manually added
+  sr_interface:
+    release:
+      packages:
+      - sr_example
+      - sr_grasp
+      - hand_kinematics
+      - kdl_coupling
+      - sr_interface
+      - sr_moveit_hand_config
+      - sr_multi_description
+      - sr_multi_moveit
+      - sr_robot_commander
+      - sr_robot_launch
+    source:
+      type: git
+      url: https://github.com/shadow-robot/sr_interface.git
+      version: indigo-devel
+    status: manually added
   sr_ronex:
     doc:
       type: git
@@ -9374,6 +9420,30 @@ repositories:
       url: https://github.com/shadow-robot/sr-visualization.git
       version: indigo-devel
     status: developed
+  sr_teleop:
+    release:
+      packages:
+      - cyberglove
+      - cyberglove_trajectory
+      - logitech_r400
+      - shuttle_xpress
+      - sr_remappers
+    source:
+      type: git
+      url: https://github.com/shadow-robot/sr-teleop.git
+      version: indigo-devel
+    status: manually added
+  sr_tools:
+    release:
+      packages:
+      - sr_grasp_fast_planner
+      - sr_movements
+      - sr_tools
+    source:
+      type: git
+      url: https://github.com/shadow-robot/sr_tools.git
+      version: indigo-devel
+    status: manually added
   srdfdom:
     doc:
       type: git
