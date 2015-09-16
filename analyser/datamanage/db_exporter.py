@@ -193,3 +193,30 @@ def jsonifyRules(rules):
     s += "]"
     return s
 
+
+
+def export_metrics(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    f = open(out_file, "w")
+    metrics = db.get("Metrics", ["id", "name", "description"])
+    f.write(jsonifyMetrics(metrics))
+    f.close()
+    db.disconnect()
+
+def jsonifyMetrics(metrics):
+    c = len(metrics)
+    s = "[\n"
+    for m in metrics:
+        s += "  {\n"
+        s += '    "id": ' + str(m[0]) + ',\n'
+        s += '    "name": "' + (str(m[1] or "")).replace('"', "'").replace("\n", "") + "\",\n"
+        s += '    "description": "' + (str(m[2] or "")).replace('"', "'").replace("\n", "") + "\"\n"
+        c -= 1
+        if c > 0:
+            s += "  },\n"
+        else:
+            s += "  }\n"
+    s += "]"
+    return s
+

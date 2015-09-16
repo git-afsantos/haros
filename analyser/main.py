@@ -116,7 +116,7 @@ def export_data(exported):
         je.export_analysis(os.path.join("export", "compliance"))
     if "metrics" in exported:
         print "Exporting code metrics."
-        # TODO
+        je.export_metrics(os.path.join("export", "metrics.json"))
     if "rules" in exported:
         print "Exporting coding rules."
         je.export_rules(os.path.join("export", "rules.json"))
