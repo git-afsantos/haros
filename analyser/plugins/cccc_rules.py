@@ -4,7 +4,7 @@ import os
 import subprocess
 import xml.etree.ElementTree as ET
 
-
+idGen = 1
 
 def plugin_run(ctx):
     files = get_files(ctx)
@@ -175,13 +175,21 @@ def get_metric_handlers():
 def handle_cc(ctx, package_id, file_id, function, line, value, file_path):
     if value < 1:
         if file_path.endswith(".hpp"): 
-            pass
-    if value > 10:
-        ctx.writeNonCompliance(5, package_id, file_id=file_id,
-                line=line, function=function, comment="CC is greater than 10")
-    if value > 15:
-        ctx.writeNonCompliance(6, package_id, file_id=file_id,
-                line=line, function=function, comment="CC is greater than 15")
+            return
+    else:
+        if value > 10:
+            ctx.writeNonCompliance(5, package_id, file_id=file_id,
+                    line=line, function=function,
+                    comment="CC is greater than 10")
+        if value > 15:
+            ctx.writeNonCompliance(6, package_id, file_id=file_id,
+                    line=line, function=function,
+                    comment="CC is greater than 15")
+        if not function or not line:
+            function = function or ("cccc" + str(idGen))
+            line = line or idGen
+            idGen += 1
+        ctx.writeFunctionMetric(file_id, function, line, 4, value)
 
 
 def handle_mnc(ctx, package_id, file_id, function, value, file_path):

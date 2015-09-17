@@ -6,7 +6,7 @@ plugins_unused:
     basic_metrics:
         type: analysis
         subtype: metrics
-plugins:
+plugins_all:
     radon_rules:
         type: analysis
         subtype: rules
@@ -21,9 +21,7 @@ plugins:
         subtype: rules
         needs:
             - cppcheck_rules.xml
-plugins_test:
-    cppcheck_plugin:
+plugins:
+    cccc_rules:
         type: analysis
         subtype: rules
-        needs:
-            - cppcheck_rules.xml

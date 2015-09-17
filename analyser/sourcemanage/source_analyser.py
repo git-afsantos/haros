@@ -139,7 +139,8 @@ def analyse_metrics(plugin_list, truncate):
         os.makedirs("plugin_out")
     try:
         for p in plugin_list:
-            p.plugin_run(ctx)
+            ctx.plugin_args = p[1]
+            p[0].plugin_run(ctx)
             ctx._commit()
     finally:
         shutil.rmtree("plugin_out")
