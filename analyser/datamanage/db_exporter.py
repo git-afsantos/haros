@@ -126,6 +126,34 @@ def export_packages(out_file):
 
 
 
+def export_metrics_analysis(out_dir):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    pkgs = db.get("Packages", ("id", "name"))
+    mts = db.getMap("Metrics", ("id", "description"))
+    for pkg in pkgs:
+        fnmts = dbe.getFunctionMetricsByPackage(db.cur, package_id=pkg[0])
+        with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
+            f.write(jsonifyMetricsAnalysis(fnmts, mts))
+    db.disconnect()
+
+
+def jsonifyMetricsAnalysis(entries, metrics):
+    s = "[\n"
+    n = len(entries) - 1
+    for i, v in enumerate(entries):
+        s += "  {\n"
+        s += '    "metric": "' + metrics[v[1]][1].replace('"', "'") + '",\n'
+        s += '    "minimum": ' + str(v[2] if not v[2] is None else "null") + ",\n"
+        s += '    "maximum": ' + str(v[3] if not v[3] is None else "null") + ",\n"
+        s += '    "average": ' + str(v[4] if not v[4] is None else "null") + "\n"
+        if i < n:
+            s += "  },\n"
+        else:
+            s += "  }\n"
+    s += "]"
+    return s
+
 
 
 def export_analysis(out_dir):

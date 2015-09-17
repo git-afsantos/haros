@@ -50,6 +50,16 @@ class DbManager:
         else:
             return dbe.getTable(self.cur, table, cols)
 
+    def getMap(self, table, cols):
+        if not "id" in cols:
+            return dict()
+        i = cols.index("id")
+        t = dbe.getTable(self.cur, table, cols)
+        r = dict()
+        for e in t:
+            r[e[i]] = e
+        return r
+
     def getNextId(self, table):
         return (dbe.getMaxVal(self.cur, table, "id") or 0) + 1
 

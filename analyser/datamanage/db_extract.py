@@ -167,6 +167,21 @@ def getRulesWithTags(cur):
 
 
 
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Function_Metrics AS FM JOIN haros_Files AS F
+# ON FM.file_id = F.id) GROUP BY metric_id;
+def getFunctionMetricsByPackage(cur, package_id=None):
+    t1 = tablePref("File_Function_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS FM JOIN {1} AS F ON FM.file_id = F.id)".format(t1, t2)
+    if package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+    cmd += " GROUP BY metric_id"
+    result = exFetch(cur, cmd)
+    return result
+
+
+
 # Used for finding dependency number orders
 def getDepOrders(cur, dep_id, table = 'Package_Dependencies'):
 	table = tablePref(table)

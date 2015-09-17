@@ -113,7 +113,14 @@ def export_data(exported):
         je.export_packages(os.path.join("export", "packages.json"))
     if "analysis" in exported:
         print "Exporting analysis data."
-        je.export_analysis(os.path.join("export", "compliance"))
+        path = os.path.join("export", "compliance")
+        if not os.path.exists(path):
+            os.makedirs(path)
+        je.export_analysis(path)
+        path = os.path.join("export", "metrics")
+        if not os.path.exists(path):
+            os.makedirs(path)
+        je.export_metrics_analysis(path)
     if "metrics" in exported:
         print "Exporting code metrics."
         je.export_metrics(os.path.join("export", "metrics.json"))
