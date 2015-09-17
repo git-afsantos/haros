@@ -2,11 +2,11 @@
 # Filter for ROS distribution
 ---
 packages:
-    motoman:
-        - motoman
-        - motoman_driver
+    abb:
+        - abb
+        - abb_driver
+        - abb_irb2400_moveit_plugins
     industrial_core:
         - industrial_robot_client
-        - industrial_utils
         - simple_message
 
