@@ -2,24 +2,11 @@
 # Filter for ROS distribution
 ---
 packages:
-    grizzly:
-        - grizzly_motion
-        - grizzly_msgs
-        - grizzly_teleop
-    grizzly_robot:
-        - grizzly_base
-        - grizzly_robot
-    roboteq:
-        - roboteq_diagnostics
-        - roboteq_driver
-meta:
-    grizzly:
-        commits:        257
-        contributors:   5
-    grizzly_robot:
-        commits:        155
-        contributors:   3
-    roboteq:
-        commits:        90
-        contributors:   5
+    motoman:
+        - motoman
+        - motoman_driver
+    industrial_core:
+        - industrial_robot_client
+        - industrial_utils
+        - simple_message
 
