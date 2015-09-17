@@ -180,6 +180,43 @@ def getFunctionMetricsByPackage(cur, package_id=None):
     result = exFetch(cur, cmd)
     return result
 
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Class_Metrics AS CM JOIN haros_Files AS F
+# ON CM.file_id = F.id) GROUP BY metric_id;
+def getClassMetricsByPackage(cur, package_id=None):
+    t1 = tablePref("File_Class_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS CM JOIN {1} AS F ON CM.file_id = F.id)".format(t1, t2)
+    if package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+    cmd += " GROUP BY metric_id"
+    result = exFetch(cur, cmd)
+    return result
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Metrics AS FM JOIN haros_Files AS F
+# ON FM.file_id = F.id) GROUP BY metric_id;
+def getFileMetricsByPackage(cur, package_id=None):
+    t1 = tablePref("File_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS FM JOIN {1} AS F ON FM.file_id = F.id)".format(t1, t2)
+    if package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+    cmd += " GROUP BY metric_id"
+    result = exFetch(cur, cmd)
+    return result
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM haros_Package_Metrics GROUP BY metric_id;
+def getPackageMetricsByPackage(cur, package_id=None):
+    t1 = tablePref("Package_Metrics")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM {0}".format(t1)
+    if package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+    cmd += " GROUP BY metric_id"
+    result = exFetch(cur, cmd)
+    return result
+
 
 
 # Used for finding dependency number orders

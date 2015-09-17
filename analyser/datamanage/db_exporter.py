@@ -6,6 +6,7 @@
 import db_extract as dbe
 import db_manager as dbm
 
+import itertools
 import os
 
 # Takes a string
@@ -133,6 +134,10 @@ def export_metrics_analysis(out_dir):
     mts = db.getMap("Metrics", ("id", "description"))
     for pkg in pkgs:
         fnmts = dbe.getFunctionMetricsByPackage(db.cur, package_id=pkg[0])
+        clmts = dbe.getClassMetricsByPackage(db.cur, package_id=pkg[0])
+        flmts = dbe.getFileMetricsByPackage(db.cur, package_id=pkg[0])
+        pkmts = dbe.getPackageMetricsByPackage(db.cur, package_id=pkg[0])
+        entries = list(itertools.chain(fnmts, clmts, flmts, pkmts))
         with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
             f.write(jsonifyMetricsAnalysis(fnmts, mts))
     db.disconnect()
