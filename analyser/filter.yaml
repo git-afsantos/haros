@@ -2,11 +2,8 @@
 # Filter for ROS distribution
 ---
 packages:
-    abb:
-        - abb
-        - abb_driver
-        - abb_irb2400_moveit_plugins
-    industrial_core:
-        - industrial_robot_client
-        - simple_message
+    universal_robot:
+        - universal_robot
+        - ur_driver
+        - ur_kinematics
 
