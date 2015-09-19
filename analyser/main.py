@@ -103,7 +103,7 @@ def run_analysis(analysed, truncate, configs):
                 truncate)
 
 
-def export_data(exported):
+def export_data(exported, configs):
     if exported == "none":
         return
     if exported is None:
@@ -120,7 +120,7 @@ def export_data(exported):
         path = os.path.join("export", "metrics")
         if not os.path.exists(path):
             os.makedirs(path)
-        je.export_metrics_analysis(path)
+        je.export_metrics_analysis(path, format=configs["out_format"])
     if "metrics" in exported:
         print "Exporting code metrics."
         je.export_metrics(os.path.join("export", "metrics.json"))
@@ -152,6 +152,12 @@ def load_configs():
                         args.append(os.path.join(plugin_root, a))
                 p = (p, args)
                 pd[val["type"]][val["subtype"]].append(p)
+    if "export" in configs:
+        if "format" in configs["export"]:
+            f = configs["export"]["format"]
+            if not f in ["json", "csv"]:
+                f = "json"
+            config_dict["out_format"] = f
     return config_dict
 
 
@@ -183,7 +189,7 @@ def main(argv=None):
     try:
         update_database(args.updated, args.truncate, args.download)
         run_analysis(args.analysed, args.truncate, configs)
-        export_data(args.exported)
+        export_data(args.exported, configs)
         return 0
     except ExpectedError, err:
         print >>sys.stderr, err.msg

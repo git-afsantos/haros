@@ -2,6 +2,8 @@
 # Configuration file
 # Plugins should have a plugin_run() function to execute and return results.
 ---
+export:
+    format: csv
 plugins_unused:
     basic_metrics:
         type: analysis

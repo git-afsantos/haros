@@ -127,19 +127,22 @@ def export_packages(out_file):
 
 
 
-def export_metrics_analysis(out_dir):
+def export_metrics_analysis(out_dir, format="json"):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
     pkgs = db.get("Packages", ("id", "name"))
     mts = db.getMap("Metrics", ("id", "description"))
+    exp = jsonifyMetricsAnalysis
+    if format == "csv":
+        exp = csvifyMetricsAnalysis
     for pkg in pkgs:
         fnmts = dbe.getFunctionMetricsByPackage(db.cur, package_id=pkg[0])
         clmts = dbe.getClassMetricsByPackage(db.cur, package_id=pkg[0])
         flmts = dbe.getFileMetricsByPackage(db.cur, package_id=pkg[0])
         pkmts = dbe.getPackageMetricsByPackage(db.cur, package_id=pkg[0])
         entries = list(itertools.chain(fnmts, clmts, flmts, pkmts))
-        with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
-            f.write(jsonifyMetricsAnalysis(fnmts, mts))
+        with open(os.path.join(out_dir, pkg[1] + "." + format), "w") as f:
+            f.write(exp(entries, mts))
     db.disconnect()
 
 
@@ -157,6 +160,15 @@ def jsonifyMetricsAnalysis(entries, metrics):
         else:
             s += "  }\n"
     s += "]"
+    return s
+
+def csvifyMetricsAnalysis(entries, metrics):
+    s = "metric,minimum,maximum,average\n"
+    for e in entries:
+        s += metrics[e[1]][1].replace(",", "_") + ","
+        s += str(e[2]) + ","
+        s += str(e[3]) + ","
+        s += str(e[4]) + "\n"
     return s
 
 
