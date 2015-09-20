@@ -14,8 +14,9 @@ kobuki_ftdi,1.0,25.0,7.96
 ecl_sigslots,1.0,2.0,1.23076923077
 ecl_exceptions,1.0,2.0,1.28571428571
 ecl_time_lite,1.0,14.0,6.35294117647
-ar_track_alvar,1.0,102.0,5.54704595186
+ar_track_alvar,1.0,102.0,5.4914893617
 yocs_waypoint_provider,1.0,10.0,3.11111111111
+ecl_eigen,1.0,63.0,2.80895008606
 ecl_type_traits,1.0,2.0,1.25
 ecl_command_line,1.0,16.0,3.08791208791
 ecl_ipc,1.0,10.0,4.33333333333

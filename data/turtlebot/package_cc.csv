@@ -1,11 +1,11 @@
 package,cc_min,cc_max,cc_avg
-pano_py,1.0,29.0,4.3125
-pano_core,1.0,31.0,3.91869918699
+pano_py,1.0,29.0,3.94444444444
+pano_core,1.0,31.0,3.06349206349
 turtlebot_follower,5.0,14.0,9.5
 turtlebot_teleop,3.0,3.0,3.0
-turtlebot_arm_ikfast_plugin,1.0,579.0,17.2
+turtlebot_arm_ikfast_plugin,1.0,579.0,14.5454545455
 turtlebot_navigation,3.0,4.0,3.5
-turtlebot_panorama,1.0,17.0,4.75
+turtlebot_panorama,1.0,17.0,4.0
 turtlebot_arm_block_manipulation,1.0,20.0,4.07692307692
 turtlebot_arm_kinect_calibration,1.0,8.0,2.72727272727
 turtlebot_actions,1.0,15.0,5.77777777778

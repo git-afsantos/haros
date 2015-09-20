@@ -3,6 +3,6 @@
     "metric": "Cyclomatic Complexity",
     "minimum": 1.0,
     "maximum": 63.0,
-    "average": 6.56603773585
+    "average": 5.34782608696
   }
 ]
