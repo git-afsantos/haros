@@ -1,0 +1,1710 @@
+[
+  {
+    "Name": "ecl_statistics",
+    "Metapackage": false,
+    "Description": "Common statistical structures and algorithms for control systems.",
+    "Wiki": "http://wiki.ros.org/ecl_statistics",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+            "ecl_linear_algebra",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "yocs_keyop",
+    "Metapackage": false,
+    "Description": "Keyboard teleoperation for your robot",
+    "Wiki": "http://ros.org/wiki/yocs_keyop",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "3": 1,
+        "18": 1,
+        "5": 1
+      }
+    },
+    "Edge": [
+            "ecl_threads",
+            "ecl_exceptions",
+            "ecl_time"
+    ]
+  },
+  {
+    "Name": "ecl_linear_algebra",
+    "Metapackage": false,
+    "Description": "Ecl frontend to a linear matrix package (currently eigen).",
+    "Wiki": "http://wiki.ros.org/ecl_linear_algebra",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 5,
+        "3": 4
+      }
+    },
+    "Edge": [
+            "ecl_formatters",
+            "ecl_exceptions",
+            "ecl_eigen"
+    ]
+  },
+  {
+    "Name": "yocs_navigator",
+    "Metapackage": false,
+    "Description": "Navigation module for robots",
+    "Wiki": "http://wiki.ros.org/yocs_navigator",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 6,
+        "18": 2,
+        "2": 1
+      }
+    },
+    "Edge": [
+            "yocs_math_toolkit"
+    ]
+  },
+  {
+    "Name": "yocs_safety_controller",
+    "Metapackage": false,
+    "Description": "A controller ensuring the safe operation of your robot.The SafetyController listens to ranger readings in order to stop (and move back), if obstacles get to close.This controller can be enabled/disabled.",
+    "Wiki": "http://ros.org/wiki/yocsd_safety_controller",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 1,
+        "3": 1,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "yocs_controllers",
+            "ecl_threads"
+    ]
+  },
+  {
+    "Name": "yocs_math_toolkit",
+    "Metapackage": false,
+    "Description": "Math toolkit for Yujin open control system. This package is intended to contain common use functions,mostly for simple mathematics but also for tf-related conversions.By no means it pretends to be an efficient and robust, widely used math library, but a play ground whereto put common code that is typically repeated in many robot control programs.",
+    "Wiki": "http://ros.org/wiki/yocs_math_toolkit",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 1,
+        "3": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_geometry",
+    "Metapackage": false,
+    "Description": "Any tools relating to mathematical geometry.Primarily featuring polynomials and interpolations.",
+    "Wiki": "http://wiki.ros.org/ecl_geometry",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 28,
+        "3": 22,
+        "5": 3
+      }
+    },
+    "Edge": [
+            "ecl_mpl",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_formatters",
+            "ecl_linear_algebra",
+            "ecl_math",
+            "ecl_config",
+            "ecl_exceptions"
+    ]
+  },
+  {
+    "Name": "ecl_converters_lite",
+    "Metapackage": false,
+    "Description": "These are a very simple version of some of the functions in ecl_converterssuitable for firmware development. That is, there is no use of new,templates or exceptions.",
+    "Wiki": "http://wiki.ros.org/ecl_converters_lite",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_filesystem",
+    "Metapackage": false,
+    "Description": "Cross platform filesystem utilities (until c++11 makes its way in).",
+    "Wiki": "http://wiki.ros.org/ecl_filesystem",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 4,
+        "3": 4
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_exceptions",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_errors",
+    "Metapackage": false,
+    "Description": "This library provides lean and mean error mechanisms. It includes c style error functions as well as a few useful macros. For higher level mechanisms, refer to ecl_exceptions.",
+    "Wiki": "http://wiki.ros.org/ecl_errors",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 6,
+        "3": 5
+      }
+    },
+    "Edge": [
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_sigslots_lite",
+    "Metapackage": false,
+    "Description": "This avoids use of dynamic storage (malloc/new) and thread safety (mutexes) to provide a very simple sigslots implementation that can be used for *very* embedded development.",
+    "Wiki": "http://wiki.ros.org/ecl_sigslots_lite",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 5,
+        "3": 4,
+        "5": 1
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "kobuki_ftdi",
+    "Metapackage": false,
+    "Description": "Utilities for flashing and enabling Kobuki's USB connection.This package contains tools for flashing the Kobuki's FTDI chip (usually done at the factory).The special firmware for the FTDI chip (USB to serial converter) enables it to appear as /dev/kobuki on the user's PC.",
+    "Wiki": "http://ros.org/wiki/kobuki_ftdi",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 12,
+        "3": 11,
+        "5": 8,
+        "6": 4
+      }
+    },
+    "Edge": [
+            "ecl_command_line"
+    ]
+  },
+  {
+    "Name": "ecl_sigslots",
+    "Metapackage": false,
+    "Description": "Provides a signal/slot mechanism (in the same vein as qt sigslots,boost::signals etc for intra-process communication. These includesome improvements - they do not need a preprocessor, are fully type safe, allow for simple connections via a posix style string identifierand are multithread-safe.",
+    "Wiki": "http://ros.org/wiki/ecl_sigslots",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 8,
+        "3": 7
+      }
+    },
+    "Edge": [
+            "ecl_threads",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_exceptions",
+    "Metapackage": false,
+    "Description": "Template based exceptions - these are simple and practical and avoid the proliferation of exception types. Although not syntatactically ideal, it is convenient and eminently practical.",
+    "Wiki": "http://wiki.ros.org/ecl_exceptions",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 4,
+        "3": 4
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_time_lite",
+    "Metapackage": false,
+    "Description": "Provides a portable set of time functions that are especially useful forporting other code or being wrapped by higher level c++ classes.",
+    "Wiki": "http://wiki.ros.org/ecl_time_lite",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 14,
+        "3": 14,
+        "5": 2
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ar_track_alvar",
+    "Metapackage": false,
+    "Description": "This package is a ROS wrapper for Alvar, an open source AR tag tracking library.",
+    "Wiki": "http://ros.org/wiki/ar_track_alvar",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 33,
+        "2": 30,
+        "3": 23,
+        "5": 65,
+        "6": 35,
+        "18": 3
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "yocs_waypoint_provider",
+    "Metapackage": false,
+    "Description": "Parse a multiple poses from yaml and provide as topic and service. This package is highly inspired by yocs_waypoints_navi",
+    "Wiki": "http://ros.org/wiki/yocs_waypoint_provider",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 3,
+        "3": 2,
+        "18": 2
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_eigen",
+    "Metapackage": false,
+    "Description": "This provides an Eigen implementation for ecl's linear algebra.",
+    "Wiki": "http://wiki.ros.org/ecl_eigen",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_type_traits",
+    "Metapackage": false,
+    "Description": "Extends c++ type traits and implements a few more to boot.",
+    "Wiki": "http://wiki.ros.org/ecl_type_traits",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 5,
+        "3": 5,
+        "18": 2
+      }
+    },
+    "Edge": [
+            "ecl_mpl",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_command_line",
+    "Metapackage": false,
+    "Description": "Embeds the TCLAP library inside the ecl. This is a very convenient command line parser in templatised c++.",
+    "Wiki": "http://wiki.ros.org/ecl_command_line",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 22,
+        "3": 22,
+        "18": 6,
+        "6": 1,
+        "5": 5
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_ipc",
+    "Metapackage": false,
+    "Description": "Interprocess mechanisms vary greatly across platforms - sysv, posix, win32, thereare more than a few. This package provides an infrastructure to allow for developing cross platform c++ wrappers around the lower level c api's that handle these mechanisms. These make it not only easier to utilise such mechanisms, but allow it to be done consistently across platforms.",
+    "Wiki": "http://wiki.ros.org/ecl_ipc",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 7,
+        "3": 7
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_time_lite",
+            "ecl_exceptions",
+            "ecl_time",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_devices",
+    "Metapackage": false,
+    "Description": "Provides an extensible and standardised framework for input-output devices.",
+    "Wiki": "http://wiki.ros.org/ecl_devices",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 29,
+        "3": 26,
+        "5": 18,
+        "6": 10
+      }
+    },
+    "Edge": [
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_threads",
+            "ecl_config",
+            "ecl_errors"
+    ]
+  },
+  {
+    "Name": "kobuki_safety_controller",
+    "Metapackage": false,
+    "Description": "A controller ensuring the safe operation of Kobuki.The SafetyController keeps track of bumper, cliff and wheel drop events. In case of the first two,Kobuki is commanded to move back. In the latter case, Kobuki is stopped.This controller can be enabled/disabled.The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!",
+    "Wiki": "http://ros.org/wiki/kobuki_safety_controller",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+            "yocs_controllers",
+            "ecl_threads"
+    ]
+  },
+  {
+    "Name": "yocs_controllers",
+    "Metapackage": false,
+    "Description": "Library for various controller types and algorithms",
+    "Wiki": "http://ros.org/wiki/yocs_controllers",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "3": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_formatters",
+    "Metapackage": false,
+    "Description": "The formatters here simply format various input types to a specified text format. They can be used with most streaming types (including both ecl and stl streams).",
+    "Wiki": "http://wiki.ros.org/ecl_formatters",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 5,
+        "3": 5
+      }
+    },
+    "Edge": [
+            "ecl_converters",
+            "ecl_exceptions",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "yocs_ar_marker_tracking",
+    "Metapackage": false,
+    "Description": "Collecting, tracking and generating statistics for ar markers from ar_track_alvar.",
+    "Wiki": "http://wiki.ros.org/yocs_ar_marker_tracking",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 4,
+        "3": 3,
+        "18": 1,
+        "5": 1
+      }
+    },
+    "Edge": [
+            "yocs_math_toolkit"
+    ]
+  },
+  {
+    "Name": "ecl_threads",
+    "Metapackage": false,
+    "Description": "This package provides the c++ extensions for a variety of threadedprogramming tools. These are usually different on differentplatforms, so the architecture for a cross-platform framework is also implemented.",
+    "Wiki": "http://wiki.ros.org/ecl_threads",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 14,
+        "3": 11,
+        "5": 7,
+        "6": 3
+      }
+    },
+    "Edge": [
+            "ecl_utilities",
+            "ecl_concepts",
+            "ecl_time",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ]
+  },
+  {
+    "Name": "ecl_time",
+    "Metapackage": false,
+    "Description": "Timing utilities are very dependent on the system api provided for their use.This package provides a means for handling different timing models. Current support- posix rt : complete.- macosx : posix timers only, missing absolute timers.- win : none.",
+    "Wiki": "http://wiki.ros.org/ecl_time",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 3,
+        "2": 26,
+        "3": 26,
+        "5": 2,
+        "6": 1
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_time_lite",
+            "ecl_exceptions",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "yocs_ar_pair_approach",
+    "Metapackage": false,
+    "Description": "Search and approach behaviour, moving to a target in front of a pair of ar markers.",
+    "Wiki": "http://ros.org/wiki/yocs_ar_pair_approach",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "kobuki_driver",
+    "Metapackage": false,
+    "Description": "C++ driver library for Kobuki:Pure C++ driver library for Kobuki. This is for those who do not wish to use ROS on their systems.",
+    "Wiki": "http://ros.org/wiki/kobuki_driver",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 31,
+        "3": 29,
+        "5": 7,
+        "6": 3,
+        "18": 3
+      }
+    },
+    "Edge": [
+            "ecl_command_line",
+            "ecl_devices",
+            "ecl_mobile_robot",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_geometry",
+            "ecl_sigslots"
+    ]
+  },
+  {
+    "Name": "yujin_ocs",
+    "Metapackage": true,
+    "Contains": [
+            "yocs_keyop",
+            "yocs_safety_controller",
+            "yocs_math_toolkit",
+            "yocs_controllers",
+            "yocs_cmd_vel_mux",
+            "yocs_virtual_sensor",
+            "yocs_joyop",
+            "yocs_diff_drive_pose_controller",
+            "yocs_velocity_smoother",
+            "yocs_waypoints_navi"
+    ],
+    "Description": "Yujin Robot's open-source control software",
+    "Wiki": "http://ros.org/wiki/yujin_ocs",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "yocs_controllers",
+            "yocs_keyop",
+            "yocs_virtual_sensor",
+            "yocs_diff_drive_pose_controller",
+            "yocs_cmd_vel_mux",
+            "yocs_safety_controller",
+            "yocs_joyop",
+            "yocs_math_toolkit",
+            "yocs_velocity_smoother",
+            "yocs_waypoints_navi"
+    ]
+  },
+  {
+    "Name": "ecl_containers",
+    "Metapackage": false,
+    "Description": "The containers included here are intended to extend the stl containers.In all cases, these implementations are designed to implementc++ conveniences and safety where speed is not sacrificed. Also includes techniques for memory debugging of common problems suchas buffer overruns.",
+    "Wiki": "http://wiki.ros.org/ecl_containers",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 5,
+        "2": 16,
+        "3": 13
+      }
+    },
+    "Edge": [
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_type_traits",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ]
+  },
+  {
+    "Name": "ecl_mobile_robot",
+    "Metapackage": false,
+    "Description": "Contains transforms (e.g. differential drive inverse kinematics)for the various types of mobile robot platforms.",
+    "Wiki": "http://wiki.ros.org/ecl_mobile_robot",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 4,
+        "3": 4
+      }
+    },
+    "Edge": [
+            "ecl_formatters",
+            "ecl_errors",
+            "ecl_linear_algebra",
+            "ecl_math",
+            "ecl_geometry"
+    ]
+  },
+  {
+    "Name": "ecl_lite",
+    "Metapackage": true,
+    "Contains": [
+            "ecl_converters_lite",
+            "ecl_sigslots_lite",
+            "ecl_time_lite",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_io"
+    ],
+    "Description": "Libraries and utilities for embedded and low-level linux development.",
+    "Wiki": "http://www.ros.org/wiki/ecl_lite",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ecl_converters_lite",
+            "ecl_sigslots_lite",
+            "ecl_time_lite",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_io"
+    ]
+  },
+  {
+    "Name": "yocs_diff_drive_pose_controller",
+    "Metapackage": false,
+    "Description": "A controller for driving a differential drive base to a pose goal or along a path specified by multiple poses.A pose consists of a 2D position (x,y) and a 1D orientation (theta).",
+    "Wiki": "http://ros.org/wiki/yocs_diff_drive_pose_controller",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2,
+        "18": 2,
+        "5": 1
+      }
+    },
+    "Edge": [
+            "yocs_controllers",
+            "yocs_math_toolkit",
+            "ecl_threads"
+    ]
+  },
+  {
+    "Name": "kobuki",
+    "Metapackage": true,
+    "Contains": [
+            "kobuki_testsuite",
+            "kobuki_bumper2pc",
+            "kobuki_random_walker",
+            "kobuki_controller_tutorial",
+            "kobuki_safety_controller",
+            "kobuki_auto_docking",
+            "kobuki_keyop",
+            "kobuki_node"
+    ],
+    "Description": "Software for Kobuki, Yujin Robot's mobile research base.",
+    "Wiki": "http://ros.org/wiki/kobuki",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "kobuki_testsuite",
+            "kobuki_bumper2pc",
+            "kobuki_random_walker",
+            "kobuki_node",
+            "kobuki_safety_controller",
+            "kobuki_auto_docking",
+            "kobuki_keyop",
+            "kobuki_controller_tutorial"
+    ]
+  },
+  {
+    "Name": "kobuki_bumper2pc",
+    "Metapackage": false,
+    "Description": "Bumper/cliff to pointcloud nodelet:Publish bumpers and cliff sensors events as points in a pointcloud, so navistack can use themfor poor-man navigation. Implemented as a nodelet intended to run together with kobuki_node.",
+    "Wiki": "http://ros.org/wiki/kobuki_bumper2pc",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 1,
+        "18": 1,
+        "5": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_streams",
+    "Metapackage": false,
+    "Description": "These are lightweight text streaming classes that connect to standardised ecl type devices.",
+    "Wiki": "http://wiki.ros.org/ecl_streams",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 6,
+        "2": 13,
+        "3": 12
+      }
+    },
+    "Edge": [
+            "ecl_type_traits",
+            "ecl_devices",
+            "ecl_concepts",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_errors"
+    ]
+  },
+  {
+    "Name": "yocs_cmd_vel_mux",
+    "Metapackage": false,
+    "Description": "A multiplexer for command velocity inputs. Arbitrates incoming cmd_vel messages from several topics, allowing one topic at a time to command the robot, based on priorities. It also deallocates current allowed topic if no messages are received after a configured timeout. All topics, together with their priority and timeout are configured through a YAML file, that can be reload at runtime.",
+    "Wiki": "http://ros.org/wiki/yocs_cmd_vel_mux",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 5,
+        "3": 5,
+        "18": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ecl_core",
+    "Metapackage": true,
+    "Contains": [
+            "ecl_statistics",
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_eigen",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_ipc",
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_concepts",
+            "ecl_streams",
+            "ecl_math",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_devices",
+            "ecl_geometry",
+            "ecl_core_apps",
+            "ecl_sigslots",
+            "ecl_exceptions"
+    ],
+    "Description": "A set of tools and interfaces extending the capabilities of c++ to provide a lightweight, consistent interface with a focus for controlprogramming.",
+    "Wiki": "http://www.ros.org/wiki/ecl_core",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ecl_statistics",
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_eigen",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_ipc",
+            "ecl_threads",
+            "ecl_devices",
+            "ecl_concepts",
+            "ecl_streams",
+            "ecl_math",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_linear_algebra",
+            "ecl_core_apps",
+            "ecl_sigslots",
+            "ecl_exceptions",
+            "ecl_geometry"
+    ]
+  },
+  {
+    "Name": "ecl_config",
+    "Metapackage": false,
+    "Description": "These tools inspect and describe your system with macros, typesand functions.",
+    "Wiki": "http://wiki.ros.org/ecl_config",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 7,
+        "3": 7,
+        "5": 1,
+        "6": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "yocs_joyop",
+    "Metapackage": false,
+    "Description": "Joystick teleoperation for your robot robot core",
+    "Wiki": "http://ros.org/wiki/yocs_joop",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "ecl_exceptions",
+            "ecl_time"
+    ]
+  },
+  {
+    "Name": "kobuki_node",
+    "Metapackage": false,
+    "Description": "ROS nodelet for Kobuki: ROS wrapper for the Kobuki driver.",
+    "Wiki": "http://ros.org/wiki/kobuki_node",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 7,
+        "3": 4,
+        "18": 6,
+        "5": 3
+      }
+    },
+    "Edge": [
+            "ecl_threads",
+            "kobuki_safety_controller",
+            "ecl_streams",
+            "kobuki_keyop",
+            "kobuki_ftdi",
+            "ecl_sigslots",
+            "ecl_exceptions",
+            "kobuki_driver"
+    ]
+  },
+  {
+    "Name": "ecl_core_apps",
+    "Metapackage": false,
+    "Description": "This includes a suite of programs demo'ing various aspects of the ecl_core. It also includes various benchmarking and utility programs for use primarily with embedded systems.",
+    "Wiki": "http://wiki.ros.org/ecl_core_apps",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 4,
+        "2": 8,
+        "3": 6,
+        "5": 7,
+        "6": 3
+      }
+    },
+    "Edge": [
+            "ecl_devices",
+            "ecl_linear_algebra",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_ipc",
+            "ecl_threads",
+            "ecl_time_lite",
+            "ecl_geometry",
+            "ecl_streams",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_sigslots",
+            "ecl_exceptions"
+    ]
+  },
+  {
+    "Name": "ecl_io",
+    "Metapackage": false,
+    "Description": "Most implementations (windows, posix, ...) have slightly different api forlow level input-output functions. These are gathered here and re-representedwith a cross platform set of functions.",
+    "Wiki": "http://wiki.ros.org/ecl_io",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 5,
+        "3": 4,
+        "5": 4,
+        "6": 3
+      }
+    },
+    "Edge": [
+            "ecl_errors",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_navigation",
+    "Metapackage": true,
+    "Contains": [
+            "ecl_mobile_robot"
+    ],
+    "Description": "This stack aims to bring the common tools and algorithms needed todevelop navigation algorithms, in particular slam. It does not focus onthe end-point solution, rather the tools needed to create a variety ofend-point solutions.",
+    "Wiki": "http://www.ros.org/wiki/ecl_navigation",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ecl_mobile_robot"
+    ]
+  },
+  {
+    "Name": "ecl_utilities",
+    "Metapackage": false,
+    "Description": "Includes various supporting tools and utilities for c++ programming.",
+    "Wiki": "http://wiki.ros.org/ecl_utilities",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 13,
+        "3": 12,
+        "18": 3
+      }
+    },
+    "Edge": [
+            "ecl_mpl",
+            "ecl_concepts"
+    ]
+  },
+  {
+    "Name": "kobuki_auto_docking",
+    "Metapackage": false,
+    "Description": "Automatic docking for Kobuki:Users owning a docking station for Kobuki can use this tool to let Kobuki find its nest autonomously.",
+    "Wiki": "http://ros.org/wiki/kobuki_auto_docking",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2,
+        "18": 2
+      }
+    },
+    "Edge": [
+            "yocs_cmd_vel_mux",
+            "kobuki_dock_drive",
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_geometry"
+    ]
+  },
+  {
+    "Name": "ecl_mpl",
+    "Metapackage": false,
+    "Description": "Metaprogramming tools move alot of runtime calculations to be shifted tocompile time. This has only very elementary structures at this stage.",
+    "Wiki": "http://wiki.ros.org/ecl_mpl",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 6,
+        "3": 6
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "kobuki_core",
+    "Metapackage": true,
+    "Contains": [
+            "kobuki_ftdi",
+            "kobuki_dock_drive",
+            "kobuki_driver"
+    ],
+    "Description": "Non-ROS software for Kobuki, Yujin Robot's mobile research base.",
+    "Wiki": "http://ros.org/wiki/kobuki_core",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "kobuki_ftdi",
+            "kobuki_dock_drive",
+            "kobuki_driver"
+    ]
+  },
+  {
+    "Name": "yocs_localization_manager",
+    "Metapackage": false,
+    "Description": "Localization Manager helps to localize robot's position with annotated information",
+    "Wiki": "http://wiki.ros.org/yocs_localization_manager",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ar_track_alvar"
+    ]
+  },
+  {
+    "Name": "yocs_virtual_sensor",
+    "Metapackage": false,
+    "Description": "Virtual sensor that uses semantic map information to see obstacles undetectable by robot sensors.Current implementation cannot read obstacles from YAML files. Until this feature gets implemented, weuse auxiliary scripts to read and publish files' content. Data directory contains some example files.",
+    "Wiki": "http://ros.org/wiki/yocs_virtual_sensor",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "18": 1,
+        "5": 2
+      }
+    },
+    "Edge": [
+            "yocs_math_toolkit"
+    ]
+  },
+  {
+    "Name": "yocs_waypoints_navi",
+    "Metapackage": false,
+    "Description": "Simple tool for waypoints navigation with two functions:",
+    "Wiki": "http://ros.org/wiki/yocs_waypoints_navi",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "18": 1,
+        "5": 2,
+        "6": 1
+      }
+    },
+    "Edge": [
+            "yocs_math_toolkit"
+    ]
+  },
+  {
+    "Name": "kobuki_random_walker",
+    "Metapackage": false,
+    "Description": "Random walker app for Kobuki",
+    "Wiki": "http://ros.org/wiki/kobuki_random_walker",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "3": 1,
+        "18": 1,
+        "2": 1,
+        "5": 3,
+        "6": 3
+      }
+    },
+    "Edge": [
+            "yocs_cmd_vel_mux",
+            "ecl_threads",
+            "yocs_controllers"
+    ]
+  },
+  {
+    "Name": "ecl_concepts",
+    "Metapackage": false,
+    "Description": "Introduces a compile time concept checking mechanism that can be used most commonly to check for required functionality when passing template arguments.",
+    "Wiki": "http://wiki.ros.org/ecl_concepts",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 7,
+        "3": 7,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "ecl_type_traits",
+            "ecl_config"
+    ]
+  },
+  {
+    "Name": "ecl_math",
+    "Metapackage": false,
+    "Description": "This package provides simple support to cmath, filling in holesor redefining in a c++ formulation where desirable.",
+    "Wiki": "http://wiki.ros.org/ecl_math",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 7,
+        "3": 7
+      }
+    },
+    "Edge": [
+            "ecl_type_traits"
+    ]
+  },
+  {
+    "Name": "kobuki_testsuite",
+    "Metapackage": false,
+    "Description": "Kobuki test suite: this package provides tools to thoroughly test Kobuki's hardware.",
+    "Wiki": "http://ros.org/wiki/kobuki_testsuite",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "kobuki_node"
+    ]
+  },
+  {
+    "Name": "kobuki_dock_drive",
+    "Metapackage": false,
+    "Description": "Dock driving library for Kobuki. Users owning a docking station for Kobuki can use this tool to develop autonomous docking drive algorithms.",
+    "Wiki": "http://ros.org/wiki/kobuki_dock_drive",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 5,
+        "3": 5,
+        "5": 1
+      }
+    },
+    "Edge": [
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_geometry"
+    ]
+  },
+  {
+    "Name": "ecl_converters",
+    "Metapackage": false,
+    "Description": "Some fast/convenient type converters, mostly for char strings or strings. These are not really fully fleshed out, alot of them could use the addition for the whole range of fundamental types (e.g. all integers, not just int, unsigned int).They will come as the need arises.",
+    "Wiki": "http://wiki.ros.org/ecl_converters",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 8,
+        "3": 7
+      }
+    },
+    "Edge": [
+            "ecl_mpl",
+            "ecl_type_traits",
+            "ecl_concepts",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ]
+  },
+  {
+    "Name": "kobuki_keyop",
+    "Metapackage": false,
+    "Description": "Keyboard teleoperation for Kobuki: relays commands from a keyboard to Kobuki.",
+    "Wiki": "http://ros.org/wiki/kobuki_keyop",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "yocs_cmd_vel_mux",
+            "ecl_threads",
+            "yocs_velocity_smoother",
+            "ecl_exceptions",
+            "ecl_time"
+    ]
+  },
+  {
+    "Name": "kobuki_controller_tutorial",
+    "Metapackage": false,
+    "Description": "Code for the Kobuki controller tutorial.",
+    "Wiki": "http://ros.org/wiki/kobuki_controller_tutorial",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "yocs_controllers"
+    ]
+  },
+  {
+    "Name": "yocs_ar_pair_tracking",
+    "Metapackage": false,
+    "Description": "The AR pair tracking package",
+    "Wiki": "http://wiki.ros.org/yocs_ar_pair_tracking",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 3,
+        "18": 2,
+        "3": 2,
+        "2": 2
+      }
+    },
+    "Edge": [
+            "yocs_math_toolkit",
+            "yocs_ar_marker_tracking"
+    ]
+  },
+  {
+    "Name": "yocs_velocity_smoother",
+    "Metapackage": false,
+    "Description": "Bound incoming velocity messages according to robot velocity and acceleration limits.",
+    "Wiki": "http://ros.org/wiki/yocs_velocity_smoother",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 1,
+        "5": 1,
+        "6": 1
+      }
+    },
+    "Edge": [
+            "ecl_threads"
+    ]
+  }
+]

@@ -1,0 +1,164 @@
+[
+  {
+    "Name": "husky_control",
+    "Metapackage": false,
+    "Description": "Clearpath Husky controller configurations",
+    "Wiki": "http://ros.org/wiki/husky_control",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "universal_robot",
+    "Metapackage": true,
+    "Contains": [
+            "ur_driver"
+    ],
+    "Description": "Drivers, description, and utilities for Universal Robot Arms.",
+    "Wiki": "http://ros.org/wiki/universal_robot",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ur_driver"
+    ]
+  },
+  {
+    "Name": "husky_base",
+    "Metapackage": false,
+    "Description": "Clearpath Husky robot driver",
+    "Wiki": "http://ros.org/wiki/husky_base",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 3,
+        "2": 10,
+        "3": 9,
+        "5": 7,
+        "6": 2,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "husky_control"
+    ]
+  },
+  {
+    "Name": "husky_robot",
+    "Metapackage": true,
+    "Contains": [
+            "husky_bringup",
+            "husky_base"
+    ],
+    "Description": "Metapackage for Clearpath Husky robot software",
+    "Wiki": "http://ros.org/wiki/husky_robot",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "husky_bringup",
+            "husky_base"
+    ]
+  },
+  {
+    "Name": "husky_bringup",
+    "Metapackage": false,
+    "Description": "Clearpath Husky installation and integration package",
+    "Wiki": "http://ros.org/wiki/husky_bringup",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ur_driver",
+            "husky_base",
+            "husky_control"
+    ]
+  },
+  {
+    "Name": "husky",
+    "Metapackage": true,
+    "Contains": [
+    ],
+    "Description": "",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ur_driver",
+    "Metapackage": false,
+    "Description": "Driver for the UR5/10 arm based on the Polyscope control scheme.",
+    "Wiki": "http://ros.org/wiki/ur_driver",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  }
+]

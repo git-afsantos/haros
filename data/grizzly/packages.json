@@ -1,0 +1,206 @@
+[
+  {
+    "Name": "roboteq_driver",
+    "Metapackage": false,
+    "Description": "The roboteq_driver package",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "grizzly_base",
+    "Metapackage": false,
+    "Description": "Package contains C++ and Python nodes which make up the low level interface to the motordrivers, thermal management, and power system on board Grizzly.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "18": 2
+      }
+    },
+    "Edge": [
+            "roboteq_driver",
+            "roboteq_diagnostics",
+            "grizzly_msgs"
+    ]
+  },
+  {
+    "Name": "grizzly_msgs",
+    "Metapackage": false,
+    "Description": "Common messages for Grizzly.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "roboteq",
+    "Metapackage": true,
+    "Contains": [
+    ],
+    "Description": "",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "grizzly",
+    "Metapackage": true,
+    "Contains": [
+    ],
+    "Description": "",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "grizzly_teleop",
+    "Metapackage": false,
+    "Description": "Nodes to republish joystick messages as a cmd_vel topic suitable for use with real or simulated Grizzly.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "grizzly_msgs"
+    ]
+  },
+  {
+    "Name": "roboteq_diagnostics",
+    "Metapackage": false,
+    "Description": "Republish basic Roboteq motor controller data to the standard ROSdiagnostics topic.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "grizzly_motion",
+    "Metapackage": false,
+    "Description": "Low-level motion control nodes for Grizzly which are common to simulated and non-simulated Grizzly.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 5,
+        "3": 4,
+        "5": 1,
+        "6": 1,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "grizzly_msgs"
+    ]
+  },
+  {
+    "Name": "grizzly_robot",
+    "Metapackage": true,
+    "Contains": [
+            "grizzly_base"
+    ],
+    "Description": "Metapackage for Grizzly robot computers.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Authors": [
+    ],
+    "Maintainers": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "grizzly_base"
+    ]
+  }
+]
