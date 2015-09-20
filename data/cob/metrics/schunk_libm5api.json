@@ -1,0 +1,8 @@
+[
+  {
+    "metric": "Cyclomatic Complexity",
+    "minimum": 1.0,
+    "maximum": 79.0,
+    "average": 8.0192926045
+  }
+]

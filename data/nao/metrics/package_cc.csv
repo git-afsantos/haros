@@ -1,0 +1,5 @@
+package,cc_min,cc_max,cc_avg
+naoqi_driver,1.0,22.0,2.4328358209
+nao_teleop,1.0,13.0,3.30769230769
+orocos_kdl,1.0,87.0,3.1746031746
+nao_path_follower,1.0,35.0,6.6875

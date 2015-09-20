@@ -1,0 +1,97 @@
+%YAML 1.1
+# Filter for ROS distribution
+---
+packages:
+    ar_track_alvar:
+        - ar_track_alvar
+    ecl_core:
+        - ecl_command_line
+        - ecl_concepts
+        - ecl_containers
+        - ecl_converters
+        - ecl_core
+        - ecl_core_apps
+        - ecl_devices
+        - ecl_eigen
+        - ecl_exceptions
+        - ecl_filesystem
+        - ecl_formatters
+        - ecl_geometry
+        - ecl_ipc
+        - ecl_linear_algebra
+        - ecl_math
+        - ecl_mpl
+        - ecl_sigslots
+        - ecl_statistics
+        - ecl_streams
+        - ecl_threads
+        - ecl_time
+        - ecl_type_traits
+        - ecl_utilities
+    ecl_lite:
+        - ecl_config
+        - ecl_converters_lite
+        - ecl_errors
+        - ecl_io
+        - ecl_lite
+        - ecl_sigslots_lite
+        - ecl_time_lite
+    ecl_navigation:
+        - ecl_mobile_robot
+        - ecl_navigation
+    kobuki:
+        - kobuki
+        - kobuki_auto_docking
+        - kobuki_bumper2pc
+        - kobuki_controller_tutorial
+        - kobuki_keyop
+        - kobuki_node
+        - kobuki_random_walker
+        - kobuki_safety_controller
+        - kobuki_testsuite
+    kobuki_core:
+        - kobuki_core
+        - kobuki_dock_drive
+        - kobuki_driver
+        - kobuki_ftdi
+    yujin_ocs:
+        - yocs_ar_marker_tracking
+        - yocs_ar_pair_approach
+        - yocs_ar_pair_tracking
+        - yocs_cmd_vel_mux
+        - yocs_controllers
+        - yocs_diff_drive_pose_controller
+        - yocs_joyop
+        - yocs_keyop
+        - yocs_localization_manager
+        - yocs_math_toolkit
+        - yocs_navigator
+        - yocs_safety_controller
+        - yocs_velocity_smoother
+        - yocs_virtual_sensor
+        - yocs_waypoint_provider
+        - yocs_waypoints_navi
+        - yujin_ocs
+meta:
+    ar_track_alvar:
+        commits:        130
+        contributors:   14
+    ecl_core:
+        commits:        242
+        contributors:   4
+    ecl_lite:
+        commits:        69
+        contributors:   2
+    ecl_navigation:
+        commits:        23
+        contributors:   2
+    kobuki:
+        commits:        1334
+        contributors:   13
+    kobuki_core:
+        commits:        1279
+        contributors:   11
+    yujin_ocs:
+        commits:        365
+        contributors:   9
+
