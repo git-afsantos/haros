@@ -175,7 +175,7 @@ def get_metric_handlers():
 
 def handle_cc(ctx, package_id, file_id, function, line, value, file_path):
     if value < 1:
-        if file_path.endswith(".hpp"): 
+        if file_path.endswith((".h", ".hpp", ".hxx")):
             return
     else:
         if value > 10:
