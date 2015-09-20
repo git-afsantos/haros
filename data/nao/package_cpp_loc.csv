@@ -1,0 +1,5 @@
+package,loc_min,loc_max,loc_avg,loc_sum
+naoqi_driver,4.0,975.0,57.01,5701.0
+nao_teleop,16.0,173.0,72.0,216.0
+orocos_kdl,2.0,495.0,66.6987951807,11072.0
+nao_path_follower,652.0,652.0,652.0,652.0

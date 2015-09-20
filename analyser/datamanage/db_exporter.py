@@ -282,3 +282,20 @@ def csv_export_package_cc(out_file):
             f.write(s)
     db.disconnect()
 
+# Hard-coded for C++ Lines of Code
+def csv_export_package_cpp_loc(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    packages = db.getMap("Packages", ("id", "name"))
+    metrics = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
+    with open(out_file, "w") as f:
+        f.write("package,loc_min,loc_max,loc_avg,loc_sum\n")
+        for m in metrics:
+            s = packages[m[0]][1] + ","
+            s += str(m[2]) + ","
+            s += str(m[3]) + ","
+            s += str(m[4]) + ","
+            s += str(m[5]) + "\n"
+            f.write(s)
+    db.disconnect()
+

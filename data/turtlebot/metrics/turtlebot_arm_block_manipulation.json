@@ -4,5 +4,11 @@
     "minimum": 1.0,
     "maximum": 20.0,
     "average": 4.07692307692
+  },
+  {
+    "metric": "Number of Lines of Code (C++)",
+    "minimum": 109.0,
+    "maximum": 253.0,
+    "average": 169.666666667
   }
 ]

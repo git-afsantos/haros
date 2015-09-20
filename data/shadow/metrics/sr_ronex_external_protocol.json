@@ -1,2 +1,8 @@
 [
+  {
+    "metric": "Number of Lines of Code (C++)",
+    "minimum": 28.0,
+    "maximum": 28.0,
+    "average": 28.0
+  }
 ]
