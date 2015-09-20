@@ -1,4 +1,5 @@
 
+import itertools
 import re
 import os
 import subprocess
@@ -146,13 +147,13 @@ def handle_cccc_function_metrics(xml, ctx, file_id, package_id, line, handlers, 
 
 def get_files(ctx):
     cpp = ctx.getFileInfo(ext="cpp")
+    cc  = ctx.getFileInfo(ext="cc")
+    cxx = ctx.getFileInfo(ext="cxx")
+    c   = ctx.getFileInfo(ext="c")
+    h   = ctx.getFileInfo(ext="h")
     hpp = ctx.getFileInfo(ext="hpp")
-    files = []
-    for f in hpp:
-        files.append(f)
-    for f in cpp:
-        files.append(f)
-    return files
+    hxx = ctx.getFileInfo(ext="hxx")
+    return itertools.chain(h, hpp, hxx, c, cc, cpp, cxx)
 
 
 def get_metric_handlers():
