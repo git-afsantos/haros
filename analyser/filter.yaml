@@ -2,36 +2,12 @@
 # Filter for ROS distribution
 ---
 packages:
-    turtlebot:
-        - turtlebot
-        - turtlebot_bringup
-        - turtlebot_teleop
-    turtlebot_apps:
-        - pano_core
-        - pano_py
-        - pano_ros
-        - turtlebot_actions
-        - turtlebot_apps
-        - turtlebot_calibration
-        - turtlebot_follower
-        - turtlebot_navigation
-        - turtlebot_panorama
-    turtlebot_arm:
-        - turtlebot_arm
-        - turtlebot_arm_block_manipulation
-        - turtlebot_arm_ikfast_plugin
-        - turtlebot_arm_kinect_calibration
-        - turtlebot_arm_moveit_demos
+    universal_robot:
+        - universal_robot
+        - ur_driver
+        - ur_kinematics
 meta:
-    turtlebot:
-        commits:        1085
-        contributors:   26
-    turtlebot_apps:
-        commits:        768
-        contributors:   25
-    turtlebot_arm:
-        commits:        179
-        contributors:   6
-notes:
-    - has runtime dependencies on kobuki packages
+    universal_robot:
+        commits:        557
+        contributors:   21
 
