@@ -111,6 +111,7 @@ def export_data(exported, configs):
     if "packages" in exported:
         print "Exporting package data."
         je.export_packages(os.path.join("export", "packages.json"))
+        je.csv_export_package_cc(os.path.join("export", "package_cc.csv"))
     if "analysis" in exported:
         print "Exporting analysis data."
         path = os.path.join("export", "compliance")

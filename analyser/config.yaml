@@ -3,7 +3,7 @@
 # Plugins should have a plugin_run() function to execute and return results.
 ---
 export:
-    format: csv
+    format: json
 plugins_unused:
     basic_metrics:
         type: analysis

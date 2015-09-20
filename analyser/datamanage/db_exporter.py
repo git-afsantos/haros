@@ -265,3 +265,20 @@ def jsonifyMetrics(metrics):
     s += "]"
     return s
 
+
+# Hard-coded for Cyclomatic Complexity
+def csv_export_package_cc(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    packages = db.getMap("Packages", ("id", "name"))
+    metrics = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
+    with open(out_file, "w") as f:
+        f.write("package,cc_min,cc_max,cc_avg\n")
+        for m in metrics:
+            s = packages[m[0]][1] + ","
+            s += str(m[2]) + ","
+            s += str(m[3]) + ","
+            s += str(m[4]) + "\n"
+            f.write(s)
+    db.disconnect()
+
