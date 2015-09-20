@@ -57,7 +57,7 @@ class PluginContext:
                     match=("package_id", package_id))
         if ext:
             return self.db.get("Files", ["id", "name", "path", "package_id"],
-                    match=("name", "." + ext), exact=False)
+                    match=("name", "." + ext), exact=False, mode="suffix")
         else:
             if self.file_info is None:
                 self.file_info = self.db.get("Files", ["id", "name", "path",

@@ -41,12 +41,17 @@ class DbManager:
                 pk = pk, fk = fk, fk_ref = fk_ref)
 
     # match is a pair (col, val) to filter
-    def get(self, table, cols, match=None, exact=True):
+    def get(self, table, cols, match=None, exact=True, mode=None):
         if match:
             if exact:
                 return dbe.getMatch(self.cur, table, cols, match[0], match[1])
             else:
-                return dbe.getLike(self.cur, table, cols, match[0], match[1])
+                if mode == "prefix":
+                    return dbe.getLikePrefix(self.cur, table, cols, match[0], match[1])
+                elif mode == "suffix":
+                    return dbe.getLikeSuffix(self.cur, table, cols, match[0], match[1])
+                else:
+                    return dbe.getLike(self.cur, table, cols, match[0], match[1])
         else:
             return dbe.getTable(self.cur, table, cols)
 

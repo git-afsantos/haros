@@ -68,6 +68,22 @@ def getLike(cur, table, cols, mcol, val, cnt = False, dstnct = False):
 	ret = exFetch(cur, cmd, single = cnt)
 	return ret
 
+def getLikePrefix(cur, table, cols, mcol, val, cnt = False, dstnct = False):
+	table = tablePref(table)
+
+	cmd = selectCmd(table, cols, cnt, dstnct)
+	cmd += " WHERE {0} LIKE '{1}%'".format(mcol, val)
+	ret = exFetch(cur, cmd, single = cnt)
+	return ret
+
+def getLikeSuffix(cur, table, cols, mcol, val, cnt = False, dstnct = False):
+	table = tablePref(table)
+
+	cmd = selectCmd(table, cols, cnt, dstnct)
+	cmd += " WHERE {0} LIKE '%{1}'".format(mcol, val)
+	ret = exFetch(cur, cmd, single = cnt)
+	return ret
+
 def getDistinct(cur, table, cols, cnt = False):
 	table = tablePref(table)
 
