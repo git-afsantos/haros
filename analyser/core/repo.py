@@ -12,6 +12,8 @@ class Repo:
         self.source_version = None
         self.subpackages = []
         self.filtered_packages = []
+        self.commits = 1
+        self.contributors = 1
 
     def addUrlAndRepoName(self, url): 
         if 'git' not in url: return # Git API query won't work on non git

@@ -35,6 +35,7 @@ class DbUpdater:
             print "[Network] Cloning repositories to:", self.root, "(this may take a while)."
             crep.clone_repos(repos, self.root)
             print "[Network] Querying repository information (this may take a while)."
+            crep.get_commit_count(repos, self.root)
             repo_keys = [["owner", "type"], "created_at", "updated_at",
                     "pushed_at", "size", "forks_count", "watchers_count",
                     "subscribers_count"]
@@ -43,12 +44,19 @@ class DbUpdater:
                 for n in r.repo_names:
                     repo_names.add(n)
             self.repos = extractor.getRepoInfo(repo_names, repo_keys)
+            for r in self.repos:
+                n = r[1][r[1].rfind("/") + 1:]
+                if n in repos:
+                    r.append(repos[n].commits)
+                else:
+                    r.append(1)
         else:
+            crep.get_commit_count(repos, self.root)
             self.repos = []
             i = 1
             for r in repos.values():
                 self.repos.append([i, r.name, None, None, None, None,
-                        None, None, None, None])
+                        None, None, None, None, r.commits])
                 i += 1
         self.packages = package.get_packages_from_repos(self.root, repos)
         self.sources = sf.find_source_files(self.root, self.packages)
@@ -138,10 +146,10 @@ class DbUpdater:
 
         db.updateTable("Repositories", ["id", "name", "owner_type", "created_at",
                 "updated_at", "pushed_at", "size", "forks_count",
-                "watchers_count", "subscribers_count"],
+                "watchers_count", "subscribers_count", "commits_count"],
                 ["MEDIUMINT(9)", "VARCHAR(60)", "VARCHAR(30)", "CHAR(10)",
                 "CHAR(10)", "CHAR(10)", "MEDIUMINT(9)", "SMALLINT(6)",
-                "SMALLINT(6)", "SMALLINT(6)"], self.repos, pk="id")
+                "SMALLINT(6)", "SMALLINT(6)", "MEDIUMINT(9)"], self.repos, pk="id")
 
         pkg_ids = [(p.id, p.name) for p in self.packages.values()]
         src_info = extractor.getPkgFiles(pkg_ids, self.sources)
