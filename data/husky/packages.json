@@ -8,10 +8,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -20,27 +16,21 @@
     ]
   },
   {
-    "Name": "universal_robot",
+    "Name": "husky",
     "Metapackage": true,
     "Contains": [
-            "ur_driver"
     ],
-    "Description": "Drivers, description, and utilities for Universal Robot Arms.",
-    "Wiki": "http://ros.org/wiki/universal_robot",
+    "Description": "",
+    "Wiki": "",
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
       }
     },
     "Edge": [
-            "ur_driver"
     ]
   },
   {
@@ -51,10 +41,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -85,10 +71,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -107,10 +89,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -122,25 +100,23 @@
     ]
   },
   {
-    "Name": "husky",
+    "Name": "universal_robot",
     "Metapackage": true,
     "Contains": [
+            "ur_driver"
     ],
-    "Description": "",
-    "Wiki": "",
+    "Description": "Drivers, description, and utilities for Universal Robot Arms.",
+    "Wiki": "http://ros.org/wiki/universal_robot",
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
       }
     },
     "Edge": [
+            "ur_driver"
     ]
   },
   {
@@ -151,10 +127,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {

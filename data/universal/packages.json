@@ -8,10 +8,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
         "1": 2,
@@ -34,10 +30,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -57,10 +49,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {

@@ -63,7 +63,8 @@ class Package:
 
     def asTuple(self):
         return (self.id, self.name, self.isMetapackage,
-                self.description, self.wiki, self.git, self.branch, self.path)
+                self.description, self.wiki, self.git, self.branch, self.path,
+                self.repo.id)
 
 
 

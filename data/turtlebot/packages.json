@@ -12,10 +12,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -26,6 +22,42 @@
     ]
   },
   {
+    "Name": "turtlebot_teleop",
+    "Metapackage": false,
+    "Description": "Provides teleoperation using joysticks or keyboard.",
+    "Wiki": "http://ros.org/wiki/turtlebot_teleop",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "3": 1,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "turtlebot_bringup"
+    ]
+  },
+  {
+    "Name": "turtlebot_bringup",
+    "Metapackage": false,
+    "Description": "turtlebot_bringup provides roslaunch scripts for starting the TurtleBot base functionality.",
+    "Wiki": "http://ros.org/wiki/turtlebot_bringup",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
     "Name": "pano_py",
     "Metapackage": false,
     "Description": "This is a python wraper around the pano_core library (I think)",
@@ -33,10 +65,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -70,10 +98,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
@@ -98,10 +122,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
         "1": 33,
@@ -124,10 +144,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
         "2": 1,
@@ -148,66 +164,12 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
       }
     },
     "Edge": [
             "pano_py"
-    ]
-  },
-  {
-    "Name": "turtlebot_teleop",
-    "Metapackage": false,
-    "Description": "Provides teleoperation using joysticks or keyboard.",
-    "Wiki": "http://ros.org/wiki/turtlebot_teleop",
-    "Metrics": {
-    },
-    "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
-    "Analysis": {
-      "Noncompliance": {
-        "2": 1,
-        "3": 1,
-        "18": 1
-      }
-    },
-    "Edge": [
-            "turtlebot_bringup"
-    ]
-  },
-  {
-    "Name": "turtlebot_arm_ikfast_plugin",
-    "Metapackage": false,
-    "Description": "The turtlebot_arm_ikfast_plugin package",
-    "Wiki": "http://ros.org/wiki/turtlebot_arm_ikfast_plugin",
-    "Metrics": {
-    },
-    "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
-    "Analysis": {
-      "Noncompliance": {
-        "1": 1,
-        "2": 2,
-        "3": 1,
-        "5": 6,
-        "6": 4,
-        "18": 2
-      }
-    },
-    "Edge": [
     ]
   },
   {
@@ -218,10 +180,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -239,10 +197,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -264,10 +218,6 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
         "2": 2,
@@ -283,6 +233,49 @@
     ]
   },
   {
+    "Name": "turtlebot_actions",
+    "Metapackage": false,
+    "Description": "turtlebot_actions provides several basic actionlib actions for the TurtleBot.",
+    "Wiki": "http://ros.org/wiki/turtlebot_actions",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "18": 4,
+        "2": 2,
+        "5": 2
+      }
+    },
+    "Edge": [
+            "turtlebot_bringup"
+    ]
+  },
+  {
+    "Name": "turtlebot_arm_ikfast_plugin",
+    "Metapackage": false,
+    "Description": "The turtlebot_arm_ikfast_plugin package",
+    "Wiki": "http://ros.org/wiki/turtlebot_arm_ikfast_plugin",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "5": 6,
+        "6": 4,
+        "18": 2
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
     "Name": "turtlebot_arm_moveit_demos",
     "Metapackage": false,
     "Description": "The turtlebot_arm_moveit_demos package contains scripts to start playing with a turtlebot arm and MoveIt.",
@@ -290,10 +283,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -310,10 +299,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {
@@ -335,61 +320,12 @@
     },
     "Repositories": [
     ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
     "Analysis": {
       "Noncompliance": {
         "1": 1,
         "2": 2,
         "3": 2,
         "18": 3
-      }
-    },
-    "Edge": [
-    ]
-  },
-  {
-    "Name": "turtlebot_actions",
-    "Metapackage": false,
-    "Description": "turtlebot_actions provides several basic actionlib actions for the TurtleBot.",
-    "Wiki": "http://ros.org/wiki/turtlebot_actions",
-    "Metrics": {
-    },
-    "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
-    "Analysis": {
-      "Noncompliance": {
-        "1": 2,
-        "18": 4,
-        "2": 2,
-        "5": 2
-      }
-    },
-    "Edge": [
-            "turtlebot_bringup"
-    ]
-  },
-  {
-    "Name": "turtlebot_bringup",
-    "Metapackage": false,
-    "Description": "turtlebot_bringup provides roslaunch scripts for starting the TurtleBot base functionality.",
-    "Wiki": "http://ros.org/wiki/turtlebot_bringup",
-    "Metrics": {
-    },
-    "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
-    ],
-    "Analysis": {
-      "Noncompliance": {
       }
     },
     "Edge": [
@@ -409,10 +345,6 @@
     "Metrics": {
     },
     "Repositories": [
-    ],
-    "Authors": [
-    ],
-    "Maintainers": [
     ],
     "Analysis": {
       "Noncompliance": {

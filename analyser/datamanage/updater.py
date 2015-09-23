@@ -40,7 +40,10 @@ class DbUpdater:
                     "pushed_at", "size", "forks_count", "watchers_count",
                     "subscribers_count"]
             repo_names = set()
+            i = 1
             for r in repos.values():
+                r.id = i
+                i += 1
                 for n in r.repo_names:
                     repo_names.add(n)
             self.repos = extractor.getRepoInfo(repo_names, repo_keys)
@@ -48,15 +51,21 @@ class DbUpdater:
                 n = r[1][r[1].rfind("/") + 1:]
                 if n in repos:
                     r.append(repos[n].commits)
+                    r.append(repos[n].contributors)
+                    r.append(repos[n].name)
                 else:
                     r.append(1)
+                    r.append(1)
+                    r.append(n)
         else:
             crep.get_commit_count(repos, self.root)
             self.repos = []
             i = 1
             for r in repos.values():
+                r.id = i
                 self.repos.append([i, r.name, None, None, None, None,
-                        None, None, None, None, r.commits])
+                        None, None, None, None,
+                        r.commits, r.contributors, r.name])
                 i += 1
         self.packages = package.get_packages_from_repos(self.root, repos)
         self.sources = sf.find_source_files(self.root, self.packages)
@@ -137,19 +146,22 @@ class DbUpdater:
 
 
     def _commitSource(self, db):
-        pkg_info = [p.asTuple() for p in self.packages.values()]
-        db.updateTable("Packages", ["id", "name", "metapackage",
-                "description", "wiki", "git", "branch", "path"],
-                ["MEDIUMINT(9)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(2000)",
-                "VARCHAR(100)", "VARCHAR(100)", "VARCHAR(50)", "VARCHAR(200)"],
-                pkg_info, pk="id")
-
-        db.updateTable("Repositories", ["id", "name", "owner_type", "created_at",
-                "updated_at", "pushed_at", "size", "forks_count",
-                "watchers_count", "subscribers_count", "commits_count"],
+        db.updateTable("Repositories", ["id", "name", "owner_type",
+                "created_at", "updated_at", "pushed_at", "size",
+                "forks_count", "watchers_count", "subscribers_count",
+                "commits_count", "contributors_count", "distro_name"],
                 ["MEDIUMINT(9)", "VARCHAR(60)", "VARCHAR(30)", "CHAR(10)",
                 "CHAR(10)", "CHAR(10)", "MEDIUMINT(9)", "SMALLINT(6)",
-                "SMALLINT(6)", "SMALLINT(6)", "MEDIUMINT(9)"], self.repos, pk="id")
+                "SMALLINT(6)", "SMALLINT(6)", "MEDIUMINT(9)",
+                "SMALLINT(6)", "VARCHAR(60)"], self.repos, pk="id")
+
+        pkg_info = [p.asTuple() for p in self.packages.values()]
+        db.updateTable("Packages", ["id", "name", "metapackage",
+                "description", "wiki", "git", "branch", "path", "repo_id"],
+                ["MEDIUMINT(9)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(2000)",
+                "VARCHAR(100)", "VARCHAR(100)", "VARCHAR(50)", "VARCHAR(200)",
+                "MEDIUMINT(9)"],
+                pkg_info, pk="id", fk=["repo_id"], fk_ref=["Repositories(id)"])
 
         pkg_ids = [(p.id, p.name) for p in self.packages.values()]
         src_info = extractor.getPkgFiles(pkg_ids, self.sources)

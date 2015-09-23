@@ -8,6 +8,7 @@ do
     # Update filter and analyse
     cp "$filename" filter.yaml
     python main.py -n -u source -e packages -e analysis
+    python datamanage/db_exporter.py
     # Move contents of export to data
     rm -rf ../data/"$name"/metrics
     cp -rl export/metrics ../data/"$name"

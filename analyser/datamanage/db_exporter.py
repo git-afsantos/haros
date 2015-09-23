@@ -70,19 +70,19 @@ def jsonifyPackage(pkg_id, cur):
 	s += jsonifyMultiItem(iter(repo_names))
 	s += "    ],\n"
 
-	s += "    \"Authors\": [\n"
-	author_ids = dbe.getMatchSet(cur, "Package_Authors", ["person_id"], "package_id", pkg_id)
-	author_names = dbe.getMatchValFromSet(cur, "People", "name", "id", author_ids)
-	if None in author_names: author_names.remove(None)
-	s += jsonifyMultiItem(iter(author_names))
-	s += "    ],\n"
+	#s += "    \"Authors\": [\n"
+	#author_ids = dbe.getMatchSet(cur, "Package_Authors", ["person_id"], "package_id", pkg_id)
+	#author_names = dbe.getMatchValFromSet(cur, "People", "name", "id", author_ids)
+	#if None in author_names: author_names.remove(None)
+	#s += jsonifyMultiItem(iter(author_names))
+	#s += "    ],\n"
 
-	s += "    \"Maintainers\": [\n"
-	mntnr_ids = dbe.getMatchSet(cur, "Package_Maintainers", ["person_id"], "package_id", pkg_id)
-	mntnr_names = dbe.getMatchValFromSet(cur, "People", "name", "id", mntnr_ids)
-	if None in mntnr_names: mntnr_names.remove(None)
-	s += jsonifyMultiItem(iter(mntnr_names))
-	s += "    ],\n"
+	#s += "    \"Maintainers\": [\n"
+	#mntnr_ids = dbe.getMatchSet(cur, "Package_Maintainers", ["person_id"], "package_id", pkg_id)
+	#mntnr_names = dbe.getMatchValFromSet(cur, "People", "name", "id", mntnr_ids)
+	#if None in mntnr_names: mntnr_names.remove(None)
+	#s += jsonifyMultiItem(iter(mntnr_names))
+	#s += "    ],\n"
 
 	s += "    \"Analysis\": {\n"
 	s += "      \"Noncompliance\": {\n"
@@ -297,5 +297,35 @@ def csv_export_package_cpp_loc(out_file):
             s += str(m[4]) + ","
             s += str(m[5]) + "\n"
             f.write(s)
+    db.disconnect()
+
+
+if __name__ == "__main__":
+    out_file = os.path.join("export", "package_repo_metrics.csv")
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    metrics = dict()
+    packages = db.getMap("Packages", ("id", "name", "repo_id"))
+    repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
+    for p in packages.values():
+        r = repos[p[2]]
+        metrics[p[0]] = [p[1], r[1], r[2], r[3], 0, 0]
+    cc = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
+    loc = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
+    for m in cc:
+        metrics[m[0]][4] = m[4]
+    for m in loc:
+        metrics[m[0]][5] = m[5]
+    with open(out_file, "w") as f:
+        f.write("Package,Repository,Contributors,Commits,CC (avg),Cpp LoC\n")
+        for m in metrics.values():
+            if m[4] > 0 and m[5] > 0:
+                s = m[0] + ","
+                s += m[1] + ","
+                s += str(m[2]) + ","
+                s += str(m[3]) + ","
+                s += str(m[4]) + ","
+                s += str(int(m[5])) + "\n"
+                f.write(s)
     db.disconnect()
 

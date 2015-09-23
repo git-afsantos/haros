@@ -1,0 +1,4 @@
+Package,Repository,Contributors,Commits,CC (avg),Cpp LoC
+industrial_robot_client,industrial_core,12,212,3.92,1284
+industrial_utils,industrial_core,12,212,4.77777777778,244
+simple_message,industrial_core,12,212,2.50537634409,4508
