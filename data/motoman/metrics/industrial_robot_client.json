@@ -10,5 +10,17 @@
     "minimum": 7.0,
     "maximum": 241.0,
     "average": 61.1428571429
+  },
+  {
+    "metric": "Number of Lines of Comments",
+    "minimum": 21.0,
+    "maximum": 184.0,
+    "average": 54.3333333333
+  },
+  {
+    "metric": "Ratio of Lines of Comments",
+    "minimum": 25.0,
+    "maximum": 550.0,
+    "average": 217.571428571
   }
 ]

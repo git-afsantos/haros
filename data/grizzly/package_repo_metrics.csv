@@ -1,6 +1,6 @@
-Package,Repository,Contributors,Commits,CC (avg),Cpp LoC
-roboteq_driver,roboteq,5,90,4.0,313
-grizzly_base,grizzly_robot,3,155,3.0,109
-grizzly_msgs,grizzly,5,258,2.25,55
-grizzly_teleop,grizzly,5,258,6.0,92
-grizzly_motion,grizzly,5,258,4.13793103448,881
+Package,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom
+roboteq_driver,roboteq,5,90,4.0,313,93
+grizzly_msgs,grizzly,5,258,2.25,55,24
+grizzly_teleop,grizzly,5,258,6.0,92,28
+grizzly_motion,grizzly,5,258,4.13793103448,881,411
+grizzly_base,grizzly_robot,3,155,3.0,109,41

@@ -299,6 +299,39 @@ def csv_export_package_cpp_loc(out_file):
             f.write(s)
     db.disconnect()
 
+# Hard-coded for Lines of Comments
+def csv_export_package_com(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    packages = db.getMap("Packages", ("id", "name"))
+    metrics = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
+    with open(out_file, "w") as f:
+        f.write("package,com_min,com_max,com_avg,com_sum\n")
+        for m in metrics:
+            s = packages[m[0]][1] + ","
+            s += str(m[2]) + ","
+            s += str(m[3]) + ","
+            s += str(m[4]) + ","
+            s += str(m[5]) + "\n"
+            f.write(s)
+    db.disconnect()
+
+# Hard-coded for Ratio of Lines of Comments
+def csv_export_package_com_ratio(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    packages = db.getMap("Packages", ("id", "name"))
+    metrics = dbe.getFileMetricsByPackage(db.cur, metric_id=14)
+    with open(out_file, "w") as f:
+        f.write("package,com_ratio_min,com_ratio_max,com_ratio_avg\n")
+        for m in metrics:
+            s = packages[m[0]][1] + ","
+            s += str(m[2]) + ","
+            s += str(m[3]) + ","
+            s += str(m[4]) + "\n"
+            f.write(s)
+    db.disconnect()
+
 
 if __name__ == "__main__":
     out_file = os.path.join("export", "package_repo_metrics.csv")
@@ -309,23 +342,35 @@ if __name__ == "__main__":
     repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
     for p in packages.values():
         r = repos[p[2]]
-        metrics[p[0]] = [p[1], r[1], r[2], r[3], 0, 0]
+        metrics[p[0]] = [p[1], r[1], r[2], r[3], 0, 0, 0]
     cc = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
     loc = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
+    com = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in cc:
         metrics[m[0]][4] = m[4]
     for m in loc:
         metrics[m[0]][5] = m[5]
+    for m in com:
+        metrics[m[0]][6] = m[5]
+    # Group by repository
+    idx = dict()
+    for r in repos.values():
+        idx[r[1]] = []
+    for m in metrics.values():
+        idx[m[1]].append(m)
+    # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Repository,Contributors,Commits,CC (avg),Cpp LoC\n")
-        for m in metrics.values():
-            if m[4] > 0 and m[5] > 0:
-                s = m[0] + ","
-                s += m[1] + ","
-                s += str(m[2]) + ","
-                s += str(m[3]) + ","
-                s += str(m[4]) + ","
-                s += str(int(m[5])) + "\n"
-                f.write(s)
+        f.write("Package,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom\n")
+        for r in idx.values():
+            for m in r:
+                if m[4] > 0 and m[5] > 0:
+                    s = m[0] + ","
+                    s += m[1] + ","
+                    s += str(m[2]) + ","
+                    s += str(m[3]) + ","
+                    s += str(m[4]) + ","
+                    s += str(int(m[5])) + ","
+                    s += str(int(m[6])) + "\n"
+                    f.write(s)
     db.disconnect()
 

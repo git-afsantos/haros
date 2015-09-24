@@ -53,3 +53,7 @@
     id: 13
     name: FUN_PARAM
     description: Function Parameters
+-
+    id: 14
+    name: COM_RATIO
+    description: Ratio of Lines of Comments

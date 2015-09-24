@@ -94,6 +94,7 @@ def parse_cccc_metrics(ctx, file_id, package_id, handlers, outdir, file_path):
             ratio = (com * 100) / loc
             handlers["com_ratio"](ctx, package_id, file_id, ratio, file_path)
             handlers["floc"](ctx, package_id, file_id, loc, file_path)
+            handlers["fcom"](ctx, package_id, file_id, com, file_path)
 
 
 def parse_cccc_function_metrics(xml_file, ctx, file_id, package_id,
@@ -160,6 +161,7 @@ def get_files(ctx):
 def get_metric_handlers():
     return {
         "floc": handle_floc,
+        "fcom": handle_fcom,
         "cc": handle_cc,
         "cbo": handle_cbo,
         "noc": handle_noc,
@@ -273,8 +275,12 @@ def handle_com_ratio(ctx, package_id, file_id, value, file_path):
     if value > 40:
         ctx.writeNonCompliance(3, package_id, file_id=file_id,
             comment="Comment ratio is above 40%")
+    ctx.writeFileMetric(file_id, 14, value)
 
 
 def handle_floc(ctx, package_id, file_id, value, file_path):
     ctx.writeFileMetric(file_id, 2, value)
+
+def handle_fcom(ctx, package_id, file_id, value, file_path):
+    ctx.writeFileMetric(file_id, 3, value)
 

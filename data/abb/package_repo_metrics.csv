@@ -1,5 +1,5 @@
-Package,Repository,Contributors,Commits,CC (avg),Cpp LoC
-abb_driver,abb,10,202,1.33333333333,74
-industrial_robot_client,industrial_core,12,212,3.92,1284
-simple_message,industrial_core,12,212,2.50537634409,4508
-abb_irb2400_moveit_plugins,abb,10,202,12.8,3143
+Package,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom
+abb_driver,abb,10,202,1.33333333333,74,122
+abb_irb2400_moveit_plugins,abb,10,202,12.8,3143,328
+industrial_robot_client,industrial_core,12,212,3.92,1284,1141
+simple_message,industrial_core,12,212,2.50537634409,4508,3987

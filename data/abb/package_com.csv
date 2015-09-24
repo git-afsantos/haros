@@ -1,0 +1,5 @@
+package,com_min,com_max,com_avg,com_sum
+abb_driver,4.0,48.0,30.5,122.0
+industrial_robot_client,21.0,184.0,54.3333333333,1141.0
+simple_message,0.0,309.0,67.5762711864,3987.0
+abb_irb2400_moveit_plugins,39.0,205.0,109.333333333,328.0
