@@ -74,40 +74,108 @@ meta:
     app_manager:
         commits:        16
         contributors:   4
+        levels:
+            app_manager: 2
     pr2_apps:
         commits:        250
         contributors:   6
+        levels:
+            pr2_app_manager: 3
+            pr2_apps: 3
+            pr2_mannequin_mode: 3
+            pr2_position_scripts: 3
+            pr2_teleop: 3
+            pr2_teleop_general: 3
+            pr2_tuckarm: 3
     pr2_common_actions:
         commits:        187
         contributors:   4
+        levels:
+            joint_trajectory_action_tools: 1
+            joint_trajectory_generator: 1
+            pr2_arm_move_ik: 1
+            pr2_common_actions: 1
+            pr2_tilt_laser_interface: 1
+            pr2_tuck_arms_action: 1
     pr2_delivery:
         commits:        35
         contributors:   3
+        levels:
+            pr2_delivery: 3
     pr2_ethercat_drivers:
         commits:        341
         contributors:   7
+        levels:
+            ethercat_hardware: 1
+            fingertip_pressure: 1
+            pr2_ethercat_drivers: 1
     pr2_controllers:
         commits:        328
         contributors:   3
+        levels:
+            ethercat_trigger_controllers: 1
+            joint_trajectory_action: 1
+            pr2_calibration_controllers: 1
+            pr2_controllers: 1
+            pr2_gripper_action: 1
+            pr2_head_action: 1
+            pr2_mechanism_controllers: 1
+            robot_mechanism_controllers: 1
+            single_joint_position_action: 1
     pr2_mechanism:
         commits:        292
         contributors:   12
+        levels:
+            pr2_controller_interface: 1
+            pr2_controller_manager: 1
+            pr2_hardware_interface: 1
+            pr2_mechanism: 1
+            pr2_mechanism_diagnostics: 1
+            pr2_mechanism_model: 1
     pr2_gripper_sensor:
         commits:        39
         contributors:   6
+        levels:
+            pr2_gripper_sensor: 1
+            pr2_gripper_sensor_action: 1
+            pr2_gripper_sensor_controller: 1
     pr2_kinematics:
         commits:        66
         contributors:   2
+        levels:
+            pr2_kinematics: 1
+            pr2_arm_kinematics: 1
     pr2_navigation:
         commits:        194
         contributors:   7
+        levels:
+            laser_tilt_controller_filter: 1
+            pr2_move_base: 1
+            pr2_navigation: 1
+            pr2_navigation_perception: 1
+            pr2_navigation_self_filter: 1
+            semantic_point_annotator: 1
     pr2_power_drivers:
         commits:        214
         contributors:   1
+        levels:
+            ocean_battery_driver: 1
+            power_monitor: 1
+            pr2_power_board: 1
+            pr2_power_drivers: 1
     pr2_robot:
         commits:        377
         contributors:   11
+        levels:
+            pr2_camera_synchronizer: 1
+            pr2_computer_monitor: 1
+            pr2_ethercat: 1
+            pr2_robot: 1
+            pr2_run_stop_auto_restart: 1
     orocos_kinematics_dynamics:
         commits:        494
         contributors:   22
+        levels:
+            orocos_kdl: 2
+            orocos_kinematics_dynamics: 2
 

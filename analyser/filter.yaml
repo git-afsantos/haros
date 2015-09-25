@@ -2,12 +2,761 @@
 # Filter for ROS distribution
 ---
 packages:
+    abb:
+        - abb
+        - abb_driver
+        - abb_irb2400_moveit_plugins
+    app_manager:
+        - app_manager
+    ar_track_alvar:
+        - ar_track_alvar
+    cob_command_tools:
+        - cob_command_gui
+        - cob_command_tools
+        - cob_dashboard
+        - cob_interactive_teleop
+        - cob_monitoring
+        - cob_script_server
+        - cob_teleop
+    cob_control:
+        - cob_base_velocity_smoother
+        - cob_cartesian_controller
+        - cob_collision_velocity_filter
+        - cob_control
+        - cob_control_mode_adapter
+        - cob_footprint_observer
+        - cob_frame_tracker
+        - cob_model_identifier
+        - cob_obstacle_distance
+        - cob_omni_drive_controller
+        - cob_trajectory_controller
+        - cob_twist_controller
+    cob_driver:
+        - cob_base_drive_chain
+        - cob_camera_sensors
+        - cob_canopen_motor
+        - cob_driver
+        - cob_generic_can
+        - cob_head_axis
+        - cob_light
+        - cob_mimic
+        - cob_phidgets
+        - cob_relayboard
+        - cob_sick_lms1xx
+        - cob_sick_s300
+        - cob_sound
+        - cob_undercarriage_ctrl
+        - cob_utilities
+        - cob_voltage_control
+    cob_manipulation:
+        - cob_grasp_generation
+        - cob_kinematics
+        - cob_lookat_action
+        - cob_manipulation
+        - cob_moveit_interface
+        - cob_pick_place_action
+        - cob_tactiletools
+        - cob_tray_monitor
+    cob_navigation:
+        - cob_linear_nav
+        - cob_navigation
+        - cob_scan_unifier
+    cob_perception_common:
+        - cob_cam3d_throttle
+        - cob_image_flip
+        - cob_object_detection_visualizer
+        - cob_perception_common
+        - cob_vision_utils
+    ecl_core:
+        - ecl_command_line
+        - ecl_concepts
+        - ecl_containers
+        - ecl_converters
+        - ecl_core
+        - ecl_core_apps
+        - ecl_devices
+        - ecl_eigen
+        - ecl_exceptions
+        - ecl_filesystem
+        - ecl_formatters
+        - ecl_geometry
+        - ecl_ipc
+        - ecl_linear_algebra
+        - ecl_math
+        - ecl_mpl
+        - ecl_sigslots
+        - ecl_statistics
+        - ecl_streams
+        - ecl_threads
+        - ecl_time
+        - ecl_type_traits
+        - ecl_utilities
+    ecl_lite:
+        - ecl_config
+        - ecl_converters_lite
+        - ecl_errors
+        - ecl_io
+        - ecl_lite
+        - ecl_sigslots_lite
+        - ecl_time_lite
+    ecl_navigation:
+        - ecl_mobile_robot
+        - ecl_navigation
+    grizzly:
+        - grizzly_motion
+        - grizzly_msgs
+        - grizzly_teleop
+    grizzly_robot:
+        - grizzly_base
+        - grizzly_robot
+    husky:
+        - husky_control
+    husky_robot:
+        - husky_base
+        - husky_bringup
+        - husky_robot
+    industrial_core:
+        - industrial_robot_client
+        - industrial_utils
+        - simple_message
+    kobuki:
+        - kobuki
+        - kobuki_auto_docking
+        - kobuki_bumper2pc
+        - kobuki_controller_tutorial
+        - kobuki_keyop
+        - kobuki_node
+        - kobuki_random_walker
+        - kobuki_safety_controller
+        - kobuki_testsuite
+    kobuki_core:
+        - kobuki_core
+        - kobuki_dock_drive
+        - kobuki_driver
+        - kobuki_ftdi
+    motoman:
+        - motoman
+        - motoman_driver
+    nao_extras:
+        - nao_extras
+        - nao_path_follower
+        - nao_teleop
+    naoqi_driver:
+        - naoqi_driver
+    orocos_kinematics_dynamics:
+        - orocos_kdl
+        - orocos_kinematics_dynamics
+    pr2_apps:
+        - pr2_app_manager
+        - pr2_apps
+        - pr2_mannequin_mode
+        - pr2_position_scripts
+        - pr2_teleop
+        - pr2_teleop_general
+        - pr2_tuckarm
+    pr2_common_actions:
+        - joint_trajectory_action_tools
+        - joint_trajectory_generator
+        - pr2_arm_move_ik
+        - pr2_common_actions
+        - pr2_tilt_laser_interface
+        - pr2_tuck_arms_action
+    pr2_controllers:
+        - ethercat_trigger_controllers
+        - joint_trajectory_action
+        - pr2_calibration_controllers
+        - pr2_controllers
+        - pr2_gripper_action
+        - pr2_head_action
+        - pr2_mechanism_controllers
+        - robot_mechanism_controllers
+        - single_joint_position_action
+    pr2_delivery:
+        - pr2_delivery
+    pr2_kinematics:
+        - pr2_kinematics
+        - pr2_arm_kinematics
+    pr2_mechanism:
+        - pr2_controller_interface
+        - pr2_controller_manager
+        - pr2_hardware_interface
+        - pr2_mechanism
+        - pr2_mechanism_diagnostics
+        - pr2_mechanism_model
+    pr2_power_drivers:
+        - ocean_battery_driver
+        - power_monitor
+        - pr2_power_board
+        - pr2_power_drivers
+    pr2_robot:
+        - pr2_camera_synchronizer
+        - pr2_computer_monitor
+        - pr2_ethercat
+        - pr2_robot
+        - pr2_run_stop_auto_restart
+    pr2_ethercat_drivers:
+        - ethercat_hardware
+        - fingertip_pressure
+        - pr2_ethercat_drivers
+    pr2_gripper_sensor:
+        - pr2_gripper_sensor
+        - pr2_gripper_sensor_action
+        - pr2_gripper_sensor_controller
+    pr2_navigation:
+        - laser_tilt_controller_filter
+        - pr2_move_base
+        - pr2_navigation
+        - pr2_navigation_perception
+        - pr2_navigation_self_filter
+        - semantic_point_annotator
+    roboteq:
+        - roboteq_diagnostics
+        - roboteq_driver
+    ros_ethercat:
+        - ros_ethercat
+        - ros_ethercat_eml
+        - ros_ethercat_hardware
+        - ros_ethercat_loop
+        - ros_ethercat_model
+    schunk_modular_robotics:
+        - schunk_libm5api
+        - schunk_modular_robotics
+        - schunk_powercube_chain
+        - schunk_sdh
+        - schunk_sdhx
+        - schunk_simulated_tactile_sensors
+    shadow_robot_ethercat:
+        - shadow_robot_ethercat
+        - sr_edc_controller_configuration
+        - sr_edc_ethercat_drivers
+        - sr_robot_lib
+    sr_core:
+        - sr_core
+        - sr_gazebo_sim
+        - sr_hand
+        - sr_hardware_interface
+        - sr_mechanism_controllers
+        - sr_mechanism_model
+        - sr_self_test
+        - sr_tactile_sensors
+        - sr_utilities
+    sr_interface:
+        - sr_example
+        - sr_grasp
+        - hand_kinematics
+        - kdl_coupling
+        - sr_interface
+        - sr_robot_commander
+    sr_ronex:
+        - sr_ronex
+        - sr_ronex_controllers
+        - sr_ronex_drivers
+        - sr_ronex_examples
+        - sr_ronex_external_protocol
+        - sr_ronex_hardware_interface
+        - sr_ronex_transmissions
+        - sr_ronex_utilities
+    sr_teleop:
+        - cyberglove
+        - cyberglove_trajectory
+        - logitech_r400
+        - shuttle_xpress
+        - sr_remappers
+    sr_tools:
+        - sr_grasp_fast_planner
+        - sr_movements
+        - sr_tools
+    turtlebot:
+        - turtlebot
+        - turtlebot_bringup
+        - turtlebot_teleop
+    turtlebot_apps:
+        - pano_core
+        - pano_py
+        - pano_ros
+        - turtlebot_actions
+        - turtlebot_apps
+        - turtlebot_calibration
+        - turtlebot_follower
+        - turtlebot_navigation
+        - turtlebot_panorama
+    turtlebot_arm:
+        - turtlebot_arm
+        - turtlebot_arm_block_manipulation
+        - turtlebot_arm_ikfast_plugin
+        - turtlebot_arm_kinect_calibration
+        - turtlebot_arm_moveit_demos
     universal_robot:
         - universal_robot
         - ur_driver
         - ur_kinematics
+    yujin_ocs:
+        - yocs_ar_marker_tracking
+        - yocs_ar_pair_approach
+        - yocs_ar_pair_tracking
+        - yocs_cmd_vel_mux
+        - yocs_controllers
+        - yocs_diff_drive_pose_controller
+        - yocs_joyop
+        - yocs_keyop
+        - yocs_localization_manager
+        - yocs_math_toolkit
+        - yocs_navigator
+        - yocs_safety_controller
+        - yocs_velocity_smoother
+        - yocs_virtual_sensor
+        - yocs_waypoint_provider
+        - yocs_waypoints_navi
+        - yujin_ocs
 meta:
+    abb:
+        commits:        202
+        contributors:   10
+        levels:
+            abb: 1
+            abb_driver: 1
+            abb_irb2400_moveit_plugins: 1
+    app_manager:
+        commits:        16
+        contributors:   4
+        levels:
+            app_manager: 2
+    ar_track_alvar:
+        commits:        130
+        contributors:   14
+        levels:
+            ar_track_alvar: 2
+    cob_command_tools:
+        commits:        1609
+        contributors:   31
+        levels:
+            cob_command_gui: 3
+            cob_command_tools: 3
+            cob_dashboard: 3
+            cob_interactive_teleop: 3
+            cob_monitoring: 3
+            cob_script_server: 3
+            cob_teleop: 3
+    cob_control:
+        commits:        937
+        contributors:   24
+        levels:
+            cob_base_velocity_smoother: 1
+            cob_cartesian_controller: 1
+            cob_collision_velocity_filter: 1
+            cob_control: 1
+            cob_control_mode_adapter: 1
+            cob_footprint_observer: 1
+            cob_frame_tracker: 1
+            cob_model_identifier: 1
+            cob_obstacle_distance: 1
+            cob_omni_drive_controller: 1
+            cob_trajectory_controller: 1
+            cob_twist_controller: 1
+    cob_driver:
+        commits:        2706
+        contributors:   49
+        levels:
+            cob_base_drive_chain: 1
+            cob_camera_sensors: 1
+            cob_canopen_motor: 1
+            cob_driver: 1
+            cob_generic_can: 1
+            cob_head_axis: 1
+            cob_light: 1
+            cob_mimic: 1
+            cob_phidgets: 1
+            cob_relayboard: 1
+            cob_sick_lms1xx: 1
+            cob_sick_s300: 1
+            cob_sound: 1
+            cob_undercarriage_ctrl: 1
+            cob_utilities: 2
+            cob_voltage_control: 1
+    cob_manipulation:
+        commits:        1198
+        contributors:   15
+        levels:
+            cob_grasp_generation: 1
+            cob_kinematics: 1
+            cob_lookat_action: 1
+            cob_manipulation: 1
+            cob_moveit_interface: 1
+            cob_pick_place_action: 1
+            cob_tactiletools: 1
+            cob_tray_monitor: 1
+    cob_navigation:
+        commits:        1304
+        contributors:   27
+        levels:
+            cob_linear_nav: 1
+            cob_navigation: 1
+            cob_scan_unifier: 1
+    cob_perception_common:
+        commits:        247
+        contributors:   11
+        levels:
+            cob_cam3d_throttle: 1
+            cob_image_flip: 1
+            cob_object_detection_visualizer: 1
+            cob_perception_common: 1
+            cob_vision_utils: 1
+    ecl_core:
+        commits:        242
+        contributors:   4
+        levels:
+            ecl_command_line: 2
+            ecl_concepts: 2
+            ecl_containers: 2
+            ecl_converters: 2
+            ecl_core: 2
+            ecl_core_apps: 3
+            ecl_devices: 2
+            ecl_eigen: 2
+            ecl_exceptions: 2
+            ecl_filesystem: 2
+            ecl_formatters: 2
+            ecl_geometry: 2
+            ecl_ipc: 2
+            ecl_linear_algebra: 2
+            ecl_math: 2
+            ecl_mpl: 2
+            ecl_sigslots: 2
+            ecl_statistics: 2
+            ecl_streams: 2
+            ecl_threads: 2
+            ecl_time: 2
+            ecl_type_traits: 2
+            ecl_utilities: 2
+    ecl_lite:
+        commits:        69
+        contributors:   2
+        levels:
+            ecl_config: 2
+            ecl_converters_lite: 2
+            ecl_errors: 2
+            ecl_io: 2
+            ecl_lite: 2
+            ecl_sigslots_lite: 2
+            ecl_time_lite: 2
+    ecl_navigation:
+        commits:        23
+        contributors:   2
+        levels:
+            ecl_mobile_robot: 2
+            ecl_navigation: 2
+    grizzly:
+        commits:        257
+        contributors:   5
+        levels:
+            grizzly_motion: 1
+            grizzly_msgs: 1
+            grizzly_teleop: 1
+    grizzly_robot:
+        commits:        155
+        contributors:   3
+        levels:
+            grizzly_base: 1
+            grizzly_robot: 1
+    husky:
+        commits:        342
+        contributors:   7
+        levels:
+            husky_control: 1
+    husky_robot:
+        commits:        281
+        contributors:   8
+        levels:
+            husky_base: 1
+            husky_bringup: 1
+            husky_robot: 1
+    industrial_core:
+        commits:        212
+        contributors:   12
+        levels:
+            industrial_robot_client: 2
+            industrial_utils: 2
+            simple_message: 2
+    kobuki:
+        commits:        1334
+        contributors:   13
+        levels:
+            kobuki: 1
+            kobuki_auto_docking: 3
+            kobuki_bumper2pc: 1
+            kobuki_controller_tutorial: 3
+            kobuki_keyop: 3
+            kobuki_node: 1
+            kobuki_random_walker: 3
+            kobuki_safety_controller: 1
+            kobuki_testsuite: 3
+    kobuki_core:
+        commits:        1279
+        contributors:   11
+        levels:
+            kobuki_core: 1
+            kobuki_dock_drive: 1
+            kobuki_driver: 1
+            kobuki_ftdi: 1
+    motoman:
+        commits:        275
+        contributors:   14
+        levels:
+            motoman: 1
+            motoman_driver: 1
+    nao_extras:
+        commits:        72
+        contributors:   5
+        levels:
+            nao_extras: 3
+            nao_path_follower: 3
+            nao_teleop: 3
+    naoqi_driver:
+        commits:        632
+        contributors:   8
+        levels:
+            naoqi_driver: 1
+    orocos_kinematics_dynamics:
+        commits:        494
+        contributors:   22
+        levels:
+            orocos_kdl: 2
+            orocos_kinematics_dynamics: 2
+    pr2_apps:
+        commits:        250
+        contributors:   6
+        levels:
+            pr2_app_manager: 3
+            pr2_apps: 3
+            pr2_mannequin_mode: 3
+            pr2_position_scripts: 3
+            pr2_teleop: 3
+            pr2_teleop_general: 3
+            pr2_tuckarm: 3
+    pr2_common_actions:
+        commits:        187
+        contributors:   4
+        levels:
+            joint_trajectory_action_tools: 1
+            joint_trajectory_generator: 1
+            pr2_arm_move_ik: 1
+            pr2_common_actions: 1
+            pr2_tilt_laser_interface: 1
+            pr2_tuck_arms_action: 1
+    pr2_delivery:
+        commits:        35
+        contributors:   3
+        levels:
+            pr2_delivery: 3
+    pr2_ethercat_drivers:
+        commits:        341
+        contributors:   7
+        levels:
+            ethercat_hardware: 1
+            fingertip_pressure: 1
+            pr2_ethercat_drivers: 1
+    pr2_controllers:
+        commits:        328
+        contributors:   3
+        levels:
+            ethercat_trigger_controllers: 1
+            joint_trajectory_action: 1
+            pr2_calibration_controllers: 1
+            pr2_controllers: 1
+            pr2_gripper_action: 1
+            pr2_head_action: 1
+            pr2_mechanism_controllers: 1
+            robot_mechanism_controllers: 1
+            single_joint_position_action: 1
+    pr2_mechanism:
+        commits:        292
+        contributors:   12
+        levels:
+            pr2_controller_interface: 1
+            pr2_controller_manager: 1
+            pr2_hardware_interface: 1
+            pr2_mechanism: 1
+            pr2_mechanism_diagnostics: 1
+            pr2_mechanism_model: 1
+    pr2_gripper_sensor:
+        commits:        39
+        contributors:   6
+        levels:
+            pr2_gripper_sensor: 1
+            pr2_gripper_sensor_action: 1
+            pr2_gripper_sensor_controller: 1
+    pr2_kinematics:
+        commits:        66
+        contributors:   2
+        levels:
+            pr2_kinematics: 1
+            pr2_arm_kinematics: 1
+    pr2_navigation:
+        commits:        194
+        contributors:   7
+        levels:
+            laser_tilt_controller_filter: 1
+            pr2_move_base: 1
+            pr2_navigation: 1
+            pr2_navigation_perception: 1
+            pr2_navigation_self_filter: 1
+            semantic_point_annotator: 1
+    pr2_power_drivers:
+        commits:        214
+        contributors:   1
+        levels:
+            ocean_battery_driver: 1
+            power_monitor: 1
+            pr2_power_board: 1
+            pr2_power_drivers: 1
+    pr2_robot:
+        commits:        377
+        contributors:   11
+        levels:
+            pr2_camera_synchronizer: 1
+            pr2_computer_monitor: 1
+            pr2_ethercat: 1
+            pr2_robot: 1
+            pr2_run_stop_auto_restart: 1
+    roboteq:
+        commits:        90
+        contributors:   5
+        levels:
+            roboteq_diagnostics: 1
+            roboteq_driver: 1
+    ros_ethercat:
+        commits:        182
+        contributors:   4
+        levels:
+            ros_ethercat: 2
+            ros_ethercat_eml: 2
+            ros_ethercat_hardware: 2
+            ros_ethercat_loop: 2
+            ros_ethercat_model: 2
+    schunk_modular_robotics:
+        commits:        1270
+        contributors:   34
+        levels:
+            schunk_libm5api: 2
+            schunk_modular_robotics: 1
+            schunk_powercube_chain: 1
+            schunk_sdh: 1
+            schunk_sdhx: 1
+            schunk_simulated_tactile_sensors: 1
+    shadow_robot_ethercat:
+        commits:        1275
+        contributors:   11
+        levels:
+            shadow_robot_ethercat: 1
+            sr_edc_controller_configuration: 1
+            sr_edc_ethercat_drivers: 1
+            sr_robot_lib: 1
+    sr_core:
+        commits:        1014
+        contributors:   10
+        levels:
+            sr_core: 1
+            sr_gazebo_sim: 1
+            sr_hand: 1
+            sr_hardware_interface: 1
+            sr_mechanism_controllers: 1
+            sr_mechanism_model: 1
+            sr_self_test: 1
+            sr_tactile_sensors: 1
+            sr_utilities: 2
+    sr_interface:
+        commits:        527
+        contributors:   11
+        levels:
+            sr_example: 3
+            sr_grasp: 1
+            hand_kinematics: 1
+            kdl_coupling: 2
+            sr_interface: 3
+            sr_robot_commander: 1
+    sr_ronex:
+        commits:        877
+        contributors:   12
+        levels:
+            sr_ronex: 1
+            sr_ronex_controllers: 1
+            sr_ronex_drivers: 1
+            sr_ronex_examples: 3
+            sr_ronex_external_protocol: 1
+            sr_ronex_hardware_interface: 1
+            sr_ronex_transmissions: 1
+            sr_ronex_utilities: 1
+    sr_teleop:
+        commits:        1331
+        contributors:   7
+        levels:
+            cyberglove: 2
+            cyberglove_trajectory: 1
+            logitech_r400: 1
+            shuttle_xpress: 1
+            sr_remappers: 3
+    sr_tools:
+        commits:        104
+        contributors:   4
+        levels:
+            sr_grasp_fast_planner: 3
+            sr_movements: 3
+            sr_tools: 3
+    turtlebot:
+        commits:        1085
+        contributors:   26
+        levels:
+            turtlebot: 1
+            turtlebot_bringup: 1
+            turtlebot_teleop: 3
+    turtlebot_apps:
+        commits:        768
+        contributors:   25
+        levels:
+            pano_core: 2
+            pano_py: 2
+            pano_ros: 2
+            turtlebot_actions: 3
+            turtlebot_apps: 3
+            turtlebot_calibration: 3
+            turtlebot_follower: 3
+            turtlebot_navigation: 3
+            turtlebot_panorama: 3
+    turtlebot_arm:
+        commits:        179
+        contributors:   6
+        levels:
+            turtlebot_arm: 3
+            turtlebot_arm_block_manipulation: 3
+            turtlebot_arm_ikfast_plugin: 1
+            turtlebot_arm_kinect_calibration: 3
+            turtlebot_arm_moveit_demos: 3
     universal_robot:
         commits:        557
         contributors:   21
+        levels:
+            universal_robot: 1
+            ur_driver: 1
+            ur_kinematics: 1
+    yujin_ocs:
+        commits:        365
+        contributors:   9
+        levels:
+            yocs_ar_marker_tracking: 2
+            yocs_ar_pair_approach: 2
+            yocs_ar_pair_tracking: 2
+            yocs_cmd_vel_mux: 2
+            yocs_controllers: 2
+            yocs_diff_drive_pose_controller: 2
+            yocs_joyop: 2
+            yocs_keyop: 2
+            yocs_localization_manager: 2
+            yocs_math_toolkit: 2
+            yocs_navigator: 2
+            yocs_safety_controller: 2
+            yocs_velocity_smoother: 2
+            yocs_virtual_sensor: 2
+            yocs_waypoint_provider: 2
+            yocs_waypoints_navi: 3
+            yujin_ocs: 2
 

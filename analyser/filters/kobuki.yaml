@@ -76,22 +76,92 @@ meta:
     ar_track_alvar:
         commits:        130
         contributors:   14
+        levels:
+            ar_track_alvar: 2
     ecl_core:
         commits:        242
         contributors:   4
+        levels:
+            ecl_command_line: 2
+            ecl_concepts: 2
+            ecl_containers: 2
+            ecl_converters: 2
+            ecl_core: 2
+            ecl_core_apps: 3
+            ecl_devices: 2
+            ecl_eigen: 2
+            ecl_exceptions: 2
+            ecl_filesystem: 2
+            ecl_formatters: 2
+            ecl_geometry: 2
+            ecl_ipc: 2
+            ecl_linear_algebra: 2
+            ecl_math: 2
+            ecl_mpl: 2
+            ecl_sigslots: 2
+            ecl_statistics: 2
+            ecl_streams: 2
+            ecl_threads: 2
+            ecl_time: 2
+            ecl_type_traits: 2
+            ecl_utilities: 2
     ecl_lite:
         commits:        69
         contributors:   2
+        levels:
+            ecl_config: 2
+            ecl_converters_lite: 2
+            ecl_errors: 2
+            ecl_io: 2
+            ecl_lite: 2
+            ecl_sigslots_lite: 2
+            ecl_time_lite: 2
     ecl_navigation:
         commits:        23
         contributors:   2
+        levels:
+            ecl_mobile_robot: 2
+            ecl_navigation: 2
     kobuki:
         commits:        1334
         contributors:   13
+        levels:
+            kobuki: 1
+            kobuki_auto_docking: 3
+            kobuki_bumper2pc: 1
+            kobuki_controller_tutorial: 3
+            kobuki_keyop: 3
+            kobuki_node: 1
+            kobuki_random_walker: 3
+            kobuki_safety_controller: 1
+            kobuki_testsuite: 3
     kobuki_core:
         commits:        1279
         contributors:   11
+        levels:
+            kobuki_core: 1
+            kobuki_dock_drive: 1
+            kobuki_driver: 1
+            kobuki_ftdi: 1
     yujin_ocs:
         commits:        365
         contributors:   9
+        levels:
+            yocs_ar_marker_tracking: 2
+            yocs_ar_pair_approach: 2
+            yocs_ar_pair_tracking: 2
+            yocs_cmd_vel_mux: 2
+            yocs_controllers: 2
+            yocs_diff_drive_pose_controller: 2
+            yocs_joyop: 2
+            yocs_keyop: 2
+            yocs_localization_manager: 2
+            yocs_math_toolkit: 2
+            yocs_navigator: 2
+            yocs_safety_controller: 2
+            yocs_velocity_smoother: 2
+            yocs_virtual_sensor: 2
+            yocs_waypoint_provider: 2
+            yocs_waypoints_navi: 3
+            yujin_ocs: 2
 

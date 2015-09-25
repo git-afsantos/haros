@@ -14,10 +14,18 @@ meta:
     husky:
         commits:        342
         contributors:   7
+        levels:
+            husky_control: 1
     husky_robot:
         commits:        281
         contributors:   8
+        levels:
+            husky_base: 1
+            husky_bringup: 1
+            husky_robot: 1
     universal_robot:
         commits:        557
         contributors:   21
+        levels:
+            ur_driver: 1
 

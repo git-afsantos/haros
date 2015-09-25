@@ -56,25 +56,75 @@ meta:
     ros_ethercat:
         commits:        182
         contributors:   4
+        levels:
+            ros_ethercat: 2
+            ros_ethercat_eml: 2
+            ros_ethercat_hardware: 2
+            ros_ethercat_loop: 2
+            ros_ethercat_model: 2
     orocos_kinematics_dynamics:
         commits:        494
         contributors:   22
+        levels:
+            orocos_kdl: 2
+            orocos_kinematics_dynamics: 2
     shadow_robot_ethercat:
         commits:        1275
         contributors:   11
+        levels:
+            shadow_robot_ethercat: 1
+            sr_edc_controller_configuration: 1
+            sr_edc_ethercat_drivers: 1
+            sr_robot_lib: 1
     sr_core:
         commits:        1014
         contributors:   10
+        levels:
+            sr_core: 1
+            sr_gazebo_sim: 1
+            sr_hand: 1
+            sr_hardware_interface: 1
+            sr_mechanism_controllers: 1
+            sr_mechanism_model: 1
+            sr_self_test: 1
+            sr_tactile_sensors: 1
+            sr_utilities: 2
     sr_interface:
         commits:        527
         contributors:   11
+        levels:
+            sr_example: 3
+            sr_grasp: 1
+            hand_kinematics: 1
+            kdl_coupling: 2
+            sr_interface: 3
+            sr_robot_commander: 1
     sr_ronex:
         commits:        877
         contributors:   12
+        levels:
+            sr_ronex: 1
+            sr_ronex_controllers: 1
+            sr_ronex_drivers: 1
+            sr_ronex_examples: 3
+            sr_ronex_external_protocol: 1
+            sr_ronex_hardware_interface: 1
+            sr_ronex_transmissions: 1
+            sr_ronex_utilities: 1
     sr_teleop:
         commits:        1331
         contributors:   7
+        levels:
+            cyberglove: 2
+            cyberglove_trajectory: 1
+            logitech_r400: 1
+            shuttle_xpress: 1
+            sr_remappers: 3
     sr_tools:
         commits:        104
         contributors:   4
+        levels:
+            sr_grasp_fast_planner: 3
+            sr_movements: 3
+            sr_tools: 3
 

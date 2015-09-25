@@ -13,7 +13,14 @@ meta:
     motoman:
         commits:        275
         contributors:   14
+        levels:
+            motoman: 1
+            motoman_driver: 1
     industrial_core:
         commits:        212
         contributors:   12
+        levels:
+            industrial_robot_client: 2
+            industrial_utils: 2
+            simple_message: 2
 

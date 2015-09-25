@@ -67,7 +67,7 @@ class DbUpdater:
                         None, None, None, None,
                         r.commits, r.contributors, r.name])
                 i += 1
-        self.packages = package.get_packages_from_repos(self.root, repos)
+        self.packages = package.get_packages_from_repos(self.root, repos, filter_file = dist_filter)
         self.sources = sf.find_source_files(self.root, self.packages)
 
         i = 1
@@ -157,10 +157,10 @@ class DbUpdater:
 
         pkg_info = [p.asTuple() for p in self.packages.values()]
         db.updateTable("Packages", ["id", "name", "metapackage",
-                "description", "wiki", "git", "branch", "path", "repo_id"],
+                "description", "wiki", "git", "branch", "path", "repo_id", "level"],
                 ["MEDIUMINT(9)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(2000)",
                 "VARCHAR(100)", "VARCHAR(100)", "VARCHAR(50)", "VARCHAR(200)",
-                "MEDIUMINT(9)"],
+                "MEDIUMINT(9)", "SMALLINT(6)"],
                 pkg_info, pk="id", fk=["repo_id"], fk_ref=["Repositories(id)"])
 
         pkg_ids = [(p.id, p.name) for p in self.packages.values()]

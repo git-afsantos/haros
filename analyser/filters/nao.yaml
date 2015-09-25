@@ -15,10 +15,19 @@ meta:
     nao_extras:
         commits:        72
         contributors:   5
+        levels:
+            nao_extras: 3
+            nao_path_follower: 3
+            nao_teleop: 3
     naoqi_driver:
         commits:        632
         contributors:   8
+        levels:
+            naoqi_driver: 1
     orocos_kinematics_dynamics:
         commits:        494
         contributors:   22
+        levels:
+            orocos_kdl: 2
+            orocos_kinematics_dynamics: 2
 

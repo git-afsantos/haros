@@ -8,6 +8,7 @@ import re
 import xml.etree.ElementTree as ET
 
 from people import Person, PersonSet
+from yaml import load
 
 
 # Holds all of the information for a single ROS package
@@ -33,6 +34,7 @@ class Package:
         self.git = repo.source_url
         self.branch = repo.source_version
         self.path = None
+        self.level = 0
 
     def __str__(self):
         s = self.name
@@ -64,7 +66,7 @@ class Package:
     def asTuple(self):
         return (self.id, self.name, self.isMetapackage,
                 self.description, self.wiki, self.git, self.branch, self.path,
-                self.repo.id)
+                self.repo.id, self.level)
 
 
 
@@ -170,7 +172,7 @@ def make_missing_packages_from_repos(repos_dict, pkg_dict):
 # root directory, looking for manifest files (package.xml).
 # Each manifest file is processed into a Package object.
 # Returns a dictionary of the packages found.
-def get_packages_from_repos(src_root, repos_dict):
+def get_packages_from_repos(src_root, repos_dict, filter_file=None):
     pkg_dict = {}
     for repo in repos_dict.values():
         pkgs = get_packages_from_repo(src_root, repo)
@@ -178,5 +180,19 @@ def get_packages_from_repos(src_root, repos_dict):
             if (pkg.name in repo.filtered_packages) or pkg.isMetapackage:
                 pkg_dict[pkg.name] = pkg
     make_missing_packages_from_repos(repos_dict, pkg_dict)
-    return pkg_dict
+    if filter_file is None:
+        return pkg_dict
+    else:
+        with open(filter_file, "r") as open_file:
+            filter_data = load(open_file)
+        meta_data = dict()
+        if "meta" in filter_data:
+            meta_data = filter_data["meta"]
+        for k, v in meta_data.iteritems():
+            if k in repos_dict and "levels" in v:
+                levels = v["levels"]
+                for pk, pl in levels.iteritems():
+                    if pk in pkg_dict:
+                        pkg_dict[pk].level = int(pl)
+        return pkg_dict
 

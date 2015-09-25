@@ -338,39 +338,40 @@ if __name__ == "__main__":
     db = dbm.DbManager()
     db.connect("dbuser.txt")
     metrics = dict()
-    packages = db.getMap("Packages", ("id", "name", "repo_id"))
+    packages = db.getMap("Packages", ("id", "name", "repo_id", "level"))
     repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
     for p in packages.values():
         r = repos[p[2]]
-        metrics[p[0]] = [p[1], r[1], r[2], r[3], 0, 0, 0]
+        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, 0, 0]
     cc = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
     loc = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
     com = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in cc:
-        metrics[m[0]][4] = m[4]
+        metrics[m[0]][5] = m[4]
     for m in loc:
-        metrics[m[0]][5] = m[5]
-    for m in com:
         metrics[m[0]][6] = m[5]
+    for m in com:
+        metrics[m[0]][7] = m[5]
     # Group by repository
     idx = dict()
     for r in repos.values():
         idx[r[1]] = []
     for m in metrics.values():
-        idx[m[1]].append(m)
+        idx[m[2]].append(m)
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom\n")
+        f.write("Package,Level,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom\n")
         for r in idx.values():
             for m in r:
-                if m[4] > 0 and m[5] > 0:
+                if m[5] > 0 and m[6] > 0:
                     s = m[0] + ","
-                    s += m[1] + ","
-                    s += str(m[2]) + ","
+                    s += str(m[1]) + ","
+                    s += m[2] + ","
                     s += str(m[3]) + ","
                     s += str(m[4]) + ","
-                    s += str(int(m[5])) + ","
-                    s += str(int(m[6])) + "\n"
+                    s += "{:.2f}".format(m[5]) + ","
+                    s += str(int(m[6])) + ","
+                    s += str(int(m[7])) + "\n"
                     f.write(s)
     db.disconnect()
 

@@ -73,25 +73,92 @@ meta:
     cob_command_tools:
         commits:        1609
         contributors:   31
+        levels:
+            cob_command_gui: 3
+            cob_command_tools: 3
+            cob_dashboard: 3
+            cob_interactive_teleop: 3
+            cob_monitoring: 3
+            cob_script_server: 3
+            cob_teleop: 3
     cob_control:
         commits:        937
         contributors:   24
+        levels:
+            cob_base_velocity_smoother: 1
+            cob_cartesian_controller: 1
+            cob_collision_velocity_filter: 1
+            cob_control: 1
+            cob_control_mode_adapter: 1
+            cob_footprint_observer: 1
+            cob_frame_tracker: 1
+            cob_model_identifier: 1
+            cob_obstacle_distance: 1
+            cob_omni_drive_controller: 1
+            cob_trajectory_controller: 1
+            cob_twist_controller: 1
     cob_driver:
         commits:        2706
         contributors:   49
+        levels:
+            cob_base_drive_chain: 1
+            cob_camera_sensors: 1
+            cob_canopen_motor: 1
+            cob_driver: 1
+            cob_generic_can: 1
+            cob_head_axis: 1
+            cob_light: 1
+            cob_mimic: 1
+            cob_phidgets: 1
+            cob_relayboard: 1
+            cob_sick_lms1xx: 1
+            cob_sick_s300: 1
+            cob_sound: 1
+            cob_undercarriage_ctrl: 1
+            cob_utilities: 2
+            cob_voltage_control: 1
     cob_manipulation:
         commits:        1198
         contributors:   15
+        levels:
+            cob_grasp_generation: 1
+            cob_kinematics: 1
+            cob_lookat_action: 1
+            cob_manipulation: 1
+            cob_moveit_interface: 1
+            cob_pick_place_action: 1
+            cob_tactiletools: 1
+            cob_tray_monitor: 1
     cob_navigation:
         commits:        1304
         contributors:   27
+        levels:
+            cob_linear_nav: 1
+            cob_navigation: 1
+            cob_scan_unifier: 1
     cob_perception_common:
         commits:        247
         contributors:   11
+        levels:
+            cob_cam3d_throttle: 1
+            cob_image_flip: 1
+            cob_object_detection_visualizer: 1
+            cob_perception_common: 1
+            cob_vision_utils: 1
     orocos_kinematics_dynamics:
         commits:        494
         contributors:   22
+        levels:
+            orocos_kdl: 2
+            orocos_kinematics_dynamics: 2
     schunk_modular_robotics:
         commits:        1270
         contributors:   34
+        levels:
+            schunk_libm5api: 2
+            schunk_modular_robotics: 1
+            schunk_powercube_chain: 1
+            schunk_sdh: 1
+            schunk_sdhx: 1
+            schunk_simulated_tactile_sensors: 1
 

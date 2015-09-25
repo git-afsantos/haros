@@ -26,12 +26,32 @@ meta:
     turtlebot:
         commits:        1085
         contributors:   26
+        levels:
+            turtlebot: 1
+            turtlebot_bringup: 1
+            turtlebot_teleop: 3
     turtlebot_apps:
         commits:        768
         contributors:   25
+        levels:
+            pano_core: 2
+            pano_py: 2
+            pano_ros: 2
+            turtlebot_actions: 3
+            turtlebot_apps: 3
+            turtlebot_calibration: 3
+            turtlebot_follower: 3
+            turtlebot_navigation: 3
+            turtlebot_panorama: 3
     turtlebot_arm:
         commits:        179
         contributors:   6
+        levels:
+            turtlebot_arm: 3
+            turtlebot_arm_block_manipulation: 3
+            turtlebot_arm_ikfast_plugin: 1
+            turtlebot_arm_kinect_calibration: 3
+            turtlebot_arm_moveit_demos: 3
 notes:
     - has runtime dependencies on kobuki packages
 

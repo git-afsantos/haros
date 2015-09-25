@@ -10,4 +10,8 @@ meta:
     universal_robot:
         commits:        557
         contributors:   21
+        levels:
+            universal_robot: 1
+            ur_driver: 1
+            ur_kinematics: 1
 

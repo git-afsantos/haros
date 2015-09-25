@@ -16,10 +16,20 @@ meta:
     grizzly:
         commits:        257
         contributors:   5
+        levels:
+            grizzly_motion: 1
+            grizzly_msgs: 1
+            grizzly_teleop: 1
     grizzly_robot:
         commits:        155
         contributors:   3
+        levels:
+            grizzly_base: 1
+            grizzly_robot: 1
     roboteq:
         commits:        90
         contributors:   5
+        levels:
+            roboteq_diagnostics: 1
+            roboteq_driver: 1
 
