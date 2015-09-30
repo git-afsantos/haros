@@ -149,6 +149,14 @@ def getMaxVal(cur, table, col):
 
 
 
+def getPackageDependencyCount(cur):
+    # SELECT dependency_id, count(dependency_id) FROM haros_Package_Dependencies GROUP BY dependency_id;
+    t = tablePref("Package_Dependencies")
+    cmd = "SELECT dependency_id, count(dependency_id) FROM {0} GROUP BY dependency_id".format(t)
+    result = exFetch(cur, cmd)
+    return result
+
+
 
 def getNonComplianceSummary(cur, package_id):
     # SELECT T.name, R.tag_id, R.rule_id, count(*) as count FROM ((haros_Non_Compliance AS N JOIN haros_Rule_Tags AS R ON N.rule_id = R.rule_id) JOIN haros_Tags AS T ON R.tag_id = T.id) WHERE package_id = 6 GROUP BY R.tag_id, R.rule_id;
