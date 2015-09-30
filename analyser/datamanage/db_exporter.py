@@ -367,7 +367,7 @@ if __name__ == "__main__":
         f.write("Package,Level,Repository,Contributors,Commits,Dependency of,CC (avg),Cpp LoC,Cpp LoCom\n")
         for r in idx.values():
             for m in r:
-                if m[5] > 0 and m[6] > 0:
+                if m[7] > 0:
                     s = m[0] + ","
                     s += str(m[1]) + ","
                     s += m[2] + ","
