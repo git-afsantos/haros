@@ -46,17 +46,27 @@ class DbUpdater:
                 i += 1
                 for n in r.repo_names:
                     repo_names.add(n)
-            self.repos = extractor.getRepoInfo(repo_names, repo_keys)
-            for r in self.repos:
-                n = r[1][r[1].rfind("/") + 1:]
-                if n in repos:
-                    r.append(repos[n].commits)
-                    r.append(repos[n].contributors)
-                    r.append(repos[n].name)
-                else:
-                    r.append(1)
-                    r.append(1)
-                    r.append(n)
+            # Quick fix -----------------
+            #self.repos = extractor.getRepoInfo(repo_names, repo_keys)
+            self.repos = []
+            i = 1
+            for r in repos.values():
+                r.id = i
+                self.repos.append([i, list(r.repo_names)[0], None, None, None, None,
+                        None, None, None, None,
+                        r.commits, r.contributors, r.name])
+                i += 1
+            #for r in self.repos:
+                #n = r[1][r[1].rfind("/") + 1:]
+                #if n in repos:
+                    #r.append(repos[n].commits)
+                    #r.append(repos[n].contributors)
+                    #r.append(repos[n].name)
+                #else:
+                    #r.append(1)
+                    #r.append(1)
+                    #r.append(n)
+            # End Quick fix -------------
         else:
             crep.get_commit_count(repos, self.root)
             self.repos = []

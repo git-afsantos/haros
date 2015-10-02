@@ -209,9 +209,13 @@ def getIssuesCount(repo_name):
     issues = executeQuery(issue_query + "+state:open")
     if "total_count" in issues:
         oissues = issues["total_count"]
+    else:
+        print "could not find issues for", repo_name, issues
     issues = executeQuery(issue_query + "+state:closed")
     if "total_count" in issues:
         cissues = issues["total_count"]
+    else:
+        print "could not find issues for", repo_name, issues
     return (oissues, cissues)
 
 
