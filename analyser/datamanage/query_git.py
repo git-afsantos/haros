@@ -218,6 +218,7 @@ def getIssuesCount(repo_name):
 # Returns (limit, remaining)
 def getIssuesRateLimit():
     r = rawExec("https://api.github.com/search/issues?q=ROS", method="head")
-    return (r.headers["X-RateLimit-Limit"], r.headers["X-RateLimit-Remaining"])
+    return (int(r.headers["X-RateLimit-Limit"]),
+            int(r.headers["X-RateLimit-Remaining"]))
     
 

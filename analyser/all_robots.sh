@@ -4,7 +4,7 @@ echo "Analysing all robots"
 rm -rf export/*
 # Update filter and analyse
 cp filters/_all_robots.yaml filter.yaml
-python main.py -n -u source -e packages -e analysis
+python main.py -u repos -e packages -e analysis
 python datamanage/db_exporter.py
 # Move contents of export to data
 rm -rf ../data/_all_robots/metrics
