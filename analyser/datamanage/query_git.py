@@ -219,10 +219,14 @@ def getIssuesCount(repo_name):
     return (oissues, cissues)
 
 
+# Returns object; "core" for normal rate, "search" for search rate.
+def getRateLimit():
+    return executeQuery("https://api.github.com/rate_limit")
+
+
 # Returns (limit, remaining)
 def getIssuesRateLimit():
-    r = rawExec("https://api.github.com/search/issues?q=ROS", method="head")
-    return (int(r.headers["X-RateLimit-Limit"]),
-            int(r.headers["X-RateLimit-Remaining"]))
-    
+    r = getRateLimit()
+    r = r["resources"]["search"]
+    return (r["limit"], r["remaining"])
 

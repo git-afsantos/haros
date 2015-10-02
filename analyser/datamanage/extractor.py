@@ -145,11 +145,14 @@ def getIssuesCount(repo_ids):
     rl, i = qg.getIssuesRateLimit()
     for repo_id,repo_name in repo_ids:
         while i == 0:
-            time.sleep(61) # Sleep one minute to avoid GitHub X-rate-limit
+            print "[Network] Reached GitHub rate limit. Waiting for availability..."
+            time.sleep(65)
             rl, i = qg.getIssuesRateLimit()
         oissues, cissues = qg.getIssuesCount(repo_name)
         lot.append((repo_id, oissues, cissues))
-        i -= 1
+        if oissues == 0 and cissues == 0:
+            print "  No issues found for", repo_name
+        i -= 2
     return lot
 
 
