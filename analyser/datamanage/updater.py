@@ -83,35 +83,21 @@ class DbUpdater:
 
     def updateMetadata(self, network = True):
         self.meta_dirty = True
-        pkgs = self.packages.values()
-        mntnrs = reduce(set.union, [p.maintainers.people for p in pkgs])
-        authors = reduce(set.union, [p.authors.people for p in pkgs])
-        self.people = mntnrs.union(authors)
-        self.licenses = reduce(set.union, [p.licenses for p in pkgs])
-        self.licenses = [p for p in enumerate(self.licenses, start = 1)]
+        # Useless variables
+        self.people = set()
+        self.git_users = []
+        self.licenses = set()
+        self.labels = []
+        self.Issues_labels = []
+        # Issues
+        self.issues = []
+        repo_ids = [(r[0], r[1]) for r in self.repos]
         if network:
-            issues_keys = [["user", "login"], ["assignee", "login"],
-                    "created_at", "closed_at", ["labels", "name"]]
-            repo_ids = [(r[0], r[1]) for r in self.repos]
             print "[Network] Fetching Git issues (this may take a while)."
-            issues_info = extractor.getIssuesLinkRepos(repo_ids, issues_keys)
-            issue_cols = ["id", "created_by", "assigned_to", "created_at",
-                    "closed_at", "labels", "repository_id"]
-            (issue_cols, issues_info, label_ids,
-                issues_labels) = extractor.getIssuesLabels(issue_cols,
-                        issues_info)
-            self.issues = issues_info
-            self.labels = label_ids
-            self.issues_labels = issues_labels
-            print "[Network] Fetching e-mails for Git users (this may take a while)."
-            git_names = set([i[1] for i in issues_info])
-            self.git_users = extractor.getGitEmails(git_names)
+            self.issues = extractor.getIssuesCount(repo_ids)
         else:
-            self.git_users = []
-        i = 1
-        for p in self.people:
-            p.id = i
-            i += 1
+            for rid, rname in repo_ids:
+                self.issues.append((rid, 0, 0))
 
 
     def updateMetrics(self, metrics_file):
@@ -191,6 +177,155 @@ class DbUpdater:
 
 
     def _commitMetadata(self, db):
+        pass
+
+
+    def _commitMetrics(self, db):
+        db.updateTable("Metrics", ["id", "name", "description"],
+                ["SMALLINT(6)", "VARCHAR(50)", "VARCHAR(2000)"],
+                self.metrics, pk="id")
+
+
+    def _commitRules(self, db):
+        db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
+                self.tags, pk="id")
+        db.updateTable("Rules", ["id", "name", "scope", "description"],
+                ["MEDIUMINT(9)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(250)"],
+                self.rules, pk="id")
+
+
+    def _commitRelationships(self, db):
+        if self.source_dirty and self.meta_dirty:
+            issues = self.issues if len(self.issues) > 0 else None
+            db.updateTable("Repository_Issues",
+                    ["repo_id", "open_issues", "closed_issues"],
+                    ["MEDIUMINT(9)", "MEDIUMINT(9)", "MEDIUMINT(9)"],
+                    issues, pk = "repo_id",
+                    fk = ["repo_id"], fk_ref = ["Repositories(id)"])
+        if self.source_dirty and self.metrics_dirty:
+            db.updateTable("File_Metrics", ["file_id", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, metric_id", fk=["file_id", "metric_id"],
+		            fk_ref=["Files(id)", "Metrics(id)"])
+            db.updateTable("Package_Metrics", ["package_id", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
+		            pk="package_id, metric_id", fk=["package_id", "metric_id"],
+		            fk_ref=["Packages(id)", "Metrics(id)"])
+            db.updateTable("File_Class_Metrics",
+                    ["file_id", "class_name", "line", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "VARCHAR(50)", "MEDIUMINT(9)",
+                    "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, class_name, line, metric_id",
+                    fk=["file_id", "metric_id"],
+                    fk_ref=["Files(id)", "Metrics(id)"])
+            db.updateTable("File_Function_Metrics",
+                    ["file_id", "function_name", "line", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "VARCHAR(100)", "MEDIUMINT(9)",
+                    "SMALLINT(6)", "FLOAT"], None,
+		            pk="file_id, function_name, line, metric_id",
+                    fk=["file_id", "metric_id"],
+                    fk_ref=["Files(id)", "Metrics(id)"])
+        if self.source_dirty and self.rules_dirty:
+            db.updateTable("Non_Compliance",
+                    ["id", "rule_id", "package_id", "file_id",
+                        "line", "function", "comment"],
+                    ["MEDIUMINT(9)", "MEDIUMINT(9)", "MEDIUMINT(9)",
+                        "MEDIUMINT(9)", "MEDIUMINT(9)",
+                        "VARCHAR(100)", "VARCHAR(250)"],
+                    None, pk="id", fk=["rule_id", "package_id", "file_id"],
+                    fk_ref=["Rules(id)", "Packages(id)", "Files(id)"])
+        if self.rules_dirty:
+            db.updateTable("Rule_Tags", ["rule_id", "tag_id"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)"],
+                    self.rule_tags, pk="rule_id, tag_id",
+                    fk=["rule_id", "tag_id"],
+                    fk_ref=["Rules(id)", "Tags(id)"])
+
+
+    def _truncateRelationships(self, db):
+        tables = set()
+        if self.source_dirty:
+            tables.update(["Repository_Packages",
+                    "Package_Dependencies", "Package_Metrics",
+                    "Non_Compliance", "File_Metrics",
+                    "File_Class_Metrics", "File_Function_Metrics"])
+        if self.meta_dirty:
+            tables.update(["Repository_Issues"])
+        if self.metrics_dirty:
+            tables.update(["File_Metrics", "Package_Metrics",
+                    "File_Class_Metrics", "File_Function_Metrics"])
+        if self.rules_dirty:
+            tables.update(["Non_Compliance", "Rule_Tags"])
+        for table in tables:
+            db.truncate(table)
+        if self.source_dirty:
+            db.truncate("Package_Dependency_Types")
+
+
+    def _resetState(self):
+        self.repos      = []    # list of lists, atm
+        self.packages   = {}    # string -> Package
+        self.sources    = {}    # string -> SourceFile
+        self.people     = None
+        self.licenses   = None
+        self.issues     = None
+        self.labels     = None
+        self.git_users  = None
+        self.metrics    = None
+        self.rules      = None
+        self.tags       = None
+        self.rule_tags  = None
+        self.issues_labels  = None
+        self.source_dirty   = False
+        self.meta_dirty     = False
+        self.metrics_dirty  = False
+        self.rules_dirty    = False
+
+
+
+
+
+
+
+
+
+
+
+
+    def _old_updateMetadata(self, network = True):
+        self.meta_dirty = True
+        pkgs = self.packages.values()
+        mntnrs = reduce(set.union, [p.maintainers.people for p in pkgs])
+        authors = reduce(set.union, [p.authors.people for p in pkgs])
+        self.people = mntnrs.union(authors)
+        self.licenses = reduce(set.union, [p.licenses for p in pkgs])
+        self.licenses = [p for p in enumerate(self.licenses, start = 1)]
+        if network:
+            issues_keys = [["user", "login"], ["assignee", "login"],
+                    "created_at", "closed_at", ["labels", "name"]]
+            repo_ids = [(r[0], r[1]) for r in self.repos]
+            print "[Network] Fetching Git issues (this may take a while)."
+            issues_info = extractor.getIssuesLinkRepos(repo_ids, issues_keys)
+            issue_cols = ["id", "created_by", "assigned_to", "created_at",
+                    "closed_at", "labels", "repository_id"]
+            (issue_cols, issues_info, label_ids,
+                issues_labels) = extractor.getIssuesLabels(issue_cols,
+                        issues_info)
+            self.issues = issues_info
+            self.labels = label_ids
+            self.issues_labels = issues_labels
+            print "[Network] Fetching e-mails for Git users (this may take a while)."
+            git_names = set([i[1] for i in issues_info])
+            self.git_users = extractor.getGitEmails(git_names)
+        else:
+            self.git_users = []
+        i = 1
+        for p in self.people:
+            p.id = i
+            i += 1
+
+
+    def _old_commitMetadata(self, db):
         ppl_info = [p.asTuple() for p in self.people]
         db.updateTable("People", ["id", "name", "email"],
                 ["SMALLINT(6)", "VARCHAR(150)", "VARCHAR(50)"],
@@ -228,22 +363,7 @@ class DbUpdater:
                 pk="id", fk=git_ppl_cols[1:],
                 fk_ref = ["Git_Users(id)", "People(id)"])
 
-
-    def _commitMetrics(self, db):
-        db.updateTable("Metrics", ["id", "name", "description"],
-                ["SMALLINT(6)", "VARCHAR(50)", "VARCHAR(2000)"],
-                self.metrics, pk="id")
-
-
-    def _commitRules(self, db):
-        db.updateTable("Tags", ["id", "name"], ["SMALLINT(6)", "VARCHAR(30)"],
-                self.tags, pk="id")
-        db.updateTable("Rules", ["id", "name", "scope", "description"],
-                ["MEDIUMINT(9)", "VARCHAR(30)", "VARCHAR(10)", "VARCHAR(250)"],
-                self.rules, pk="id")
-
-
-    def _commitRelationships(self, db):
+    def _old_commitRelationships(self, db):
         if self.source_dirty and self.meta_dirty:
             pkg_ids = [(p.id, p.name) for p in self.packages.values()]
 
@@ -305,7 +425,7 @@ class DbUpdater:
                     fk_ref=["Rules(id)", "Tags(id)"])
 
 
-    def _truncateRelationships(self, db):
+    def _old_truncateRelationships(self, db):
         tables = set()
         if self.source_dirty:
             tables.update(["Repository_Packages", "Package_Maintainers", "Package_Authors",
@@ -324,24 +444,3 @@ class DbUpdater:
             db.truncate(table)
         if self.source_dirty:
             db.truncate("Package_Dependency_Types")
-
-
-    def _resetState(self):
-        self.repos      = []    # list of lists, atm
-        self.packages   = {}    # string -> Package
-        self.sources    = {}    # string -> SourceFile
-        self.people     = None
-        self.licenses   = None
-        self.issues     = None
-        self.labels     = None
-        self.git_users  = None
-        self.metrics    = None
-        self.rules      = None
-        self.tags       = None
-        self.rule_tags  = None
-        self.issues_labels  = None
-        self.source_dirty   = False
-        self.meta_dirty     = False
-        self.metrics_dirty  = False
-        self.rules_dirty    = False
-

@@ -3,6 +3,8 @@
 
 import query_git as qg
 
+import time
+
 
 # Retrieves all people of every package
 def allPkgPpl(packages):
@@ -133,6 +135,23 @@ def getIssuesLabels(issue_cols, issues_info):
     # label_ids = id label pairing for Labels table
     # issues_labels = label id, issue id pairing for IssuesLabels map table
     return issue_cols, issues_info, label_ids, issues_labels
+
+
+
+# Receives [(id, "owner/repo")]
+# Returns [(id, # open, # closed)]
+def getIssuesCount(repo_ids):
+    lot = []
+    i = 0
+    for repo_id,repo_name in repo_ids:
+        i += 1
+        if i == 10:
+            i = 0
+            #time.sleep(60) # Sleep one minute to avoid GitHub X-rate-limit
+        oissues, cissues = qg.getIssuesCount(repo_name)
+        lot.append((repo_id, oissues, cissues))
+    return lot
+
 
 
 def getPkgFiles(pkg_ids, src_dict):
