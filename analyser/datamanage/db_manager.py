@@ -55,10 +55,10 @@ class DbManager:
         else:
             return dbe.getTable(self.cur, table, cols)
 
-    def getMap(self, table, cols):
-        if not "id" in cols:
+    def getMap(self, table, cols, key="id"):
+        if not key in cols:
             return dict()
-        i = cols.index("id")
+        i = cols.index(key)
         t = dbe.getTable(self.cur, table, cols)
         r = dict()
         for e in t:

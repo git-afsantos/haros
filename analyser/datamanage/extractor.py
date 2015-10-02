@@ -142,12 +142,11 @@ def getIssuesLabels(issue_cols, issues_info):
 # Returns [(id, # open, # closed)]
 def getIssuesCount(repo_ids):
     lot = []
-    i = 0
+    rl, i = qg.getIssuesRateLimit()
     for repo_id,repo_name in repo_ids:
-        i += 1
-        if i == 10:
-            i = 0
-            #time.sleep(60) # Sleep one minute to avoid GitHub X-rate-limit
+        if i == 0:
+            time.sleep(60) # Sleep one minute to avoid GitHub X-rate-limit
+            i = rl
         oissues, cissues = qg.getIssuesCount(repo_name)
         lot.append((repo_id, oissues, cissues))
     return lot

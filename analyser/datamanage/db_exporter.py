@@ -340,21 +340,23 @@ if __name__ == "__main__":
     metrics = dict()
     packages = db.getMap("Packages", ("id", "name", "repo_id", "level"))
     repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
+    issues = db.getMap("Repository_Issues", ("repo_id", "open_issues", "closed_issues"), key = "repo_id")
     for p in packages.values():
         r = repos[p[2]]
-        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, 0, 0, 0]
+        i = issues[p[2]]
+        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], 0, 0, 0]
     ms = dbe.getPackageDependencyCount(db.cur)
     for m in ms:
         metrics[m[0]][5] = m[1]
     ms = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
     for m in ms:
-        metrics[m[0]][6] = m[4]
+        metrics[m[0]][8] = m[4]
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
     for m in ms:
-        metrics[m[0]][7] = m[5]
+        metrics[m[0]][9] = m[5]
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in ms:
-        metrics[m[0]][8] = m[5]
+        metrics[m[0]][10] = m[5]
     ms = None
     # Group by repository
     idx = dict()
@@ -364,19 +366,21 @@ if __name__ == "__main__":
         idx[m[2]].append(m)
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,CC (avg),Cpp LoC,Cpp LoCom\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom\n")
         for r in idx.values():
             for m in r:
-                if m[7] > 0:
+                if m[9] > 0:
                     s = m[0] + ","
                     s += str(m[1]) + ","
                     s += m[2] + ","
                     s += str(m[3]) + ","
                     s += str(m[4]) + ","
                     s += str(m[5]) + ","
-                    s += "{:.2f}".format(m[6]) + ","
-                    s += str(int(m[7])) + ","
-                    s += str(int(m[8])) + "\n"
+                    s += str(m[6]) + ","
+                    s += str(m[7]) + ","
+                    s += "{:.2f}".format(m[8]) + ","
+                    s += str(int(m[9])) + ","
+                    s += str(int(m[10])) + "\n"
                     f.write(s)
     db.disconnect()
 

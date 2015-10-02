@@ -23,12 +23,23 @@ def makeEventsQuery(username):
 	return email_query
 
 def executeQuery(query, git_user_file = "gituser.txt"):
-	with open(git_user_file) as f:
-	    lines = [line.strip() for line in f]
-	req = requests.get(query,
-			auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
-	result = json.loads(req.text)
-	return result
+    with open(git_user_file) as f:
+        lines = [line.strip() for line in f]
+    req = requests.get(query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    result = json.loads(req.text)
+    return result
+
+def rawExec(query, git_user_file = "gituser.txt", method = "get"):
+    with open(git_user_file) as f:
+        lines = [line.strip() for line in f]
+    if method == "get":
+        req = requests.get(query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    elif method == "head":
+        req = requests.head(url = query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    return req
 
 def didQueryFail(a_dict, keys):
 	# If the query failed
@@ -202,4 +213,11 @@ def getIssuesCount(repo_name):
     if "total_count" in issues:
         cissues = issues["total_count"]
     return (oissues, cissues)
+
+
+# Returns (limit, remaining)
+def getIssuesRateLimit():
+    r = rawExec("https://api.github.com/search/issues?q=ROS", method="head")
+    return (r.headers["X-RateLimit-Limit"], r.headers["X-RateLimit-Remaining"])
+    
 
