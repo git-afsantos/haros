@@ -144,9 +144,9 @@ def getIssuesCount(repo_ids):
     lot = []
     rl, i = qg.getIssuesRateLimit()
     for repo_id,repo_name in repo_ids:
-        if i == 0:
-            time.sleep(60) # Sleep one minute to avoid GitHub X-rate-limit
-            i = rl
+        while i == 0:
+            time.sleep(61) # Sleep one minute to avoid GitHub X-rate-limit
+            rl, i = qg.getIssuesRateLimit()
         oissues, cissues = qg.getIssuesCount(repo_name)
         lot.append((repo_id, oissues, cissues))
         i -= 1
