@@ -8,19 +8,19 @@
   {
     "metric": "Number of Lines of Code (C++)",
     "minimum": 13.0,
-    "maximum": 134.0,
-    "average": 52.1666666667
+    "maximum": 142.0,
+    "average": 54.0
   },
   {
     "metric": "Number of Lines of Comments",
-    "minimum": 21.0,
-    "maximum": 42.0,
-    "average": 32.25
+    "minimum": 22.0,
+    "maximum": 45.0,
+    "average": 34.5833333333
   },
   {
     "metric": "Ratio of Lines of Comments",
     "minimum": 26.0,
-    "maximum": 222.0,
-    "average": 106.666666667
+    "maximum": 215.0,
+    "average": 111.5
   }
 ]

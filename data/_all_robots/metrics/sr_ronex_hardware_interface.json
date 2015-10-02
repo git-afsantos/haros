@@ -13,14 +13,14 @@
   },
   {
     "metric": "Number of Lines of Comments",
-    "minimum": 32.0,
-    "maximum": 34.0,
-    "average": 33.0
+    "minimum": 33.0,
+    "maximum": 35.0,
+    "average": 34.0
   },
   {
     "metric": "Ratio of Lines of Comments",
-    "minimum": 87.0,
-    "maximum": 110.0,
-    "average": 98.5
+    "minimum": 89.0,
+    "maximum": 113.0,
+    "average": 101.0
   }
 ]
