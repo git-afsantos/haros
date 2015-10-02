@@ -149,6 +149,7 @@ def getIssuesCount(repo_ids):
             i = rl
         oissues, cissues = qg.getIssuesCount(repo_name)
         lot.append((repo_id, oissues, cissues))
+        i -= 1
     return lot
 
 
