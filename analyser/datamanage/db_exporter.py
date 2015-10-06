@@ -379,11 +379,14 @@ if __name__ == "__main__":
         metrics[m[0]][10] = m[5]
         if metrics[m[0]][9] > 0:
             metrics[m[0]][11] = m[5] / metrics[m[0]][9]
+    # Only ROS rules
+    ruleset = [1,6,9,12,14,17,18,19,20,22,23,24,25,10200,10202]
     ms = dbe.getNonComplianceCompact(db.cur)
     for m in ms:
-        metrics[m[0]][13] += m[2]
-        ncpl[m[0]][8].append(rules[m[1]][1])
-        ncpl[m[0]][9].append(str(m[2]))
+        if m[1] in ruleset:
+            metrics[m[0]][13] += m[2]
+            ncpl[m[0]][8].append(rules[m[1]][1])
+            ncpl[m[0]][9].append(str(m[2]))
     ms = None
     # Group by repository
     idx = dict()
