@@ -353,16 +353,20 @@ if __name__ == "__main__":
     db = dbm.DbManager()
     db.connect("dbuser.txt")
     metrics = dict()
+    ncpl = dict()
     packages = db.getMap("Packages", ("id", "name", "repo_id", "level"))
     repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
     issues = db.getMap("Repository_Issues", ("repo_id", "open_issues", "closed_issues"), key = "repo_id")
+    rules = db.getMap("Rules", ("id", "name"))
     for p in packages.values():
         r = repos[p[2]]
         i = issues[p[2]]
         metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], 0, 0, 0]
+        ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], []]
     ms = dbe.getPackageDependencyCount(db.cur)
     for m in ms:
         metrics[m[0]][5] = m[1]
+        ncpl[m[0]][5] = m[1]
     ms = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
     for m in ms:
         metrics[m[0]][8] = m[4]
@@ -372,6 +376,10 @@ if __name__ == "__main__":
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in ms:
         metrics[m[0]][10] = m[5]
+    ms = dbe.getNonComplianceCompact(db.cur)
+    for m in ms:
+        ncpl[m[0]][8].append(rules[m[1]][1])
+        ncpl[m[0]][9].append(str(m[2]))
     ms = None
     # Group by repository
     idx = dict()
@@ -379,6 +387,7 @@ if __name__ == "__main__":
         idx[r[1]] = []
     for m in metrics.values():
         idx[m[2]].append(m)
+    metrics = None
     # Output to file
     with open(out_file, "w") as f:
         f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom\n")
@@ -396,6 +405,29 @@ if __name__ == "__main__":
                     s += "{:.2f}".format(m[8]) + ","
                     s += str(int(m[9])) + ","
                     s += str(int(m[10])) + "\n"
+                    f.write(s)
+    out_file = os.path.join("export", "package_compliance.csv")
+    for r in repos.values():
+        idx[r[1]] = []
+    for n in ncpl.values():
+        idx[n[2]].append(n)
+    ncpl = None
+    with open(out_file, "w") as f:
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open Issues,Closed Issues,Rule,Violations\n")
+        for r in idx.values():
+            for n in r:
+                rs = n[8]
+                for i, v in enumerate(rs):
+                    s = n[0] + ","
+                    s += str(n[1]) + ","
+                    s += n[2] + ","
+                    s += str(n[3]) + ","
+                    s += str(n[4]) + ","
+                    s += str(n[5]) + ","
+                    s += str(n[6]) + ","
+                    s += str(n[7]) + ","
+                    s += v + ","
+                    s += n[9][i] + "\n"
                     f.write(s)
     db.disconnect()
 
