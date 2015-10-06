@@ -119,7 +119,7 @@ def export_data(exported, configs):
         path = os.path.join("export", "compliance")
         if not os.path.exists(path):
             os.makedirs(path)
-        je.export_analysis(path)
+        je.export_analysis(path, format=configs["out_format"])
         path = os.path.join("export", "metrics")
         if not os.path.exists(path):
             os.makedirs(path)

@@ -180,6 +180,16 @@ def getNonComplianceIdSummary(cur, package_id):
     return d
 
 
+def getNonComplianceCompact(cur, package_id=None):
+    t1 = tablePref("Non_Compliance")
+    if package_id is None:
+        cmd = "SELECT package_id, rule_id, count(*) as count FROM {0} GROUP BY package_id, rule_id".format(t1)
+    else:
+        cmd = "SELECT rule_id, count(*) as count FROM {0} WHERE package_id = {1} GROUP BY rule_id".format(t1, package_id)
+    result = exFetch(cur, cmd)
+    return result
+
+
 def getRulesWithTags(cur):
     rule_dict = {}
     base_cmd = "SELECT T.name FROM {0} AS R JOIN {1} AS T ON R.tag_id = T.id WHERE R.rule_id = ".format(tablePref("Rule_Tags"), tablePref("Tags"))

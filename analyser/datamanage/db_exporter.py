@@ -173,22 +173,28 @@ def csvifyMetricsAnalysis(entries, metrics):
 
 
 
-def export_analysis(out_dir):
+def export_analysis(out_dir, format="json"):
     db = dbm.DbManager()
     db.connect("dbuser.txt")
-    pkgs = db.get("Packages", ("id", "name"))
-    rules = dbe.getRulesWithTags(db.cur)
-    for pkg in pkgs:
-        ncpl = db.get("Non_Compliance",
-                ("rule_id", "file_id", "line", "function", "comment"),
-                match=("package_id", pkg[0]))
-        files = db.get("Files", ("id", "name"), match=("package_id", pkg[0]))
-        file_dict = {}
-        for f in files:
-            file_dict[f[0]] = f[1]
-        files = file_dict
-        with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
-            f.write(jsonifyNonCompliance(ncpl, rules, files))
+    if format == "csv":
+        ncpl = dbe.getNonComplianceCompact(db.cur)
+        pkgs = db.getMap("Packages", ("id", "name"))
+        rules = db.getMap("Rules", ("id", "name"))
+        csvifyNonComplianceAnalysis(out_dir, ncpl, pkgs, rules)
+    else:
+        pkgs = db.get("Packages", ("id", "name"))
+        rules = dbe.getRulesWithTags(db.cur)
+        for pkg in pkgs:
+            ncpl = db.get("Non_Compliance",
+                    ("rule_id", "file_id", "line", "function", "comment"),
+                    match=("package_id", pkg[0]))
+            files = db.get("Files", ("id", "name"), match=("package_id", pkg[0]))
+            file_dict = {}
+            for f in files:
+                file_dict[f[0]] = f[1]
+            files = file_dict
+            with open(os.path.join(out_dir, pkg[1] + ".json"), "w") as f:
+                f.write(jsonifyNonCompliance(ncpl, rules, files))
     db.disconnect()
 
 
@@ -208,6 +214,15 @@ def jsonifyNonCompliance(violations, rules, files):
             s += "  }\n"
     s += "]"
     return s
+
+def csvifyNonComplianceAnalysis(out_dir, violations, packages, rules):
+    with open(os.path.join(out_dir, "package_noncompliance.csv"), "w") as f:
+        f.write("package,rule,violations\n")
+        for v in violations:
+            s = packages[v[0]][1].replace(",", "_") + ","
+            s += rules[v[1]][1].replace(",", "_") + ","
+            s += str(v[2]) + "\n"
+            f.write(s)
 
 
 
