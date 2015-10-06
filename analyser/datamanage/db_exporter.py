@@ -361,7 +361,8 @@ if __name__ == "__main__":
     for p in packages.values():
         r = repos[p[2]]
         i = issues[p[2]]
-        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], 0, 0, 0]
+        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2],
+                            0, 0, 0, 0, i[1] + i[2], 0]
         ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], []]
     ms = dbe.getPackageDependencyCount(db.cur)
     for m in ms:
@@ -376,8 +377,11 @@ if __name__ == "__main__":
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in ms:
         metrics[m[0]][10] = m[5]
+        if metrics[m[0]][9] > 0:
+            metrics[m[0]][11] = m[5] / metrics[m[0]][9]
     ms = dbe.getNonComplianceCompact(db.cur)
     for m in ms:
+        metrics[m[0]][13] += m[2]
         ncpl[m[0]][8].append(rules[m[1]][1])
         ncpl[m[0]][9].append(str(m[2]))
     ms = None
@@ -390,7 +394,7 @@ if __name__ == "__main__":
     metrics = None
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations\n")
         for r in idx.values():
             for m in r:
                 if m[9] > 0:
@@ -404,7 +408,10 @@ if __name__ == "__main__":
                     s += str(m[7]) + ","
                     s += "{:.2f}".format(m[8]) + ","
                     s += str(int(m[9])) + ","
-                    s += str(int(m[10])) + "\n"
+                    s += str(int(m[10])) + ","
+                    s += "{:.2f}".format(m[11]) + ","
+                    s += str(m[12]) + ","
+                    s += str(m[13]) + "\n"
                     f.write(s)
     out_file = os.path.join("export", "package_compliance.csv")
     for r in repos.values():
