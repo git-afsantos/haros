@@ -7,6 +7,7 @@ import db_extract as dbe
 import db_manager as dbm
 
 import itertools
+import math
 import os
 
 # Takes a string
@@ -348,6 +349,34 @@ def csv_export_package_com_ratio(out_file):
     db.disconnect()
 
 
+# Hard-coded for Halstead Volume
+def csv_export_package_hal_volume(out_file):
+    db = dbm.DbManager()
+    db.connect("dbuser.txt")
+    packages = db.getMap("Packages", ("id", "name"))
+    metrics = dbe.getFileMetricsByPackage(db.cur, metric_id=15, inc_sum=True)
+    with open(out_file, "w") as f:
+        f.write("package,hvol_min,hvol_max,hvol_avg,hvol_sum\n")
+        for m in metrics:
+            s = packages[m[0]][1] + ","
+            s += str(m[2]) + ","
+            s += str(m[3]) + ","
+            s += str(m[4]) + ","
+            s += str(m[5]) + "\n"
+            f.write(s)
+    db.disconnect()
+
+
+# http://www.verifysoft.com/en_maintainability.html
+# MIwoc = 171 - 5.2 * ln(aveV) -0.23 * aveG -16.2 * ln(aveLOC)
+# MIcw = 50 * sin(sqrt(2.4 * perCM))
+# MI = MIwoc + MIcw
+
+# aveV = average Halstead Volume
+# aveG = average extended cyclomatic complexity
+# aveLOC = average count of lines
+# perCM = average percent of lines of comments
+
 if __name__ == "__main__":
     out_file = os.path.join("export", "package_repo_metrics.csv")
     db = dbm.DbManager()
@@ -362,7 +391,7 @@ if __name__ == "__main__":
         r = repos[p[2]]
         i = issues[p[2]]
         metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2],
-                            0, 0, 0, 0, i[1] + i[2], 0]
+                            0, (0, 0), 0, 0, i[1] + i[2], 0, 0]
         ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], []]
     ms = dbe.getPackageDependencyCount(db.cur)
     for m in ms:
@@ -373,12 +402,24 @@ if __name__ == "__main__":
         metrics[m[0]][8] = m[4]
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
     for m in ms:
-        metrics[m[0]][9] = m[5]
+        metrics[m[0]][9] = (m[4], m[5])
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in ms:
         metrics[m[0]][10] = m[5]
-        if metrics[m[0]][9] > 0:
-            metrics[m[0]][11] = m[5] / metrics[m[0]][9]
+        if metrics[m[0]][9][1] > 0:
+            metrics[m[0]][11] = m[5] / metrics[m[0]][9][1]
+    # Halstead Volume & Maintainability Index
+    ms = dbe.getFileMetricsByPackage(db.cur, metric_id=15, inc_sum=True)
+    for m in ms:
+        metrics[m[0]][14] = m[4]
+    for m in metrics.values():
+        if m[9][0] > 0 and m[14] > 0:
+            idx = (171 - (5.2 * math.log(m[14])) - (0.23 * m[8]) - (16.2 * math.log(m[9][0]))) * 100 / 171
+            idx += 50 * math.sin(math.sqrt(2.4 * m[11]))
+        else:
+            idx = 0
+        m[9] = m[9][1]
+        m[14] = max(0, idx)
     # Only ROS rules
     ruleset = [1,6,9,12,14,17,18,19,20,22,23,24,25,10200,10202]
     ms = dbe.getNonComplianceCompact(db.cur)
@@ -397,7 +438,7 @@ if __name__ == "__main__":
     metrics = None
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations,Maintainability\n")
         for r in idx.values():
             for m in r:
                 if m[9] > 0:
@@ -414,7 +455,8 @@ if __name__ == "__main__":
                     s += str(int(m[10])) + ","
                     s += "{:.2f}".format(m[11]) + ","
                     s += str(m[12]) + ","
-                    s += str(m[13]) + "\n"
+                    s += str(m[13]) + ","
+                    s += str(m[14]) + "\n"
                     f.write(s)
     out_file = os.path.join("export", "package_compliance.csv")
     for r in repos.values():
