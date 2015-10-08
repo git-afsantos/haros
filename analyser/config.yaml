@@ -27,3 +27,6 @@ plugins:
     cccc_rules:
         type: analysis
         subtype: rules
+    ccd_plugin:
+        type: analysis
+        subtype: rules

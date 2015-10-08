@@ -57,3 +57,15 @@
     id: 14
     name: COM_RATIO
     description: Ratio of Lines of Comments
+-
+    id: 15
+    name: HAL_VOL
+    description: Halstead Volume
+-
+    id: 16
+    name: HAL_DIF
+    description: Halstead Difficulty
+-
+    id: 17
+    name: HAL_EFF
+    description: Halstead Effort
