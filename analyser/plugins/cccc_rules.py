@@ -139,12 +139,15 @@ def handle_cccc_function_metrics(xml, ctx, file_id, package_id, line, handlers, 
         params  = 0
     else:
         params  = len(params.split(","))
-    cyclo   = int(xml.find("McCabes_cyclomatic_complexity").get("value"))
-    el     = int(xml.find("lines_of_code").get("value"))
-    #com     = int(xml.find("lines_of_comment").get("value"))
+    cyclo   = xml.find("McCabes_cyclomatic_complexity")
+    cyclo   = int(cyclo.get("value")) if not cyclo is None else 0
+    #el      = xml.find("lines_of_code")
+    #el      = int(el.get("value")) if not el is None else 0
+    #com     = xml.find("lines_of_comment")
+    #com     = int(com.get("value")) if not com is None else 0
     handlers["cc"](ctx, package_id, file_id, fname, line, cyclo, file_path)
-    #handlers["loc"](ctx, package_id, file_id, fname, line, cyclo, file_path)
-    #handlers["com"](ctx, package_id, file_id, fname, line, cyclo, file_path)
+    #handlers["fun_loc"](ctx, package_id, file_id, fname, line, cyclo, file_path)
+    #handlers["fun_com"](ctx, package_id, file_id, fname, line, cyclo, file_path)
 
 
 def get_files(ctx):
@@ -171,6 +174,8 @@ def get_metric_handlers():
         "com_ratio": handle_com_ratio,
         "mnc" : handle_mnc,
         "npath" : handle_npath,
+        "fun_loc": handle_fun_loc,
+        "fun_com": handle_fun_com
         #"el" : handle_el
         #"fc" : handle_fc
     }
@@ -178,6 +183,7 @@ def get_metric_handlers():
 
 
 def handle_cc(ctx, package_id, file_id, function, line, value, file_path):
+    global idGen
     if value < 1:
         if file_path.endswith((".h", ".hpp", ".hxx")):
             return
@@ -191,9 +197,9 @@ def handle_cc(ctx, package_id, file_id, function, line, value, file_path):
                     line=line, function=function,
                     comment="CC is greater than 15")
         if not function or not line:
+            idGen -= 1
             function = function or ("cccc" + str(idGen))
             line = line or idGen
-            idGen += 1
         ctx.writeFunctionMetric(file_id, function, line, 4, value)
 
 
@@ -220,6 +226,14 @@ def handle_npath(ctx, package_id, file_id, function, value, file_path):
         ctx.writeNonCompliance(17, package_id, file_id=file_id,
                 line=0, function=function, comment="NPath is greater than 250")
 
+def handle_fun_loc(ctx, package_id, file_id, function, value, file_path):
+    if value > 0:
+        ctx.writeFunctionMetric(file_id, function, line, 2, value)
+
+def handle_fun_com(ctx, package_id, file_id, function, value, file_path):
+    if value > 0:
+        ctx.writeFunctionMetric(file_id, function, line, 3, value)
+
 
 #def handle_el(ctx, package_id, file_id, function, line, value, file_path):
 # Executable lines
@@ -227,18 +241,27 @@ def handle_npath(ctx, package_id, file_id, function, value, file_path):
 # Function calls
 
 def handle_cbo(ctx, package_id, file_id, class_name, value, file_path):
+    global idGen
     if value > 5:
         ctx.writeNonCompliance(18, package_id, file_id=file_id,
                 comment="CBO is greater than 5, " + class_name + ", " + str(value))
+    if value > 0:
+        idGen -= 1
+        ctx.writeClassMetric(file_id, class_name, idGen, 8, value)
 
 
 def handle_noc(ctx, package_id, file_id, class_name, value, file_path):
+    global idGen
     if value > 10:
         ctx.writeNonCompliance(19, package_id, file_id=file_id,
                 comment="NOC is greater than 10")
+    if value > 0:
+        idGen -= 1
+        ctx.writeClassMetric(file_id, class_name, idGen, 9, value)
 
 
 def handle_wmc(ctx, package_id, file_id, class_name, value, file_path):
+    global idGen
     #if value < 1: #The minimum is always 1
     #    ctx.writeNonCompliance(20, package_id, file_id=file_id,
     #            comment="{0}: WMC < 1 ({1})".format(class_name, str(value)))
@@ -248,21 +271,32 @@ def handle_wmc(ctx, package_id, file_id, class_name, value, file_path):
     if value > 100:
         ctx.writeNonCompliance(22, package_id, file_id=file_id,
                 comment="WMC is greater than 100")
+    if value > 0:
+        idGen -= 1
+        ctx.writeClassMetric(file_id, class_name, idGen, 10, value)
 
 
 def handle_dit(ctx, package_id, file_id, class_name, value, file_path):
+    global idGen
     if value > 5:
         ctx.writeNonCompliance(23, package_id, file_id=file_id,
-                comment="DIL is greater than 5")
+                comment="DIT is greater than 5")
+    if value > 0:
+        idGen -= 1
+        ctx.writeClassMetric(file_id, class_name, idGen, 11, value)
 
 
 def handle_mac(ctx, package_id, file_id, class_name, value, file_path):
+    global idGen
     #if value < 1:
     #    ctx.writeNonCompliance(24, package_id, file_id=file_id,
     #            comment="MAC is less than 1")
     if value > 20:
         ctx.writeNonCompliance(25, package_id, file_id=file_id,
                 comment="MAC is greater than 20")
+    if value > 0:
+        idGen -= 1
+        ctx.writeClassMetric(file_id, class_name, idGen, 12, value)
 
 
 def handle_com_ratio(ctx, package_id, file_id, value, file_path):

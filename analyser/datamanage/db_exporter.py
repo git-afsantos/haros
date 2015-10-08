@@ -383,6 +383,7 @@ if __name__ == "__main__":
     db.connect("dbuser.txt")
     metrics = dict()
     ncpl = dict()
+    idx = dict()
     packages = db.getMap("Packages", ("id", "name", "repo_id", "level"))
     repos = db.getMap("Repositories", ("id", "distro_name", "contributors_count", "commits_count"))
     issues = db.getMap("Repository_Issues", ("repo_id", "open_issues", "closed_issues"), key = "repo_id")
@@ -390,36 +391,65 @@ if __name__ == "__main__":
     for p in packages.values():
         r = repos[p[2]]
         i = issues[p[2]]
-        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2],
-                            0, (0, 0), 0, 0, i[1] + i[2], 0, 0]
+        metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3],
+                            0, i[1], i[2], 0, 0,
+                            0, 0, i[1] + i[2], 0, 0,
+                            0, 0, 0, 0, 0]
         ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], []]
+        # (loc, com, cc, vol)
+        idx[p[0]] = [0, 0, 0, 0]
     ms = dbe.getPackageDependencyCount(db.cur)
     for m in ms:
         metrics[m[0]][5] = m[1]
         ncpl[m[0]][5] = m[1]
+    # Cyclomatic Complexity
     ms = dbe.getFunctionMetricsByPackage(db.cur, metric_id=4)
     for m in ms:
         metrics[m[0]][8] = m[4]
+        idx[m[0]][2] = m[4]
+    # C++ Lines of Code
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=2, inc_sum=True)
     for m in ms:
-        metrics[m[0]][9] = (m[4], m[5])
+        metrics[m[0]][9] = m[5]
+        idx[m[0]][0] = m[4]
+    # C++ Lines of Comments
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=3, inc_sum=True)
     for m in ms:
         metrics[m[0]][10] = m[5]
-        if metrics[m[0]][9][1] > 0:
-            metrics[m[0]][11] = m[5] / metrics[m[0]][9][1]
+        if metrics[m[0]][9] > 0:
+            metrics[m[0]][11] = m[5] / metrics[m[0]][9]
+        idx[m[0]][1] = m[4]
     # Halstead Volume & Maintainability Index
     ms = dbe.getFileMetricsByPackage(db.cur, metric_id=15, inc_sum=True)
     for m in ms:
-        metrics[m[0]][14] = m[4]
-    for m in metrics.values():
-        if m[9][0] > 0 and m[14] > 0:
-            idx = (171 - (5.2 * math.log(m[14])) - (0.23 * m[8]) - (16.2 * math.log(m[9][0]))) * 100 / 171
-            idx += 50 * math.sin(math.sqrt(2.4 * m[11]))
+        idx[m[0]][3] = m[4]
+    for k, m in metrics.iteritems():
+        if idx[k][0] > 0 and idx[k][3] > 0:
+            i = (171 - (5.2 * math.log(idx[k][3])) - (0.23 * m[8]) - (16.2 * math.log(idx[k][0]))) * 100 / 171
+            i += 50 * math.sin(math.sqrt(2.4 * m[11]))
         else:
-            idx = 0
-        m[9] = m[9][1]
-        m[14] = max(0, idx)
+            i = 0
+        m[14] = max(0, i)
+    # Coupling Between Objects
+    ms = dbe.getClassMetricsByPackage(db.cur, metric_id=8)
+    for m in ms:
+        metrics[m[0]][15] = m[4]
+    # Number of Children
+    ms = dbe.getClassMetricsByPackage(db.cur, metric_id=9)
+    for m in ms:
+        metrics[m[0]][16] = m[4]
+    # Weighted Methods per Class
+    ms = dbe.getClassMetricsByPackage(db.cur, metric_id=10)
+    for m in ms:
+        metrics[m[0]][17] = m[4]
+    # Depth of Inheritance Tree
+    ms = dbe.getClassMetricsByPackage(db.cur, metric_id=11)
+    for m in ms:
+        metrics[m[0]][18] = m[4]
+    # Number of Methods Available in Class
+    ms = dbe.getClassMetricsByPackage(db.cur, metric_id=12)
+    for m in ms:
+        metrics[m[0]][19] = m[4]
     # Only ROS rules
     ruleset = [1,6,9,12,14,17,18,19,20,22,23,24,25,10200,10202]
     ms = dbe.getNonComplianceCompact(db.cur)
@@ -438,7 +468,7 @@ if __name__ == "__main__":
     metrics = None
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations,Maintainability\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations,Maintainability,CBO,NoC,WMC,DIT,MAC\n")
         for r in idx.values():
             for m in r:
                 if m[9] > 0:
@@ -456,7 +486,12 @@ if __name__ == "__main__":
                     s += "{:.2f}".format(m[11]) + ","
                     s += str(m[12]) + ","
                     s += str(m[13]) + ","
-                    s += str(m[14]) + "\n"
+                    s += str(m[14]) + ","
+                    s += str(m[15]) + ","
+                    s += str(m[16]) + ","
+                    s += str(m[17]) + ","
+                    s += str(m[18]) + ","
+                    s += str(m[19]) + "\n"
                     f.write(s)
     out_file = os.path.join("export", "package_compliance.csv")
     for r in repos.values():

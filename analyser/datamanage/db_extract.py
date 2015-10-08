@@ -222,13 +222,18 @@ def getFunctionMetricsByPackage(cur, package_id=None, metric_id=None):
 # SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
 # FROM (haros_File_Class_Metrics AS CM JOIN haros_Files AS F
 # ON CM.file_id = F.id) GROUP BY metric_id;
-def getClassMetricsByPackage(cur, package_id=None):
+def getClassMetricsByPackage(cur, package_id=None, metric_id=None):
     t1 = tablePref("File_Class_Metrics")
     t2 = tablePref("Files")
     cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS CM JOIN {1} AS F ON CM.file_id = F.id)".format(t1, t2)
-    if package_id:
+    if package_id and metric_id:
+        cmd += " WHERE package_id = {0} AND metric_id = {1}".format(package_id, metric_id)
+    elif package_id:
         cmd += " WHERE package_id = {0}".format(package_id)
-    cmd += " GROUP BY metric_id"
+        cmd += " GROUP BY metric_id"
+    elif metric_id:
+        cmd += " WHERE metric_id = {0}".format(metric_id)
+        cmd += " GROUP BY package_id"
     result = exFetch(cur, cmd)
     return result
 
