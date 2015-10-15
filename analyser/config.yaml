@@ -30,3 +30,6 @@ plugins:
     ccd_plugin:
         type: analysis
         subtype: rules
+    cpplint_plugin:
+        type: analysis
+        subtype: rules

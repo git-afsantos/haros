@@ -393,9 +393,9 @@ if __name__ == "__main__":
         i = issues[p[2]]
         metrics[p[0]] = [p[1], p[3], r[1], r[2], r[3],
                             0, i[1], i[2], 0, 0,
-                            0, 0, i[1] + i[2], 0, 0,
+                            0, 0, i[1] + i[2], 0, 0, 0, 0,
                             0, 0, 0, 0, 0]
-        ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], []]
+        ncpl[p[0]] = [p[1], p[3], r[1], r[2], r[3], 0, i[1], i[2], [], [], []]
         # (loc, com, cc, vol)
         idx[p[0]] = [0, 0, 0, 0]
     ms = dbe.getPackageDependencyCount(db.cur)
@@ -429,35 +429,39 @@ if __name__ == "__main__":
             i += 50 * math.sin(math.sqrt(2.4 * m[11]))
         else:
             i = 0
-        m[14] = max(0, i)
+        m[16] = max(0, i)
     # Coupling Between Objects
     ms = dbe.getClassMetricsByPackage(db.cur, metric_id=8)
     for m in ms:
-        metrics[m[0]][15] = m[4]
+        metrics[m[0]][17] = m[4]
     # Number of Children
     ms = dbe.getClassMetricsByPackage(db.cur, metric_id=9)
     for m in ms:
-        metrics[m[0]][16] = m[4]
+        metrics[m[0]][18] = m[4]
     # Weighted Methods per Class
     ms = dbe.getClassMetricsByPackage(db.cur, metric_id=10)
     for m in ms:
-        metrics[m[0]][17] = m[4]
+        metrics[m[0]][19] = m[4]
     # Depth of Inheritance Tree
     ms = dbe.getClassMetricsByPackage(db.cur, metric_id=11)
     for m in ms:
-        metrics[m[0]][18] = m[4]
+        metrics[m[0]][20] = m[4]
     # Number of Methods Available in Class
     ms = dbe.getClassMetricsByPackage(db.cur, metric_id=12)
     for m in ms:
-        metrics[m[0]][19] = m[4]
+        metrics[m[0]][21] = m[4]
     # Only ROS rules
-    ruleset = [1,6,9,12,14,17,18,19,20,22,23,24,25,10200,10202]
+    ruleset = [1,6,9,12,14,17,18,19,20,22,23,24,25]
     ms = dbe.getNonComplianceCompact(db.cur)
     for m in ms:
         if m[1] in ruleset:
             metrics[m[0]][13] += m[2]
-            ncpl[m[0]][8].append(rules[m[1]][1])
-            ncpl[m[0]][9].append(str(m[2]))
+            ncpl[m[0]][8].append(str(m[1]))
+            ncpl[m[0]][9].append(rules[m[1]][1])
+            ncpl[m[0]][10].append(str(m[2]))
+        else:
+            metrics[m[0]][14] += m[2]
+        metrics[m[0]][15] += m[2]
     ms = None
     # Group by repository
     idx = dict()
@@ -468,7 +472,7 @@ if __name__ == "__main__":
     metrics = None
     # Output to file
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC (avg),Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Violations,Maintainability,CBO,NoC,WMC,DIT,MAC\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open issues,Closed issues,CC,Cpp LoC,Cpp LoCom,Com Ratio,Total Issues,Metrics Violations,Standards Violations,Total Violations,Maintainability,CBO,NoC,WMC,DIT,MAC\n")
         for r in idx.values():
             for m in r:
                 if m[9] > 0:
@@ -491,7 +495,9 @@ if __name__ == "__main__":
                     s += str(m[16]) + ","
                     s += str(m[17]) + ","
                     s += str(m[18]) + ","
-                    s += str(m[19]) + "\n"
+                    s += str(m[19]) + ","
+                    s += str(m[20]) + ","
+                    s += str(m[21]) + "\n"
                     f.write(s)
     out_file = os.path.join("export", "package_compliance.csv")
     for r in repos.values():
@@ -500,7 +506,7 @@ if __name__ == "__main__":
         idx[n[2]].append(n)
     ncpl = None
     with open(out_file, "w") as f:
-        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open Issues,Closed Issues,Rule,Violations\n")
+        f.write("Package,Level,Repository,Contributors,Commits,Dependency of,Open Issues,Closed Issues,Rule ID,Rule,Violations\n")
         for r in idx.values():
             for n in r:
                 rs = n[8]
@@ -514,7 +520,8 @@ if __name__ == "__main__":
                     s += str(n[6]) + ","
                     s += str(n[7]) + ","
                     s += v + ","
-                    s += n[9][i] + "\n"
+                    s += n[9][i] + ","
+                    s += n[10][i] + "\n"
                     f.write(s)
     db.disconnect()
 
