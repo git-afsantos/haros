@@ -33,3 +33,8 @@ plugins:
     cpplint_plugin:
         type: analysis
         subtype: rules
+    cppcheck_plugin:
+        type: analysis
+        subtype: rules
+        needs:
+            - cppcheck_rules.xml

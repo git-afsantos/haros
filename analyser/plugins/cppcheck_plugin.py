@@ -11,10 +11,11 @@ def plugin_run(ctx):
     args = ctx.getPluginArguments()
     for p in packages:
         files = ctx.getFileInfo(package_id=p[0])
-        path = ctx.getPath(p[2])
-        process_package(ctx, p[0], path, outdir, args)
-        parse_xml(ctx, p[0], outdir, rules, files)
-        # manual_checks(ctx, p[0], outdir, rules, files)
+        if not p[2] is None:
+            path = ctx.getPath(p[2])
+            process_package(ctx, p[0], path, outdir, args)
+            parse_xml(ctx, p[0], outdir, rules, files)
+            # manual_checks(ctx, p[0], outdir, rules, files)
 
 
 
