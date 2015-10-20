@@ -73,8 +73,8 @@ class DbUpdater:
             i = 1
             for r in repos.values():
                 r.id = i
-                self.repos.append([i, r.name, None, None, None, None,
-                        None, None, None, None,
+                self.repos.append([i, list(r.repo_names)[0], None,
+                        None, None, None, None, None, None, None,
                         r.commits, r.contributors, r.name])
                 i += 1
         self.packages = package.get_packages_from_repos(self.root, repos, filter_file = dist_filter)
@@ -221,6 +221,11 @@ class DbUpdater:
                     ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
 		            pk="package_id, metric_id", fk=["package_id", "metric_id"],
 		            fk_ref=["Packages(id)", "Metrics(id)"])
+            db.updateTable("Repository_Metrics",
+                    ["repo_id", "metric_id", "value"],
+                    ["MEDIUMINT(9)", "SMALLINT(6)", "FLOAT"], None,
+		            pk="repo_id, metric_id", fk=["repo_id", "metric_id"],
+		            fk_ref=["Repositories(id)", "Metrics(id)"])
             db.updateTable("File_Class_Metrics",
                     ["file_id", "class_name", "line", "metric_id", "value"],
                     ["MEDIUMINT(9)", "VARCHAR(50)", "MEDIUMINT(9)",
@@ -258,12 +263,14 @@ class DbUpdater:
             tables.update(["Repository_Packages",
                     "Package_Dependencies", "Package_Metrics",
                     "Non_Compliance", "File_Metrics",
-                    "File_Class_Metrics", "File_Function_Metrics"])
+                    "File_Class_Metrics", "File_Function_Metrics",
+                    "Repository_Metrics"])
         if self.meta_dirty:
             tables.update(["Repository_Issues"])
         if self.metrics_dirty:
             tables.update(["File_Metrics", "Package_Metrics",
-                    "File_Class_Metrics", "File_Function_Metrics"])
+                    "File_Class_Metrics", "File_Function_Metrics",
+                    "Repository_Metrics"])
         if self.rules_dirty:
             tables.update(["Non_Compliance", "Rule_Tags"])
         for table in tables:

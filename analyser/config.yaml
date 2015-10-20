@@ -15,18 +15,6 @@ plugins_all:
     cccc_rules:
         type: analysis
         subtype: rules
-    cpplint_plugin:
-        type: analysis
-        subtype: rules
-    cppcheck_plugin:
-        type: analysis
-        subtype: rules
-        needs:
-            - cppcheck_rules.xml
-plugins:
-    cccc_rules:
-        type: analysis
-        subtype: rules
     ccd_plugin:
         type: analysis
         subtype: rules
@@ -38,3 +26,14 @@ plugins:
         subtype: rules
         needs:
             - cppcheck_rules.xml
+    github_plugin:
+        type: analysis
+        subtype: metrics
+        needs:
+            - gituser.txt
+plugins:
+    github_plugin:
+        type: analysis
+        subtype: metrics
+        needs:
+            - gituser.txt

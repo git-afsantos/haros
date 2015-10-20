@@ -69,3 +69,19 @@
     id: 17
     name: HAL_EFF
     description: Halstead Effort
+-
+    id: 18
+    name: CONTRIBS
+    description: Number of contributors
+-
+    id: 19
+    name: COMMITS
+    description: Number of commits
+-
+    id: 20
+    name: O_ISSUES
+    description: Number of open issues
+-
+    id: 21
+    name: C_ISSUES
+    description: Number of closed issues

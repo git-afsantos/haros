@@ -9,6 +9,8 @@ class PluginContext:
         self.db                 = db
         self.metric_info        = None
         self.rule_info          = None
+        self.repo_info          = None
+        self.repo_buffer        = []
         self.package_info       = None
         self.package_buffer     = []
         self.file_info          = None
@@ -46,6 +48,11 @@ class PluginContext:
                 self.rule_info = self.db.get("Rules", ["id", "name", "scope"])
             return self.rule_info
 
+    def getRepositoryInfo(self):
+        if self.repo_info is None:
+            self.repo_info = self.db.get("Repositories", ["id", "name", "distro_name"])
+        return self.repo_info
+
     def getPackageInfo(self):
         if self.package_info is None:
             self.package_info = self.db.get("Packages", ["id", "name", "path"])
@@ -66,6 +73,11 @@ class PluginContext:
 
     def getPluginArguments(self):
         return self.plugin_args
+
+    def writeRepositoryMetric(self, repository, metric, value):
+        self.repo_buffer.append((repository, metric, value))
+        if len(self.repo_buffer) == 100:
+            self._commit()
 
     def writePackageMetric(self, package, metric, value):
         self.package_buffer.append((package, metric, value))
@@ -97,6 +109,11 @@ class PluginContext:
 
 
     def _commit(self):
+        if len(self.repo_buffer) > 0:
+            self.db.insert("Repository_Metrics",
+                    ["repo_id", "metric_id", "value"],
+                    self.repo_buffer)
+            self.repo_buffer = []
         if len(self.package_buffer) > 0:
             self.db.insert("Package_Metrics",
                     ["package_id", "metric_id", "value"],
@@ -134,6 +151,7 @@ def analyse_metrics(plugin_list, truncate):
         db.truncate("File_Class_Metrics")
         db.truncate("File_Function_Metrics")
         db.truncate("Package_Metrics")
+        db.truncate("Repository_Metrics")
     ctx = PluginContext(db)
     if not os.path.exists("plugin_out"):
         os.makedirs("plugin_out")
