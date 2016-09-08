@@ -1,0 +1,47 @@
+html, body {
+    color: #333;
+    background-color: whitesmoke;
+}
+
+.bg-light-grey {
+    background-color: lightgray;
+}
+
+.bg-grey {
+    background-color: grey;
+}
+
+.bg-blue {
+    background-color: steelblue !important;
+}
+
+.bg-yellow {
+    background-color: #f3af34 !important;
+}
+
+#app-header {
+    background-color: #333;
+    color: whitesmoke;
+}
+
+#dashboard .panel {
+    background-color: snow;
+    border-color: #333;
+}
+
+#dashboard .panel .label {
+    color: dimgray;
+}
+
+.progress-bar > .progress {
+    background-color: #999;
+}
+
+
+.label .overlay {
+    background-color: rgba(255, 215, 0, 0.25);
+}
+
+svg .bar {
+    fill: steelblue;
+}

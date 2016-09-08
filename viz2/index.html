@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>HAROS Visualizer</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="lib/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="lib/css/pure-min.css" />
+    <link rel="stylesheet" href="lib/css/grids-responsive-min.css" />
+    <link rel="stylesheet" href="css/type.css" />
+    <link rel="stylesheet" href="css/color.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="lib/js/jquery-2.2.1.min.js"></script>
+    <script src="lib/js/underscore.min.js"></script>
+    <script src="lib/js/backbone.min.js"></script>
+    <script src="lib/js/d3.min.js"></script>
+    <script src="lib/js/dagre.min.js"></script>
+    
+    <script src="js/app.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/views/general.js"></script>
+    <script src="js/views/dashboard.js"></script>
+    <script src="js/views/packages.js"></script>
+    <script src="js/views/issues.js"></script>
+    <script src="js/views/components.js"></script>
+    <script src="js/views/help.js"></script>
+    <script src="js/routes.js"></script>
+</head>
+<body>
+    <!-- App Header -->
+    <div id="app-header">
+        <!--<div class="my-button badge-empty"><h2><i class="fa fa-flag-o"></i></h2></div>
+        <div class="my-button badge-empty"><h2><i class="fa fa-ellipsis-h"></i></h2></div>-->
+        <div class="navigation-menu">
+            <a id="navigation-dashboard" href="#dashboard"><i class="fa fa-line-chart"></i> <span class="show-lg">Dashboard</span></a>
+            <a id="navigation-packages" href="#packages"><i class="fa fa-folder"></i> <span class="show-lg">Packages</span></a>
+            <a id="navigation-issues" href="#issues"><i class="fa fa-bug"></i> <span class="show-lg">Issues</span></a>
+            <a id="navigation-ros" href="#components"><i class="fa fa-cogs"></i> <span class="show-lg">Components</span></a>
+            <a id="navigation-help" href="#help"><i class="fa fa-question-circle"></i> <span class="show-lg">Help</span></a>
+        </div>
+        <h1 class="title">HAROSviz</h1>
+    </div>
+
+    <!-- App Body -->
+    <div id="app">
+        <section id="dashboard">
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-sm-1-2 pure-u-lg-1-4">
+                    <div id="dashboard-panel-source" class="panel">
+                        <!-- http://mbostock.github.io/d3/talk/20111018/tree.html -->
+                        <div class="template-holder"></div>
+                        <div class="diagram diagram-progress">
+                            <div class="pure-g item">
+                                <div class="pure-u-1-4 bold">C++</div>
+                                <div class="pure-u-1-2">
+                                    <div class="progress-bar margin-right">
+                                        <div class="progress bg-blue"></div>
+                                        <div class="progress bg-yellow"></div>
+                                    </div>
+                                </div>
+                                <div class="pure-u-1-4 text-right bold">Python</div>
+                            </div>
+                            <p class="item text-center bold">n/a</p>
+                        </div>
+                    </div>
+                    <!-- https://www.jasondavies.com/coffee-wheel/ -->
+                    <div id="dashboard-panel-issues" class="panel"></div>
+                </div>
+                <div class="pure-u-1 pure-u-sm-1-2 pure-u-lg-1-4">
+                    <div id="dashboard-panel-components" class="panel"></div>
+                    <div id="dashboard-panel-communications" class="panel"></div>
+                </div>
+                <div class="pure-u-1 pure-u-sm-1 pure-u-lg-1-2">
+                    <div id="dashboard-panel-progress" class="panel double-size">
+                        <h4 class="title"><i class="fa fa-line-chart"></i> Quality Progress</h4>
+                        <div class="diagram"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="package-board">
+            <div id="package-graph">
+                <div id="pkg-graph-action-bar" class="action-bar">
+                    <button type="button" id="pkg-btn-viewport" title="Reset Zoom"><i class="fa fa-sitemap"></i></button><!--
+                    --><button type="button" id="pkg-btn-filter" title="Set Filters"><i class="fa fa-filter"></i></button>
+                </div>
+
+                <div id="pkg-node-action-bar" class="action-bar">
+                    <button type="button" id="pkg-btn-focus" title="Set/Clear Focus"><i class="fa fa-star"></i></button><!--
+                    --><button type="button" id="pkg-btn-info" title="Details"><i class="fa fa-info"></i></button><!--
+                    --><button type="button" id="pkg-btn-issues" title="Issues"><i class="fa fa-bug"></i></button>
+                </div>
+
+                <div id="pkg-filter-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="button-close margin-top"><i class="fa fa-close"></i></div>
+                        <div class="margin-top">
+                            <i class="fa fa-filter"></i>
+                            <label for="pkg-filter-input">Filter by</label>
+                            <span id="pkg-filter-toggle">/ Ignore by</span>
+                        </div>
+                        <input id="pkg-filter-input" type="text" placeholder="tag">
+                        <ul class="taglist"></ul>
+                        <div class="text-button pull-left margin-bottom">Clear</div>
+                        <div class="button-close margin-bottom">Close</div>
+                    </div>
+                </div>
+
+                <div id="pkg-info-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="button-close margin-top"><i class="fa fa-close"></i></div>
+                        <div class="template-wrapper"></div>
+                        <div class="button-close margin-bottom">Close</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="issue-board">
+            <h1 class="text-center">Under construction.</h1>
+        </section>
+
+        <section id="ros-board">
+            <h1 class="text-center">Under construction.</h1>
+        </section>
+
+        <section id="help-board">
+            <h1 class="text-center">Under construction.</h1>
+        </section>
+
+
+        <section id="preloader" class="text-center">
+            <h1>Loading...</h1>
+            <h1><i class="fa fa-spinner fa-spin"></i></h1>
+        </section>
+    </div>
+
+    <script type="text/template" id="dashboard-panel-source-template">
+        <a href="#packages"><h4 class="title"><i class="fa fa-file-code-o"></i> Source Code</h4></a>
+        <p class="item">
+            <span class="label">Packages</span>
+            <span class="badge-empty"><%= data.packages || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Files</span>
+            <span class="badge-empty"><%= data.files || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Scripts</span>
+            <span class="badge-empty"><%= data.scripts || "n/a" %></span>
+        </p>
+    </script>
+
+    <script type="text/template" id="dashboard-panel-issues-template">
+        <a href="#issues"><h4 class="title"><i class="fa fa-bug"></i> Issues</h4></a>
+        <p class="item">
+            <span class="label">Total issues</span>
+            <span class="badge-empty"><%= data.total || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Coding standards</span>
+            <span class="badge-empty"><%= data.coding || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Code metrics</span>
+            <span class="badge-empty"><%= data.metrics || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Other issues</span>
+            <span class="badge-empty"><%= data.other || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Issues per line</span>
+            <span class="badge-empty"><%= data.ratio || "n/a" %></span>
+        </p>
+    </script>
+
+    <script type="text/template" id="dashboard-panel-components-template">
+        <a href="#components"><h4 class="title"><i class="fa fa-gears"></i> ROS Components</h4></a>
+        <p class="item">
+            <span class="label">Launch files</span>
+            <span class="badge-empty"><%= data.launchFiles || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Node count</span>
+            <span class="badge-empty"><%= data.nodes || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Nodelets</span>
+            <span class="badge-empty"><%= data.nodelets || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Parameter files</span>
+            <span class="badge-empty"><%= data.parameterFiles || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Capabilities</span>
+            <span class="badge-empty"><%= data.capabilities || "n/a" %></span>
+        </p>
+    </script>
+
+    <script type="text/template" id="dashboard-panel-communications-template">
+        <a href="#components"><h4 class="title"><i class="fa fa-exchange"></i> ROS Communications</h4></a>
+        <p class="item">
+            <span class="label">Topics</span>
+            <span class="badge-empty"><%= data.topics || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Remappings</span>
+            <span class="badge-empty"><%= data.remappings || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Custom messages</span>
+            <span class="badge-empty"><%= data.messages || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Custom services</span>
+            <span class="badge-empty"><%= data.services || "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Custom actions</span>
+            <span class="badge-empty"><%= data.actions || "n/a" %></span>
+        </p>
+    </script>
+
+    <script type="text/template" id="package-board-tag-item">
+        <li class="tag" data-tag="<%= data.tag %>"><i class="fa fa-close"></i> <%= data.tag %></li>
+    </script>
+
+    <script type="text/template" id="package-board-info-modal">
+        <h4 class="title">
+            <%= data.id %>
+            <small><a href="<%= data.wiki %>">Wiki <i class="fa fa-external-link"></i></a></small>
+        </h4>
+        <% if (data.metapackage) print('<span class="info">Metapackage</span>'); %>
+        <hr>
+        <p><%= data.description %></p>
+        <hr>
+        <p>
+            <i class="fa fa-group bullet-icon"></i>
+            <strong>Authors:</strong>
+            <%= data.authors.join(", ") || "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-wrench bullet-icon"></i>
+            <strong>Maintainers:</strong>
+            <%= data.maintainers.join(", ") || "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-code-fork bullet-icon"></i>
+            <strong>Repositories:</strong>
+            <%= _.map(data.repositories, function (r) {
+                var name = r.split("/")[1];
+                return '<a href="http://github.com/' + r + '">' + name + ' <i class="fa fa-external-link"></i></a>';
+            }).join(", ") || "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-sitemap bullet-icon"></i>
+            <strong>Dependencies:</strong>
+            <%= data.dependencies.join(", ") || "none" %>
+        </p>
+    </script>
+</body>
+</html>

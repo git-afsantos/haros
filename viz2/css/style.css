@@ -1,0 +1,569 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.invisible {
+    opacity: 0;
+    cursor: pointer !important;
+}
+
+.hidden,
+.show-md,
+.show-lg {
+    display: none;
+}
+
+
+@media (min-width: 48em) {
+    .show-md {
+        display: inherit;
+    }
+}
+
+@media (min-width: 64em) {
+    .show-lg {
+        display: inherit;
+    }
+}
+
+
+.clickable {
+    cursor: pointer;
+}
+
+
+.anchor {
+    position: relative;
+}
+
+
+.inline {
+    display: inline-block;
+}
+
+
+.no-padding {
+    padding: 0;
+}
+
+.padding {
+    padding: 0.5em;
+}
+
+.padding-v {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.padding-v-lg {
+    padding: 0.75em 0;
+}
+
+.padding-top-sm {
+    padding-top: 0.25em;
+}
+
+.padding-top {
+    padding-top: 0.5em;
+}
+
+.padding-top-lg {
+    padding-top: 0.75em;
+}
+
+.padding-bottom-sm {
+    padding-bottom: 0.25em;
+}
+
+.padding-bottom {
+    padding-bottom: 0.5em;
+}
+
+.padding-bottom-lg {
+    padding-bottom: 0.75em;
+}
+
+
+.margin-top {
+    margin-top: 0.5em;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.margin-bottom {
+    margin-bottom: 0.5em;
+}
+
+.margin-left {
+    margin-left: 0.5em;
+}
+
+.margin-left-sm {
+    margin-left: 0.25em;
+}
+
+.margin-right {
+    margin-right: 0.5em;
+}
+
+.margin-right-sm {
+    margin-right: 0.25em;
+}
+
+.border-top {
+    border-top: 1px solid;
+}
+
+.border-top-lg {
+    border-top: 2px solid;
+}
+
+.border-bottom {
+    border-bottom: 1px solid;
+}
+
+.border-bottom-lg {
+    border-bottom: 2px solid;
+}
+
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+
+.inline {
+    display: inline-block;
+}
+
+
+#app {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 4em;
+}
+
+#app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.25em;
+    padding: 0 0.5em;
+    z-index: 1100;
+}
+
+#app-header > .title {
+    margin: 0;
+}
+
+#app-header > .navigation-menu {
+    position: absolute;
+    bottom: 0.25em;
+    right: 0;
+    padding: 0.5em;
+}
+
+#app-header > .navigation-menu > a {
+    font-size: 1.25em;
+    text-decoration: none;
+    color: inherit;
+}
+
+#app-header > .navigation-menu > a:hover {
+    color: #f3af34;
+}
+
+#app-header > .navigation-menu > a.selected {
+    color: steelblue;
+}
+
+@media (min-width: 22.5em) {
+    #app-header > .navigation-menu > a {
+        margin-left: 0.25em;
+    }
+}
+
+@media (min-width: 30em) {
+    #app-header > .navigation-menu > a {
+        margin-left: 1em;
+    }
+}
+
+@media (min-width: 80em) {
+    #app-header > .navigation-menu {
+        right: 10%;
+    }
+}
+
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 4em;
+    background-color: whitesmoke;
+    z-index: 1000;
+}
+
+
+
+#dashboard .panel {
+    position: relative;
+    border-radius: 4px;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0.5em 1em;
+    margin: 1em 0.5em;
+    min-height: 2em;
+}
+
+#dashboard .panel .badge-empty {
+    float: right;
+}
+
+
+#dashboard .panel.double-size {
+    height: 23.25em;
+}
+
+
+@media (min-width: 48em) {
+    #dashboard .panel.double-size {
+        height: 24.75em;
+    }
+}
+
+
+
+
+
+#package-board {
+    display: flex;
+    width: 100%;
+}
+
+
+#pkg-filter-modal input {
+    width: 14em;
+    padding: .5em;
+    display: block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+#pkg-filter-toggle {
+    cursor: pointer;
+    color: grey;
+}
+
+
+#package-graph {
+    position: relative;
+    flex: 1;
+    height: 15em;
+    border: 1px solid lightgrey;
+}
+
+#package-graph > .action-bar {
+    position: absolute;
+    top: auto;
+    bottom: 1em;
+    right: 1em;
+    left: auto;
+    font-size: 1.25em;
+}
+
+#package-graph > #pkg-graph-action-bar {
+    left: 1em;
+    right: auto;
+}
+
+#package-graph > #pkg-node-action-bar {
+    left: auto;
+    right: 1em;
+}
+
+@media (min-width: 40em) {
+    #package-graph > #pkg-graph-action-bar {
+        top: 1em;
+        bottom: auto;
+        left: auto;
+        right: 1em;
+    }
+
+    #package-graph > #pkg-node-action-bar {
+        top: 3em;
+        bottom: auto;
+    }
+}
+
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+#package-graph .node circle {
+    /* fill: #FFF2CC; */
+    stroke-width: 2px;
+    /* stroke: #A16D00; */
+    stroke: #8A6D3B;
+}
+
+#package-graph .node.focus {
+	stroke-width: 8px;
+	/*stroke: #104227;*/
+}
+
+#package-graph .graph.hovering .node.selected circle {
+	stroke-width: 8px;
+	/*stroke: #0F4BFF;*/
+	/* stroke: #386AFF; */
+	stroke: #007AFF;
+	/*-webkit-animation: stroke-pulse 2s infinite;
+	-moz-animation: stroke-pulse 2s infinite;
+	-o-animation: stroke-pulse 2s infinite;
+	animation: stroke-pulse 2s infinite;*/
+	/*fill: #B3ECFF;*/
+}
+
+#package-graph .graph .node.focus circle {
+	stroke-width: 8px;
+	/*stroke: #104227;*/
+}
+
+#package-graph .edge {
+	fill: none;
+	stroke-width: 2px;
+	stroke: #D19D00;
+	stroke-linejoin: round;
+/*	marker-end: url(#markerDot);*/
+}
+
+
+#package-graph .graph.hovering .edge.selected {
+	stroke-width: 6px;
+	/* stroke: #386AFF; */
+	stroke: #007AFF;
+}
+
+#package-graph .graph.hovering .node {
+	opacity: 0.2;
+}
+
+#package-graph .graph.hovering .edge {
+	opacity: 0;
+}
+
+#package-graph .graph.hovering .node.selected,
+#package-graph .graph.hovering .edge.selected {
+	opacity: 1;
+}
+
+#package-graph .graph.hovering .node.highlight circle {
+	stroke-width: 8px;
+	/* stroke: #A4011B; */
+	stroke: #3C763D;
+	/*fill: #FFE0E5;*/
+}
+
+#package-graph .graph.hovering .node.highlight {
+    opacity: 1;
+}
+
+#package-graph .graph.hovering .edge.highlight {
+	/* stroke: #A4011B; */
+	stroke: #3C763D;
+	stroke-width: 4px;
+    opacity: 1;
+}
+
+
+#package-graph .graph .node text {
+	font-size: 2em;
+    cursor: default;
+}
+
+#package-graph .graph.zoomed-out .node text {
+	opacity: 0;
+}
+
+
+
+
+
+
+
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: lightgrey;
+    clear: both;
+}
+
+
+.taglist {
+    padding: 0;
+}
+
+.taglist > .tag {
+    display: inline-block;
+    padding: 0 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 4px;
+    color: whitesmoke;
+    background-color: #333;
+    cursor: pointer;
+}
+
+
+.info-tag {
+    display: inline-block;
+    padding: 0 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+
+.action-bar > button {
+    background-color: whitesmoke;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    border-left: 1px solid grey;
+    border-right: none;
+}
+
+.action-bar > button:hover {
+    background-color: ivory;
+}
+
+.action-bar > button:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.action-bar > button:last-child {
+    border-right: 1px solid grey;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.action-bar > button > i {
+    min-width: 1em;
+}
+
+
+
+.modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(245,245,245,0.75);
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    overflow: hidden;
+}
+
+.modal .button-close {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal > .modal-content {
+    position: relative;
+    margin: 0 auto 0 auto;
+    background-color: whitesmoke;
+    border: 1px solid grey;
+    border-radius: 4px;
+/*    flex: 1 1 auto;*/
+    padding: 0 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-width: 90%;
+}
+
+.modal-content .title > small {
+    color: steelblue;
+}
+
+.modal-content a {
+    color: steelblue;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+.info {
+    font-size: 0.75em;
+    font-weight: bold;
+    color: grey;
+}
+
+.bullet-icon {
+    width: 1.25em;
+}
+
+
+
+.text-button {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+
+.progress-bar {
+    position: relative;
+    min-height: 0.75em;
+    top: 0.25em;
+    border: 1px solid;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar > .progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 90%;
+    /*border-radius: 8px;*/
+    z-index: 100;
+}
+
+.progress-bar > .progress-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-weight: bold;
+    z-index: 1000;
+}
