@@ -44,3 +44,13 @@ def clone_repos(repos_dict, repos_path):
             clone_repo_to_path(repo, repos_path)
     os.chdir(origWD)
 
+
+def get_commit_count(repos_dict, repos_path):
+    origWD = os.getcwd()
+    for repo in repos_dict.values():
+        path = os.path.join(repos_path, repo.name)
+        if os.path.exists(path):
+            os.chdir(path)
+            repo.commits = int(subprocess.check_output(["git", "rev-list", "HEAD", "--count"]).rstrip())
+    os.chdir(origWD)
+

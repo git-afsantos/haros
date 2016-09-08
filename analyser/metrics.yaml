@@ -53,3 +53,35 @@
     id: 13
     name: FUN_PARAM
     description: Function Parameters
+-
+    id: 14
+    name: COM_RATIO
+    description: Ratio of Lines of Comments
+-
+    id: 15
+    name: HAL_VOL
+    description: Halstead Volume
+-
+    id: 16
+    name: HAL_DIF
+    description: Halstead Difficulty
+-
+    id: 17
+    name: HAL_EFF
+    description: Halstead Effort
+-
+    id: 18
+    name: CONTRIBS
+    description: Number of contributors
+-
+    id: 19
+    name: COMMITS
+    description: Number of commits
+-
+    id: 20
+    name: O_ISSUES
+    description: Number of open issues
+-
+    id: 21
+    name: C_ISSUES
+    description: Number of closed issues

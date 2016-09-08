@@ -1,0 +1,931 @@
+[
+  {
+    "Name": "shadow_robot_ethercat",
+    "Metapackage": true,
+    "Contains": [
+            "sr_robot_lib",
+            "sr_edc_ethercat_drivers",
+            "sr_edc_controller_configuration"
+    ],
+    "Description": "This stack contains the drivers and the controllers for Shadow Robot's EtherCAT Hand.",
+    "Wiki": "http://ros.org/wiki/shadow_robot_ethercat",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "sr_robot_lib",
+            "sr_edc_ethercat_drivers",
+            "sr_edc_controller_configuration"
+    ]
+  },
+  {
+    "Name": "sr_edc_controller_configuration",
+    "Metapackage": false,
+    "Description": "contains the different launch files for Shadow Robot hand controllers. The actual configuration files arestored in the sr_config stack.",
+    "Wiki": "http://ros.org/wiki/sr_edc_controller_configuration",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_edc_ethercat_drivers",
+    "Metapackage": false,
+    "Description": "A package implementing a ROS interface for the etherCAT Shadow Robot Dextrous Hand.",
+    "Wiki": "http://ros.org/wiki/sr_edc_ethercat_drivers",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 16,
+        "3": 16,
+        "18": 5,
+        "5": 3
+      }
+    },
+    "Edge": [
+            "sr_robot_lib",
+            "ros_ethercat_hardware"
+    ]
+  },
+  {
+    "Name": "sr_robot_lib",
+    "Metapackage": false,
+    "Description": "sr_robot_lib contains the robot library used in the sr_edc_ethercat_drivers. Thelibrary is used to store the incoming etherCAT messages in an easy to access format,and prepare the messages to be send through etherCAT.",
+    "Wiki": "http://ros.org/wiki/sr_robot_lib",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 5,
+        "2": 20,
+        "3": 20,
+        "5": 9,
+        "6": 6,
+        "18": 19
+      }
+    },
+    "Edge": [
+            "sr_hardware_interface",
+            "sr_mechanism_model",
+            "sr_utilities",
+            "sr_self_test"
+    ]
+  },
+  {
+    "Name": "sr_teleop",
+    "Metapackage": true,
+    "Contains": [
+    ],
+    "Description": "",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "cyberglove_trajectory",
+    "Metapackage": false,
+    "Description": "A package that gets joint positions from the cyberglove via serial port, and calibrates them, remaps them to Shadow hand joints, and publishes them as joint trajectories in a single node",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "sr_remappers",
+            "cyberglove",
+            "sr_utilities"
+    ]
+  },
+  {
+    "Name": "logitech_r400",
+    "Metapackage": false,
+    "Description": "A driver for the Logitech R400.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "shuttle_xpress",
+    "Metapackage": false,
+    "Description": "A driver for the Shuttle Xpress from Contour.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "cyberglove",
+    "Metapackage": false,
+    "Description": "This is a generic ROS interface to the Cyberglove from Immersion. It reads data from the Cyberglove, calibrate them and streams them to two different /joint_states topic: calibrated and raw data.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 9,
+        "3": 7,
+        "18": 1,
+        "6": 1,
+        "5": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_remappers",
+    "Metapackage": false,
+    "Description": "Remaps data from and to the Shadow Robot hardware",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 8,
+        "3": 8,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "cyberglove"
+    ]
+  },
+  {
+    "Name": "orocos_kinematics_dynamics",
+    "Metapackage": false,
+    "Description": "This package depends on a recent version of the Kinematics and DynamicsLibrary (KDL), distributed by the Orocos Project. It is a meta-package thatdepends on kdl which contains the c++ version and pykdl which contains thegenerated python bindings.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "orocos_kdl"
+    ]
+  },
+  {
+    "Name": "orocos_kdl",
+    "Metapackage": false,
+    "Description": "This package contains a recent version of the Kinematics and DynamicsLibrary (KDL), distributed by the Orocos Project.",
+    "Wiki": "http://wiki.ros.org/orocos_kdl",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 34,
+        "2": 119,
+        "3": 108,
+        "5": 23,
+        "6": 5,
+        "18": 33,
+        "25": 3
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_example",
+    "Metapackage": false,
+    "Description": "sr_example is an example of a real package interfaced with our robot. Please refer to the tutorialCreating a package to interact with our robots.",
+    "Wiki": "http://ros.org/wiki/sr_example",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "3": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "hand_kinematics",
+    "Metapackage": false,
+    "Description": "Computation of forward and inverse kinematics for the fingers of the Shadow Hand, including coupling.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 5,
+        "2": 3,
+        "3": 2,
+        "5": 14,
+        "6": 6,
+        "18": 3
+      }
+    },
+    "Edge": [
+            "orocos_kdl",
+            "sr_utilities",
+            "kdl_coupling"
+    ]
+  },
+  {
+    "Name": "sr_grasp",
+    "Metapackage": false,
+    "Description": "Execute moveit_msgs/Grasp grasps on the Shadow Hand.",
+    "Wiki": "http://ros.org/wiki/sr_grasp",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "sr_hand"
+    ]
+  },
+  {
+    "Name": "sr_robot_commander",
+    "Metapackage": false,
+    "Description": "This is a ROS interface to the robotic arm.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_interface",
+    "Metapackage": true,
+    "Contains": [
+            "hand_kinematics",
+            "sr_robot_commander",
+            "sr_grasp",
+            "sr_example",
+            "kdl_coupling"
+    ],
+    "Description": "This repository contains the high level interface and its dependencies for interacting simply with ourrobots.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "hand_kinematics",
+            "sr_robot_commander",
+            "sr_grasp",
+            "sr_example",
+            "kdl_coupling"
+    ]
+  },
+  {
+    "Name": "kdl_coupling",
+    "Metapackage": false,
+    "Description": "Provides additionnal KDL functions or modified functions to handle coupling in joints as well as 3D IKsolutions for less than 6 DOF chains.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 6,
+        "3": 5,
+        "5": 1,
+        "6": 1,
+        "18": 2
+      }
+    },
+    "Edge": [
+            "orocos_kdl"
+    ]
+  },
+  {
+    "Name": "sr_hand",
+    "Metapackage": false,
+    "Description": "This is a ROS interface to the Shadow Robot's robotic hand. Itcontains both an interface to the real hand (communicating viaa CAN interface) and a simulated version of the hand. It alsocontains an interface to Shadow Robot's muscle arm.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 3,
+        "2": 26,
+        "3": 26,
+        "18": 9,
+        "5": 3
+      }
+    },
+    "Edge": [
+            "sr_utilities"
+    ]
+  },
+  {
+    "Name": "sr_hardware_interface",
+    "Metapackage": false,
+    "Description": "This package contains the actuator used in the hand model.",
+    "Wiki": "http://ros.org/wiki/sr_hardware_interface",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "ros_ethercat_hardware"
+    ]
+  },
+  {
+    "Name": "sr_tactile_sensors",
+    "Metapackage": false,
+    "Description": "An interface to the tactile sensors used in the Shadow Dextrous Hand. Also Contains a virtual set ofsensors.",
+    "Wiki": "http://ros.org/wiki/sr_tactile_sensors",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 10,
+        "3": 9,
+        "18": 3
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_utilities",
+    "Metapackage": false,
+    "Description": "sr_utilities contains different useful header libraries (math libraries, etc...).",
+    "Wiki": "http://ros.org/wiki/sr_utilities",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 9,
+        "3": 7
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model"
+    ]
+  },
+  {
+    "Name": "sr_mechanism_controllers",
+    "Metapackage": false,
+    "Description": "The sr_mechanism_controllers package contains different types ofcontrollers for the etherCAT hand:(fake) calibration controllers,position controllers, velocity controllers, force controllers, ...",
+    "Wiki": "http://ros.org/wiki/sr_mechanism_controllers",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 4,
+        "2": 24,
+        "3": 22,
+        "5": 15,
+        "6": 10,
+        "18": 15
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "sr_hardware_interface",
+            "sr_utilities"
+    ]
+  },
+  {
+    "Name": "sr_mechanism_model",
+    "Metapackage": false,
+    "Description": "sr_mechanism_model contains the transmissions used in the robot model. We needed specifictransmission as we're using our own actuator. We also needed to take care of the joint 0swhich combine the distal and middle phalanges.",
+    "Wiki": "http://ros.org/wiki/sr_mechanism_model",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 10,
+        "3": 10
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "sr_hardware_interface"
+    ]
+  },
+  {
+    "Name": "sr_core",
+    "Metapackage": true,
+    "Contains": [
+            "sr_hand",
+            "sr_mechanism_model",
+            "sr_self_test",
+            "sr_gazebo_sim",
+            "sr_mechanism_controllers",
+            "sr_hardware_interface",
+            "sr_tactile_sensors",
+            "sr_utilities"
+    ],
+    "Description": "These are the core packages for the Shadow Robot hardware and simulation.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "sr_hand",
+            "sr_mechanism_model",
+            "sr_self_test",
+            "sr_gazebo_sim",
+            "sr_mechanism_controllers",
+            "sr_hardware_interface",
+            "sr_tactile_sensors",
+            "sr_utilities"
+    ]
+  },
+  {
+    "Name": "sr_self_test",
+    "Metapackage": false,
+    "Description": "sr_self_test",
+    "Wiki": "http://ros.org/wiki/sr_self_test",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 13,
+        "3": 12,
+        "5": 3,
+        "6": 1,
+        "18": 6
+      }
+    },
+    "Edge": [
+            "sr_hand",
+            "sr_movements"
+    ]
+  },
+  {
+    "Name": "sr_gazebo_sim",
+    "Metapackage": false,
+    "Description": "The sr_gazebo_sim package",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 1,
+        "3": 1
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "sr_hardware_interface"
+    ]
+  },
+  {
+    "Name": "sr_ronex_utilities",
+    "Metapackage": false,
+    "Description": "Package containing a header library with useful inline functions for working with the RoNeX.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_ronex_examples",
+    "Metapackage": false,
+    "Description": "Package containing examples for the RoNeX boards.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 6,
+        "3": 6,
+        "18": 1
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "sr_ronex_hardware_interface",
+            "sr_ronex_utilities"
+    ]
+  },
+  {
+    "Name": "sr_ronex_hardware_interface",
+    "Metapackage": false,
+    "Description": "This package contains the definition of the CustomHW to beadded to the ros_ethercat_model CustomHWMap for theRoNeX.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 2,
+        "3": 2
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "ros_ethercat_hardware",
+            "sr_ronex_external_protocol"
+    ]
+  },
+  {
+    "Name": "sr_ronex_drivers",
+    "Metapackage": false,
+    "Description": "Package containing the driver for the RoNeX boards.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 16,
+        "3": 14,
+        "18": 6,
+        "6": 1,
+        "5": 2
+      }
+    },
+    "Edge": [
+            "sr_ronex_hardware_interface",
+            "ros_ethercat_model",
+            "ros_ethercat_hardware",
+            "sr_ronex_utilities",
+            "sr_ronex_external_protocol"
+    ]
+  },
+  {
+    "Name": "sr_ronex",
+    "Metapackage": true,
+    "Contains": [
+            "sr_ronex_drivers",
+            "sr_ronex_utilities",
+            "sr_ronex_transmissions",
+            "sr_ronex_controllers",
+            "sr_ronex_examples",
+            "sr_ronex_hardware_interface",
+            "sr_ronex_external_protocol"
+    ],
+    "Description": "This stack contains the different packages related to the RoNeX (Robot Nervous System).",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "sr_ronex_drivers",
+            "sr_ronex_utilities",
+            "sr_ronex_transmissions",
+            "sr_ronex_controllers",
+            "sr_ronex_examples",
+            "sr_ronex_hardware_interface",
+            "sr_ronex_external_protocol"
+    ]
+  },
+  {
+    "Name": "sr_ronex_controllers",
+    "Metapackage": false,
+    "Description": "Contains different useful controllers to use with the RoNeX.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 7,
+        "3": 6,
+        "5": 3,
+        "6": 1,
+        "18": 4
+      }
+    },
+    "Edge": [
+            "sr_ronex_drivers",
+            "ros_ethercat_model",
+            "sr_ronex_hardware_interface",
+            "sr_ronex_utilities"
+    ]
+  },
+  {
+    "Name": "sr_ronex_external_protocol",
+    "Metapackage": false,
+    "Description": "Contains the protocol to communicate between the driver and the ronex hardware.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 1,
+        "3": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_ronex_transmissions",
+    "Metapackage": false,
+    "Description": "Contains the transmissions that can be used with the RoNeX driver. Using those transmissions makes it possible for the user to remap from the RoNeX to a joint based robot.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 10,
+        "3": 9,
+        "18": 4,
+        "6": 1,
+        "5": 3
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "sr_ronex_hardware_interface"
+    ]
+  },
+  {
+    "Name": "ros_ethercat_model",
+    "Metapackage": false,
+    "Description": "The mechanism model",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 6,
+        "3": 6,
+        "18": 2
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ros_ethercat",
+    "Metapackage": true,
+    "Contains": [
+            "ros_ethercat_eml",
+            "ros_ethercat_model",
+            "ros_ethercat_hardware",
+            "ros_ethercat_loop"
+    ],
+    "Description": "A pr2 agnostic replacement for robots using EtherCAT",
+    "Wiki": "http://ros.org/wiki/ros_ethercat",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "ros_ethercat_eml",
+            "ros_ethercat_model",
+            "ros_ethercat_hardware",
+            "ros_ethercat_loop"
+    ]
+  },
+  {
+    "Name": "ros_ethercat_hardware",
+    "Metapackage": false,
+    "Description": "Package for creating a hardware interface to the robot using the EtherCAT motor controller/driver",
+    "Wiki": "http://ros.org/wiki/ros_ethercat_hardware",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 2,
+        "2": 4,
+        "3": 4,
+        "5": 4,
+        "6": 1,
+        "18": 4
+      }
+    },
+    "Edge": [
+            "ros_ethercat_eml",
+            "ros_ethercat_model"
+    ]
+  },
+  {
+    "Name": "ros_ethercat_eml",
+    "Metapackage": false,
+    "Description": "This is an implementation of the EtherCAT master protocol for use wiht ros_ethercar packagebased on the work done at Flanders' Mechatronics Technology Centre and Willow Garage.",
+    "Wiki": "http://ros.org/wiki/ros_ethercat_eml",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "2": 16,
+        "3": 16,
+        "5": 3,
+        "6": 3,
+        "18": 16,
+        "25": 1
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "ros_ethercat_loop",
+    "Metapackage": false,
+    "Description": "Main loop to run EtherCAT robot hardware.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "1": 1,
+        "5": 3,
+        "6": 3
+      }
+    },
+    "Edge": [
+            "ros_ethercat_model",
+            "ros_ethercat_hardware"
+    ]
+  },
+  {
+    "Name": "sr_grasp_fast_planner",
+    "Metapackage": false,
+    "Description": "The sr_grasp_fast_planner package",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+    ]
+  },
+  {
+    "Name": "sr_movements",
+    "Metapackage": false,
+    "Description": "Contains a node which can be used to take the hand through a series of movements (perfect for tuningcontrollers for example).",
+    "Wiki": "http://ros.org/wiki/sr_movements",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+        "2": 8,
+        "3": 7,
+        "18": 2
+      }
+    },
+    "Edge": [
+            "sr_hand",
+            "sr_utilities"
+    ]
+  },
+  {
+    "Name": "sr_tools",
+    "Metapackage": true,
+    "Contains": [
+            "sr_movements"
+    ],
+    "Description": "This metapackage contains more advanced tools that might be needed in specific use cases.",
+    "Wiki": "",
+    "Metrics": {
+    },
+    "Repositories": [
+    ],
+    "Analysis": {
+      "Noncompliance": {
+      }
+    },
+    "Edge": [
+            "sr_movements"
+    ]
+  }
+]

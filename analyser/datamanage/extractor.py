@@ -3,6 +3,8 @@
 
 import query_git as qg
 
+import time
+
 
 # Retrieves all people of every package
 def allPkgPpl(packages):
@@ -133,6 +135,26 @@ def getIssuesLabels(issue_cols, issues_info):
     # label_ids = id label pairing for Labels table
     # issues_labels = label id, issue id pairing for IssuesLabels map table
     return issue_cols, issues_info, label_ids, issues_labels
+
+
+
+# Receives [(id, "owner/repo")]
+# Returns [(id, # open, # closed)]
+def getIssuesCount(repo_ids):
+    lot = []
+    rl, i = qg.getIssuesRateLimit()
+    for repo_id,repo_name in repo_ids:
+        while i == 0:
+            print "[Network] Reached GitHub rate limit. Waiting for availability..."
+            time.sleep(65)
+            rl, i = qg.getIssuesRateLimit()
+        oissues, cissues = qg.getIssuesCount(repo_name)
+        lot.append((repo_id, oissues, cissues))
+        if oissues == 0 and cissues == 0:
+            print "  No issues found for", repo_name
+        i -= 2
+    return lot
+
 
 
 def getPkgFiles(pkg_ids, src_dict):

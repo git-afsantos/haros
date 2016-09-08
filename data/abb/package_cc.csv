@@ -1,0 +1,5 @@
+package,cc_min,cc_max,cc_avg
+abb_driver,1.0,2.0,1.33333333333
+industrial_robot_client,1.0,13.0,3.92
+simple_message,1.0,15.0,2.50537634409
+abb_irb2400_moveit_plugins,1.0,430.0,12.8

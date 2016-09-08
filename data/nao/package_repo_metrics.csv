@@ -1,0 +1,5 @@
+Package,Repository,Contributors,Commits,CC (avg),Cpp LoC,Cpp LoCom
+naoqi_driver,naoqi_driver,8,632,2.41871921182,5701,2777
+nao_teleop,nao_extras,5,72,3.30769230769,216,161
+nao_path_follower,nao_extras,5,72,6.6875,652,159
+orocos_kdl,orocos_kinematics_dynamics,22,494,2.78833693305,11072,6963

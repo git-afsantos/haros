@@ -5,6 +5,7 @@ import getopt
 import math  # for log
 import os
 import re
+import itertools
 import sre_compile
 import string
 import sys
@@ -28,15 +29,12 @@ def plugin_run(ctx):
 def get_file_list(ctx):
     cpp = ctx.getFileInfo(ext="cpp")
     cc  = ctx.getFileInfo(ext="cc")
+    cxx = ctx.getFileInfo(ext="cxx")
+    # c   = ctx.getFileInfo(ext="c")
     h   = ctx.getFileInfo(ext="h")
-    files = []
-    for f in h:
-        files.append(f)
-    for f in cpp:
-        files.append(f)
-    for f in cc:
-        files.append(f)
-    return files
+    hpp = ctx.getFileInfo(ext="hpp")
+    hxx = ctx.getFileInfo(ext="hxx")
+    return itertools.chain(h, hpp, hxx, cc, cpp, cxx)
 
 
 

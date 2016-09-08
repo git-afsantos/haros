@@ -1,0 +1,14 @@
+repository,contributors,commits
+app_manager,4,16
+orocos_kinematics_dynamics,22,494
+pr2_apps,6,250
+pr2_common_actions,4,187
+pr2_controllers,3,328
+pr2_delivery,3,35
+pr2_ethercat_drivers,7,341
+pr2_gripper_sensor,6,39
+pr2_kinematics,2,66
+pr2_mechanism,12,292
+pr2_navigation,7,194
+pr2_power_drivers,1,214
+pr2_robot,11,377

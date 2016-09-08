@@ -1,0 +1,11 @@
+package,com_min,com_max,com_avg,com_sum
+pano_py,0.0,10.0,3.30769230769,43.0
+pano_core,0.0,90.0,17.0652173913,785.0
+turtlebot_follower,72.0,72.0,72.0,72.0
+turtlebot_teleop,28.0,28.0,28.0,28.0
+turtlebot_arm_ikfast_plugin,46.0,189.0,106.333333333,319.0
+turtlebot_navigation,35.0,35.0,35.0,35.0
+turtlebot_panorama,20.0,136.0,74.6666666667,224.0
+turtlebot_arm_block_manipulation,35.0,66.0,49.8333333333,299.0
+turtlebot_arm_kinect_calibration,28.0,50.0,36.6666666667,110.0
+turtlebot_actions,2.0,55.0,25.25,101.0

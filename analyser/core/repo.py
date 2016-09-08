@@ -12,6 +12,8 @@ class Repo:
         self.source_version = None
         self.subpackages = []
         self.filtered_packages = []
+        self.commits = 1
+        self.contributors = 1
 
     def addUrlAndRepoName(self, url): 
         if 'git' not in url: return # Git API query won't work on non git
@@ -37,15 +39,18 @@ def get_repos_from_dist(dist_file, filter_file = None):
     else:
         with open(filter_file, "r") as open_file:
             filter_data = load(open_file)
+        meta_data = dict()
+        if "meta" in filter_data:
+            meta_data = filter_data["meta"]
         filter_data = filter_data["packages"]
-        return filter_distribution(dist_data, filter_data)
+        return filter_distribution(dist_data, filter_data, meta_data)
 
 
-def filter_distribution(dist, filt):
+def filter_distribution(dist, filt, meta):
     repos = {}
     for key, val in filt.iteritems():
         if key in dist:
-            repo = repo_from_dist(key, dist)
+            repo = repo_from_dist(key, dist, meta)
             for p in repo.subpackages:
                 if p in val:
                     repo.filtered_packages.append(p)
@@ -55,22 +60,23 @@ def filter_distribution(dist, filt):
 
 def repos_from_dist(dist):
     repos = {}
+    meta = dict()
     for key in dist:
-        repo = repo_from_dist(key, dist)
+        repo = repo_from_dist(key, dist, meta)
         repo.filtered_packages = repo.subpackages
         repos[key] = repo
     return repos
 
 
-def repo_from_dist(repo_name, dist):
+def repo_from_dist(repo_name, dist, meta):
     data = dist[repo_name]
     repo = Repo(repo_name)
     for to_check in ['doc','source','release']:
         if to_check in data:
             nstd = data[to_check]
             if 'url' in nstd:
-                repo.addUrlAndRepoName(nstd['url'])
                 if to_check == 'source':
+                    repo.addUrlAndRepoName(nstd['url'])
                     repo.source_url = nstd['url']
             if 'version' in nstd:
                 if to_check == 'release':
@@ -85,6 +91,9 @@ def repo_from_dist(repo_name, dist):
                     repo.subpackages = [repo_name]
     if 'status' in data:
         repo.status = data['status']
+    if repo_name in meta:
+        repo.commits = int(meta[repo_name]["commits"])
+        repo.contributors = int(meta[repo_name]["contributors"])
     if not repo.urls is None:
         return repo
     return None

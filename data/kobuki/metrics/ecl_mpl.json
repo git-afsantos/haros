@@ -1,0 +1,26 @@
+[
+  {
+    "metric": "Cyclomatic Complexity",
+    "minimum": 1.0,
+    "maximum": 2.0,
+    "average": 1.5
+  },
+  {
+    "metric": "Number of Lines of Code (C++)",
+    "minimum": 6.0,
+    "maximum": 37.0,
+    "average": 14.3333333333
+  },
+  {
+    "metric": "Number of Lines of Comments",
+    "minimum": 4.0,
+    "maximum": 49.0,
+    "average": 31.0
+  },
+  {
+    "metric": "Ratio of Lines of Comments",
+    "minimum": 57.0,
+    "maximum": 380.0,
+    "average": 249.333333333
+  }
+]

@@ -1,0 +1,26 @@
+%YAML 1.1
+# Filter for ROS distribution
+---
+packages:
+    abb:
+        - abb
+        - abb_driver
+        - abb_irb2400_moveit_plugins
+    industrial_core:
+        - industrial_robot_client
+        - simple_message
+meta:
+    abb:
+        commits:        202
+        contributors:   10
+        levels:
+            abb: 1
+            abb_driver: 1
+            abb_irb2400_moveit_plugins: 1
+    industrial_core:
+        commits:        212
+        contributors:   12
+        levels:
+            industrial_robot_client: 2
+            simple_message: 2
+

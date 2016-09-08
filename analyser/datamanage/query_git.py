@@ -23,11 +23,23 @@ def makeEventsQuery(username):
 	return email_query
 
 def executeQuery(query, git_user_file = "gituser.txt"):
-	lines = [line.strip() for line in open(git_user_file)]
-	req = requests.get(query,
-			auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
-	result = json.loads(req.text)
-	return result
+    with open(git_user_file) as f:
+        lines = [line.strip() for line in f]
+    req = requests.get(query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    result = json.loads(req.text)
+    return result
+
+def rawExec(query, git_user_file = "gituser.txt", method = "get"):
+    with open(git_user_file) as f:
+        lines = [line.strip() for line in f]
+    if method == "get":
+        req = requests.get(query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    elif method == "head":
+        req = requests.head(url = query,
+            auth = HTTPBasicAuth(lines[0], lines[1]), verify = False)
+    return req
 
 def didQueryFail(a_dict, keys):
 	# If the query failed
@@ -187,7 +199,34 @@ def getUserEmail(username):
 		# print '   ', username, ':', user_email, '  (Events)'
 		return str(user_email)
 
-def getRemaininder():
-	result = executeQuery('https://api.github.com/rate_limit')
-	print result['rate']['remaining']
+
+# Receives "owner/repo".
+# Returns (# open issues, # closed issues).
+def getIssuesCount(repo_name):
+    oissues = 0
+    cissues = 0
+    issue_query = "https://api.github.com/search/issues?q=repo:" + repo_name
+    issues = executeQuery(issue_query + "+state:open")
+    if "total_count" in issues:
+        oissues = issues["total_count"]
+    else:
+        print "could not find issues for", repo_name, issues
+    issues = executeQuery(issue_query + "+state:closed")
+    if "total_count" in issues:
+        cissues = issues["total_count"]
+    else:
+        print "could not find issues for", repo_name, issues
+    return (oissues, cissues)
+
+
+# Returns object; "core" for normal rate, "search" for search rate.
+def getRateLimit():
+    return executeQuery("https://api.github.com/rate_limit")
+
+
+# Returns (limit, remaining)
+def getIssuesRateLimit():
+    r = getRateLimit()
+    r = r["resources"]["search"]
+    return (r["limit"], r["remaining"])
 

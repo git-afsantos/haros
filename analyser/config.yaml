@@ -2,15 +2,20 @@
 # Configuration file
 # Plugins should have a plugin_run() function to execute and return results.
 ---
+export:
+    format: csv
 plugins_unused:
     basic_metrics:
         type: analysis
         subtype: metrics
-plugins:
+plugins_all:
     radon_rules:
         type: analysis
         subtype: rules
     cccc_rules:
+        type: analysis
+        subtype: rules
+    ccd_plugin:
         type: analysis
         subtype: rules
     cpplint_plugin:
@@ -21,9 +26,14 @@ plugins:
         subtype: rules
         needs:
             - cppcheck_rules.xml
-plugins_test:
-    cppcheck_plugin:
+    github_plugin:
         type: analysis
-        subtype: rules
+        subtype: metrics
         needs:
-            - cppcheck_rules.xml
+            - gituser.txt
+plugins:
+    github_plugin:
+        type: analysis
+        subtype: metrics
+        needs:
+            - gituser.txt

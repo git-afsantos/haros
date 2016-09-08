@@ -68,6 +68,22 @@ def getLike(cur, table, cols, mcol, val, cnt = False, dstnct = False):
 	ret = exFetch(cur, cmd, single = cnt)
 	return ret
 
+def getLikePrefix(cur, table, cols, mcol, val, cnt = False, dstnct = False):
+	table = tablePref(table)
+
+	cmd = selectCmd(table, cols, cnt, dstnct)
+	cmd += " WHERE {0} LIKE '{1}%'".format(mcol, val)
+	ret = exFetch(cur, cmd, single = cnt)
+	return ret
+
+def getLikeSuffix(cur, table, cols, mcol, val, cnt = False, dstnct = False):
+	table = tablePref(table)
+
+	cmd = selectCmd(table, cols, cnt, dstnct)
+	cmd += " WHERE {0} LIKE '%{1}'".format(mcol, val)
+	ret = exFetch(cur, cmd, single = cnt)
+	return ret
+
 def getDistinct(cur, table, cols, cnt = False):
 	table = tablePref(table)
 
@@ -133,6 +149,14 @@ def getMaxVal(cur, table, col):
 
 
 
+def getPackageDependencyCount(cur):
+    # SELECT dependency_id, count(dependency_id) FROM haros_Package_Dependencies GROUP BY dependency_id;
+    t = tablePref("Package_Dependencies")
+    cmd = "SELECT dependency_id, count(dependency_id) FROM {0} GROUP BY dependency_id".format(t)
+    result = exFetch(cur, cmd)
+    return result
+
+
 
 def getNonComplianceSummary(cur, package_id):
     # SELECT T.name, R.tag_id, R.rule_id, count(*) as count FROM ((haros_Non_Compliance AS N JOIN haros_Rule_Tags AS R ON N.rule_id = R.rule_id) JOIN haros_Tags AS T ON R.tag_id = T.id) WHERE package_id = 6 GROUP BY R.tag_id, R.rule_id;
@@ -156,6 +180,16 @@ def getNonComplianceIdSummary(cur, package_id):
     return d
 
 
+def getNonComplianceCompact(cur, package_id=None):
+    t1 = tablePref("Non_Compliance")
+    if package_id is None:
+        cmd = "SELECT package_id, rule_id, count(*) as count FROM {0} GROUP BY package_id, rule_id".format(t1)
+    else:
+        cmd = "SELECT rule_id, count(*) as count FROM {0} WHERE package_id = {1} GROUP BY rule_id".format(t1, package_id)
+    result = exFetch(cur, cmd)
+    return result
+
+
 def getRulesWithTags(cur):
     rule_dict = {}
     base_cmd = "SELECT T.name FROM {0} AS R JOIN {1} AS T ON R.tag_id = T.id WHERE R.rule_id = ".format(tablePref("Rule_Tags"), tablePref("Tags"))
@@ -164,6 +198,76 @@ def getRulesWithTags(cur):
         tags = exFetch(cur, base_cmd + str(r[0]))
         rule_dict[r[0]] = (r[1], [t[0] for t in tags])
     return rule_dict
+
+
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Function_Metrics AS FM JOIN haros_Files AS F
+# ON FM.file_id = F.id) GROUP BY metric_id;
+def getFunctionMetricsByPackage(cur, package_id=None, metric_id=None):
+    t1 = tablePref("File_Function_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS FM JOIN {1} AS F ON FM.file_id = F.id)".format(t1, t2)
+    if package_id and metric_id:
+        cmd += " WHERE package_id = {0} AND metric_id = {1}".format(package_id, metric_id)
+    elif package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+        cmd += " GROUP BY metric_id"
+    elif metric_id:
+        cmd += " WHERE metric_id = {0}".format(metric_id)
+        cmd += " GROUP BY package_id"
+    result = exFetch(cur, cmd)
+    return result
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Class_Metrics AS CM JOIN haros_Files AS F
+# ON CM.file_id = F.id) GROUP BY metric_id;
+def getClassMetricsByPackage(cur, package_id=None, metric_id=None):
+    t1 = tablePref("File_Class_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM ({0} AS CM JOIN {1} AS F ON CM.file_id = F.id)".format(t1, t2)
+    if package_id and metric_id:
+        cmd += " WHERE package_id = {0} AND metric_id = {1}".format(package_id, metric_id)
+    elif package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+        cmd += " GROUP BY metric_id"
+    elif metric_id:
+        cmd += " WHERE metric_id = {0}".format(metric_id)
+        cmd += " GROUP BY package_id"
+    result = exFetch(cur, cmd)
+    return result
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM (haros_File_Metrics AS FM JOIN haros_Files AS F
+# ON FM.file_id = F.id) GROUP BY metric_id;
+def getFileMetricsByPackage(cur, package_id=None, metric_id=None, inc_sum=False):
+    t1 = tablePref("File_Metrics")
+    t2 = tablePref("Files")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)"
+    if inc_sum:
+        cmd += ", SUM(value)"
+    cmd += " FROM ({0} AS FM JOIN {1} AS F ON FM.file_id = F.id)".format(t1, t2)
+    if package_id and metric_id:
+        cmd += " WHERE package_id = {0} AND metric_id = {1}".format(package_id, metric_id)
+    elif package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+        cmd += " GROUP BY metric_id"
+    elif metric_id:
+        cmd += " WHERE metric_id = {0}".format(metric_id)
+        cmd += " GROUP BY package_id"
+    result = exFetch(cur, cmd)
+    return result
+
+# SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value)
+# FROM haros_Package_Metrics GROUP BY metric_id;
+def getPackageMetricsByPackage(cur, package_id=None):
+    t1 = tablePref("Package_Metrics")
+    cmd = "SELECT package_id, metric_id, MIN(value), MAX(value), AVG(value) FROM {0}".format(t1)
+    if package_id:
+        cmd += " WHERE package_id = {0}".format(package_id)
+    cmd += " GROUP BY metric_id"
+    result = exFetch(cur, cmd)
+    return result
 
 
 
