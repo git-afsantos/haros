@@ -8,6 +8,8 @@
 
         pageSize: 25,
 
+        navigateOptions: { replace: true },
+
         events: {
             "change #issue-package-select": "onSelect",
             "click #issue-btn-page-left":   "onPageLeft",
@@ -18,6 +20,8 @@
             this.page = 1;
             this.packageId = null;
             this.packages = options.packages;
+            this.router = options.router;
+
             this.$select = this.$("#issue-package-select");
             this.$page = this.$("#issue-label-page");
             this.$explorer = this.$("#issue-explorer");
@@ -81,6 +85,7 @@
 
         onSelect: function () {
             var pkg = this.$select.val();
+            this.router.navigate("issues/" + pkg, this.navigateOptions);
             if (this.collection.packageId != pkg) {
                 this.collection.packageId = pkg;
                 this.collection.fetch({reset: true});

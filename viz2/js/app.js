@@ -74,12 +74,14 @@ to functions of the animation manager, by this script.
         App.packageBoard = new App.Views.PackageBoard({
             el: $("#package-board"),
             collection: App.packages,
-            rules: App.rules
+            rules: App.rules,
+            router: App.router
         });
         App.issueBoard = new App.Views.IssueBoard({
             el: $("#issue-board"),
             collection: new App.Models.ViolationCollection(),
-            packages: App.packages
+            packages: App.packages,
+            router: App.router
         });
         App.rosBoard = new App.Views.RosBoard({
             el: $("#ros-board")

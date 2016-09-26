@@ -13,14 +13,14 @@
             "click #pkg-btn-filter":                "onFilter",
             "click #pkg-btn-focus":                 "onFocus",
             "click #pkg-btn-info":                  "onInfo",
-            "click #pkg-btn-issues":                "onResize"
+            "click #pkg-btn-issues":                "onIssues"
         },
 
         initialize: function (options) {
             _.bindAll(this, "onEmptyClick");
             this.firstTime = true;
             this.rules = options.rules;
-
+            this.router = options.router;
 
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({nodesep: this.spacing, ranksep: this.spacing});
@@ -249,6 +249,12 @@
             if (this.selection == null) return;
             this.infoView.model = this.selection.model;
             this.infoView.show();
+        },
+
+
+        onIssues: function () {
+            if (this.selection == null) return;
+            this.router.navigate("issues/" + this.selection.model.id, {trigger: true});
         },
 
 
