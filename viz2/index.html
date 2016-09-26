@@ -38,11 +38,11 @@
         <!--<div class="my-button badge-empty"><h2><i class="fa fa-flag-o"></i></h2></div>
         <div class="my-button badge-empty"><h2><i class="fa fa-ellipsis-h"></i></h2></div>-->
         <div class="navigation-menu">
-            <a id="navigation-dashboard" href="#dashboard"><i class="fa fa-line-chart"></i> <span class="show-lg">Dashboard</span></a>
-            <a id="navigation-packages" href="#packages"><i class="fa fa-folder"></i> <span class="show-lg">Packages</span></a>
-            <a id="navigation-issues" href="#issues"><i class="fa fa-bug"></i> <span class="show-lg">Issues</span></a>
-            <a id="navigation-ros" href="#components"><i class="fa fa-cogs"></i> <span class="show-lg">Components</span></a>
-            <a id="navigation-help" href="#help"><i class="fa fa-question-circle"></i> <span class="show-lg">Help</span></a>
+            <a id="navigation-dashboard" href="#dashboard"><i class="fa fa-line-chart"></i> <span class="show-inline-lg">Dashboard</span></a>
+            <a id="navigation-packages" href="#packages"><i class="fa fa-folder"></i> <span class="show-inline-lg">Packages</span></a>
+            <a id="navigation-issues" href="#issues"><i class="fa fa-bug"></i> <span class="show-inline-lg">Issues</span></a>
+            <a id="navigation-ros" href="#components"><i class="fa fa-cogs"></i> <span class="show-inline-lg">Components</span></a>
+            <a id="navigation-help" href="#help"><i class="fa fa-question-circle"></i> <span class="show-inline-lg">Help</span></a>
         </div>
         <h1 class="title">HAROSviz</h1>
     </div>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div id="pkg-node-action-bar" class="action-bar">
-                    <button type="button" id="pkg-btn-focus" title="Set/Clear Focus"><i class="fa fa-star"></i></button><!--
+                    <button type="button" id="pkg-btn-focus" title="Set/Clear Focus"><i class="fa fa-search"></i></button><!--
                     --><button type="button" id="pkg-btn-info" title="Details"><i class="fa fa-info"></i></button><!--
                     --><button type="button" id="pkg-btn-issues" title="Issues"><i class="fa fa-bug"></i></button>
                 </div>
@@ -124,7 +124,64 @@
         </section>
 
         <section id="issue-board">
-            <h1 class="text-center">Under construction.</h1>
+            <div class="header-menu">
+                <div class="menu-item margin-bottom">
+                    <label for="issue-package-select">
+                        <i class="fa fa-folder"></i>
+                        <strong class="show-inline-sm">Package</strong>
+                    </label>
+                    <select id="issue-package-select" class="flexible margin-h"></select>
+                </div>
+                <div class="menu-item margin-bottom">
+<!--
+                    <label for="issue-report-select">
+                        <i class="fa fa-bug"></i>
+                        <strong class="show-inline-sm">Issue</strong>
+                    </label>
+                    <select id="issue-report-select" class="flexible margin-h margin-bottom">
+                        <option value="standards">Coding Standards</option>
+                        <option value="metrics">Quality Metrics</option>
+                    </select>
+-->
+                    <button type="button" id="issue-btn-filter" class="flex-grow margin-right">
+                        <i class="fa fa-filter"></i> Filter
+                    </button>
+                    <button type="button" id="issue-btn-page-left" class="flex-grow margin-left">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                    <span id="issue-label-page" class="flex-grow text-center">Page 1</span>
+                    <button type="button" id="issue-btn-page-right" class="flex-grow margin-left">
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="issue-explorer">
+<!--
+                <div class="issue">
+                    <h4>Rule 123
+                        <span class="show-inline-md">- Whatever you may do will always be wrong, according to the standard.</span>
+                        <small>on some-file.cpp, line 16</small>
+                    </h4>
+                    <p>Some comment about the violation.<br>Perhaps it is long enough to span two lines.</p>
+                    <ul class="taglist">
+                        <li class="tag">tag</li>
+                        <li class="tag">tag</li>
+                        <li class="tag">tag</li>
+                        <li class="tag">tag</li>
+                    </ul>
+                </div>
+                <div class="issue">
+                    <h4>Rule 123
+                        <span class="show-inline-md">- Whatever you may do will always be wrong, according to the standard.</span>
+                        <small>on some-file.cpp, line 16</small>
+                    </h4>
+                    <p>Some comment about the violation.<br>Perhaps it is long enough to span two lines.</p>
+                </div>
+-->
+            </div>
+            <div class="text-center margin-bottom">
+                <span id="issue-button-top" class="text-button">Back to Top</span>
+            </div>
         </section>
 
         <section id="ros-board">
@@ -266,6 +323,21 @@
             <strong>Dependencies:</strong>
             <%= data.dependencies.join(", ") || "none" %>
         </p>
+    </script>
+
+    <script type="text/template" id="issue-board-violation">
+        <div class="issue">
+            <h4>Issue #<%= data.id %>
+                <span class="show-inline-md">- <%= data.rule %></span>
+                <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
+            </h4>
+            <p><%= data.comment || "<i>No additional comment.</i>" %></p>
+            <ul class="taglist">
+                <% for (var i = 0; i < data.tags.length; ++i)
+                    print('<li class="tag" data-tag="' + data.tags[i] + '">' + data.tags[i] + "</li>\n");
+                %>
+            </ul>
+        </div>
     </script>
 </body>
 </html>

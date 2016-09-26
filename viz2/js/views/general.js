@@ -77,12 +77,15 @@
             this.loading = 0;
             this.packages = options.packages;
             this.rules = options.rules;
+            this.violations = options.violations;
             this.listenTo(this.model, "request", this.onRequest);
             this.listenTo(this.model, "sync", this.onSync);
             this.listenTo(this.packages, "request", this.onRequest);
             this.listenTo(this.packages, "sync", this.onSync);
             this.listenTo(this.rules, "request", this.onRequest);
             this.listenTo(this.rules, "sync", this.onSync);
+            this.listenTo(this.violations, "request", this.onRequest);
+            this.listenTo(this.violations, "sync", this.onSync);
         },
 
         onRequest: function (model_or_collection, xhr, options) {

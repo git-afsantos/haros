@@ -224,7 +224,6 @@
                 while (i--) this.graph.node(nodes[i]).setFilters();
             } else {
                 rules = this.rules.filterByTags(this.filterView.tags);
-                console.log("rules", rules);
                 while (i--) this.graph.node(nodes[i]).setFilters(rules, ignore);
             }
         },
@@ -296,7 +295,7 @@
             var violations = this.model.getViolations(rules, ignore);
             this.score = violations / (this.model.get("size") || 1);
             this.applyColor();
-            console.log(this.model.id, violations, this.score);
+            //console.log(this.model.id, violations, this.score);
         },
 
         render: function () {

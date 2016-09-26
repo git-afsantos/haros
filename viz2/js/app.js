@@ -28,7 +28,8 @@ to functions of the animation manager, by this script.
         board: null, // current view
         rules: null,
         packages: null,
-        summary: null
+        summary: null,
+        violations: null
     };
 
     $(document).ready(function () {
@@ -37,6 +38,7 @@ to functions of the animation manager, by this script.
         App.rules = new App.Models.RuleCollection();
         App.packages = new App.Models.PackageCollection();
         App.summary = new App.Models.Summary();
+        App.violations = new App.Models.ViolationCollection();
 
         $(window).resize(_.debounce(onResize, 100));
 
@@ -62,7 +64,8 @@ to functions of the animation manager, by this script.
             el: $("#preloader"),
             model: App.summary,
             packages: App.packages,
-            rules: App.rules
+            rules: App.rules,
+            violations: App.violations
         });
         App.dashboard = new App.Views.Dashboard({
             el: $("#dashboard"),
@@ -75,7 +78,8 @@ to functions of the animation manager, by this script.
         });
         App.issueBoard = new App.Views.IssueBoard({
             el: $("#issue-board"),
-            collection: new App.Models.ViolationCollection()
+            collection: new App.Models.ViolationCollection(),
+            packages: App.packages
         });
         App.rosBoard = new App.Views.RosBoard({
             el: $("#ros-board")

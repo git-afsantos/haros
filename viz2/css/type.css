@@ -30,6 +30,10 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2
   /* equivalent to 20px */
 }
 
+.fa {
+    line-height: 1.25;
+}
+
 @media (min-width: 48em) {
   #app {
     font-size: 1em;
@@ -37,6 +41,10 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2
     line-height: 1.375;
     /* equivalent to 22px */
   }
+
+    .fa {
+        line-height: 1.375;
+    }
 }
 
 h1 {

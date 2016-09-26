@@ -6,12 +6,10 @@
                 "":                         "home",
                 "dashboard":                "dashboard",
                 "help":                     "help",
-                "packages":                 "packages",   // #packages
-                "packages/:query":          "packages",   // #packages/kiwis
-                "packages/:query/p:page":   "packages",   // #packages/kiwis/p7
-                "issues":                   "issues",
-                "issues/:query":            "issues",
-                "issues/:query/p:page":     "issues",
+                "packages":                 "packages",
+                "issues":                   "issues",       // #issues
+                "issues/:pkg":              "issues",       // #issues/kobuki
+                "issues/:pkg/p:page":       "issues",       // #issues/kobuki/p2
                 "components":               "components"
             },
 
@@ -33,19 +31,19 @@
                 App.board = App.helpBoard;
             },
 
-            packages: function(query, page) {
+            packages: function() {
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("packages");
                 App.packageBoard.show().build();
                 App.board = App.packageBoard;
             },
 
-            issues: function(query, page) {
-                // query is category/filter (standards, metrics...)
+            issues: function(pkg, page) {
+                // ? query is category/filter (standards, metrics...) ?
                 // maybe keep "resolved" issues from last run?
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("issues");
-                App.issueBoard.show().build();
+                App.issueBoard.show().build(pkg, page);
                 App.board = App.issueBoard;
             },
 

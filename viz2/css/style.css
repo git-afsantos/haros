@@ -12,22 +12,33 @@ html, body {
 }
 
 .hidden,
-.show-md,
-.show-lg {
+.show-inline-sm,
+.show-inline-md,
+.show-inline-lg {
     display: none;
 }
 
 
+@media (min-width: 35.5em) {
+    .show-inline-sm {
+        display: inline;
+    }
+}
+
 @media (min-width: 48em) {
-    .show-md {
-        display: inherit;
+    .show-inline-md {
+        display: inline;
     }
 }
 
 @media (min-width: 64em) {
-    .show-lg {
-        display: inherit;
+    .show-inline-lg {
+        display: inline;
     }
+}
+
+.no-overflow {
+    overflow: hidden;
 }
 
 
@@ -38,11 +49,6 @@ html, body {
 
 .anchor {
     position: relative;
-}
-
-
-.inline {
-    display: inline-block;
 }
 
 
@@ -87,6 +93,10 @@ html, body {
     padding-bottom: 0.75em;
 }
 
+.padding-h {
+    padding: 0 0.5em;
+}
+
 
 .margin-top {
     margin-top: 0.5em;
@@ -114,6 +124,11 @@ html, body {
 
 .margin-right-sm {
     margin-right: 0.25em;
+}
+
+.margin-h {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .border-top {
@@ -144,6 +159,23 @@ html, body {
 
 .inline {
     display: inline-block;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-fixed-size {
+    flex: 0 0 auto;
+}
+
+.flex-grow {
+    flex: 1 0 auto;
+}
+
+.flexible {
+    flex: 1 1 auto;
 }
 
 
@@ -408,6 +440,56 @@ svg {
 
 
 
+#issue-board {
+    padding: 0 1em;
+}
+
+#issue-board > .header-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#issue-board > .header-menu > .menu-item {
+    flex: 1 1 auto;
+    display: flex;
+    overflow: hidden;
+}
+
+@media (min-width: 48em) {
+    #issue-board > .header-menu {
+        max-width: 48em;
+    }
+}
+
+#issue-explorer > .issue {
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 0.5em;
+}
+
+#issue-explorer > .issue:last-child {
+    border-bottom: none;
+}
+
+#issue-explorer > .issue > h4 {
+    margin: 0;
+}
+
+#issue-explorer > .issue small {
+    color: grey;
+    font-weight: normal;
+}
+
+#issue-board button {
+    background: none;
+    border: 1px solid grey;
+    font-size: 1em;
+    padding: 0.25em;
+}
+
+#issue-button-top {
+    color: steelblue;
+}
 
 
 
@@ -423,6 +505,7 @@ hr {
 
 .taglist {
     padding: 0;
+    margin: 0.5em 0;
 }
 
 .taglist > .tag {
@@ -566,4 +649,14 @@ hr {
     text-align: center;
     font-weight: bold;
     z-index: 1000;
+}
+
+
+select {
+    background: transparent;
+    padding: 0.25em;
+    border: 1px solid grey;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
