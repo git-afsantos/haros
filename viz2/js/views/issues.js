@@ -9,7 +9,9 @@
         pageSize: 25,
 
         events: {
-            "change #issue-package-select": "onSelect"
+            "change #issue-package-select": "onSelect",
+            "click #issue-btn-page-left":   "onPageLeft",
+            "click #issue-btn-page-right":  "onPageRight"
         },
 
         initialize: function (options) {
@@ -29,7 +31,7 @@
         render: function () {
             if (!this.visible) return this;
             var a = this.collection.slice(this.pageSize * (this.page - 1), this.pageSize * this.page);
-            this.$page.text("Page " + this.page);
+            this.$page.text("Page " + this.page + "/" + this.collection.pages);
             if (this.collection.length > 0) {
                 this.$explorer.html("");
                 _.each(a, this.renderViolation, this);
@@ -60,7 +62,8 @@
 
 
         onSync: function (collection, response, options) {
-            var pages = collection.length / this.pageSize | 0 + 1;
+            var pages = this.collection.length / this.pageSize + 1 | 0;
+            this.collection.pages = pages;
             this.page = Math.min(pages, Math.max(this.page, 1));
             this.render();
         },
@@ -82,8 +85,19 @@
                 this.collection.packageId = pkg;
                 this.collection.fetch({reset: true});
             } else {
-                this.onSync(this.collection);
+                this.onSync();
             }
+        },
+
+
+        onPageLeft: function () {
+            --this.page;
+            this.onSync();
+        },
+
+        onPageRight: function () {
+            ++this.page;
+            this.onSync();
         },
 
 
