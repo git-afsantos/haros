@@ -333,6 +333,29 @@ html, body {
     right: 1em;
 }
 
+#package-graph > .issue-scale {
+    position: absolute;
+    top: auto;
+    bottom: 0.25em;
+    left: 1.25em;
+    right: 1.25em;
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#package-graph > .issue-scale > div {
+    flex: 1 1 auto;
+    height: 0.5em;
+    border-right: 1px solid grey;
+    text-align: center;
+}
+
+#package-graph > .issue-scale > div:last-child {
+    border-right: none;
+}
+
 @media (min-width: 40em) {
     #package-graph > #pkg-graph-action-bar {
         top: 1em;
@@ -344,6 +367,12 @@ html, body {
     #package-graph > #pkg-node-action-bar {
         top: 3em;
         bottom: auto;
+    }
+}
+
+@media (min-width: 48em) {
+    #package-graph > .issue-scale > div {
+        height: auto;
     }
 }
 

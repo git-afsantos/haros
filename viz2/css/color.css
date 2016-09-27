@@ -45,3 +45,35 @@ html, body {
 svg .bar {
     fill: steelblue;
 }
+
+.issue-level-0 {
+    background-color: white;
+}
+
+.issue-level-1 {
+    background-color: steelblue;
+}
+
+.issue-level-2 {
+    background-color: rgb(71,192,180);
+}
+
+.issue-level-3 {
+    background-color: rgb(72,205,119);
+}
+
+.issue-level-4 {
+    background-color: rgb(101,217,72);
+}
+
+.issue-level-5 {
+    background-color: rgb(190,230,72);
+}
+
+.issue-level-6 {
+    background-color: rgb(242,191,71);
+}
+
+.issue-level-7 {
+    background-color: tomato;
+}

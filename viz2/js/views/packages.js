@@ -319,32 +319,20 @@
         applyColor: function () {
             if (this.score === 0)
                 this.d3node.attr("style", "fill: rgb(255, 255, 255);");
-            else if (this.score > 10)
-                this.d3node.attr("style", "fill: rgb(49,130,189);");
+            else if (this.score > 11)
+                this.d3node.attr("style", "fill: rgb(255,99,71);");
             else if (this.score > 9)
-                this.d3node.attr("style", "fill: rgb(61,137,193);");
-            else if (this.score > 8)
-                this.d3node.attr("style", "fill: rgb(74,145,197);");
-            else if (this.score > 7)
-                this.d3node.attr("style", "fill: rgb(86,152,202);");
+                this.d3node.attr("style", "fill: rgb(242,191,71);");
+            else if (this.score > 7.5)
+                this.d3node.attr("style", "fill: rgb(190,230,72);");
             else if (this.score > 6)
-                this.d3node.attr("style", "fill: rgb(99,160,206);");
-            else if (this.score > 5)
-                this.d3node.attr("style", "fill: rgb(111,167,210);");
+                this.d3node.attr("style", "fill: rgb(101,217,72);");
             else if (this.score > 4)
-                this.d3node.attr("style", "fill: rgb(123,174,214);");
-            else if (this.score > 3.5)
-                this.d3node.attr("style", "fill: rgb(136,182,218);");
-            else if (this.score > 3)
-                this.d3node.attr("style", "fill: rgb(148,189,222);");
-            else if (this.score > 2.5)
-                this.d3node.attr("style", "fill: rgb(161,197,227);");
-            else if (this.score > 1.5)
-                this.d3node.attr("style", "fill: rgb(173,204,231);");
-            else if (this.score > 1)
-                this.d3node.attr("style", "fill: rgb(186,212,235);");
+                this.d3node.attr("style", "fill: rgb(72,205,119);");
+            else if (this.score > 2)
+                this.d3node.attr("style", "fill: rgb(71,192,180);");
             else
-                this.d3node.attr("style", "fill: rgb(198,219,239);");
+                this.d3node.attr("style", "fill: rgb(70,130,180);");
         }
     });
 
