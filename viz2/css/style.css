@@ -18,10 +18,20 @@ html, body {
     display: none;
 }
 
+.hide-block-sm,
+.hide-block-md,
+.hide-block-lg {
+    display: block;
+}
+
 
 @media (min-width: 35.5em) {
     .show-inline-sm {
         display: inline;
+    }
+
+    .hide-block-sm {
+        display: none;
     }
 }
 
@@ -29,11 +39,19 @@ html, body {
     .show-inline-md {
         display: inline;
     }
+
+    .hide-block-md {
+        display: none;
+    }
 }
 
 @media (min-width: 64em) {
     .show-inline-lg {
         display: inline;
+    }
+
+    .hide-block-lg {
+        display: none;
     }
 }
 

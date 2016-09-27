@@ -319,6 +319,7 @@
                 <span class="show-inline-md">- <%= data.rule %></span>
                 <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
             </h4>
+            <p class="hide-block-md"><strong><%= data.rule %></strong></p>
             <p><%= data.comment || "<i>No additional comment.</i>" %></p>
             <ul class="taglist">
                 <% for (var i = 0; i < data.tags.length; ++i)
