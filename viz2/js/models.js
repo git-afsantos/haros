@@ -118,6 +118,12 @@
 
         hasTag: function (tag) {
             return _.contains(this.get("tags"), tag);
+        },
+
+        hasAnyTag: function (tags) {
+            var a = this.get("tags"), i = a.length;
+            while (i--) if (_.contains(tags, a[i])) return true;
+            return false;
         }
     });
 
@@ -126,6 +132,14 @@
 
         url: function () {
             return "data/compliance/" + this.packageId + ".json";
+        },
+
+        filterByTags: function (tags, ignore) {
+            if (tags.length === 0)
+                return this.toArray();
+            return this[!!ignore ? "reject" : "filter"](function (model) {
+                return model.hasAnyTag(tags);
+            });
         }
     });
 

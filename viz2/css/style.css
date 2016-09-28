@@ -309,7 +309,8 @@ html, body {
 }
 
 
-#pkg-filter-modal input {
+#pkg-filter-modal input,
+#issue-filter-modal input {
     width: 14em;
     padding: .5em;
     display: block;
@@ -319,7 +320,8 @@ html, body {
     vertical-align: middle;
 }
 
-#pkg-filter-toggle {
+#pkg-filter-toggle,
+#issue-filter-toggle {
     cursor: pointer;
     color: grey;
 }
@@ -534,8 +536,12 @@ svg {
     padding: 0.25em;
 }
 
-#issue-button-top {
+#issue-btn-top {
     color: steelblue;
+}
+
+#issue-filter-modal {
+    padding: 5em 1em 1em 1em;
 }
 
 

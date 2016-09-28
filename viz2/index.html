@@ -168,7 +168,22 @@
             </div>
             <div id="issue-explorer"></div>
             <div class="text-center margin-bottom">
-                <span id="issue-button-top" class="text-button">Back to Top</span>
+                <span id="issue-btn-top" class="text-button">Back to Top</span>
+            </div>
+
+            <div id="issue-filter-modal" class="modal">
+                <div class="modal-content">
+                    <div class="button-close margin-top"><i class="fa fa-close"></i></div>
+                    <div class="margin-top">
+                        <i class="fa fa-filter"></i>
+                        <label for="issue-filter-input">Filter by</label>
+                        <span id="issue-filter-toggle">/ Ignore by</span>
+                    </div>
+                    <input id="issue-filter-input" type="text" placeholder="tag">
+                    <ul class="taglist"></ul>
+                    <div class="text-button pull-left margin-bottom">Clear</div>
+                    <div class="button-close margin-bottom">Close</div>
+                </div>
             </div>
         </section>
 
