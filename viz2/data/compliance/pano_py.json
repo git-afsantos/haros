@@ -1,0 +1,3890 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrappers.h",
+    "line": null,
+    "function": null,
+    "comment": "wrappers.h:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "wrappers.h",
+    "line": 1,
+    "function": null,
+    "comment": "wrappers.h:1:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_WRAPPERS_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "wrappers.h",
+    "line": 1,
+    "function": null,
+    "comment": "wrappers.h:1:  #ifndef header guard has wrong style, please use: WRAPPERS_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "wrappers.h",
+    "line": 8,
+    "function": null,
+    "comment": "wrappers.h:8:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_WRAPPERS_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrappers.h",
+    "line": 3,
+    "function": null,
+    "comment": "wrappers.h:3:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrappers.h",
+    "line": 3,
+    "function": null,
+    "comment": "wrappers.h:3:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "pano_py.h",
+    "line": null,
+    "function": null,
+    "comment": "pano_py.h:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "pano_py.h",
+    "line": 8,
+    "function": null,
+    "comment": "pano_py.h:8:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_PANO_PY_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "pano_py.h",
+    "line": 8,
+    "function": null,
+    "comment": "pano_py.h:8:  #ifndef header guard has wrong style, please use: PANO_PY_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "pano_py.h",
+    "line": 76,
+    "function": null,
+    "comment": "pano_py.h:76:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_PANO_PY_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 15,
+    "function": null,
+    "comment": "pano_py.h:15:  Include 'list' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 16,
+    "function": null,
+    "comment": "pano_py.h:16:  Include 'iterator' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 17,
+    "function": null,
+    "comment": "pano_py.h:17:  Found C system header after C++ system header. Should be: pano_py.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 18,
+    "function": null,
+    "comment": "pano_py.h:18:  Found C system header after C++ system header. Should be: pano_py.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 19,
+    "function": null,
+    "comment": "pano_py.h:19:  Found C system header after C++ system header. Should be: pano_py.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.h",
+    "line": 20,
+    "function": null,
+    "comment": "pano_py.h:20:  Found C system header after C++ system header. Should be: pano_py.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.h",
+    "line": 21,
+    "function": null,
+    "comment": "pano_py.h:21:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pano_py.h",
+    "line": 21,
+    "function": null,
+    "comment": "pano_py.h:21:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pano_py.h",
+    "line": 26,
+    "function": null,
+    "comment": "pano_py.h:26:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "pano_py.h",
+    "line": 27,
+    "function": null,
+    "comment": "pano_py.h:27:  public: should be indented +1 space inside class Options  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pano_py.h",
+    "line": 36,
+    "function": null,
+    "comment": "pano_py.h:36:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "pano_py.h",
+    "line": 37,
+    "function": null,
+    "comment": "pano_py.h:37:  public: should be indented +1 space inside class StitchProgressCallable  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pano_py.h",
+    "line": 39,
+    "function": null,
+    "comment": "pano_py.h:39:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.h",
+    "line": 41,
+    "function": null,
+    "comment": "pano_py.h:41:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.h",
+    "line": 50,
+    "function": null,
+    "comment": "pano_py.h:50:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "pano_py.h",
+    "line": 50,
+    "function": null,
+    "comment": "pano_py.h:50:  Is this a non-const reference? If so, make const or use a pointer: T& l  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.h",
+    "line": 58,
+    "function": null,
+    "comment": "pano_py.h:58:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.h",
+    "line": 60,
+    "function": null,
+    "comment": "pano_py.h:60:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pano_py.h",
+    "line": 60,
+    "function": null,
+    "comment": "pano_py.h:60:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "pano_py.h",
+    "line": 75,
+    "function": null,
+    "comment": "pano_py.h:75:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "opencv.h",
+    "line": null,
+    "function": null,
+    "comment": "opencv.h:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "opencv.h",
+    "line": 8,
+    "function": null,
+    "comment": "opencv.h:8:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_OPENCV_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "opencv.h",
+    "line": 8,
+    "function": null,
+    "comment": "opencv.h:8:  #ifndef header guard has wrong style, please use: OPENCV_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "opencv.h",
+    "line": 30,
+    "function": null,
+    "comment": "opencv.h:30:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_OPENCV_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.h",
+    "line": 11,
+    "function": null,
+    "comment": "opencv.h:11:  Include 'boost/python.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.h",
+    "line": 12,
+    "function": null,
+    "comment": "opencv.h:12:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "opencv.h",
+    "line": 12,
+    "function": null,
+    "comment": "opencv.h:12:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "opencv.h",
+    "line": 21,
+    "function": null,
+    "comment": "opencv.h:21:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "opencv.h",
+    "line": 21,
+    "function": null,
+    "comment": "opencv.h:21:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "opencv.h",
+    "line": 21,
+    "function": null,
+    "comment": "opencv.h:21:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "opencv.h",
+    "line": 27,
+    "function": null,
+    "comment": "opencv.h:27:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrap_Options.cpp",
+    "line": null,
+    "function": null,
+    "comment": "wrap_Options.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_Options.cpp",
+    "line": 7,
+    "function": null,
+    "comment": "wrap_Options.cpp:7:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_Options.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_Options.cpp:8:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_Options.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_Options.cpp:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_Options.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_Options.cpp:10:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_Options.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_Options.cpp:12:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_Options.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_Options.cpp:12:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "wrap_Options.cpp:13:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "wrap_Options.cpp:14:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_Options.cpp:15:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_Options.cpp:16:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "wrap_Options.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_Options.cpp:16:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_Options.cpp:18:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_Options.cpp:19:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_Options.cpp:19:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "wrap_Options.cpp:20:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "wrap_Options.cpp:20:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_Options.cpp:21:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_Options.cpp:21:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "wrap_Options.cpp:22:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "wrap_Options.cpp:22:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_Options.cpp:23:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_Options.cpp:23:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "wrap_Options.cpp:24:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Options.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "wrap_Options.cpp:24:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Options.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "wrap_Options.cpp:25:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "wrap_Options.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "wrap_Options.cpp:25:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "wrap_Options.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "wrap_Options.cpp:26:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "wrap_Options.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "wrap_Options.cpp:29:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "wrap_Options.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_Options.cpp:15:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "wrap_Options.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_Options.cpp:15:  Add #include <list> for list<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "pano_py.cpp",
+    "line": null,
+    "function": null,
+    "comment": "pano_py.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "pano_py.cpp",
+    "line": 4,
+    "function": null,
+    "comment": "pano_py.cpp:4:  Include 'opencv2/core/core.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "pano_py.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "pano_py.cpp:10:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "pano_py.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "pano_py.cpp:11:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "pano_py.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "pano_py.cpp:13:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "pano_py.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "pano_py.cpp:13:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "pano_py.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "pano_py.cpp:16:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "pano_py.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "pano_py.cpp:28:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": null,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 7,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:7:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:8:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:10:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:12:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:12:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:13:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:14:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:15:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:15:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:15:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:16:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:16:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:16:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:17:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:17:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:17:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:18:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:18:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:18:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:19:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:19:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "wrap_SVDSolverParams.cpp:22:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrap_glob.cpp",
+    "line": null,
+    "function": null,
+    "comment": "wrap_glob.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_glob.cpp",
+    "line": 7,
+    "function": null,
+    "comment": "wrap_glob.cpp:7:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_glob.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_glob.cpp:8:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_glob.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_glob.cpp:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_glob.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_glob.cpp:10:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_glob.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_glob.cpp:12:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_glob.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_glob.cpp:12:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "wrap_glob.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "wrap_glob.cpp:13:  Is this a non-const reference? If so, make const or use a pointer: BlurDetector& bd  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "wrap_glob.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "wrap_glob.cpp:14:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_glob.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_glob.cpp:21:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_glob.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_glob.cpp:21:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_glob.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "wrap_glob.cpp:22:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_glob.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_glob.cpp:23:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_glob.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_glob.cpp:23:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "wrap_glob.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "wrap_glob.cpp:26:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": null,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 7,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:7:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:8:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:10:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:12:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:12:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:13:  Is this a non-const reference? If so, make const or use a pointer: BlurDetector& bd  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:14:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:21:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:21:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:22:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:23:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:23:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "wrap_BlurDetector.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "wrap_BlurDetector.cpp:26:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "wrap_Camera.cpp",
+    "line": null,
+    "function": null,
+    "comment": "wrap_Camera.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "wrap_Camera.cpp",
+    "line": 2,
+    "function": null,
+    "comment": "wrap_Camera.cpp:2:  Include 'pano_core/pano_core.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_Camera.cpp",
+    "line": 5,
+    "function": null,
+    "comment": "wrap_Camera.cpp:5:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "wrap_Camera.cpp",
+    "line": 6,
+    "function": null,
+    "comment": "wrap_Camera.cpp:6:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_Camera.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_Camera.cpp:8:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_Camera.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "wrap_Camera.cpp:8:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_Camera.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_Camera.cpp:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_Camera.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "wrap_Camera.cpp:10:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "wrap_Camera.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "wrap_Camera.cpp:12:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "wrap_Camera.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_Camera.cpp:15:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "wrap_Camera.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "wrap_Camera.cpp:15:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Camera.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "wrap_Camera.cpp:16:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Camera.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "wrap_Camera.cpp:17:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Camera.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "wrap_Camera.cpp:17:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Camera.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_Camera.cpp:18:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Camera.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "wrap_Camera.cpp:18:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Camera.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_Camera.cpp:19:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "wrap_Camera.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "wrap_Camera.cpp:19:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "wrap_Camera.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "wrap_Camera.cpp:20:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "wrap_Camera.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "wrap_Camera.cpp:20:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "wrap_Camera.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "wrap_Camera.cpp:23:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "wrap_Camera.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "wrap_Camera.cpp:11:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "stitch.cpp",
+    "line": null,
+    "function": null,
+    "comment": "stitch.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "stitch.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "stitch.cpp:10:  Include 'opencv2/core/core.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "stitch.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "stitch.cpp:16:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "stitch.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "stitch.cpp:17:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "stitch.cpp:18:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "stitch.cpp:18:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "stitch.cpp:19:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "stitch.cpp:19:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "stitch.cpp:21:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "stitch.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "stitch.cpp:22:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "stitch.cpp:23:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "stitch.cpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "stitch.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "stitch.cpp:30:  public: should be indented +1 space inside class StitchProgress  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "stitch.cpp:31:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "stitch.cpp:32:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "stitch.cpp:32:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "stitch.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "stitch.cpp:33:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "stitch.cpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "stitch.cpp:35:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "stitch.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "stitch.cpp:38:  private: should be indented +1 space inside class StitchProgress  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "stitch.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "stitch.cpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "stitch.cpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "stitch.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "stitch.cpp:56:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "stitch.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "stitch.cpp:58:  Using deprecated casting style.  Use static_cast<float>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "stitch.cpp:64:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "stitch.cpp:64:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "stitch.cpp:67:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "stitch.cpp:71:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "stitch.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "stitch.cpp:77:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "stitch.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "stitch.cpp:77:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "stitch.cpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "stitch.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "stitch.cpp:78:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "stitch.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "stitch.cpp:78:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "stitch.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "stitch.cpp:79:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "stitch.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "stitch.cpp:79:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "stitch.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "stitch.cpp:84:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "stitch.cpp:85:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "stitch.cpp:86:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "stitch.cpp:86:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "stitch.cpp:87:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "stitch.cpp:91:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "stitch.cpp:91:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "stitch.cpp:94:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "stitch.cpp:95:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "stitch.cpp:104:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "stitch.cpp:107:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "stitch.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "stitch.cpp:107:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& blended  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "stitch.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "stitch.cpp:109:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "stitch.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "stitch.cpp:111:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "stitch.cpp:118:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "stitch.cpp:124:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "stitch.cpp:126:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "stitch.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "stitch.cpp:129:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "stitch.cpp:129:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "stitch.cpp:129:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "stitch.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "stitch.cpp:129:  Is this a non-const reference? If so, make const or use a pointer: StitchEngine& se  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "stitch.cpp:132:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "stitch.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "stitch.cpp:135:  Anonymous namespace should be terminated with '// namespace'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "stitch.cpp:138:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "stitch.cpp:140:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "stitch.cpp:141:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 147,
+    "function": null,
+    "comment": "stitch.cpp:147:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "stitch.cpp:153:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "stitch.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "stitch.cpp:153:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "stitch.cpp:153:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 159,
+    "function": null,
+    "comment": "stitch.cpp:159:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "stitch.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "stitch.cpp:160:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "stitch.cpp:164:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "stitch.cpp:165:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "stitch.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "stitch.cpp:169:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "stitch.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "stitch.cpp:169:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "stitch.cpp:175:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "stitch.cpp",
+    "line": 180,
+    "function": null,
+    "comment": "stitch.cpp:180:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "stitch.cpp",
+    "line": 185,
+    "function": null,
+    "comment": "stitch.cpp:185:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "stitch.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "stitch.cpp:188:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "stitch.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "stitch.cpp:188:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "stitch.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "stitch.cpp:189:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "stitch.cpp:189:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "stitch.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "stitch.cpp:190:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "stitch.cpp:190:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "stitch.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "stitch.cpp:191:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "stitch.cpp:191:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "stitch.cpp",
+    "line": 192,
+    "function": null,
+    "comment": "stitch.cpp:192:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "stitch.cpp",
+    "line": 192,
+    "function": null,
+    "comment": "stitch.cpp:192:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "stitch.cpp",
+    "line": 194,
+    "function": null,
+    "comment": "stitch.cpp:194:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "stitch.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "stitch.cpp:149:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "stitch.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "stitch.cpp:167:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "numpy_to_mat.cpp",
+    "line": null,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "numpy_to_mat.cpp",
+    "line": 4,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:4:  Include 'algorithm' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "numpy_to_mat.cpp",
+    "line": 6,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:6:  Found C system header after C++ system header. Should be: numpy_to_mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "numpy_to_mat.cpp",
+    "line": 7,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:7:  Found C system header after C++ system header. Should be: numpy_to_mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "numpy_to_mat.cpp",
+    "line": 9,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:9:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:11:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "numpy_to_mat.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:11:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:13:  Using C-style cast.  Use reinterpret_cast<PyObject*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid using dangerous addresses, such as addresses from casts, or addresses dereferenced from casts.",
+    "file": "numpy_to_mat.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:13:  Are you taking an address of a cast?  This is dangerous: could be a temp var.  Take the address before doing the cast, rather than after  [runtime/casting] [4]",
+    "tags": ["code-standards","google-cpp","potential-bugs","casting","addresses"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:17:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:18:  Using C-style cast.  Use reinterpret_cast<PyObject*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:22:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:23:  Using C-style cast.  Use reinterpret_cast<int*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:27:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "numpy_to_mat.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:28:  public: should be indented +1 space inside class NumpyAllocator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "numpy_to_mat.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:29:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "numpy_to_mat.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:32:  Is this a non-const reference? If so, make const or use a pointer: int*& refcount  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "numpy_to_mat.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:33:  Is this a non-const reference? If so, make const or use a pointer: uchar*& datastart  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "numpy_to_mat.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:33:  Is this a non-const reference? If so, make const or use a pointer: uchar*& data  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:37:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "numpy_to_mat.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:39:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "numpy_to_mat.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:41:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:44:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:46:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:46:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:47:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:54:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "numpy_to_mat.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:58:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:60:  Using C-style cast.  Use reinterpret_cast<uchar*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:64:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:65:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "numpy_to_mat.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:75:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "numpy_to_mat.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:75:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:77:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "numpy_to_mat.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:77:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "numpy_to_mat.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:79:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:80:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:81:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:82:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:83:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:87:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:98:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:99:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:106:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:117:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "numpy_to_mat.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:119:  Using C-style cast.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:123:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 129,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:129:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:130:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:135:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "numpy_to_mat.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:143:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "numpy_to_mat.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:144:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "numpy_to_mat.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:146:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "numpy_to_mat.cpp",
+    "line": 147,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:147:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "numpy_to_mat.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:152:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "numpy_to_mat.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "numpy_to_mat.cpp:152:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "mat.cpp",
+    "line": null,
+    "function": null,
+    "comment": "mat.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "mat.cpp:13:  Include 'list' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "mat.cpp:14:  Include 'iterator' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "mat.cpp:15:  Found C system header after C++ system header. Should be: mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "mat.cpp:16:  Found C system header after C++ system header. Should be: mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "mat.cpp:17:  Found C system header after C++ system header. Should be: mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "mat.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "mat.cpp:18:  Found C system header after C++ system header. Should be: mat.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "mat.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "mat.cpp:19:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "mat.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "mat.cpp:21:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "mat.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "mat.cpp:23:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "mat.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "mat.cpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "mat.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "mat.cpp:25:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "mat.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "mat.cpp:28:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat&m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "mat.cpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "mat.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "mat.cpp:30:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "mat.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "mat.cpp:33:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "mat.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "mat.cpp:40:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "mat.cpp:41:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "mat.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "mat.cpp:42:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "mat.cpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "mat.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "mat.cpp:59:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "mat.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "mat.cpp:61:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "mat.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "mat.cpp:61:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "mat.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "mat.cpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "mat.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "mat.cpp:64:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "mat.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "mat.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "mat.cpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "mat.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "mat.cpp:66:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "mat.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "mat.cpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "mat.cpp:67:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "mat.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "mat.cpp:67:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "mat.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "mat.cpp:70:  Is this a non-const reference? If so, make const or use a pointer: cv::Mat& m  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "mat.cpp:71:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "mat.cpp:72:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "mat.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "mat.cpp:75:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "mat.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "mat.cpp:79:  Anonymous namespace should be terminated with '// namespace'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "mat.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "mat.cpp:82:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "mat.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "mat.cpp:83:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "mat.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "mat.cpp:83:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "mat.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "mat.cpp:84:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use 2 spaces for indentation.",
+    "file": "mat.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "mat.cpp:85:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "mat.cpp:89:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "mat.cpp:90:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "mat.cpp:91:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "mat.cpp:92:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "mat.cpp:93:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "mat.cpp:94:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "mat.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "mat.cpp:95:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "mat.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "mat.cpp:96:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "mat.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "mat.cpp:99:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "opencv.cpp",
+    "line": null,
+    "function": null,
+    "comment": "opencv.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "opencv.cpp:13:  Include 'list' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "opencv.cpp:14:  Include 'iterator' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "opencv.cpp:15:  Found C system header after C++ system header. Should be: opencv.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "opencv.cpp:16:  Found C system header after C++ system header. Should be: opencv.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "opencv.cpp:17:  Found C system header after C++ system header. Should be: opencv.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "opencv.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "opencv.cpp:18:  Found C system header after C++ system header. Should be: opencv.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include the directory when naming header files.",
+    "file": "opencv.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "opencv.cpp:20:  Include the directory when naming .h files  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "opencv.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "opencv.cpp:22:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "opencv.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "opencv.cpp:24:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "opencv.cpp:26:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "opencv.cpp:29:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "opencv.cpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "opencv.cpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "opencv.cpp:45:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "opencv.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "opencv.cpp:55:  Using C-style cast.  Use reinterpret_cast<cvmat_t*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "opencv.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "opencv.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "opencv.cpp:67:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "opencv.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "opencv.cpp:69:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "opencv.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "opencv.cpp:69:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "opencv.cpp:70:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "opencv.cpp:71:  Using C-style cast.  Use reinterpret_cast<void*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "opencv.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "opencv.cpp:75:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "opencv.cpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "opencv.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "opencv.cpp:80:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "opencv.cpp:83:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "opencv.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "opencv.cpp:86:  Using C-style cast.  Use reinterpret_cast<iplimage_t*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "opencv.cpp:90:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "opencv.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "opencv.cpp:91:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "opencv.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "opencv.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "opencv.cpp:94:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "opencv.cpp:95:  Using C-style cast.  Use reinterpret_cast<void*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "opencv.cpp:98:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "opencv.cpp:98:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "opencv.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "opencv.cpp:105:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "opencv.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "opencv.cpp:105:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "opencv.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "opencv.cpp:107:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "opencv.cpp:109:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "opencv.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "opencv.cpp:122:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "opencv.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "opencv.cpp:122:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "opencv.cpp:122:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "opencv.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "opencv.cpp:123:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "opencv.cpp:123:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "opencv.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "opencv.cpp:123:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "opencv.cpp:124:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "opencv.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "opencv.cpp:125:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "opencv.cpp:125:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a closing brace, if it does not end the line (for instance, '} else {').",
+    "file": "opencv.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "opencv.cpp:125:  Missing space before else  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "opencv.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "opencv.cpp:127:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "opencv.cpp:131:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "opencv.cpp:133:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "opencv.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "opencv.cpp:137:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "opencv.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "opencv.cpp:137:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "opencv.cpp:138:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "opencv.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "opencv.cpp:142:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "opencv.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "opencv.cpp:143:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "opencv.cpp:149:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "opencv.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "opencv.cpp:150:  Using deprecated casting style.  Use static_cast<int>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "opencv.cpp:155:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "opencv.cpp:156:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "file": "opencv.cpp",
+    "line": 157,
+    "function": null,
+    "comment": "opencv.cpp:157:  Line contains only semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]",
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "opencv.cpp:161:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "opencv.cpp:162:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "opencv.cpp:164:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "opencv.cpp:165:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "opencv.cpp:166:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "opencv.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "opencv.cpp:167:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "opencv.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "opencv.cpp:169:  Namespace should be terminated with '// namespace pano_py'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "mat.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum number of function parameters: 6",
+    "file": "numpy_to_mat.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "Found function with 7 or more parameters.",
+    "tags": ["hicpp","code-standards","functions","parameters"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "numpy_to_mat.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not rely on the sequence of evaluation within an expression.",
+    "file": "numpy_to_mat.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "Found assignment as a subexpression.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","evaluation-order","expressions"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "opencv.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "opencv.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "opencv.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 117,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "stitch.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "numpy_to_mat.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "The function 'allocate' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "numpy_to_mat.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "The function 'deallocate' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "wrap_glob.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "The function 'wrap_glob' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "cv_tests.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "pano.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "bag_stitcher.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "blur_detector.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrappers.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "pano_py.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "opencv.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "opencv.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrap_Options.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "pano_py.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrap_SVDSolverParams.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrap_glob.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrap_BlurDetector.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wrap_Camera.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "stitch.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "numpy_to_mat.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "numpy_to_mat.cpp",
+    "line": 79,
+    "function": "numpy_to_mat",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "numpy_to_mat.cpp",
+    "line": 79,
+    "function": "numpy_to_mat",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "numpy_to_mat.cpp",
+    "line": 32,
+    "function": "allocate",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "mat.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "opencv.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  }
+]

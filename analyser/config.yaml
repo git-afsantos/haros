@@ -3,12 +3,12 @@
 # Plugins should have a plugin_run() function to execute and return results.
 ---
 export:
-    format: csv
+    format: json
 plugins_unused:
     basic_metrics:
         type: analysis
         subtype: metrics
-plugins_all:
+plugins:
     radon_rules:
         type: analysis
         subtype: rules
@@ -31,7 +31,7 @@ plugins_all:
         subtype: metrics
         needs:
             - gituser.txt
-plugins:
+plugins_git:
     github_plugin:
         type: analysis
         subtype: metrics

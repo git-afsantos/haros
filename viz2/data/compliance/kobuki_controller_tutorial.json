@@ -1,0 +1,402 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "bump_blink_controller.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:54:  Include 'kobuki_msgs/BumperEvent.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:66:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "bump_blink_controller.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:67:  public: should be indented +1 space inside class BumpBlinkController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "bump_blink_controller.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:68:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "bump_blink_controller.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:68:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "bump_blink_controller.hpp",
+    "line": 69,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:69:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "bump_blink_controller.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:77:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "bump_blink_controller.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:78:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "bump_blink_controller.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:79:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "bump_blink_controller.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:85:  private: should be indented +1 space inside class BumpBlinkController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 112,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:112:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:114:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "bump_blink_controller.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:117:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:118:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 124,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:124:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 126,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:126:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "bump_blink_controller.hpp",
+    "line": 129,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:129:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:130:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "bump_blink_controller.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:135:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "bump_blink_controller.hpp",
+    "line": 137,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:137:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 138,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:138:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:144:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "bump_blink_controller.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:149:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "bump_blink_controller.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:149:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "bump_blink_controller.hpp",
+    "line": 150,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:150:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "bump_blink_controller.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:158:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "bump_blink_controller.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "bump_blink_controller.hpp:87:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "nodelet.cpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "nodelet.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nodelet.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "nodelet.cpp:55:  public: should be indented +1 space inside class BumpBlinkControllerNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "nodelet.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "nodelet.cpp:56:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "nodelet.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "nodelet.cpp:57:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "nodelet.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "nodelet.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "nodelet.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "nodelet.cpp:81:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "nodelet.cpp:82:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "nodelet.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "nodelet.cpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nodelet.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "nodelet.cpp:86:  private: should be indented +1 space inside class BumpBlinkControllerNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "nodelet.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "nodelet.cpp:90:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "nodelet.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "nodelet.cpp:69:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "nodelet.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "nodelet.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "bump_blink_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "bump_blink_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "bump_blink_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, BumpBlinkController, 7",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "nodelet.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "nodelet.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

@@ -1,1538 +1,707 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "description": "Minimum lines of comments: 20%",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "his",
-      "uai",
-      "ros",
-      "comments",
-      "comment-ratio"
-    ]
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
   },
   {
-    "id": "2",
+    "id": 2,
     "description": "Maximum lines of comments: 30%",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "comments",
-      "comment-ratio"
-    ]
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
   },
   {
-    "id": "3",
+    "id": 3,
     "description": "Maximum lines of comments: 40%",
-    "tags": [
-      "metrics",
-      "uai",
-      "comments",
-      "comment-ratio"
-    ]
+    "tags": ["metrics","uai","comments","comment-ratio"]
   },
   {
-    "id": "5",
+    "id": 5,
     "description": "Maximum cyclomatic complexity: 10",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "his",
-      "hicpp",
-      "cyclomatic-complexity"
-    ]
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
   },
   {
-    "id": "6",
+    "id": 6,
     "description": "Maximum cyclomatic complexity: 15",
-    "tags": [
-      "metrics",
-      "ros",
-      "cyclomatic-complexity",
-      "kth"
-    ]
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
   },
   {
-    "id": "8",
+    "id": 8,
     "description": "Maximum executable lines: 50",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "his",
-      "executable-lines"
-    ]
+    "tags": ["metrics","nasa-satc","his","executable-lines"]
   },
   {
-    "id": "9",
+    "id": 9,
     "description": "Maximum executable lines: 70",
-    "tags": [
-      "metrics",
-      "ros",
-      "kth",
-      "executable-lines"
-    ]
+    "tags": ["metrics","ros","kth","executable-lines"]
   },
   {
-    "id": "11",
+    "id": 11,
     "description": "Maximum function calls: 7",
-    "tags": [
-      "metrics",
-      "his",
-      "function-calls"
-    ]
+    "tags": ["metrics","his","function-calls"]
   },
   {
-    "id": "12",
+    "id": 12,
     "description": "Maximum function calls: 10",
-    "tags": [
-      "metrics",
-      "ros",
-      "kth",
-      "function-calls"
-    ]
+    "tags": ["metrics","ros","kth","function-calls"]
   },
   {
-    "id": "13",
+    "id": 13,
     "description": "Maximum nesting of control structures: 4",
-    "tags": [
-      "metrics",
-      "his",
-      "nesting-control"
-    ]
+    "tags": ["metrics","his","nesting-control"]
   },
   {
-    "id": "14",
+    "id": 14,
     "description": "Maximum nesting of control structures: 5",
-    "tags": [
-      "metrics",
-      "ros",
-      "kth",
-      "nesting-control"
-    ]
+    "tags": ["metrics","ros","kth","nesting-control"]
   },
   {
-    "id": "16",
+    "id": 16,
     "description": "Maximum estimated static paths: 80",
-    "tags": [
-      "metrics",
-      "his",
-      "static-path"
-    ]
+    "tags": ["metrics","his","static-path"]
   },
   {
-    "id": "17",
+    "id": 17,
     "description": "Maximum estimated static paths: 250",
-    "tags": [
-      "metrics",
-      "ros",
-      "kth",
-      "static-path"
-    ]
+    "tags": ["metrics","ros","kth","static-path"]
   },
   {
-    "id": "18",
+    "id": 18,
     "description": "Maximum coupling between objects: 5",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "ros",
-      "coupling"
-    ]
+    "tags": ["metrics","nasa-satc","ros","coupling"]
   },
   {
-    "id": "19",
+    "id": 19,
     "description": "Maximum immediate children: 10",
-    "tags": [
-      "metrics",
-      "uai",
-      "ros",
-      "immediate-children"
-    ]
+    "tags": ["metrics","uai","ros","immediate-children"]
   },
   {
-    "id": "20",
+    "id": 20,
     "description": "Minimum weighted methods per class: 1",
-    "tags": [
-      "metrics",
-      "uai",
-      "ros",
-      "weighted-methods"
-    ]
+    "tags": ["metrics","uai","ros","weighted-methods"]
   },
   {
-    "id": "21",
+    "id": 21,
     "description": "Maximum weighted methods per class: 50",
-    "tags": [
-      "metrics",
-      "uai",
-      "weighted-methods"
-    ]
+    "tags": ["metrics","uai","weighted-methods"]
   },
   {
-    "id": "22",
+    "id": 22,
     "description": "Maximum weighted methods per class: 100",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "ros",
-      "weighted-methods"
-    ]
+    "tags": ["metrics","nasa-satc","ros","weighted-methods"]
   },
   {
-    "id": "23",
+    "id": 23,
     "description": "Deepest level of inheritance: 5",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "uai",
-      "ros",
-      "inheritance-level"
-    ]
+    "tags": ["metrics","nasa-satc","uai","ros","inheritance-level"]
   },
   {
-    "id": "24",
+    "id": 24,
     "description": "Minimum available methods per class: 1",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "ros",
-      "available-methods"
-    ]
+    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
-    "id": "25",
+    "id": 25,
     "description": "Maximum available methods per class: 20",
-    "tags": [
-      "metrics",
-      "nasa-satc",
-      "ros",
-      "available-methods"
-    ]
+    "tags": ["metrics","nasa-satc","ros","available-methods"]
   },
   {
-    "id": "26",
+    "id": 26,
     "description": "Maximum estimated static paths: 200",
-    "tags": [
-      "metrics",
-      "hicpp",
-      "static-path"
-    ]
+    "tags": ["metrics","hicpp","static-path"]
   },
   {
-    "id": "20000",
+    "id": 20000,
     "description": "Avoid using thread-unsafe functions, when thread-safe variants are available.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "multi-threading",
-      "thread-safety"
-    ]
+    "tags": ["code-standards","google-cpp","multi-threading","thread-safety"]
   },
   {
-    "id": "10300",
+    "id": 10300,
     "description": "Do not use the invalid increment form *count++.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "increment",
-      "pointer"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","increment","pointer"]
   },
   {
-    "id": "10301",
+    "id": 10301,
     "description": "Storage class should come before the type.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "storage-class"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","storage-class"]
   },
   {
-    "id": "10302",
+    "id": 10302,
     "description": "Inner-style forward declarations are invalid.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "forward-declaration"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","forward-declaration"]
   },
   {
-    "id": "10303",
+    "id": 10303,
     "description": "Do not use non-standard or deprecated operators (e.g. >? and <?).",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "deprecation",
-      "operators"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","deprecation","operators"]
   },
   {
-    "id": "10304",
+    "id": 10304,
     "description": "Don't use a semicolon to denote an empty statement. Use {} instead.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "semicolon",
-      "empty-statement",
-      "empty-block"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","semicolon","empty-statement","empty-block"]
   },
   {
-    "id": "10305",
+    "id": 10305,
     "description": "Do not use RValue references.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "rvalue-reference"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","rvalue-reference"]
   },
   {
-    "id": "10306",
+    "id": 10306,
     "description": "Do not use meaningless empty statements.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "empty-statement",
-      "ambiguous-code"
-    ]
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
   },
   {
-    "id": "10307",
+    "id": 10307,
     "description": "To check for equality, use CHECK_EQ(a, b) instead of CHECK(a == b).",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "macros",
-      "equality"
-    ]
+    "tags": ["code-standards","google-cpp","macros","equality"]
   },
   {
-    "id": "10308",
+    "id": 10308,
     "description": "Do not use alternative tokens instead of operators (e.g. 'and', 'or').",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "operators",
-      "tokens",
-      "alternative-tokens"
-    ]
+    "tags": ["code-standards","google-cpp","operators","tokens","alternative-tokens"]
   },
   {
-    "id": "10309",
+    "id": 10309,
     "description": "Do not include the same file twice.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "headers",
-      "include",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
-    "id": "10310",
+    "id": 10310,
     "description": "Do not include non-header files from other packages.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "include",
-      "preprocessor",
-      "implementation-files"
-    ]
+    "tags": ["code-standards","google-cpp","include","preprocessor","implementation-files"]
   },
   {
-    "id": "10311",
+    "id": 10311,
     "description": "Do not use the verboten C basic types.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "deprecation",
-      "types"
-    ]
+    "tags": ["code-standards","google-cpp","deprecation","types"]
   },
   {
-    "id": "10312",
+    "id": 10312,
     "description": "Do not use the unary operator&.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "operators",
-      "overload"
-    ]
+    "tags": ["code-standards","google-cpp","operators","overload"]
   },
   {
-    "id": "10313",
+    "id": 10313,
     "description": "Avoid using variables as format string arguments. Use 'printf('%s', var)' instead.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "strings",
-      "potential-bugs"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","strings","potential-bugs"]
   },
   {
-    "id": "10314",
+    "id": 10314,
     "description": "Do not use namespace using-directives. Use using-declarations instead.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "google-cpp",
-      "namespace",
-      "misra-cpp",
-      "using-directives",
-      "using-declarations"
-    ]
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
   },
   {
-    "id": "10315",
+    "id": 10315,
     "description": "Do not use variable-length arrays.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "arrays",
-      "variables",
-      "constants"
-    ]
+    "tags": ["code-standards","google-cpp","arrays","variables","constants"]
   },
   {
-    "id": "10316",
+    "id": 10316,
     "description": "Do not use unnamed namespaces in header files.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "namespace",
-      "headers",
-      "unnamed-namespace"
-    ]
+    "tags": ["code-standards","google-cpp","namespace","headers","unnamed-namespace"]
   },
   {
-    "id": "10317",
+    "id": 10317,
     "description": "Use C-style strings for static and global string constants.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "strings",
-      "constants"
-    ]
+    "tags": ["code-standards","google-cpp","strings","constants"]
   },
   {
-    "id": "10318",
+    "id": 10318,
     "description": "Avoid using literals as the second argument for snprintf.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "potential-bugs",
-      "literals"
-    ]
+    "tags": ["code-standards","google-cpp","potential-bugs","literals"]
   },
   {
-    "id": "10319",
+    "id": 10319,
     "description": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "strings",
-      "deprecation",
-      "library"
-    ]
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
   },
   {
-    "id": "10320",
+    "id": 10320,
     "description": "Avoid non-const reference parameters. Use const or pointers.",
-    "tags": [
-      "code-standards",
-      "parameters",
-      "google-cpp",
-      "const",
-      "pointers",
-      "references"
-    ]
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
   },
   {
-    "id": "10321",
+    "id": 10321,
     "description": "Don't use deprecated casting styles.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "deprecation",
-      "casting"
-    ]
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
   },
   {
-    "id": "10322",
+    "id": 10322,
     "description": "Avoid using dangerous addresses, such as addresses from casts, or addresses dereferenced from casts.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "potential-bugs",
-      "casting",
-      "addresses"
-    ]
+    "tags": ["code-standards","google-cpp","potential-bugs","casting","addresses"]
   },
   {
-    "id": "10323",
+    "id": 10323,
     "description": "Either omit template arguments from make_pair, or use pair directly, or construct a pair directly.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "cpp11",
-      "compatibility",
-      "templates",
-      "pair"
-    ]
+    "tags": ["code-standards","google-cpp","cpp11","compatibility","templates","pair"]
   },
   {
-    "id": "10324",
+    "id": 10324,
     "description": "Do not use default lambda captures.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "lambda",
-      "default-lambda-capture"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","lambda","default-lambda-capture"]
   },
   {
-    "id": "10325",
+    "id": 10325,
     "description": "Do not declare a function as both 'virtual' and 'override' or 'final'.",
-    "tags": [
-      "code-standards",
-      "functions",
-      "google-cpp",
-      "virtual",
-      "override",
-      "final",
-      "rendundancy"
-    ]
+    "tags": ["code-standards","functions","google-cpp","virtual","override","final","rendundancy"]
   },
   {
-    "id": "10326",
+    "id": 10326,
     "description": "Do not declare a function as both 'override' and 'final'.",
-    "tags": [
-      "code-standards",
-      "functions",
-      "google-cpp",
-      "override",
-      "final",
-      "rendundancy"
-    ]
+    "tags": ["code-standards","functions","google-cpp","override","final","rendundancy"]
   },
   {
-    "id": "10400",
+    "id": 10400,
     "description": "All member variables of a class should be initialized after calling the constructor.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "google-cpp",
-      "misra-cpp",
-      "classes",
-      "member-variables",
-      "uninitialized-variables",
-      "constructors",
-      "jsf-av-cpp"
-    ]
+    "tags": ["hicpp","code-standards","google-cpp","misra-cpp","classes","member-variables","uninitialized-variables","constructors","jsf-av-cpp"]
   },
   {
-    "id": "10401",
+    "id": 10401,
     "description": "There shall be no unused variables.",
-    "tags": [
-      "code-standards",
-      "misra-cpp",
-      "variables",
-      "unused-variables"
-    ]
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
   },
   {
-    "id": "10402",
+    "id": 10402,
     "description": "Ensure that no expression is redundant.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "redundancy"
-    ]
+    "tags": ["hicpp","code-standards","redundancy"]
   },
   {
-    "id": "10403",
+    "id": 10403,
     "description": "Declarations should be at the smallest feasible scope.",
-    "tags": [
-      "code-standards",
-      "jsf-av-cpp",
-      "scope"
-    ]
+    "tags": ["code-standards","jsf-av-cpp","scope"]
   },
   {
-    "id": "10404",
+    "id": 10404,
     "description": "Non-empty case blocks must not fall through to the next case.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "switch",
-      "case",
-      "fall-through"
-    ]
+    "tags": ["hicpp","code-standards","switch","case","fall-through"]
   },
   {
-    "id": "10405",
+    "id": 10405,
     "description": "A switch should have at least two cases distinct from the default case.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "jsf-av-cpp",
-      "switch"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","switch"]
   },
   {
-    "id": "10406",
+    "id": 10406,
     "description": "Ensure that an enum has a specified base type able to accomodate all its values.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "types",
-      "enum"
-    ]
+    "tags": ["hicpp","code-standards","types","enum"]
   },
   {
-    "id": "10407",
+    "id": 10407,
     "description": "Do not use asm declarations.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "assembly",
-      "asm"
-    ]
+    "tags": ["hicpp","code-standards","assembly","asm"]
   },
   {
-    "id": "10408",
+    "id": 10408,
     "description": "Use at most one level of pointer indirection.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "pointers",
-      "multiple-pointers"
-    ]
+    "tags": ["hicpp","code-standards","pointers","multiple-pointers"]
   },
   {
-    "id": "10409",
+    "id": 10409,
     "description": "Use at most two levels of pointer indirection.",
-    "tags": [
-      "code-standards",
-      "misra-cpp",
-      "pointers",
-      "jsf-av-cpp",
-      "multiple-pointers"
-    ]
+    "tags": ["code-standards","misra-cpp","pointers","jsf-av-cpp","multiple-pointers"]
   },
   {
-    "id": "10410",
+    "id": 10410,
     "description": "Do not pass a std::unique_ptr by const reference.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "const",
-      "pointers",
-      "references",
-      "std-unique-ptr"
-    ]
+    "tags": ["hicpp","code-standards","const","pointers","references","std-unique-ptr"]
   },
   {
-    "id": "10411",
+    "id": 10411,
     "description": "Do not use default arguments.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "functions",
-      "parameters",
-      "default-arguments",
-      "arguments"
-    ]
+    "tags": ["hicpp","code-standards","functions","parameters","default-arguments","arguments"]
   },
   {
-    "id": "10412",
+    "id": 10412,
     "description": "Do not use std::vector<bool>. It does not conform to the requirements of a container.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "std-vector",
-      "boolean"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","std-vector","boolean"]
   },
   {
-    "id": "10413",
+    "id": 10413,
     "description": "Do not use unions. Use a safe polymorphic abstraction, instead.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "jsf-av-cpp",
-      "unions",
-      "polymorphism",
-      "type-safety"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","unions","polymorphism","type-safety"]
   },
   {
-    "id": "10414",
+    "id": 10414,
     "description": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "jsf-av-cpp",
-      "type-safety",
-      "integer-types",
-      "portability"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
   },
   {
-    "id": "10415",
+    "id": 10415,
     "description": "Do not rely on the sequence of evaluation within an expression.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "jsf-av-cpp",
-      "evaluation-order",
-      "expressions"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","evaluation-order","expressions"]
   },
   {
-    "id": "10416",
+    "id": 10416,
     "description": "Do not write code that expects floating point calculations to yield exact results.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "floats",
-      "floating-point"
-    ]
+    "tags": ["hicpp","code-standards","floats","floating-point"]
   },
   {
-    "id": "10417",
+    "id": 10417,
     "description": "Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "misra-cpp",
-      "operators",
-      "overload",
-      "jsf-av-cpp"
-    ]
+    "tags": ["hicpp","code-standards","misra-cpp","operators","overload","jsf-av-cpp"]
   },
   {
-    "id": "10418",
+    "id": 10418,
     "description": "Do not create an rvalue reference of std::array.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "rvalue-reference",
-      "std-array"
-    ]
+    "tags": ["hicpp","code-standards","rvalue-reference","std-array"]
   },
   {
-    "id": "10000",
+    "id": 10000,
     "description": "No file should mix LF and CRLF line endings.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "newline"
-    ]
+    "tags": ["code-standards","formatting","whitespace","newline"]
   },
   {
-    "id": "10001",
+    "id": 10001,
     "description": "No line should exceed 80 characters in length.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "line-length",
-      "google-cpp"
-    ]
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
   },
   {
-    "id": "10002",
+    "id": 10002,
     "description": "No line should exceed 120 characters in length.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "formatting",
-      "line-length",
-      "ros-cpp"
-    ]
+    "tags": ["ros","code-standards","formatting","line-length","ros-cpp"]
   },
   {
-    "id": "10003",
+    "id": 10003,
     "description": "Indent each block by 2 spaces. Never insert literal tab characters.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "ros-cpp",
-      "indentation"
-    ]
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
   },
   {
-    "id": "10004",
+    "id": 10004,
     "description": "The open curly brace should almost never be on its own line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "curly-braces"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
   },
   {
-    "id": "10005",
+    "id": 10005,
     "description": "The open curly brace is always on its own line.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "formatting",
-      "ros-cpp",
-      "curly-braces"
-    ]
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
-    "id": "10006",
+    "id": 10006,
     "description": "If a function exceeds about 40 lines, think about whether it can be broken up without harming the structure of the program.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "function-size"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","function-size"]
   },
   {
-    "id": "10007",
+    "id": 10007,
     "description": "Non-ASCII characters should be rare, and must use UTF-8 formatting.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "character-encoding"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","character-encoding"]
   },
   {
-    "id": "10008",
+    "id": 10008,
     "description": "Files should end with a newline character.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "formatting",
-      "newline",
-      "google-cpp",
-      "ros-cpp",
-      "end-of-file"
-    ]
+    "tags": ["ros","code-standards","formatting","newline","google-cpp","ros-cpp","end-of-file"]
   },
   {
-    "id": "10009",
+    "id": 10009,
     "description": "Closing brace should be aligned with the beginning of class or structure.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "indentation",
-      "curly-braces"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","indentation","curly-braces"]
   },
   {
-    "id": "10010",
+    "id": 10010,
     "description": "Access modifiers should be indented by one space.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "indentation",
-      "access-modifiers"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
   },
   {
-    "id": "10011",
+    "id": 10011,
     "description": "Leave no redundant blank lines in code blocks.",
-    "tags": [
-      "code-standards",
-      "functions",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "code-blocks"
-    ]
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
   },
   {
-    "id": "10012",
+    "id": 10012,
     "description": "You shouldn't have spaces before your brackets, except maybe after 'delete []' or 'return []() {};'",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "brackets"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","brackets"]
   },
   {
-    "id": "10013",
+    "id": 10013,
     "description": "Colons in range-based for loops should be preceeded and followed by a whitespace.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "colon",
-      "for-loop",
-      "range-based-for"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","colon","for-loop","range-based-for"]
   },
   {
-    "id": "10014",
+    "id": 10014,
     "description": "Assignment operators should be preceeded and followed by whitespace.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "assignment"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
   },
   {
-    "id": "10015",
+    "id": 10015,
     "description": "Binary operators should be preceeded and followed by whitespace.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "binary-operator"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
   },
   {
-    "id": "10016",
+    "id": 10016,
     "description": "Unary operators should have no whitespace around them.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "unary-operator"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
   },
   {
-    "id": "10017",
+    "id": 10017,
     "description": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "parenthesis"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-    "id": "10018",
+    "id": 10018,
     "description": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "parenthesis"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-    "id": "10019",
+    "id": 10019,
     "description": "There should be a space after a comma.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "comma"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
   },
   {
-    "id": "10020",
+    "id": 10020,
     "description": "There should be a space after a semicolon, if it does not end the line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "semicolon"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","semicolon"]
   },
   {
-    "id": "10021",
+    "id": 10021,
     "description": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "curly-braces"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
   },
   {
-    "id": "10022",
+    "id": 10022,
     "description": "There should be a space after a closing brace, if it does not end the line (for instance, '} else {').",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "curly-braces"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
   },
   {
-    "id": "10023",
+    "id": 10023,
     "description": "Don't leave spaces before a semicolon at the end of a line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "semicolon"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","semicolon"]
   },
   {
-    "id": "10024",
+    "id": 10024,
     "description": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "access-modifiers"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
   },
   {
-    "id": "10025",
+    "id": 10025,
     "description": "The else statement should be on the same line as the preceeding closing brace.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "curly-braces",
-      "if-else"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
   },
   {
-    "id": "10026",
+    "id": 10026,
     "description": "If an else has a brace on one side, it should have it on both.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "curly-braces",
-      "if-else"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
   },
   {
-    "id": "10027",
+    "id": 10027,
     "description": "The else clause of an else-if clause should be on its own line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "if-else"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","if-else"]
   },
   {
-    "id": "10028",
+    "id": 10028,
     "description": "do/while clauses should not be on a single line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "do-while"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","do-while"]
   },
   {
-    "id": "10029",
+    "id": 10029,
     "description": "There should not be more than one semicolon statement in a single-line if or else statement, unless it is part of a lambda expression, or the if/else body is enclosed in curly braces.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "if-else",
-      "single-line-statements"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","if-else","single-line-statements"]
   },
   {
-    "id": "10030",
+    "id": 10030,
     "description": "Statements that are not part of an if body should have an indentation level equal to or less than the if statement.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "indentation",
-      "if-else",
-      "ambiguous-indentation"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","indentation","if-else","ambiguous-indentation"]
   },
   {
-    "id": "10031",
+    "id": 10031,
     "description": "Do not leave whitespace at the end of a line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
   },
   {
-    "id": "10032",
+    "id": 10032,
     "description": "Use 2 spaces for indentation.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "indentation"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","indentation"]
   },
   {
-    "id": "10033",
+    "id": 10033,
     "description": "Avoid more than one command per line.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp"
-    ]
+    "tags": ["code-standards","formatting","google-cpp"]
   },
   {
-    "id": "10034",
+    "id": 10034,
     "description": "An if should start on its own line. Avoid constructs such as '} if'.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "if-else"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","if-else"]
   },
   {
-    "id": "10035",
+    "id": 10035,
     "description": "Do not indent within a namespace.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "indentation",
-      "namespace"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
   },
   {
-    "id": "10036",
+    "id": 10036,
     "description": "The closing curly brace is always on its own line.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "formatting",
-      "ros-cpp",
-      "curly-braces"
-    ]
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
   },
   {
-    "id": "30005",
+    "id": 30005,
     "description": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "constructors",
-      "explicit"
-    ]
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
-    "id": "30006",
+    "id": 30006,
     "description": "Constructors that require multiple arguments should not be marked explicit.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "constructors",
-      "explicit"
-    ]
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
   },
   {
-    "id": "30007",
+    "id": 30007,
     "description": "DISALLOW macros must be in the private section.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "class",
-      "macros",
-      "private"
-    ]
+    "tags": ["code-standards","google-cpp","class","macros","private"]
   },
   {
-    "id": "30004",
+    "id": 30004,
     "description": "Do not use const string& members. Use pointers or simple constants instead.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "strings",
-      "constants",
-      "references"
-    ]
+    "tags": ["code-standards","google-cpp","strings","constants","references"]
   },
   {
-    "id": "30000",
+    "id": 30000,
     "description": "Use VLOG with a numeric argument.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "library",
-      "logging"
-    ]
+    "tags": ["code-standards","google-cpp","library","logging"]
   },
   {
-    "id": "30001",
+    "id": 30001,
     "description": "If copying and assignment are disabled with a macro such as DISALLOW_COPY_AND_ASSIGN, it should be at the end of the private section, and should be the last thing in the class.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "class",
-      "macros",
-      "constructors"
-    ]
+    "tags": ["code-standards","google-cpp","class","macros","constructors"]
   },
   {
-    "id": "10100",
+    "id": 10100,
     "description": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
-    "tags": [
-      "ros",
-      "comments",
-      "code-standards",
-      "google-cpp",
-      "license",
-      "copyright"
-    ]
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
   },
   {
-    "id": "10101",
+    "id": 10101,
     "description": "Multi-line comments must have an end.",
-    "tags": [
-      "comments",
-      "code-standards",
-      "google-cpp",
-      "multiline-comments",
-      "invalid-code"
-    ]
+    "tags": ["comments","code-standards","google-cpp","multiline-comments","invalid-code"]
   },
   {
-    "id": "10102",
+    "id": 10102,
     "description": "Strings and /**/-comments should not extend beyond one line.",
-    "tags": [
-      "comments",
-      "code-standards",
-      "google-cpp",
-      "multiline-comments",
-      "strings",
-      "multiline-strings"
-    ]
+    "tags": ["comments","code-standards","google-cpp","multiline-comments","strings","multiline-strings"]
   },
   {
-    "id": "10103",
+    "id": 10103,
     "description": "Namespaces should have a comment at the end.",
-    "tags": [
-      "ros",
-      "comments",
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "ros-cpp",
-      "namespace"
-    ]
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
   },
   {
-    "id": "10104",
+    "id": 10104,
     "description": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "parenthesis"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-    "id": "10105",
+    "id": 10105,
     "description": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp",
-      "parenthesis"
-    ]
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
   },
   {
-    "id": "10106",
+    "id": 10106,
     "description": "At least two spaces is best between code and comments.",
-    "tags": [
-      "comments",
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp"
-    ]
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
-    "id": "10107",
+    "id": 10107,
     "description": "Use one space before comment text.",
-    "tags": [
-      "comments",
-      "code-standards",
-      "formatting",
-      "whitespace",
-      "google-cpp"
-    ]
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
   },
   {
-    "id": "10108",
+    "id": 10108,
     "description": "To-do comments should look like '// TODO(my_username): Stuff.'.",
-    "tags": [
-      "comments",
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "todo-comment"
-    ]
+    "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
   },
   {
-    "id": "10109",
+    "id": 10109,
     "description": "Include the directory when naming header files.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "naming",
-      "headers",
-      "include"
-    ]
+    "tags": ["code-standards","google-cpp","naming","headers","include"]
   },
   {
-    "id": "30002",
+    "id": 30002,
     "description": "Do not use deprecated or unconventional string formattings.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "strings",
-      "deprecation",
-      "string-formatting"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","strings","deprecation","string-formatting"]
   },
   {
-    "id": "30003",
+    "id": 30003,
     "description": "Do not use invalid escape sequences.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "strings",
-      "escape-sequences"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","strings","escape-sequences"]
   },
   {
-    "id": "10200",
+    "id": 10200,
     "description": "All headers must be protected against multiple inclusion by",
-    "tags": [
-      "ros",
-      "code-standards",
-      "google-cpp",
-      "ros-cpp",
-      "header",
-      "header-guard",
-      "preprocessor"
-    ]
+    "tags": ["ros","code-standards","google-cpp","ros-cpp","header","header-guard","preprocessor"]
   },
   {
-    "id": "10201",
+    "id": 10201,
     "description": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "header",
-      "header-guard",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
   },
   {
-    "id": "10202",
+    "id": 10202,
     "description": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
-    "tags": [
-      "ros",
-      "code-standards",
-      "ros-cpp",
-      "header",
-      "header-guard",
-      "preprocessor"
-    ]
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
   },
   {
-    "id": "10203",
+    "id": 10203,
     "description": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "header",
-      "header-guard",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
   },
   {
-    "id": "10204",
+    "id": 10204,
     "description": "In general, every .cc file should have an associated .h file.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "include",
-      "header",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","include","header","preprocessor"]
   },
   {
-    "id": "10205",
+    "id": 10205,
     "description": "Uncommented text after",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","preprocessor"]
   },
   {
-    "id": "10206",
+    "id": 10206,
     "description": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
-    "tags": [
-      "code-standards",
-      "formatting",
-      "google-cpp",
-      "include",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
   },
   {
-    "id": "10207",
+    "id": 10207,
     "description": "All parameters should be named in a function.",
-    "tags": [
-      "code-standards",
-      "functions",
-      "parameters",
-      "google-cpp",
-      "naming"
-    ]
+    "tags": ["code-standards","functions","parameters","google-cpp","naming"]
   },
   {
-    "id": "10208",
+    "id": 10208,
     "description": "Include all required headers for what you use.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "headers",
-      "include",
-      "preprocessor"
-    ]
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
   },
   {
-    "id": "10209",
+    "id": 10209,
     "description": "Do not include unapproved C++11 headers.",
-    "tags": [
-      "code-standards",
-      "google-cpp",
-      "invalid-code",
-      "headers",
-      "include",
-      "preprocessor",
-      "cpp11"
-    ]
+    "tags": ["code-standards","google-cpp","invalid-code","headers","include","preprocessor","cpp11"]
   },
   {
-    "id": "10210",
+    "id": 10210,
     "description": "Do not use unapproved C++11 classes and functions.",
-    "tags": [
-      "code-standards",
-      "functions",
-      "google-cpp",
-      "invalid-code",
-      "cpp11",
-      "class"
-    ]
+    "tags": ["code-standards","functions","google-cpp","invalid-code","cpp11","class"]
   },
   {
-    "id": "10211",
+    "id": 10211,
     "description": "Do not include the C standard headers. Use the C++ headers instead.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "headers",
-      "include",
-      "preprocessor",
-      "deprecation",
-      "c"
-    ]
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
   },
   {
-    "id": "10212",
+    "id": 10212,
     "description": "Do not use deprecated STL library features.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "functions",
-      "deprecation"
-    ]
+    "tags": ["hicpp","code-standards","functions","deprecation"]
   },
   {
-    "id": "10213",
+    "id": 10213,
     "description": "Do not use the deprecated register keyword.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "cpp11",
-      "deprecation",
-      "register"
-    ]
+    "tags": ["hicpp","code-standards","cpp11","deprecation","register"]
   },
   {
-    "id": "10214",
+    "id": 10214,
     "description": "Do not use throw exception specifications. Use noexcept instead.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "cpp11",
-      "deprecation",
-      "exceptions",
-      "throw"
-    ]
+    "tags": ["hicpp","code-standards","cpp11","deprecation","exceptions","throw"]
   },
   {
-    "id": "10215",
+    "id": 10215,
     "description": "Wrap use of the C Standard Library.",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "c",
-      "libraries",
-      "c-standard-library",
-      "misra-cpp"
-    ]
+    "tags": ["hicpp","code-standards","c","libraries","c-standard-library","misra-cpp"]
   },
   {
-    "id": "1000",
+    "id": 1000,
     "description": "Maximum number of function parameters: 6",
-    "tags": [
-      "hicpp",
-      "code-standards",
-      "functions",
-      "parameters"
-    ]
+    "tags": ["hicpp","code-standards","functions","parameters"]
   }
 ]

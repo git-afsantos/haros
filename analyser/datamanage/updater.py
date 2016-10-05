@@ -83,6 +83,7 @@ class DbUpdater:
         i = 1
         for p in self.packages.values():
             p.id = i
+            p.size = p.size / 1000.0
             i += 1
         i = 1
         for ss in self.sources.values():
@@ -153,10 +154,12 @@ class DbUpdater:
 
         pkg_info = [p.asTuple() for p in self.packages.values()]
         db.updateTable("Packages", ["id", "name", "metapackage",
-                "description", "wiki", "git", "branch", "path", "repo_id", "level"],
+                "description", "wiki", "git", "branch", "path",
+                "repo_id", "level", "size", "authors", "maintainers"],
                 ["MEDIUMINT(9)", "VARCHAR(100)", "TINYINT(1)", "VARCHAR(2000)",
                 "VARCHAR(100)", "VARCHAR(100)", "VARCHAR(50)", "VARCHAR(200)",
-                "MEDIUMINT(9)", "SMALLINT(6)"],
+                "MEDIUMINT(9)", "SMALLINT(6)", "DOUBLE(10,2)",
+                "VARCHAR(100)", "VARCHAR(100)"],
                 pkg_info, pk="id", fk=["repo_id"], fk_ref=["Repositories(id)"])
 
         pkg_ids = [(p.id, p.name) for p in self.packages.values()]

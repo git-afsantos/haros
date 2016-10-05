@@ -35,6 +35,7 @@ class Package:
         self.branch = repo.source_version
         self.path = None
         self.level = 0
+        self.size = 0
 
     def __str__(self):
         s = self.name
@@ -66,7 +67,8 @@ class Package:
     def asTuple(self):
         return (self.id, self.name, self.isMetapackage,
                 self.description, self.wiki, self.git, self.branch, self.path,
-                self.repo.id, self.level)
+                self.repo.id, self.level, self.size,
+                self.authors.commaString(), self.maintainers.commaString())
 
 
 
@@ -124,6 +126,7 @@ def package_from_manifest(pkg_file, repo):
     package.buildtool_depend = set(extractTag(root, 'buildtool_depend'))
     package.build_depend = set(extractTag(root, 'build_depend'))
     package.run_depend = set(extractTag(root, 'run_depend'))
+    package.size = os.path.getsize(pkg_file)
     return package
 
 

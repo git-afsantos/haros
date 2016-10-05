@@ -38,6 +38,7 @@ def find_source_for_package(repos_root, package, tuples=False):
         for f in files:
             if f.endswith(sources):
                 found.append(SourceFile(f, relative))
+                package.size += os.path.getsize(os.path.join(root, f))
     return found
 
 

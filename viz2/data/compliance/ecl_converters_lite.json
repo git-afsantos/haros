@@ -1,0 +1,586 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "converters_lite.hpp",
+    "line": null,
+    "function": null,
+    "comment": "converters_lite.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "byte_array.hpp",
+    "line": null,
+    "function": null,
+    "comment": "byte_array.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "byte_array.hpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "byte_array.hpp:43:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "byte_array.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "byte_array.hpp:43:  Is this a non-const reference? If so, make const or use a pointer: int32 &value  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "byte_array.hpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "byte_array.hpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
+    "file": "byte_array.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "byte_array.hpp:45:  Mismatching spaces inside () in for  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "byte_array.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "byte_array.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "byte_array.hpp:63:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "byte_array.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "byte_array.hpp:63:  Is this a non-const reference? If so, make const or use a pointer: int32 &value  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "byte_array.hpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "byte_array.hpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
+    "file": "byte_array.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "byte_array.hpp:65:  Mismatching spaces inside () in for  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "byte_array.hpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "byte_array.hpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.hpp",
+    "line": 83,
+    "function": null,
+    "comment": "byte_array.hpp:83:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "byte_array.hpp",
+    "line": 83,
+    "function": null,
+    "comment": "byte_array.hpp:83:  Is this a non-const reference? If so, make const or use a pointer: uint32 &value  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "byte_array.hpp:84:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "byte_array.hpp:85:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
+    "file": "byte_array.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "byte_array.hpp:85:  Mismatching spaces inside () in for  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 86,
+    "function": null,
+    "comment": "byte_array.hpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "byte_array.hpp:87:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "byte_array.hpp:103:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "byte_array.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "byte_array.hpp:103:  Is this a non-const reference? If so, make const or use a pointer: uint32 &value  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 104,
+    "function": null,
+    "comment": "byte_array.hpp:104:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "byte_array.hpp:105:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
+    "file": "byte_array.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "byte_array.hpp:105:  Mismatching spaces inside () in for  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 106,
+    "function": null,
+    "comment": "byte_array.hpp:106:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "byte_array.hpp:107:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "byte_array.hpp",
+    "line": 110,
+    "function": null,
+    "comment": "byte_array.hpp:110:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "byte_array.cpp",
+    "line": null,
+    "function": null,
+    "comment": "byte_array.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "byte_array.cpp:26:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "byte_array.cpp:26:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "byte_array.cpp:27:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "byte_array.cpp:28:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "byte_array.cpp:29:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "byte_array.cpp:30:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "byte_array.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "byte_array.cpp:32:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "byte_array.cpp:33:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "byte_array.cpp:33:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "byte_array.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "byte_array.cpp:35:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "byte_array.cpp:35:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "byte_array.cpp:36:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "byte_array.cpp:36:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "byte_array.cpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "byte_array.cpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "byte_array.cpp:38:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "byte_array.cpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "byte_array.cpp:39:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "byte_array.cpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "byte_array.cpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "byte_array.cpp:41:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "byte_array.cpp:42:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "byte_array.cpp:42:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "byte_array.cpp:43:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "byte_array.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "byte_array.cpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "byte_array.cpp:44:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "byte_array.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "byte_array.cpp:51:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "byte_array.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "byte_array.cpp:52:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "byte_array.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "byte_array.cpp:53:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "byte_array.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "byte_array.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "byte_array.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "byte_array.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "byte_array.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "byte_array.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "byte_array.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "byte_array.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "byte_array.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

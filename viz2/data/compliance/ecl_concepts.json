@@ -1,0 +1,3666 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "concepts.hpp",
+    "line": null,
+    "function": null,
+    "comment": "concepts.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "concepts.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "concepts.hpp:22:  Include 'concepts/blueprints.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "streams.hpp",
+    "line": null,
+    "function": null,
+    "comment": "streams.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "streams.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "streams.hpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "streams.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "streams.hpp:38:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "streams.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "streams.hpp:39:  public: should be indented +1 space inside class StreamConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "streams.hpp",
+    "line": 40,
+    "function": null,
+    "comment": "streams.hpp:40:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "streams.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "streams.hpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "streams.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "streams.hpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "streams.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "streams.hpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "streams.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "streams.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "streams.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "streams.hpp:55:  private: should be indented +1 space inside class StreamConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "streams.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "streams.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "streams.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "streams.hpp:61:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "devices.hpp",
+    "line": null,
+    "function": null,
+    "comment": "devices.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "devices.hpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "devices.hpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 40,
+    "function": null,
+    "comment": "devices.hpp:40:  public: should be indented +1 space inside class InputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "devices.hpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "devices.hpp:49:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "devices.hpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "devices.hpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "devices.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "devices.hpp:52:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "devices.hpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "devices.hpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "devices.hpp:55:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "devices.hpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "devices.hpp:56:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "devices.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "devices.hpp:57:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "devices.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "devices.hpp:58:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "devices.hpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "devices.hpp:61:  private: should be indented +1 space inside class InputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 62,
+    "function": null,
+    "comment": "devices.hpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "devices.hpp:63:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "devices.hpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "devices.hpp:76:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "devices.hpp:77:  public: should be indented +1 space inside class OutputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "devices.hpp:87:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "devices.hpp:88:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "devices.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "devices.hpp:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "devices.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "devices.hpp:88:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "devices.hpp:89:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "devices.hpp:89:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 90,
+    "function": null,
+    "comment": "devices.hpp:90:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 91,
+    "function": null,
+    "comment": "devices.hpp:91:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 92,
+    "function": null,
+    "comment": "devices.hpp:92:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "devices.hpp:93:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "devices.hpp:94:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "devices.hpp:94:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "devices.hpp:95:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "devices.hpp",
+    "line": 96,
+    "function": null,
+    "comment": "devices.hpp:96:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "devices.hpp",
+    "line": 97,
+    "function": null,
+    "comment": "devices.hpp:97:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "devices.hpp:98:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 100,
+    "function": null,
+    "comment": "devices.hpp:100:  private: should be indented +1 space inside class OutputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 101,
+    "function": null,
+    "comment": "devices.hpp:101:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 102,
+    "function": null,
+    "comment": "devices.hpp:102:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "devices.hpp:103:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "devices.hpp:116:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "devices.hpp:117:  public: should be indented +1 space inside class InputOutputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 129,
+    "function": null,
+    "comment": "devices.hpp:129:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "devices.hpp:130:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "devices.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "devices.hpp:130:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "devices.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "devices.hpp:130:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 131,
+    "function": null,
+    "comment": "devices.hpp:131:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 132,
+    "function": null,
+    "comment": "devices.hpp:132:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 133,
+    "function": null,
+    "comment": "devices.hpp:133:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 133,
+    "function": null,
+    "comment": "devices.hpp:133:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 134,
+    "function": null,
+    "comment": "devices.hpp:134:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "devices.hpp:135:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "devices.hpp:135:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "devices.hpp:136:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "devices.hpp:136:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 137,
+    "function": null,
+    "comment": "devices.hpp:137:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 138,
+    "function": null,
+    "comment": "devices.hpp:138:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 139,
+    "function": null,
+    "comment": "devices.hpp:139:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 139,
+    "function": null,
+    "comment": "devices.hpp:139:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 140,
+    "function": null,
+    "comment": "devices.hpp:140:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 141,
+    "function": null,
+    "comment": "devices.hpp:141:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 142,
+    "function": null,
+    "comment": "devices.hpp:142:  private: should be indented +1 space inside class InputOutputCharDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "file": "devices.hpp",
+    "line": 142,
+    "function": null,
+    "comment": "devices.hpp:142:  'private:' should be preceded by a blank line  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "devices.hpp:143:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "devices.hpp:144:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "devices.hpp:145:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 159,
+    "function": null,
+    "comment": "devices.hpp:159:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 160,
+    "function": null,
+    "comment": "devices.hpp:160:  public: should be indented +1 space inside class InputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 171,
+    "function": null,
+    "comment": "devices.hpp:171:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 171,
+    "function": null,
+    "comment": "devices.hpp:171:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 172,
+    "function": null,
+    "comment": "devices.hpp:172:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 173,
+    "function": null,
+    "comment": "devices.hpp:173:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "devices.hpp:174:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 175,
+    "function": null,
+    "comment": "devices.hpp:175:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 176,
+    "function": null,
+    "comment": "devices.hpp:176:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 177,
+    "function": null,
+    "comment": "devices.hpp:177:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 178,
+    "function": null,
+    "comment": "devices.hpp:178:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 178,
+    "function": null,
+    "comment": "devices.hpp:178:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 179,
+    "function": null,
+    "comment": "devices.hpp:179:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 180,
+    "function": null,
+    "comment": "devices.hpp:180:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 181,
+    "function": null,
+    "comment": "devices.hpp:181:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 182,
+    "function": null,
+    "comment": "devices.hpp:182:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 182,
+    "function": null,
+    "comment": "devices.hpp:182:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 183,
+    "function": null,
+    "comment": "devices.hpp:183:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 184,
+    "function": null,
+    "comment": "devices.hpp:184:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 184,
+    "function": null,
+    "comment": "devices.hpp:184:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 185,
+    "function": null,
+    "comment": "devices.hpp:185:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 186,
+    "function": null,
+    "comment": "devices.hpp:186:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 186,
+    "function": null,
+    "comment": "devices.hpp:186:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 187,
+    "function": null,
+    "comment": "devices.hpp:187:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 189,
+    "function": null,
+    "comment": "devices.hpp:189:  private: should be indented +1 space inside class InputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 190,
+    "function": null,
+    "comment": "devices.hpp:190:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 191,
+    "function": null,
+    "comment": "devices.hpp:191:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 192,
+    "function": null,
+    "comment": "devices.hpp:192:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 205,
+    "function": null,
+    "comment": "devices.hpp:205:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 206,
+    "function": null,
+    "comment": "devices.hpp:206:  public: should be indented +1 space inside class OutputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 218,
+    "function": null,
+    "comment": "devices.hpp:218:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "devices.hpp:219:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "devices.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "devices.hpp:219:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "devices.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "devices.hpp:219:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 220,
+    "function": null,
+    "comment": "devices.hpp:220:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 220,
+    "function": null,
+    "comment": "devices.hpp:220:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 221,
+    "function": null,
+    "comment": "devices.hpp:221:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 222,
+    "function": null,
+    "comment": "devices.hpp:222:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 223,
+    "function": null,
+    "comment": "devices.hpp:223:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 224,
+    "function": null,
+    "comment": "devices.hpp:224:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 225,
+    "function": null,
+    "comment": "devices.hpp:225:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 226,
+    "function": null,
+    "comment": "devices.hpp:226:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 227,
+    "function": null,
+    "comment": "devices.hpp:227:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 228,
+    "function": null,
+    "comment": "devices.hpp:228:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 229,
+    "function": null,
+    "comment": "devices.hpp:229:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 230,
+    "function": null,
+    "comment": "devices.hpp:230:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 231,
+    "function": null,
+    "comment": "devices.hpp:231:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 232,
+    "function": null,
+    "comment": "devices.hpp:232:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 232,
+    "function": null,
+    "comment": "devices.hpp:232:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 233,
+    "function": null,
+    "comment": "devices.hpp:233:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 233,
+    "function": null,
+    "comment": "devices.hpp:233:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 234,
+    "function": null,
+    "comment": "devices.hpp:234:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 234,
+    "function": null,
+    "comment": "devices.hpp:234:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 235,
+    "function": null,
+    "comment": "devices.hpp:235:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 236,
+    "function": null,
+    "comment": "devices.hpp:236:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 238,
+    "function": null,
+    "comment": "devices.hpp:238:  private: should be indented +1 space inside class OutputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 239,
+    "function": null,
+    "comment": "devices.hpp:239:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 240,
+    "function": null,
+    "comment": "devices.hpp:240:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 241,
+    "function": null,
+    "comment": "devices.hpp:241:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "devices.hpp",
+    "line": 255,
+    "function": null,
+    "comment": "devices.hpp:255:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 256,
+    "function": null,
+    "comment": "devices.hpp:256:  public: should be indented +1 space inside class InputOutputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 270,
+    "function": null,
+    "comment": "devices.hpp:270:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 271,
+    "function": null,
+    "comment": "devices.hpp:271:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "devices.hpp",
+    "line": 271,
+    "function": null,
+    "comment": "devices.hpp:271:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "devices.hpp",
+    "line": 271,
+    "function": null,
+    "comment": "devices.hpp:271:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 272,
+    "function": null,
+    "comment": "devices.hpp:272:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 273,
+    "function": null,
+    "comment": "devices.hpp:273:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 274,
+    "function": null,
+    "comment": "devices.hpp:274:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 275,
+    "function": null,
+    "comment": "devices.hpp:275:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 276,
+    "function": null,
+    "comment": "devices.hpp:276:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 277,
+    "function": null,
+    "comment": "devices.hpp:277:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 278,
+    "function": null,
+    "comment": "devices.hpp:278:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 278,
+    "function": null,
+    "comment": "devices.hpp:278:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 279,
+    "function": null,
+    "comment": "devices.hpp:279:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 280,
+    "function": null,
+    "comment": "devices.hpp:280:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 281,
+    "function": null,
+    "comment": "devices.hpp:281:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 282,
+    "function": null,
+    "comment": "devices.hpp:282:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 282,
+    "function": null,
+    "comment": "devices.hpp:282:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 283,
+    "function": null,
+    "comment": "devices.hpp:283:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 284,
+    "function": null,
+    "comment": "devices.hpp:284:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 284,
+    "function": null,
+    "comment": "devices.hpp:284:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 285,
+    "function": null,
+    "comment": "devices.hpp:285:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 286,
+    "function": null,
+    "comment": "devices.hpp:286:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 286,
+    "function": null,
+    "comment": "devices.hpp:286:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 288,
+    "function": null,
+    "comment": "devices.hpp:288:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "devices.hpp",
+    "line": 288,
+    "function": null,
+    "comment": "devices.hpp:288:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 289,
+    "function": null,
+    "comment": "devices.hpp:289:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 290,
+    "function": null,
+    "comment": "devices.hpp:290:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 291,
+    "function": null,
+    "comment": "devices.hpp:291:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 292,
+    "function": null,
+    "comment": "devices.hpp:292:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 293,
+    "function": null,
+    "comment": "devices.hpp:293:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 294,
+    "function": null,
+    "comment": "devices.hpp:294:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 295,
+    "function": null,
+    "comment": "devices.hpp:295:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 296,
+    "function": null,
+    "comment": "devices.hpp:296:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 297,
+    "function": null,
+    "comment": "devices.hpp:297:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 298,
+    "function": null,
+    "comment": "devices.hpp:298:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 298,
+    "function": null,
+    "comment": "devices.hpp:298:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 299,
+    "function": null,
+    "comment": "devices.hpp:299:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 299,
+    "function": null,
+    "comment": "devices.hpp:299:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 300,
+    "function": null,
+    "comment": "devices.hpp:300:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "devices.hpp",
+    "line": 300,
+    "function": null,
+    "comment": "devices.hpp:300:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 301,
+    "function": null,
+    "comment": "devices.hpp:301:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 302,
+    "function": null,
+    "comment": "devices.hpp:302:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "devices.hpp",
+    "line": 303,
+    "function": null,
+    "comment": "devices.hpp:303:  private: should be indented +1 space inside class InputOutputByteDeviceConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "file": "devices.hpp",
+    "line": 303,
+    "function": null,
+    "comment": "devices.hpp:303:  'private:' should be preceded by a blank line  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 304,
+    "function": null,
+    "comment": "devices.hpp:304:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 305,
+    "function": null,
+    "comment": "devices.hpp:305:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "devices.hpp",
+    "line": 306,
+    "function": null,
+    "comment": "devices.hpp:306:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "devices.hpp",
+    "line": 309,
+    "function": null,
+    "comment": "devices.hpp:309:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "nullary_function.hpp",
+    "line": null,
+    "function": null,
+    "comment": "nullary_function.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "nullary_function.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "nullary_function.hpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "nullary_function.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "nullary_function.hpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nullary_function.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "nullary_function.hpp:36:  public: should be indented +1 space inside class NullaryFunctionConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "nullary_function.hpp",
+    "line": 37,
+    "function": null,
+    "comment": "nullary_function.hpp:37:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "nullary_function.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nullary_function.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "nullary_function.hpp:47:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "nullary_function.hpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "nullary_function.hpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "nullary_function.hpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "nullary_function.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "nullary_function.hpp:50:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "nullary_function.hpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "nullary_function.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "nullary_function.hpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "nullary_function.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "nullary_function.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "nullary_function.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "nullary_function.hpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nullary_function.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "nullary_function.hpp:55:  private: should be indented +1 space inside class NullaryFunctionConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "nullary_function.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "nullary_function.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "nullary_function.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "nullary_function.hpp:61:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "containers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "containers.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "containers.hpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 37,
+    "function": null,
+    "comment": "containers.hpp:37:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "containers.hpp:38:  public: should be indented +1 space inside class ContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "containers.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "containers.hpp:39:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "containers.hpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "containers.hpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "containers.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "containers.hpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "containers.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "containers.hpp:51:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "containers.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "containers.hpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "containers.hpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "containers.hpp:55:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "containers.hpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "containers.hpp:57:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "containers.hpp:58:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "containers.hpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "containers.hpp:61:  private: should be indented +1 space inside class ContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 62,
+    "function": null,
+    "comment": "containers.hpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "containers.hpp:63:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "containers.hpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "containers.hpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 71,
+    "function": null,
+    "comment": "containers.hpp:71:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 72,
+    "function": null,
+    "comment": "containers.hpp:72:  public: should be indented +1 space inside class DynamicContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "containers.hpp",
+    "line": 73,
+    "function": null,
+    "comment": "containers.hpp:73:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "containers.hpp:85:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 86,
+    "function": null,
+    "comment": "containers.hpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "containers.hpp",
+    "line": 86,
+    "function": null,
+    "comment": "containers.hpp:86:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "containers.hpp",
+    "line": 86,
+    "function": null,
+    "comment": "containers.hpp:86:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 87,
+    "function": null,
+    "comment": "containers.hpp:87:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 88,
+    "function": null,
+    "comment": "containers.hpp:88:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "containers.hpp:89:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 90,
+    "function": null,
+    "comment": "containers.hpp:90:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 91,
+    "function": null,
+    "comment": "containers.hpp:91:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 92,
+    "function": null,
+    "comment": "containers.hpp:92:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "containers.hpp:93:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "containers.hpp:94:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "containers.hpp:95:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 97,
+    "function": null,
+    "comment": "containers.hpp:97:  private: should be indented +1 space inside class DynamicContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "containers.hpp:98:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "containers.hpp:99:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 100,
+    "function": null,
+    "comment": "containers.hpp:100:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 101,
+    "function": null,
+    "comment": "containers.hpp:101:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "containers.hpp:107:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "containers.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "containers.hpp:118:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 119,
+    "function": null,
+    "comment": "containers.hpp:119:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "containers.hpp:120:  private: should be indented +1 space inside class SignedByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 121,
+    "function": null,
+    "comment": "containers.hpp:121:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 134,
+    "function": null,
+    "comment": "containers.hpp:134:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "containers.hpp",
+    "line": 134,
+    "function": null,
+    "comment": "containers.hpp:134:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "containers.hpp:135:  public: should be indented +1 space inside class SignedByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "containers.hpp:136:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "containers.hpp",
+    "line": 148,
+    "function": null,
+    "comment": "containers.hpp:148:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "containers.hpp:149:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 150,
+    "function": null,
+    "comment": "containers.hpp:150:  private: should be indented +1 space inside class UnsignedByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 151,
+    "function": null,
+    "comment": "containers.hpp:151:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 164,
+    "function": null,
+    "comment": "containers.hpp:164:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "containers.hpp",
+    "line": 164,
+    "function": null,
+    "comment": "containers.hpp:164:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 165,
+    "function": null,
+    "comment": "containers.hpp:165:  public: should be indented +1 space inside class UnsignedByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 166,
+    "function": null,
+    "comment": "containers.hpp:166:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "containers.hpp",
+    "line": 176,
+    "function": null,
+    "comment": "containers.hpp:176:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "containers.hpp",
+    "line": 185,
+    "function": null,
+    "comment": "containers.hpp:185:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 196,
+    "function": null,
+    "comment": "containers.hpp:196:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 197,
+    "function": null,
+    "comment": "containers.hpp:197:  private: should be indented +1 space inside class ByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 198,
+    "function": null,
+    "comment": "containers.hpp:198:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 210,
+    "function": null,
+    "comment": "containers.hpp:210:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 211,
+    "function": null,
+    "comment": "containers.hpp:211:  public: should be indented +1 space inside class ByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 212,
+    "function": null,
+    "comment": "containers.hpp:212:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 218,
+    "function": null,
+    "comment": "containers.hpp:218:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "containers.hpp:219:  public: should be indented +1 space inside class ByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 220,
+    "function": null,
+    "comment": "containers.hpp:220:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 227,
+    "function": null,
+    "comment": "containers.hpp:227:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 228,
+    "function": null,
+    "comment": "containers.hpp:228:  public: should be indented +1 space inside class ByteTest  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 229,
+    "function": null,
+    "comment": "containers.hpp:229:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 232,
+    "function": null,
+    "comment": "containers.hpp:232:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 241,
+    "function": null,
+    "comment": "containers.hpp:241:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 242,
+    "function": null,
+    "comment": "containers.hpp:242:  public: should be indented +1 space inside class UnsignedByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "containers.hpp",
+    "line": 243,
+    "function": null,
+    "comment": "containers.hpp:243:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 253,
+    "function": null,
+    "comment": "containers.hpp:253:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 254,
+    "function": null,
+    "comment": "containers.hpp:254:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "containers.hpp",
+    "line": 254,
+    "function": null,
+    "comment": "containers.hpp:254:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "containers.hpp",
+    "line": 254,
+    "function": null,
+    "comment": "containers.hpp:254:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 255,
+    "function": null,
+    "comment": "containers.hpp:255:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 256,
+    "function": null,
+    "comment": "containers.hpp:256:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 257,
+    "function": null,
+    "comment": "containers.hpp:257:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 258,
+    "function": null,
+    "comment": "containers.hpp:258:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 259,
+    "function": null,
+    "comment": "containers.hpp:259:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 260,
+    "function": null,
+    "comment": "containers.hpp:260:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 261,
+    "function": null,
+    "comment": "containers.hpp:261:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 262,
+    "function": null,
+    "comment": "containers.hpp:262:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 263,
+    "function": null,
+    "comment": "containers.hpp:263:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 264,
+    "function": null,
+    "comment": "containers.hpp:264:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 266,
+    "function": null,
+    "comment": "containers.hpp:266:  private: should be indented +1 space inside class UnsignedByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 267,
+    "function": null,
+    "comment": "containers.hpp:267:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 268,
+    "function": null,
+    "comment": "containers.hpp:268:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 269,
+    "function": null,
+    "comment": "containers.hpp:269:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 270,
+    "function": null,
+    "comment": "containers.hpp:270:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 277,
+    "function": null,
+    "comment": "containers.hpp:277:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 278,
+    "function": null,
+    "comment": "containers.hpp:278:  public: should be indented +1 space inside class SignedByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "containers.hpp",
+    "line": 279,
+    "function": null,
+    "comment": "containers.hpp:279:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 289,
+    "function": null,
+    "comment": "containers.hpp:289:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 290,
+    "function": null,
+    "comment": "containers.hpp:290:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "containers.hpp",
+    "line": 290,
+    "function": null,
+    "comment": "containers.hpp:290:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "containers.hpp",
+    "line": 290,
+    "function": null,
+    "comment": "containers.hpp:290:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 291,
+    "function": null,
+    "comment": "containers.hpp:291:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 292,
+    "function": null,
+    "comment": "containers.hpp:292:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 293,
+    "function": null,
+    "comment": "containers.hpp:293:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 294,
+    "function": null,
+    "comment": "containers.hpp:294:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 295,
+    "function": null,
+    "comment": "containers.hpp:295:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 296,
+    "function": null,
+    "comment": "containers.hpp:296:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 297,
+    "function": null,
+    "comment": "containers.hpp:297:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 298,
+    "function": null,
+    "comment": "containers.hpp:298:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 299,
+    "function": null,
+    "comment": "containers.hpp:299:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 301,
+    "function": null,
+    "comment": "containers.hpp:301:  private: should be indented +1 space inside class SignedByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 302,
+    "function": null,
+    "comment": "containers.hpp:302:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 303,
+    "function": null,
+    "comment": "containers.hpp:303:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 304,
+    "function": null,
+    "comment": "containers.hpp:304:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 305,
+    "function": null,
+    "comment": "containers.hpp:305:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "containers.hpp",
+    "line": 314,
+    "function": null,
+    "comment": "containers.hpp:314:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 315,
+    "function": null,
+    "comment": "containers.hpp:315:  public: should be indented +1 space inside class ByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "containers.hpp",
+    "line": 316,
+    "function": null,
+    "comment": "containers.hpp:316:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 326,
+    "function": null,
+    "comment": "containers.hpp:326:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 327,
+    "function": null,
+    "comment": "containers.hpp:327:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "containers.hpp",
+    "line": 327,
+    "function": null,
+    "comment": "containers.hpp:327:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "containers.hpp",
+    "line": 327,
+    "function": null,
+    "comment": "containers.hpp:327:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 328,
+    "function": null,
+    "comment": "containers.hpp:328:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 329,
+    "function": null,
+    "comment": "containers.hpp:329:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 330,
+    "function": null,
+    "comment": "containers.hpp:330:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 331,
+    "function": null,
+    "comment": "containers.hpp:331:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 332,
+    "function": null,
+    "comment": "containers.hpp:332:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 333,
+    "function": null,
+    "comment": "containers.hpp:333:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 334,
+    "function": null,
+    "comment": "containers.hpp:334:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 335,
+    "function": null,
+    "comment": "containers.hpp:335:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 336,
+    "function": null,
+    "comment": "containers.hpp:336:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 337,
+    "function": null,
+    "comment": "containers.hpp:337:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "containers.hpp",
+    "line": 339,
+    "function": null,
+    "comment": "containers.hpp:339:  private: should be indented +1 space inside class ByteContainerConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 340,
+    "function": null,
+    "comment": "containers.hpp:340:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 341,
+    "function": null,
+    "comment": "containers.hpp:341:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 342,
+    "function": null,
+    "comment": "containers.hpp:342:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "containers.hpp",
+    "line": 343,
+    "function": null,
+    "comment": "containers.hpp:343:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "containers.hpp",
+    "line": 346,
+    "function": null,
+    "comment": "containers.hpp:346:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "macros.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "macros.hpp",
+    "line": 19,
+    "function": null,
+    "comment": "macros.hpp:19:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "macros.hpp",
+    "line": 20,
+    "function": null,
+    "comment": "macros.hpp:20:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "macros.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "macros.hpp:46:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "macros.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "macros.hpp:47:  Using C-style cast.  Use reinterpret_cast<Model*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Do not indent within a namespace.",
+    "file": "macros.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "macros.hpp:58:  Do not indent within a namespace  [runtime/indentation_namespace] [4]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "macros.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "macros.hpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "macros.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "macros.hpp:60:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "macros.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "macros.hpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "macros.hpp:66:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "macros.hpp:67:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 92,
+    "function": null,
+    "comment": "macros.hpp:92:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 92,
+    "function": null,
+    "comment": "macros.hpp:92:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "macros.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "macros.hpp:93:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "macros.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "macros.hpp:93:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "macros.hpp:116:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "macros.hpp:116:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "macros.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "macros.hpp:117:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "macros.hpp:117:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "macros.hpp:117:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "blueprints.hpp",
+    "line": null,
+    "function": null,
+    "comment": "blueprints.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "blueprints.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "blueprints.hpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "blueprints.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "blueprints.hpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "blueprints.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "blueprints.hpp:36:  public: should be indented +1 space inside class BluePrintConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "blueprints.hpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "blueprints.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "blueprints.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "blueprints.hpp:46:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "blueprints.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "blueprints.hpp:46:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "blueprints.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "blueprints.hpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "blueprints.hpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "blueprints.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "blueprints.hpp:51:  private: should be indented +1 space inside class BluePrintConcept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "blueprints.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "blueprints.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "blueprints.hpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "blueprints.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "blueprints.hpp:56:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "concepts.cpp",
+    "line": null,
+    "function": null,
+    "comment": "concepts.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "concepts.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "concepts.cpp:14:  Found C system header after C++ system header. Should be: concepts.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "concepts.cpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "concepts.cpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "concepts.cpp:31:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "concepts.cpp:34:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "concepts.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "concepts.cpp:35:  public: should be indented +1 space inside class Concept  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "concepts.cpp:36:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "concepts.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "concepts.cpp:37:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "concepts.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "concepts.cpp:39:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "concepts.cpp:43:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "concepts.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "concepts.cpp:44:  public: should be indented +1 space inside class A  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "concepts.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "concepts.cpp:45:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "concepts.cpp:45:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "concepts.cpp:48:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "concepts.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "concepts.cpp:49:  public: should be indented +1 space inside class BluePrintCandidate  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "concepts.cpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "concepts.cpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "concepts.cpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "concepts.cpp:55:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "concepts.cpp:56:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "concepts.cpp:57:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not use namespace using-directives. Use using-declarations instead.",
+    "file": "concepts.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "concepts.cpp:63:  Do not use namespace using-directives.  Use using-declarations instead.  [build/namespaces] [5]",
+    "tags": ["hicpp","code-standards","google-cpp","namespace","misra-cpp","using-directives","using-declarations"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "concepts.cpp:69:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "concepts.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "concepts.cpp:69:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "concepts.cpp:70:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "concepts.cpp:71:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "concepts.cpp:71:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "concepts.cpp:74:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "concepts.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "concepts.cpp:74:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "concepts.cpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "concepts.cpp:76:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "concepts.cpp:76:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "concepts.cpp:79:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "concepts.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "concepts.cpp:79:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "concepts.cpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "concepts.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "concepts.cpp:81:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "concepts.cpp:84:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "concepts.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "concepts.cpp:84:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "concepts.cpp:85:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "concepts.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "concepts.cpp:85:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "concepts.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "concepts.cpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "concepts.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "concepts.cpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "concepts.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "concepts.cpp:93:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "concepts.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "concepts.cpp:94:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "concepts.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "concepts.cpp:95:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "containers.hpp",
+    "line": 296,
+    "function": null,
+    "comment": "Variable 'n' is assigned a value that is never used.",
+    "tags": ["hicpp","code-standards","redundancy"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "containers.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "containers.hpp",
+    "line": 91,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "containers.hpp",
+    "line": 259,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "containers.hpp",
+    "line": 295,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "containers.hpp",
+    "line": 332,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "concepts.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "concepts.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "concepts.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "streams.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "streams.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "devices.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "devices.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "devices.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, Implementation, 6",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "nullary_function.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "nullary_function.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "containers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "containers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "blueprints.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "blueprints.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "concepts.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "concepts.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

@@ -1,0 +1,186 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "turtlebot_joy.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:31:  Include 'geometry_msgs/Twist.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "turtlebot_joy.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:39:  public: should be indented +1 space inside class TurtlebotTeleop  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "turtlebot_joy.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:42:  private: should be indented +1 space inside class TurtlebotTeleop  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "turtlebot_joy.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:58:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:68:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "turtlebot_joy.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "turtlebot_joy.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:85:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:94:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "turtlebot_joy.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:100:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "turtlebot_joy.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:102:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "turtlebot_joy.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:102:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:103:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "turtlebot_joy.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:105:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "turtlebot_joy.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "turtlebot_joy.cpp:110:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "turtlebot_joy.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "turtlebot_joy.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "turtlebot_joy.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "turtlebot_joy.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "turtlebot_joy.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, TurtlebotTeleop, 8",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  }
+]

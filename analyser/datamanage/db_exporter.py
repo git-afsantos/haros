@@ -33,60 +33,55 @@ def jsonifyPackage(pkg_id, cur):
 	s += "  {\n"
 
 	name = dbe.getMatchVal(cur, "Packages", ["name"], "id", pkg_id)
-	s += "    \"Name\": \"" + name + "\",\n"
+	s += "    \"id\": \"" + name + "\",\n"
 
 	isMeta = dbe.getMatchVal(cur, "Packages", ["metapackage"], "id", pkg_id)
-	s += "    \"Metapackage\": " + ("true" if isMeta == 1 else "false") + ",\n"
 	
 	dep_ids = dbe.getMatchSet(cur, "Package_Dependencies", ["dependency_id", "type_id"], "package_id", pkg_id)
 	run_key = dbe.getMatchVal(cur, "Package_Dependency_Types", ["id"], "dependency_type", "run_depend")
 	run_ids = set(d[0] for d in dep_ids if d[1] == run_key)
 	run_deps = dbe.getMatchValFromSet(cur, "Packages", ["name"], "id", run_ids)
 	if isMeta == 1:
-		s += "    \"Contains\": [\n" # Only used for metapackages
+		s += "    \"children\": [\n" # Only used for metapackages
 		s += jsonifyMultiItem(iter(run_deps))
 		s += "    ],\n"
 
 	dscrp = dbe.getMatchVal(cur, "Packages", ["description"], "id", pkg_id)
-	s += "    \"Description\": \"" + dscrp + "\",\n"
+	s += "    \"description\": \"" + dscrp + "\",\n"
 	
 	wiki = dbe.getMatchVal(cur, "Packages", ["wiki"], "id", pkg_id)
 	if wiki is None: wiki = ""
-	s += "    \"Wiki\": \"" + wiki + "\",\n"
+	s += "    \"wiki\": \"" + wiki + "\",\n"
 
-	pkg_metrics = dbe.getMatch(cur, "Package_Metrics",
-			["metric_id", "value"], "package_id", pkg_id)
-	s += "    \"Metrics\": {\n"
-	for i, m in enumerate(pkg_metrics):
-		s += "            \"" + str(m[0]) + "\": " + str(m[1])
-		if i < len(pkg_metrics) - 1:
-			s += ",\n"
-		else:
-			s += "\n"
-	s += "    },\n"
+	#pkg_metrics = dbe.getMatch(cur, "Package_Metrics",
+			#["metric_id", "value"], "package_id", pkg_id)
+	#s += "    \"metrics\": {\n"
+	#for i, m in enumerate(pkg_metrics):
+		#s += "            \"" + str(m[0]) + "\": " + str(m[1])
+		#if i < len(pkg_metrics) - 1:
+			#s += ",\n"
+		#else:
+			#s += "\n"
+	#s += "    },\n"
 
-	s += "    \"Repositories\": [\n"
+	s += "    \"repositories\": [\n"
 	repo_ids = dbe.getMatchSet(cur, "Repository_Packages", ["repository_id"], "package_id", pkg_id)
 	repo_names = dbe.getMatchValFromSet(cur, "Repositories", "name", "id", repo_ids)
 	s += jsonifyMultiItem(iter(repo_names))
 	s += "    ],\n"
 
-	#s += "    \"Authors\": [\n"
-	#author_ids = dbe.getMatchSet(cur, "Package_Authors", ["person_id"], "package_id", pkg_id)
-	#author_names = dbe.getMatchValFromSet(cur, "People", "name", "id", author_ids)
-	#if None in author_names: author_names.remove(None)
-	#s += jsonifyMultiItem(iter(author_names))
-	#s += "    ],\n"
+	s += "    \"authors\": [\n"
+	author_ids = dbe.getMatchVal(cur, "Packages", ["authors"], "id", pkg_id)
+	s += author_ids
+	s += "    ],\n"
 
-	#s += "    \"Maintainers\": [\n"
-	#mntnr_ids = dbe.getMatchSet(cur, "Package_Maintainers", ["person_id"], "package_id", pkg_id)
-	#mntnr_names = dbe.getMatchValFromSet(cur, "People", "name", "id", mntnr_ids)
-	#if None in mntnr_names: mntnr_names.remove(None)
-	#s += jsonifyMultiItem(iter(mntnr_names))
-	#s += "    ],\n"
+	s += "    \"maintainers\": [\n"
+	mntnr_ids = dbe.getMatchVal(cur, "Packages", ["maintainers"], "id", pkg_id)
+	s += mntnr_ids
+	s += "    ],\n"
 
-	s += "    \"Analysis\": {\n"
-	s += "      \"Noncompliance\": {\n"
+	s += "    \"analysis\": {\n"
+	s += "      \"violations\": {\n"
 	non_cpl = dbe.getNonComplianceIdSummary(cur, pkg_id)
 	c = len(non_cpl)
 	for i, n in non_cpl.iteritems():
@@ -99,11 +94,14 @@ def jsonifyPackage(pkg_id, cur):
 	s += "      }\n"
 	s += "    },\n"
 	
-	s += "    \"Edge\": [\n"
+	s += "    \"dependencies\": [\n"
 	# dep_ids defined above, in case meta
 	all_deps = dbe.getMatchValFromSet(cur, "Packages", ["name"], "id", dep_ids)
 	s += jsonifyMultiItem(iter(all_deps))
-	s += "    ]\n"
+	s += "    ],\n"
+
+	s += "    \"size\": " + str(dbe.getMatchVal(cur, "Packages", ["size"], "id", pkg_id)) + "\n"
+
 	s += "  }"
 	return s
 
