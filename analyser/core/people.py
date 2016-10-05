@@ -94,5 +94,5 @@ class PersonSet:
         return None
 
     def commaString(self):
-        return ",".join(str(p.name) for p in self.people)
+        return ",".join("\"" + str(p.name) + "\"" for p in self.people)
 
