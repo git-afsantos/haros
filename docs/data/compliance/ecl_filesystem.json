@@ -1,0 +1,602 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "filesystem.hpp",
+    "line": null,
+    "function": null,
+    "comment": "filesystem.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "errors.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "errors.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "errors.hpp:22:  Include 'ecl/config/macros.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "errors.hpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.hpp",
+    "line": 34,
+    "function": null,
+    "comment": "errors.hpp:34:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "errors.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "errors.hpp:35:  public: should be indented +1 space inside class ecl_time_lite_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "errors.hpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "errors.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "errors.hpp:42:  protected: should be indented +1 space inside class ecl_time_lite_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "errors.hpp:43:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "errors.hpp:43:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "errors.hpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "errors.hpp:44:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "errors.hpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "errors.hpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "errors.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "errors.hpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "errors.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "errors.hpp:47:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "errors.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "errors.hpp:50:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "realpath.hpp",
+    "line": null,
+    "function": null,
+    "comment": "realpath.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "realpath.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "realpath.hpp:32:  Found C system header after C++ system header. Should be: realpath.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "realpath.hpp:38:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "realpath.hpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "realpath.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "realpath.hpp:61:  Is this a non-const reference? If so, make const or use a pointer: std::string& absolute_path  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "realpath.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "realpath.hpp:64:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "macros.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "macros.hpp:25:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "macros.hpp:26:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "macros.hpp:28:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "macros.hpp:32:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "realpath.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "realpath.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "realpath.cpp:19:  Found C system header after C++ system header. Should be: realpath.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "realpath.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "realpath.cpp:19:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "realpath.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "realpath.cpp:20:  Include 'climits' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "realpath.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "realpath.cpp:23:  Found C system header after C++ system header. Should be: realpath.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "realpath.cpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "realpath.cpp:36:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "realpath.cpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "realpath.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "realpath.cpp:36:  Is this a non-const reference? If so, make const or use a pointer: std::string& absolute_path  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "realpath.cpp:43:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not use variable-length arrays.",
+    "file": "realpath.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "realpath.cpp:46:  Do not use variable-length arrays.  Use an appropriately named ('k' followed by CamelCase) compile-time constant for the size.  [runtime/arrays] [1]",
+    "tags": ["code-standards","google-cpp","arrays","variables","constants"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "realpath.cpp:51:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "realpath.cpp:51:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "realpath.cpp:52:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "realpath.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "realpath.cpp:52:  Missing space before ( in switch(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "realpath.cpp:53:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "realpath.cpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "realpath.cpp:56:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "realpath.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "realpath.cpp:56:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "realpath.cpp:57:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "realpath.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "realpath.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "realpath.cpp:59:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "realpath.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "realpath.cpp:59:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "realpath.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "realpath.cpp:66:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "realpath.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "realpath.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "realpath.cpp:17:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "realpath.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "realpath.cpp:19:  Found C system header after C++ system header. Should be: realpath.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "realpath.cpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "realpath.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "realpath.cpp:30:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "To-do comments should look like '// TODO(my_username): Stuff.'.",
+    "file": "realpath.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "realpath.cpp:35:  Missing username in TODO; it should look like '// TODO(my_username): Stuff.'  [readability/todo] [2]",
+    "tags": ["comments","code-standards","formatting","google-cpp","todo-comment"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "realpath.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "realpath.cpp:37:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "realpath.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "realpath.cpp:48:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "realpath.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "realpath.cpp:49:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "realpath.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "realpath.cpp:50:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "realpath.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Wrap use of the C Standard Library.",
+    "file": "realpath.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found use of errno.",
+    "tags": ["hicpp","code-standards","c","libraries","c-standard-library","misra-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "realpath.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "realpath.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "realpath.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "realpath.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

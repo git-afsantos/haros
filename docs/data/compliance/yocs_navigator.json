@@ -1,0 +1,2698 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "default_params.h",
+    "line": null,
+    "function": null,
+    "comment": "default_params.h:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.",
+    "file": "default_params.h",
+    "line": 7,
+    "function": null,
+    "comment": "default_params.h:7:  #ifndef header guard has wrong style, please use: _HOME_ANDRE_ROS_HAROS_ANALYSER_DEFAULT_PARAMS_H_  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the symbol name should be <PACKAGE>_<PATH>_<FILE>_H.",
+    "file": "default_params.h",
+    "line": 7,
+    "function": null,
+    "comment": "default_params.h:7:  #ifndef header guard has wrong style, please use: DEFAULT_PARAMS_H  [build/header_guard] [5]",
+    "tags": ["ros","code-standards","ros-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The format of the guard's end should be '#endif  // <PROJECT>_<PATH>_<FILE>_H_' or '#endif  /* <PROJECT>_<PATH>_<FILE>_H_ */'.",
+    "file": "default_params.h",
+    "line": 23,
+    "function": null,
+    "comment": "default_params.h:23:  #endif line should be '#endif  // _HOME_ANDRE_ROS_HAROS_ANALYSER_DEFAULT_PARAMS_H_'  [build/header_guard] [5]",
+    "tags": ["code-standards","google-cpp","header","header-guard","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "default_params.h",
+    "line": 10,
+    "function": null,
+    "comment": "default_params.h:10:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not indent within a namespace.",
+    "file": "default_params.h",
+    "line": 11,
+    "function": null,
+    "comment": "default_params.h:11:  Do not indent within a namespace  [runtime/indentation_namespace] [4]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "default_params.h",
+    "line": 11,
+    "function": null,
+    "comment": "default_params.h:11:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not indent within a namespace.",
+    "file": "default_params.h",
+    "line": 16,
+    "function": null,
+    "comment": "default_params.h:16:  Do not indent within a namespace  [runtime/indentation_namespace] [4]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","namespace"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "default_params.h",
+    "line": 16,
+    "function": null,
+    "comment": "default_params.h:16:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "default_params.h",
+    "line": 22,
+    "function": null,
+    "comment": "default_params.h:22:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "default_params.h",
+    "line": 23,
+    "function": null,
+    "comment": "default_params.h:23:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "default_params.h",
+    "line": 20,
+    "function": null,
+    "comment": "default_params.h:20:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "semantic_navigator.hpp",
+    "line": null,
+    "function": null,
+    "comment": "semantic_navigator.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "semantic_navigator.hpp",
+    "line": 7,
+    "function": null,
+    "comment": "semantic_navigator.hpp:7:  Include 'actionlib/client/simple_action_client.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "semantic_navigator.hpp",
+    "line": 13,
+    "function": null,
+    "comment": "semantic_navigator.hpp:13:  Include 'geometry_msgs/PoseStamped.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "semantic_navigator.hpp",
+    "line": 17,
+    "function": null,
+    "comment": "semantic_navigator.hpp:17:  Include 'yocs_navigator/basic_move_controller.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "semantic_navigator.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "semantic_navigator.hpp:22:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "semantic_navigator.hpp",
+    "line": 24,
+    "function": null,
+    "comment": "semantic_navigator.hpp:24:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "semantic_navigator.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "semantic_navigator.hpp:25:  public: should be indented +1 space inside class SemanticNavigator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "semantic_navigator.hpp:26:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "semantic_navigator.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "semantic_navigator.hpp:26:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "semantic_navigator.hpp:27:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "semantic_navigator.hpp:27:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "semantic_navigator.hpp",
+    "line": 33,
+    "function": null,
+    "comment": "semantic_navigator.hpp:33:  protected: should be indented +1 space inside class SemanticNavigator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "file": "semantic_navigator.hpp",
+    "line": 33,
+    "function": null,
+    "comment": "semantic_navigator.hpp:33:  'protected:' should be preceded by a blank line  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "semantic_navigator.hpp:41:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "semantic_navigator.hpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "semantic_navigator.hpp:42:  Is this a non-const reference? If so, make const or use a pointer: yocs_msgs::Waypoint& waypoint  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "semantic_navigator.hpp:44:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "semantic_navigator.hpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "semantic_navigator.hpp:45:  Is this a non-const reference? If so, make const or use a pointer: int& move_base_result  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "semantic_navigator.hpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "semantic_navigator.hpp:46:  Is this a non-const reference? If so, make const or use a pointer: int& navi_result  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "semantic_navigator.hpp:47:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "semantic_navigator.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "semantic_navigator.hpp:47:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "semantic_navigator.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: bool& retry  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "semantic_navigator.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: bool& final_result  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "semantic_navigator.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "semantic_navigator.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: std::string& message  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "semantic_navigator.hpp:48:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "semantic_navigator.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "semantic_navigator.hpp:56:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "semantic_navigator.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "semantic_navigator.hpp:58:  private: should be indented +1 space inside class SemanticNavigator  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.hpp",
+    "line": 62,
+    "function": null,
+    "comment": "semantic_navigator.hpp:62:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 75,
+    "function": null,
+    "comment": "semantic_navigator.hpp:75:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "semantic_navigator.hpp:76:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "semantic_navigator.hpp:77:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "semantic_navigator.hpp:78:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "semantic_navigator.hpp:79:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.hpp",
+    "line": 80,
+    "function": null,
+    "comment": "semantic_navigator.hpp:80:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "semantic_navigator.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "semantic_navigator.hpp:82:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "semantic_navigator.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "semantic_navigator.hpp:67:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "basic_move_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "basic_move_controller.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "basic_move_controller.hpp",
+    "line": 13,
+    "function": null,
+    "comment": "basic_move_controller.hpp:13:  Include 'geometry_msgs/Twist.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "basic_move_controller.hpp",
+    "line": 20,
+    "function": null,
+    "comment": "basic_move_controller.hpp:20:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "basic_move_controller.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "basic_move_controller.hpp:21:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "basic_move_controller.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "basic_move_controller.hpp:22:  public: should be indented +1 space inside class BasicMoveController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "basic_move_controller.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "basic_move_controller.hpp:23:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "basic_move_controller.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "basic_move_controller.hpp:23:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.hpp",
+    "line": 24,
+    "function": null,
+    "comment": "basic_move_controller.hpp:24:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "basic_move_controller.hpp",
+    "line": 24,
+    "function": null,
+    "comment": "basic_move_controller.hpp:24:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& n  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "basic_move_controller.hpp:32:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "basic_move_controller.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "basic_move_controller.hpp:45:  protected: should be indented +1 space inside class BasicMoveController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "file": "basic_move_controller.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "basic_move_controller.hpp:45:  'protected:' should be preceded by a blank line  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "basic_move_controller.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "basic_move_controller.hpp:48:  private: should be indented +1 space inside class BasicMoveController  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "basic_move_controller.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "basic_move_controller.hpp:57:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "basic_move_controller.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "basic_move_controller.hpp:55:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "semantic_navigator_main.cpp",
+    "line": null,
+    "function": null,
+    "comment": "semantic_navigator_main.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator_main.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "semantic_navigator_main.cpp:10:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "semantic_navigator.cpp",
+    "line": null,
+    "function": null,
+    "comment": "semantic_navigator.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "semantic_navigator.cpp:8:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "semantic_navigator.cpp:10:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "semantic_navigator.cpp:14:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "semantic_navigator.cpp:15:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "semantic_navigator.cpp:18:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "semantic_navigator.cpp:22:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "semantic_navigator.cpp:23:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "semantic_navigator.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "semantic_navigator.cpp:23:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "semantic_navigator.cpp:27:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "semantic_navigator.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "semantic_navigator.cpp:43:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "semantic_navigator.cpp:44:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "semantic_navigator.cpp:44:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "semantic_navigator.cpp:45:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "semantic_navigator.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "semantic_navigator.cpp:45:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "semantic_navigator.cpp:49:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "semantic_navigator.cpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "semantic_navigator.cpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "semantic_navigator.cpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "semantic_navigator.cpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "semantic_navigator.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "semantic_navigator.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "semantic_navigator.cpp:66:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "semantic_navigator.cpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "semantic_navigator.cpp:68:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "semantic_navigator.cpp:72:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "semantic_navigator.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "semantic_navigator.cpp:74:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "semantic_navigator.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "semantic_navigator.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "semantic_navigator.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "semantic_navigator.cpp:88:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "semantic_navigator.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "semantic_navigator.cpp:89:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "semantic_navigator.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "semantic_navigator.cpp:90:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "semantic_navigator.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "semantic_navigator.cpp:96:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "semantic_navigator.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "semantic_navigator.cpp:34:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "navigation_handler.cpp",
+    "line": null,
+    "function": null,
+    "comment": "navigation_handler.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 9,
+    "function": null,
+    "comment": "navigation_handler.cpp:9:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "navigation_handler.cpp:10:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "navigation_handler.cpp:11:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "navigation_handler.cpp:22:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "navigation_handler.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "navigation_handler.cpp:22:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "navigation_handler.cpp:22:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "navigation_handler.cpp:23:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "navigation_handler.cpp:30:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "navigation_handler.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "navigation_handler.cpp:37:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "navigation_handler.cpp:37:  Missing space before ( in switch(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "navigation_handler.cpp:52:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "navigation_handler.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "navigation_handler.cpp:54:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "navigation_handler.cpp:66:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "navigation_handler.cpp:69:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "navigation_handler.cpp:70:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "navigation_handler.cpp:73:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "navigation_handler.cpp:73:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "navigation_handler.cpp:74:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "navigation_handler.cpp:74:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "navigation_handler.cpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "navigation_handler.cpp:76:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "navigation_handler.cpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "navigation_handler.cpp:81:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "navigation_handler.cpp:82:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "navigation_handler.cpp:83:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "navigation_handler.cpp:95:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "navigation_handler.cpp:97:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "navigation_handler.cpp:97:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "navigation_handler.cpp:104:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "navigation_handler.cpp:105:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "navigation_handler.cpp:119:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "navigation_handler.cpp:120:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "navigation_handler.cpp:121:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "navigation_handler.cpp:124:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 124,
+    "function": null,
+    "comment": "navigation_handler.cpp:124:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "navigation_handler.cpp:125:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "navigation_handler.cpp:125:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "navigation_handler.cpp:126:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "navigation_handler.cpp:128:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "navigation_handler.cpp:131:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "navigation_handler.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "navigation_handler.cpp:132:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "navigation_handler.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "navigation_handler.cpp:135:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "navigation_handler.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 147,
+    "function": null,
+    "comment": "navigation_handler.cpp:147:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "navigation_handler.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "navigation_handler.cpp:148:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "navigation_handler.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "navigation_handler.cpp:152:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "navigation_handler.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "navigation_handler.cpp:155:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "navigation_handler.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "navigation_handler.cpp:115:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "utils.cpp",
+    "line": null,
+    "function": null,
+    "comment": "utils.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "utils.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "utils.cpp:8:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 9,
+    "function": null,
+    "comment": "utils.cpp:9:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "utils.cpp",
+    "line": 9,
+    "function": null,
+    "comment": "utils.cpp:9:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "utils.cpp:10:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "utils.cpp:12:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "utils.cpp:13:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "utils.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "utils.cpp:15:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "utils.cpp:15:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "utils.cpp:16:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "utils.cpp:24:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "utils.cpp:24:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "utils.cpp:25:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "utils.cpp:38:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "utils.cpp:39:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "utils.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "utils.cpp:45:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "utils.cpp:46:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "utils.cpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "utils.cpp:55:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "utils.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "utils.cpp:69:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "utils.cpp:73:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "utils.cpp:74:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "utils.cpp:77:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "utils.cpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "utils.cpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "utils.cpp:84:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "utils.cpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "utils.cpp:87:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "utils.cpp:88:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "utils.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "utils.cpp:92:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "utils.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "utils.cpp:92:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "utils.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "utils.cpp:92:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "utils.cpp:95:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "utils.cpp:96:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "utils.cpp:100:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "utils.cpp:100:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "utils.cpp:101:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "utils.cpp:105:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "utils.cpp:105:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "utils.cpp:106:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "utils.cpp:110:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "utils.cpp:110:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "utils.cpp:110:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "utils.cpp:111:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "utils.cpp:115:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "utils.cpp:115:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 116,
+    "function": null,
+    "comment": "utils.cpp:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "utils.cpp:120:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "utils.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "utils.cpp:120:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "utils.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "utils.cpp:120:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "utils.cpp:121:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "utils.cpp:132:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "utils.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "utils.cpp:132:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "utils.cpp:133:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "utils.cpp:134:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "utils.cpp:135:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "utils.cpp:142:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "utils.cpp:142:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "utils.cpp:143:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "utils.cpp:143:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "utils.cpp:148:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "utils.cpp:148:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "utils.cpp:149:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "utils.cpp:154:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "utils.cpp:154:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 155,
+    "function": null,
+    "comment": "utils.cpp:155:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 158,
+    "function": null,
+    "comment": "utils.cpp:158:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "utils.cpp:160:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "utils.cpp:160:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "utils.cpp:161:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "utils.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "utils.cpp:166:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "utils.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "utils.cpp:166:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "utils.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "utils.cpp:166:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "utils.cpp:175:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "utils.cpp:176:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "utils.cpp:178:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "utils.cpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "utils.cpp:183:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "utils.cpp",
+    "line": 184,
+    "function": null,
+    "comment": "utils.cpp:184:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 185,
+    "function": null,
+    "comment": "utils.cpp:185:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 186,
+    "function": null,
+    "comment": "utils.cpp:186:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "utils.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "utils.cpp:191:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 192,
+    "function": null,
+    "comment": "utils.cpp:192:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "utils.cpp",
+    "line": 196,
+    "function": null,
+    "comment": "utils.cpp:196:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "utils.cpp",
+    "line": 198,
+    "function": null,
+    "comment": "utils.cpp:198:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 203,
+    "function": null,
+    "comment": "utils.cpp:203:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "utils.cpp",
+    "line": 208,
+    "function": null,
+    "comment": "utils.cpp:208:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "utils.cpp",
+    "line": 211,
+    "function": null,
+    "comment": "utils.cpp:211:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "utils.cpp",
+    "line": 207,
+    "function": null,
+    "comment": "utils.cpp:207:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "basic_move_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "basic_move_controller.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 6,
+    "function": null,
+    "comment": "basic_move_controller.cpp:6:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 8,
+    "function": null,
+    "comment": "basic_move_controller.cpp:8:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 10,
+    "function": null,
+    "comment": "basic_move_controller.cpp:10:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "basic_move_controller.cpp:11:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "basic_move_controller.cpp:12:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "basic_move_controller.cpp:16:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "basic_move_controller.cpp:16:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "basic_move_controller.cpp:18:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "basic_move_controller.cpp:23:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "basic_move_controller.cpp:26:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "basic_move_controller.cpp:27:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "basic_move_controller.cpp:29:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "basic_move_controller.cpp:32:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "basic_move_controller.cpp:33:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "basic_move_controller.cpp:33:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "basic_move_controller.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "basic_move_controller.cpp:35:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "basic_move_controller.cpp:38:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "basic_move_controller.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "basic_move_controller.cpp:39:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "basic_move_controller.cpp:43:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "basic_move_controller.cpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "basic_move_controller.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "basic_move_controller.cpp:49:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "basic_move_controller.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "basic_move_controller.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "basic_move_controller.cpp:54:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "basic_move_controller.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "basic_move_controller.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "basic_move_controller.cpp:59:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "basic_move_controller.cpp:63:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "basic_move_controller.cpp:72:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "basic_move_controller.cpp:75:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "basic_move_controller.cpp:81:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "basic_move_controller.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "basic_move_controller.cpp:83:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "basic_move_controller.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "basic_move_controller.cpp:90:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "basic_move_controller.cpp:95:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "basic_move_controller.cpp:99:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "basic_move_controller.cpp:101:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "basic_move_controller.cpp:107:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "basic_move_controller.cpp:108:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "basic_move_controller.cpp:114:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "basic_move_controller.cpp:118:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "basic_move_controller.cpp:121:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "basic_move_controller.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "basic_move_controller.cpp:126:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "basic_move_controller.cpp:130:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "basic_move_controller.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "basic_move_controller.cpp:133:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Namespaces should have a comment at the end.",
+    "file": "basic_move_controller.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "basic_move_controller.cpp:137:  Namespace should be terminated with '// namespace yocs_navigator'  [readability/namespace] [5]",
+    "tags": ["ros","comments","code-standards","formatting","google-cpp","ros-cpp","namespace"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "basic_move_controller.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "basic_move_controller.cpp:137:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "basic_move_controller.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "basic_move_controller.cpp:16:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "basic_move_controller.cpp",
+    "line": 118,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "basic_move_controller.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "basic_move_controller.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "basic_move_controller.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "navigation_handler.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "The scope of the variable 'move_base_result' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "navigation_handler.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "The scope of the variable 'move_base_result' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "navigation_handler.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 11,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "utils.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "semantic_navigator_main.cpp",
+    "line": 9,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "The function 'backward' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "The function 'forward' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "The function 'spinClockwise' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "The function 'spinCounterClockwise' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "The function 'stop' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "The function 'turn' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "basic_move_controller.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "The function 'turn2' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "setup.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "basic_move_controller.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "__init__.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "__init__.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "default_params.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "default_params.h",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "semantic_navigator.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "semantic_navigator.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, SemanticNavigator, 14",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "basic_move_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "basic_move_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, BasicMoveController, 6",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "semantic_navigator_main.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "semantic_navigator.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "navigation_handler.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "utils.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "basic_move_controller.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  }
+]

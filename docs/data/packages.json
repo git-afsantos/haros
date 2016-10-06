@@ -1,0 +1,3619 @@
+[
+  {
+    "id": "turtlebot",
+    "children": [
+            "turtlebot_teleop",
+            "turtlebot_bringup"
+    ],
+    "description": "The turtlebot meta package provides all the basic drivers for running and using a TurtleBot.",
+    "wiki": "http://ros.org/wiki/turtlebot",
+    "repositories": [
+            "turtlebot/turtlebot"
+    ],
+    "authors": [
+"Tully Foote","Melonee Wise","Michael Ferguson"    ],
+    "maintainers": [
+"Daniel Stonier","Michael Ferguson","Melonee Wise","Tully Foote"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "turtlebot_teleop",
+            "turtlebot_bringup"
+    ],
+    "size": 1.11
+  },
+  {
+    "id": "turtlebot_teleop",
+    "description": "Provides teleoperation using joysticks or keyboard.",
+    "wiki": "http://ros.org/wiki/turtlebot_teleop",
+    "repositories": [
+            "turtlebot/turtlebot"
+    ],
+    "authors": [
+"Melonee Wise"    ],
+    "maintainers": [
+"Melonee Wise"    ],
+    "analysis": {
+      "violations": {
+        "10017": 1,
+        "2": 1,
+        "3": 1,
+        "10025": 1,
+        "10414": 2,
+        "10031": 1,
+        "10001": 2,
+        "18": 1,
+        "10004": 7,
+        "10014": 2,
+        "10010": 2,
+        "10011": 1,
+        "10206": 1
+      }
+    },
+    "dependencies": [
+            "yocs_velocity_smoother",
+            "kobuki_safety_controller",
+            "turtlebot_bringup"
+    ],
+    "size": 4.65
+  },
+  {
+    "id": "turtlebot_bringup",
+    "description": "turtlebot_bringup provides roslaunch scripts for starting the TurtleBot base functionality.",
+    "wiki": "http://ros.org/wiki/turtlebot_bringup",
+    "repositories": [
+            "turtlebot/turtlebot"
+    ],
+    "authors": [
+"Tully Foote"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1
+      }
+    },
+    "dependencies": [
+            "yocs_cmd_vel_mux",
+            "kobuki_bumper2pc",
+            "kobuki_safety_controller",
+            "kobuki_node"
+    ],
+    "size": 1.91
+  },
+  {
+    "id": "yocs_keyop",
+    "description": "Keyboard teleoperation for your robot",
+    "wiki": "http://ros.org/wiki/yocs_keyop",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Daniel Stonier","Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10208": 1,
+        "2": 1,
+        "3": 1,
+        "5": 1,
+        "10025": 12,
+        "10414": 2,
+        "10001": 15,
+        "18": 1,
+        "10004": 54,
+        "10100": 3,
+        "10106": 10,
+        "10010": 2,
+        "10206": 1
+      }
+    },
+    "dependencies": [
+            "ecl_threads",
+            "ecl_exceptions",
+            "ecl_time"
+    ],
+    "size": 13.96
+  },
+  {
+    "id": "yocs_navigator",
+    "description": "Navigation module for robots",
+    "wiki": "http://wiki.ros.org/yocs_navigator",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jihoon Lee","Jorge Simon Santos"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 8,
+        "2": 3,
+        "3": 2,
+        "10001": 52,
+        "18": 2,
+        "10004": 70,
+        "10005": 16,
+        "10010": 6,
+        "10014": 8,
+        "10017": 29,
+        "10019": 3,
+        "10024": 2,
+        "10025": 12,
+        "10026": 3,
+        "10414": 22,
+        "10031": 38,
+        "10035": 2,
+        "30005": 2,
+        "10401": 7,
+        "10320": 10,
+        "10403": 2,
+        "10201": 1,
+        "10202": 1,
+        "10203": 1,
+        "10206": 4,
+        "10208": 7,
+        "10100": 8,
+        "10103": 7,
+        "10104": 4,
+        "10106": 3,
+        "10107": 2
+      }
+    },
+    "dependencies": [
+            "yocs_math_toolkit"
+    ],
+    "size": 25.91
+  },
+  {
+    "id": "yocs_safety_controller",
+    "description": "A controller ensuring the safe operation of your robot.The SafetyController listens to ranger readings in order to stop (and move back), if obstacles get to close.This controller can be enabled/disabled.",
+    "wiki": "http://ros.org/wiki/yocsd_safety_controller",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10208": 2,
+        "10016": 1,
+        "10306": 2,
+        "3": 1,
+        "1": 2,
+        "10401": 1,
+        "10025": 5,
+        "2": 1,
+        "10414": 1,
+        "10320": 2,
+        "10001": 12,
+        "18": 1,
+        "10004": 32,
+        "10100": 3,
+        "10010": 4,
+        "10106": 7,
+        "10206": 5
+      }
+    },
+    "dependencies": [
+            "yocs_controllers",
+            "ecl_threads"
+    ],
+    "size": 10.15
+  },
+  {
+    "id": "yocs_waypoint_provider",
+    "description": "Parse a multiple poses from yaml and provide as topic and service. This package is highly inspired by yocs_waypoints_navi",
+    "wiki": "http://ros.org/wiki/yocs_waypoint_provider",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jihoon Lee"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 3,
+        "3": 2,
+        "10001": 26,
+        "18": 2,
+        "10004": 34,
+        "10005": 8,
+        "10010": 3,
+        "10011": 2,
+        "10017": 12,
+        "10019": 2,
+        "10024": 1,
+        "10025": 3,
+        "10026": 1,
+        "10414": 11,
+        "10035": 1,
+        "10320": 20,
+        "10403": 1,
+        "10206": 6,
+        "10208": 5,
+        "10100": 5,
+        "10103": 3,
+        "10106": 2
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 16.26
+  },
+  {
+    "id": "yocs_controllers",
+    "description": "Library for various controller types and algorithms",
+    "wiki": "http://ros.org/wiki/yocs_controllers",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "2": 1,
+        "3": 1,
+        "10025": 2,
+        "10306": 1,
+        "10004": 10,
+        "10010": 2,
+        "10106": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 4.23
+  },
+  {
+    "id": "yocs_ar_marker_tracking",
+    "description": "Collecting, tracking and generating statistics for ar markers from ar_track_alvar.",
+    "wiki": "http://wiki.ros.org/yocs_ar_marker_tracking",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 4,
+        "3": 3,
+        "5": 1,
+        "10001": 81,
+        "18": 1,
+        "10004": 54,
+        "10005": 9,
+        "10010": 3,
+        "10011": 4,
+        "10015": 1,
+        "10017": 3,
+        "10019": 8,
+        "10414": 17,
+        "10031": 16,
+        "10033": 1,
+        "10401": 2,
+        "10320": 16,
+        "10321": 3,
+        "10206": 3,
+        "10208": 7,
+        "10100": 6,
+        "10102": 1,
+        "10103": 4,
+        "10106": 3,
+        "10107": 1,
+        "10108": 1
+      }
+    },
+    "dependencies": [
+            "yocs_math_toolkit"
+    ],
+    "size": 31.41
+  },
+  {
+    "id": "yocs_math_toolkit",
+    "description": "Math toolkit for Yujin open control system. This package is intended to contain common use functions,mostly for simple mathematics but also for tf-related conversions.By no means it pretends to be an efficient and robust, widely used math library, but a play ground whereto put common code that is typically repeated in many robot control programs.",
+    "wiki": "http://ros.org/wiki/yocs_math_toolkit",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jorge Santos"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "10208": 4,
+        "10416": 1,
+        "10306": 1,
+        "10403": 3,
+        "1": 2,
+        "10401": 4,
+        "1000": 2,
+        "2": 1,
+        "10414": 2,
+        "10319": 2,
+        "10320": 20,
+        "10001": 23,
+        "3": 1,
+        "10004": 57,
+        "10005": 1,
+        "10100": 4
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 16.97
+  },
+  {
+    "id": "yocs_ar_pair_approach",
+    "description": "Search and approach behaviour, moving to a target in front of a pair of ar markers.",
+    "wiki": "http://ros.org/wiki/yocs_ar_pair_approach",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 2,
+        "3": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 17.45
+  },
+  {
+    "id": "yujin_ocs",
+    "children": [
+            "yocs_keyop",
+            "yocs_virtual_sensor",
+            "yocs_math_toolkit",
+            "yocs_controllers",
+            "yocs_cmd_vel_mux",
+            "yocs_safety_controller",
+            "yocs_joyop",
+            "yocs_waypoints_navi",
+            "yocs_diff_drive_pose_controller",
+            "yocs_velocity_smoother"
+    ],
+    "description": "Yujin Robot's open-source control software",
+    "wiki": "http://ros.org/wiki/yujin_ocs",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Yujin Robot"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "yocs_keyop",
+            "yocs_virtual_sensor",
+            "yocs_waypoints_navi",
+            "yocs_controllers",
+            "yocs_cmd_vel_mux",
+            "yocs_safety_controller",
+            "yocs_diff_drive_pose_controller",
+            "yocs_joyop",
+            "yocs_math_toolkit",
+            "yocs_velocity_smoother"
+    ],
+    "size": 1.39
+  },
+  {
+    "id": "yocs_diff_drive_pose_controller",
+    "description": "A controller for driving a differential drive base to a pose goal or along a path specified by multiple poses.A pose consists of a 2D position (x,y) and a 1D orientation (theta).",
+    "wiki": "http://ros.org/wiki/yocs_diff_drive_pose_controller",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10017": 15,
+        "10306": 3,
+        "3": 2,
+        "5": 1,
+        "10401": 1,
+        "10025": 10,
+        "2": 2,
+        "10414": 1,
+        "10031": 1,
+        "10001": 43,
+        "18": 2,
+        "10004": 59,
+        "10010": 4,
+        "10106": 3,
+        "10206": 12
+      }
+    },
+    "dependencies": [
+            "yocs_controllers",
+            "ecl_threads",
+            "yocs_math_toolkit"
+    ],
+    "size": 22.59
+  },
+  {
+    "id": "yocs_cmd_vel_mux",
+    "description": "A multiplexer for command velocity inputs. Arbitrates incoming cmd_vel messages from several topics, allowing one topic at a time to command the robot, based on priorities. It also deallocates current allowed topic if no messages are received after a configured timeout. All topics, together with their priority and timeout are configured through a YAML file, that can be reload at runtime.",
+    "wiki": "http://ros.org/wiki/yocs_cmd_vel_mux",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jorge Santos Simon"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "2": 5,
+        "3": 5,
+        "10001": 22,
+        "18": 1,
+        "10004": 28,
+        "10005": 15,
+        "10010": 12,
+        "10011": 2,
+        "10012": 1,
+        "10017": 1,
+        "10402": 1,
+        "10025": 1,
+        "10414": 4,
+        "10033": 2,
+        "30005": 3,
+        "10306": 3,
+        "10401": 3,
+        "10320": 1,
+        "10206": 6,
+        "10208": 4,
+        "10100": 5,
+        "10106": 6
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 17.41
+  },
+  {
+    "id": "yocs_joyop",
+    "description": "Joystick teleoperation for your robot robot core",
+    "wiki": "http://ros.org/wiki/yocs_joop",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10017": 3,
+        "1": 1,
+        "10025": 7,
+        "10414": 3,
+        "10001": 5,
+        "18": 1,
+        "10004": 25,
+        "10100": 1,
+        "10010": 2,
+        "10011": 1,
+        "10106": 1,
+        "10014": 2
+      }
+    },
+    "dependencies": [
+            "ecl_exceptions",
+            "ecl_time"
+    ],
+    "size": 6.13
+  },
+  {
+    "id": "yocs_localization_manager",
+    "description": "Localization Manager helps to localize robot's position with annotated information",
+    "wiki": "http://wiki.ros.org/yocs_localization_manager",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jihoon Lee","Daniel Stonier"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 3,
+        "2": 3,
+        "3": 1
+      }
+    },
+    "dependencies": [
+            "ar_track_alvar"
+    ],
+    "size": 13.69
+  },
+  {
+    "id": "yocs_virtual_sensor",
+    "description": "Virtual sensor that uses semantic map information to see obstacles undetectable by robot sensors.Current implementation cannot read obstacles from YAML files. Until this feature gets implemented, weuse auxiliary scripts to read and publish files' content. Data directory contains some example files.",
+    "wiki": "http://ros.org/wiki/yocs_virtual_sensor",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jorge Santos"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "10208": 6,
+        "1": 4,
+        "5": 2,
+        "10321": 1,
+        "10025": 1,
+        "10414": 7,
+        "10320": 5,
+        "10001": 26,
+        "18": 1,
+        "10004": 36,
+        "10104": 1,
+        "10100": 2,
+        "10010": 8,
+        "10011": 1,
+        "10106": 1,
+        "10206": 2
+      }
+    },
+    "dependencies": [
+            "yocs_math_toolkit"
+    ],
+    "size": 17.47
+  },
+  {
+    "id": "yocs_waypoints_navi",
+    "description": "Simple tool for waypoints navigation with two functions:",
+    "wiki": "http://ros.org/wiki/yocs_waypoints_navi",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jorge Santos Simon"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "10208": 3,
+        "10017": 1,
+        "1": 2,
+        "5": 2,
+        "6": 1,
+        "10401": 1,
+        "10025": 22,
+        "10414": 4,
+        "10001": 44,
+        "18": 1,
+        "10004": 67,
+        "10036": 2,
+        "10100": 3,
+        "10010": 2,
+        "10108": 3,
+        "10106": 7,
+        "10206": 3
+      }
+    },
+    "dependencies": [
+            "yocs_math_toolkit"
+    ],
+    "size": 18.96
+  },
+  {
+    "id": "yocs_ar_pair_tracking",
+    "description": "The AR pair tracking package",
+    "wiki": "http://wiki.ros.org/yocs_ar_pair_tracking",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos Simon","Jihoon Lee"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 3,
+        "2": 2,
+        "3": 2,
+        "10001": 52,
+        "18": 2,
+        "10004": 29,
+        "10005": 10,
+        "10010": 6,
+        "10011": 2,
+        "10014": 1,
+        "10017": 8,
+        "10019": 6,
+        "10024": 2,
+        "10414": 9,
+        "10031": 22,
+        "10036": 3,
+        "10401": 1,
+        "10319": 4,
+        "10320": 2,
+        "10403": 1,
+        "10206": 4,
+        "10208": 6,
+        "10100": 5,
+        "10103": 4,
+        "10106": 1,
+        "10108": 3
+      }
+    },
+    "dependencies": [
+            "yocs_math_toolkit",
+            "yocs_ar_marker_tracking"
+    ],
+    "size": 19.99
+  },
+  {
+    "id": "yocs_velocity_smoother",
+    "description": "Bound incoming velocity messages according to robot velocity and acceleration limits.",
+    "wiki": "http://ros.org/wiki/yocs_velocity_smoother",
+    "repositories": [
+            "yujinrobot/yujin_ocs"
+    ],
+    "authors": [
+"Jorge Santos Simon"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 1,
+        "5": 1,
+        "6": 1,
+        "10001": 53,
+        "10004": 35,
+        "10005": 4,
+        "10010": 4,
+        "10016": 1,
+        "10032": 1,
+        "10025": 7,
+        "10414": 2,
+        "10416": 1,
+        "10033": 2,
+        "10036": 1,
+        "30005": 1,
+        "10306": 4,
+        "10401": 1,
+        "10320": 2,
+        "10321": 2,
+        "10206": 2,
+        "10208": 4,
+        "10100": 2,
+        "10103": 1,
+        "10104": 1,
+        "10106": 5,
+        "10108": 1
+      }
+    },
+    "dependencies": [
+            "ecl_threads"
+    ],
+    "size": 22.23
+  },
+  {
+    "id": "turtlebot_follower",
+    "description": "Follower for the turtlebot. Follows humans and robots around by following the centroid of a box points in front of the turtlebot.",
+    "wiki": "http://ros.org/wiki/turtlebot_apps",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Tony Pratkanis"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 1,
+        "5": 1,
+        "10001": 9,
+        "18": 1,
+        "10004": 20,
+        "10005": 1,
+        "10010": 2,
+        "10011": 2,
+        "10014": 1,
+        "10015": 1,
+        "10400": 2,
+        "10017": 1,
+        "10019": 3,
+        "10021": 1,
+        "10025": 2,
+        "10414": 1,
+        "10401": 1,
+        "10320": 3,
+        "10206": 5,
+        "10208": 1,
+        "10103": 1,
+        "10104": 2,
+        "10105": 3,
+        "10107": 11
+      }
+    },
+    "dependencies": [
+            "turtlebot_bringup"
+    ],
+    "size": 11.51
+  },
+  {
+    "id": "pano_ros",
+    "description": "The ros frontend to the pano subsystem.",
+    "wiki": "http://ros.org/wiki/pano_ros",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Ethan Rublee","Ken Conley"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 3,
+        "3": 3
+      }
+    },
+    "dependencies": [
+            "pano_py"
+    ],
+    "size": 28.18
+  },
+  {
+    "id": "turtlebot_actions",
+    "description": "turtlebot_actions provides several basic actionlib actions for the TurtleBot.",
+    "wiki": "http://ros.org/wiki/turtlebot_actions",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Helen Oleynikova","Melonee Wise"    ],
+    "maintainers": [
+"OSRF"    ],
+    "analysis": {
+      "violations": {
+        "1": 4,
+        "2": 2,
+        "5": 2,
+        "10001": 28,
+        "18": 4,
+        "10004": 41,
+        "10010": 6,
+        "10011": 8,
+        "10017": 5,
+        "10019": 12,
+        "10404": 2,
+        "10414": 7,
+        "10031": 63,
+        "30005": 2,
+        "10309": 1,
+        "10314": 1,
+        "10415": 2,
+        "10320": 11,
+        "10321": 4,
+        "10201": 1,
+        "10202": 1,
+        "10203": 1,
+        "10206": 8,
+        "10208": 3,
+        "10100": 2,
+        "10104": 2,
+        "10106": 1,
+        "10107": 21
+      }
+    },
+    "dependencies": [
+            "turtlebot_bringup"
+    ],
+    "size": 25.18
+  },
+  {
+    "id": "turtlebot_apps",
+    "children": [
+            "pano_py",
+            "pano_core",
+            "turtlebot_follower",
+            "pano_ros",
+            "turtlebot_calibration",
+            "turtlebot_navigation",
+            "turtlebot_panorama",
+            "turtlebot_actions"
+    ],
+    "description": "turtlebot_apps is a group of simple demos and exmaples to run on your TurtleBot to help you get started with ROS and TurtleBot.",
+    "wiki": "http://ros.org/wiki/turtlebot_apps",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+    ],
+    "maintainers": [
+"Daniel Stonier","Melonee Wise","Tully Foote"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "pano_py",
+            "pano_core",
+            "turtlebot_follower",
+            "pano_ros",
+            "turtlebot_calibration",
+            "turtlebot_navigation",
+            "turtlebot_panorama",
+            "turtlebot_actions"
+    ],
+    "size": 1.19
+  },
+  {
+    "id": "pano_core",
+    "description": "Library for the opencv-based panorama stitching algorithm",
+    "wiki": "http://ros.org/wiki/pano_core",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Ethan Rublee"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 33,
+        "2": 7,
+        "10404": 7,
+        "5": 6,
+        "6": 4,
+        "10415": 2,
+        "10001": 374,
+        "18": 15,
+        "10003": 179,
+        "10004": 785,
+        "10005": 87,
+        "10010": 59,
+        "10011": 260,
+        "10012": 1,
+        "10014": 7,
+        "10017": 35,
+        "10402": 2,
+        "10019": 121,
+        "10020": 3,
+        "10021": 62,
+        "10022": 2,
+        "10023": 11,
+        "10024": 1,
+        "10025": 30,
+        "10026": 1,
+        "10411": 7,
+        "10414": 175,
+        "10031": 4,
+        "10032": 25,
+        "10033": 4,
+        "10035": 5,
+        "10036": 2,
+        "30005": 15,
+        "10301": 2,
+        "10304": 10,
+        "10309": 6,
+        "10401": 31,
+        "10314": 62,
+        "10317": 2,
+        "10320": 149,
+        "10321": 62,
+        "10403": 1,
+        "10200": 2,
+        "10201": 17,
+        "10202": 17,
+        "10203": 17,
+        "10206": 141,
+        "10208": 59,
+        "3": 6,
+        "10211": 1,
+        "1000": 4,
+        "10408": 13,
+        "10100": 49,
+        "10102": 3,
+        "10103": 41,
+        "10104": 49,
+        "10105": 37,
+        "10106": 54,
+        "10107": 242,
+        "10108": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 234.84
+  },
+  {
+    "id": "turtlebot_navigation",
+    "description": "turtlebot_navigation",
+    "wiki": "http://ros.org/wiki/turtlebot_navigation",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Tully Foote"    ],
+    "maintainers": [
+"OSRF"    ],
+    "analysis": {
+      "violations": {
+        "10208": 1,
+        "10017": 3,
+        "2": 1,
+        "10211": 1,
+        "10021": 2,
+        "10414": 2,
+        "10031": 2,
+        "10001": 5,
+        "18": 1,
+        "3": 1,
+        "10004": 7,
+        "10005": 2,
+        "10036": 1,
+        "10010": 2,
+        "10011": 1,
+        "10014": 1
+      }
+    },
+    "dependencies": [
+            "turtlebot_bringup"
+    ],
+    "size": 5.09
+  },
+  {
+    "id": "turtlebot_panorama",
+    "description": "This app utilises pano_ros for taking snapshots and stitching them together to create panorama pictures.",
+    "wiki": "http://ros.org/wiki/turtlebot_panorama",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Younghun Ju","Marcus Liebhardt","Jihoon Lee"    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "5": 1,
+        "6": 1,
+        "10001": 25,
+        "18": 2,
+        "10003": 4,
+        "10004": 64,
+        "10010": 2,
+        "10402": 1,
+        "10025": 19,
+        "10414": 1,
+        "10031": 4,
+        "10416": 1,
+        "10320": 2,
+        "10321": 2,
+        "10201": 2,
+        "10202": 2,
+        "10203": 2,
+        "10206": 8,
+        "10208": 3,
+        "10100": 1,
+        "10106": 15,
+        "10107": 2,
+        "10108": 1,
+        "10109": 1
+      }
+    },
+    "dependencies": [
+            "yocs_velocity_smoother",
+            "pano_ros",
+            "turtlebot_bringup"
+    ],
+    "size": 24.26
+  },
+  {
+    "id": "pano_py",
+    "description": "This is a python wraper around the pano_core library (I think)",
+    "wiki": "http://ros.org/wiki/pano_py",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Ethan Rublee"    ],
+    "maintainers": [
+"Jihoon Lee"    ],
+    "analysis": {
+      "violations": {
+        "1": 16,
+        "2": 1,
+        "3": 1,
+        "5": 2,
+        "6": 1,
+        "10001": 19,
+        "10003": 35,
+        "10004": 52,
+        "10005": 43,
+        "10010": 5,
+        "10011": 13,
+        "10014": 2,
+        "10017": 18,
+        "10019": 48,
+        "10021": 35,
+        "10022": 1,
+        "10025": 2,
+        "10026": 1,
+        "10414": 32,
+        "10031": 3,
+        "10032": 1,
+        "10036": 3,
+        "30005": 1,
+        "10304": 7,
+        "10401": 3,
+        "10314": 19,
+        "10415": 1,
+        "10320": 14,
+        "10321": 14,
+        "10322": 1,
+        "10201": 3,
+        "10202": 3,
+        "10203": 3,
+        "10206": 25,
+        "10208": 5,
+        "1000": 1,
+        "10100": 13,
+        "10103": 13,
+        "10105": 2,
+        "10106": 8,
+        "10107": 14,
+        "10109": 2
+      }
+    },
+    "dependencies": [
+            "pano_core"
+    ],
+    "size": 26.22
+  },
+  {
+    "id": "turtlebot_calibration",
+    "description": "turtlebot_calibration",
+    "wiki": "http://ros.org/wiki/turtlebot_calibration",
+    "repositories": [
+            "turtlebot/turtlebot_apps"
+    ],
+    "authors": [
+"Wim Meeussen"    ],
+    "maintainers": [
+"OSRF"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 1
+      }
+    },
+    "dependencies": [
+            "turtlebot_bringup"
+    ],
+    "size": 17.11
+  },
+  {
+    "id": "turtlebot_arm_ikfast_plugin",
+    "description": "The turtlebot_arm_ikfast_plugin package",
+    "wiki": "http://ros.org/wiki/turtlebot_arm_ikfast_plugin",
+    "repositories": [
+            "turtlebot/turtlebot_arm"
+    ],
+    "authors": [
+    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "5": 6,
+        "6": 4,
+        "10001": 540,
+        "18": 2,
+        "10004": 339,
+        "10005": 52,
+        "10010": 10,
+        "10011": 90,
+        "10014": 2030,
+        "10015": 10,
+        "10400": 1,
+        "10017": 134,
+        "10018": 1,
+        "10019": 93,
+        "10020": 3,
+        "10021": 4,
+        "10025": 48,
+        "10026": 44,
+        "10411": 5,
+        "10412": 1,
+        "10029": 2,
+        "10414": 119,
+        "10031": 36,
+        "10033": 103,
+        "10036": 39,
+        "10401": 9,
+        "10314": 3,
+        "10315": 1,
+        "10402": 3,
+        "10320": 24,
+        "10321": 13,
+        "10201": 1,
+        "10202": 1,
+        "10203": 1,
+        "10206": 11,
+        "10208": 2,
+        "10211": 2,
+        "1000": 10,
+        "10100": 1,
+        "10103": 4,
+        "10104": 6,
+        "10105": 8,
+        "10106": 26,
+        "10107": 10,
+        "10109": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 492.73
+  },
+  {
+    "id": "turtlebot_arm_block_manipulation",
+    "description": "turtlebot_arm_block_manipulation contains a demo allowing the TurtleBot armto manipulate small blocks on a level surface using interactive markers.",
+    "wiki": "http://ros.org/wiki/turtlebot_arm_block_manipulation",
+    "repositories": [
+            "turtlebot/turtlebot_arm"
+    ],
+    "authors": [
+"Michael Ferguson","Helen Oleynikova"    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+        "2": 3,
+        "5": 3,
+        "6": 3,
+        "10001": 83,
+        "18": 6,
+        "10004": 97,
+        "10005": 2,
+        "10010": 13,
+        "10011": 11,
+        "10014": 4,
+        "20000": 1,
+        "10017": 10,
+        "10019": 2,
+        "10021": 5,
+        "10022": 3,
+        "10025": 6,
+        "10026": 2,
+        "10414": 25,
+        "10031": 153,
+        "10033": 3,
+        "10036": 3,
+        "30005": 3,
+        "10400": 6,
+        "10308": 1,
+        "10309": 1,
+        "10314": 3,
+        "10415": 1,
+        "10320": 3,
+        "10321": 5,
+        "10206": 12,
+        "10208": 6,
+        "1000": 1,
+        "10103": 4,
+        "10104": 36,
+        "10105": 42,
+        "10106": 3,
+        "10107": 2
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 56.22
+  },
+  {
+    "id": "turtlebot_arm_moveit_demos",
+    "description": "The turtlebot_arm_moveit_demos package contains scripts to start playing with a turtlebot arm and MoveIt.",
+    "wiki": "http://ros.org/wiki/turtlebot_arm_moveit_demos",
+    "repositories": [
+            "turtlebot/turtlebot_arm"
+    ],
+    "authors": [
+"Jorge Santos"    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 0.89
+  },
+  {
+    "id": "turtlebot_arm_kinect_calibration",
+    "description": "turtlebot_arm_kinect_calibration allows calibration of a kinect to a TurtleBot arm,including a kinect on-board and off-board the TurtleBot for more precise manipulation.",
+    "wiki": "http://ros.org/wiki/turtlebot_arm_kinect_calibration",
+    "repositories": [
+            "turtlebot/turtlebot_arm"
+    ],
+    "authors": [
+"Michael Ferguson","Helen Oleynikova"    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "10001": 70,
+        "18": 3,
+        "10004": 36,
+        "10010": 3,
+        "10011": 1,
+        "10401": 2,
+        "10404": 2,
+        "10414": 14,
+        "10031": 3,
+        "10309": 1,
+        "10314": 3,
+        "10320": 16,
+        "10321": 2,
+        "10201": 1,
+        "10202": 1,
+        "10203": 1,
+        "10206": 6,
+        "10208": 2,
+        "10106": 1,
+        "10107": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 24.93
+  },
+  {
+    "id": "turtlebot_arm",
+    "children": [
+            "turtlebot_arm_block_manipulation",
+            "turtlebot_arm_kinect_calibration",
+            "turtlebot_arm_ikfast_plugin",
+            "turtlebot_arm_moveit_demos"
+    ],
+    "description": "The turtlebot arm meta package.",
+    "wiki": "http://ros.org/wiki/turtlebot_arm",
+    "repositories": [
+            "turtlebot/turtlebot_arm"
+    ],
+    "authors": [
+"Jorge Santos"    ],
+    "maintainers": [
+"Jorge Santos"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "turtlebot_arm_block_manipulation",
+            "turtlebot_arm_kinect_calibration",
+            "turtlebot_arm_ikfast_plugin",
+            "turtlebot_arm_moveit_demos"
+    ],
+    "size": 0.97
+  },
+  {
+    "id": "kobuki_ftdi",
+    "description": "Utilities for flashing and enabling Kobuki's USB connection.This package contains tools for flashing the Kobuki's FTDI chip (usually done at the factory).The special firmware for the FTDI chip (USB to serial converter) enables it to appear as /dev/kobuki on the user's PC.",
+    "wiki": "http://ros.org/wiki/kobuki_ftdi",
+    "repositories": [
+            "yujinrobot/kobuki_core"
+    ],
+    "authors": [
+"Younghun Ju"    ],
+    "maintainers": [
+"Younghun Ju"    ],
+    "analysis": {
+      "violations": {
+        "2": 12,
+        "3": 11,
+        "5": 8,
+        "6": 4,
+        "10001": 60,
+        "10004": 67,
+        "10005": 26,
+        "10010": 4,
+        "10011": 1,
+        "10014": 1,
+        "10015": 6,
+        "10016": 3,
+        "10017": 14,
+        "10402": 1,
+        "10019": 7,
+        "10025": 9,
+        "10414": 49,
+        "10031": 1,
+        "10036": 7,
+        "10306": 1,
+        "10311": 4,
+        "10319": 6,
+        "10320": 6,
+        "10321": 6,
+        "10403": 1,
+        "10206": 10,
+        "10208": 9,
+        "10211": 1,
+        "10100": 5,
+        "10104": 3,
+        "10105": 15,
+        "10106": 15,
+        "10107": 16
+      }
+    },
+    "dependencies": [
+            "ecl_command_line"
+    ],
+    "size": 59.18
+  },
+  {
+    "id": "kobuki_driver",
+    "description": "C++ driver library for Kobuki:Pure C++ driver library for Kobuki. This is for those who do not wish to use ROS on their systems.",
+    "wiki": "http://ros.org/wiki/kobuki_driver",
+    "repositories": [
+            "yujinrobot/kobuki_core"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos Simon","Younghun Ju"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 31,
+        "3": 29,
+        "5": 7,
+        "6": 3,
+        "10001": 283,
+        "18": 3,
+        "10003": 14,
+        "10004": 286,
+        "10005": 183,
+        "10010": 44,
+        "10011": 6,
+        "10014": 16,
+        "10015": 6,
+        "10400": 27,
+        "10017": 69,
+        "10018": 6,
+        "10019": 5,
+        "10020": 4,
+        "10021": 3,
+        "10023": 2,
+        "10024": 1,
+        "10025": 19,
+        "10026": 4,
+        "10411": 1,
+        "10413": 1,
+        "10414": 134,
+        "10031": 1,
+        "10033": 14,
+        "10036": 53,
+        "30005": 3,
+        "10304": 3,
+        "10306": 16,
+        "10308": 2,
+        "10309": 1,
+        "10311": 30,
+        "10415": 3,
+        "10320": 64,
+        "10321": 6,
+        "10403": 1,
+        "10401": 13,
+        "10404": 5,
+        "10206": 65,
+        "10208": 14,
+        "10211": 7,
+        "1000": 1,
+        "10402": 3,
+        "10100": 41,
+        "10103": 2,
+        "10104": 30,
+        "10105": 34,
+        "10106": 114,
+        "10107": 97,
+        "10108": 3
+      }
+    },
+    "dependencies": [
+            "ecl_command_line",
+            "ecl_devices",
+            "ecl_mobile_robot",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_geometry",
+            "ecl_sigslots"
+    ],
+    "size": 181.24
+  },
+  {
+    "id": "kobuki_core",
+    "children": [
+            "kobuki_ftdi",
+            "kobuki_dock_drive",
+            "kobuki_driver"
+    ],
+    "description": "Non-ROS software for Kobuki, Yujin Robot's mobile research base.",
+    "wiki": "http://ros.org/wiki/kobuki_core",
+    "repositories": [
+            "yujinrobot/kobuki_core"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos Simon","Marcus Liebhardt","Younghun Ju"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "kobuki_ftdi",
+            "kobuki_dock_drive",
+            "kobuki_driver"
+    ],
+    "size": 0.97
+  },
+  {
+    "id": "kobuki_dock_drive",
+    "description": "Dock driving library for Kobuki. Users owning a docking station for Kobuki can use this tool to develop autonomous docking drive algorithms.",
+    "wiki": "http://ros.org/wiki/kobuki_dock_drive",
+    "repositories": [
+            "yujinrobot/kobuki_core"
+    ],
+    "authors": [
+"Younghun Ju"    ],
+    "maintainers": [
+"Younghun Ju"    ],
+    "analysis": {
+      "violations": {
+        "2": 5,
+        "3": 5,
+        "5": 1,
+        "10001": 44,
+        "10004": 22,
+        "10005": 44,
+        "10010": 3,
+        "10011": 5,
+        "10014": 9,
+        "10015": 4,
+        "10017": 30,
+        "10018": 2,
+        "10019": 16,
+        "10020": 2,
+        "10021": 3,
+        "10025": 24,
+        "10026": 20,
+        "10027": 10,
+        "10029": 10,
+        "10414": 7,
+        "10031": 23,
+        "10033": 13,
+        "10035": 2,
+        "10401": 3,
+        "10402": 6,
+        "10320": 24,
+        "10206": 4,
+        "10208": 8,
+        "10103": 4,
+        "10104": 3,
+        "10105": 2,
+        "10106": 14,
+        "10107": 13
+      }
+    },
+    "dependencies": [
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_geometry"
+    ],
+    "size": 36.49
+  },
+  {
+    "id": "kobuki_auto_docking",
+    "description": "Automatic docking for Kobuki:Users owning a docking station for Kobuki can use this tool to let Kobuki find its nest autonomously.",
+    "wiki": "http://ros.org/wiki/kobuki_auto_docking",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Younghun Ju"    ],
+    "maintainers": [
+"Younghun Ju"    ],
+    "analysis": {
+      "violations": {
+        "10208": 3,
+        "10017": 3,
+        "2": 4,
+        "3": 3,
+        "10021": 2,
+        "10401": 1,
+        "18": 2,
+        "10031": 1,
+        "10320": 1,
+        "10001": 11,
+        "10036": 4,
+        "10004": 17,
+        "30005": 1,
+        "10105": 8,
+        "10104": 9,
+        "10100": 2,
+        "10010": 4,
+        "10107": 14,
+        "10106": 4,
+        "10206": 12,
+        "10005": 10
+      }
+    },
+    "dependencies": [
+            "yocs_cmd_vel_mux",
+            "kobuki_dock_drive",
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_geometry"
+    ],
+    "size": 31.95
+  },
+  {
+    "id": "kobuki_safety_controller",
+    "description": "A controller ensuring the safe operation of Kobuki.The SafetyController keeps track of bumper, cliff and wheel drop events. In case of the first two,Kobuki is commanded to move back. In the latter case, Kobuki is stopped.This controller can be enabled/disabled.The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!",
+    "wiki": "http://ros.org/wiki/kobuki_safety_controller",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10016": 1,
+        "10208": 1,
+        "10306": 3,
+        "3": 2,
+        "10401": 1,
+        "10025": 12,
+        "10026": 1,
+        "2": 2,
+        "10414": 1,
+        "10031": 2,
+        "10320": 2,
+        "10001": 30,
+        "10003": 1,
+        "10004": 42,
+        "10005": 1,
+        "10010": 4,
+        "10107": 2,
+        "10106": 9,
+        "10206": 8
+      }
+    },
+    "dependencies": [
+            "yocs_controllers",
+            "ecl_threads"
+    ],
+    "size": 18.04
+  },
+  {
+    "id": "kobuki",
+    "children": [
+            "kobuki_auto_docking",
+            "kobuki_bumper2pc",
+            "kobuki_random_walker",
+            "kobuki_controller_tutorial",
+            "kobuki_safety_controller",
+            "kobuki_testsuite",
+            "kobuki_keyop",
+            "kobuki_node"
+    ],
+    "description": "Software for Kobuki, Yujin Robot's mobile research base.",
+    "wiki": "http://ros.org/wiki/kobuki",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos Simon","Marcus Liebhardt","Younghun Ju"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "kobuki_auto_docking",
+            "kobuki_bumper2pc",
+            "kobuki_random_walker",
+            "kobuki_controller_tutorial",
+            "kobuki_safety_controller",
+            "kobuki_testsuite",
+            "kobuki_keyop",
+            "kobuki_node"
+    ],
+    "size": 1.19
+  },
+  {
+    "id": "kobuki_bumper2pc",
+    "description": "Bumper/cliff to pointcloud nodelet:Publish bumpers and cliff sensors events as points in a pointcloud, so navistack can use themfor poor-man navigation. Implemented as a nodelet intended to run together with kobuki_node.",
+    "wiki": "http://ros.org/wiki/kobuki_bumper2pc",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Jorge Santos Simon"    ],
+    "maintainers": [
+"Jorge Santos Simon"    ],
+    "analysis": {
+      "violations": {
+        "10016": 1,
+        "10401": 1,
+        "2": 2,
+        "3": 1,
+        "5": 1,
+        "10033": 2,
+        "10025": 3,
+        "10414": 2,
+        "10031": 2,
+        "10001": 26,
+        "18": 1,
+        "10100": 1,
+        "10004": 12,
+        "10010": 2,
+        "10106": 6,
+        "10206": 1
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 10.61
+  },
+  {
+    "id": "kobuki_node",
+    "description": "ROS nodelet for Kobuki: ROS wrapper for the Kobuki driver.",
+    "wiki": "http://ros.org/wiki/kobuki_node",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Daniel Stonier","Jorge Santos Simon","Younghun Ju"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 3,
+        "2": 7,
+        "3": 4,
+        "5": 3,
+        "10001": 141,
+        "18": 6,
+        "10004": 103,
+        "10005": 89,
+        "10010": 26,
+        "10014": 1,
+        "10015": 5,
+        "10400": 1,
+        "10017": 14,
+        "10018": 3,
+        "10019": 4,
+        "10023": 1,
+        "10025": 17,
+        "10026": 8,
+        "10414": 7,
+        "10031": 1,
+        "10033": 32,
+        "10036": 13,
+        "30005": 1,
+        "10306": 2,
+        "10311": 6,
+        "10320": 18,
+        "10321": 1,
+        "10401": 15,
+        "10206": 34,
+        "10208": 7,
+        "10211": 1,
+        "10100": 4,
+        "10104": 13,
+        "10105": 22,
+        "10106": 38,
+        "10107": 5,
+        "10108": 4
+      }
+    },
+    "dependencies": [
+            "ecl_threads",
+            "ecl_streams",
+            "kobuki_safety_controller",
+            "kobuki_keyop",
+            "kobuki_ftdi",
+            "ecl_sigslots",
+            "ecl_exceptions",
+            "kobuki_driver"
+    ],
+    "size": 77.72
+  },
+  {
+    "id": "kobuki_random_walker",
+    "description": "Random walker app for Kobuki",
+    "wiki": "http://ros.org/wiki/kobuki_random_walker",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10208": 1,
+        "10400": 1,
+        "10306": 2,
+        "3": 1,
+        "5": 3,
+        "6": 3,
+        "10321": 2,
+        "10025": 12,
+        "2": 1,
+        "10414": 1,
+        "10001": 50,
+        "18": 1,
+        "10004": 60,
+        "10401": 1,
+        "10100": 2,
+        "10010": 4,
+        "10106": 9,
+        "10206": 11
+      }
+    },
+    "dependencies": [
+            "yocs_cmd_vel_mux",
+            "ecl_threads",
+            "yocs_controllers"
+    ],
+    "size": 18.88
+  },
+  {
+    "id": "kobuki_testsuite",
+    "description": "Kobuki test suite: this package provides tools to thoroughly test Kobuki's hardware.",
+    "wiki": "http://ros.org/wiki/kobuki_testsuite",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Jorge Santos Simon"    ],
+    "maintainers": [
+"Jorge Santos Simon"    ],
+    "analysis": {
+      "violations": {
+        "1": 7,
+        "2": 18,
+        "3": 15
+      }
+    },
+    "dependencies": [
+            "kobuki_node"
+    ],
+    "size": 112.17
+  },
+  {
+    "id": "kobuki_keyop",
+    "description": "Keyboard teleoperation for Kobuki: relays commands from a keyboard to Kobuki.",
+    "wiki": "http://ros.org/wiki/kobuki_keyop",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "10208": 1,
+        "2": 2,
+        "3": 2,
+        "10025": 12,
+        "10414": 3,
+        "10001": 15,
+        "18": 1,
+        "10004": 55,
+        "10106": 6,
+        "10010": 2,
+        "10206": 4
+      }
+    },
+    "dependencies": [
+            "yocs_cmd_vel_mux",
+            "ecl_threads",
+            "yocs_velocity_smoother",
+            "ecl_exceptions",
+            "ecl_time"
+    ],
+    "size": 21.58
+  },
+  {
+    "id": "kobuki_controller_tutorial",
+    "description": "Code for the Kobuki controller tutorial.",
+    "wiki": "http://ros.org/wiki/kobuki_controller_tutorial",
+    "repositories": [
+            "yujinrobot/kobuki"
+    ],
+    "authors": [
+"Marcus Liebhardt"    ],
+    "maintainers": [
+"Marcus Liebhardt"    ],
+    "analysis": {
+      "violations": {
+        "10208": 2,
+        "10401": 1,
+        "10306": 3,
+        "3": 2,
+        "10021": 1,
+        "10025": 4,
+        "2": 2,
+        "10414": 1,
+        "10001": 6,
+        "18": 1,
+        "10004": 18,
+        "10010": 4,
+        "10106": 4,
+        "10206": 1
+      }
+    },
+    "dependencies": [
+            "yocs_controllers"
+    ],
+    "size": 10.03
+  },
+  {
+    "id": "ar_track_alvar",
+    "description": "This package is a ROS wrapper for Alvar, an open source AR tag tracking library.",
+    "wiki": "http://ros.org/wiki/ar_track_alvar",
+    "repositories": [
+            "sniekum/ar_track_alvar"
+    ],
+    "authors": [
+    ],
+    "maintainers": [
+"Scott Niekum"    ],
+    "analysis": {
+      "violations": {
+        "1": 53,
+        "2": 68,
+        "10404": 11,
+        "5": 66,
+        "6": 36,
+        "10400": 4,
+        "10415": 16,
+        "10001": 1129,
+        "18": 5,
+        "10003": 8333,
+        "10004": 700,
+        "10005": 1220,
+        "10009": 4,
+        "10010": 192,
+        "10011": 58,
+        "10012": 5,
+        "10014": 395,
+        "10015": 423,
+        "20000": 6,
+        "10017": 175,
+        "10018": 3,
+        "10019": 351,
+        "10020": 17,
+        "10021": 304,
+        "10022": 2,
+        "10023": 2,
+        "10024": 15,
+        "10025": 124,
+        "10026": 104,
+        "10027": 45,
+        "10029": 13,
+        "10030": 3,
+        "10031": 693,
+        "10032": 4,
+        "10033": 172,
+        "10035": 16,
+        "10036": 102,
+        "30005": 58,
+        "10304": 1,
+        "10016": 2,
+        "10306": 9,
+        "10308": 2,
+        "10309": 2,
+        "10311": 110,
+        "10314": 87,
+        "10315": 2,
+        "10402": 29,
+        "10414": 846,
+        "10320": 183,
+        "10321": 432,
+        "10403": 17,
+        "10411": 1,
+        "10401": 52,
+        "10201": 63,
+        "10202": 12,
+        "10203": 63,
+        "10206": 117,
+        "10208": 106,
+        "3": 60,
+        "10211": 15,
+        "10215": 1,
+        "1000": 10,
+        "10416": 1,
+        "10408": 8,
+        "10100": 20,
+        "10101": 2,
+        "10102": 2,
+        "10103": 14,
+        "10104": 55,
+        "10105": 164,
+        "10106": 290,
+        "10107": 349,
+        "10108": 62,
+        "10109": 27
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 911.96
+  },
+  {
+    "id": "ecl_linear_algebra",
+    "description": "Ecl frontend to a linear matrix package (currently eigen).",
+    "wiki": "http://wiki.ros.org/ecl_linear_algebra",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 5,
+        "3": 4,
+        "10001": 23,
+        "10003": 82,
+        "10004": 8,
+        "10005": 16,
+        "10010": 4,
+        "10011": 3,
+        "10014": 2,
+        "10015": 2,
+        "10400": 2,
+        "10019": 17,
+        "10021": 3,
+        "10025": 1,
+        "10414": 17,
+        "10415": 2,
+        "10032": 12,
+        "10033": 3,
+        "30005": 2,
+        "10306": 1,
+        "10206": 5,
+        "10208": 1,
+        "10100": 23,
+        "10104": 5,
+        "10105": 3,
+        "10106": 5,
+        "10107": 1
+      }
+    },
+    "dependencies": [
+            "ecl_formatters",
+            "ecl_exceptions",
+            "ecl_eigen"
+    ],
+    "size": 33.26
+  },
+  {
+    "id": "ecl_geometry",
+    "description": "Any tools relating to mathematical geometry.Primarily featuring polynomials and interpolations.",
+    "wiki": "http://wiki.ros.org/ecl_geometry",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 28,
+        "10411": 9,
+        "5": 3,
+        "10001": 470,
+        "10003": 1492,
+        "10004": 32,
+        "10005": 381,
+        "10010": 100,
+        "10011": 19,
+        "10012": 4,
+        "10015": 4,
+        "10400": 1,
+        "10401": 1,
+        "10018": 18,
+        "10019": 539,
+        "10021": 35,
+        "10026": 1,
+        "10027": 2,
+        "10414": 150,
+        "10415": 2,
+        "10416": 3,
+        "10033": 59,
+        "10036": 34,
+        "30005": 15,
+        "10306": 67,
+        "10402": 3,
+        "10320": 21,
+        "10403": 1,
+        "10206": 67,
+        "3": 22,
+        "1000": 2,
+        "10100": 42,
+        "10104": 63,
+        "10105": 37,
+        "10106": 140,
+        "10107": 43
+      }
+    },
+    "dependencies": [
+            "ecl_mpl",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_formatters",
+            "ecl_linear_algebra",
+            "ecl_math",
+            "ecl_config",
+            "ecl_exceptions"
+    ],
+    "size": 326.85
+  },
+  {
+    "id": "ecl_math",
+    "description": "This package provides simple support to cmath, filling in holesor redefining in a c++ formulation where desirable.",
+    "wiki": "http://wiki.ros.org/ecl_math",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "10208": 2,
+        "3": 7,
+        "10014": 2,
+        "10011": 2,
+        "1": 1,
+        "10411": 2,
+        "10019": 50,
+        "10103": 1,
+        "2": 7,
+        "10414": 6,
+        "10416": 1,
+        "10001": 32,
+        "10003": 133,
+        "10100": 9,
+        "10005": 38,
+        "10036": 5,
+        "10004": 1,
+        "10106": 9,
+        "10107": 14,
+        "10010": 1,
+        "10206": 5
+      }
+    },
+    "dependencies": [
+            "ecl_type_traits"
+    ],
+    "size": 22.08
+  },
+  {
+    "id": "ecl_filesystem",
+    "description": "Cross platform filesystem utilities (until c++11 makes its way in).",
+    "wiki": "http://wiki.ros.org/ecl_filesystem",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "3": 4,
+        "10017": 1,
+        "2": 4,
+        "10211": 1,
+        "10019": 2,
+        "10011": 1,
+        "10315": 1,
+        "10414": 2,
+        "10320": 2,
+        "10001": 14,
+        "10003": 6,
+        "10100": 6,
+        "10005": 9,
+        "10215": 1,
+        "10036": 1,
+        "10010": 2,
+        "10107": 2,
+        "10108": 1,
+        "10106": 9,
+        "10206": 6
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_exceptions",
+            "ecl_config"
+    ],
+    "size": 11.27
+  },
+  {
+    "id": "ecl_sigslots",
+    "description": "Provides a signal/slot mechanism (in the same vein as qt sigslots,boost::signals etc for intra-process communication. These includesome improvements - they do not need a preprocessor, are fully type safe, allow for simple connections via a posix style string identifierand are multithread-safe.",
+    "wiki": "http://ros.org/wiki/ecl_sigslots",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 8,
+        "3": 7,
+        "10001": 57,
+        "10003": 509,
+        "10004": 2,
+        "10005": 92,
+        "10010": 19,
+        "10011": 10,
+        "10014": 3,
+        "10402": 2,
+        "10019": 36,
+        "10021": 1,
+        "10411": 1,
+        "10414": 18,
+        "30005": 7,
+        "10306": 1,
+        "10314": 1,
+        "10206": 16,
+        "10208": 5,
+        "10100": 10,
+        "10103": 1,
+        "10104": 3,
+        "10106": 34,
+        "10107": 3
+      }
+    },
+    "dependencies": [
+            "ecl_threads",
+            "ecl_config"
+    ],
+    "size": 54.54
+  },
+  {
+    "id": "ecl_exceptions",
+    "description": "Template based exceptions - these are simple and practical and avoid the proliferation of exception types. Although not syntatactically ideal, it is convenient and eminently practical.",
+    "wiki": "http://wiki.ros.org/ecl_exceptions",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 4,
+        "3": 4,
+        "10001": 38,
+        "10003": 28,
+        "10004": 6,
+        "10005": 84,
+        "10010": 8,
+        "10011": 5,
+        "10015": 1,
+        "10017": 2,
+        "10019": 11,
+        "10408": 1,
+        "10414": 7,
+        "10036": 33,
+        "10306": 1,
+        "10309": 1,
+        "10314": 1,
+        "10320": 2,
+        "10206": 12,
+        "10208": 1,
+        "10211": 2,
+        "10100": 9,
+        "10104": 2,
+        "10105": 13,
+        "10106": 13,
+        "10108": 1
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_config"
+    ],
+    "size": 36.14
+  },
+  {
+    "id": "ecl_type_traits",
+    "description": "Extends c++ type traits and implements a few more to boot.",
+    "wiki": "http://wiki.ros.org/ecl_type_traits",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "10208": 2,
+        "3": 5,
+        "10402": 1,
+        "10019": 5,
+        "1": 1,
+        "10311": 78,
+        "10107": 10,
+        "2": 5,
+        "10414": 20,
+        "10001": 81,
+        "18": 2,
+        "10003": 107,
+        "10100": 9,
+        "10005": 28,
+        "10036": 2,
+        "10106": 7,
+        "10011": 3,
+        "10010": 15,
+        "10206": 10,
+        "10211": 1
+      }
+    },
+    "dependencies": [
+            "ecl_mpl",
+            "ecl_config"
+    ],
+    "size": 40.62
+  },
+  {
+    "id": "ecl_command_line",
+    "description": "Embeds the TCLAP library inside the ecl. This is a very convenient command line parser in templatised c++.",
+    "wiki": "http://wiki.ros.org/ecl_command_line",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 22,
+        "3": 22,
+        "5": 5,
+        "6": 1,
+        "10001": 21,
+        "18": 6,
+        "10003": 1200,
+        "10004": 172,
+        "10005": 31,
+        "10010": 3,
+        "10011": 79,
+        "10014": 26,
+        "10016": 2,
+        "10402": 2,
+        "10019": 28,
+        "10021": 35,
+        "10023": 1,
+        "10408": 4,
+        "10025": 10,
+        "10411": 10,
+        "10030": 1,
+        "10414": 63,
+        "10032": 11,
+        "10033": 6,
+        "10036": 3,
+        "30005": 6,
+        "10415": 17,
+        "10320": 69,
+        "10206": 41,
+        "10208": 2,
+        "10100": 24,
+        "10104": 189,
+        "10105": 129,
+        "10106": 28,
+        "10107": 15
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 129.09
+  },
+  {
+    "id": "ecl_ipc",
+    "description": "Interprocess mechanisms vary greatly across platforms - sysv, posix, win32, thereare more than a few. This package provides an infrastructure to allow for developing cross platform c++ wrappers around the lower level c api's that handle these mechanisms. These make it not only easier to utilise such mechanisms, but allow it to be done consistently across platforms.",
+    "wiki": "http://wiki.ros.org/ecl_ipc",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 7,
+        "3": 7,
+        "10001": 61,
+        "10003": 170,
+        "10004": 21,
+        "10005": 87,
+        "10010": 9,
+        "10011": 8,
+        "10018": 4,
+        "10019": 48,
+        "10021": 4,
+        "10025": 6,
+        "10414": 3,
+        "10033": 3,
+        "10036": 12,
+        "30005": 4,
+        "10306": 2,
+        "10311": 2,
+        "10321": 2,
+        "10206": 28,
+        "10208": 4,
+        "10211": 2,
+        "10100": 10,
+        "10104": 32,
+        "10105": 30,
+        "10106": 21,
+        "10107": 3
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_time_lite",
+            "ecl_exceptions",
+            "ecl_time",
+            "ecl_config"
+    ],
+    "size": 51.33
+  },
+  {
+    "id": "ecl_devices",
+    "description": "Provides an extensible and standardised framework for input-output devices.",
+    "wiki": "http://wiki.ros.org/ecl_devices",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 29,
+        "3": 26,
+        "5": 18,
+        "6": 10,
+        "10001": 319,
+        "10003": 968,
+        "10004": 80,
+        "10005": 321,
+        "10010": 31,
+        "10011": 40,
+        "10014": 3,
+        "10016": 2,
+        "10017": 20,
+        "10018": 7,
+        "10019": 190,
+        "10404": 232,
+        "10021": 5,
+        "10024": 2,
+        "10025": 11,
+        "10411": 10,
+        "10414": 209,
+        "10031": 1,
+        "10033": 4,
+        "10035": 4,
+        "10036": 44,
+        "30005": 3,
+        "10400": 13,
+        "10306": 14,
+        "10311": 117,
+        "10314": 2,
+        "10315": 2,
+        "10415": 8,
+        "10320": 6,
+        "10321": 2,
+        "10403": 1,
+        "10401": 1,
+        "10206": 74,
+        "10208": 9,
+        "10211": 6,
+        "10215": 36,
+        "10100": 39,
+        "10103": 1,
+        "10104": 73,
+        "10105": 52,
+        "10106": 102
+      }
+    },
+    "dependencies": [
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_threads",
+            "ecl_config",
+            "ecl_errors"
+    ],
+    "size": 237.77
+  },
+  {
+    "id": "ecl_formatters",
+    "description": "The formatters here simply format various input types to a specified text format. They can be used with most streaming types (including both ecl and stl streams).",
+    "wiki": "http://wiki.ros.org/ecl_formatters",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 5,
+        "3": 5,
+        "10001": 90,
+        "10003": 46,
+        "10004": 69,
+        "10005": 24,
+        "10010": 20,
+        "10011": 2,
+        "10015": 2,
+        "10400": 7,
+        "10017": 2,
+        "10019": 63,
+        "10414": 92,
+        "10415": 14,
+        "10033": 4,
+        "10036": 2,
+        "30005": 13,
+        "10311": 12,
+        "10320": 30,
+        "10206": 6,
+        "10208": 1,
+        "10100": 8,
+        "10104": 25,
+        "10105": 34,
+        "10106": 20
+      }
+    },
+    "dependencies": [
+            "ecl_converters",
+            "ecl_exceptions",
+            "ecl_config"
+    ],
+    "size": 63.82
+  },
+  {
+    "id": "ecl_time",
+    "description": "Timing utilities are very dependent on the system api provided for their use.This package provides a means for handling different timing models. Current support- posix rt : complete.- macosx : posix timers only, missing absolute timers.- win : none.",
+    "wiki": "http://wiki.ros.org/ecl_time",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 3,
+        "2": 26,
+        "3": 26,
+        "5": 2,
+        "6": 1,
+        "10001": 137,
+        "10003": 281,
+        "10004": 32,
+        "10005": 179,
+        "10010": 32,
+        "10011": 21,
+        "10014": 9,
+        "10015": 12,
+        "20000": 1,
+        "10017": 6,
+        "10018": 6,
+        "10019": 84,
+        "10404": 6,
+        "10021": 2,
+        "10024": 6,
+        "10025": 1,
+        "10411": 3,
+        "10412": 2,
+        "10414": 91,
+        "10033": 57,
+        "10036": 23,
+        "30005": 1,
+        "10306": 6,
+        "10311": 57,
+        "10401": 1,
+        "10206": 41,
+        "10208": 2,
+        "10211": 7,
+        "10215": 2,
+        "10100": 36,
+        "10104": 38,
+        "10105": 54,
+        "10106": 52,
+        "10107": 3,
+        "10108": 1
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_time_lite",
+            "ecl_exceptions",
+            "ecl_config"
+    ],
+    "size": 144.6
+  },
+  {
+    "id": "ecl_streams",
+    "description": "These are lightweight text streaming classes that connect to standardised ecl type devices.",
+    "wiki": "http://wiki.ros.org/ecl_streams",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 6,
+        "2": 13,
+        "10411": 1,
+        "10001": 128,
+        "10003": 300,
+        "10004": 20,
+        "10005": 176,
+        "10010": 18,
+        "10011": 20,
+        "10400": 2,
+        "10017": 3,
+        "10018": 1,
+        "10019": 119,
+        "10021": 2,
+        "10401": 6,
+        "10026": 1,
+        "10027": 1,
+        "10414": 65,
+        "10033": 6,
+        "10036": 48,
+        "10306": 14,
+        "10311": 43,
+        "10314": 1,
+        "10320": 12,
+        "10206": 55,
+        "10208": 1,
+        "3": 12,
+        "10100": 23,
+        "10104": 70,
+        "10105": 71,
+        "10106": 51,
+        "10107": 1
+      }
+    },
+    "dependencies": [
+            "ecl_type_traits",
+            "ecl_devices",
+            "ecl_concepts",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_errors"
+    ],
+    "size": 103.15
+  },
+  {
+    "id": "ecl_containers",
+    "description": "The containers included here are intended to extend the stl containers.In all cases, these implementations are designed to implementc++ conveniences and safety where speed is not sacrificed. Also includes techniques for memory debugging of common problems suchas buffer overruns.",
+    "wiki": "http://wiki.ros.org/ecl_containers",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 5,
+        "2": 16,
+        "3": 13,
+        "10001": 384,
+        "10003": 433,
+        "10004": 187,
+        "10005": 215,
+        "10010": 54,
+        "10011": 42,
+        "10014": 13,
+        "10015": 29,
+        "10017": 14,
+        "10018": 2,
+        "10019": 509,
+        "10021": 14,
+        "10417": 4,
+        "10025": 1,
+        "10414": 224,
+        "10415": 9,
+        "10033": 8,
+        "10035": 1,
+        "10036": 10,
+        "30005": 17,
+        "10306": 16,
+        "10311": 8,
+        "10320": 13,
+        "10321": 10,
+        "10401": 2,
+        "10206": 66,
+        "10208": 2,
+        "10100": 29,
+        "10104": 142,
+        "10105": 33,
+        "10106": 63,
+        "10107": 18
+      }
+    },
+    "dependencies": [
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_type_traits",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ],
+    "size": 277.38
+  },
+  {
+    "id": "ecl_core",
+    "children": [
+            "ecl_statistics",
+            "ecl_utilities",
+            "ecl_mpl",
+            "ecl_eigen",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_ipc",
+            "ecl_threads",
+            "ecl_linear_algebra",
+            "ecl_concepts",
+            "ecl_streams",
+            "ecl_math",
+            "ecl_formatters",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_devices",
+            "ecl_geometry",
+            "ecl_core_apps",
+            "ecl_sigslots",
+            "ecl_exceptions"
+    ],
+    "description": "A set of tools and interfaces extending the capabilities of c++ to provide a lightweight, consistent interface with a focus for controlprogramming.",
+    "wiki": "http://www.ros.org/wiki/ecl_core",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "ecl_utilities",
+            "ecl_devices",
+            "ecl_mpl",
+            "ecl_eigen",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_formatters",
+            "ecl_threads",
+            "ecl_geometry",
+            "ecl_concepts",
+            "ecl_math",
+            "ecl_streams",
+            "ecl_ipc",
+            "ecl_converters",
+            "ecl_time",
+            "ecl_statistics",
+            "ecl_linear_algebra",
+            "ecl_core_apps",
+            "ecl_sigslots",
+            "ecl_exceptions"
+    ],
+    "size": 1.56
+  },
+  {
+    "id": "ecl_core_apps",
+    "description": "This includes a suite of programs demo'ing various aspects of the ecl_core. It also includes various benchmarking and utility programs for use primarily with embedded systems.",
+    "wiki": "http://wiki.ros.org/ecl_core_apps",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 4,
+        "2": 8,
+        "3": 6,
+        "5": 7,
+        "6": 3,
+        "10001": 252,
+        "10003": 703,
+        "10004": 38,
+        "10005": 162,
+        "10010": 20,
+        "10011": 27,
+        "10014": 19,
+        "10015": 18,
+        "20000": 1,
+        "10017": 10,
+        "10018": 4,
+        "10019": 203,
+        "10021": 20,
+        "10401": 3,
+        "10411": 2,
+        "10414": 140,
+        "10415": 5,
+        "10032": 253,
+        "10033": 14,
+        "10036": 43,
+        "30005": 6,
+        "10400": 5,
+        "10306": 1,
+        "10309": 2,
+        "10311": 22,
+        "10314": 7,
+        "10402": 25,
+        "10319": 7,
+        "10320": 5,
+        "10321": 21,
+        "10403": 7,
+        "10206": 90,
+        "10208": 4,
+        "10211": 1,
+        "10100": 18,
+        "10104": 22,
+        "10105": 25,
+        "10106": 38,
+        "10107": 10
+      }
+    },
+    "dependencies": [
+            "ecl_devices",
+            "ecl_linear_algebra",
+            "ecl_containers",
+            "ecl_type_traits",
+            "ecl_command_line",
+            "ecl_formatters",
+            "ecl_threads",
+            "ecl_geometry",
+            "ecl_streams",
+            "ecl_ipc",
+            "ecl_time_lite",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_sigslots",
+            "ecl_exceptions",
+            "ecl_converters"
+    ],
+    "size": 123.7
+  },
+  {
+    "id": "ecl_eigen",
+    "description": "This provides an Eigen implementation for ecl's linear algebra.",
+    "wiki": "http://wiki.ros.org/ecl_eigen",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 289,
+        "2": 222,
+        "3": 195,
+        "5": 76,
+        "6": 36,
+        "10001": 13117,
+        "18": 6,
+        "10003": 845,
+        "10004": 10162,
+        "10005": 2894,
+        "22": 2,
+        "10008": 1,
+        "10009": 6,
+        "10010": 1484,
+        "10011": 767,
+        "10012": 279,
+        "10013": 12,
+        "10014": 777,
+        "10015": 3383,
+        "10016": 10,
+        "10017": 2434,
+        "10018": 12,
+        "10019": 8679,
+        "10020": 80,
+        "10021": 133,
+        "10022": 8,
+        "10023": 579,
+        "10024": 2,
+        "10025": 486,
+        "10026": 59,
+        "10027": 72,
+        "10029": 72,
+        "10030": 25,
+        "10031": 3961,
+        "10032": 540,
+        "10033": 748,
+        "10035": 96,
+        "10036": 547,
+        "30005": 364,
+        "10304": 2,
+        "10306": 4,
+        "10311": 22,
+        "10314": 6,
+        "10315": 4,
+        "10316": 2,
+        "10320": 1826,
+        "10321": 856,
+        "10322": 2,
+        "10200": 60,
+        "10201": 534,
+        "10202": 521,
+        "10203": 534,
+        "10206": 19,
+        "10207": 10,
+        "10208": 177,
+        "10100": 33,
+        "10102": 2,
+        "10103": 164,
+        "10104": 438,
+        "10105": 449,
+        "10106": 2346,
+        "10107": 421,
+        "10108": 149,
+        "21": 4
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 6491.16
+  },
+  {
+    "id": "ecl_threads",
+    "description": "This package provides the c++ extensions for a variety of threadedprogramming tools. These are usually different on differentplatforms, so the architecture for a cross-platform framework is also implemented.",
+    "wiki": "http://wiki.ros.org/ecl_threads",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 2,
+        "2": 14,
+        "3": 11,
+        "5": 7,
+        "6": 3,
+        "10001": 217,
+        "10003": 684,
+        "10004": 28,
+        "10005": 247,
+        "10010": 29,
+        "10011": 21,
+        "10401": 1,
+        "10018": 5,
+        "10019": 76,
+        "10404": 43,
+        "10021": 6,
+        "10411": 5,
+        "10414": 92,
+        "10415": 12,
+        "10033": 3,
+        "10036": 16,
+        "30005": 6,
+        "10304": 6,
+        "10306": 14,
+        "10309": 8,
+        "10311": 31,
+        "10314": 1,
+        "10320": 6,
+        "10321": 2,
+        "10206": 47,
+        "10208": 3,
+        "10211": 5,
+        "10215": 2,
+        "10100": 26,
+        "10103": 2,
+        "10104": 38,
+        "10105": 44,
+        "10106": 65,
+        "10107": 8
+      }
+    },
+    "dependencies": [
+            "ecl_utilities",
+            "ecl_concepts",
+            "ecl_time",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ],
+    "size": 145.52
+  },
+  {
+    "id": "ecl_utilities",
+    "description": "Includes various supporting tools and utilities for c++ programming.",
+    "wiki": "http://wiki.ros.org/ecl_utilities",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 13,
+        "3": 12,
+        "10001": 81,
+        "18": 3,
+        "10003": 255,
+        "10004": 43,
+        "10005": 118,
+        "10010": 70,
+        "10011": 14,
+        "10400": 1,
+        "10019": 112,
+        "10021": 4,
+        "10417": 2,
+        "10024": 7,
+        "10025": 1,
+        "10414": 41,
+        "10033": 4,
+        "10035": 1,
+        "10036": 10,
+        "30005": 15,
+        "10304": 17,
+        "10306": 35,
+        "10314": 3,
+        "10320": 19,
+        "10100": 14,
+        "10103": 13,
+        "10104": 11,
+        "10105": 11,
+        "10106": 15,
+        "10107": 6
+      }
+    },
+    "dependencies": [
+            "ecl_mpl",
+            "ecl_concepts"
+    ],
+    "size": 92.82
+  },
+  {
+    "id": "ecl_mpl",
+    "description": "Metaprogramming tools move alot of runtime calculations to be shifted tocompile time. This has only very elementary structures at this stage.",
+    "wiki": "http://wiki.ros.org/ecl_mpl",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "3": 6,
+        "10306": 1,
+        "10019": 3,
+        "10311": 6,
+        "10011": 1,
+        "10010": 4,
+        "2": 6,
+        "10414": 1,
+        "10314": 1,
+        "10001": 15,
+        "10003": 13,
+        "10100": 7,
+        "10005": 16,
+        "10004": 1,
+        "10106": 8,
+        "10107": 1,
+        "10033": 10,
+        "10206": 3
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 12.49
+  },
+  {
+    "id": "ecl_concepts",
+    "description": "Introduces a compile time concept checking mechanism that can be used most commonly to check for required functionality when passing template arguments.",
+    "wiki": "http://wiki.ros.org/ecl_concepts",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 7,
+        "3": 7,
+        "10001": 12,
+        "18": 1,
+        "10003": 228,
+        "10004": 15,
+        "10005": 43,
+        "10010": 39,
+        "10011": 8,
+        "10014": 2,
+        "10402": 1,
+        "10019": 23,
+        "10021": 10,
+        "10024": 2,
+        "10414": 8,
+        "10035": 1,
+        "10306": 1,
+        "10311": 8,
+        "10314": 1,
+        "10321": 1,
+        "10206": 2,
+        "10100": 8,
+        "10104": 3,
+        "10105": 3,
+        "10106": 24
+      }
+    },
+    "dependencies": [
+            "ecl_type_traits",
+            "ecl_config"
+    ],
+    "size": 36.51
+  },
+  {
+    "id": "ecl_converters",
+    "description": "Some fast/convenient type converters, mostly for char strings or strings. These are not really fully fleshed out, alot of them could use the addition for the whole range of fundamental types (e.g. all integers, not just int, unsigned int).They will come as the need arises.",
+    "wiki": "http://wiki.ros.org/ecl_converters",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 8,
+        "3": 7,
+        "10001": 112,
+        "10003": 263,
+        "10004": 66,
+        "10005": 89,
+        "10010": 41,
+        "10011": 3,
+        "10017": 5,
+        "10018": 2,
+        "10019": 149,
+        "10021": 3,
+        "10024": 3,
+        "10025": 10,
+        "10414": 52,
+        "10036": 11,
+        "30005": 14,
+        "10304": 1,
+        "10306": 2,
+        "10309": 1,
+        "10311": 56,
+        "10319": 1,
+        "10320": 3,
+        "10321": 2,
+        "10403": 1,
+        "10206": 30,
+        "10208": 4,
+        "10100": 11,
+        "10103": 4,
+        "10104": 3,
+        "10105": 12,
+        "10106": 17,
+        "10107": 16
+      }
+    },
+    "dependencies": [
+            "ecl_mpl",
+            "ecl_type_traits",
+            "ecl_concepts",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_exceptions"
+    ],
+    "size": 90.36
+  },
+  {
+    "id": "ecl_statistics",
+    "description": "Common statistical structures and algorithms for control systems.",
+    "wiki": "http://wiki.ros.org/ecl_statistics",
+    "repositories": [
+            "stonier/ecl_core"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 2,
+        "3": 2,
+        "10001": 38,
+        "10003": 190,
+        "10005": 34,
+        "10010": 9,
+        "10011": 8,
+        "10017": 4,
+        "10019": 78,
+        "10025": 2,
+        "10026": 2,
+        "10411": 2,
+        "10414": 2,
+        "10033": 16,
+        "10036": 6,
+        "30005": 4,
+        "10306": 6,
+        "10206": 4,
+        "10100": 4,
+        "10104": 4,
+        "10105": 4,
+        "10106": 5,
+        "10107": 19
+      }
+    },
+    "dependencies": [
+            "ecl_linear_algebra",
+            "ecl_config"
+    ],
+    "size": 35.06
+  },
+  {
+    "id": "ecl_errors",
+    "description": "This library provides lean and mean error mechanisms. It includes c style error functions as well as a few useful macros. For higher level mechanisms, refer to ecl_exceptions.",
+    "wiki": "http://wiki.ros.org/ecl_errors",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "3": 5,
+        "10401": 1,
+        "2": 6,
+        "10019": 8,
+        "10021": 1,
+        "10024": 1,
+        "10411": 1,
+        "10414": 6,
+        "10032": 1,
+        "10001": 60,
+        "10011": 1,
+        "10003": 111,
+        "10100": 8,
+        "10005": 11,
+        "10004": 6,
+        "10104": 30,
+        "10105": 39,
+        "10010": 3,
+        "10107": 4,
+        "10106": 8,
+        "10206": 7
+      }
+    },
+    "dependencies": [
+            "ecl_config"
+    ],
+    "size": 27.47
+  },
+  {
+    "id": "ecl_sigslots_lite",
+    "description": "This avoids use of dynamic storage (malloc/new) and thread safety (mutexes) to provide a very simple sigslots implementation that can be used for *very* embedded development.",
+    "wiki": "http://wiki.ros.org/ecl_sigslots_lite",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 5,
+        "3": 4,
+        "5": 1,
+        "10001": 46,
+        "10003": 332,
+        "10004": 1,
+        "10005": 80,
+        "10010": 27,
+        "10011": 6,
+        "10014": 1,
+        "10018": 8,
+        "10019": 42,
+        "10021": 2,
+        "10024": 1,
+        "10411": 2,
+        "10414": 65,
+        "10415": 1,
+        "10036": 10,
+        "30005": 3,
+        "10306": 2,
+        "10320": 24,
+        "10206": 5,
+        "10100": 8,
+        "10106": 24
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_config"
+    ],
+    "size": 39.9
+  },
+  {
+    "id": "ecl_converters_lite",
+    "description": "These are a very simple version of some of the functions in ecl_converterssuitable for firmware development. That is, there is no use of new,templates or exceptions.",
+    "wiki": "http://wiki.ros.org/ecl_converters_lite",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "3": 2,
+        "10018": 4,
+        "10019": 10,
+        "2": 2,
+        "10414": 5,
+        "10320": 4,
+        "10003": 34,
+        "10100": 3,
+        "10005": 7,
+        "10106": 1,
+        "10011": 1
+      }
+    },
+    "dependencies": [
+            "ecl_config"
+    ],
+    "size": 6.99
+  },
+  {
+    "id": "ecl_time_lite",
+    "description": "Provides a portable set of time functions that are especially useful forporting other code or being wrapped by higher level c++ classes.",
+    "wiki": "http://wiki.ros.org/ecl_time_lite",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "2": 14,
+        "3": 14,
+        "5": 2,
+        "10001": 61,
+        "10003": 178,
+        "10004": 1,
+        "10005": 57,
+        "10010": 2,
+        "10011": 2,
+        "10401": 1,
+        "10019": 6,
+        "10414": 14,
+        "10416": 1,
+        "10036": 8,
+        "10309": 1,
+        "10311": 2,
+        "10320": 12,
+        "10206": 21,
+        "10208": 1,
+        "10211": 4,
+        "10215": 2,
+        "10100": 20,
+        "10105": 2,
+        "10106": 46,
+        "10107": 6
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_config"
+    ],
+    "size": 45.66
+  },
+  {
+    "id": "ecl_io",
+    "description": "Most implementations (windows, posix, ...) have slightly different api forlow level input-output functions. These are gathered here and re-representedwith a cross platform set of functions.",
+    "wiki": "http://wiki.ros.org/ecl_io",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 5,
+        "3": 4,
+        "5": 4,
+        "6": 3,
+        "10001": 23,
+        "10003": 484,
+        "10004": 2,
+        "10005": 73,
+        "10010": 2,
+        "10011": 3,
+        "10401": 1,
+        "10018": 11,
+        "10019": 1,
+        "10021": 1,
+        "10411": 1,
+        "10413": 1,
+        "10414": 30,
+        "10415": 2,
+        "10036": 18,
+        "10306": 1,
+        "10311": 4,
+        "10402": 4,
+        "10321": 1,
+        "10403": 2,
+        "10206": 11,
+        "10211": 1,
+        "10215": 13,
+        "10100": 11,
+        "10104": 3,
+        "10105": 11,
+        "10106": 16,
+        "10107": 50
+      }
+    },
+    "dependencies": [
+            "ecl_errors",
+            "ecl_config"
+    ],
+    "size": 37.34
+  },
+  {
+    "id": "ecl_lite",
+    "children": [
+            "ecl_converters_lite",
+            "ecl_sigslots_lite",
+            "ecl_time_lite",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_io"
+    ],
+    "description": "Libraries and utilities for embedded and low-level linux development.",
+    "wiki": "http://www.ros.org/wiki/ecl_lite",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "ecl_converters_lite",
+            "ecl_sigslots_lite",
+            "ecl_time_lite",
+            "ecl_config",
+            "ecl_errors",
+            "ecl_io"
+    ],
+    "size": 0.87
+  },
+  {
+    "id": "ecl_config",
+    "description": "These tools inspect and describe your system with macros, typesand functions.",
+    "wiki": "http://wiki.ros.org/ecl_config",
+    "repositories": [
+            "stonier/ecl_lite"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "1": 1,
+        "2": 7,
+        "3": 7,
+        "5": 1,
+        "6": 1,
+        "10001": 52,
+        "10003": 103,
+        "10004": 87,
+        "10005": 17,
+        "10006": 1,
+        "10011": 2,
+        "10014": 51,
+        "10019": 39,
+        "10025": 51,
+        "10414": 4,
+        "10032": 344,
+        "10033": 12,
+        "10036": 2,
+        "10311": 7,
+        "10206": 6,
+        "10211": 2,
+        "10100": 12,
+        "10105": 9,
+        "10106": 6,
+        "10107": 6
+      }
+    },
+    "dependencies": [
+    ],
+    "size": 43.4
+  },
+  {
+    "id": "ecl_mobile_robot",
+    "description": "Contains transforms (e.g. differential drive inverse kinematics)for the various types of mobile robot platforms.",
+    "wiki": "http://wiki.ros.org/ecl_mobile_robot",
+    "repositories": [
+            "stonier/ecl_navigation"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+        "3": 4,
+        "10401": 1,
+        "2": 4,
+        "10107": 4,
+        "10021": 1,
+        "10019": 2,
+        "10024": 1,
+        "10414": 2,
+        "10001": 23,
+        "10003": 63,
+        "10100": 7,
+        "10005": 16,
+        "10004": 1,
+        "10105": 2,
+        "10106": 11,
+        "10011": 3,
+        "10010": 3,
+        "10206": 11
+      }
+    },
+    "dependencies": [
+            "ecl_formatters",
+            "ecl_errors",
+            "ecl_linear_algebra",
+            "ecl_math",
+            "ecl_geometry"
+    ],
+    "size": 20.54
+  },
+  {
+    "id": "ecl_navigation",
+    "children": [
+            "ecl_mobile_robot"
+    ],
+    "description": "This stack aims to bring the common tools and algorithms needed todevelop navigation algorithms, in particular slam. It does not focus onthe end-point solution, rather the tools needed to create a variety ofend-point solutions.",
+    "wiki": "http://www.ros.org/wiki/ecl_navigation",
+    "repositories": [
+            "stonier/ecl_navigation"
+    ],
+    "authors": [
+"Daniel Stonier"    ],
+    "maintainers": [
+"Daniel Stonier"    ],
+    "analysis": {
+      "violations": {
+      }
+    },
+    "dependencies": [
+            "ecl_mobile_robot"
+    ],
+    "size": 0.87
+  }
+]

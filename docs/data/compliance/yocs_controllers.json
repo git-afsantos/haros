@@ -1,0 +1,146 @@
+[
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "default_controller.hpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "default_controller.hpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "default_controller.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "default_controller.hpp:59:  public: should be indented +1 space inside class Controller  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "default_controller.hpp",
+    "line": 62,
+    "function": null,
+    "comment": "default_controller.hpp:62:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "default_controller.hpp:78:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 80,
+    "function": null,
+    "comment": "default_controller.hpp:80:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "default_controller.hpp",
+    "line": 83,
+    "function": null,
+    "comment": "default_controller.hpp:83:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "default_controller.hpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 96,
+    "function": null,
+    "comment": "default_controller.hpp:96:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "default_controller.hpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "default_controller.hpp",
+    "line": 101,
+    "function": null,
+    "comment": "default_controller.hpp:101:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 102,
+    "function": null,
+    "comment": "default_controller.hpp:102:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "default_controller.hpp:114:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "default_controller.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "default_controller.hpp:123:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "default_controller.hpp",
+    "line": 127,
+    "function": null,
+    "comment": "default_controller.hpp:127:  private: should be indented +1 space inside class Controller  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "default_controller.hpp",
+    "line": 131,
+    "function": null,
+    "comment": "default_controller.hpp:131:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "default_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "default_controller.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

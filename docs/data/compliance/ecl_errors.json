@@ -1,0 +1,2546 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "errors.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "errors.hpp",
+    "line": 20,
+    "function": null,
+    "comment": "errors.hpp:20:  Include 'errors/handlers.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "errors.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "errors.hpp:21:  Include 'errors/compile_time_assert.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "handlers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "handlers.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "handlers.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "handlers.hpp:21:  Include 'cstdio' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "handlers.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "handlers.hpp:23:  Include 'flags.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "handlers.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "handlers.hpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "handlers.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "handlers.hpp:58:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "handlers.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "handlers.hpp:59:  public: should be indented +1 space inside class ecl_errors_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "handlers.hpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "handlers.hpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 72,
+    "function": null,
+    "comment": "handlers.hpp:72:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 73,
+    "function": null,
+    "comment": "handlers.hpp:73:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 75,
+    "function": null,
+    "comment": "handlers.hpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "handlers.hpp",
+    "line": 75,
+    "function": null,
+    "comment": "handlers.hpp:75:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "handlers.hpp:76:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "handlers.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "handlers.hpp:76:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "handlers.hpp:77:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "handlers.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "handlers.hpp:77:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "handlers.hpp:78:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "handlers.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "handlers.hpp:78:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "handlers.hpp:79:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "handlers.hpp:94:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "handlers.hpp",
+    "line": 94,
+    "function": null,
+    "comment": "handlers.hpp:94:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "handlers.hpp:95:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "handlers.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "handlers.hpp:95:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 96,
+    "function": null,
+    "comment": "handlers.hpp:96:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "handlers.hpp:103:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "handlers.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "handlers.hpp:103:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 104,
+    "function": null,
+    "comment": "handlers.hpp:104:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "handlers.hpp",
+    "line": 104,
+    "function": null,
+    "comment": "handlers.hpp:104:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "handlers.hpp:105:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 106,
+    "function": null,
+    "comment": "handlers.hpp:106:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "handlers.hpp:107:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 108,
+    "function": null,
+    "comment": "handlers.hpp:108:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 109,
+    "function": null,
+    "comment": "handlers.hpp:109:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 110,
+    "function": null,
+    "comment": "handlers.hpp:110:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 111,
+    "function": null,
+    "comment": "handlers.hpp:111:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 112,
+    "function": null,
+    "comment": "handlers.hpp:112:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 113,
+    "function": null,
+    "comment": "handlers.hpp:113:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "handlers.hpp:114:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 115,
+    "function": null,
+    "comment": "handlers.hpp:115:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "handlers.hpp:116:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 117,
+    "function": null,
+    "comment": "handlers.hpp:117:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "handlers.hpp:118:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 119,
+    "function": null,
+    "comment": "handlers.hpp:119:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "handlers.hpp:120:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 121,
+    "function": null,
+    "comment": "handlers.hpp:121:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 122,
+    "function": null,
+    "comment": "handlers.hpp:122:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "handlers.hpp:123:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 124,
+    "function": null,
+    "comment": "handlers.hpp:124:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 125,
+    "function": null,
+    "comment": "handlers.hpp:125:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 126,
+    "function": null,
+    "comment": "handlers.hpp:126:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 127,
+    "function": null,
+    "comment": "handlers.hpp:127:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 128,
+    "function": null,
+    "comment": "handlers.hpp:128:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 129,
+    "function": null,
+    "comment": "handlers.hpp:129:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "handlers.hpp:130:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 131,
+    "function": null,
+    "comment": "handlers.hpp:131:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 132,
+    "function": null,
+    "comment": "handlers.hpp:132:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 133,
+    "function": null,
+    "comment": "handlers.hpp:133:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "handlers.hpp:135:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "handlers.hpp:135:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "handlers.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "handlers.hpp:135:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 136,
+    "function": null,
+    "comment": "handlers.hpp:136:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 137,
+    "function": null,
+    "comment": "handlers.hpp:137:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "handlers.hpp",
+    "line": 138,
+    "function": null,
+    "comment": "handlers.hpp:138:  protected: should be indented +1 space inside class ecl_errors_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "file": "handlers.hpp",
+    "line": 138,
+    "function": null,
+    "comment": "handlers.hpp:138:  'protected:' should be preceded by a blank line  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 139,
+    "function": null,
+    "comment": "handlers.hpp:139:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 140,
+    "function": null,
+    "comment": "handlers.hpp:140:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 140,
+    "function": null,
+    "comment": "handlers.hpp:140:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 141,
+    "function": null,
+    "comment": "handlers.hpp:141:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 141,
+    "function": null,
+    "comment": "handlers.hpp:141:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 142,
+    "function": null,
+    "comment": "handlers.hpp:142:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 142,
+    "function": null,
+    "comment": "handlers.hpp:142:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "handlers.hpp:143:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "handlers.hpp:143:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "handlers.hpp:144:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "handlers.hpp:144:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "handlers.hpp:145:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "handlers.hpp:145:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 146,
+    "function": null,
+    "comment": "handlers.hpp:146:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 146,
+    "function": null,
+    "comment": "handlers.hpp:146:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 147,
+    "function": null,
+    "comment": "handlers.hpp:147:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 147,
+    "function": null,
+    "comment": "handlers.hpp:147:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 148,
+    "function": null,
+    "comment": "handlers.hpp:148:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "handlers.hpp:149:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "handlers.hpp:149:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 150,
+    "function": null,
+    "comment": "handlers.hpp:150:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 150,
+    "function": null,
+    "comment": "handlers.hpp:150:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 151,
+    "function": null,
+    "comment": "handlers.hpp:151:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 151,
+    "function": null,
+    "comment": "handlers.hpp:151:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 152,
+    "function": null,
+    "comment": "handlers.hpp:152:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 152,
+    "function": null,
+    "comment": "handlers.hpp:152:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "handlers.hpp:153:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "handlers.hpp:153:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 154,
+    "function": null,
+    "comment": "handlers.hpp:154:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 154,
+    "function": null,
+    "comment": "handlers.hpp:154:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 155,
+    "function": null,
+    "comment": "handlers.hpp:155:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 155,
+    "function": null,
+    "comment": "handlers.hpp:155:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 156,
+    "function": null,
+    "comment": "handlers.hpp:156:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 156,
+    "function": null,
+    "comment": "handlers.hpp:156:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 157,
+    "function": null,
+    "comment": "handlers.hpp:157:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 157,
+    "function": null,
+    "comment": "handlers.hpp:157:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "handlers.hpp:158:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "handlers.hpp:158:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 159,
+    "function": null,
+    "comment": "handlers.hpp:159:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 159,
+    "function": null,
+    "comment": "handlers.hpp:159:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 160,
+    "function": null,
+    "comment": "handlers.hpp:160:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 160,
+    "function": null,
+    "comment": "handlers.hpp:160:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 161,
+    "function": null,
+    "comment": "handlers.hpp:161:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 161,
+    "function": null,
+    "comment": "handlers.hpp:161:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 162,
+    "function": null,
+    "comment": "handlers.hpp:162:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 162,
+    "function": null,
+    "comment": "handlers.hpp:162:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 163,
+    "function": null,
+    "comment": "handlers.hpp:163:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 163,
+    "function": null,
+    "comment": "handlers.hpp:163:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 164,
+    "function": null,
+    "comment": "handlers.hpp:164:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 164,
+    "function": null,
+    "comment": "handlers.hpp:164:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 165,
+    "function": null,
+    "comment": "handlers.hpp:165:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 165,
+    "function": null,
+    "comment": "handlers.hpp:165:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 166,
+    "function": null,
+    "comment": "handlers.hpp:166:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 166,
+    "function": null,
+    "comment": "handlers.hpp:166:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 167,
+    "function": null,
+    "comment": "handlers.hpp:167:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "handlers.hpp",
+    "line": 167,
+    "function": null,
+    "comment": "handlers.hpp:167:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 168,
+    "function": null,
+    "comment": "handlers.hpp:168:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "handlers.hpp",
+    "line": 170,
+    "function": null,
+    "comment": "handlers.hpp:170:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "handlers.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "handlers.hpp:174:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "flags.hpp",
+    "line": null,
+    "function": null,
+    "comment": "flags.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "flags.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "flags.hpp:23:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "flags.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "flags.hpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 37,
+    "function": null,
+    "comment": "flags.hpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "flags.hpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "flags.hpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "flags.hpp:39:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 40,
+    "function": null,
+    "comment": "flags.hpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 40,
+    "function": null,
+    "comment": "flags.hpp:40:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "flags.hpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "flags.hpp:42:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "flags.hpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "flags.hpp:43:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "flags.hpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "flags.hpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "flags.hpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "flags.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "flags.hpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "flags.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "flags.hpp:47:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "flags.hpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "flags.hpp:48:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "flags.hpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "flags.hpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "flags.hpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "flags.hpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "flags.hpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "flags.hpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "flags.hpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "flags.hpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "flags.hpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "flags.hpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "flags.hpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "flags.hpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "flags.hpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "flags.hpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "flags.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "flags.hpp:57:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "flags.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 58,
+    "function": null,
+    "comment": "flags.hpp:58:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "flags.hpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "flags.hpp:60:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "flags.hpp:60:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "flags.hpp:61:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "flags.hpp:61:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 62,
+    "function": null,
+    "comment": "flags.hpp:62:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "flags.hpp:63:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "flags.hpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flags.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "flags.hpp:66:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "flags.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "flags.hpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flags.hpp",
+    "line": 72,
+    "function": null,
+    "comment": "flags.hpp:72:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "compile_time_assert.hpp",
+    "line": null,
+    "function": null,
+    "comment": "compile_time_assert.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "compile_time_assert.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "compile_time_assert.hpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "compile_time_assert.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "compile_time_assert.hpp:43:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "compile_time_assert.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "compile_time_assert.hpp:60:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "compile_time_assert.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "compile_time_assert.hpp:60:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Use 2 spaces for indentation.",
+    "file": "compile_time_assert.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "compile_time_assert.hpp:61:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "compile_time_assert.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "compile_time_assert.hpp:61:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "compile_time_assert.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "compile_time_assert.hpp:61:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "compile_time_assert.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "compile_time_assert.hpp:79:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "compile_time_assert.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "compile_time_assert.hpp:79:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "compile_time_assert.hpp",
+    "line": 80,
+    "function": null,
+    "comment": "compile_time_assert.hpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "compile_time_assert.hpp",
+    "line": 80,
+    "function": null,
+    "comment": "compile_time_assert.hpp:80:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "compile_time_assert.hpp",
+    "line": 81,
+    "function": null,
+    "comment": "compile_time_assert.hpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "compile_time_assert.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "compile_time_assert.hpp:82:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "compile_time_assert.hpp",
+    "line": 83,
+    "function": null,
+    "comment": "compile_time_assert.hpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "macros.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "macros.hpp:29:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "macros.hpp:30:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "macros.hpp:32:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "macros.hpp:36:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "macros.hpp:55:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "macros.hpp:55:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "macros.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "macros.hpp:56:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "macros.hpp:56:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "macros.hpp:56:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "macros.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "macros.hpp:57:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "macros.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "macros.hpp:57:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "run_time_functions.hpp",
+    "line": null,
+    "function": null,
+    "comment": "run_time_functions.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "run_time_functions.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "run_time_functions.hpp:22:  Found C system header after C++ system header. Should be: run_time_functions.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "run_time_functions.hpp",
+    "line": 34,
+    "function": null,
+    "comment": "run_time_functions.hpp:34:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "run_time_functions.hpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "run_time_functions.hpp:51:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "run_time_functions.hpp:51:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "run_time_functions.hpp:67:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "run_time_functions.hpp:67:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "run_time_functions.hpp:67:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "run_time_functions.hpp:84:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "run_time_functions.hpp:84:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "run_time_functions.hpp:84:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "run_time_functions.hpp:95:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "run_time_functions.hpp:95:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "run_time_functions.hpp:95:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "run_time_functions.hpp:95:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "run_time_functions.cpp",
+    "line": null,
+    "function": null,
+    "comment": "run_time_functions.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "run_time_functions.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "run_time_functions.cpp:15:  Include '../../include/ecl/errors/handlers.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "run_time_functions.cpp:23:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "run_time_functions.cpp:23:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "run_time_functions.cpp:23:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "run_time_functions.cpp:24:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "run_time_functions.cpp:26:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "run_time_functions.cpp:27:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "run_time_functions.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "run_time_functions.cpp:28:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "run_time_functions.cpp:28:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "run_time_functions.cpp:28:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "run_time_functions.cpp:29:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "run_time_functions.cpp:30:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "run_time_functions.cpp:31:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "run_time_functions.cpp:31:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "run_time_functions.cpp:32:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "run_time_functions.cpp:32:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "run_time_functions.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "run_time_functions.cpp:36:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "run_time_functions.cpp:36:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "run_time_functions.cpp:36:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "run_time_functions.cpp:37:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "run_time_functions.cpp:39:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "run_time_functions.cpp:40:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "run_time_functions.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "run_time_functions.cpp:41:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "run_time_functions.cpp:41:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "run_time_functions.cpp:41:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "run_time_functions.cpp:42:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "run_time_functions.cpp:43:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "run_time_functions.cpp:44:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "run_time_functions.cpp:44:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "run_time_functions.cpp:45:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "run_time_functions.cpp:45:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "run_time_functions.cpp:56:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "run_time_functions.cpp:56:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "run_time_functions.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "run_time_functions.cpp:58:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "run_time_functions.cpp:58:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "run_time_functions.cpp:59:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "run_time_functions.cpp:59:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "run_time_functions.cpp:60:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "run_time_functions.cpp:61:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "run_time_functions.cpp:61:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "run_time_functions.cpp:62:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "run_time_functions.cpp:62:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "run_time_functions.cpp:66:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "run_time_functions.cpp:66:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "run_time_functions.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "run_time_functions.cpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "run_time_functions.cpp:68:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "run_time_functions.cpp:68:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "run_time_functions.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "run_time_functions.cpp:69:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "run_time_functions.cpp:69:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "run_time_functions.cpp:69:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "run_time_functions.cpp:70:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "run_time_functions.cpp:71:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "run_time_functions.cpp:71:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "run_time_functions.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "run_time_functions.cpp:72:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "run_time_functions.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "run_time_functions.cpp:72:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "errors.cpp",
+    "line": null,
+    "function": null,
+    "comment": "errors.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "errors.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "errors.cpp:16:  Include '../../include/ecl/errors/macros.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "errors.cpp:26:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "errors.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "errors.cpp:27:  public: should be indented +1 space inside class Test  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "errors.cpp:28:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "errors.cpp:28:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "errors.cpp:29:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "errors.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "errors.cpp:29:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "errors.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "errors.cpp:29:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "errors.cpp:30:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "errors.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "errors.cpp:30:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "errors.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "errors.cpp:30:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "errors.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "errors.cpp:40:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "errors.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "errors.cpp:41:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "errors.cpp:43:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "errors.cpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "errors.cpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "errors.cpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "errors.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "errors.cpp:63:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "errors.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "errors.cpp:68:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "errors.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "errors.cpp:68:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Do not use default arguments.",
+    "file": "run_time_functions.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "Found function with default arguments.",
+    "tags": ["hicpp","code-standards","functions","parameters","default-arguments","arguments"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "compile_time_assert.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "run_time_functions.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "run_time_functions.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "errors.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "run_time_functions.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "run_time_functions.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "run_time_functions.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "The function 'ecl_run_time_abort' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "handlers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "handlers.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "flags.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "flags.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "compile_time_assert.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "compile_time_assert.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "run_time_functions.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "run_time_functions.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "run_time_functions.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "errors.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "errors.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

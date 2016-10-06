@@ -1,0 +1,3114 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "scanner.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "scanner.hpp:44:  Include 'map' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "scanner.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "scanner.hpp:45:  Found C system header after C++ system header. Should be: scanner.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "scanner.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "scanner.hpp:46:  Found C system header after C++ system header. Should be: scanner.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "scanner.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "scanner.hpp:46:  Include 'cstdint' instead of 'stdint.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "scanner.hpp:56:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "scanner.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "scanner.hpp:57:  public: should be indented +1 space inside class FTDI_Scanner  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "scanner.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "scanner.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "scanner.hpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "scanner.hpp",
+    "line": 72,
+    "function": null,
+    "comment": "scanner.hpp:72:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "scanner.hpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "scanner.hpp",
+    "line": 90,
+    "function": null,
+    "comment": "scanner.hpp:90:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "scanner.hpp",
+    "line": 91,
+    "function": null,
+    "comment": "scanner.hpp:91:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "scanner.hpp:93:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "scanner.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "scanner.hpp:107:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 108,
+    "function": null,
+    "comment": "scanner.hpp:108:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 109,
+    "function": null,
+    "comment": "scanner.hpp:109:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "scanner.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "scanner.hpp:114:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "scanner.hpp:120:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 123,
+    "function": null,
+    "comment": "scanner.hpp:123:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 126,
+    "function": null,
+    "comment": "scanner.hpp:126:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "scanner.hpp:143:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "scanner.hpp:143:  Is this a non-const reference? If so, make const or use a pointer: std::string &serial_id  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Unary operators should have no whitespace around them.",
+    "file": "scanner.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "scanner.hpp:144:  Extra space for operator !   [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "scanner.hpp:144:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "scanner.hpp:158:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "scanner.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "scanner.hpp:158:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "scanner.hpp:158:  Is this a non-const reference? If so, make const or use a pointer: std::string &manufacturer  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Unary operators should have no whitespace around them.",
+    "file": "scanner.hpp",
+    "line": 159,
+    "function": null,
+    "comment": "scanner.hpp:159:  Extra space for operator !   [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 159,
+    "function": null,
+    "comment": "scanner.hpp:159:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 173,
+    "function": null,
+    "comment": "scanner.hpp:173:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "scanner.hpp",
+    "line": 173,
+    "function": null,
+    "comment": "scanner.hpp:173:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 173,
+    "function": null,
+    "comment": "scanner.hpp:173:  Is this a non-const reference? If so, make const or use a pointer: std::string &product  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Unary operators should have no whitespace around them.",
+    "file": "scanner.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "scanner.hpp:174:  Extra space for operator !   [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "scanner.hpp:174:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 187,
+    "function": null,
+    "comment": "scanner.hpp:187:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 187,
+    "function": null,
+    "comment": "scanner.hpp:187:  Is this a non-const reference? If so, make const or use a pointer: std::string &serial_id  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 196,
+    "function": null,
+    "comment": "scanner.hpp:196:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 196,
+    "function": null,
+    "comment": "scanner.hpp:196:  Is this a non-const reference? If so, make const or use a pointer: std::string &manufacturer  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "scanner.hpp",
+    "line": 205,
+    "function": null,
+    "comment": "scanner.hpp:205:  Is this a non-const reference? If so, make const or use a pointer: std::string &product  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "scanner.hpp",
+    "line": 212,
+    "function": null,
+    "comment": "scanner.hpp:212:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 213,
+    "function": null,
+    "comment": "scanner.hpp:213:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "scanner.hpp",
+    "line": 215,
+    "function": null,
+    "comment": "scanner.hpp:215:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 213,
+    "function": null,
+    "comment": "scanner.hpp:213:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 214,
+    "function": null,
+    "comment": "scanner.hpp:214:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "scanner.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "scanner.hpp:219:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "scanner.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "scanner.hpp:219:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "scanner.hpp",
+    "line": 226,
+    "function": null,
+    "comment": "scanner.hpp:226:  private: should be indented +1 space inside class FTDI_Scanner  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 229,
+    "function": null,
+    "comment": "scanner.hpp:229:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "scanner.hpp",
+    "line": 230,
+    "function": null,
+    "comment": "scanner.hpp:230:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "scanner.hpp",
+    "line": 230,
+    "function": null,
+    "comment": "scanner.hpp:230:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "writer.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "writer.hpp:42:  Found C system header after C++ system header. Should be: writer.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "writer.hpp:52:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "writer.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "writer.hpp:53:  public: should be indented +1 space inside class FTDI_Writer  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 69,
+    "function": null,
+    "comment": "writer.hpp:69:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 81,
+    "function": null,
+    "comment": "writer.hpp:81:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "writer.hpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 115,
+    "function": null,
+    "comment": "writer.hpp:115:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 116,
+    "function": null,
+    "comment": "writer.hpp:116:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 128,
+    "function": null,
+    "comment": "writer.hpp:128:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 133,
+    "function": null,
+    "comment": "writer.hpp:133:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "writer.hpp:135:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 149,
+    "function": null,
+    "comment": "writer.hpp:149:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 150,
+    "function": null,
+    "comment": "writer.hpp:150:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 151,
+    "function": null,
+    "comment": "writer.hpp:151:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 168,
+    "function": null,
+    "comment": "writer.hpp:168:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "writer.hpp:174:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 176,
+    "function": null,
+    "comment": "writer.hpp:176:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 180,
+    "function": null,
+    "comment": "writer.hpp:180:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 180,
+    "function": null,
+    "comment": "writer.hpp:180:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 181,
+    "function": null,
+    "comment": "writer.hpp:181:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 182,
+    "function": null,
+    "comment": "writer.hpp:182:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 183,
+    "function": null,
+    "comment": "writer.hpp:183:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 189,
+    "function": null,
+    "comment": "writer.hpp:189:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 197,
+    "function": null,
+    "comment": "writer.hpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 198,
+    "function": null,
+    "comment": "writer.hpp:198:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 206,
+    "function": null,
+    "comment": "writer.hpp:206:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "writer.hpp",
+    "line": 207,
+    "function": null,
+    "comment": "writer.hpp:207:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 207,
+    "function": null,
+    "comment": "writer.hpp:207:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 214,
+    "function": null,
+    "comment": "writer.hpp:214:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "writer.hpp",
+    "line": 218,
+    "function": null,
+    "comment": "writer.hpp:218:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "writer.hpp",
+    "line": 219,
+    "function": null,
+    "comment": "writer.hpp:219:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "writer.hpp",
+    "line": 220,
+    "function": null,
+    "comment": "writer.hpp:220:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "writer.hpp",
+    "line": 222,
+    "function": null,
+    "comment": "writer.hpp:222:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "writer.hpp",
+    "line": 223,
+    "function": null,
+    "comment": "writer.hpp:223:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "writer.hpp",
+    "line": 225,
+    "function": null,
+    "comment": "writer.hpp:225:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "writer.hpp",
+    "line": 226,
+    "function": null,
+    "comment": "writer.hpp:226:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 233,
+    "function": null,
+    "comment": "writer.hpp:233:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 234,
+    "function": null,
+    "comment": "writer.hpp:234:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 236,
+    "function": null,
+    "comment": "writer.hpp:236:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 237,
+    "function": null,
+    "comment": "writer.hpp:237:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "writer.hpp",
+    "line": 239,
+    "function": null,
+    "comment": "writer.hpp:239:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 240,
+    "function": null,
+    "comment": "writer.hpp:240:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "writer.hpp",
+    "line": 242,
+    "function": null,
+    "comment": "writer.hpp:242:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 242,
+    "function": null,
+    "comment": "writer.hpp:242:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 243,
+    "function": null,
+    "comment": "writer.hpp:243:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 250,
+    "function": null,
+    "comment": "writer.hpp:250:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "writer.hpp",
+    "line": 252,
+    "function": null,
+    "comment": "writer.hpp:252:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 252,
+    "function": null,
+    "comment": "writer.hpp:252:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "writer.hpp",
+    "line": 253,
+    "function": null,
+    "comment": "writer.hpp:253:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 259,
+    "function": null,
+    "comment": "writer.hpp:259:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "writer.hpp",
+    "line": 260,
+    "function": null,
+    "comment": "writer.hpp:260:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 261,
+    "function": null,
+    "comment": "writer.hpp:261:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "writer.hpp",
+    "line": 280,
+    "function": null,
+    "comment": "writer.hpp:280:  private: should be indented +1 space inside class FTDI_Writer  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "writer.hpp",
+    "line": 283,
+    "function": null,
+    "comment": "writer.hpp:283:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "writer.hpp",
+    "line": 288,
+    "function": null,
+    "comment": "writer.hpp:288:  Use int16/int64/etc, rather than the C type short  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "writer.hpp",
+    "line": 293,
+    "function": null,
+    "comment": "writer.hpp:293:  Use int16/int64/etc, rather than the C type short  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "writer.hpp",
+    "line": 212,
+    "function": null,
+    "comment": "writer.hpp:212:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "reset_device.cpp",
+    "line": null,
+    "function": null,
+    "comment": "reset_device.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "reset_device.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "reset_device.cpp:14:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "reset_device.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "reset_device.cpp:18:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "get_serial_number.cpp",
+    "line": null,
+    "function": null,
+    "comment": "get_serial_number.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "get_serial_number.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "get_serial_number.cpp:16:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Assignment operators should be preceeded and followed by whitespace.",
+    "file": "get_serial_number.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "get_serial_number.cpp:30:  Missing spaces around =  [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","assignment"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "get_serial_number.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "get_serial_number.cpp:30:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "get_serial_number.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "get_serial_number.cpp:30:  Missing space before ( in for(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "get_serial_number.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "get_serial_number.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "get_serial_number.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "get_serial_number.cpp:49:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "get_serial_number.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "get_serial_number.cpp:29:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:46:  Found C system header after C++ system header. Should be: ftdi_write_eeprom.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:63:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:85:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:88:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:103:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:105:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:106:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:110:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:111:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:112:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:113:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:114:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:130:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:131:  Extra space after (  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:131:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:133:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 133,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:133:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:136:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:146:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:149:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:149:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 159,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:159:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:160:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:162:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:162:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "ftdi_write_eeprom.cpp:78:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "overwrite_serial_number.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:42:  Found C system header after C++ system header. Should be: overwrite_serial_number.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "overwrite_serial_number.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:44:  Include 'kobuki_ftdi/scanner.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:67:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:69:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:77:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:92:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:93:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:105:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:105:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:112:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "overwrite_serial_number.cpp:81:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "ftdi_scan.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "ftdi_scan.cpp:43:  Found C system header after C++ system header. Should be: ftdi_scan.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_scan.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "ftdi_scan.cpp:50:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "ftdi_scan.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "ftdi_scan.cpp:51:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_scan.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "ftdi_scan.cpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_scan.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "ftdi_scan.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_scan.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "ftdi_scan.cpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_scan.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "ftdi_scan.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_scan.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "ftdi_scan.cpp:76:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_scan.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "ftdi_scan.cpp:77:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_scan.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "ftdi_scan.cpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:47:  Found C system header after C++ system header. Should be: ftdi_read_eeprom.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:69:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:97:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:106:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:113:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:123:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:126:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:127:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:141:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:143:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:144:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:148:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:149:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:150:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:151:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:152:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 163,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:163:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:164:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:169:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:170:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:171:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 173,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:173:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 174,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:174:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 184,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:184:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 185,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:185:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 186,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:186:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:189:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:190:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:191:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 194,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:194:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:195:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "ftdi_read_eeprom.cpp:111:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "unflasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "unflasher.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "unflasher.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "unflasher.cpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "unflasher.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "unflasher.cpp:30:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "unflasher.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "unflasher.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "unflasher.cpp:33:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "unflasher.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "unflasher.cpp:41:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "unflasher.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "unflasher.cpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "unflasher.cpp:48:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "unflasher.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "unflasher.cpp:56:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "unflasher.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "unflasher.cpp:57:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "unflasher.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "unflasher.cpp:57:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "unflasher.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "unflasher.cpp:57:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "unflasher.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "unflasher.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "unflasher.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "unflasher.cpp:60:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "unflasher.cpp:64:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "unflasher.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "unflasher.cpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "unflasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "unflasher.cpp:66:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "unflasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "unflasher.cpp:66:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "unflasher.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "unflasher.cpp:67:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "unflasher.cpp:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "unflasher.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "unflasher.cpp:78:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "unflasher.cpp:83:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "unflasher.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "unflasher.cpp:85:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "unflasher.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "unflasher.cpp:64:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "ftdi_kobuki.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:62:  Found C system header after C++ system header. Should be: ftdi_kobuki.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:80:  Use int16/int64/etc, rather than the C type short  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:81:  Use int16/int64/etc, rather than the C type short  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:86:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:88:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:90:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:98:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:111:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:114:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:115:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:125:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:130:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:132:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:137:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:138:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:139:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:140:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:141:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:151:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:156:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 157,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:157:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:162:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 163,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:163:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:164:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:169:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:188:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 188,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:188:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:202:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 210,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:210:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 211,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:211:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 213,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:213:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 214,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:214:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:216:  Using C-style cast.  Use reinterpret_cast<char*>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:217:  Almost always, snprintf is better than strcpy  [runtime/printf] [4]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 222,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:222:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:223:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 226,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:226:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 227,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:227:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 239,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:242:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:242:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 199,
+    "function": null,
+    "comment": "ftdi_kobuki.cpp:199:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "find_devices.cpp",
+    "line": null,
+    "function": null,
+    "comment": "find_devices.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "find_devices.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "find_devices.cpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "find_devices.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "find_devices.cpp:22:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "flasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "flasher.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "flasher.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "flasher.cpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "flasher.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "flasher.cpp:30:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "flasher.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "flasher.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "flasher.cpp:33:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Binary operators should be preceeded and followed by whitespace.",
+    "file": "flasher.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "flasher.cpp:41:  Missing spaces around <  [whitespace/operators] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","binary-operator"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flasher.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "flasher.cpp:47:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "flasher.cpp:48:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "flasher.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "flasher.cpp:56:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "flasher.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "flasher.cpp:57:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "flasher.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "flasher.cpp:57:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "flasher.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "flasher.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "flasher.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "flasher.cpp:60:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flasher.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "flasher.cpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "flasher.cpp:64:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flasher.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "flasher.cpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "flasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "flasher.cpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "flasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "flasher.cpp:66:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "flasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "flasher.cpp:66:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "flasher.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "flasher.cpp:66:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "flasher.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "flasher.cpp:67:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "flasher.cpp:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "flasher.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "flasher.cpp:78:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "flasher.cpp:83:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "flasher.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "flasher.cpp:85:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "flasher.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "flasher.cpp:64:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "find_devices.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "find_devices.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 89,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 106,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 114,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 143,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 173,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 187,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 196,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 205,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 211,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "scanner.hpp",
+    "line": 222,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 81,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 84,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 97,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 100,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 115,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 192,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 193,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 231,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 281,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 288,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "writer.hpp",
+    "line": 293,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "flasher.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "flasher.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "flasher.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_kobuki.cpp",
+    "line": 220,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "ftdi_scan.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "The scope of the variable 'ret' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i = 0;  ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Ensure that no expression is redundant.",
+    "file": "ftdi_scan.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "Variable 'ret' is assigned a value that is never used.",
+    "tags": ["hicpp","code-standards","redundancy"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_scan.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_scan.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "get_serial_number.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "get_serial_number.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "get_serial_number.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "overwrite_serial_number.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "reset_device.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "reset_device.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "unflasher.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "unflasher.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "unflasher.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "scanner.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "scanner.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "scanner.hpp",
+    "line": 106,
+    "function": "retrieve",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "writer.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "writer.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "writer.hpp",
+    "line": 115,
+    "function": "write",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "writer.hpp",
+    "line": 115,
+    "function": "write",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "reset_device.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "reset_device.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "get_serial_number.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "get_serial_number.cpp",
+    "line": 15,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 52,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "ftdi_write_eeprom.cpp",
+    "line": 52,
+    "function": "main",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "overwrite_serial_number.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "overwrite_serial_number.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "ftdi_scan.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "ftdi_scan.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 96,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "ftdi_read_eeprom.cpp",
+    "line": 96,
+    "function": "main",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "unflasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "unflasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "unflasher.cpp",
+    "line": 18,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "ftdi_kobuki.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "ftdi_kobuki.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "ftdi_kobuki.cpp",
+    "line": 78,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 15",
+    "file": "ftdi_kobuki.cpp",
+    "line": 78,
+    "function": "main",
+    "comment": "CC is greater than 15",
+    "tags": ["metrics","ros","cyclomatic-complexity","kth"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "find_devices.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "find_devices.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "flasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "flasher.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "flasher.cpp",
+    "line": 18,
+    "function": "main",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  }
+]

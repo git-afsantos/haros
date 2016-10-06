@@ -1,0 +1,3562 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "statistics.hpp",
+    "line": null,
+    "function": null,
+    "comment": "statistics.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": null,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:28:  Found C system header after C++ system header. Should be: covariance_ellipsoid.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:29:  Found C system header after C++ system header. Should be: covariance_ellipsoid.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:48:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:49:  private: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:56:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:57:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 57,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:57:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:99:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:99:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 100,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:100:  public: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:107:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:118:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 118,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:118:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:120:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 120,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:120:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 131,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:131:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 140,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:140:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 148,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:148:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 158,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:158:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 174,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:174:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 176,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:176:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 178,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:178:  private: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 179,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:179:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 180,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:180:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 217,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:217:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 217,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:217:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 218,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:218:  public: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 225,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:225:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:237:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:237:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:237:  Constructors callable with one argument should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 239,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:239:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 239,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:239:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 254,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:254:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 263,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:263:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 272,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:272:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 274,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:274:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 276,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:276:  private: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 277,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:277:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 278,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:278:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 320,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:320:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 320,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:320:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 321,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:321:  public: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 328,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:328:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 339,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:339:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 339,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:339:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 341,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:341:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 341,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:341:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 352,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:352:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 361,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:361:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 369,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:369:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 379,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:379:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 395,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:395:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 397,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:397:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 399,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:399:  private: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 400,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:400:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 401,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:401:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 438,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:438:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 438,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:438:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 439,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:439:  public: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 446,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:446:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 458,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:458:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 458,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:458:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 458,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:458:  Constructors callable with one argument should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 460,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:460:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 460,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:460:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 475,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:475:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 484,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:484:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 493,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:493:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 495,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:495:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 497,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:497:  private: should be indented +1 space inside class CovarianceEllipsoid  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 498,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:498:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 499,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:499:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 512,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:512:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 520,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:520:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 528,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:528:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 537,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:537:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 540,
+    "function": null,
+    "comment": "covariance_ellipsoid.hpp:540:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": null,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:19:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:38:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:43:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:43:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:43:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:46:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:46:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:46:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:47:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:53:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:54:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:55:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:55:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:56:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:58:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:67:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:68:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:69:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:70:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:71:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:72:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:72:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:73:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:73:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:74:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:74:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:75:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:76:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:76:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:78:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:78:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:78:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:79:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:79:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:82:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:82:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:82:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:84:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:85:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:90:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:91:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:94:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:94:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:95:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:95:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:98:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:98:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:99:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:100:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:101:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:102:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 107,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:107:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:108:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:109:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:109:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:110:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:111:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:112:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:113:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:114:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:115:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:120:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:120:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:120:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:121:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 121,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:121:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:125:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:125:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:125:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:125:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:126:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:126:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 128,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:128:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 134,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:134:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:135:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:136:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:139:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:139:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:139:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:140:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:142:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:142:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 142,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:142:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 143,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:143:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 144,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:144:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:149:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:149:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:150:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 150,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:150:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:151:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:151:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:152:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:152:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 163,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:163:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 164,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:164:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:165:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:166:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 167,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:167:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 168,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:168:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 168,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:168:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:169:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 169,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:169:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:170:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:170:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:171:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:171:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:172:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 172,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:172:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 174,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:174:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "If an else has a brace on one side, it should have it on both.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 174,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:174:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 174,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:174:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:175:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:175:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:176:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 177,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:177:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:178:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:178:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:178:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:179:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 180,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:180:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 181,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:181:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 186,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:186:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:187:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:190:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:190:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:191:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 191,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:191:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 194,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:194:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 194,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:194:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:195:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 196,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:196:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 197,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:197:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 198,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:198:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 203,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:203:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 204,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:204:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 205,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:205:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 205,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:205:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:206:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 207,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:207:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 208,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:208:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 209,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:209:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 210,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:210:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 211,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:211:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:216:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:216:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 216,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:216:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:217:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:217:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 221,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:221:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 221,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:221:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 221,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:221:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 221,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:221:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 222,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:222:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 222,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:222:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 224,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:224:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 232,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:232:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 233,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:233:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 234,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:234:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:237:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:237:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:237:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 238,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:238:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:240:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:240:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 240,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:240:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 241,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:241:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 242,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:242:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:244:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 244,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:244:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 245,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:245:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 245,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:245:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 246,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:246:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 246,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:246:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 247,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:247:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 247,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:247:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 249,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:249:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 249,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:249:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 250,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:250:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 250,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:250:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 251,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:251:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 251,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:251:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:252:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:252:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:252:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:252:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:253:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:253:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:253:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:253:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 254,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:254:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 254,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:254:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 254,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:254:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 254,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:254:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 255,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:255:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 256,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:256:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 256,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:256:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 257,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:257:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 258,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:258:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 258,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:258:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 258,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:258:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 259,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:259:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 259,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:259:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 259,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:259:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 260,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:260:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 261,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:261:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 262,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:262:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 265,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:265:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 266,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:266:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 267,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:267:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 270,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:270:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 270,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:270:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 270,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:270:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 271,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:271:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 271,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:271:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:273:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:273:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 273,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:273:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 274,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:274:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 276,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:276:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 276,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:276:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 277,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:277:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 277,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:277:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 278,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:278:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 278,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:278:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 279,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:279:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 279,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:279:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 281,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:281:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 281,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:281:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 282,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:282:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 282,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:282:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 283,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:283:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 283,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:283:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 284,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:284:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 284,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:284:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 284,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:284:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 284,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:284:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 285,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:285:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 285,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:285:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 285,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:285:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 285,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:285:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 286,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:286:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 286,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:286:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 286,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:286:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 286,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:286:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 287,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:287:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 288,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:288:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 288,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:288:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 289,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:289:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 290,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:290:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 290,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:290:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 290,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:290:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 291,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:291:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 291,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:291:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 291,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:291:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 292,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:292:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 293,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:293:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 294,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:294:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "covariance_ellipsoid.cpp",
+    "line": 298,
+    "function": null,
+    "comment": "covariance_ellipsoid.cpp:298:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": null,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:13:  Found C system header after C++ system header. Should be: covariance_ellipsoids.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:14:  Found C system header after C++ system header. Should be: covariance_ellipsoids.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:32:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:32:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:34:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:45:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:45:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:46:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:46:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:47:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:47:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:48:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:48:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:49:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:49:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:61:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:65:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:66:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:69:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:69:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:78:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:81:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:81:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:82:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:82:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:83:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:83:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:86:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:86:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:87:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:87:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:88:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:88:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:88:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:89:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:89:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:90:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:90:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:90:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:91:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:91:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:92:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:92:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:93:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:93:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:93:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:94:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:94:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:95:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:95:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:96:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:96:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:97:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:97:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:98:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:98:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:99:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:99:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:100:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:101:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:102:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:103:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:103:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:104:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:104:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:105:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:105:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:106:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:113:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:114:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "covariance_ellipsoids.cpp:115:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Do not use default arguments.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 254,
+    "function": null,
+    "comment": "Found function with default arguments.",
+    "tags": ["hicpp","code-standards","functions","parameters","default-arguments","arguments"]
+  },
+  {
+    "rule": "Do not use default arguments.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 475,
+    "function": null,
+    "comment": "Found function with default arguments.",
+    "tags": ["hicpp","code-standards","functions","parameters","default-arguments","arguments"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "covariance_ellipsoid.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "covariance_ellipsoids.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "covariance_ellipsoid.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "covariance_ellipsoid.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "covariance_ellipsoids.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "covariance_ellipsoids.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

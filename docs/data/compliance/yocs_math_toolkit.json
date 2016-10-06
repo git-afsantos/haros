@@ -1,0 +1,1026 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "common.hpp",
+    "line": null,
+    "function": null,
+    "comment": "common.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 19,
+    "function": null,
+    "comment": "common.hpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 24,
+    "function": null,
+    "comment": "common.hpp:24:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "common.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "common.hpp:25:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "common.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "common.hpp:28:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Do not use meaningless empty statements.",
+    "file": "common.hpp",
+    "line": 33,
+    "function": null,
+    "comment": "common.hpp:33:  You don't need a ; after a }  [readability/braces] [4]",
+    "tags": ["code-standards","google-cpp","empty-statement","ambiguous-code"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "common.hpp:36:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "common.hpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "common.hpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "common.hpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "common.hpp:65:  Is this a non-const reference? If so, make const or use a pointer: geometry_msgs::Pose& pose  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "common.hpp:66:  Is this a non-const reference? If so, make const or use a pointer: geometry_msgs::PoseStamped& pose  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "common.hpp:68:  Is this a non-const reference? If so, make const or use a pointer: tf::Transform& tf  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.hpp",
+    "line": 69,
+    "function": null,
+    "comment": "common.hpp:69:  Is this a non-const reference? If so, make const or use a pointer: tf::StampedTransform& tf  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "common.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "common.hpp:23:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "common.hpp",
+    "line": 52,
+    "function": null,
+    "comment": "common.hpp:52:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "geometry.hpp",
+    "line": null,
+    "function": null,
+    "comment": "geometry.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.hpp",
+    "line": 19,
+    "function": null,
+    "comment": "geometry.hpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "geometry.hpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "geometry.hpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "geometry.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "geometry.hpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 65,
+    "function": null,
+    "comment": "geometry.hpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 66,
+    "function": null,
+    "comment": "geometry.hpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "geometry.hpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "geometry.hpp:77:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "geometry.hpp:99:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 111,
+    "function": null,
+    "comment": "geometry.hpp:111:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "geometry.hpp:130:  Is this a non-const reference? If so, make const or use a pointer: double& ix  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "geometry.hpp:130:  Is this a non-const reference? If so, make const or use a pointer: double& iy  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 130,
+    "function": null,
+    "comment": "geometry.hpp:130:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.hpp",
+    "line": 144,
+    "function": null,
+    "comment": "geometry.hpp:144:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "geometry.hpp:145:  Is this a non-const reference? If so, make const or use a pointer: double& ix  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "geometry.hpp:145:  Is this a non-const reference? If so, make const or use a pointer: double& iy  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.hpp",
+    "line": 145,
+    "function": null,
+    "comment": "geometry.hpp:145:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "geometry.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "geometry.hpp:98:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "geometry.cpp",
+    "line": null,
+    "function": null,
+    "comment": "geometry.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "geometry.cpp:13:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "geometry.cpp:17:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "geometry.cpp:25:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "geometry.cpp:32:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "geometry.cpp:39:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "geometry.cpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "geometry.cpp:51:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "geometry.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "geometry.cpp:64:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "geometry.cpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "geometry.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "geometry.cpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "geometry.cpp:84:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "geometry.cpp:89:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "geometry.cpp:94:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "geometry.cpp:100:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "geometry.cpp:105:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "geometry.cpp:106:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "geometry.cpp:109:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "geometry.cpp:110:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "geometry.cpp:111:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "geometry.cpp:115:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 116,
+    "function": null,
+    "comment": "geometry.cpp:116:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 120,
+    "function": null,
+    "comment": "geometry.cpp:120:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "geometry.cpp:125:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "geometry.cpp:130:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 136,
+    "function": null,
+    "comment": "geometry.cpp:136:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "geometry.cpp:141:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "geometry.cpp:146:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "geometry.cpp:151:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 156,
+    "function": null,
+    "comment": "geometry.cpp:156:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "geometry.cpp:161:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 162,
+    "function": null,
+    "comment": "geometry.cpp:162:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 166,
+    "function": null,
+    "comment": "geometry.cpp:166:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 171,
+    "function": null,
+    "comment": "geometry.cpp:171:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 175,
+    "function": null,
+    "comment": "geometry.cpp:175:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 176,
+    "function": null,
+    "comment": "geometry.cpp:176:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 181,
+    "function": null,
+    "comment": "geometry.cpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 183,
+    "function": null,
+    "comment": "geometry.cpp:183:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 189,
+    "function": null,
+    "comment": "geometry.cpp:189:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 190,
+    "function": null,
+    "comment": "geometry.cpp:190:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 198,
+    "function": null,
+    "comment": "geometry.cpp:198:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 201,
+    "function": null,
+    "comment": "geometry.cpp:201:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 202,
+    "function": null,
+    "comment": "geometry.cpp:202:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 225,
+    "function": null,
+    "comment": "geometry.cpp:225:  Is this a non-const reference? If so, make const or use a pointer: double& ix  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 225,
+    "function": null,
+    "comment": "geometry.cpp:225:  Is this a non-const reference? If so, make const or use a pointer: double& iy  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 225,
+    "function": null,
+    "comment": "geometry.cpp:225:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 226,
+    "function": null,
+    "comment": "geometry.cpp:226:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 230,
+    "function": null,
+    "comment": "geometry.cpp:230:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 233,
+    "function": null,
+    "comment": "geometry.cpp:233:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 237,
+    "function": null,
+    "comment": "geometry.cpp:237:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 239,
+    "function": null,
+    "comment": "geometry.cpp:239:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "geometry.cpp",
+    "line": 251,
+    "function": null,
+    "comment": "geometry.cpp:251:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "geometry.cpp:252:  Is this a non-const reference? If so, make const or use a pointer: double& ix  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "geometry.cpp:252:  Is this a non-const reference? If so, make const or use a pointer: double& iy  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "geometry.cpp",
+    "line": 252,
+    "function": null,
+    "comment": "geometry.cpp:252:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 253,
+    "function": null,
+    "comment": "geometry.cpp:253:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "geometry.cpp",
+    "line": 287,
+    "function": null,
+    "comment": "geometry.cpp:287:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "geometry.cpp",
+    "line": 180,
+    "function": null,
+    "comment": "geometry.cpp:180:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "common.cpp",
+    "line": null,
+    "function": null,
+    "comment": "common.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "common.cpp:12:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "common.cpp:15:  Is this a non-const reference? If so, make const or use a pointer: geometry_msgs::Pose& pose  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "common.cpp:16:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "common.cpp:23:  Is this a non-const reference? If so, make const or use a pointer: geometry_msgs::PoseStamped& pose  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "common.cpp:24:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "common.cpp:30:  Is this a non-const reference? If so, make const or use a pointer: tf::Transform& tf  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "common.cpp:31:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "common.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "common.cpp:38:  Is this a non-const reference? If so, make const or use a pointer: tf::StampedTransform& tf  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "common.cpp:39:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "common.cpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "common.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "common.cpp:49:  Never use sprintf. Use snprintf instead.  [runtime/printf] [5]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "common.cpp:54:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "common.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "common.cpp:55:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "file": "common.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "common.cpp:55:  Never use sprintf. Use snprintf instead.  [runtime/printf] [5]",
+    "tags": ["code-standards","google-cpp","strings","deprecation","library"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "common.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "common.cpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "geometry.cpp",
+    "line": 227,
+    "function": null,
+    "comment": "The scope of the variable 'r' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i = 0;    ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "geometry.cpp",
+    "line": 227,
+    "function": null,
+    "comment": "The scope of the variable 's' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i = 0;    ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Declarations should be at the smallest feasible scope.",
+    "file": "geometry.cpp",
+    "line": 227,
+    "function": null,
+    "comment": "The scope of the variable 'd' can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:void f(int x){    int i = 0;    ",
+    "tags": ["code-standards","jsf-av-cpp","scope"]
+  },
+  {
+    "rule": "Maximum number of function parameters: 6",
+    "file": "geometry.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "Found function with 7 or more parameters.",
+    "tags": ["hicpp","code-standards","functions","parameters"]
+  },
+  {
+    "rule": "Maximum number of function parameters: 6",
+    "file": "geometry.cpp",
+    "line": 251,
+    "function": null,
+    "comment": "Found function with 7 or more parameters.",
+    "tags": ["hicpp","code-standards","functions","parameters"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "geometry.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "geometry.cpp",
+    "line": 196,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not write code that expects floating point calculations to yield exact results.",
+    "file": "geometry.cpp",
+    "line": 206,
+    "function": null,
+    "comment": "Found float equality check.",
+    "tags": ["hicpp","code-standards","floats","floating-point"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "geometry.cpp",
+    "line": 201,
+    "function": null,
+    "comment": "The function 'pointSegmentDistance' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "geometry.cpp",
+    "line": 251,
+    "function": null,
+    "comment": "The function 'rayCircleIntersection' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "geometry.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "The function 'raySegmentIntersection' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "geometry.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "The function 'wrapAngle' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "geometry.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "geometry.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "geometry.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "common.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  }
+]

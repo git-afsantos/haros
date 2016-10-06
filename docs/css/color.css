@@ -1,0 +1,79 @@
+html, body {
+    color: #333;
+    background-color: whitesmoke;
+}
+
+.bg-light-grey {
+    background-color: lightgray;
+}
+
+.bg-grey {
+    background-color: grey;
+}
+
+.bg-blue {
+    background-color: steelblue !important;
+}
+
+.bg-yellow {
+    background-color: #f3af34 !important;
+}
+
+#app-header {
+    background-color: #333;
+    color: whitesmoke;
+}
+
+#dashboard .panel {
+    background-color: snow;
+    border-color: #333;
+}
+
+#dashboard .panel .label {
+    color: dimgray;
+}
+
+.progress-bar > .progress {
+    background-color: #999;
+}
+
+
+.label .overlay {
+    background-color: rgba(255, 215, 0, 0.25);
+}
+
+svg .bar {
+    fill: steelblue;
+}
+
+.issue-level-0 {
+    background-color: white;
+}
+
+.issue-level-1 {
+    background-color: steelblue;
+}
+
+.issue-level-2 {
+    background-color: rgb(71,192,180);
+}
+
+.issue-level-3 {
+    background-color: rgb(72,205,119);
+}
+
+.issue-level-4 {
+    background-color: rgb(101,217,72);
+}
+
+.issue-level-5 {
+    background-color: rgb(190,230,72);
+}
+
+.issue-level-6 {
+    background-color: rgb(242,191,71);
+}
+
+.issue-level-7 {
+    background-color: tomato;
+}

@@ -1,0 +1,514 @@
+[
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:50:  Include 'nodelet/nodelet.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:61:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 67,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:67:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:68:  public: should be indented +1 space inside class Bumper2PcNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 78,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:78:  private: should be indented +1 space inside class Bumper2PcNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 105,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:105:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": 107,
+    "function": null,
+    "comment": "kobuki_bumper2pc.hpp:107:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": null,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:21:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:22:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:26:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Unary operators should have no whitespace around them.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:27:  Extra space for operator !   [whitespace/operators] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","unary-operator"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:33:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:34:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:34:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:37:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:38:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:39:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:41:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:42:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:43:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:44:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:49:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:52:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:54:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:59:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:60:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:61:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:63:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:64:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:65:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:66:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:74:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:77:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:78:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:79:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:80:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:83:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "Avoid more than one command per line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:84:  More than one command on the same line  [whitespace/newline] [0]",
+    "tags": ["code-standards","formatting","google-cpp"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:85:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:87:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:88:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:89:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:90:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:106:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:119:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 122,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:122:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:125:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:126:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 127,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:127:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:130:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:132:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "kobuki_bumper2pc.cpp:135:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 103,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 105,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "kobuki_bumper2pc.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, Bumper2PcNodelet, 6",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "kobuki_bumper2pc.cpp",
+    "line": 21,
+    "function": "coreSensorCB",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  }
+]
