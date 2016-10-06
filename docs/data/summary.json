@@ -1,19 +1,19 @@
 {
     "source": {
-        "packages":     1,
+        "packages":     0,
         "files":        0,
         "scripts":      0,
         "languages": {
-            "cpp":      0.8,
-            "python":   0.2
+            "cpp":      0,
+            "python":   0
         }
     },
     "issues": {
-        "total":        10,
-        "coding":       5,
-        "metrics":      5,
+        "total":        0,
+        "coding":       0,
+        "metrics":      0,
         "other":        0,
-        "ratio":        0.01
+        "ratio":        0
     },
     "components": {
         "launchFiles":      0,
@@ -23,8 +23,8 @@
         "capabilities":     0
     },
     "communications": {
-        "topics":       3,
-        "remappings":   3,
+        "topics":       0,
+        "remappings":   0,
         "messages":     0,
         "services":     0,
         "actions":      0
