@@ -69,6 +69,8 @@
             if (this.firstTime) {
                 this.render();
                 this.firstTime = false;
+            } else {
+                this.onResize();
             }
             return this;
         },
