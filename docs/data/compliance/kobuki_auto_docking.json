@@ -1,0 +1,930 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "auto_docking_ros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:21:  Include 'actionlib/server/simple_action_server.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:26:  Include 'message_filters/synchronizer.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:27:  Include 'message_filters/sync_policies/approximate_time.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:30:  Include 'nav_msgs/Odometry.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:31:  Include 'kobuki_msgs/SensorState.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:32:  Include 'kobuki_msgs/DockInfraRed.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:36:  Found C system header after C++ system header. Should be: auto_docking_ros.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 37,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:37:  Found C system header after C++ system header. Should be: auto_docking_ros.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:38:  Found C system header after C++ system header. Should be: auto_docking_ros.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:39:  Found C system header after C++ system header. Should be: auto_docking_ros.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "auto_docking_ros.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:41:  Found C system header after C++ system header. Should be: auto_docking_ros.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not leave whitespace at the end of a line.",
+    "file": "auto_docking_ros.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:43:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "auto_docking_ros.hpp",
+    "line": 54,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:54:  public: should be indented +1 space inside class AutoDockingROS  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "file": "auto_docking_ros.hpp",
+    "line": 56,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:56:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]",
+    "tags": ["code-standards","google-cpp","constructors","explicit"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "auto_docking_ros.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:61:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& nh  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "auto_docking_ros.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:64:  private: should be indented +1 space inside class AutoDockingROS  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.hpp",
+    "line": 82,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.hpp",
+    "line": 83,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:83:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "auto_docking_ros.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:95:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.hpp",
+    "line": 95,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:95:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "auto_docking_ros.hpp",
+    "line": 68,
+    "function": null,
+    "comment": "auto_docking_ros.hpp:68:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "auto_docking_ros.cpp",
+    "line": null,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 16,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:16:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:18:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 20,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:20:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:21:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:25:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:34:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:38:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:38:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:44:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:59:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:60:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:61:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:62:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:63:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "auto_docking_ros.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:72:  Missing space before ( in while(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:72:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:77:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:80:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:80:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:82:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:82:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:90:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:91:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:93:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:95:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 95,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:95:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:96:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:97:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:97:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:99:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 99,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:99:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 100,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:100:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:108:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:109:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:110:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "auto_docking_ros.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:110:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:111:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:113:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:113:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 123,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:123:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:126:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 131,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:131:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 132,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:132:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:140:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:141:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "file": "auto_docking_ros.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:141:  Missing space before ( in if(  [whitespace/parens] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:145:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:145:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 146,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:146:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:148:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:148:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:148:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "auto_docking_ros.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:148:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:148:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:149:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "auto_docking_ros.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:151:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:151:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "auto_docking_ros.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:151:  Extra space before )  [whitespace/parens] [2]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:154:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:154:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "auto_docking_ros.cpp",
+    "line": 158,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:158:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "auto_docking_ros.cpp",
+    "line": 165,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:165:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "auto_docking_ros.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:170:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "auto_docking_ros.cpp",
+    "line": 170,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:170:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "auto_docking_ros.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "auto_docking_ros.cpp:19:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "nodelet.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "nodelet.cpp:41:  Include 'ecl/threads/thread.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "nodelet.cpp:45:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "nodelet.cpp:48:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nodelet.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "nodelet.cpp:49:  public: should be indented +1 space inside class AutoDockingNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "file": "nodelet.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "nodelet.cpp:50:  Missing space before {  [whitespace/braces] [5]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "nodelet.cpp:52:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "nodelet.cpp:57:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "nodelet.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "nodelet.cpp:64:  private: should be indented +1 space inside class AutoDockingNodelet  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "nodelet.cpp:66:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "nodelet.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "nodelet.cpp:69:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "nodelet.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "nodelet.cpp:79:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "nodelet.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "nodelet.cpp:79:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "nodelet.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "nodelet.cpp:59:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "nodelet.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "The function 'onInit' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "DockDriveControl.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "DockDriveActionClient.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "DockDriveActionClient.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "auto_docking_ros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "auto_docking_ros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "auto_docking_ros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, AutoDockingROS, 15",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "auto_docking_ros.cpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, AutoDockingROS, 6",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "nodelet.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "nodelet.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  }
+]

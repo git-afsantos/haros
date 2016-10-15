@@ -1,0 +1,834 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "virtual_sensor_node.hpp",
+    "line": null,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "virtual_sensor_node.hpp",
+    "line": 13,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:13:  Include 'sensor_msgs/LaserScan.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "virtual_sensor_node.hpp",
+    "line": 19,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:19:  Include 'yocs_msgs/Column.h' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:23:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 26,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:26:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:27:  public: should be indented +1 space inside class VirtualSensorNode  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:28:  Do not leave a blank line after 'public:'  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:30:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:31:  public: should be indented +1 space inside class Obstacle  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:39:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:39:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:41:  protected: should be indented +1 space inside class Obstacle  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 49,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:49:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:50:  public: should be indented +1 space inside class Column  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 53,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:53:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 59,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:59:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:60:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 63,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:63:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 70,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:70:  private: should be indented +1 space inside class Column  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 75,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:75:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 76,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:76:  public: should be indented +1 space inside class Wall  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 77,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:77:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 79,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:79:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Except in if/for/while/switch, there should never be space immediately inside parens (eg 'f( 3, 4 )'). We make an exception for nested parens ( (a+b) + c ).",
+    "file": "virtual_sensor_node.hpp",
+    "line": 85,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:85:  Extra space after ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 93,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:93:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 98,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:98:  Is this a non-const reference? If so, make const or use a pointer: double& distance  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 99,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:99:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 102,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:102:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 109,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:109:  private: should be indented +1 space inside class Wall  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 125,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:125:  private: should be indented +1 space inside class VirtualSensorNode  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:153:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:153:  Is this a non-const reference? If so, make const or use a pointer: boost::shared_ptr<Obstacle>& new_obs  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:153:  Is this a non-const reference? If so, make const or use a pointer: std::vector< boost::shared_ptr<Obstacle> >& obstacles  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 135,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:135:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.hpp",
+    "line": 153,
+    "function": null,
+    "comment": "virtual_sensor_node.hpp:153:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "virtual_sensor_node.cpp",
+    "line": null,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 12,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:12:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:15:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:19:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:24:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:42:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:55:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:71:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:76:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:82:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:86:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:87:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:88:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:93:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:97:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 98,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:98:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 101,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:101:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 114,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:114:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:119:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 126,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:126:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 130,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:130:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 137,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:137:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 138,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:138:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 139,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:139:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 140,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:140:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 141,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:141:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 149,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:149:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 151,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:151:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 152,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:152:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 153,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:153:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Don't use deprecated casting styles.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:154:  Using C-style cast.  Use static_cast<float>(...) instead  [readability/casting] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","casting"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 157,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:157:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The else statement should be on the same line as the preceeding closing brace.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 160,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:160:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","curly-braces","if-else"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 161,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:161:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 178,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:178:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 179,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:179:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 181,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:181:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 186,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:186:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 187,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:187:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 192,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:192:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 195,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:195:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 197,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:197:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 204,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:204:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 214,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:214:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 218,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:218:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 223,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:223:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:35:  Add #include <limits> for numeric_limits<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:38:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 154,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:154:  Add #include <algorithm> for min  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 193,
+    "function": null,
+    "comment": "virtual_sensor_node.cpp:193:  Add #include <vector> for vector<>  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 125,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 135,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 145,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 148,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "virtual_sensor_node.cpp",
+    "line": 217,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "wall_publisher.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "column_publisher.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "virtual_sensor_node.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum coupling between objects: 5",
+    "file": "virtual_sensor_node.hpp",
+    "line": null,
+    "function": null,
+    "comment": "CBO is greater than 5, VirtualSensorNode, 8",
+    "tags": ["metrics","nasa-satc","ros","coupling"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "virtual_sensor_node.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "virtual_sensor_node.cpp",
+    "line": 178,
+    "function": "add",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "virtual_sensor_node.cpp",
+    "line": 81,
+    "function": "spin",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  }
+]

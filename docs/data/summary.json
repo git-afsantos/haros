@@ -1,0 +1,32 @@
+{
+    "source": {
+        "packages":     0,
+        "files":        0,
+        "scripts":      0,
+        "languages": {
+            "cpp":      0,
+            "python":   0
+        }
+    },
+    "issues": {
+        "total":        0,
+        "coding":       0,
+        "metrics":      0,
+        "other":        0,
+        "ratio":        0
+    },
+    "components": {
+        "launchFiles":      0,
+        "nodes":            0,
+        "nodelets":         0,
+        "parameterFiles":   0,
+        "capabilities":     0
+    },
+    "communications": {
+        "topics":       0,
+        "remappings":   0,
+        "messages":     0,
+        "services":     0,
+        "actions":      0
+    }
+}

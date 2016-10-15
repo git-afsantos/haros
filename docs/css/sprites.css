@@ -1,0 +1,80 @@
+.action-button {
+    background-position: center;
+    background-size: cover;
+}
+
+#battle-button-attack {
+    background-image: url(../assets/attack.png);
+}
+
+#battle-button-rotate-cw {
+    background-image: url(../assets/rotate-cw.png);
+}
+
+#battle-button-rotate-ccw {
+    background-image: url(../assets/rotate-ccw.png);
+}
+
+#battle-button-surrender {
+    background-image: url(../assets/flag.png);
+}
+
+.bg-forest {
+    background-image: url("../assets/forest-landscape-trees.jpg");
+    background-position: center bottom;
+}
+
+.icon-hunter-sm {
+    background-image: url("../assets/hunter-48.png");
+}
+
+.icon-hunter {
+    background-image: url("../assets/hunter-96.png");
+}
+
+.icon-type-BEAST {
+    background-image: url("../assets/beast-32.png");
+}
+
+.icon-type-BEAST-sm {
+    background-image: url("../assets/beast-24.png");
+}
+
+.icon-type-BEAST-lg {
+    background-image: url("../assets/beast-48.png");
+}
+
+.icon-dummy {
+    background-image: url("../assets/dummy-96.png");
+}
+
+.icon-dummy-sm {
+    background-image: url("../assets/dummy-48.png");
+}
+
+.icon-dummy-lg {
+    background-image: url("../assets/dummy-128.png");
+}
+
+
+
+
+#battle-area .circle > .unit {
+    background-size: 100% 100%;
+}
+
+.icon-unit-0 {
+    background-image: url(../assets/sprites/000.png);
+}
+
+.icon-unit-1 {
+    background-image: url(../assets/sprites/001.png);
+}
+
+.icon-unit-4 {
+    background-image: url(../assets/sprites/004.png);
+}
+
+.icon-unit-7 {
+    background-image: url(../assets/sprites/007.png);
+}

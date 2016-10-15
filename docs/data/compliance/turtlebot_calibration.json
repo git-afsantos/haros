@@ -1,0 +1,18 @@
+[
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "scan_to_angle.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Minimum lines of comments: 20%",
+    "file": "calibrate.py",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is below 20%",
+    "tags": ["metrics","nasa-satc","his","uai","ros","comments","comment-ratio"]
+  }
+]

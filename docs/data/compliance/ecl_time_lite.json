@@ -1,0 +1,3826 @@
+[
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "time_lite.hpp",
+    "line": null,
+    "function": null,
+    "comment": "time_lite.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_lite.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "time_lite.hpp:21:  Include 'time_lite/errors.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_lite.hpp",
+    "line": 23,
+    "function": null,
+    "comment": "time_lite.hpp:23:  Include 'time_lite/date.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_lite.hpp",
+    "line": 25,
+    "function": null,
+    "comment": "time_lite.hpp:25:  Include 'time_lite/cpu_time.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "cpu_time.hpp",
+    "line": null,
+    "function": null,
+    "comment": "cpu_time.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "cpu_time.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "cpu_time.hpp:21:  Found C system header after other header. Should be: cpu_time.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "cpu_time.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "cpu_time.hpp:22:  Found C system header after other header. Should be: cpu_time.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cpu_time.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "cpu_time.hpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "cpu_time.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "cpu_time.hpp:47:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "cpu_time.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "cpu_time.hpp:50:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "errors.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "errors.hpp",
+    "line": 22,
+    "function": null,
+    "comment": "errors.hpp:22:  Include 'ecl/config/macros.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "errors.hpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "errors.hpp",
+    "line": 34,
+    "function": null,
+    "comment": "errors.hpp:34:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "errors.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "errors.hpp:35:  public: should be indented +1 space inside class ecl_time_lite_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "errors.hpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Access modifiers should be indented by one space.",
+    "file": "errors.hpp",
+    "line": 42,
+    "function": null,
+    "comment": "errors.hpp:42:  protected: should be indented +1 space inside class ecl_time_lite_PUBLIC  [whitespace/indent] [3]",
+    "tags": ["code-standards","formatting","google-cpp","indentation","access-modifiers"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "errors.hpp:43:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "errors.hpp:43:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "errors.hpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 44,
+    "function": null,
+    "comment": "errors.hpp:44:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "errors.hpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 45,
+    "function": null,
+    "comment": "errors.hpp:45:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "errors.hpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "errors.hpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "errors.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "errors.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "errors.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "errors.hpp:47:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "errors.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "errors.hpp:50:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "types_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "types_pos.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "types_pos.hpp",
+    "line": 21,
+    "function": null,
+    "comment": "types_pos.hpp:21:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "types_pos.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "types_pos.hpp:28:  Found C system header after C++ system header. Should be: types_pos.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "types_pos.hpp",
+    "line": 34,
+    "function": null,
+    "comment": "types_pos.hpp:34:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "types_pos.hpp",
+    "line": 43,
+    "function": null,
+    "comment": "types_pos.hpp:43:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_pos.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_pos.hpp:31:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_pos.hpp:32:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_pos.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_pos.hpp:32:  Found C system header after C++ system header. Should be: functions_pos.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_pos.hpp",
+    "line": 33,
+    "function": null,
+    "comment": "functions_pos.hpp:33:  Found C system header after C++ system header. Should be: functions_pos.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.hpp",
+    "line": 41,
+    "function": null,
+    "comment": "functions_pos.hpp:41:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_pos.hpp",
+    "line": 64,
+    "function": null,
+    "comment": "functions_pos.hpp:64:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.hpp",
+    "line": 103,
+    "function": null,
+    "comment": "functions_pos.hpp:103:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_mac.hpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_mac.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_mac.hpp:31:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_mac.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_mac.hpp:31:  Found C system header after C++ system header. Should be: functions_mac.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_mac.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_mac.hpp:32:  Found C system header after C++ system header. Should be: functions_mac.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.hpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_mac.hpp:40:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_mac.hpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_mac.hpp:61:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.hpp",
+    "line": 97,
+    "function": null,
+    "comment": "functions_mac.hpp:97:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions.hpp",
+    "line": null,
+    "function": null,
+    "comment": "functions.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions.hpp:27:  Found C system header after C++ system header. Should be: functions.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions.hpp",
+    "line": 28,
+    "function": null,
+    "comment": "functions.hpp:28:  Found C system header after C++ system header. Should be: functions.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions.hpp:38:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "functions.hpp:46:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_rt.hpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_rt.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_rt.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_rt.hpp:31:  Found C system header after C++ system header. Should be: functions_rt.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.hpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_rt.hpp:39:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_rt.hpp",
+    "line": 55,
+    "function": null,
+    "comment": "functions_rt.hpp:55:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_rt.hpp",
+    "line": 73,
+    "function": null,
+    "comment": "functions_rt.hpp:73:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.hpp",
+    "line": 112,
+    "function": null,
+    "comment": "functions_rt.hpp:112:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "types_win.hpp",
+    "line": null,
+    "function": null,
+    "comment": "types_win.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "types_win.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "types_win.hpp:29:  Found C system header after C++ system header. Should be: types_win.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "types_win.hpp",
+    "line": 35,
+    "function": null,
+    "comment": "types_win.hpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "types_win.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "types_win.hpp:46:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "types_win.hpp",
+    "line": 47,
+    "function": null,
+    "comment": "types_win.hpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "types_win.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "types_win.hpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "types_win.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "types_win.hpp:48:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "types_win.hpp",
+    "line": 51,
+    "function": null,
+    "comment": "types_win.hpp:51:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "date.hpp",
+    "line": null,
+    "function": null,
+    "comment": "date.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "date.hpp",
+    "line": 19,
+    "function": null,
+    "comment": "date.hpp:19:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "date.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "date.hpp:32:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "date.hpp",
+    "line": 46,
+    "function": null,
+    "comment": "date.hpp:46:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "date.hpp",
+    "line": 50,
+    "function": null,
+    "comment": "date.hpp:50:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_win.hpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_win.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_win.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "functions_win.hpp:29:  Found C system header after C++ system header. Should be: functions_win.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_win.hpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_win.hpp:31:  Include 'errors.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Do not include the same file twice.",
+    "file": "functions_win.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_win.hpp:32:  'macros.hpp' already included at functions_win.hpp:20  [build/include] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.hpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_win.hpp:38:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_win.hpp",
+    "line": 60,
+    "function": null,
+    "comment": "functions_win.hpp:60:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_win.hpp",
+    "line": 96,
+    "function": null,
+    "comment": "functions_win.hpp:96:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "types.hpp",
+    "line": null,
+    "function": null,
+    "comment": "types.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "types.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "types.hpp:27:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "types.hpp",
+    "line": 27,
+    "function": null,
+    "comment": "types.hpp:27:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "types.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "types.hpp:30:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "macros.hpp",
+    "line": null,
+    "function": null,
+    "comment": "macros.hpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 29,
+    "function": null,
+    "comment": "macros.hpp:29:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 30,
+    "function": null,
+    "comment": "macros.hpp:30:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 32,
+    "function": null,
+    "comment": "macros.hpp:32:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "macros.hpp",
+    "line": 36,
+    "function": null,
+    "comment": "macros.hpp:36:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_rt.cpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_rt.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "functions_rt.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "functions_rt.cpp:13:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "functions_rt.cpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions_rt.cpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_rt.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions_rt.cpp:27:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "functions_rt.cpp:28:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "functions_rt.cpp:29:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "functions_rt.cpp:30:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_rt.cpp:32:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "functions_rt.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_rt.cpp:32:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_rt.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "functions_rt.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_rt.cpp:34:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_rt.cpp:36:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_rt.cpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_rt.cpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_rt.cpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_rt.cpp:38:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_rt.cpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_rt.cpp:39:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_rt.cpp:39:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_rt.cpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_rt.cpp:40:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "functions_rt.cpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "functions_rt.cpp:42:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "functions_rt.cpp:45:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_rt.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "functions_rt.cpp:45:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "functions_rt.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "functions_rt.cpp:46:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "functions_rt.cpp:47:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "functions_rt.cpp:49:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "functions_rt.cpp:50:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "functions_rt.cpp:50:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "functions_rt.cpp:51:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "functions_rt.cpp:56:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "functions_rt.cpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "functions_rt.cpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "functions_rt.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "functions_rt.cpp:59:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_rt.cpp:61:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "functions_rt.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_rt.cpp:61:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_rt.cpp:63:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_rt.cpp:63:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "functions_rt.cpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "functions_rt.cpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "functions_rt.cpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_rt.cpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_rt.cpp:66:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_rt.cpp:66:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_rt.cpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_rt.cpp:67:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_rt.cpp:67:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "functions_rt.cpp:68:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "functions_rt.cpp:69:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_rt.cpp:71:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_rt.cpp:72:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "functions_rt.cpp:73:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_rt.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "functions_rt.cpp:73:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "functions_rt.cpp:74:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "functions_rt.cpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "functions_rt.cpp:75:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "functions_rt.cpp:76:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "functions_rt.cpp:76:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "functions_rt.cpp:76:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "functions_rt.cpp:77:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_rt.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "functions_rt.cpp:77:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "functions_rt.cpp:77:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "functions_rt.cpp:78:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_rt.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "functions_rt.cpp:79:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_rt.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_rt.cpp:82:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "date.cpp",
+    "line": null,
+    "function": null,
+    "comment": "date.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "date.cpp",
+    "line": 14,
+    "function": null,
+    "comment": "date.cpp:14:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "date.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "date.cpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "date.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "date.cpp:30:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace should almost never be on its own line.",
+    "file": "date.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "date.cpp:37:  { should almost always be at the end of the previous line  [whitespace/braces] [4]",
+    "tags": ["code-standards","formatting","google-cpp","curly-braces"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "date.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "date.cpp:45:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "date.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "date.cpp:47:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Include all required headers for what you use.",
+    "file": "date.cpp",
+    "line": 42,
+    "function": null,
+    "comment": "date.cpp:42:  Add #include <string> for string  [build/include_what_you_use] [4]",
+    "tags": ["code-standards","google-cpp","headers","include","preprocessor"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "cpu_time.cpp",
+    "line": null,
+    "function": null,
+    "comment": "cpu_time.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "cpu_time.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "cpu_time.cpp:13:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cpu_time.cpp",
+    "line": 19,
+    "function": null,
+    "comment": "cpu_time.cpp:19:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cpu_time.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "cpu_time.cpp:22:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "cpu_time.cpp",
+    "line": 22,
+    "function": null,
+    "comment": "cpu_time.cpp:22:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 23,
+    "function": null,
+    "comment": "cpu_time.cpp:23:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 24,
+    "function": null,
+    "comment": "cpu_time.cpp:24:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "cpu_time.cpp:25:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "cpu_time.cpp:26:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "cpu_time.cpp:27:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should be a space after a comma.",
+    "file": "cpu_time.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "cpu_time.cpp:27:  Missing space after ,  [whitespace/comma] [3]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","comma"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "cpu_time.cpp:28:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "cpu_time.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "cpu_time.cpp:28:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "cpu_time.cpp:29:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "cpu_time.cpp:30:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "cpu_time.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "cpu_time.cpp:30:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "cpu_time.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "cpu_time.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "cpu_time.cpp:31:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "cpu_time.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "cpu_time.cpp:31:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "cpu_time.cpp:32:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "cpu_time.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "cpu_time.cpp:32:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "cpu_time.cpp:33:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "cpu_time.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "cpu_time.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "cpu_time.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "cpu_time.cpp:38:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_win.cpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_win.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "functions_win.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "functions_win.cpp:13:  Include 'ecl/config/portable_types.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 26,
+    "function": null,
+    "comment": "functions_win.cpp:26:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "functions_win.cpp:33:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_win.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_win.cpp:34:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "functions_win.cpp:35:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "functions_win.cpp:35:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_win.cpp:36:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_win.cpp:36:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_win.cpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_win.cpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_win.cpp:38:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_win.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_win.cpp:40:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Use one space before comment text.",
+    "file": "functions_win.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_win.cpp:40:  Should have a space between // and comment  [whitespace/comments] [4]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "functions_win.cpp:46:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "functions_win.cpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "functions_win.cpp:49:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_win.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "functions_win.cpp:49:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 50,
+    "function": null,
+    "comment": "functions_win.cpp:50:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "functions_win.cpp:51:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "functions_win.cpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "functions_win.cpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "functions_win.cpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_win.cpp:61:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_win.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_win.cpp:61:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "functions_win.cpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "functions_win.cpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_win.cpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Do not use the verboten C basic types.",
+    "file": "functions_win.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_win.cpp:66:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]",
+    "tags": ["code-standards","google-cpp","deprecation","types"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_win.cpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "functions_win.cpp:68:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_win.cpp:71:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_win.cpp:72:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "functions_win.cpp:74:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 75,
+    "function": null,
+    "comment": "functions_win.cpp:75:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_win.cpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_win.cpp:80:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_win.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_win.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_win.cpp:81:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_win.cpp:82:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_win.cpp:82:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "functions_win.cpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "functions_win.cpp:83:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "functions_win.cpp:84:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 85,
+    "function": null,
+    "comment": "functions_win.cpp:85:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "functions_win.cpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "functions_win.cpp:87:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 88,
+    "function": null,
+    "comment": "functions_win.cpp:88:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 89,
+    "function": null,
+    "comment": "functions_win.cpp:89:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "functions_win.cpp:90:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "functions_win.cpp:90:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 90,
+    "function": null,
+    "comment": "functions_win.cpp:90:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 91,
+    "function": null,
+    "comment": "functions_win.cpp:91:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 92,
+    "function": null,
+    "comment": "functions_win.cpp:92:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 93,
+    "function": null,
+    "comment": "functions_win.cpp:93:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "functions_win.cpp:94:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 97,
+    "function": null,
+    "comment": "functions_win.cpp:97:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 106,
+    "function": null,
+    "comment": "functions_win.cpp:106:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_win.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "functions_win.cpp:108:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "functions_win.cpp",
+    "line": 108,
+    "function": null,
+    "comment": "functions_win.cpp:108:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 109,
+    "function": null,
+    "comment": "functions_win.cpp:109:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "file": "functions_win.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "functions_win.cpp:112:  Extra space before ( in function call  [whitespace/parens] [4]",
+    "tags": ["code-standards","formatting","whitespace","google-cpp","parenthesis"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_win.cpp",
+    "line": 113,
+    "function": null,
+    "comment": "functions_win.cpp:113:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_win.cpp",
+    "line": 119,
+    "function": null,
+    "comment": "functions_win.cpp:119:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_pos.cpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_pos.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "functions_pos.cpp",
+    "line": 15,
+    "function": null,
+    "comment": "functions_pos.cpp:15:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions_pos.cpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "functions_pos.cpp:29:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_pos.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "functions_pos.cpp:29:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "functions_pos.cpp:30:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_pos.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "functions_pos.cpp:33:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_pos.cpp:34:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "functions_pos.cpp:35:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_pos.cpp:36:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_pos.cpp:36:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_pos.cpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_pos.cpp:37:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_pos.cpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_pos.cpp:38:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_pos.cpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_pos.cpp:39:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_pos.cpp:39:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 40,
+    "function": null,
+    "comment": "functions_pos.cpp:40:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 41,
+    "function": null,
+    "comment": "functions_pos.cpp:41:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "functions_pos.cpp:44:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "functions_pos.cpp:45:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "functions_pos.cpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 48,
+    "function": null,
+    "comment": "functions_pos.cpp:48:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "functions_pos.cpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "functions_pos.cpp:53:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "functions_pos.cpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "functions_pos.cpp:54:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "functions_pos.cpp:55:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "functions_pos.cpp:55:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "functions_pos.cpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "functions_pos.cpp:56:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "functions_pos.cpp:57:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "functions_pos.cpp:58:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "functions_pos.cpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "functions_pos.cpp:60:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_pos.cpp:61:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "functions_pos.cpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_pos.cpp:63:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_pos.cpp:63:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_pos.cpp:63:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "functions_pos.cpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "functions_pos.cpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_pos.cpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_pos.cpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "functions_pos.cpp:68:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "functions_pos.cpp:68:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "functions_pos.cpp:69:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "functions_pos.cpp:70:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "functions_pos.cpp:70:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_pos.cpp:71:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_pos.cpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_pos.cpp:71:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_pos.cpp:72:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_pos.cpp:72:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_pos.cpp:72:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "functions_pos.cpp:73:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "functions_pos.cpp:74:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "functions_pos.cpp:76:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "functions_pos.cpp:77:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "functions_pos.cpp:78:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_pos.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "functions_pos.cpp:78:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "functions_pos.cpp:79:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_pos.cpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_pos.cpp:80:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_pos.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_pos.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_pos.cpp:81:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_pos.cpp:82:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_pos.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_pos.cpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_pos.cpp:82:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "functions_pos.cpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_pos.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "functions_pos.cpp:84:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_pos.cpp",
+    "line": 87,
+    "function": null,
+    "comment": "functions_pos.cpp:87:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "functions_mac.cpp",
+    "line": null,
+    "function": null,
+    "comment": "functions_mac.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Do not include the C standard headers. Use the C++ headers instead.",
+    "file": "functions_mac.cpp",
+    "line": 13,
+    "function": null,
+    "comment": "functions_mac.cpp:13:  Include 'cerrno' instead of 'errno.h'.  [build/include] [5]",
+    "tags": ["hicpp","code-standards","headers","include","preprocessor","deprecation","c"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 25,
+    "function": null,
+    "comment": "functions_mac.cpp:25:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions_mac.cpp:27:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Avoid non-const reference parameters. Use const or pointers.",
+    "file": "functions_mac.cpp",
+    "line": 27,
+    "function": null,
+    "comment": "functions_mac.cpp:27:  Is this a non-const reference? If so, make const or use a pointer: TimeStructure &time  [runtime/references] [2]",
+    "tags": ["code-standards","parameters","google-cpp","const","pointers","references"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "functions_mac.cpp:28:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "functions_mac.cpp:29:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "functions_mac.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "functions_mac.cpp:32:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 33,
+    "function": null,
+    "comment": "functions_mac.cpp:33:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_mac.cpp:34:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "functions_mac.cpp:34:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "functions_mac.cpp:35:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "functions_mac.cpp:35:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_mac.cpp:36:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 36,
+    "function": null,
+    "comment": "functions_mac.cpp:36:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_mac.cpp:37:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_mac.cpp:37:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "functions_mac.cpp:37:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 38,
+    "function": null,
+    "comment": "functions_mac.cpp:38:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 39,
+    "function": null,
+    "comment": "functions_mac.cpp:39:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 43,
+    "function": null,
+    "comment": "functions_mac.cpp:43:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 44,
+    "function": null,
+    "comment": "functions_mac.cpp:44:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "functions_mac.cpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 47,
+    "function": null,
+    "comment": "functions_mac.cpp:47:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "functions_mac.cpp:52:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 52,
+    "function": null,
+    "comment": "functions_mac.cpp:52:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "functions_mac.cpp:53:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "functions_mac.cpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "functions_mac.cpp:54:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 54,
+    "function": null,
+    "comment": "functions_mac.cpp:54:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "functions_mac.cpp:55:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 55,
+    "function": null,
+    "comment": "functions_mac.cpp:55:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 56,
+    "function": null,
+    "comment": "functions_mac.cpp:56:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 57,
+    "function": null,
+    "comment": "functions_mac.cpp:57:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "functions_mac.cpp:58:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "functions_mac.cpp:59:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 60,
+    "function": null,
+    "comment": "functions_mac.cpp:60:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "functions_mac.cpp:61:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "functions_mac.cpp:62:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "functions_mac.cpp:62:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "The closing curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 62,
+    "function": null,
+    "comment": "functions_mac.cpp:62:  } should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 63,
+    "function": null,
+    "comment": "functions_mac.cpp:63:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 64,
+    "function": null,
+    "comment": "functions_mac.cpp:64:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "functions_mac.cpp:65:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "functions_mac.cpp:66:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_mac.cpp:67:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "functions_mac.cpp:67:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 68,
+    "function": null,
+    "comment": "functions_mac.cpp:68:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "functions_mac.cpp:69:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 69,
+    "function": null,
+    "comment": "functions_mac.cpp:69:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "functions_mac.cpp:70:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "functions_mac.cpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 70,
+    "function": null,
+    "comment": "functions_mac.cpp:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_mac.cpp:71:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_mac.cpp:71:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 71,
+    "function": null,
+    "comment": "functions_mac.cpp:71:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "functions_mac.cpp:72:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 73,
+    "function": null,
+    "comment": "functions_mac.cpp:73:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 76,
+    "function": null,
+    "comment": "functions_mac.cpp:76:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "functions_mac.cpp:77:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "functions_mac.cpp:78:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "functions_mac.cpp",
+    "line": 78,
+    "function": null,
+    "comment": "functions_mac.cpp:78:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "functions_mac.cpp:79:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_mac.cpp:80:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 80,
+    "function": null,
+    "comment": "functions_mac.cpp:80:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_mac.cpp:81:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_mac.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "functions_mac.cpp:81:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_mac.cpp:82:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "functions_mac.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_mac.cpp:82:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 82,
+    "function": null,
+    "comment": "functions_mac.cpp:82:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 83,
+    "function": null,
+    "comment": "functions_mac.cpp:83:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "functions_mac.cpp",
+    "line": 84,
+    "function": null,
+    "comment": "functions_mac.cpp:84:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "At least two spaces is best between code and comments.",
+    "file": "functions_mac.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "functions_mac.cpp:86:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+    "tags": ["comments","code-standards","formatting","whitespace","google-cpp"]
+  },
+  {
+    "rule": "Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "file": "time_functions.cpp",
+    "line": null,
+    "function": null,
+    "comment": "time_functions.cpp:0:  No copyright message found.  You should have a line: 'Copyright [year] <Copyright Owner>'  [legal/copyright] [5]",
+    "tags": ["ros","comments","code-standards","google-cpp","license","copyright"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_functions.cpp",
+    "line": 17,
+    "function": null,
+    "comment": "time_functions.cpp:17:  Include 'cstdlib' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_functions.cpp",
+    "line": 18,
+    "function": null,
+    "comment": "time_functions.cpp:18:  Found C system header after C++ system header. Should be: time_functions.h, c system, c++ system, other.  [build/include_order] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "file": "time_functions.cpp",
+    "line": 21,
+    "function": null,
+    "comment": "time_functions.cpp:21:  Include '../../include/ecl/time_lite/cpu_time.hpp' not in alphabetical order  [build/include_alpha] [4]",
+    "tags": ["code-standards","formatting","google-cpp","include","preprocessor"]
+  },
+  {
+    "rule": "The open curly brace is always on its own line.",
+    "file": "time_functions.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "time_functions.cpp:28:  when starting a new scope, { should be on a line by itself  [whitespace/braces] [4]",
+    "tags": ["ros","code-standards","formatting","ros-cpp","curly-braces"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "time_functions.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "time_functions.cpp:29:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 30,
+    "function": null,
+    "comment": "time_functions.cpp:30:  Lines should very rarely be longer than 100 characters  [whitespace/line_length] [4]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "time_functions.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "time_functions.cpp:31:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "time_functions.cpp:35:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "time_functions.cpp:37:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "time_functions.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "time_functions.cpp:46:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 51,
+    "function": null,
+    "comment": "time_functions.cpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 53,
+    "function": null,
+    "comment": "time_functions.cpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "time_functions.cpp",
+    "line": 58,
+    "function": null,
+    "comment": "time_functions.cpp:58:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 65,
+    "function": null,
+    "comment": "time_functions.cpp:65:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "time_functions.cpp:67:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "time_functions.cpp",
+    "line": 74,
+    "function": null,
+    "comment": "time_functions.cpp:74:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 79,
+    "function": null,
+    "comment": "time_functions.cpp:79:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 81,
+    "function": null,
+    "comment": "time_functions.cpp:81:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Indent each block by 2 spaces. Never insert literal tab characters.",
+    "file": "time_functions.cpp",
+    "line": 86,
+    "function": null,
+    "comment": "time_functions.cpp:86:  Tab found; better to use spaces  [whitespace/tab] [1]",
+    "tags": ["ros","code-standards","formatting","whitespace","google-cpp","ros-cpp","indentation"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 94,
+    "function": null,
+    "comment": "time_functions.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 96,
+    "function": null,
+    "comment": "time_functions.cpp:96:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 102,
+    "function": null,
+    "comment": "time_functions.cpp:102:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 104,
+    "function": null,
+    "comment": "time_functions.cpp:104:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 110,
+    "function": null,
+    "comment": "time_functions.cpp:110:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 111,
+    "function": null,
+    "comment": "time_functions.cpp:111:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "No line should exceed 80 characters in length.",
+    "file": "time_functions.cpp",
+    "line": 112,
+    "function": null,
+    "comment": "time_functions.cpp:112:  Lines should be <= 80 characters long  [whitespace/line_length] [2]",
+    "tags": ["code-standards","formatting","line-length","google-cpp"]
+  },
+  {
+    "rule": "Leave no redundant blank lines in code blocks.",
+    "file": "time_functions.cpp",
+    "line": 115,
+    "function": null,
+    "comment": "time_functions.cpp:115:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]",
+    "tags": ["code-standards","functions","formatting","whitespace","google-cpp","code-blocks"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "time_functions.cpp",
+    "line": 28,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "types_win.hpp",
+    "line": 48,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_mac.cpp",
+    "line": 29,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_mac.cpp",
+    "line": 66,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_mac.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Wrap use of the C Standard Library.",
+    "file": "functions_mac.cpp",
+    "line": 35,
+    "function": null,
+    "comment": "Found use of errno.",
+    "tags": ["hicpp","code-standards","c","libraries","c-standard-library","misra-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_pos.cpp",
+    "line": 31,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_pos.cpp",
+    "line": 67,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_pos.cpp",
+    "line": 77,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Wrap use of the C Standard Library.",
+    "file": "functions_pos.cpp",
+    "line": 37,
+    "function": null,
+    "comment": "Found use of errno.",
+    "tags": ["hicpp","code-standards","c","libraries","c-standard-library","misra-cpp"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 32,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 46,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 59,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 72,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 34,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not use integer types directly. Use size-specific typedefs, for instance from <cstdint>.",
+    "file": "functions_rt.cpp",
+    "line": 61,
+    "function": null,
+    "comment": "Found implementation defined integer type.",
+    "tags": ["hicpp","code-standards","misra-cpp","jsf-av-cpp","type-safety","integer-types","portability"]
+  },
+  {
+    "rule": "Do not write code that expects floating point calculations to yield exact results.",
+    "file": "functions_win.cpp",
+    "line": 49,
+    "function": null,
+    "comment": "Found float equality check.",
+    "tags": ["hicpp","code-standards","floats","floating-point"]
+  },
+  {
+    "rule": "There shall be no unused variables.",
+    "file": "functions_rt.cpp",
+    "line": 45,
+    "function": null,
+    "comment": "The function 'realtime_epoch_time' is never used.",
+    "tags": ["code-standards","misra-cpp","variables","unused-variables"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "cpu_time.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "cpu_time.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "errors.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "types_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "types_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_pos.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_mac.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_mac.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_rt.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_rt.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "date.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "date.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_win.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_win.hpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_rt.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_rt.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "date.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "date.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "cpu_time.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "cpu_time.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_win.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_win.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_pos.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_pos.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "functions_pos.cpp",
+    "line": 44,
+    "function": "sleep_until",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  },
+  {
+    "rule": "Maximum lines of comments: 30%",
+    "file": "functions_mac.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 30%",
+    "tags": ["metrics","nasa-satc","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum lines of comments: 40%",
+    "file": "functions_mac.cpp",
+    "line": null,
+    "function": null,
+    "comment": "Comment ratio is above 40%",
+    "tags": ["metrics","uai","comments","comment-ratio"]
+  },
+  {
+    "rule": "Maximum cyclomatic complexity: 10",
+    "file": "functions_mac.cpp",
+    "line": 43,
+    "function": "sleep_until",
+    "comment": "CC is greater than 10",
+    "tags": ["metrics","nasa-satc","his","hicpp","cyclomatic-complexity"]
+  }
+]
