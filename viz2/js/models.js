@@ -32,10 +32,10 @@
         },
 
         getViolations: function (filters, ignore) {
-            var i, sum = 0, fun = ignore ? "reject" : "filter",
+            var i, sum = 0, fun = ignore ? _["reject"] : _["filter"],
                 violations = this.get("analysis").violations;
             if (filters != null) {
-                violations = _[fun](violations, function (value, rule) {
+                violations = fun(violations, function (value, rule) {
                     return _.contains(filters, rule);
                 });
             } else {
