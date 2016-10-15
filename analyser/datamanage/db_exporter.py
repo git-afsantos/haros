@@ -241,7 +241,7 @@ def jsonifyRules(rules):
     s = "[\n"
     for k, v in rules.iteritems():
         s += "  {\n"
-        s += '    "id": ' + str(k) + ',\n'
+        s += '    "id": "' + str(k) + '",\n'
         s += '    "description": "' + (str(v[0] or "")).replace('"', "'").replace("\n", "") + "\",\n"
         s += '    "tags": ["' + '","'.join(v[1]) + '"]\n'
         c -= 1
