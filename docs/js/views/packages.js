@@ -21,6 +21,7 @@
             this.firstTime = true;
             this.rules = options.rules;
             this.router = options.router;
+            this.publicVars = {};
 
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({nodesep: this.spacing, ranksep: this.spacing});
@@ -256,6 +257,10 @@
 
         onIssues: function () {
             if (this.selection == null) return;
+            if (this.filterView.tags.length > 0) {
+                this.publicVars.issues.tags = this.filterView.tags;
+                this.publicVars.issues.ignore = !!this.filterView.ignoring;
+            }
             this.router.navigate("issues/" + this.selection.model.id, {trigger: true});
         },
 

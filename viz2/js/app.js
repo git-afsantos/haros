@@ -89,6 +89,8 @@ to functions of the animation manager, by this script.
         App.helpBoard = new App.Views.HelpBoard({
             el: $("#help-board")
         });
+        // TODO: use a system other than these "public variables".
+        App.packageBoard.publicVars.issues = App.issueBoard.publicVars;
         // Hide everything. Each route shows its view.
         App.dashboard.hide();
         App.packageBoard.hide();

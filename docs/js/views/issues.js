@@ -8,7 +8,7 @@
 
         pageSize: 25,
 
-        navigateOptions: { replace: true },
+        navigateOptions: { trigger: false, replace: true },
 
         events: {
             "change #issue-package-select": "onSelect",
@@ -24,6 +24,7 @@
             this.packages = options.packages;
             this.router = options.router;
             this.filtered = null;
+            this.publicVars = {};
 
             this.$select = this.$("#issue-package-select");
             this.$page = this.$("#issue-label-page");
@@ -72,6 +73,11 @@
             // save arguments to show later, in case the packages are not loaded
             this.packageId = packageId;
             this.page = page ? +page || 1 : 1;
+            if (this.publicVars.tags != null) {
+                this.filterView.setVariables(this.publicVars.tags, this.publicVars.ignore);
+                this.publicVars.tags = null;
+                this.publicVars.ignore = null;
+            }
             if (this.packages.length > 0) {
                 if (packageId == null || this.packages.get(packageId) == null)
                     packageId = this.packages.first().id;
@@ -86,6 +92,9 @@
             var pages = this.collection.length / this.pageSize + 1 | 0;
             this.collection.pages = pages;
             this.page = Math.min(pages, Math.max(this.page, 1));
+            this.filtered = this.filterView.tags.length === 0
+                ? null
+                : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
             this.render();
         },
 
@@ -115,12 +124,14 @@
 
         onPageLeft: function () {
             --this.page;
-            this.onSync();
+            this.page = Math.min(this.collection.pages, Math.max(this.page, 1));
+            this.render();
         },
 
         onPageRight: function () {
             ++this.page;
-            this.onSync();
+            this.page = Math.min(this.collection.pages, Math.max(this.page, 1));
+            this.render();
         },
 
         scrollToTop: function () {
@@ -134,11 +145,11 @@
 
         updateFilters: function () {
             var prev = this.filtered;
-            console.log("filter", this.filterView.tags, this.filterView.ignoring);
+            //console.log("filter", this.filterView.tags, this.filterView.ignoring);
             this.filtered = this.filterView.tags.length === 0
                 ? null
                 : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
-            console.log("  >", this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring));
+            //console.log("  >", this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring));
             if (prev != this.filtered) {
                 this.page = 1;
                 this.render();
@@ -168,6 +179,21 @@
             this.$label = this.$("label").first();
             this.$list = this.$(".taglist").first();
             this.$toggle = this.$("#issue-filter-toggle");
+        },
+
+        render: function () {
+            this.$toggle.text(this.ignoring ? "/ Filter by" : "/ Ignore by");
+            this.$label.text(this.ignoring ? "Ignore by" : "Filter by");
+            this.$list.empty();
+            for (var i = 0; i < this.tags.length; ++i) {
+                this.$list.append(this.tagTemplate({tag: tags[i]}));
+            }
+            return this;
+        },
+
+        setVariables: function (tags, ignoring) {
+            this.tags = tags;
+            this.ignoring = ignoring;
         },
 
         onFilter: function (e) {
