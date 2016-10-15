@@ -186,7 +186,7 @@
             this.$label.text(this.ignoring ? "Ignore by" : "Filter by");
             this.$list.empty();
             for (var i = 0; i < this.tags.length; ++i) {
-                this.$list.append(this.tagTemplate({tag: tags[i]}));
+                this.$list.append(this.tagTemplate({tag: this.tags[i]}));
             }
             return this;
         },
