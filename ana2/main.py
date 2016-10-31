@@ -17,11 +17,6 @@ http://stackoverflow.com/questions/4060221/how-to-reliably-open-a-file-in-the-sa
 """
 
 """
-arguments:
-    -k  keep previous analyses (run analysis only for new packages)
-    -g  fetch source from github when not available locally
-    -r  also register and analyse repositories
-
 main script:
     parse arguments
     load config
@@ -140,6 +135,40 @@ def parse_arguments(argv):
     return parser.parse_args() if argv is None else parser.parse_args(argv)
 
 
+
+class Plugin:
+    def __init__(self, name, dir):
+        self.name = name
+        self.version = "0.1"
+        self.rules = {}
+        self.metrics = {}
+        self.module = None
+        self.path = dir
+
+    def load(self):
+        manifest = os.path.join(self.path, "plugin.yaml")
+        with open(manifest, "r") as openfile:
+            manifest = yaml.load(openfile)
+        if not "version" in manifest or
+                (not "rules" in manifest and not "metrics" in manifest):
+            return "Malformed plugin manifest: " + self.name
+        self.version = manifest["version"]
+        for key, item in manifest.get("rules", {}).iteritems():
+            self.rules[key] = item
+        for key, item in manifest.get("metrics", {}).iteritems():
+            self.metrics[key] = item
+        pyfile = os.path.join(self.path, "plugin.py")
+        if os.path.isfile(pyfile):
+            try:
+                self.module = imp.load_source(self.name, pyfile)
+            except:
+                return "Failed to load plugin: " + self.name
+        else:
+            return "Failed to load plugin: " + self.name
+        return None
+
+
+
 # Returns {Name -> (Manifest, Module)}
 def load_plugins(args):
     plugins = {}
@@ -156,44 +185,41 @@ def load_plugins(args):
         if (mode > 0 and not item in filter) or (mode < 0 and item in filter):
             continue
         d = os.path.join(plugin_root, item)
-        if os.path.isdir(d):
-            for file in os.listdir(d):
-                if file == "plugin.yaml":
-                    plugin = import_plugin(item, d)
-                    if not plugin is None:
-                        plugins[item] = plugin
+        if os.path.isdir(d) and
+                os.path.isfile(os.path.join(d, "plugin.yaml")) and
+                os.path.isfile(os.path.join(d, "plugin.py")):
+            # plugin = import_plugin(item, d)
+            plugin = Plugin(item, d)
+            err = plugin.load()
+            if err is None:
+                plugins[item] = plugin
+            else:
+                print err
     return plugins
 
 
-def import_plugin(name, path):
-    with open("plugin.yaml", "r") as m:
-        manifest = yaml.load(m)
-    if not "script" in manifest:
-        return None
-    pyfile = os.path.join(path, manifest["script"])
-    pycfile = pyfile + "c"
-    pyofile = pyfile + "o"
-    pytime = 0
-    pyctime = 0
-    pyotime = 0
-    if os.path.isfile(pyfile):
-        pytime = os.path.getmtime(pyfile)
-    if os.path.isfile(pycfile):
-        pyctime = os.path.getmtime(pycfile)
-    if os.path.isfile(pyofile):
-        pyotime = os.path.getmtime(pyofile)
-    if pytime > pyctime and pytime > pyotime:
-        try:
-            return (manifest, imp.load_source(name, pyfile))
-        except:
-            print "Failed to load plugin", name
-    else:
-        try:
-            return (manifest, imp.load_compiled(name,
-                    pycfile if pyctime > pyotime else pyofile))
-        except:
-            print "Failed to load plugin", name
-    return None
+# def import_plugin(name, path):
+    # manifest = load_plugin_manifest(name, path)
+    # if manifest is None:
+        # return None
+    # pyfile = os.path.join(path, "plugin.py")
+    # if os.path.isfile(pyfile):
+        # try:
+            # return (manifest, imp.load_source(name, pyfile))
+        # except:
+            # print "Failed to load plugin", name
+    # else:
+        # print "Failed to load plugin", name
+    # return None
+
+# def load_plugin_manifest(name, path):
+    # with open(os.path.join(path, "plugin.yaml"), "r") as m:
+        # manifest = yaml.load(m)
+    # if not "version" in manifest or
+            # (not "rules" in manifest and not "metrics" in manifest):
+        # print "Malformed plugin manifest:", name
+        # return None
+    # return manifest
 
 
 
@@ -219,9 +245,6 @@ def main(argv=None):
     args = parse_arguments(argv)
     try:
         args.func(args)
-        # update_database(args.updated, args.truncate, args.download)
-        # run_analysis(args.analysed, args.truncate, configs)
-        # export_data(args.exported, configs)
         return 0
     except ExpectedError, err:
         print >>sys.stderr, err.msg
