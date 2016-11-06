@@ -57,14 +57,8 @@ source finder:
 
 
 import argparse
-import imp
 import os
-import yaml
-
-
-class ExpectedError(Exception):
-    def __init__(self, msg):
-        self.msg = msg
+import plugin_manager as plugman
 
 
 # Options:
@@ -75,6 +69,7 @@ class ExpectedError(Exception):
 #       -r  also register and analyse repositories
 #       -w  whitelist plugins
 #       -b  blacklist plugins
+#       -p  package filter
 #   haros export [args]
 #       runs export only
 #       -e export dir (output)
@@ -102,6 +97,8 @@ def parse_arguments(argv):
     parser_full.add_argument("-s", "--server-host", dest="host",
             default="localhost:8080",
             help="visualisation host (default: \"localhost:8080\")")
+    parser_full.add_argument("-p", "--package-filter", dest="pkgs",
+            help="package filter file")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
             help="whitelist plugins (execute only these)")
@@ -116,6 +113,8 @@ def parse_arguments(argv):
             action="store_true", help="fetch source from GitHub")
     parser_analyse.add_argument("-r", "--repositories", dest="repos",
             action="store_true", help="analyse repositories")
+    parser_full.add_argument("-p", "--package-filter", dest="pkgs",
+            help="package filter file")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
             help="whitelist plugins (execute only these)")
@@ -136,109 +135,27 @@ def parse_arguments(argv):
 
 
 
-class Plugin:
-    def __init__(self, name, dir):
-        self.name = name
-        self.version = "0.1"
-        self.rules = {}
-        self.metrics = {}
-        self.module = None
-        self.path = dir
-
-    def load(self):
-        manifest = os.path.join(self.path, "plugin.yaml")
-        with open(manifest, "r") as openfile:
-            manifest = yaml.load(openfile)
-        if not "version" in manifest or
-                (not "rules" in manifest and not "metrics" in manifest):
-            return "Malformed plugin manifest: " + self.name
-        self.version = manifest["version"]
-        for key, item in manifest.get("rules", {}).iteritems():
-            self.rules[key] = item
-        for key, item in manifest.get("metrics", {}).iteritems():
-            self.metrics[key] = item
-        pyfile = os.path.join(self.path, "plugin.py")
-        if os.path.isfile(pyfile):
-            try:
-                self.module = imp.load_source(self.name, pyfile)
-            except:
-                return "Failed to load plugin: " + self.name
-        else:
-            return "Failed to load plugin: " + self.name
-        return None
-
-
-
-# Returns {Name -> (Manifest, Module)}
-def load_plugins(args):
-    plugins = {}
-    filter = []
-    mode = 0
-    if args.whitelist:
-        filter = args.whitelist
-        mode = 1
-    elif args.blacklist:
-        filter = args.blacklist
-        mode = -1
-    plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
-    for item in os.listdir(plugin_root):
-        if (mode > 0 and not item in filter) or (mode < 0 and item in filter):
-            continue
-        d = os.path.join(plugin_root, item)
-        if os.path.isdir(d) and
-                os.path.isfile(os.path.join(d, "plugin.yaml")) and
-                os.path.isfile(os.path.join(d, "plugin.py")):
-            # plugin = import_plugin(item, d)
-            plugin = Plugin(item, d)
-            err = plugin.load()
-            if err is None:
-                plugins[item] = plugin
-            else:
-                print err
-    return plugins
-
-
-# def import_plugin(name, path):
-    # manifest = load_plugin_manifest(name, path)
-    # if manifest is None:
-        # return None
-    # pyfile = os.path.join(path, "plugin.py")
-    # if os.path.isfile(pyfile):
-        # try:
-            # return (manifest, imp.load_source(name, pyfile))
-        # except:
-            # print "Failed to load plugin", name
-    # else:
-        # print "Failed to load plugin", name
-    # return None
-
-# def load_plugin_manifest(name, path):
-    # with open(os.path.join(path, "plugin.yaml"), "r") as m:
-        # manifest = yaml.load(m)
-    # if not "version" in manifest or
-            # (not "rules" in manifest and not "metrics" in manifest):
-        # print "Malformed plugin manifest:", name
-        # return None
-    # return manifest
-
-
-
 def command_full(args):
     command_analyse(args)
     command_viz(args)
 
 
 def command_analyse(args):
-    plugins = load_plugins(args)
+    # TODO: load common rules and metrics
+    plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
+    plugins = plugman.load_plugins(plugin_root, whitelist = args.whitelist,
+            blacklist = args.blacklist)
     # update
     # analyse
     command_export(args)
 
 
 def command_export(args):
+    pass
 
 
 def command_viz(args):
+    pass
 
 
 def main(argv=None):
@@ -246,8 +163,8 @@ def main(argv=None):
     try:
         args.func(args)
         return 0
-    except ExpectedError, err:
-        print >>sys.stderr, err.msg
+    except ExpectedError as err:
+        print >>sys.stderr, str(err)
         return 1
 
 
