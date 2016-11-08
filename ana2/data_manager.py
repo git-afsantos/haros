@@ -50,12 +50,35 @@ class Person(object):
 
 # Represents a source code file
 class SourceFile(object):
+    _excluded_dirs = [".git", "doc", "bin", "cmake"]
+    _cpp_sources = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in", \
+            ".hpp.in", ".c.in", ".cc.in")
+    _py_sources = ".py"
+
     def __init__(self, name, path, pkg, lang):
         self.name       = name
-        self.path       = path
+        self.path       = path # relative to package root
         self.package    = pkg
         self.language   = lang
-        self.size       = os.path.getsize(os.path.join(path, name))
+        self.size       = os.path.getsize(os.path.join(pkg.path, path, name))
+
+    @classmethod
+    def populate_package(cls, pkg):
+        if pkg.path is None:
+            return
+        prefix = len(pkg.path) + len(os.path.sep)
+        for root, subdirs, files in os.walk(pkg.path, topdown = True):
+            subdirs[:] = [d for d in subdirs if d not in cls._excluded_dirs]
+            path = root[prefix:]
+            for f in files:
+                if f.endswith(cls._cpp_sources):
+                    source = cls(f, path, pkg, "cpp")
+                    pkg.source_files.append(source)
+                    pkg.size += source.size
+                elif f.endswith(cls._py_sources):
+                    source = cls(f, path, pkg, "py")
+                    pkg.source_files.append(source)
+                    pkg.size += source.size
 
 
 # Represents a ROS package
@@ -79,6 +102,7 @@ class Package(object):
         self.vcs_url            = None
         self.bug_url            = None
         self.path               = None
+        self.source_files       = []
         self.size               = 0
 
     @classmethod
@@ -87,6 +111,7 @@ class Package(object):
             root = ET.parse(handle).getroot()
         name = root.find("name").text
         package = cls(name, repo)
+        package.path = os.path.dirname(pkg_file)
         for el in root.findall("maintainer"):
             name = el.text
             email = el.get("email")
@@ -129,7 +154,7 @@ class Package(object):
         return package
 
     @classmethod
-    def locate_by_name(cls, name):
+    def locate_by_name(cls, name, fetch_repo = False):
         rp = RosPack.get_instance()
         try:
             path = rp.get_path(name)
@@ -140,7 +165,20 @@ class Package(object):
             # TODO search repository download directory
             # TODO use rosdistro to locate online
             # TODO search custom repositories
-            return None
+        return None
+
+
+class Repository(object):
+    def __init__(self, name):
+        self.id             = name
+        self.url            = None 
+        self.status         = None
+        self.release_version = None
+        self.source_url     = None
+        self.source_version = None
+        self.subpackages    = []
+        self.commits        = 1
+        self.contributors   = 1
 
 
 ################################################################################
