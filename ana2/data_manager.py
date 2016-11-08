@@ -154,29 +154,40 @@ class Package(object):
         return package
 
     @classmethod
-    def locate_by_name(cls, name, fetch_repo = False):
+    def locate_by_name(cls, name, repo_path = None, fetch_repo = False):
+        # Step 1: use known directories
         rp = RosPack.get_instance()
         try:
             path = rp.get_path(name)
             path = os.path.join(path, "package.xml")
             if os.path.isfile(path):
                 return cls.from_manifest(path)
-        except ResourceNotFound:
-            # TODO search repository download directory
-            # TODO use rosdistro to locate online
-            # TODO search custom repositories
+        except ResourceNotFound as e:
+            pass
+        # Step 2: use repository download directory
+        if repo_path is None:
+            return None
+        rp = RosPack.get_instance([repo_path])
+        try:
+            path = rp.get_path(name)
+            path = os.path.join(path, "package.xml")
+            if os.path.isfile(path):
+                return cls.from_manifest(path)
+        except ResourceNotFound as e:
+            pass
+        # TODO use rosdistro to locate online
+        # TODO search custom repositories
         return None
 
 
 class Repository(object):
     def __init__(self, name):
         self.id             = name
+        self.vcs            = None 
         self.url            = None 
+        self.version        = None
         self.status         = None
-        self.release_version = None
-        self.source_url     = None
-        self.source_version = None
-        self.subpackages    = []
+        self.packages       = []
         self.commits        = 1
         self.contributors   = 1
 
@@ -188,13 +199,14 @@ class Repository(object):
 # Object to store and manage all data
 class DataManager(object):
     def __init__(self):
-        self.repositories   = []
-        self.packages       = []
+        self.repositories   = {}
+        self.packages       = {}
         self.rules          = {}
         self.metrics        = {}
         self.common_rules   = set()
         self.common_metrics = set()
 
+    # Used at startup to load the common rules and metrics
     def load_definitions(self, data_file):
         with open(data_file, "r") as handle:
             data = yaml.load(handle)
@@ -207,19 +219,37 @@ class DataManager(object):
                     minv = metric.get("min"), maxv = metric.get("max"))
             self.common_metrics.add(id)
 
-    def extend_definitions(self, plugin, rules, metrics):
+    # Used to register the custom rules and metrics that each plugin defines
+    def extend_definitions(self, plugin_id, rules, metrics):
         for id, rule in rules.iteritems():
             if id in self.common_rules:
                 continue # cannot override common rules
-            id = plugin + ":" + id
+            id = plugin_id + ":" + id
             self.rules[id] = Rule(id, rule["scope"], \
                     rule["description"], rule["tags"])
         for id, metric in data.get("metrics", {}).iteritems():
             if id in self.common_metrics:
                 continue # cannot override common metrics
-            id = plugin + ":" + id
+            id = plugin_id + ":" + id
             self.metrics[id] = Metric(id, metric["description"], \
                     minv = metric.get("min"), maxv = metric.get("max"))
+
+    # Used at startup to build the list of packages, repositories
+    # and source files that are to be analysed
+    def index_source(self, index_file):
+        with open(index_file, "r") as handle:
+            data = yaml.load(handle)
+        for id in data.get("packages", []):
+            pkg = Package.locate_by_name(id, None, False)
+            if not pkg is None:
+                self.packages[id] = pkg
+        for id, info in data.get("repositories", {}).iteritems():
+            repo = Repository(id)
+            repo.vcs            = info["type"] 
+            repo.url            = info["url"] 
+            repo.version        = info["version"]
+            repo.status         = "private"
+            self.repositories[id] = repo
 
     def save_state(self, file_path):
         with open(file_path, "w") as handle:

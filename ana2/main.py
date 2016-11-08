@@ -72,19 +72,19 @@ import plugin_manager as plugman
 #       -p  package filter
 #   haros export [args]
 #       runs export only
-#       -e export dir (output)
+#       -d export dir (output)
 #   haros viz [args]
 #       runs visualiser only
 #       -s host
-#       -e export dir (input)
+#       -d export dir (input)
 #   haros full [args]
 #       full run (analyse + viz)
 def parse_arguments(argv):
     parser = argparse.ArgumentParser(prog="haros",
             description="ROS quality assurance.")
-    parser.add_argument("--export-dir", "-e", dest="exportdir",
+    parser.add_argument("--data-dir", "-d", dest="datadir",
             default=os.getcwd(),
-            help="directory for exported data")
+            help="directory for application data")
     subparsers = parser.add_subparsers()
 
     parser_full = subparsers.add_parser("full")
@@ -97,8 +97,8 @@ def parse_arguments(argv):
     parser_full.add_argument("-s", "--server-host", dest="host",
             default="localhost:8080",
             help="visualisation host (default: \"localhost:8080\")")
-    parser_full.add_argument("-p", "--package-filter", dest="pkgs",
-            help="package filter file")
+    parser_full.add_argument("-p", "--package-index", dest="pkgs",
+            help="package index file")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
             help="whitelist plugins (execute only these)")
@@ -113,8 +113,8 @@ def parse_arguments(argv):
             action="store_true", help="fetch source from GitHub")
     parser_analyse.add_argument("-r", "--repositories", dest="repos",
             action="store_true", help="analyse repositories")
-    parser_full.add_argument("-p", "--package-filter", dest="pkgs",
-            help="package filter file")
+    parser_full.add_argument("-p", "--package-index", dest="pkgs",
+            help="package index file")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
             help="whitelist plugins (execute only these)")
