@@ -42,6 +42,21 @@ source finder:
     find source files within each package
 """
 
+"""
+HAROS directory (data folder) structure:
+
++ ~/.haros
+|-- index.yaml
+|-+ repositories
+  |-+ ...
+|-+ export
+  |-- packages.json
+  |-- rules.json
+  |-- summary.json
+  |-+ compliance
+    |-- ...
+"""
+
 
 
 # os.path.expanduser("~") for home dir
@@ -65,11 +80,11 @@ import plugin_manager as plugman
 #   haros analyse [args]
 #       runs update, analysis and export
 #       -k  keep previous analyses (run analysis only for new packages)
-#       -g  fetch source from github when not available locally
 #       -r  also register and analyse repositories
 #       -w  whitelist plugins
 #       -b  blacklist plugins
 #       -p  package filter
+#       -d  data dir (index file and repos download)
 #   haros export [args]
 #       runs export only
 #       -d export dir (output)
@@ -88,12 +103,10 @@ def parse_arguments(argv):
     subparsers = parser.add_subparsers()
 
     parser_full = subparsers.add_parser("full")
-    parser_full.add_argument("-k", "--keep-data", dest="truncate",
-            action="store_false", help="non-destructive update")
-    parser_full.add_argument("-g", "--github", dest="fetch",
-            action="store_true", help="fetch source from GitHub")
+    parser_full.add_argument("-k", "--keep-data", dest="keep",
+            action="store_true", help="non-destructive update")
     parser_full.add_argument("-r", "--repositories", dest="repos",
-            action="store_true", help="analyse repositories")
+            action="store_true", help="use repositories")
     parser_full.add_argument("-s", "--server-host", dest="host",
             default="localhost:8080",
             help="visualisation host (default: \"localhost:8080\")")
@@ -107,12 +120,10 @@ def parse_arguments(argv):
     parser_full.set_defaults(func=command_full)
 
     parser_analyse = subparsers.add_parser("analyse")
-    parser_analyse.add_argument("-k", "--keep-data", dest="truncate",
-            action="store_false", help="non-destructive update")
-    parser_analyse.add_argument("-g", "--github", dest="fetch",
-            action="store_true", help="fetch source from GitHub")
+    parser_analyse.add_argument("-k", "--keep-data", dest="keep",
+            action="store_true", help="non-destructive update")
     parser_analyse.add_argument("-r", "--repositories", dest="repos",
-            action="store_true", help="analyse repositories")
+            action="store_true", help="use repositories")
     parser_full.add_argument("-p", "--package-index", dest="pkgs",
             help="package index file")
     group = parser_analyse.add_mutually_exclusive_group()

@@ -2,6 +2,14 @@ import cPickle
 import os
 import yaml
 
+import urllib
+try:
+    from urllib.request import urlopen
+    from urllib.error import HTTPError
+except ImportError:
+    from urllib2 import urlopen
+    from urllib2 import HTTPError
+
 from rospkg import RosPack, ResourceNotFound
 
 
@@ -91,7 +99,7 @@ class SourceFile(object):
 class Package(object):
     def __init__(self, name, repo = None):
         self.id                 = name
-        self.repo               = repo
+        self.repository         = repo
         self.authors            = set()
         self.maintainers        = set()
         self.isMetapackage      = False
@@ -154,8 +162,18 @@ class Package(object):
         return package
 
     @classmethod
-    def locate_by_name(cls, name, repo_path = None, fetch_repo = False):
-        # Step 1: use known directories
+    def locate_offline(cls, name, repo_path = None):
+        # Step 1: use repository download directory
+        if repo_path:
+            rp = RosPack.get_instance([repo_path])
+            try:
+                path = rp.get_path(name)
+                path = os.path.join(path, "package.xml")
+                if os.path.isfile(path):
+                    return cls.from_manifest(path)
+            except ResourceNotFound as e:
+                pass
+        # Step 2: use known directories
         rp = RosPack.get_instance()
         try:
             path = rp.get_path(name)
@@ -164,20 +182,15 @@ class Package(object):
                 return cls.from_manifest(path)
         except ResourceNotFound as e:
             pass
-        # Step 2: use repository download directory
-        if repo_path is None:
-            return None
-        rp = RosPack.get_instance([repo_path])
-        try:
-            path = rp.get_path(name)
-            path = os.path.join(path, "package.xml")
-            if os.path.isfile(path):
-                return cls.from_manifest(path)
-        except ResourceNotFound as e:
-            pass
-        # TODO use rosdistro to locate online
-        # TODO search custom repositories
         return None
+
+
+
+class RepositoryCloneError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 
 class Repository(object):
@@ -187,9 +200,140 @@ class Repository(object):
         self.url            = None 
         self.version        = None
         self.status         = None
+        self.path           = None
         self.packages       = []
+        self.declared_packages = []
         self.commits        = 1
         self.contributors   = 1
+
+    def __eq__(self, other):
+        if not type(self) is type(other):
+            return False
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def download(self, repo_path):
+        if not self.url:
+            return
+        path = os.path.join(repo_path, self.id)
+        clone = False
+        if not os.path.exists(path):
+            os.makedirs(path)
+            clone = True
+        os.chdir(path)
+        if self.vcs == "git":
+            self._download_git(path, clone)
+        elif self.vcs == "hg":
+            self._download_hg(path, clone)
+        elif self.vcs == "svn":
+            self._download_svn(path, clone)
+
+    def _download_git(self, path, clone = False):
+        try:
+            if clone:
+                subprocess.check_call(["git", "init"])
+                subprocess.check_call(["git", "remote", "add", "-t",
+                        self.version, "-f", "origin", self.url])
+                subprocess.check_call(["git", "checkout", self.version])
+            else:
+                subprocess.check_call(["git", "pull"])
+            self.path = path
+            self.commits = int(subprocess.check_output(["git", \
+                    "rev-list", "HEAD", "--count"]).rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("git error")
+
+    def _download_hg(self, path, clone = False):
+        try:
+            if clone:
+                subprocess.check_call(["hg", "clone", self.url, \
+                        "-r", self.version])
+            else:
+                subprocess.check_call(["hg", "pull"])
+            self.path = path
+            self.commits = int(subprocess.check_output("hg", \
+                    "id", "--num", "--rev", "tip").rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("hg error")
+
+    def _download_svn(self, path, clone = False):
+        try:
+            if clone:
+                subprocess.check_call(["git", "svn", "clone", "-T", \
+                        self.version if self.version == "trunk" \
+                        else "branches/" + self.version, \
+                        self.url])
+            else:
+                subprocess.check_call(["git", "svn", "fetch"])
+            self.path = path
+            self.commits = int(subprocess.check_output(["git", \
+                    "rev-list", "HEAD", "--count"]).rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("git-svn error")
+
+    @classmethod
+    def from_distribution_data(cls, name, data):
+        if not "source" in data:
+            return None
+        repo = cls(name)
+        repo.status = data.get("status")
+        src = data["source"]
+        repo.vcs = data["type"]
+        repo.url = data["url"]
+        repo.version = data["version"]
+        if "release" in data:
+            repo.declared_packages = data["release"].get("packages", [])
+        return repo
+
+    @classmethod
+    def from_user_data(cls, name, data):
+        repo = cls(name)
+        repo.status = "private"
+        repo.vcs = data["type"]
+        repo.url = data["url"]
+        repo.version = data["version"]
+        repo.declared_packages = data["packages"]
+        return repo
+
+    # User-defined repositories have priority.
+    # Tries to build and save as few repositories as possible.
+    @classmethod
+    def load_repositories(cls, user_repos = None, pkg_list = None):
+        repos = {}
+        pkg_list = list(pkg_list) if pkg_list else None
+        if user_repos:
+            if pkg_list is None:
+                for id, info in user_repos.iteritems():
+                    repos[id] = cls.from_user_data(id, info)
+            else:
+                for id, info in user_repos.iteritems():
+                    if not pkg_list:
+                        return repos
+                    repo = cls.from_user_data(id, info)
+                    for pkg in repo.declared_packages:
+                        if pkg in pkg_list:
+                            repos[id] = repo
+                            pkg_list.remove(pkg)
+        if not pkg_list:
+            return repos
+        url = "https://raw.githubusercontent.com/ros/rosdistro/master/" +
+                os.environ["ROS_DISTRO"] + "/distribution.yaml"
+        data = yaml.load(urlopen(url).read())["repositories"]
+        if pkg_list is None:
+            for id, info in data.iteritems():
+                repos[id] = cls.from_distribution_data(id, info)
+        else:
+            for id, info in data.iteritems():
+                if not pkg_list:
+                    return repos
+                repo = cls.from_distribution_data(id, info)
+                for pkg in repo.declared_packages:
+                    if pkg in pkg_list:
+                        repos[id] = repo
+                        pkg_list.remove(pkg)
+        return repos
 
 
 ################################################################################
@@ -236,20 +380,51 @@ class DataManager(object):
 
     # Used at startup to build the list of packages, repositories
     # and source files that are to be analysed
-    def index_source(self, index_file):
+    def index_source(self, index_file, repo_path = None, index_repos = False):
         with open(index_file, "r") as handle:
             data = yaml.load(handle)
-        for id in data.get("packages", []):
-            pkg = Package.locate_by_name(id, None, False)
-            if not pkg is None:
+        # Step 1: find packages locally
+        missing = []
+        pkg_list = data["packages"]
+        for id in pkg_list:
+            pkg = Package.locate_offline(id, repo_path)
+            if pkg is None:
+                missing.append(id)
+            else:
                 self.packages[id] = pkg
-        for id, info in data.get("repositories", {}).iteritems():
-            repo = Repository(id)
-            repo.vcs            = info["type"] 
-            repo.url            = info["url"] 
-            repo.version        = info["version"]
-            repo.status         = "private"
-            self.repositories[id] = repo
+        # Step 2: load repositories only if explicitly told to
+        if index_repos:
+            self.repositories = Repository.load_repositories(
+                    data.get("repositories", {}), pkg_list)
+            repos = set()
+            for _, repo in self.repositories.iteritems():
+                for id in repo.declared_packages:
+                    if id in missing:
+                        repos.add(repo)
+        # Step 3: clone necessary repositories
+            wd = os.getcwd()
+            for repo in repos:
+                try:
+                    repo.download(repo_path)
+                except RepositoryCloneError as e:
+                    print "repository", repo.id, e.value
+            os.chdir(wd)
+        # Step 4: find packages and link to repositories
+            for _, repo in self.repositories.iteritems():
+                for id in repo.declared_packages:
+                    if id in self.packages:
+                        repo.packages.append(self.packages[id])
+                        self.packages[id].repository = repo
+                    elif id in missing:
+                        pkg = Package.locate_offline(id, repo_path)
+                        if not pkg is None:
+                            self.packages[id] = pkg
+                            missing.remove(id)
+                            repo.packages.append(pkg)
+                            pkg.repository = repo
+        for id in missing:
+            print "Could not find package", id
+                    
 
     def save_state(self, file_path):
         with open(file_path, "w") as handle:
