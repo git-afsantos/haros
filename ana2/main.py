@@ -17,32 +17,6 @@ http://stackoverflow.com/questions/4060221/how-to-reliably-open-a-file-in-the-sa
 """
 
 """
-main script:
-    parse arguments
-    load config
-    load plugins
-        initialise plugins
-        get declared rules and metrics
-    load package filters
-    
-    find packages, source and repositories (source finder)
-    register entries in DB
-    run analysis plugins for each package/file
-    register entries in DB
-    export data
-
-source finder:
-    look for packages locally with rospack
-    optionally, look only for packages that are not in the DB
-    when the package is not found
-        report and skip, or
-        use roslocate (or git provided in filter) to download the repository
-        report and skip if the package cannot be found
-    use roslocate to find the repositories of each package
-    find source files within each package
-"""
-
-"""
 HAROS directory (data folder) structure:
 
 + ~/.haros
@@ -58,21 +32,10 @@ HAROS directory (data folder) structure:
 """
 
 
-
-# os.path.expanduser("~") for home dir
-
-# os.environ["ROS_PACKAGE_PATH"] = path_to_repos + os.pathsep + os.environ["ROS_PACKAGE_PATH"]
-# modify ROS_PACKAGE_PATH for rospack look ups
-# or create a second instance later with the repos path in the constructor
-
-# from rospkg import RosPack
-# rp = RosPack()
-# packages = rp.list()
-# path = rp.get_path('rospy')
-
-
 import argparse
 import os
+
+from data_manager import DataManager
 import plugin_manager as plugman
 
 
@@ -145,6 +108,20 @@ def parse_arguments(argv):
     return parser.parse_args() if argv is None else parser.parse_args(argv)
 
 
+def initialise_data_directory(args):
+    print "Creating directories..."
+    args.datadir = args.datadir if args.datadir else \
+            os.path.join(os.path.expanduser("~"), ".haros")
+    if not os.path.exists(args.datadir):
+        os.makedirs(args.datadir)
+    repo_path = os.path.join(args.datadir, "repositories")
+    if not os.path.exists(repo_path):
+        os.mkdir(repo_path)
+    export_path = os.path.join(args.datadir, "export")
+    if not os.path.exists(export_path):
+        os.mkdir(export_path)
+        os.mkdir(os.path.join(export_path, "compliance"))
+
 
 def command_full(args):
     command_analyse(args)
@@ -152,10 +129,23 @@ def command_full(args):
 
 
 def command_analyse(args):
-    # TODO: load common rules and metrics
-    plugin_root = os.path.join(os.path.dirname(__file__), "plugins")
-    plugins = plugman.load_plugins(plugin_root, whitelist = args.whitelist,
+    dataman = DataManager()
+    # path = os.path.join(args.datadir, "haros.db")
+    # if os.path.isfile(path):
+        # dataman.load_state()
+    print "Indexing source code..."
+    path = os.path.join(args.datadir, "index.yaml")
+    dataman.index_source(path, os.path.join(args.datadir, "repositories"), \
+            args.repos)
+    print "Loading common definitions..."
+    path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
+    dataman.load_definitions(path)
+    print "Loading plugins..."
+    path = os.path.join(os.path.dirname(__file__), "plugins")
+    plugins = plugman.load_plugins(path, whitelist = args.whitelist, \
             blacklist = args.blacklist)
+    for id, plugin in plugins.iteritems():
+        dataman.extend_definitions(id, plugin.rules, plugin.metrics)
     # update
     # analyse
     command_export(args)
@@ -169,12 +159,13 @@ def command_viz(args):
     pass
 
 
-def main(argv=None):
+def main(argv = None):
     args = parse_arguments(argv)
+    initialise_data_directory(args)
     try:
         args.func(args)
         return 0
-    except ExpectedError as err:
+    except RuntimeError as err:
         print >>sys.stderr, str(err)
         return 1
 

@@ -19,21 +19,28 @@ class Plugin:
         self.module = None
         self.path = dir
 
-    def load(self):
+    def load(self, common_rules = None, common_metrics = None):
         manifest = os.path.join(self.path, "plugin.yaml")
         with open(manifest, "r") as openfile:
             manifest = yaml.load(openfile)
-        if not "version" in manifest or not "name" in manifest or
+        if not "version" in manifest or not "name" in manifest or \
                 manifest["name"] != self.name:
-            raise MalformedManifestError("Malformed plugin manifest: " +
+            raise MalformedManifestError("Malformed plugin manifest: " + \
                     self.name)
         self.version = manifest["version"]
         self.rules = manifest.get("rules", {})
         self.metrics = manifest.get("metrics", {})
-        # TODO: check that rule ids do not clash with common list
-        # for key, item in self.rules.iteritems():
-        # for key, item in self.metrics.iteritems():
-        self.module = imp.load_source(self.name,
+        if common_rules:
+            rm = [id for id in self.rules if id in common_rules]
+            for id in rm:
+                print "Plugin", self.name, "cannot override rule", id
+                del self.rules[id]
+        if common_metrics:
+            rm = [id for id in self.metrics if id in common_metrics]
+            for id in rm:
+                print "Plugin", self.name, "cannot override metric", id
+                del self.metrics[id]
+        self.module = imp.load_source(self.name, \
                 os.path.join(self.path, "plugin.py"))
 
 
@@ -54,12 +61,12 @@ def load_plugins(root, whitelist = None, blacklist = None):
             continue
         d = os.path.join(root, item)
         if os.path.isdir(d) and
-                os.path.isfile(os.path.join(d, "plugin.yaml")) and
+                os.path.isfile(os.path.join(d, "plugin.yaml")) and \
                 os.path.isfile(os.path.join(d, "plugin.py")):
             plugin = Plugin(item, d)
             try:
                 plugin.load()
                 plugins[item] = plugin
-            except (MalformedManifestError, ImportError):
+            except (MalformedManifestError, ImportError) as e:
                 print "Failed to load plugin: " + item
     return plugins
