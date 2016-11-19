@@ -146,7 +146,6 @@ def command_analyse(args):
             blacklist = args.blacklist)
     for id, plugin in plugins.iteritems():
         dataman.extend_definitions(id, plugin.rules, plugin.metrics)
-    # update
     # analyse
     command_export(args)
 

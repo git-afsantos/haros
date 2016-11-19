@@ -27,13 +27,41 @@ class Rule(object):
         self.tags           = tags
 
 
+# Represents a coding rule violation
+class RuleViolation(object):
+    def __init__(self, rule_id):
+        self.id             = rule_id
+        self.file_id        = None
+        self.package_id     = None
+        self.repository_id  = None
+        self.class_name     = None
+        self.function       = None
+        self.line           = None
+        self.details        = None
+
+
 # Represents a quality metric
 class Metric(object):
-    def __init__(self, metric_id, desc, minv = None, maxv = None):
+    def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
         self.id             = metric_id
+        self.name           = name
+        self.scope          = scope
         self.description    = desc
         self.minimum        = minv
         self.maximum        = maxv
+
+
+# Represents a quality metric measurement
+class MetricMeasurement(object):
+    def __init__(self, metric_id):
+        self.id             = metric_id
+        self.value          = None
+        self.file_id        = None
+        self.package_id     = None
+        self.repository_id  = None
+        self.class_name     = None
+        self.function       = None
+        self.line           = None
 
 
 ################################################################################
@@ -70,6 +98,8 @@ class SourceFile(object):
         self.package    = pkg
         self.language   = lang
         self.size       = os.path.getsize(os.path.join(pkg.path, path, name))
+        self.violations = []
+        self.metrics    = []
 
     @classmethod
     def populate_package(cls, pkg):
@@ -113,6 +143,8 @@ class Package(object):
         self.path               = None
         self.source_files       = []
         self.size               = 0
+        self.violations         = []
+        self.metrics            = []
 
     @classmethod
     def from_manifest(cls, pkg_file, repo):
@@ -206,6 +238,8 @@ class Repository(object):
         self.declared_packages = []
         self.commits        = 1
         self.contributors   = 1
+        self.violations     = []
+        self.metrics        = []
 
     def __eq__(self, other):
         if not type(self) is type(other):
@@ -351,6 +385,25 @@ class DataManager(object):
         self.common_rules   = set()
         self.common_metrics = set()
 
+    def _add_metric(self, id, metric, common = False):
+        minv = metric.get("min")
+        maxv = metric.get("max")
+        m = Metric(id, metric["name"], metric["scope"], metric["description"], \
+                minv = float(minv) if not minv is None else None, \
+                maxv = float(maxv) if not maxv is None else None)
+        self.metrics[id] = m
+        if common:
+            self.common_metrics.add(id)
+        id = "metric:" + id
+        if (not m.minimum is None or not m.maximum is None) and \
+                not id in self.rules:
+            self.rules[id] = Rule(id, metric["scope"], \
+                    metric["name"] + " threshold violated: [" + \
+                    metric.get("min", "n/a") + "," + \
+                    metric.get("max", "n/a") + "]", ["metrics"])
+            if common:
+                self.common_rules.add(id)
+
     # Used at startup to load the common rules and metrics
     def load_definitions(self, data_file):
         with open(data_file, "r") as handle:
@@ -360,9 +413,7 @@ class DataManager(object):
                     rule["description"], rule["tags"])
             self.common_rules.add(id)
         for id, metric in data.get("metrics", {}).iteritems():
-            self.metrics[id] = Metric(id, metric["description"], \
-                    minv = metric.get("min"), maxv = metric.get("max"))
-            self.common_metrics.add(id)
+            self._add_metric(id, metric, common = True)
 
     # Used to register the custom rules and metrics that each plugin defines
     def extend_definitions(self, plugin_id, rules, metrics):
@@ -375,9 +426,7 @@ class DataManager(object):
         for id, metric in data.get("metrics", {}).iteritems():
             if id in self.common_metrics:
                 continue # cannot override common metrics
-            id = plugin_id + ":" + id
-            self.metrics[id] = Metric(id, metric["description"], \
-                    minv = metric.get("min"), maxv = metric.get("max"))
+            self._add_metric(plugin_id + ":" + id, metric)
 
     # Used at startup to build the list of packages, repositories
     # and source files that are to be analysed
