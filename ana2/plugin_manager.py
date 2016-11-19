@@ -18,6 +18,7 @@ class Plugin:
         self.metrics = None
         self.module = None
         self.path = dir
+        self.scopes = set()
 
     def load(self, common_rules = None, common_metrics = None):
         manifest = os.path.join(self.path, "plugin.yaml")
@@ -42,6 +43,32 @@ class Plugin:
                 del self.metrics[id]
         self.module = imp.load_source(self.name, \
                 os.path.join(self.path, "plugin.py"))
+        if hasattr(self.module, "file_analysis"):
+            self.scopes.add("file")
+        if hasattr(self.module, "package_analysis"):
+            self.scopes.add("package")
+        if hasattr(self.module, "repository_analysis"):
+            self.scopes.add("repository")
+
+    def analyse_file(self, scope, iface):
+        try:
+            self.module.file_analysis(iface, scope.get_path())
+        except AttributeError as e:
+            pass
+
+    def analyse_package(self, scope, iface):
+        try:
+            self.module.package_analysis(iface, scope.path)
+        except AttributeError as e:
+            pass
+
+    def analyse_repository(self, scope, iface):
+        # Note: path may be None if the repo wasn't downloaded
+        # TODO: what action to take on None path
+        try:
+            self.module.repository_analysis(iface, scope.path)
+        except AttributeError as e:
+            pass
 
 
 

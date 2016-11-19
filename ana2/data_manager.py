@@ -133,6 +133,9 @@ class SourceFile(object):
     def scope_type(self):
         return "file"
 
+    def get_path(self):
+        return os.path.join(self.package.path, self.path, self.name)
+
 
 # Represents a ROS package
 # http://wiki.ros.org/catkin/package.xml

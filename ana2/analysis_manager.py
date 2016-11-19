@@ -1,4 +1,7 @@
 
+import os
+import shutil
+
 from data_manager import RuleViolation, MetricMeasurement
 
 class FileRuleViolation(RuleViolation):
@@ -111,3 +114,44 @@ class PluginInterface(object):
                     datum.class_name = cname
                 datum.details = "Reported metric value: " + str(value)
                 self._scope.violations.append(datum)
+
+
+
+def run_analysis(datadir, plugins, data):
+    iface = PluginInterface(None, data)
+    file_plugins = []
+    pkg_plugins = []
+    repo_plugins = []
+    for _, plugin in plugins.iteritems():
+        if "file" in plugin.scopes: file_plugins.append(plugin)
+        if "package" in plugin.scopes: pkg_plugins.append(plugin)
+        if "repository" in plugin.scopes: repo_plugins.append(plugin)
+    # Step 1: prepare directories
+    path = os.path.join(datadir, ".plugout")
+    if os.path.exists(path):
+        shutil.rmtree(path)
+    # Step 2: run analysis; file > package > repository
+    for _, package in data.packages:
+        iface._scope_type = "file"
+        for source_file in package.source_files:
+            _run_plugins(path, file_plugins, iface, source_file)
+        iface._scope_type = "package"
+        _run_plugins(path, pkg_plugins, iface, package)
+    for _, repository in data.repositories:
+        iface._scope_type = "repository"
+        _run_plugins(path, repo_plugins, iface, repository)
+
+
+def _run_plugins(datadir, plugins, iface, scope):
+    wd = os.getcwd()
+    iface._scope = scope
+    for plugin in plugins:
+        iface._plugin = plugin
+        try:
+            os.makedirs(datadir)
+            os.chdir(datadir)
+            func = getattr(plugin, "analyse_" + iface._scope_type)
+            func(scope, iface)
+        finally:
+            os.chdir(wd)
+            shutil.rmtree(datadir)

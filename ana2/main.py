@@ -37,6 +37,7 @@ import os
 
 from data_manager import DataManager
 import plugin_manager as plugman
+import analysis_manager as anaman
 
 
 # Options:
@@ -146,7 +147,8 @@ def command_analyse(args):
             blacklist = args.blacklist)
     for id, plugin in plugins.iteritems():
         dataman.extend_definitions(id, plugin.rules, plugin.metrics)
-    # analyse
+    print "Running analysis..."
+    anaman.run_analysis(args.datadir, plugins, dataman)
     command_export(args)
 
 
