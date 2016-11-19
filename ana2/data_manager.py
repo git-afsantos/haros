@@ -29,15 +29,22 @@ class Rule(object):
 
 # Represents a coding rule violation
 class RuleViolation(object):
-    def __init__(self, rule_id):
-        self.id             = rule_id
-        self.file_id        = None
-        self.package_id     = None
-        self.repository_id  = None
-        self.class_name     = None
-        self.function       = None
-        self.line           = None
-        self.details        = None
+    def __init__(self, rule, scope, details = None):
+        self.rule       = rule
+        self.scope      = scope
+        self.details    = details
+
+    def toJSON(self):
+        json = '{"rule":"' + self.rule.id + '",'
+        json += self._scopeJSON()
+        msg = str(self.details or "")
+        msg = msg.replace('"', "'").replace("\n", " ").replace("<", "&lt;")
+        msg = msg.replace(">", "&gt;").replace("&", "&amp;")
+        json += '"comment":"' + msg + '"}'
+        return json
+
+    def _scopeJSON(self):
+        return ""
 
 
 # Represents a quality metric
@@ -53,15 +60,19 @@ class Metric(object):
 
 # Represents a quality metric measurement
 class MetricMeasurement(object):
-    def __init__(self, metric_id):
-        self.id             = metric_id
-        self.value          = None
-        self.file_id        = None
-        self.package_id     = None
-        self.repository_id  = None
-        self.class_name     = None
-        self.function       = None
-        self.line           = None
+    def __init__(self, metric, scope, value):
+        self.metric = metric
+        self.scope  = scope
+        self.value  = value
+
+    def toJSON(self):
+        json = '{"metric":"' + self.metric.id + '",'
+        json += self._scopeJSON()
+        json += '"value":"' + str(self.value) + '"}'
+        return json
+
+    def _scopeJSON(self):
+        return ""
 
 
 ################################################################################
@@ -118,6 +129,9 @@ class SourceFile(object):
                     source = cls(f, path, pkg, "py")
                     pkg.source_files.append(source)
                     pkg.size += source.size
+
+    def scope_type(self):
+        return "file"
 
 
 # Represents a ROS package
@@ -216,6 +230,9 @@ class Package(object):
         except ResourceNotFound as e:
             pass
         return None
+
+    def scope_type(self):
+        return "package"
 
 
 
@@ -369,6 +386,9 @@ class Repository(object):
                         repos[id] = repo
                         pkg_list.remove(pkg)
         return repos
+
+    def scope_type(self):
+        return "repository"
 
 
 ################################################################################

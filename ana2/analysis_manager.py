@@ -1,6 +1,34 @@
 
 from data_manager import RuleViolation, MetricMeasurement
 
+class FileRuleViolation(RuleViolation):
+    def __init__(self, rule, scope, details = None):
+        RuleViolation.__init__(self, rule, scope, details)
+        self.class_name     = None
+        self.function       = None
+        self.line           = None
+
+    def _scopeJSON(self):
+        return '"file":"' + self.scope.name + '","line":"' + \
+                str(self.line or "null") + '","function":"' + \
+                str(self.function or "null") + '","class":"' + \
+                str(self.class_name or "null") + '",'
+
+
+class FileMetricMeasurement(MetricMeasurement):
+    def __init__(self, metric, scope, value):
+        MetricMeasurement.__init__(self, metric, scope, value)
+        self.class_name     = None
+        self.function       = None
+        self.line           = None
+
+    def _scopeJSON(self):
+        return '"file":"' + self.scope.name + '","line":"' + \
+                str(self.line or "null") + '","function":"' + \
+                str(self.function or "null") + '","class":"' + \
+                str(self.class_name or "null") + '",'
+
+
 class UndefinedPropertyError(Exception):
     def __init__(self, value):
         self.value = value
@@ -31,14 +59,12 @@ class PluginInterface(object):
         if self._scope_type != rule.scope:
             raise AnalysisScopeError("Found " + rule.scope + \
                     "; Expected " + self._scope_type)
-        datum = RuleViolation(rule_id)
-        datum.details = msg
         if rule.scope == "repository":
-            datum.repository_id = self._scope.id
+            datum = RuleViolation(rule, self._scope, msg)
         elif rule.scope == "package":
-            datum.package_id = self._scope.id
+            datum = RuleViolation(rule, self._scope, msg)
         else:
-            datum.file_id = self._scope.name
+            datum = FileRuleViolation(rule, self._scope, msg)
             datum.line = line
             datum.function = fname
             datum.class_name = cname
@@ -54,15 +80,34 @@ class PluginInterface(object):
         if self._scope_type != metric.scope:
             raise AnalysisScopeError("Found " + metric.scope + \
                     "; Expected " + self._scope_type)
-        datum = MetricMeasurement(metric_id)
-        datum.value = value
         if metric.scope == "repository":
-            datum.repository_id = self._scope.id
+            datum = MetricMeasurement(metric, self._scope, value)
         elif metric.scope == "package":
-            datum.package_id = self._scope.id
+            datum = MetricMeasurement(metric, self._scope, value)
         else:
-            datum.file_id = self._scope.name
+            datum = FileMetricMeasurement(metric, self._scope, value)
             datum.line = line
             datum.function = fname
             datum.class_name = cname
         self._scope.metrics.append(datum)
+        self._check_metric_violation(metric, value)
+
+    def _check_metric_violation(self, metric, value):
+        violation = not metric.maximum is None and value > metric.maximum
+        violation = violation or \
+                (not metric.minimum is None and value < metric.minimum)
+        if violation:
+            rule_id = "metric:" + metric.id
+            if rule_id in self._data.rules:
+                rule = self._data.rules[rule_id]
+                if rule.scope == "repository":
+                    datum = RuleViolation(rule, self._scope)
+                elif rule.scope == "package":
+                    datum = RuleViolation(rule, self._scope)
+                else:
+                    datum = FileRuleViolation(rule, self._scope)
+                    datum.line = line
+                    datum.function = fname
+                    datum.class_name = cname
+                datum.details = "Reported metric value: " + str(value)
+                self._scope.violations.append(datum)
