@@ -38,6 +38,7 @@ import os
 from data_manager import DataManager
 import plugin_manager as plugman
 import analysis_manager as anaman
+import export_manager as expoman
 
 
 # Options:
@@ -133,7 +134,7 @@ def command_analyse(args):
     dataman = DataManager()
     # path = os.path.join(args.datadir, "haros.db")
     # if os.path.isfile(path):
-        # dataman.load_state()
+        # dataman = DataManager.load_state()
     print "Indexing source code..."
     path = args.pkgs if args.pkgs and os.path.isfile(args.pkgs) else \
             os.path.join(args.datadir, "index.yaml")
@@ -150,12 +151,20 @@ def command_analyse(args):
         dataman.extend_definitions(id, plugin.rules, plugin.metrics)
     print "Running analysis..."
     anaman.run_analysis(args.datadir, plugins, dataman)
-    command_export(args)
+    print "Saving analysis results..."
+    path = os.path.join(args.datadir, "haros.db")
+    dataman.save_state(path)
+    command_export(args, dataman)
 
 
-def command_export(args):
+def command_export(args, dataman = None):
     print "Exporting analysis results..."
     export_path = os.path.join(args.datadir, "export")
+    if not dataman:
+        path = os.path.join(args.datadir, "haros.db")
+        if os.path.isfile(path):
+            dataman = DataManager.load_state(path)
+    expoman.f(dataman)
 
 
 def command_viz(args):

@@ -1,4 +1,5 @@
 import cPickle
+import json
 import os
 import subprocess
 import yaml
@@ -38,7 +39,7 @@ class RuleViolation(object):
         json = '{"rule":"' + self.rule.id + '",'
         json += self._scopeJSON()
         msg = str(self.details or "")
-        msg = msg.replace('"', "'").replace("\n", " ").replace("<", "&lt;")
+        msg = msg.replace('"', "\"").replace("\n", " ").replace("<", "&lt;")
         msg = msg.replace(">", "&gt;").replace("&", "&amp;")
         json += '"comment":"' + msg + '"}'
         return json
@@ -246,6 +247,38 @@ class Package(object):
 
     def scope_type(self):
         return "package"
+
+    def toJSON(self):
+        json = '{"id": "' + self.id + '",'
+        json += '"metapackage":' + json.dumps(self.isMetapackage)
+        s = self.description.replace('"', "\"").replace("\n", " ")
+        s = s.replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;")
+        json += ',"description":"' + s
+        json += '","wiki":' + json.dumps(self.website)
+        json += ',"repository":' + json.dumps(self.vcs_url)
+        json += ',"bugTracker":' + json.dumps(self.bug_url)
+        s = json.dumps([p.name for p in self.authors])
+        json += ',"authors":' + s
+        s = json.dumps([p.name for p in self.maintainers])
+        json += ',"maintainers":' + s
+        s = json.dumps([p for p in self.dependencies])
+        json += ',"dependencies":' + s
+        json += ',"analysis":' + self._json_analysis()
+        json += ',"size": ' + json.dumps(self.size / 1000.0) + "}"
+        return json
+
+    def _json_analysis(self):
+        analysis = {}
+        violations = {}
+        metrics = {}
+        for datum in self.violations:
+            violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
+        for datum in self.metrics:
+            if datum.scope == "package":
+                metrics[datum.metric.id] = datum.value
+        analysis["violations"] = violations
+        analysis["metrics"] = metrics
+        return json.dumps(analysis)
 
 
 
