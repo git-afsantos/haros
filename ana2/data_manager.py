@@ -102,6 +102,8 @@ class SourceFile(object):
     _cpp_sources = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in", \
             ".hpp.in", ".c.in", ".cc.in")
     _py_sources = ".py"
+    _package_sources = "package.xml"
+    _launch_sources = ".launch"
 
     def __init__(self, name, path, pkg, lang):
         self.name       = name
@@ -127,6 +129,14 @@ class SourceFile(object):
                     pkg.size += source.size
                 elif f.endswith(cls._py_sources):
                     source = cls(f, path, pkg, "py")
+                    pkg.source_files.append(source)
+                    pkg.size += source.size
+                elif f == cls._package_sources:
+                    source = cls(f, path, pkg, "package")
+                    pkg.source_files.append(source)
+                    pkg.size += source.size
+                elif f.endswith(cls._launch_sources):
+                    source = cls(f, path, pkg, "launch")
                     pkg.source_files.append(source)
                     pkg.size += source.size
 
@@ -208,7 +218,7 @@ class Package(object):
         else:
             for el in root.findall("run_depend"):
                 package.dependencies.add(el.text)
-        package.size = os.path.getsize(pkg_file)
+        # package.size = os.path.getsize(pkg_file)
         return package
 
     @classmethod
