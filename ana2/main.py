@@ -67,8 +67,8 @@ def parse_arguments(argv):
     subparsers = parser.add_subparsers()
 
     parser_full = subparsers.add_parser("full")
-    parser_full.add_argument("-k", "--keep-data", dest="keep",
-            action="store_true", help="non-destructive update")
+    # parser_full.add_argument("-k", "--keep-data", dest="keep",
+            # action="store_true", help="non-destructive update")
     parser_full.add_argument("-r", "--repositories", dest="repos",
             action="store_true", help="use repositories")
     parser_full.add_argument("-s", "--server-host", dest="host",
@@ -84,8 +84,8 @@ def parse_arguments(argv):
     parser_full.set_defaults(func=command_full)
 
     parser_analyse = subparsers.add_parser("analyse")
-    parser_analyse.add_argument("-k", "--keep-data", dest="keep",
-            action="store_true", help="non-destructive update")
+    # parser_analyse.add_argument("-k", "--keep-data", dest="keep",
+            # action="store_true", help="non-destructive update")
     parser_analyse.add_argument("-r", "--repositories", dest="repos",
             action="store_true", help="use repositories")
     parser_full.add_argument("-p", "--package-index", dest="pkgs",
@@ -135,7 +135,8 @@ def command_analyse(args):
     # if os.path.isfile(path):
         # dataman.load_state()
     print "Indexing source code..."
-    path = os.path.join(args.datadir, "index.yaml")
+    path = args.pkgs if args.pkgs and os.path.isfile(args.pkgs) else \
+            os.path.join(args.datadir, "index.yaml")
     dataman.index_source(path, os.path.join(args.datadir, "repositories"), \
             args.repos)
     print "Loading common definitions..."
@@ -153,7 +154,8 @@ def command_analyse(args):
 
 
 def command_export(args):
-    pass
+    print "Exporting analysis results..."
+    export_path = os.path.join(args.datadir, "export")
 
 
 def command_viz(args):

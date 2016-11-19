@@ -148,7 +148,7 @@ def _run_plugins(datadir, plugins, iface, scope):
     for plugin in plugins:
         iface._plugin = plugin
         try:
-            os.makedirs(datadir)
+            os.mkdir(datadir)
             os.chdir(datadir)
             func = getattr(plugin, "analyse_" + iface._scope_type)
             func(scope, iface)

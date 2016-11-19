@@ -12,13 +12,14 @@ class MalformedManifestError(Exception):
 
 class Plugin:
     def __init__(self, name, dir):
-        self.name = name
-        self.version = "0.1"
-        self.rules = None
-        self.metrics = None
-        self.module = None
-        self.path = dir
-        self.scopes = set()
+        self.name       = name
+        self.version    = "0.1"
+        self.rules      = None
+        self.metrics    = None
+        self.module     = None
+        self.path       = dir
+        self.scopes     = set()
+        self.languages  = None
 
     def load(self, common_rules = None, common_metrics = None):
         manifest = os.path.join(self.path, "plugin.yaml")
@@ -31,6 +32,7 @@ class Plugin:
         self.version = manifest["version"]
         self.rules = manifest.get("rules", {})
         self.metrics = manifest.get("metrics", {})
+        self.languages = set(manifest.get("languages", []))
         if common_rules:
             rm = [id for id in self.rules if id in common_rules]
             for id in rm:
@@ -51,10 +53,11 @@ class Plugin:
             self.scopes.add("repository")
 
     def analyse_file(self, scope, iface):
-        try:
-            self.module.file_analysis(iface, scope.get_path())
-        except AttributeError as e:
-            pass
+        if scope.language in self.languages:
+            try:
+                self.module.file_analysis(iface, scope.get_path())
+            except AttributeError as e:
+                pass
 
     def analyse_package(self, scope, iface):
         try:
