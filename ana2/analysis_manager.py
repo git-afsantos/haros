@@ -2,7 +2,13 @@
 import os
 import shutil
 
-from data_manager import RuleViolation, MetricMeasurement
+
+# Represents a coding rule violation
+class RuleViolation(object):
+    def __init__(self, rule, scope, details = None):
+        self.rule       = rule
+        self.scope      = scope
+        self.details    = details
 
 class FileRuleViolation(RuleViolation):
     def __init__(self, rule, scope, details = None):
@@ -11,11 +17,13 @@ class FileRuleViolation(RuleViolation):
         self.function       = None
         self.line           = None
 
-    def _scopeJSON(self):
-        return '"file":"' + self.scope.name + '","line":"' + \
-                str(self.line or "null") + '","function":"' + \
-                str(self.function or "null") + '","class":"' + \
-                str(self.class_name or "null") + '",'
+
+# Represents a quality metric measurement
+class MetricMeasurement(object):
+    def __init__(self, metric, scope, value):
+        self.metric = metric
+        self.scope  = scope
+        self.value  = value
 
 
 class FileMetricMeasurement(MetricMeasurement):
@@ -24,12 +32,6 @@ class FileMetricMeasurement(MetricMeasurement):
         self.class_name     = None
         self.function       = None
         self.line           = None
-
-    def _scopeJSON(self):
-        return '"file":"' + self.scope.name + '","line":"' + \
-                str(self.line or "null") + '","function":"' + \
-                str(self.function or "null") + '","class":"' + \
-                str(self.class_name or "null") + '",'
 
 
 class UndefinedPropertyError(Exception):

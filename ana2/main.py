@@ -164,7 +164,7 @@ def command_export(args, dataman = None):
         path = os.path.join(args.datadir, "haros.db")
         if os.path.isfile(path):
             dataman = DataManager.load_state(path)
-    expoman.f(dataman)
+    expoman.export_packages(export_path, dataman.packages)
 
 
 def command_viz(args):
