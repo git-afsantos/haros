@@ -49,18 +49,14 @@ class AnalysisScopeError(Exception):
 # Provides an interface for plugins to communicate with the framework.
 class PluginInterface(object):
     def __init__(self, plugin, data):
-        self._plugin    = plugin
-        self._data      = data
-        self._scope     = None
-        self._scope_type = None
+        self._plugin        = plugin
+        self._data          = data
+        self._scope         = None
+        self._scope_type    = None
 
-    def report_violation(self, rule_id, msg = None, line = None, \
-            fname = None, cname = None):
-        if not rule_id in self._data.rules:
-            rule_id = self._plugin.name + ":" + rule_id
-            if not rule_id in self._data.rules:
-                raise UndefinedPropertyError(rule_id)
-        rule = self._data.rules[rule_id]
+    def report_violation(self, rule_id, msg, scope_id = None,
+                         line = None, fname = None, cname = None):
+        rule = self._get_property(rule_id, self._data.rules)
         if self._scope_type != rule.scope:
             raise AnalysisScopeError("Found " + rule.scope + \
                     "; Expected " + self._scope_type)
@@ -75,13 +71,9 @@ class PluginInterface(object):
             datum.class_name = cname
         self._scope._violations.append(datum)
 
-    def report_metric(self, metric_id, value, line = None, \
-            fname = None, cname = None):
-        if not metric_id in self._data.metrics:
-            metric_id = self._plugin.name + ":" + metric_id
-            if not metric_id in self._data.metrics:
-                raise UndefinedPropertyError(metric_id)
-        metric = self._data.metrics[metric_id]
+    def report_metric(self, metric_id, value, scope_id = None,
+                      line = None, fname = None, cname = None):
+        metric = self._get_property(metric_id, self._data.metrics)
         if self._scope_type != metric.scope:
             raise AnalysisScopeError("Found " + metric.scope + \
                     "; Expected " + self._scope_type)
@@ -96,6 +88,14 @@ class PluginInterface(object):
             datum.class_name = cname
         self._scope._metrics.append(datum)
         self._check_metric_violation(metric, value)
+
+    def _get_property(self, property_id, data):
+        id = property_id
+        if not property_id in data:
+            id = self._plugin.name + ":" + property_id
+            if not id in data:
+                raise UndefinedPropertyError(property_id)
+        return data[id]
 
     def _check_metric_violation(self, metric, value):
         violation = not metric.maximum is None and value > metric.maximum
