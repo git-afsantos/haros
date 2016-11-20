@@ -74,8 +74,8 @@ class SourceFile(object):
         self.package    = pkg
         self.language   = lang
         self.size       = os.path.getsize(os.path.join(pkg.path, path, name))
-        self.violations = []
-        self.metrics    = []
+        self._violations = []
+        self._metrics    = []
 
     @classmethod
     def populate_package(cls, pkg):
@@ -133,8 +133,8 @@ class Package(object):
         self.path               = None
         self.source_files       = []
         self.size               = 0
-        self.violations         = []
-        self.metrics            = []
+        self._violations        = []
+        self._metrics           = []
 
     @classmethod
     def from_manifest(cls, pkg_file, repo):
@@ -231,8 +231,8 @@ class Repository(object):
         self.declared_packages = []
         self.commits        = 1
         self.contributors   = 1
-        self.violations     = []
-        self.metrics        = []
+        self._violations    = []
+        self._metrics       = []
 
     def __eq__(self, other):
         if not type(self) is type(other):

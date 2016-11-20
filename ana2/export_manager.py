@@ -24,6 +24,7 @@ def export_metrics(datadir, metrics):
         f.write(json.dumps([m.__dict__ for _, m in metrics.iteritems()]))
 
 def export_violations(datadir, packages):
+# TODO report file violations for given package
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
         with open(out, "w") as f:

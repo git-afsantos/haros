@@ -73,7 +73,7 @@ class PluginInterface(object):
             datum.line = line
             datum.function = fname
             datum.class_name = cname
-        self._scope.violations.append(datum)
+        self._scope._violations.append(datum)
 
     def report_metric(self, metric_id, value, line = None, \
             fname = None, cname = None):
@@ -94,7 +94,7 @@ class PluginInterface(object):
             datum.line = line
             datum.function = fname
             datum.class_name = cname
-        self._scope.metrics.append(datum)
+        self._scope._metrics.append(datum)
         self._check_metric_violation(metric, value)
 
     def _check_metric_violation(self, metric, value):
@@ -115,11 +115,12 @@ class PluginInterface(object):
                     datum.function = fname
                     datum.class_name = cname
                 datum.details = "Reported metric value: " + str(value)
-                self._scope.violations.append(datum)
+                self._scope._violations.append(datum)
 
 
 
 def run_analysis(datadir, plugins, data):
+# TODO what to do when analysing package but reporting file violation
     iface = PluginInterface(None, data)
     file_plugins = []
     pkg_plugins = []
@@ -154,6 +155,8 @@ def _run_plugins(datadir, plugins, iface, scope):
             os.chdir(datadir)
             func = getattr(plugin, "analyse_" + iface._scope_type)
             func(scope, iface)
+        except UndefinedPropertyError, AnalysisScopeError as e:
+            print e
         finally:
             os.chdir(wd)
             shutil.rmtree(datadir)
