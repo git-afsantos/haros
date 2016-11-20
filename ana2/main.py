@@ -1,22 +1,6 @@
 #!/usr/bin/env python
 
 """
-http://stackoverflow.com/questions/5971635/setting-reading-up-environment-variables-in-python
-http://wiki.ros.org/rosbash#roscd
-http://wiki.ros.org/rospack
-http://wiki.ros.org/roslocate
-http://stackoverflow.com/questions/677436/how-to-get-the-git-commit-count
-http://stackoverflow.com/questions/9839083/git-number-of-commits-per-author-on-all-branches
-http://www.ros.org/reps/rep-0144.html
-
-
-http://wiki.ros.org/Packages
-http://docs.ros.org/independent/api/rospkg/html/python_api.html
-https://github.com/vcstools/rosinstall/blob/master/scripts/roslocate
-http://stackoverflow.com/questions/4060221/how-to-reliably-open-a-file-in-the-same-directory-as-a-python-script
-"""
-
-"""
 HAROS directory (data folder) structure:
 
 + ~/.haros
@@ -27,6 +11,8 @@ HAROS directory (data folder) structure:
   |-- packages.json
   |-- rules.json
   |-- summary.json
+  |-+ metrics
+    |-- ...
   |-+ compliance
     |-- ...
 """

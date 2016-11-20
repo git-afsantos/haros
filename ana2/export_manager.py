@@ -28,13 +28,13 @@ def export_violations(datadir, packages):
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
         with open(out, "w") as f:
-            f.write(json.dumps([_violation_json(d) for d in pkg.violations]))
+            f.write(json.dumps([_violation_json(d) for d in pkg._violations]))
 
 def export_measurements(datadir, packages):
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
         with open(out, "w") as f:
-            f.write(json.dumps([_metric_json(d) for d in pkg.metrics]))
+            f.write(json.dumps([_metric_json(d) for d in pkg._metrics]))
 
 
 ################################################################################
@@ -55,9 +55,9 @@ def _pkg_json(pkg):
     analysis = {}
     violations = {}
     metrics = {}
-    for datum in pkg.violations:
+    for datum in pkg._violations:
         violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
-    for datum in pkg.metrics:
+    for datum in pkg._metrics:
         if datum.scope == "package":
             metrics[datum.metric.id] = datum.value
     analysis["violations"] = violations

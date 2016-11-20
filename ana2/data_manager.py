@@ -61,21 +61,24 @@ class Person(object):
 
 # Represents a source code file
 class SourceFile(object):
-    _excluded_dirs = [".git", "doc", "bin", "cmake"]
-    _cpp_sources = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in", \
+    _id_gen         = 1
+    _excluded_dirs  = [".git", "doc", "bin", "cmake"]
+    _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in", \
             ".hpp.in", ".c.in", ".cc.in")
-    _py_sources = ".py"
-    _package_sources = "package.xml"
+    _py_sources     = ".py"
+    _manifests      = "package.xml"
     _launch_sources = ".launch"
 
     def __init__(self, name, path, pkg, lang):
+        self.id         = pkg.id + ":" + str(SourceFile._id_gen)
         self.name       = name
         self.path       = path # relative to package root
         self.package    = pkg
         self.language   = lang
         self.size       = os.path.getsize(os.path.join(pkg.path, path, name))
         self._violations = []
-        self._metrics    = []
+        self._metrics   = []
+        SourceFile._id_gen += 1
 
     @classmethod
     def populate_package(cls, pkg):
@@ -94,7 +97,7 @@ class SourceFile(object):
                     source = cls(f, path, pkg, "py")
                     pkg.source_files.append(source)
                     pkg.size += source.size
-                elif f == cls._package_sources:
+                elif f == cls._manifests:
                     source = cls(f, path, pkg, "package")
                     pkg.source_files.append(source)
                     pkg.size += source.size
@@ -111,15 +114,10 @@ class SourceFile(object):
 
 
 # Represents a ROS package
-# http://wiki.ros.org/catkin/package.xml
-# http://www.ros.org/reps/rep-0127.html
-# http://www.ros.org/reps/rep-0140.html
-# http://wiki.ros.org/rosdistro
-# https://github.com/ros-infrastructure/rosdistro/blob/master/src/rosdistro/rosdistro.py
-# http://docs.ros.org/independent/api/rospkg/html/environment.html
 class Package(object):
     def __init__(self, name, repo = None):
         self.id                 = name
+        self.name               = name
         self.repository         = repo
         self.authors            = set()
         self.maintainers        = set()
@@ -222,6 +220,7 @@ class RepositoryCloneError(Exception):
 class Repository(object):
     def __init__(self, name):
         self.id             = name
+        self.name           = name
         self.vcs            = None 
         self.url            = None 
         self.version        = None
