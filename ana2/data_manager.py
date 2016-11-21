@@ -63,8 +63,8 @@ class Person(object):
 class SourceFile(object):
     _id_gen         = 1
     _excluded_dirs  = [".git", "doc", "bin", "cmake"]
-    _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in", \
-            ".hpp.in", ".c.in", ".cc.in")
+    _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in",
+                       ".hpp.in", ".c.in", ".cc.in")
     _py_sources     = ".py"
     _manifests      = "package.xml"
     _launch_sources = ".launch"
@@ -81,7 +81,7 @@ class SourceFile(object):
         SourceFile._id_gen += 1
 
     @classmethod
-    def populate_package(cls, pkg):
+    def populate_package(cls, pkg, idx = None):
         if pkg.path is None:
             return
         prefix = len(pkg.path) + len(os.path.sep)
@@ -89,22 +89,21 @@ class SourceFile(object):
             subdirs[:] = [d for d in subdirs if d not in cls._excluded_dirs]
             path = root[prefix:]
             for f in files:
+                source = None
                 if f.endswith(cls._cpp_sources):
-                    source = cls(f, path, pkg, "cpp")
-                    pkg.source_files.append(source)
-                    pkg.size += source.size
+                    source = "cpp"
                 elif f.endswith(cls._py_sources):
-                    source = cls(f, path, pkg, "py")
-                    pkg.source_files.append(source)
-                    pkg.size += source.size
+                    source = "py"
                 elif f == cls._manifests:
-                    source = cls(f, path, pkg, "package")
-                    pkg.source_files.append(source)
-                    pkg.size += source.size
+                    source = "package"
                 elif f.endswith(cls._launch_sources):
-                    source = cls(f, path, pkg, "launch")
+                    source = "launch"
+                if source:
+                    source = cls(f, path, pkg, source)
                     pkg.source_files.append(source)
                     pkg.size += source.size
+                    if not idx is None:
+                        idx[source.id] = source
 
     def scope_type(self):
         return "file"
@@ -375,6 +374,7 @@ class DataManager(object):
     def __init__(self):
         self.repositories   = {}
         self.packages       = {}
+        self.files          = {}
         self.rules          = {}
         self.metrics        = {}
         self.common_rules   = set()
@@ -436,6 +436,7 @@ class DataManager(object):
             if pkg is None:
                 missing.append(id)
             else:
+                SourceFile.populate_package(pkg, self.files)
                 self.packages[id] = pkg
         # Step 2: load repositories only if explicitly told to
         if index_repos:
@@ -463,6 +464,7 @@ class DataManager(object):
                     elif id in missing:
                         pkg = Package.locate_offline(id, repo_path)
                         if not pkg is None:
+                            SourceFile.populate_package(pkg, self.files)
                             self.packages[id] = pkg
                             missing.remove(id)
                             repo.packages.append(pkg)
