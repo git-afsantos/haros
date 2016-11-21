@@ -179,7 +179,6 @@ class PluginInterface(object):
 
 
 def run_analysis(datadir, plugins, data):
-# TODO what to do when analysing package but reporting file violation
     iface = PluginInterface(None, data)
     file_plugins = []
     pkg_plugins = []

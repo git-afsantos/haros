@@ -9,7 +9,7 @@ import os
 
 def export_packages(datadir, packages):
     out = os.path.join(datadir, "packages.json")
-    s = "[" + ",".join([_pkg_json(p) for _, p in packages.iteritems()]) + "]"
+    s = "[" + ", ".join([_pkg_json(p) for _, p in packages.iteritems()]) + "]"
     with open(out, "w") as f:
         f.write(s)
 
@@ -24,17 +24,22 @@ def export_metrics(datadir, metrics):
         f.write(json.dumps([m.__dict__ for _, m in metrics.iteritems()]))
 
 def export_violations(datadir, packages):
-# TODO report file violations for given package
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
+        data = [_violation_json(d) for d in pkg._violations]
+        for f in pkg.source_files:
+            data.extend([_violation_json(d) for d in f._violations])
         with open(out, "w") as f:
-            f.write(json.dumps([_violation_json(d) for d in pkg._violations]))
+            f.write("[" + ", ".join(data) + "]")
 
 def export_measurements(datadir, packages):
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
+        data = [_metric_json(d) for d in pkg._metrics]
+        for f in pkg.source_files:
+            data.extend([_metric_json(d) for d in f._metrics])
         with open(out, "w") as f:
-            f.write(json.dumps([_metric_json(d) for d in pkg._metrics]))
+            f.write("[" + ", ".join(data) + "]")
 
 
 ################################################################################
