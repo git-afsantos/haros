@@ -73,7 +73,7 @@ def _violation_json(datum):
         try:
             json += '"line": ' + json.dumps(datum.line) + ", "
             json += '"function": ' + json.dumps(datum.function) + ", "
-            json += '"class":" ' + json.dumps(datum.class_name) + ", "
+            json += '"class":" ' + json.dumps(datum.class_) + ", "
         except AttributeError as e:
             pass
     json += '"comment": "' + _escaped(datum.details or "") + '"}'
@@ -86,7 +86,7 @@ def _metric_json(datum):
         try:
             json += '"line": ' + json.dumps(datum.line) + ", "
             json += '"function": ' + json.dumps(datum.function) + ", "
-            json += '"class":" ' + json.dumps(datum.class_name) + ", "
+            json += '"class":" ' + json.dumps(datum.class_) + ", "
         except AttributeError as e:
             pass
     json += '"value": ' + str(datum.value) + "}"
