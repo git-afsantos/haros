@@ -44,10 +44,10 @@ def export_measurements(datadir, packages):
 def export_summary(datadir, data):
     with open(os.path.join(datadir, "summary.json"), "w") as f:
         json.dump({
-            "source":           _summary_source(data.packages, data.files)
+            "source":           _summary_source(data.packages, data.files),
             "issues":           _summary_issues(data.repositories,
-                                                data.packages, data.files)
-            "components":       _summary_components(data.files)
+                                                data.packages, data.files),
+            "components":       _summary_components(data.files),
             "communications":   _summary_communications()
         }, f)
     
