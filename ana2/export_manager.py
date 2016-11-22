@@ -145,16 +145,16 @@ def _summary_communications():
     }
 
 def _pkg_json(pkg):
-    json = '{"id": "' + pkg.id + '", '
-    json += '"metapackage": ' + json.dumps(pkg.isMetapackage)
-    json += ', "description": "' + _escaped(pkg.description)
-    json += '", "wiki": ' + json.dumps(pkg.website)
-    json += ', "repository": ' + json.dumps(pkg.vcs_url)
-    json += ', "bugTracker": ' + json.dumps(pkg.bug_url)
-    json += ', "authors": ' + json.dumps([p.name for p in pkg.authors])
-    json += ', "maintainers": ' + json.dumps([p.name for p in pkg.maintainers])
-    json += ', "dependencies": ' + json.dumps([p for p in pkg.dependencies])
-    json += ', "size": ' + json.dumps(pkg.size / 1000.0)
+    s = '{"id": "' + pkg.id + '", '
+    s += '"metapackage": ' + json.dumps(pkg.isMetapackage)
+    s += ', "description": "' + _escaped(pkg.description)
+    s += '", "wiki": ' + json.dumps(pkg.website)
+    s += ', "repository": ' + json.dumps(pkg.vcs_url)
+    s += ', "bugTracker": ' + json.dumps(pkg.bug_url)
+    s += ', "authors": ' + json.dumps([p.name for p in pkg.authors])
+    s += ', "maintainers": ' + json.dumps([p.name for p in pkg.maintainers])
+    s += ', "dependencies": ' + json.dumps([p for p in pkg.dependencies])
+    s += ', "size": ' + json.dumps(pkg.size / 1000.0)
     analysis = {}
     violations = {}
     metrics = {}
@@ -165,8 +165,8 @@ def _pkg_json(pkg):
             metrics[datum.metric.id] = datum.value
     analysis["violations"] = violations
     analysis["metrics"] = metrics
-    json += ', "analysis": ' + json.dumps(analysis) + "}"
-    return json
+    s += ', "analysis": ' + json.dumps(analysis) + "}"
+    return s
 
 
 def _violation_json(datum):
