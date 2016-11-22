@@ -168,7 +168,7 @@ class Package(object):
         el = root.find("export")
         if not el is None and not el.find("metapackage") is None:
             package.isMetapackage = True
-        package.description = root.find("description").text
+        package.description = root.find("description").text.strip()
         for el in root.findall("license"):
             package.licenses.add(el.text)
         for el in root.findall("url"):

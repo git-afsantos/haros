@@ -156,7 +156,7 @@ def _pkg_json(pkg):
     s += ', "authors": ' + json.dumps([p.name for p in pkg.authors])
     s += ', "maintainers": ' + json.dumps([p.name for p in pkg.maintainers])
     s += ', "dependencies": ' + json.dumps([p for p in pkg.dependencies])
-    s += ', "size": ' + json.dumps(pkg.size / 1000.0)
+    s += ', "size": ' + "{0:.2f}".format(pkg.size / 1000.0)
     analysis = {}
     violations = {}
     metrics = {}

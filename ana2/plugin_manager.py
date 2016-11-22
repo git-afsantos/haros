@@ -97,6 +97,8 @@ def load_plugins(root, whitelist = None, blacklist = None):
             try:
                 plugin.load()
                 plugins[item] = plugin
-            except (MalformedManifestError, ImportError) as e:
-                print "Failed to load plugin: " + item
+            except MalformedManifestError as e:
+                print e.value
+            except ImportError as e:
+                print "Failed to import plugin: " + item
     return plugins
