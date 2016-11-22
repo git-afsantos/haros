@@ -2,6 +2,7 @@ import cPickle
 import os
 import subprocess
 import yaml
+import xml.etree.ElementTree as ET
 
 import urllib
 try:
