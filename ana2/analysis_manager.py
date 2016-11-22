@@ -213,7 +213,7 @@ def _run_plugins(datadir, plugins, iface, scope):
             os.chdir(datadir)
             func = getattr(plugin, "analyse_" + iface._scope_type)
             func(scope, iface)
-        except UndefinedPropertyError, AnalysisScopeError as e:
+        except (UndefinedPropertyError, AnalysisScopeError) as e:
             print e
         finally:
             os.chdir(wd)
