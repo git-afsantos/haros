@@ -50,7 +50,7 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser(prog="haros",
             description="ROS quality assurance.")
     parser.add_argument("-d", "--data-dir", dest="datadir",
-            default=os.getcwd(),
+            # default=os.getcwd(),
             help="directory for application data")
     subparsers = parser.add_subparsers()
 
