@@ -407,8 +407,8 @@ class DataManager(object):
                 not id in self.rules:
             self.rules[id] = Rule(id, metric["scope"],
                                   metric["name"] + " threshold violated: [" \
-                                  + metric.get("min", "n/a") + "," \
-                                  + metric.get("max", "n/a") + "]", \
+                                  + str(metric.get("min", "n/a")) + "," \
+                                  + str(metric.get("max", "n/a")) + "]", \
                                   ["metrics"])
             if common:
                 self.common_rules.add(id)
