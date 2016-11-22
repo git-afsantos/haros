@@ -60,17 +60,19 @@ def export_summary(datadir, data):
 def _summary_source(packages, files):
     langs = {}
     source_size = 0
-    for _, f in files:
+    scripts = 0
+    for _, f in files.iteritems():
         langs[f.language] = langs.get(f.language, 0) + f.size
         source_size += f.size
+        if f.path.startswith("scripts" + os.path.sep):
+            scripts += 1
     source_size = float(source_size)
     for lang, value in langs.iteritems():
         langs[lang] = value / source_size
     return {
         "packages": len(packages),
         "files":    len(files),
-        "scripts":  len([f for _, f in files.iteritems()
-                         if f.path.startswith("scripts" + os.path.sep)]),
+        "scripts":  scripts,
         "languages": langs
     }
 
