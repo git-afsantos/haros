@@ -90,9 +90,9 @@ def load_plugins(root, whitelist = None, blacklist = None):
         if (mode > 0 and not item in filter) or (mode < 0 and item in filter):
             continue
         d = os.path.join(root, item)
-        if os.path.isdir(d) and
-                os.path.isfile(os.path.join(d, "plugin.yaml")) and \
-                os.path.isfile(os.path.join(d, "plugin.py")):
+        if os.path.isdir(d) \
+                and os.path.isfile(os.path.join(d, "plugin.yaml")) \
+                and os.path.isfile(os.path.join(d, "plugin.py")):
             plugin = Plugin(item, d)
             try:
                 plugin.load()
