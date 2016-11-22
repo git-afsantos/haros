@@ -71,14 +71,16 @@ class SourceFile(object):
 
     def __init__(self, name, path, pkg, lang):
         self.id         = pkg.id + ":" + str(SourceFile._id_gen)
+        SourceFile._id_gen += 1
         self.name       = name
         self.path       = path # relative to package root
         self.package    = pkg
         self.language   = lang
-        self.size       = os.path.getsize(os.path.join(pkg.path, path, name))
+        full_path       = self.get_path()
+        self.size       = os.path.getsize(full_path)
+        self.lines      = SourceFile._count_physical_lines(full_path)
         self._violations = []
         self._metrics   = []
-        SourceFile._id_gen += 1
 
     @classmethod
     def populate_package(cls, pkg, idx = None):
@@ -93,7 +95,7 @@ class SourceFile(object):
                 if f.endswith(cls._cpp_sources):
                     source = "cpp"
                 elif f.endswith(cls._py_sources):
-                    source = "py"
+                    source = "python"
                 elif f == cls._manifests:
                     source = "package"
                 elif f.endswith(cls._launch_sources):
@@ -102,6 +104,7 @@ class SourceFile(object):
                     source = cls(f, path, pkg, source)
                     pkg.source_files.append(source)
                     pkg.size += source.size
+                    pkg.lines += source.lines
                     if not idx is None:
                         idx[source.id] = source
 
@@ -110,6 +113,14 @@ class SourceFile(object):
 
     def get_path(self):
         return os.path.join(self.package.path, self.path, self.name)
+
+    @staticmethod
+    def _count_physical_lines(path):
+        count = 0
+        with open(path, "r") as handle:
+            for count, _ in enumerate(handle, start = 1):
+                pass
+        return count
 
 
 # Represents a ROS package
@@ -129,7 +140,8 @@ class Package(object):
         self.bug_url            = None
         self.path               = None
         self.source_files       = []
-        self.size               = 0
+        self.size               = 0 # sum of file sizes
+        self.lines              = 0 # sum of physical file lines
         self._violations        = []
         self._metrics           = []
 

@@ -16,12 +16,12 @@ def export_packages(datadir, packages):
 def export_rules(datadir, rules):
     out = os.path.join(datadir, "rules.json")
     with open(out, "w") as f:
-        f.write(json.dumps([r.__dict__ for _, r in rules.iteritems()]))
+        json.dump([rule.__dict__ for _, rule in rules.iteritems()], f)
 
 def export_metrics(datadir, metrics):
     out = os.path.join(datadir, "metrics.json")
     with open(out, "w") as f:
-        f.write(json.dumps([m.__dict__ for _, m in metrics.iteritems()]))
+        json.dump([metric.__dict__ for _, metric in metrics.iteritems()], f)
 
 def export_violations(datadir, packages):
     for id, pkg in packages.iteritems():
@@ -41,10 +41,108 @@ def export_measurements(datadir, packages):
         with open(out, "w") as f:
             f.write("[" + ", ".join(data) + "]")
 
+def export_summary(datadir, data):
+    with open(os.path.join(datadir, "summary.json"), "w") as f:
+        json.dump({
+            "source":           _summary_source(data.packages, data.files)
+            "issues":           _summary_issues(data.repositories,
+                                                data.packages, data.files)
+            "components":       _summary_components(data.files)
+            "communications":   _summary_communications()
+        }, f)
+    
+
 
 ################################################################################
 # Helper Functions
 ################################################################################
+
+def _summary_source(packages, files):
+    langs = {}
+    source_size = 0
+    for _, f in files:
+        langs[f.language] = langs.get(f.language, 0) + f.size
+        source_size += f.size
+    source_size = float(source_size)
+    for lang, value in langs.iteritems():
+        langs[lang] = value / source_size
+    return {
+        "packages": len(packages),
+        "files":    len(files),
+        "scripts":  len([f for _, f in files.iteritems()
+                         if f.path.startswith("scripts" + os.path.sep)]),
+        "languages": langs
+    }
+
+def _summary_issues(repositories, packages, files):
+    issues = 0
+    coding = 0
+    metrics = 0
+    other = 0
+    lines = 0
+    for _, r in repositories.iteritems():
+        for v in r._violations:
+            any = False
+            issues += 1
+            if "coding-standards" in v.rule.tags:
+                any = True
+                coding += 1
+            if "metrics" in v.rule.tags:
+                any = True
+                metrics += 1
+            if not any:
+                other += 1
+    for _, p in packages.iteritems():
+        for v in p._violations:
+            any = False
+            issues += 1
+            if "coding-standards" in v.rule.tags:
+                any = True
+                coding += 1
+            if "metrics" in v.rule.tags:
+                any = True
+                metrics += 1
+            if not any:
+                other += 1
+    for _, f in files.iteritems():
+        lines += f.lines
+        for v in f._violations:
+            any = False
+            issues += 1
+            if "coding-standards" in v.rule.tags:
+                any = True
+                coding += 1
+            if "metrics" in v.rule.tags:
+                any = True
+                metrics += 1
+            if not any:
+                other += 1
+    return {
+        "total":    issues,
+        "coding":   coding,
+        "metrics":  metrics,
+        "other":    other,
+        "ratio":    float(issues) / lines
+    }
+
+def _summary_components(files):
+    return {
+        "launchFiles":      len([f for _, f in files.iteritems()
+                                 if f.language == "launch"]),
+        "nodes":            0,
+        "nodelets":         0,
+        "parameterFiles":   0,
+        "capabilities":     0
+    }
+
+def _summary_communications():
+    return {
+        "topics":       0,
+        "remappings":   0,
+        "messages":     0,
+        "services":     0,
+        "actions":      0
+    }
 
 def _pkg_json(pkg):
     json = '{"id": "' + pkg.id + '", '

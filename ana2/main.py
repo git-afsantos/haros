@@ -151,6 +151,13 @@ def command_export(args, dataman = None):
         if os.path.isfile(path):
             dataman = DataManager.load_state(path)
     expoman.export_packages(export_path, dataman.packages)
+    expoman.export_rules(export_path, dataman.rules)
+    expoman.export_metrics(export_path, dataman.metrics)
+    expoman.export_summary(export_path, dataman)
+    path = os.path.join(export_path, "compliance")
+    expoman.export_violations(path, dataman.packages)
+    path = os.path.join(export_path, "metrics")
+    expoman.export_measurements(path, dataman.packages)
 
 
 def command_viz(args):
