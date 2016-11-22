@@ -49,9 +49,6 @@ import export_manager as expoman
 def parse_arguments(argv):
     parser = argparse.ArgumentParser(prog="haros",
             description="ROS quality assurance.")
-    parser.add_argument("--data-dir", "-d", dest="datadir",
-            default=os.getcwd(),
-            help="directory for application data")
     subparsers = parser.add_subparsers()
 
     parser_full = subparsers.add_parser("full")
@@ -93,6 +90,10 @@ def parse_arguments(argv):
             default="localhost:8080",
             help="visualisation host (default: \"localhost:8080\")")
     parser_viz.set_defaults(func=command_viz)
+
+    parser.add_argument("-d", "--data-dir", dest="datadir",
+            default=os.getcwd(),
+            help="directory for application data")
 
     return parser.parse_args() if argv is None else parser.parse_args(argv)
 
