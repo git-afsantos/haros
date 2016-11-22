@@ -55,13 +55,13 @@ class Plugin:
     def analyse_file(self, scope, iface):
         if scope.language in self.languages:
             try:
-                self.module.file_analysis(iface, scope.get_path())
+                self.module.file_analysis(iface, scope)
             except AttributeError as e:
                 pass
 
     def analyse_package(self, scope, iface):
         try:
-            self.module.package_analysis(iface, scope.path)
+            self.module.package_analysis(iface, scope)
         except AttributeError as e:
             pass
 
@@ -69,7 +69,7 @@ class Plugin:
         # Note: path may be None if the repo wasn't downloaded
         # TODO: what action to take on None path
         try:
-            self.module.repository_analysis(iface, scope.path)
+            self.module.repository_analysis(iface, scope)
         except AttributeError as e:
             pass
 
