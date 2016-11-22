@@ -76,7 +76,7 @@ def parse_arguments(argv):
             # action="store_true", help="non-destructive update")
     parser_analyse.add_argument("-r", "--repositories", dest="repos",
             action="store_true", help="use repositories")
-    parser_full.add_argument("-p", "--package-index", dest="pkgs",
+    parser_analyse.add_argument("-p", "--package-index", dest="pkgs",
             help="package index file")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
