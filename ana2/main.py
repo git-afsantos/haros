@@ -20,6 +20,7 @@ HAROS directory (data folder) structure:
 
 import argparse
 import os
+import sys
 
 from data_manager import DataManager
 import plugin_manager as plugman
