@@ -152,6 +152,9 @@ def command_export(args, dataman = None):
         path = os.path.join(args.datadir, "haros.db")
         if os.path.isfile(path):
             dataman = DataManager.load_state(path)
+        else:
+            print "There is no analysis data to export on " + path
+            return
     expoman.export_packages(export_path, dataman.packages)
     expoman.export_rules(export_path, dataman.rules)
     expoman.export_metrics(export_path, dataman.metrics)
