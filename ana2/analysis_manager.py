@@ -207,6 +207,8 @@ def _run_plugins(datadir, plugins, iface, scope):
     wd = os.getcwd()
     iface._scope = scope
     for plugin in plugins:
+        if not iface._scope_type in plugin.scopes:
+            continue
         iface._plugin = plugin
         try:
             os.mkdir(datadir)
