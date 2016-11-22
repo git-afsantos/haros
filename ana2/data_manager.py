@@ -146,7 +146,7 @@ class Package(object):
         self._metrics           = []
 
     @classmethod
-    def from_manifest(cls, pkg_file, repo):
+    def from_manifest(cls, pkg_file, repo = None):
         with open(pkg_file, "r") as handle:
             root = ET.parse(handle).getroot()
         name = root.find("name").text
