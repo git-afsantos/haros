@@ -192,13 +192,13 @@ def run_analysis(datadir, plugins, data):
     if os.path.exists(path):
         shutil.rmtree(path)
     # Step 2: run analysis; file > package > repository
-    for _, package in data.packages:
+    for _, package in data.packages.iteritems():
         iface._scope_type = "file"
         for source_file in package.source_files:
             _run_plugins(path, file_plugins, iface, source_file)
         iface._scope_type = "package"
         _run_plugins(path, pkg_plugins, iface, package)
-    for _, repository in data.repositories:
+    for _, repository in data.repositories.iteritems():
         iface._scope_type = "repository"
         _run_plugins(path, repo_plugins, iface, repository)
 
