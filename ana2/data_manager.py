@@ -396,19 +396,20 @@ class DataManager(object):
     def _add_metric(self, id, metric, common = False):
         minv = metric.get("min")
         maxv = metric.get("max")
-        m = Metric(id, metric["name"], metric["scope"], metric["description"], \
-                minv = float(minv) if not minv is None else None, \
-                maxv = float(maxv) if not maxv is None else None)
+        m = Metric(id, metric["name"], metric["scope"], metric["description"],
+                   minv = float(minv) if not minv is None else None,
+                   maxv = float(maxv) if not maxv is None else None)
         self.metrics[id] = m
         if common:
             self.common_metrics.add(id)
         id = "metric:" + id
         if (not m.minimum is None or not m.maximum is None) and \
                 not id in self.rules:
-            self.rules[id] = Rule(id, metric["scope"], \
-                    metric["name"] + " threshold violated: [" + \
-                    metric.get("min", "n/a") + "," + \
-                    metric.get("max", "n/a") + "]", ["metrics"])
+            self.rules[id] = Rule(id, metric["scope"],
+                                  metric["name"] + " threshold violated: [" \
+                                  + metric.get("min", "n/a") + "," \
+                                  + metric.get("max", "n/a") + "]", \
+                                  ["metrics"])
             if common:
                 self.common_rules.add(id)
 
@@ -429,9 +430,9 @@ class DataManager(object):
             if id in self.common_rules:
                 continue # cannot override common rules
             id = plugin_id + ":" + id
-            self.rules[id] = Rule(id, rule["scope"], \
-                    rule["description"], rule["tags"])
-        for id, metric in data.get("metrics", {}).iteritems():
+            self.rules[id] = Rule(id, rule["scope"],
+                                  rule["description"], rule["tags"])
+        for id, metric in metrics.iteritems():
             if id in self.common_metrics:
                 continue # cannot override common metrics
             self._add_metric(plugin_id + ":" + id, metric)
