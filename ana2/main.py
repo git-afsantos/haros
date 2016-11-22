@@ -110,6 +110,7 @@ def initialise_data_directory(args):
     if not os.path.exists(export_path):
         os.mkdir(export_path)
         os.mkdir(os.path.join(export_path, "compliance"))
+        os.mkdir(os.path.join(export_path, "metrics"))
 
 
 def command_full(args):
