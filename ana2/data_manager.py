@@ -356,8 +356,8 @@ class Repository(object):
                             pkg_list.remove(pkg)
         if not pkg_list:
             return repos
-        url = "https://raw.githubusercontent.com/ros/rosdistro/master/" +
-                os.environ["ROS_DISTRO"] + "/distribution.yaml"
+        url = "https://raw.githubusercontent.com/ros/rosdistro/master/"
+              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
         data = yaml.load(urlopen(url).read())["repositories"]
         if pkg_list is None:
             for id, info in data.iteritems():
