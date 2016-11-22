@@ -1,6 +1,6 @@
 %YAML 1.1
 ---
-name: roslint
+name: dummy
 version: 0.1
 languages:
     - cpp
