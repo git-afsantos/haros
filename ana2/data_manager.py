@@ -406,7 +406,7 @@ class DataManager(object):
         if (not m.minimum is None or not m.maximum is None) and \
                 not id in self.rules:
             self.rules[id] = Rule(id, metric["scope"],
-                                  metric["name"] + " threshold violated: [" \
+                                  metric["name"] + " threshold is [" \
                                   + str(metric.get("min", "n/a")) + "," \
                                   + str(metric.get("max", "n/a")) + "]", \
                                   ["metrics"])
