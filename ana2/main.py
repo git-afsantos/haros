@@ -40,6 +40,7 @@ HAROS directory (data folder) structure:
 
 import argparse
 import os
+import subprocess
 import sys
 
 from distutils.dir_util import copy_tree
@@ -58,6 +59,7 @@ PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
+PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
 
 
 # Options:
@@ -154,6 +156,9 @@ def command_init(args):
         os.mkdir(os.path.join(VIZ_DATA_DIR, "compliance"))
         os.mkdir(os.path.join(VIZ_DATA_DIR, "metrics"))
         # copy_tree(os.path.join(os.path.dirname(__file__), "..", "viz2"), VIZ_DIR)
+    if not os.path.exists(PLUGIN_DIR):
+        os.mkdir(PLUGIN_DIR)
+        subprocess.check_call(["git", "clone", PLUGIN_REPOSITORY, PLUGIN_DIR])
 
 
 def command_full(args):
