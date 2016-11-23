@@ -246,7 +246,7 @@ def command_viz(args):
     if len(host) != 2:
         print "Invalid host:port provided."
         return
-    server = HTTPServer((host[0], host[1]), BaseHTTPRequestHandler)
+    server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
     print "Serving visualisation at", args.host
     thread = threading.Thread(target = server.serve_forever)
     thread.deamon = True
