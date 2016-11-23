@@ -42,6 +42,19 @@ import argparse
 import os
 import subprocess
 import sys
+import threading
+import webbrowser
+
+
+try: 
+    # Python 3
+    from http.server import HTTPServer, BaseHTTPRequestHandler
+except ImportError: 
+    # Python 2
+    import SimpleHTTPServer
+    from BaseHTTPServer import HTTPServer
+    from SimpleHTTPServer import SimpleHTTPRequestHandler \
+                          as BaseHTTPRequestHandler
 
 from distutils.dir_util import copy_tree
 from shutil import copyfile
@@ -224,6 +237,17 @@ def command_export(args, dataman = None):
 
 def command_viz(args):
     _check_haros_directory()
+    host = args.host.split(":")
+    if len(host) != 2:
+        print "Invalid host:port provided."
+        return
+    server = HTTPServer((host[0], host[1]), BaseHTTPRequestHandler)
+    print "Serving visualisation at", args.host
+    thread = threading.Thread(target = server.serve_forever)
+    thread.deamon = True
+    thread.start()
+    webbrowser.open_new_tab("http://" + args.host)
+    raw_input('Press enter to shutdown visualisation server: ')
 
 
 def main(argv = None):
