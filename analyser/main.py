@@ -159,6 +159,8 @@ def command_init(args):
                            + " already exists and is not a directory.")
     if not os.path.exists(HAROS_DIR):
         os.makedirs(HAROS_DIR)
+        with open(os.path.join(HAROS_DIR, "index.yaml"), "w") as f:
+            f.write("%YAML 1.1\n---\npackages: []\n")
     if not os.path.exists(REPOSITORY_DIR):
         os.mkdir(REPOSITORY_DIR)
     if not os.path.exists(EXPORT_DIR):
@@ -189,6 +191,9 @@ def command_analyse(args):
     path = args.pkg_filter \
            if args.pkg_filter and os.path.isfile(args.pkg_filter) \
            else os.path.join(HAROS_DIR, "index.yaml")
+    if not os.path.isfile(path):
+        print "There is no package index file. Aborting."
+        return
     dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
     if not dataman.packages:
         print "There are no packages to analyse."
