@@ -152,10 +152,10 @@ def command_init(args):
         os.mkdir(EXPORT_DIR)
     if not os.path.exists(VIZ_DIR):
         os.mkdir(VIZ_DIR)
+        copy_tree(os.path.join(os.path.dirname(__file__), "..", "viz"), VIZ_DIR)
         os.mkdir(VIZ_DATA_DIR)
         os.mkdir(os.path.join(VIZ_DATA_DIR, "compliance"))
         os.mkdir(os.path.join(VIZ_DATA_DIR, "metrics"))
-        # copy_tree(os.path.join(os.path.dirname(__file__), "..", "viz2"), VIZ_DIR)
     if not os.path.exists(PLUGIN_DIR):
         os.mkdir(PLUGIN_DIR)
         subprocess.check_call(["git", "clone", PLUGIN_REPOSITORY, PLUGIN_DIR])
