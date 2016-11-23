@@ -120,7 +120,7 @@ def parse_arguments(argv):
     parser_analyse.set_defaults(func = command_analyse)
 
     parser_export = subparsers.add_parser("export")
-    parser_export.add_argument("dir", dest = "data_dir",
+    parser_export.add_argument("data_dir", metavar = "dir",
                                help = "where to export data")
     parser_export.set_defaults(func = command_export)
 
