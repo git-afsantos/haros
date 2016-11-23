@@ -253,12 +253,13 @@ def command_viz(args):
         thread = threading.Thread(target = server.serve_forever)
         thread.deamon = True
         thread.start()
-        subprocess.Popen(["python", "-m", "webbrowser",
+        p = subprocess.Popen(["python", "-m", "webbrowser",
                         "-t", "http://" + args.host])
         raw_input('Press enter to shutdown visualisation server: ')
         server.shutdown()
     finally:
         os.chdir(wd)
+        p.kill()
 
 
 def main(argv = None):

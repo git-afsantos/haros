@@ -124,7 +124,7 @@ def _summary_issues(repositories, packages, files):
         "coding":   coding,
         "metrics":  metrics,
         "other":    other,
-        "ratio":    float(issues) / lines
+        "ratio":    "{0:.2f}".format(float(issues) / lines)
     }
 
 def _summary_components(files):
