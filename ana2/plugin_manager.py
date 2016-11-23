@@ -87,7 +87,9 @@ def load_plugins(root, whitelist = None, blacklist = None):
         filter = blacklist
         mode = -1
     for item in os.listdir(root):
-        if (mode > 0 and not item in filter) or (mode < 0 and item in filter):
+        if (mode > 0 and not item in filter) \
+                or (mode < 0 and item in filter) \
+                or item.startswith("."):
             continue
         d = os.path.join(root, item)
         if os.path.isdir(d) \

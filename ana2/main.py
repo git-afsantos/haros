@@ -5,22 +5,45 @@ HAROS directory (data folder) structure:
 
 + ~/.haros
 |-- index.yaml
+|-+ plugins
+  |-+ ...
 |-+ repositories
   |-+ ...
+|-+ viz
+  |-+ ...
+  |-+ data
+    |-- packages.json
+    |-- rules.json
+    |-- summary.json
+    |-+ compliance
+      |-- ...
+    |-+ metrics
+      |-- ...
+  |-- index.html
 |-+ export
-  |-- packages.json
-  |-- rules.json
-  |-- summary.json
-  |-+ metrics
-    |-- ...
-  |-+ compliance
-    |-- ...
+  |-- metrics.csv
 """
+
+# start with init
+# init creates the default data dir
+# viz is copied to init dir
+
+# analysis grabs previous db and index from data dir
+# analysis may accept import option to use another db
+
+# export receives a dir where it will generate the export files
+# export still generates files in the data dir
+# export uses db from analysis step or loads it from data dir
+
+# viz uses data from the data dir
 
 
 import argparse
 import os
 import sys
+
+from distutils.dir_util import copy_tree
+from shutil import copyfile
 
 from data_manager import DataManager
 import plugin_manager as plugman
@@ -28,7 +51,18 @@ import analysis_manager as anaman
 import export_manager as expoman
 
 
+HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
+REPOSITORY_DIR  = os.path.join(HAROS_DIR, "repositories")
+EXPORT_DIR      = os.path.join(HAROS_DIR, "export")
+PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
+VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
+VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
+DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
+
+
 # Options:
+#   haros init
+#       initialises the data directory
 #   haros analyse [args]
 #       runs update, analysis and export
 #       -k  keep previous analyses (run analysis only for new packages)
@@ -36,7 +70,7 @@ import export_manager as expoman
 #       -w  whitelist plugins
 #       -b  blacklist plugins
 #       -p  package filter
-#       -d  data dir (index file and repos download)
+#       -d  db to import
 #   haros export [args]
 #       runs export only
 #       -d export dir (output)
@@ -49,68 +83,77 @@ import export_manager as expoman
 def parse_arguments(argv):
     parser = argparse.ArgumentParser(prog="haros",
             description="ROS quality assurance.")
-    parser.add_argument("-d", "--data-dir", dest="datadir",
-            # default=os.getcwd(),
-            help="directory for application data")
     subparsers = parser.add_subparsers()
 
+    parser_init = subparsers.add_parser("init")
+    parser_init.set_defaults(func = command_init)
+
     parser_full = subparsers.add_parser("full")
-    # parser_full.add_argument("-k", "--keep-data", dest="keep",
-            # action="store_true", help="non-destructive update")
-    parser_full.add_argument("-r", "--repositories", dest="repos",
-            action="store_true", help="use repositories")
-    parser_full.add_argument("-s", "--server-host", dest="host",
-            default="localhost:8080",
-            help="visualisation host (default: \"localhost:8080\")")
-    parser_full.add_argument("-p", "--package-index", dest="pkgs",
-            help="package index file")
+    parser_full.add_argument("-r", "--repositories", dest = "use_repos",
+                             action = "store_true", help = "use repositories")
+    parser_full.add_argument("-s", "--server-host", dest = "host",
+                             default = "localhost:8080",
+                             help = "visualisation host " \
+                                    "(default: \"localhost:8080\")")
+    parser_full.add_argument("-p", "--package-index", dest = "pkg_filter",
+                             help = "package index file")
     group = parser_full.add_mutually_exclusive_group()
-    group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
-            help="whitelist plugins (execute only these)")
-    group.add_argument("-b", "--blacklist", nargs="*", dest="blacklist",
-            help="blacklist plugins (skip these)")
-    parser_full.set_defaults(func=command_full)
+    group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
+                       help = "execute only these plugins")
+    group.add_argument("-b", "--blacklist", nargs = "*", dest = "blacklist",
+                       help = "skip these plugins")
+    parser_full.set_defaults(func = command_full)
 
     parser_analyse = subparsers.add_parser("analyse")
-    # parser_analyse.add_argument("-k", "--keep-data", dest="keep",
-            # action="store_true", help="non-destructive update")
-    parser_analyse.add_argument("-r", "--repositories", dest="repos",
-            action="store_true", help="use repositories")
-    parser_analyse.add_argument("-p", "--package-index", dest="pkgs",
-            help="package index file")
+    parser_analyse.add_argument("-r", "--repositories", dest = "use_repos",
+                                action = "store_true",
+                                help = "use repositories")
+    parser_analyse.add_argument("-p", "--package-index", dest = "pkg_filter",
+                                help = "package index file")
     group = parser_analyse.add_mutually_exclusive_group()
-    group.add_argument("-w", "--whitelist", nargs="*", dest="whitelist",
-            help="whitelist plugins (execute only these)")
-    group.add_argument("-b", "--blacklist", nargs="*", dest="blacklist",
-            help="blacklist plugins (skip these)")
-    parser_analyse.set_defaults(func=command_analyse)
+    group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
+                       help="execute only these plugins")
+    group.add_argument("-b", "--blacklist", nargs = "*", dest = "blacklist",
+                       help="skip these plugins")
+    parser_analyse.set_defaults(func = command_analyse)
 
     parser_export = subparsers.add_parser("export")
-    parser_export.set_defaults(func=command_export)
+    parser_export.add_argument("dir", dest = "data_dir",
+                               help = "where to export data")
+    parser_export.set_defaults(func = command_export)
 
     parser_viz = subparsers.add_parser("viz")
-    parser_viz.add_argument("-s", "--server-host", dest="host",
-            default="localhost:8080",
-            help="visualisation host (default: \"localhost:8080\")")
-    parser_viz.set_defaults(func=command_viz)
+    parser_viz.add_argument("-s", "--server-host", dest = "host",
+                            default = "localhost:8080",
+                            help = "visualisation host " \
+                                   "(default: \"localhost:8080\")")
+    parser_viz.set_defaults(func = command_viz)
 
     return parser.parse_args() if argv is None else parser.parse_args(argv)
 
 
-def initialise_data_directory(args):
+def _check_haros_directory():
+    if not os.path.isdir(HAROS_DIR):
+        raise RuntimeError("HAROS directory was not initialised.")
+
+
+def command_init(args):
     print "Creating directories..."
-    args.datadir = args.datadir if args.datadir else \
-            os.path.join(os.path.expanduser("~"), ".haros")
-    if not os.path.exists(args.datadir):
-        os.makedirs(args.datadir)
-    repo_path = os.path.join(args.datadir, "repositories")
-    if not os.path.exists(repo_path):
-        os.mkdir(repo_path)
-    export_path = os.path.join(args.datadir, "export")
-    if not os.path.exists(export_path):
-        os.mkdir(export_path)
-        os.mkdir(os.path.join(export_path, "compliance"))
-        os.mkdir(os.path.join(export_path, "metrics"))
+    if os.path.exists(HAROS_DIR) and not os.path.isdir(HAROS_DIR):
+        raise RuntimeError("Could not init; " + HAROS_DIR \
+                           + " already exists and is not a directory.")
+    if not os.path.exists(HAROS_DIR):
+        os.makedirs(HAROS_DIR)
+    if not os.path.exists(REPOSITORY_DIR):
+        os.mkdir(REPOSITORY_DIR)
+    if not os.path.exists(EXPORT_DIR):
+        os.mkdir(EXPORT_DIR)
+    if not os.path.exists(VIZ_DIR):
+        os.mkdir(VIZ_DIR)
+        os.mkdir(VIZ_DATA_DIR)
+        os.mkdir(os.path.join(VIZ_DATA_DIR, "compliance"))
+        os.mkdir(os.path.join(VIZ_DATA_DIR, "metrics"))
+        # copy_tree(os.path.join(os.path.dirname(__file__), "..", "viz2"), VIZ_DIR)
 
 
 def command_full(args):
@@ -119,59 +162,64 @@ def command_full(args):
 
 
 def command_analyse(args):
+    _check_haros_directory()
     dataman = DataManager()
     # path = os.path.join(args.datadir, "haros.db")
     # if os.path.isfile(path):
         # dataman = DataManager.load_state()
     print "Indexing source code..."
-    path = args.pkgs if args.pkgs and os.path.isfile(args.pkgs) else \
-            os.path.join(args.datadir, "index.yaml")
-    dataman.index_source(path, os.path.join(args.datadir, "repositories"), \
-            args.repos)
+    path = args.pkg_filter \
+           if args.pkg_filter and os.path.isfile(args.pkg_filter) \
+           else os.path.join(HAROS_DIR, "index.yaml")
+    dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
     print "Loading common definitions..."
     path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
     dataman.load_definitions(path)
     print "Loading plugins..."
-    path = os.path.join(os.path.dirname(__file__), "plugins")
-    plugins = plugman.load_plugins(path, whitelist = args.whitelist, \
-            blacklist = args.blacklist)
+    plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
     for id, plugin in plugins.iteritems():
         dataman.extend_definitions(id, plugin.rules, plugin.metrics)
     print "Running analysis..."
-    anaman.run_analysis(args.datadir, plugins, dataman)
+    anaman.run_analysis(HAROS_DIR, plugins, dataman)
     print "Saving analysis results..."
-    path = os.path.join(args.datadir, "haros.db")
-    dataman.save_state(path)
+    dataman.save_state(DB_PATH)
     command_export(args, dataman)
 
 
 def command_export(args, dataman = None):
+    _check_haros_directory()
     print "Exporting analysis results..."
-    export_path = os.path.join(args.datadir, "export")
-    if not dataman:
-        path = os.path.join(args.datadir, "haros.db")
-        if os.path.isfile(path):
-            dataman = DataManager.load_state(path)
+    if dataman:
+        json_path   = VIZ_DATA_DIR
+        csv_path    = EXPORT_DIR
+        db_path     = None
+    else:
+        if os.path.isfile(DB_PATH):
+            dataman = DataManager.load_state(DB_PATH)
         else:
-            print "There is no analysis data to export on " + path
+            print "There is no analysis data to export."
             return
-    expoman.export_packages(export_path, dataman.packages)
-    expoman.export_rules(export_path, dataman.rules)
-    expoman.export_metrics(export_path, dataman.metrics)
-    expoman.export_summary(export_path, dataman)
-    path = os.path.join(export_path, "compliance")
+        json_path   = os.path.join(args.data_dir, "json")
+        csv_path    = os.path.join(args.data_dir, "csv")
+        db_path     = os.path.join(args.data_dir, "haros.db")
+    expoman.export_packages(json_path, dataman.packages)
+    expoman.export_rules(json_path, dataman.rules)
+    expoman.export_metrics(json_path, dataman.metrics)
+    expoman.export_summary(json_path, dataman)
+    path = os.path.join(json_path, "compliance")
     expoman.export_violations(path, dataman.packages)
-    path = os.path.join(export_path, "metrics")
+    path = os.path.join(json_path, "metrics")
     expoman.export_measurements(path, dataman.packages)
+    if db_path:
+        copyfile(DB_PATH, db_path)
 
 
 def command_viz(args):
-    pass
+    _check_haros_directory()
 
 
 def main(argv = None):
     args = parse_arguments(argv)
-    initialise_data_directory(args)
     try:
         args.func(args)
         return 0
