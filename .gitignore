@@ -1,9 +1,6 @@
 unused
 img
 analyser/*.pyc
-analyser/dbuser.txt
-analyser/export
-analyser/gituser.txt
-analyser/plugins/gituser.txt
 analyser/**/*.pyc
-/visualiser/js/*.bat
+/viz/js/*.bat
+/viz/data

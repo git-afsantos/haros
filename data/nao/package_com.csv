@@ -1,5 +1,0 @@
-package,com_min,com_max,com_avg,com_sum
-naoqi_driver,0.0,145.0,27.77,2777.0
-nao_teleop,16.0,114.0,53.6666666667,161.0
-orocos_kdl,0.0,304.0,41.9457831325,6963.0
-nao_path_follower,159.0,159.0,159.0,159.0
