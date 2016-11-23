@@ -43,7 +43,6 @@ import os
 import subprocess
 import sys
 import threading
-import webbrowser
 
 
 try: 
@@ -246,13 +245,20 @@ def command_viz(args):
     if len(host) != 2:
         print "Invalid host:port provided."
         return
-    server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
-    print "Serving visualisation at", args.host
-    thread = threading.Thread(target = server.serve_forever)
-    thread.deamon = True
-    thread.start()
-    webbrowser.open_new_tab("http://" + args.host)
-    raw_input('Press enter to shutdown visualisation server: ')
+    wd = os.getcwd()
+    try:
+        os.chdir(VIZ_DATA_DIR)
+        server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
+        print "Serving visualisation at", args.host
+        thread = threading.Thread(target = server.serve_forever)
+        thread.deamon = True
+        thread.start()
+        subprocess.Popen(["python", "-m", "webbrowser",
+                        "-t", "http://" + args.host])
+        raw_input('Press enter to shutdown visualisation server: ')
+        server.shutdown()
+    finally:
+        os.chdir(wd)
 
 
 def main(argv = None):
