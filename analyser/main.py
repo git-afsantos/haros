@@ -247,7 +247,7 @@ def command_viz(args):
         return
     wd = os.getcwd()
     try:
-        os.chdir(VIZ_DATA_DIR)
+        os.chdir(VIZ_DIR)
         server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
         print "Serving visualisation at", args.host
         thread = threading.Thread(target = server.serve_forever)
