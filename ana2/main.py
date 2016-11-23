@@ -177,6 +177,9 @@ def command_analyse(args):
            if args.pkg_filter and os.path.isfile(args.pkg_filter) \
            else os.path.join(HAROS_DIR, "index.yaml")
     dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
+    if not dataman.packages:
+        print "There are no packages to analyse."
+        return
     print "Loading common definitions..."
     path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
     dataman.load_definitions(path)
