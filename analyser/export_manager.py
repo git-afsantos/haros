@@ -98,7 +98,7 @@ def _summary_issues(repositories, packages, files):
         for v in p._violations:
             any = False
             issues += 1
-            if "coding-standards" in v.rule.tags:
+            if "code-standards" in v.rule.tags:
                 any = True
                 coding += 1
             if "metrics" in v.rule.tags:
@@ -111,7 +111,7 @@ def _summary_issues(repositories, packages, files):
         for v in f._violations:
             any = False
             issues += 1
-            if "coding-standards" in v.rule.tags:
+            if "code-standards" in v.rule.tags:
                 any = True
                 coding += 1
             if "metrics" in v.rule.tags:
