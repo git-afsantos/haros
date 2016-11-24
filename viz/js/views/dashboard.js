@@ -49,7 +49,7 @@
         build: function () {
             if (this.firstTime) {
                 // this.model.fetch();
-                this.dashboardDiagram();
+                //this.dashboardDiagram();
                 this.render();
                 this.firstTime = false;
             }

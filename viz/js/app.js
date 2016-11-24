@@ -1,22 +1,13 @@
 /*
-README TODO
-
 The idea is to have modular components, and this script will be the glue between them.
 
-This script should be included first, to define window.Game.
-Other modules register themselves on window.Game.
-When the document is ready, grab window.Game and delete the global.
+This script should be included first, to define window.App.
+Other modules register themselves on window.App.
+When the document is ready, grab window.App and delete the global.
 
 Other modules will essentially use Backbone.Events to communicate.
 
-The views will be hierarchical: BattleView -> (BattlePanel, BattleCircle, ActionBar)
-
-This script creates the views with the document nodes, and 
-the models from the battle engine.
-Then, it creates the animation manager, passing it the views to manage.
-
-When the battle starts, the engine will fire events, which will be bound
-to functions of the animation manager, by this script.
+This script creates the views with the document nodes, and the models from data.
 */
 
 (function () {
@@ -81,6 +72,7 @@ to functions of the animation manager, by this script.
             el: $("#issue-board"),
             collection: new App.Models.ViolationCollection(),
             packages: App.packages,
+            rules: App.rules,
             router: App.router
         });
         App.rosBoard = new App.Views.RosBoard({

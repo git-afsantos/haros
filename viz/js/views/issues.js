@@ -22,6 +22,7 @@
             this.page = 1;
             this.packageId = null;
             this.packages = options.packages;
+            this.rules = options.rules;
             this.router = options.router;
             this.filtered = null;
             this.publicVars = {};
@@ -64,8 +65,11 @@
         },
 
         renderViolation: function (violation, index) {
-            var data = _.clone(violation.attributes);
+            var data = _.clone(violation.attributes),
+                rule = this.rules.get(data.rule);
             data.id = this.pageSize * (this.page - 1) + index + 1;
+            data.description = rule.get("description");
+            data.tags = rule.get("tags");
             this.$explorer.append(this.violationTemplate(data));
         },
 
@@ -94,7 +98,9 @@
             this.page = Math.min(pages, Math.max(this.page, 1));
             this.filtered = this.filterView.tags.length === 0
                 ? null
-                : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
+                : this.collection.filterByRules(
+                        this.rules.filterByTags(this.filterView.tags),
+                        this.filterView.ignoring);
             this.render();
         },
 
@@ -145,11 +151,11 @@
 
         updateFilters: function () {
             var prev = this.filtered;
-            //console.log("filter", this.filterView.tags, this.filterView.ignoring);
             this.filtered = this.filterView.tags.length === 0
                 ? null
-                : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
-            //console.log("  >", this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring));
+                : this.collection.filterByRules(
+                        this.rules.filterByTags(this.filterView.tags),
+                        this.filterView.ignoring);
             if (prev != this.filtered) {
                 this.page = 1;
                 this.render();

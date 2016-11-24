@@ -80,6 +80,7 @@
                     <div id="dashboard-panel-progress" class="panel double-size">
                         <h4 class="title"><i class="fa fa-line-chart"></i> Quality Progress</h4>
                         <div class="diagram"></div>
+                        <h1>Under construction.</h1>
                     </div>
                 </div>
             </div>
@@ -297,7 +298,7 @@
     <script type="text/template" id="package-board-info-modal">
         <h4 class="title">
             <%= data.id %>
-            <small><a href="<%= data.wiki %>">Wiki <i class="fa fa-external-link"></i></a></small>
+            <small><a target="_blank" href="<%= data.wiki %>">Wiki <i class="fa fa-external-link"></i></a></small>
         </h4>
         <% if (data.metapackage) print('<span class="info">Metapackage</span>'); %>
         <hr>
@@ -315,26 +316,46 @@
         </p>
         <p>
             <i class="fa fa-code-fork bullet-icon"></i>
-            <strong>Repositories:</strong>
-            <%= _.map(data.repositories, function (r) {
-                var name = r.split("/")[1];
-                return '<a href="http://github.com/' + r + '">' + name + ' <i class="fa fa-external-link"></i></a>';
-            }).join(", ") || "n/a" %>
+            <strong>Repository:</strong>
+            <%= !!data.repository
+                ? '<a target="_blank" href="' + data.repository + '">'
+                    + data.repository.split("/")[2]
+                    + ' <i class="fa fa-external-link"></i></a>'
+                : "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-warning bullet-icon"></i>
+            <strong>Bug Tracker:</strong>
+            <%= !!data.bugTracker
+                ? '<a target="_blank" href="' + data.bugTracker + '">'
+                    + data.bugTracker.split("/")[2]
+                    + ' <i class="fa fa-external-link"></i></a>'
+                : "n/a" %>
         </p>
         <p>
             <i class="fa fa-sitemap bullet-icon"></i>
             <strong>Dependencies:</strong>
             <%= data.dependencies.join(", ") || "none" %>
         </p>
+        <p>
+            <i class="fa fa-database bullet-icon"></i>
+            <strong>Size:</strong>
+            <%= data.size != null ? data.size.toLocaleString() + " KB" : "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-list-ol bullet-icon"></i>
+            <strong>Physical Lines:</strong>
+            <%= data.ploc != null ? data.ploc.toLocaleString() : "n/a" %>
+        </p>
     </script>
 
     <script type="text/template" id="issue-board-violation">
         <div class="issue">
             <h4>Issue #<%= data.id %>
-                <span class="show-inline-md">- <%= data.rule %></span>
+                <span class="show-inline-md">- Rule <%= data.rule %></span>
                 <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
             </h4>
-            <p class="hide-block-md"><strong><%= data.rule %></strong></p>
+            <p><strong><%= data.description %></strong></p>
             <p><%= data.comment || "<i>No additional comment.</i>" %></p>
             <ul class="taglist">
                 <% for (var i = 0; i < data.tags.length; ++i)

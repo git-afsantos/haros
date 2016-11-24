@@ -4,38 +4,34 @@
 
     /*
         id,
-        name,
+        metapackage,
         description,
         wiki,
-        children: [],
-        repositories: [],
+        repository,
+        bugTracker,
         authors: [],
         maintainers: [],
         analysis: {},
         dependencies: [],
-        size
+        size,
+        ploc
     */
     Models.Package = Backbone.Model.extend({
         defaults: function () {
             return {
-                children:       [],
-                repositories:   [],
+                wiki:           "http://wiki.ros.org/",
                 authors:        [],
                 maintainers:    [],
-                analysis:       {violations: {}},
+                analysis:       {violations: {}, metrics: {}},
                 dependencies:   []
             }
-        },
-
-        isMetapackage: function () {
-            return this.get("children").length > 0;
         },
 
         getViolations: function (filters, ignore) {
             var i, sum = 0, fun = ignore ? _["reject"] : _["filter"],
                 violations = this.get("analysis").violations;
             if (filters != null) {
-                violations = fun(violations, function (value, rule) {
+                violations = fun.call(_, violations, function (value, rule) {
                     return _.contains(filters, rule);
                 });
             } else {
@@ -57,12 +53,14 @@
 
     /*
         id,
+        scope,
         description,
         tags: []
     */
     Models.Rule = Backbone.Model.extend({
         defaults: function () {
             return {
+                scope: "file",
                 description: "n/a",
                 tags: []
             };
@@ -97,13 +95,12 @@
     ////////////////////////////////////////////////////////////////////////////
 
     /*
-        id,
         rule,
-        file,
-        line,
-        function,
-        comment,
-        tags: []
+        *file,
+        *line,
+        *function,
+        *class,
+        comment
     */
     Models.Violation = Backbone.Model.extend({
         defaults: function () {
@@ -111,19 +108,9 @@
                 file: null,
                 line: 0,
                 function: null,
-                comment: "",
-                tags: []
+                class: null,
+                comment: ""
             };
-        },
-
-        hasTag: function (tag) {
-            return _.contains(this.get("tags"), tag);
-        },
-
-        hasAnyTag: function (tags) {
-            var a = this.get("tags"), i = a.length;
-            while (i--) if (_.contains(tags, a[i])) return true;
-            return false;
         }
     });
 
@@ -134,11 +121,11 @@
             return "data/compliance/" + this.packageId + ".json";
         },
 
-        filterByTags: function (tags, ignore) {
-            if (tags.length === 0)
+        filterByRules: function (rules, ignore) {
+            if (rules.length === 0)
                 return this.toArray();
             return this[!!ignore ? "reject" : "filter"](function (model) {
-                return model.hasAnyTag(tags);
+                return _.contains(rules, model.get("rule"));
             });
         }
     });

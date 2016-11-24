@@ -289,7 +289,7 @@
             this.height = Math.min(320, 32 + this.model.get("size") | 0);
             this.width = Math.max(this.height, this.model.id.length * 16);
             this.radius = this.height / 2;
-//            if (this.model.isMetapackage()) {
+//            if (this.model.get("metapackage")) {
 //                this.d3text.append("tspan").attr("x", 0).attr("dy", "1.25em").text("Metapackage");
 //            }
         },
@@ -317,7 +317,7 @@
                 this.d3node.attr("cx", this.x).attr("cy", this.y).attr("r", this.radius);
                 this.d3text.attr("x", this.x).attr("y", this.y);
 
-                //this.d3node.classed("metapackage", this.model.isMetapackage());
+                //this.d3node.classed("metapackage", this.model.get("metapackage"));
                 this.applyColor();
             }
             return this;
@@ -412,7 +412,6 @@
 
         render: function () {
             var data = this.model != null ? _.clone(this.model.attributes) : {};
-            data.metapackage = this.model.isMetapackage();
             this.$content.html(this.template(data));
             return this;
         }

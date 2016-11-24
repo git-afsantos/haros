@@ -150,6 +150,11 @@ def _check_haros_directory():
     if not os.path.isdir(HAROS_DIR):
         raise RuntimeError("HAROS directory was not initialised.")
 
+def _empty_dir(dir_path):
+    for f in os.listdir(dir_path):
+        path = os.path.join(dir_path, f)
+        if os.path.isfile(path):
+            os.unlink(path)
 
 def command_init(args):
     print "Creating directories..."
@@ -218,6 +223,8 @@ def command_export(args, dataman = None):
         json_path   = VIZ_DATA_DIR
         csv_path    = EXPORT_DIR
         db_path     = None
+        _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
+        _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
     else:
         if os.path.isfile(DB_PATH):
             dataman = DataManager.load_state(DB_PATH)
