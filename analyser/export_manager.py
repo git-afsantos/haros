@@ -131,19 +131,19 @@ def _summary_components(files):
     return {
         "launchFiles":      len([f for _, f in files.iteritems()
                                  if f.language == "launch"]),
-        "nodes":            0,
-        "nodelets":         0,
-        "parameterFiles":   0,
-        "capabilities":     0
+        "nodes":            None,
+        "nodelets":         None,
+        "parameterFiles":   None,
+        "capabilities":     None
     }
 
 def _summary_communications():
     return {
-        "topics":       0,
-        "remappings":   0,
-        "messages":     0,
-        "services":     0,
-        "actions":      0
+        "topics":       None,
+        "remappings":   None,
+        "messages":     None,
+        "services":     None,
+        "actions":      None
     }
 
 def _pkg_json(pkg):
