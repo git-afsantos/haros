@@ -181,8 +181,9 @@ def command_init(args):
 
 
 def command_full(args):
-    command_analyse(args)
-    command_viz(args)
+    if command_analyse(args):
+        return command_viz(args)
+    return False
 
 
 def command_analyse(args):
@@ -197,11 +198,11 @@ def command_analyse(args):
            else os.path.join(HAROS_DIR, "index.yaml")
     if not os.path.isfile(path):
         print "There is no package index file. Aborting."
-        return
+        return False
     dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
     if not dataman.packages:
         print "There are no packages to analyse."
-        return
+        return False
     print "Loading common definitions..."
     path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
     dataman.load_definitions(path)
@@ -214,6 +215,7 @@ def command_analyse(args):
     print "Saving analysis results..."
     dataman.save_state(DB_PATH)
     command_export(args, dataman)
+    return True
 
 
 def command_export(args, dataman = None):
@@ -230,7 +232,7 @@ def command_export(args, dataman = None):
             dataman = DataManager.load_state(DB_PATH)
         else:
             print "There is no analysis data to export."
-            return
+            return False
         json_path   = os.path.join(args.data_dir, "json")
         csv_path    = os.path.join(args.data_dir, "csv")
         db_path     = os.path.join(args.data_dir, "haros.db")
@@ -244,6 +246,7 @@ def command_export(args, dataman = None):
     expoman.export_measurements(path, dataman.packages)
     if db_path:
         copyfile(DB_PATH, db_path)
+    return True
 
 
 def command_viz(args):
@@ -251,7 +254,7 @@ def command_viz(args):
     host = args.host.split(":")
     if len(host) != 2:
         print "Invalid host:port provided."
-        return
+        return False
     wd = os.getcwd()
     try:
         os.chdir(VIZ_DIR)
@@ -267,6 +270,7 @@ def command_viz(args):
     finally:
         os.chdir(wd)
         p.kill()
+    return True
 
 
 def main(argv = None):
