@@ -362,16 +362,19 @@ class Repository(object):
         data = yaml.load(urlopen(url).read())["repositories"]
         if pkg_list is None:
             for id, info in data.iteritems():
-                repos[id] = cls.from_distribution_data(id, info)
+                repo = cls.from_distribution_data(id, info)
+                if repo:
+                    repos[id] = repo
         else:
             for id, info in data.iteritems():
                 if not pkg_list:
                     return repos
                 repo = cls.from_distribution_data(id, info)
-                for pkg in repo.declared_packages:
-                    if pkg in pkg_list:
-                        repos[id] = repo
-                        pkg_list.remove(pkg)
+                if repo:
+                    for pkg in repo.declared_packages:
+                        if pkg in pkg_list:
+                            repos[id] = repo
+                            pkg_list.remove(pkg)
         return repos
 
     def scope_type(self):
