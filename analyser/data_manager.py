@@ -319,9 +319,9 @@ class Repository(object):
         repo = cls(name)
         repo.status = data.get("status")
         src = data["source"]
-        repo.vcs = data["type"]
-        repo.url = data["url"]
-        repo.version = data["version"]
+        repo.vcs = src["type"]
+        repo.url = src["url"]
+        repo.version = src["version"]
         if "release" in data:
             repo.declared_packages = data["release"].get("packages", [])
         return repo
