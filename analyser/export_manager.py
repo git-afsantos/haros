@@ -163,9 +163,11 @@ def _pkg_json(pkg):
     metrics = {}
     for datum in pkg._violations:
         violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
+    for f in pkg.source_files:
+        for datum in f._violations:
+            violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
     for datum in pkg._metrics:
-        if datum.scope == "package":
-            metrics[datum.metric.id] = datum.value
+        metrics[datum.metric.id] = datum.value
     analysis["violations"] = violations
     analysis["metrics"] = metrics
     s += ', "analysis": ' + json.dumps(analysis) + "}"
