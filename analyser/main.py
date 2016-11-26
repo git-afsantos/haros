@@ -270,8 +270,12 @@ def command_export(args, dataman = None):
     expoman.export_metrics(json_path, dataman.metrics)
     expoman.export_summary(json_path, dataman)
     path = os.path.join(json_path, "compliance")
+    if not os.path.exists(path):
+        os.mkdir(path)
     expoman.export_violations(path, dataman.packages)
     path = os.path.join(json_path, "metrics")
+    if not os.path.exists(path):
+        os.mkdir(path)
     expoman.export_measurements(path, dataman.packages)
     if db_path:
         _log.debug("Copying DB from %s to %s", DB_PATH, db_path)
