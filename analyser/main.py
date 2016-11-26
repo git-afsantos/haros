@@ -75,6 +75,7 @@ VIZ_SOURCE      = os.path.join(os.path.dirname(__file__), "..", "viz")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
 PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
 
+_log = logging.getLogger()
 
 # Options:
 #   --debug sets the logging level to debug
@@ -307,7 +308,7 @@ def main(argv = None):
     if args.debug:
         logging.basicConfig(level = logging.DEBUG)
     try:
-        logging.info("Executing selected command.")
+        _log.info("Executing selected command.")
         args.func(args)
         return 0
     except RuntimeError as err:
