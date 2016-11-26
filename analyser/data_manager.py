@@ -16,7 +16,7 @@ except ImportError:
 from rospkg import RosPack, ResourceNotFound
 
 
-_log = logging.getLogger("haros.data")
+_log = logging.getLogger(__name__)
 
 
 ################################################################################

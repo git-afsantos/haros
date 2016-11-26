@@ -3,7 +3,7 @@ import logging
 import os
 import yaml
 
-_log = logging.getLogger("haros.plugins")
+_log = logging.getLogger(__name__)
 
 class MalformedManifestError(Exception):
     def __init__(self, value):
