@@ -233,6 +233,19 @@ class Package(object):
             _log.debug("%s was not found in default paths.", name)
         return None
 
+    # Note: this method messes with private variables of the RosPack
+    # class. This is needed because, at some point, we download new
+    # repositories and the package cache becomes outdated.
+    # RosPack provides no public method to refresh the cache, hence
+    # changing private variables directly.
+    @staticmethod
+    def refresh_package_cache(repo_path = None):
+        if repo_path:
+            rp = RosPack.get_instance([repo_path])
+        else:
+            rp = RosPack.get_instance()
+        rp._location_cache = None
+
     def scope_type(self):
         return "package"
 
@@ -508,12 +521,17 @@ class DataManager(object):
                         repos.add(repo)
         # Step 3: clone necessary repositories
             wd = os.getcwd()
+            refresh = False
             for repo in repos:
                 try:
                     repo.download(repo_path)
+                    refresh = True
                 except RepositoryCloneError as e:
                     _log.warning("Could not download %s: %s", repo.id, e.value)
             os.chdir(wd)
+            if refresh:
+                _log.debug("Refreshing package cache for %s", repo_path)
+                Package.refresh_package_cache(repo_path)
         # Step 4: find packages and link to repositories
             _log.info("Looking for missing packages in local repositories.")
             for _, repo in self.repositories.iteritems():
