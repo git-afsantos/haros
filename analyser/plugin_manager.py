@@ -37,7 +37,7 @@ class Plugin:
         self.rules = manifest.get("rules", {})
         self.metrics = manifest.get("metrics", {})
         self.languages = set(manifest.get("languages", []))
-        _log.debug("Loaded %s [%s]", self.name, self.version))
+        _log.debug("Loaded %s [%s]", self.name, self.version)
         if common_rules:
             rm = [id for id in self.rules if id in common_rules]
             for id in rm:
