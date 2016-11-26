@@ -258,15 +258,15 @@ def command_export(args, dataman = None):
         else:
             _log.warning("There is no analysis data to export.")
             return False
-        json_path   = os.path.join(args.data_dir, "json")
+        json_path = os.path.join(args.data_dir, "json")
         if not os.path.exists(json_path):
             _log.info("Creating directory %s", json_path)
             os.mkdir(json_path)
-        csv_path    = os.path.join(args.data_dir, "csv")
+        csv_path = os.path.join(args.data_dir, "csv")
         if not os.path.exists(csv_path):
             _log.info("Creating directory %s", csv_path)
             os.mkdir(csv_path)
-        db_path     = os.path.join(args.data_dir, "haros.db")
+        db_path = os.path.join(args.data_dir, "haros.db")
     else:
         _log.error("%s is not a directory!", args.data_dir)
         return False
@@ -322,6 +322,8 @@ def main(argv = None):
     args = parse_arguments(argv)
     if args.debug:
         logging.basicConfig(level = logging.DEBUG)
+    else:
+        logging.basicConfig(level = logging.WARNING)
     try:
         _log.info("Executing selected command.")
         args.func(args)
