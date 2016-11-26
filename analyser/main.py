@@ -251,7 +251,7 @@ def command_export(args, dataman = None):
         db_path     = None
         _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
         _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
-    else:
+    elif os.path.isdir(args.data_dir):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
             dataman = DataManager.load_state(DB_PATH)
@@ -260,21 +260,28 @@ def command_export(args, dataman = None):
             return False
         json_path   = os.path.join(args.data_dir, "json")
         if not os.path.exists(json_path):
+            _log.info("Creating directory %s", json_path)
             os.mkdir(json_path)
         csv_path    = os.path.join(args.data_dir, "csv")
         if not os.path.exists(csv_path):
+            _log.info("Creating directory %s", csv_path)
             os.mkdir(csv_path)
         db_path     = os.path.join(args.data_dir, "haros.db")
+    else:
+        _log.error("%s is not a directory!", args.data_dir)
+        return False
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
     expoman.export_metrics(json_path, dataman.metrics)
     expoman.export_summary(json_path, dataman)
     path = os.path.join(json_path, "compliance")
     if not os.path.exists(path):
+        _log.info("Creating directory %s", path)
         os.mkdir(path)
     expoman.export_violations(path, dataman.packages)
     path = os.path.join(json_path, "metrics")
     if not os.path.exists(path):
+        _log.info("Creating directory %s", path)
         os.mkdir(path)
     expoman.export_measurements(path, dataman.packages)
     if db_path:
