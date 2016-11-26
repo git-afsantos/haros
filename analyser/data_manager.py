@@ -1,4 +1,5 @@
 import cPickle
+import logging
 import os
 import subprocess
 import yaml
@@ -13,6 +14,9 @@ except ImportError:
     from urllib2 import HTTPError
 
 from rospkg import RosPack, ResourceNotFound
+
+
+_log = logging.getLogger("haros.data")
 
 
 ################################################################################
@@ -85,8 +89,11 @@ class SourceFile(object):
 
     @classmethod
     def populate_package(cls, pkg, idx = None):
+        _log.debug("SourceFile.populate_package(%s)", pkg)
         if pkg.path is None:
+            _log.debug("Package %s has no path", pkg)
             return
+        _log.info("Indexing source files for package %s", pkg)
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown = True):
             subdirs[:] = [d for d in subdirs if d not in cls._excluded_dirs]
@@ -102,6 +109,7 @@ class SourceFile(object):
                 elif f.endswith(cls._launch_sources):
                     source = "launch"
                 if source:
+                    _log.debug("Found %s file %s at %s", source, f, path)
                     source = cls(f, path, pkg, source)
                     pkg.source_files.append(source)
                     pkg.size += source.size
@@ -117,11 +125,15 @@ class SourceFile(object):
 
     @staticmethod
     def _count_physical_lines(path):
+        _log.debug("SourceFile._count_physical_lines(%s)", path)
         count = 0
         with open(path, "r") as handle:
             for count, _ in enumerate(handle, start = 1):
                 pass
         return count
+
+    def __str__(self):
+        return self.id
 
 
 # Represents a ROS package
@@ -148,11 +160,13 @@ class Package(object):
 
     @classmethod
     def from_manifest(cls, pkg_file, repo = None):
+        _log.debug("Package.from_manifest(%s, %s)", pkg_file, repo)
         with open(pkg_file, "r") as handle:
             root = ET.parse(handle).getroot()
         name = root.find("name").text
         package = cls(name, repo)
         package.path = os.path.dirname(pkg_file)
+        _log.info("Found package %s at %s", package, package.path)
         for el in root.findall("maintainer"):
             name = el.text
             email = el.get("email")
@@ -191,11 +205,11 @@ class Package(object):
         else:
             for el in root.findall("run_depend"):
                 package.dependencies.add(el.text)
-        # package.size = os.path.getsize(pkg_file)
         return package
 
     @classmethod
     def locate_offline(cls, name, repo_path = None):
+        _log.debug("Package.locate_offline(%s, %s)", name, repo_path)
         # Step 1: use repository download directory
         if repo_path:
             rp = RosPack.get_instance([repo_path])
@@ -203,22 +217,27 @@ class Package(object):
                 path = rp.get_path(name)
                 path = os.path.join(path, "package.xml")
                 if os.path.isfile(path):
+                    _log.debug("Found %s in local repositories.", name)
                     return cls.from_manifest(path)
             except ResourceNotFound as e:
-                pass
+                _log.debug("%s was not found in local repositories.", name)
         # Step 2: use known directories
         rp = RosPack.get_instance()
         try:
             path = rp.get_path(name)
             path = os.path.join(path, "package.xml")
             if os.path.isfile(path):
+                _log.debug("Found %s in default paths.", name)
                 return cls.from_manifest(path)
         except ResourceNotFound as e:
-            pass
+            _log.debug("%s was not found in default paths.", name)
         return None
 
     def scope_type(self):
         return "package"
+
+    def __str__(self):
+        return self.id
 
 
 
@@ -254,7 +273,9 @@ class Repository(object):
         return hash(self.id)
 
     def download(self, repo_path):
+        _log.debug("Repository.download(%s)", repo_path)
         if not self.url:
+            _log.debug("%s has no URL to download from.", self.id)
             return
         path = os.path.join(repo_path, self.id)
         clone = False
@@ -270,6 +291,7 @@ class Repository(object):
             self._download_svn(path, clone)
 
     def _download_git(self, path, clone = False):
+        _log.debug("Repository._download_git(%s)", path)
         try:
             if clone:
                 subprocess.check_call(["git", "init"])
@@ -285,6 +307,7 @@ class Repository(object):
             raise RepositoryCloneError("git error")
 
     def _download_hg(self, path, clone = False):
+        _log.debug("Repository._download_hg(%s)", path)
         try:
             if clone:
                 subprocess.check_call(["hg", "clone", self.url, \
@@ -298,6 +321,7 @@ class Repository(object):
             raise RepositoryCloneError("hg error")
 
     def _download_svn(self, path, clone = False):
+        _log.debug("Repository._download_svn(%s)", path)
         try:
             if clone:
                 subprocess.check_call(["git", "svn", "clone", "-T", \
@@ -314,7 +338,9 @@ class Repository(object):
 
     @classmethod
     def from_distribution_data(cls, name, data):
+        _log.debug("Repository.from_distribution_data(%s)", name)
         if not "source" in data:
+            _log.debug("There is no source in provided data.")
             return None
         repo = cls(name)
         repo.status = data.get("status")
@@ -328,6 +354,7 @@ class Repository(object):
 
     @classmethod
     def from_user_data(cls, name, data):
+        _log.debug("Repository.from_user_data(%s)", name)
         repo = cls(name)
         repo.status = "private"
         repo.vcs = data["type"]
@@ -340,9 +367,11 @@ class Repository(object):
     # Tries to build and save as few repositories as possible.
     @classmethod
     def load_repositories(cls, user_repos = None, pkg_list = None):
+        _log.debug("Repository.load_repositories(%s)", pkg_list)
         repos = {}
         pkg_list = list(pkg_list) if pkg_list else None
         if user_repos:
+            _log.info("Looking up user provided repositories.")
             if pkg_list is None:
                 for id, info in user_repos.iteritems():
                     repos[id] = cls.from_user_data(id, info)
@@ -359,6 +388,7 @@ class Repository(object):
             return repos
         url = "https://raw.githubusercontent.com/ros/rosdistro/master/" \
               + os.environ["ROS_DISTRO"] + "/distribution.yaml"
+        _log.info("Looking up repositories from official distribution.")
         data = yaml.load(urlopen(url).read())["repositories"]
         if pkg_list is None:
             for id, info in data.iteritems():
@@ -379,6 +409,9 @@ class Repository(object):
 
     def scope_type(self):
         return "repository"
+
+    def __str__(self):
+        return self.id
 
 
 ################################################################################
@@ -418,6 +451,7 @@ class DataManager(object):
 
     # Used at startup to load the common rules and metrics
     def load_definitions(self, data_file):
+        _log.debug("DataManager.load_definitions(%s)", data_file)
         with open(data_file, "r") as handle:
             data = yaml.load(handle)
         for id, rule in data.get("rules", {}).iteritems():
@@ -429,23 +463,28 @@ class DataManager(object):
 
     # Used to register the custom rules and metrics that each plugin defines
     def extend_definitions(self, plugin_id, rules, metrics):
+        _log.debug("DataManager.extend_definitions(%s)", plugin_id)
         for id, rule in rules.iteritems():
             if id in self.common_rules:
+                _log.warning("Plugin %s cannot override %s", plugin_id, id)
                 continue # cannot override common rules
             id = plugin_id + ":" + id
             self.rules[id] = Rule(id, rule["scope"],
                                   rule["description"], rule["tags"])
         for id, metric in metrics.iteritems():
             if id in self.common_metrics:
+                _log.warning("Plugin %s cannot override %s", plugin_id, id)
                 continue # cannot override common metrics
             self._add_metric(plugin_id + ":" + id, metric)
 
     # Used at startup to build the list of packages, repositories
     # and source files that are to be analysed
     def index_source(self, index_file, repo_path = None, index_repos = False):
+        _log.debug("DataManager.index_source(%s, %s)", index_file, repo_path)
         with open(index_file, "r") as handle:
             data = yaml.load(handle)
         # Step 1: find packages locally
+        _log.info("Looking for packages locally.")
         missing = []
         pkg_list = data["packages"]
         for id in pkg_list:
@@ -456,13 +495,16 @@ class DataManager(object):
                 SourceFile.populate_package(pkg, self.files)
                 self.packages[id] = pkg
         # Step 2: load repositories only if explicitly told to
+        _log.debug("Missing packages: %s", missing)
         if index_repos:
+            _log.info("Indexing repositories.")
             self.repositories = Repository.load_repositories(
                     data.get("repositories", {}), pkg_list)
             repos = set()
             for _, repo in self.repositories.iteritems():
                 for id in repo.declared_packages:
                     if id in missing:
+                        _log.debug("%s contains missing %s", _, id)
                         repos.add(repo)
         # Step 3: clone necessary repositories
             wd = os.getcwd()
@@ -470,31 +512,38 @@ class DataManager(object):
                 try:
                     repo.download(repo_path)
                 except RepositoryCloneError as e:
-                    print "repository", repo.id, e.value
+                    _log.warning("Could not download %s: %s", repo.id, e.value)
             os.chdir(wd)
         # Step 4: find packages and link to repositories
+            _log.info("Looking for missing packages in local repositories.")
             for _, repo in self.repositories.iteritems():
                 for id in repo.declared_packages:
                     if id in self.packages:
+                        _log.debug("Binding %s to %s", id, _)
                         repo.packages.append(self.packages[id])
                         self.packages[id].repository = repo
                     elif id in missing:
                         pkg = Package.locate_offline(id, repo_path)
-                        if not pkg is None:
+                        if pkg:
+                            _log.debug("Found %s in clones.", id)
                             SourceFile.populate_package(pkg, self.files)
                             self.packages[id] = pkg
                             missing.remove(id)
                             repo.packages.append(pkg)
                             pkg.repository = repo
+                        else:
+                            _log.debug("%s was not found in clones.", id)
         for id in missing:
-            print "Could not find package", id
+            _log.warning("Could not find package " + id)
                     
 
     def save_state(self, file_path):
+        _log.debug("DataManager.save_state(%s)", file_path)
         with open(file_path, "w") as handle:
             cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def load_state(file_path):
+        _log.debug("DataManager.load_state(%s)", file_path)
         with open(file_path, "r") as handle:
             return cPickle.load(handle)
