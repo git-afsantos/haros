@@ -259,7 +259,11 @@ def command_export(args, dataman = None):
             _log.warning("There is no analysis data to export.")
             return False
         json_path   = os.path.join(args.data_dir, "json")
+        if not os.path.exists(json_path):
+            os.mkdir(json_path)
         csv_path    = os.path.join(args.data_dir, "csv")
+        if not os.path.exists(csv_path):
+            os.mkdir(csv_path)
         db_path     = os.path.join(args.data_dir, "haros.db")
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
