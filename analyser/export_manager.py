@@ -1,6 +1,9 @@
 
 import json
+import logging
 import os
+
+_log = logging.getLogger(__name__)
 
 
 ################################################################################
@@ -8,41 +11,54 @@ import os
 ################################################################################
 
 def export_packages(datadir, packages):
+    _log.info("Exporting package data.")
     out = os.path.join(datadir, "packages.json")
     s = "[" + ", ".join([_pkg_json(p) for _, p in packages.iteritems()]) + "]"
     with open(out, "w") as f:
+        _log.debug("Writing to %s", out)
         f.write(s)
 
 def export_rules(datadir, rules):
+    _log.info("Exporting analysis rules.")
     out = os.path.join(datadir, "rules.json")
     with open(out, "w") as f:
+        _log.debug("Writing to %s", out)
         json.dump([rule.__dict__ for _, rule in rules.iteritems()], f)
 
 def export_metrics(datadir, metrics):
+    _log.info("Exporting analysis metrics.")
     out = os.path.join(datadir, "metrics.json")
     with open(out, "w") as f:
+        _log.debug("Writing to %s", out)
         json.dump([metric.__dict__ for _, metric in metrics.iteritems()], f)
 
 def export_violations(datadir, packages):
+    _log.info("Exporting reported rule violations.")
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
         data = [_violation_json(d) for d in pkg._violations]
         for f in pkg.source_files:
             data.extend([_violation_json(d) for d in f._violations])
         with open(out, "w") as f:
+            _log.debug("Writing to %s", out)
             f.write("[" + ", ".join(data) + "]")
 
 def export_measurements(datadir, packages):
+    _log.info("Exporting metrics measurements.")
     for id, pkg in packages.iteritems():
         out = os.path.join(datadir, id + ".json")
         data = [_metric_json(d) for d in pkg._metrics]
         for f in pkg.source_files:
             data.extend([_metric_json(d) for d in f._metrics])
         with open(out, "w") as f:
+            _log.debug("Writing to %s", out)
             f.write("[" + ", ".join(data) + "]")
 
 def export_summary(datadir, data):
-    with open(os.path.join(datadir, "summary.json"), "w") as f:
+    _log.info("Exporting analysis summary.")
+    out = os.path.join(datadir, "summary.json")
+    with open(out, "w") as f:
+        _log.debug("Writing to %s", out)
         json.dump({
             "source":           _summary_source(data.packages, data.files),
             "issues":           _summary_issues(data.repositories,

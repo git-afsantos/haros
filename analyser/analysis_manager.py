@@ -1,6 +1,9 @@
 
+import logging
 import os
 import shutil
+
+_log = logging.getLogger(__name__)
 
 
 # Represents a coding rule violation
@@ -58,17 +61,20 @@ class PluginInterface(object):
 
     def report_file_violation(self, rule_id, msg, scope_id,
                               line = None, function = None, class_ = None):
+        _log.debug("file_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.files)
         r = self._get_property(rule_id, self._data.rules, "file")
         datum = FileRuleViolation(r, scope, msg, line, function, class_)
         scope._violations.append(datum)
 
     def report_package_violation(self, rule_id, msg, scope_id):
+        _log.debug("package_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.packages)
         r = self._get_property(rule_id, self._data.rules, "package")
         scope._violations.append(RuleViolation(r, scope, msg))
 
     def report_repository_violation(self, rule_id, msg, scope_id):
+        _log.debug("repository_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.repositories)
         r = self._get_property(rule_id, self._data.rules, "repository")
         scope._violations.append(RuleViolation(r, scope, msg))
@@ -76,6 +82,7 @@ class PluginInterface(object):
     # Shorthand for reporting a violation on the current scope
     def report_violation(self, rule_id, msg,
                          line = None, function = None, class_ = None):
+        _log.debug("violation(%s, %s, %s)", rule_id, msg, self._scope.id)
         r = self._get_property(rule_id, self._data.rules, self._scope_type)
         if r.scope == "repository" or r.scope == "package":
             datum = RuleViolation(r, self._scope, msg)
@@ -86,6 +93,7 @@ class PluginInterface(object):
 
     def report_file_metric(self, metric_id, value, scope_id,
                            line = None, function = None, class_ = None):
+        _log.debug("file_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.files)
         m = self._get_property(metric_id, self._data.metrics, "file")
         datum = FileMetricMeasurement(m, scope, value, line, function, class_)
@@ -93,6 +101,7 @@ class PluginInterface(object):
         self._check_metric_violation(datum)
 
     def report_package_metric(self, metric_id, value, scope_id):
+        _log.debug("package_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.packages)
         m = self._get_property(metric_id, self._data.metrics, "package")
         datum = MetricMeasurement(m, scope, value)
@@ -100,6 +109,7 @@ class PluginInterface(object):
         self._check_metric_violation(datum)
 
     def report_repository_metric(self, metric_id, value, scope_id):
+        _log.debug("repository_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.repositories)
         m = self._get_property(metric_id, self._data.metrics, "repository")
         datum = MetricMeasurement(m, scope, value)
@@ -109,6 +119,7 @@ class PluginInterface(object):
     # Shorthand for reporting a metric on the current scope
     def report_metric(self, metric_id, value,
                       line = None, function = None, class_ = None):
+        _log.debug("metric(%s, %s, %s)", metric_id, value, self._scope.id)
         m = self._get_property(metric_id, self._data.metrics, self._scope_type)
         if m.scope == "repository" or m.scope == "package":
             datum = MetricMeasurement(m, self._scope, value)
@@ -158,6 +169,7 @@ class PluginInterface(object):
         return datum
 
     def _check_metric_violation(self, measurement):
+        _log.debug("_check_metric_violation(%s)", measurement.metric.id)
         tmax = measurement.metric.maximum
         tmin = measurement.metric.minimum
         value = measurement.value
@@ -179,6 +191,7 @@ class PluginInterface(object):
 
 
 def run_analysis(datadir, plugins, data):
+    _log.info("Running analysis plugins with collected data.")
     iface = PluginInterface(None, data)
     file_plugins = []
     pkg_plugins = []
@@ -204,10 +217,13 @@ def run_analysis(datadir, plugins, data):
 
 
 def _run_plugins(datadir, plugins, iface, scope):
+    _log.debug("Running plugins on %s %s", scope.scope_type(), scope.id)
     wd = os.getcwd()
     iface._scope = scope
     for plugin in plugins:
         if not iface._scope_type in plugin.scopes:
+            _log.debug("%s does not implement %s analysis",
+                       plugin.name, iface._scope_type)
             continue
         iface._plugin = plugin
         try:
@@ -216,7 +232,7 @@ def _run_plugins(datadir, plugins, iface, scope):
             func = getattr(plugin, "analyse_" + iface._scope_type)
             func(scope, iface)
         except (UndefinedPropertyError, AnalysisScopeError) as e:
-            print e
+            _log.error("%s", e.value)
         finally:
             os.chdir(wd)
             shutil.rmtree(datadir)
