@@ -13,9 +13,12 @@ class MalformedManifestError(Exception):
 
 
 class Plugin:
+    _types = ("analysis", "post-analysis")
+
     def __init__(self, name, dir):
         self.name       = name
         self.version    = "0.1"
+        self.types      = None
         self.rules      = None
         self.metrics    = None
         self.module     = None
@@ -34,6 +37,7 @@ class Plugin:
             raise MalformedManifestError("Malformed plugin manifest: " + \
                     self.name)
         self.version = manifest["version"]
+        self.types = set(manifest.get("type", "analysis").split())
         self.rules = manifest.get("rules", {})
         self.metrics = manifest.get("metrics", {})
         self.languages = set(manifest.get("languages", []))
@@ -54,6 +58,8 @@ class Plugin:
                                       os.path.join(self.path, "plugin.py"))
         if hasattr(self.module, "file_analysis"):
             self.scopes.add("file")
+        if hasattr(self.module, "post_file_analysis"):
+            self.scopes.add("file")
         if hasattr(self.module, "package_analysis"):
             self.scopes.add("package")
         if hasattr(self.module, "repository_analysis"):
@@ -66,6 +72,17 @@ class Plugin:
             try:
                 _log.debug("Calling module.file_analysis")
                 self.module.file_analysis(iface, scope)
+            except AttributeError as e:
+                _log.debug("Unexpected AttributeError")
+
+    def post_analyse_file(self, scope, iface):
+        _log.debug("Plugin.post_analyse_file: " + scope.id)
+        if scope.language in self.languages:
+            try:
+                _log.debug("Calling module.post_file_analysis")
+                self.module.post_file_analysis(iface, scope,
+                                               violations = scope._violations,
+                                               metrics = scope._metrics)
             except AttributeError as e:
                 _log.debug("Unexpected AttributeError")
 

@@ -194,12 +194,19 @@ def run_analysis(datadir, plugins, data):
     _log.info("Running analysis plugins with collected data.")
     iface = PluginInterface(None, data)
     file_plugins = []
+    post_file_plugins = []
     pkg_plugins = []
     repo_plugins = []
     for _, plugin in plugins.iteritems():
-        if "file" in plugin.scopes: file_plugins.append(plugin)
-        if "package" in plugin.scopes: pkg_plugins.append(plugin)
-        if "repository" in plugin.scopes: repo_plugins.append(plugin)
+        if "file" in plugin.scopes:
+            if "analysis" in plugin.types:
+                file_plugins.append(plugin)
+            if "post-analysis" in plugin.types:
+                post_file_plugins.append(plugin)
+        if "package" in plugin.scopes:
+            pkg_plugins.append(plugin)
+        if "repository" in plugin.scopes:
+            repo_plugins.append(plugin)
     # Step 1: prepare directories
     path = os.path.join(datadir, ".plugout")
     if os.path.exists(path):
@@ -208,15 +215,19 @@ def run_analysis(datadir, plugins, data):
     for _, package in data.packages.iteritems():
         iface._scope_type = "file"
         for source_file in package.source_files:
-            _run_plugins(path, file_plugins, iface, source_file)
+            _run_plugins(path, file_plugins, iface, source_file,
+                         "analyse_file")
+            _run_plugins(path, post_file_plugins, iface, source_file,
+                         "post_analyse_file")
         iface._scope_type = "package"
-        _run_plugins(path, pkg_plugins, iface, package)
+        _run_plugins(path, pkg_plugins, iface, package, "analyse_package")
     for _, repository in data.repositories.iteritems():
         iface._scope_type = "repository"
-        _run_plugins(path, repo_plugins, iface, repository)
+        _run_plugins(path, repo_plugins, iface, repository,
+                     "analyse_repository")
 
 
-def _run_plugins(datadir, plugins, iface, scope):
+def _run_plugins(datadir, plugins, iface, scope, func):
     _log.debug("Running plugins on %s %s", scope.scope, scope.id)
     wd = os.getcwd()
     iface._scope = scope
@@ -229,7 +240,7 @@ def _run_plugins(datadir, plugins, iface, scope):
         try:
             os.mkdir(datadir)
             os.chdir(datadir)
-            func = getattr(plugin, "analyse_" + iface._scope_type)
+            func = getattr(plugin, func)
             func(scope, iface)
         except (UndefinedPropertyError, AnalysisScopeError) as e:
             _log.error("%s", e.value)
