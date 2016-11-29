@@ -191,30 +191,30 @@ def _pkg_json(pkg):
 
 
 def _violation_json(datum):
-    json = '{"rule": "' + datum.rule.id + '", '
+    s = '{"rule": "' + datum.rule.id + '", '
     if datum.rule.scope == "file":
-        json += '"file": "' + datum.scope.name + '", '
+        s += '"file": "' + datum.scope.name + '", '
         try:
-            json += '"line": ' + json.dumps(datum.line) + ", "
-            json += '"function": ' + json.dumps(datum.function) + ", "
-            json += '"class":" ' + json.dumps(datum.class_) + ", "
+            s += '"line": ' + json.dumps(datum.line) + ", "
+            s += '"function": ' + json.dumps(datum.function) + ", "
+            s += '"class":" ' + json.dumps(datum.class_) + ", "
         except AttributeError as e:
-            pass
-    json += '"comment": "' + _escaped(datum.details or "") + '"}'
-    return json
+            _log.debug("_violation_json %s", e)
+    s += '"comment": "' + _escaped(datum.details or "") + '"}'
+    return s
 
 def _metric_json(datum):
-    json = '{"metric": "' + datum.metric.id + '", '
+    s = '{"metric": "' + datum.metric.id + '", '
     if datum.metric.scope == "file":
-        json += '"file": "' + datum.scope.name + '", '
+        s += '"file": "' + datum.scope.name + '", '
         try:
-            json += '"line": ' + json.dumps(datum.line) + ", "
-            json += '"function": ' + json.dumps(datum.function) + ", "
-            json += '"class":" ' + json.dumps(datum.class_) + ", "
+            s += '"line": ' + json.dumps(datum.line) + ", "
+            s += '"function": ' + json.dumps(datum.function) + ", "
+            s += '"class": ' + json.dumps(datum.class_) + ", "
         except AttributeError as e:
-            pass
-    json += '"value": ' + str(datum.value) + "}"
-    return json
+            _log.debug("_metric_json %s", e)
+    s += '"value": ' + str(datum.value) + "}"
+    return s
 
 
 def _escaped(s):
