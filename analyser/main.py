@@ -197,6 +197,12 @@ def command_init(args):
         os.mkdir(PLUGIN_DIR)
         _log.info("Cloning plugin repository.")
         subprocess.check_call(["git", "clone", PLUGIN_REPOSITORY, PLUGIN_DIR])
+    else:
+        _log.info("Updating plugin repository.")
+        wd = os.getcwd()
+        os.chdir(PLUGIN_DIR)
+        subprocess.check_call(["git", "pull"])
+        os.chdir(wd)
 
 
 def command_full(args):
