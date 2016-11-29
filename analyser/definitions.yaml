@@ -1,4 +1,30 @@
 %YAML 1.1
 ---
 rules: {}
-metrics: {}
+metrics:
+    cyclomatic_complexity:
+        name: Cyclomatic Complexity
+        description: Cyclomatic Complexity is a quantitative measure of the number of linearly independent paths through a program's source code.
+        scope: file
+        min: 1
+    halstead_bugs:
+        name: Number of Delivered Bugs
+        description: Estimate of the number of delivered bugs, according to the Halstead metrics.
+        scope: file
+        min: 0
+    halstead_time:
+        name: Time Required to Program
+        description: Estimate of the time required to change or understand this code.
+        scope: file
+        min: 0
+    halstead_volume:
+        name: Halstead's Volume
+        description: Halstead's Volume metric, related to the number of operators and operands in a program.
+        scope: file
+        min: 0
+    maintainability_index:
+        name: Maintainability Index
+        description: Maintainability Index is a software metric which measures how maintainable (easy to support and change) the source code is. The maintainability index is calculated as a factored formula consisting of Lines Of Code, Cyclomatic Complexity and Halstead volume.
+        scope: file
+        min: 0
+        max: 100

@@ -163,7 +163,7 @@ class PluginInterface(object):
             if not id in data:
                 raise UndefinedPropertyError(property_id)
         datum = data[id]
-        if datum.gt_scope(scope_type):
+        if datum.scope != scope_type:
             raise AnalysisScopeError("Found " + datum.scope
                                      + "; Expected " + scope_type)
         return datum

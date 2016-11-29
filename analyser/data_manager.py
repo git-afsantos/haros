@@ -25,7 +25,7 @@ _log = logging.getLogger(__name__)
 
 # Base class for general utility
 class AnalysisScope(object):
-    _scopes = ("function", "class", "file", "package", "repository")
+    _scopes = ("file", "package", "repository")
 
     def __init__(self, id, name, scope):
         self.id     = id
