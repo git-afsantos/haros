@@ -118,5 +118,5 @@ def load_plugins(root, whitelist = None, blacklist = None):
             except MalformedManifestError as e:
                 _log.warning(e.value)
             except ImportError as e:
-                _log.error("Failed to import plugin " + item)
+                _log.error("Failed to import %s; %s", item, e)
     return plugins
