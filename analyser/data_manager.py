@@ -30,20 +30,20 @@ class AnalysisScope(object):
     def __init__(self, id, name, scope):
         self.id     = id
         self.name   = name
-        assert scope in _scopes
+        assert scope in AnalysisScope._scopes
         self.scope  = scope
 
     def lte_scope(self, scope):
-        return _scopes.index(self.scope) <= _scopes.index(scope)
+        return AnalysisScope._scopes.index(self.scope) <= _scopes.index(scope)
 
     def gte_scope(self, scope):
-        return _scopes.index(self.scope) >= _scopes.index(scope)
+        return AnalysisScope._scopes.index(self.scope) >= _scopes.index(scope)
 
     def lt_scope(self, scope):
-        return _scopes.index(self.scope) < _scopes.index(scope)
+        return AnalysisScope._scopes.index(self.scope) < _scopes.index(scope)
 
     def gt_scope(self, scope):
-        return _scopes.index(self.scope) > _scopes.index(scope)
+        return AnalysisScope._scopes.index(self.scope) > _scopes.index(scope)
 
 
 # Represents a coding rule
