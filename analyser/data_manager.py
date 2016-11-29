@@ -23,21 +23,41 @@ _log = logging.getLogger(__name__)
 # Analysis Properties
 ################################################################################
 
+# Base class for general utility
+class AnalysisScope(object):
+    _scopes = ("function", "class", "file", "package", "repository")
+
+    def __init__(self, id, name, scope):
+        self.id     = id
+        self.name   = name
+        assert scope in _scopes
+        self.scope  = scope
+
+    def lte_scope(self, scope):
+        return _scopes.index(self.scope) <= _scopes.index(scope)
+
+    def gte_scope(self, scope):
+        return _scopes.index(self.scope) >= _scopes.index(scope)
+
+    def lt_scope(self, scope):
+        return _scopes.index(self.scope) < _scopes.index(scope)
+
+    def gt_scope(self, scope):
+        return _scopes.index(self.scope) > _scopes.index(scope)
+
+
 # Represents a coding rule
-class Rule(object):
-    def __init__(self, rule_id, scope, desc, tags):
-        self.id             = rule_id
-        self.scope          = scope
+class Rule(AnalysisScope):
+    def __init__(self, rule_id, name, scope, desc, tags):
+        AnalysisScope.__init__(self, rule_id, name, scope)
         self.description    = desc
         self.tags           = tags
 
 
 # Represents a quality metric
-class Metric(object):
+class Metric(AnalysisScope):
     def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        self.id             = metric_id
-        self.name           = name
-        self.scope          = scope
+        AnalysisScope.__init__(self, metric_id, name, scope)
         self.description    = desc
         self.minimum        = minv
         self.maximum        = maxv
@@ -65,7 +85,7 @@ class Person(object):
 
 
 # Represents a source code file
-class SourceFile(object):
+class SourceFile(AnalysisScope):
     _id_gen         = 1
     _excluded_dirs  = [".git", "doc", "bin", "cmake"]
     _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in",
@@ -75,9 +95,9 @@ class SourceFile(object):
     _launch_sources = ".launch"
 
     def __init__(self, name, path, pkg, lang):
-        self.id         = pkg.id + ":" + str(SourceFile._id_gen)
+        AnalysisScope.__init__(self, pkg.id + ":" + str(SourceFile._id_gen),
+                                name, "file")
         SourceFile._id_gen += 1
-        self.name       = name
         self.path       = path # relative to package root
         self.package    = pkg
         self.language   = lang
@@ -117,9 +137,6 @@ class SourceFile(object):
                     if not idx is None:
                         idx[source.id] = source
 
-    def scope_type(self):
-        return "file"
-
     def get_path(self):
         return os.path.join(self.package.path, self.path, self.name)
 
@@ -137,10 +154,9 @@ class SourceFile(object):
 
 
 # Represents a ROS package
-class Package(object):
+class Package(AnalysisScope):
     def __init__(self, name, repo = None):
-        self.id                 = name
-        self.name               = name
+        AnalysisScope.__init__(self, name, name, "package")
         self.repository         = repo
         self.authors            = set()
         self.maintainers        = set()
@@ -246,9 +262,6 @@ class Package(object):
             rp = RosPack.get_instance()
         rp._location_cache = None
 
-    def scope_type(self):
-        return "package"
-
     def __str__(self):
         return self.id
 
@@ -261,10 +274,9 @@ class RepositoryCloneError(Exception):
         return repr(self.value)
 
 
-class Repository(object):
+class Repository(AnalysisScope):
     def __init__(self, name):
-        self.id             = name
-        self.name           = name
+        AnalysisScope.__init__(self, name, name, "repository")
         self.vcs            = None 
         self.url            = None 
         self.version        = None
@@ -420,9 +432,6 @@ class Repository(object):
                             pkg_list.remove(pkg)
         return repos
 
-    def scope_type(self):
-        return "repository"
-
     def __str__(self):
         return self.id
 
@@ -454,7 +463,8 @@ class DataManager(object):
         id = "metric:" + id
         if (not m.minimum is None or not m.maximum is None) and \
                 not id in self.rules:
-            self.rules[id] = Rule(id, metric["scope"],
+            self.rules[id] = Rule(id, metric["name"] + " Threshold",
+                                  metric["scope"],
                                   metric["name"] + " threshold is [" \
                                   + str(metric.get("min", "n/a")) + "," \
                                   + str(metric.get("max", "n/a")) + "]", \
@@ -468,8 +478,8 @@ class DataManager(object):
         with open(data_file, "r") as handle:
             data = yaml.load(handle)
         for id, rule in data.get("rules", {}).iteritems():
-            self.rules[id] = Rule(id, rule["scope"], \
-                    rule["description"], rule["tags"])
+            self.rules[id] = Rule(id, rule["name"], rule["scope"],
+                                  rule["description"], rule["tags"])
             self.common_rules.add(id)
         for id, metric in data.get("metrics", {}).iteritems():
             self._add_metric(id, metric, common = True)
@@ -482,7 +492,7 @@ class DataManager(object):
                 _log.warning("Plugin %s cannot override %s", plugin_id, id)
                 continue # cannot override common rules
             id = plugin_id + ":" + id
-            self.rules[id] = Rule(id, rule["scope"],
+            self.rules[id] = Rule(id, rule["name"], rule["scope"],
                                   rule["description"], rule["tags"])
         for id, metric in metrics.iteritems():
             if id in self.common_metrics:

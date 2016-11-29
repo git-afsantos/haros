@@ -136,7 +136,7 @@ class PluginInterface(object):
         related = True
         if self._scope != scope:
             related = False
-            scope_type = scope.scope_type()
+            scope_type = scope.scope
             if self._scope_type == "repository":
                 if scope_type == "package":
                     related = scope.repository == self._scope
@@ -163,7 +163,7 @@ class PluginInterface(object):
             if not id in data:
                 raise UndefinedPropertyError(property_id)
         datum = data[id]
-        if scope_type != datum.scope:
+        if datum.gt_scope(scope_type):
             raise AnalysisScopeError("Found " + datum.scope
                                      + "; Expected " + scope_type)
         return datum
@@ -217,7 +217,7 @@ def run_analysis(datadir, plugins, data):
 
 
 def _run_plugins(datadir, plugins, iface, scope):
-    _log.debug("Running plugins on %s %s", scope.scope_type(), scope.id)
+    _log.debug("Running plugins on %s %s", scope.scope, scope.id)
     wd = os.getcwd()
     iface._scope = scope
     for plugin in plugins:
