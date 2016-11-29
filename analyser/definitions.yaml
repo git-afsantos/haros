@@ -1,12 +1,53 @@
 %YAML 1.1
 ---
-rules: {}
+rules:
+    max_comment_ratio_30:
+        name: Maximum Comment Ratio of 30%
+        description: Maximum Comment Ratio of 30%
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - comments
+            - comment-ratio
+    max_comment_ratio_40:
+        name: Maximum Comment Ratio of 40%
+        description: Maximum Comment Ratio of 40%
+        scope: file
+        tags:
+            - metrics
+            - uai
+            - comments
+            - comment-ratio
+    min_comment_ratio_20:
+        name: Minimum Comment Ratio of 20%
+        description: Minimum Comment Ratio of 20%
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - his
+            - uai
+            - ros
+            - comments
+            - comment-ratio
 metrics:
+    comment_ratio:
+        name: Comment Ratio
+        description: Ratio between comments and lines of code
+        scope: file
+        min: 0
+        max: 1.0
     cyclomatic_complexity:
         name: Cyclomatic Complexity
         description: Cyclomatic Complexity is a quantitative measure of the number of linearly independent paths through a program's source code.
         scope: file
         min: 1
+    executable_lines:
+        name: Number of Executable Lines
+        description: Number of executable lines (e.g. in a function).
+        scope: file
+        min: 0
     halstead_bugs:
         name: Number of Delivered Bugs
         description: Estimate of the number of delivered bugs, according to the Halstead metrics.
@@ -22,9 +63,29 @@ metrics:
         description: Halstead's Volume metric, related to the number of operators and operands in a program.
         scope: file
         min: 0
+    lloc:
+        name: Logical Lines of Code
+        description: Logical lines of code
+        scope: file
+        min: 0
+    locom:
+        name: Lines of Comments
+        description: Number of lines of comments
+        scope: file
+        min: 0
     maintainability_index:
         name: Maintainability Index
         description: Maintainability Index is a software metric which measures how maintainable (easy to support and change) the source code is. The maintainability index is calculated as a factored formula consisting of Lines Of Code, Cyclomatic Complexity and Halstead volume.
         scope: file
         min: 0
         max: 100
+    ploc:
+        name: Physical Lines of Code
+        description: Total number of lines
+        scope: file
+        min: 0
+    sloc:
+        name: Source Lines of Code
+        description: Source lines of code minus blank lines
+        scope: file
+        min: 0
