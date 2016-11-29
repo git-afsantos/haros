@@ -73,6 +73,7 @@ VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
 VIZ_SOURCE      = os.path.join(os.path.dirname(__file__), "..", "viz")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
+LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
 PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
 
 _log = logging.getLogger()
@@ -327,7 +328,8 @@ def command_viz(args):
 def main(argv = None):
     args = parse_arguments(argv)
     if args.debug:
-        logging.basicConfig(level = logging.DEBUG)
+        logging.basicConfig(filename = LOG_PATH, filemode = "w",
+                            level = logging.DEBUG)
     else:
         logging.basicConfig(level = logging.WARNING)
     try:
