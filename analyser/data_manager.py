@@ -16,56 +16,68 @@ except ImportError:
 from rospkg import RosPack, ResourceNotFound
 
 
+SCOPE_TYPES = ("file", "package", "repository")
+
 _log = logging.getLogger(__name__)
 
 
-################################################################################
+###############################################################################
 # Analysis Properties
-################################################################################
-
-# Base class for general utility
-class AnalysisScope(object):
-    _scopes = ("file", "package", "repository")
-
-    def __init__(self, id, name, scope):
-        self.id     = id
-        self.name   = name
-        assert scope in AnalysisScope._scopes
-        self.scope  = scope
-
-    def lte_scope(self, scope):
-        return AnalysisScope._scopes.index(self.scope) <= _scopes.index(scope)
-
-    def gte_scope(self, scope):
-        return AnalysisScope._scopes.index(self.scope) >= _scopes.index(scope)
-
-    def lt_scope(self, scope):
-        return AnalysisScope._scopes.index(self.scope) < _scopes.index(scope)
-
-    def gt_scope(self, scope):
-        return AnalysisScope._scopes.index(self.scope) > _scopes.index(scope)
-
+###############################################################################
 
 # Represents a coding rule
-class Rule(AnalysisScope):
+class Rule(object):
     def __init__(self, rule_id, name, scope, desc, tags):
-        AnalysisScope.__init__(self, rule_id, name, scope)
+        self.id             = id
+        self.name           = name
+        assert scope in SCOPE_TYPES
+        self.scope          = scope
         self.description    = desc
         self.tags           = tags
 
 
 # Represents a quality metric
-class Metric(AnalysisScope):
+class Metric(object):
     def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        AnalysisScope.__init__(self, metric_id, name, scope)
+        self.id             = id
+        self.name           = name
+        assert scope in SCOPE_TYPES
+        self.scope          = scope
         self.description    = desc
         self.minimum        = minv
         self.maximum        = maxv
 
 
-################################################################################
+###############################################################################
 # Source Code Structures
-################################################################################
+###############################################################################
+
+# Base class for general utility
+class AnalysisScope(object):
+    def __init__(self, id, name, scope):
+        self.id     = id
+        self.name   = name
+        assert scope in SCOPE_TYPES
+        self.scope  = scope
+
+    def lte_scope(self, scope):
+        return SCOPE_TYPES.index(self.scope) <= _scopes.index(scope)
+
+    def gte_scope(self, scope):
+        return SCOPE_TYPES.index(self.scope) >= _scopes.index(scope)
+
+    def lt_scope(self, scope):
+        return SCOPE_TYPES.index(self.scope) < _scopes.index(scope)
+
+    def gt_scope(self, scope):
+        return SCOPE_TYPES.index(self.scope) > _scopes.index(scope)
+
+    def bound_to(self, scope):
+        return self == scope
+
+    def __str__(self):
+        return self.id
+
 
 # Represents a person (author/maintainer)
 class Person(object):
@@ -149,8 +161,12 @@ class SourceFile(AnalysisScope):
                 pass
         return count
 
-    def __str__(self):
-        return self.id
+    def bound_to(self, other):
+        if other.scope == "package":
+            return self.package == other
+        if other.scope == "repository":
+            return self.package in other.packages
+        return self == other
 
 
 # Represents a ROS package
@@ -262,8 +278,12 @@ class Package(AnalysisScope):
             rp = RosPack.get_instance()
         rp._location_cache = None
 
-    def __str__(self):
-        return self.id
+    def bound_to(self, other):
+        if other.scope == "file":
+            return other.package == self
+        if other.scope == "repository":
+            return self.repository == other
+        return self == other
 
 
 
@@ -432,8 +452,12 @@ class Repository(AnalysisScope):
                             pkg_list.remove(pkg)
         return repos
 
-    def __str__(self):
-        return self.id
+    def bound_to(self, other):
+        if other.scope == "package":
+            return other.repository == self
+        if other.scope == "file":
+            return other.package in self.packages
+        return self == other
 
 
 ################################################################################

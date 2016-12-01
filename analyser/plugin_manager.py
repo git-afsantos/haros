@@ -12,19 +12,131 @@ class MalformedManifestError(Exception):
         return repr(self.value)
 
 
-class Plugin:
-    _types = ("analysis", "post-analysis")
+class AnalysisInterface(object):
+    def __init__(self, module, languages):
+        self.module     = module
+        self.languages  = set(languages)
+        self.state      = None
+        self.f_analysis = hasattr(module, "file_analysis")
+        self.p_analysis = hasattr(module, "package_analysis")
+        self.r_analysis = hasattr(module, "repository_analysis")
 
+    def analyse_file(self, iface, scope):
+        _log.debug("Plugin.analyse_file: " + scope.id)
+        if self.f_analysis and scope.language in self.languages:
+            _log.debug("Calling module.file_analysis")
+            self.module.file_analysis(iface, scope)
+
+    def analyse_package(self, iface, scope):
+        _log.debug("Plugin.analyse_package: " + scope.id)
+        if self.p_analysis:
+            _log.debug("Calling module.package_analysis")
+            self.module.package_analysis(iface, scope)
+
+    def analyse_repository(self, iface, scope):
+        # Note: path may be None if the repository was not downloaded
+        # TODO: what action to take on None path
+        _log.debug("Plugin.analyse_repository: " + scope.id)
+        if self.r_analysis:
+            _log.debug("Calling module.repository_analysis")
+            self.module.repository_analysis(iface, scope)
+
+    def pre_analysis(self):
+        _log.debug("Plugin.pre_analysis")
+        try:
+            _log.debug("Calling module.pre_analysis")
+            self.state = self.module.pre_analysis()
+        except AttributeError as e:
+            _log.debug("Module does not perform initialisation.")
+
+    def post_analysis(self, iface):
+        _log.debug("Plugin.post_analysis")
+        try:
+            _log.debug("Calling module.post_analysis")
+            self.module.post_analysis(iface)
+        except AttributeError as e:
+            _log.debug("Module does not perform finalisation.")
+
+
+class ProcessingInterface(object):
+    def __init__(self, module):
+        self.module         = module
+        self.state          = None
+        self.f_violations   = hasattr(module, "process_file_violation")
+        self.f_metrics      = hasattr(module, "process_file_metric")
+        self.p_violations   = hasattr(module, "process_package_violation")
+        self.p_metrics      = hasattr(module, "process_package_metric")
+        self.r_violations   = hasattr(module, "process_repository_violation")
+        self.r_metrics      = hasattr(module, "process_repository_metric")
+
+    def process_file(self, iface, scope, violations, metrics):
+        # Receives a copy of the issues because the actual lists may change
+        _log.debug("Plugin.process_file: " + scope.id)
+        if self.f_violations:
+            _log.debug("Calling module.process_file_violation")
+            for datum in violations:
+                self.module.process_file_violation(iface, datum)
+        if self.f_metrics:
+            _log.debug("Calling module.process_file_metric")
+            for datum in metrics:
+                self.module.process_file_metric(iface, datum)
+
+    def process_package(self, iface, scope, violations, metrics):
+        # Receives a copy of the issues because the actual lists may change
+        _log.debug("Plugin.process_package: " + scope.id)
+        if self.p_violations:
+            _log.debug("Calling module.process_package_violation")
+            for datum in violations:
+                self.module.process_package_violation(iface, datum)
+        if self.p_metrics:
+            _log.debug("Calling module.process_package_metric")
+            for datum in metrics:
+                self.module.process_package_metric(iface, datum)
+
+    def process_repository(self, iface, scope, violations, metrics):
+        # Receives a copy of the issues because the actual lists may change
+        _log.debug("Plugin.process_repository: " + scope.id)
+        if self.r_violations:
+            _log.debug("Calling module.process_repository_violation")
+            for datum in violations:
+                self.module.process_repository_violation(iface, datum)
+        if self.r_metrics:
+            _log.debug("Calling module.process_repository_metric")
+            for datum in metrics:
+                self.module.process_repository_metric(iface, datum)
+
+    def pre_process(self):
+        _log.debug("Plugin.pre_process")
+        try:
+            _log.debug("Calling module.pre_process")
+            self.state = self.module.pre_process()
+        except AttributeError as e:
+            _log.debug("Module does not perform initialisation.")
+
+    def post_process(self, iface):
+        _log.debug("Plugin.post_process")
+        try:
+            _log.debug("Calling module.post_process")
+            self.module.post_process(iface)
+        except AttributeError as e:
+            _log.debug("Module does not perform finalisation.")
+
+
+class ExportInterface(object):
+    pass
+
+
+class Plugin(object):
     def __init__(self, name, dir):
         self.name       = name
         self.version    = "0.1"
-        self.types      = None
+        self.path       = dir
         self.rules      = None
         self.metrics    = None
-        self.module     = None
-        self.path       = dir
-        self.scopes     = set()
-        self.languages  = None
+        self.analysis   = None
+        self.process    = None
+        self.export     = None
+        self.tmp_path   = None
 
     def load(self, common_rules = None, common_metrics = None):
         _log.debug("Plugin.load")
@@ -36,11 +148,9 @@ class Plugin:
                 manifest["name"] != self.name:
             raise MalformedManifestError("Malformed plugin manifest: " + \
                     self.name)
-        self.version = manifest["version"]
-        self.types = set(manifest.get("type", "analysis").split())
-        self.rules = manifest.get("rules", {})
-        self.metrics = manifest.get("metrics", {})
-        self.languages = set(manifest.get("languages", []))
+        self.version    = manifest["version"]
+        self.rules      = manifest.get("rules", {})
+        self.metrics    = manifest.get("metrics", {})
         _log.debug("Loaded %s [%s]", self.name, self.version)
         if common_rules:
             rm = [id for id in self.rules if id in common_rules]
@@ -54,62 +164,18 @@ class Plugin:
                 del self.metrics[id]
         _log.info("Loading plugin script.")
         _log.debug("Plugin script at %s", self.path)
-        self.module = imp.load_source(self.name,
-                                      os.path.join(self.path, "plugin.py"))
-        if hasattr(self.module, "file_analysis"):
-            self.scopes.add("file")
-        if hasattr(self.module, "post_file_analysis"):
-            self.scopes.add("file")
-        if hasattr(self.module, "package_analysis"):
-            self.scopes.add("package")
-        if hasattr(self.module, "repository_analysis"):
-            self.scopes.add("repository")
-        _log.debug("Plugin scopes %s", self.scopes)
-
-    def analyse_file(self, scope, iface):
-        _log.debug("Plugin.analyse_file: " + scope.id)
-        if scope.language in self.languages:
-            try:
-                _log.debug("Calling module.file_analysis")
-                self.module.file_analysis(iface, scope)
-            except AttributeError as e:
-                _log.debug("Unexpected AttributeError")
-
-    def post_analyse_file(self, scope, iface):
-        _log.debug("Plugin.post_analyse_file: " + scope.id)
-        if scope.language in self.languages:
-            try:
-                _log.debug("Calling module.post_file_analysis")
-                self.module.post_file_analysis(iface, scope,
-                                               violations = scope._violations,
-                                               metrics = scope._metrics)
-            except AttributeError as e:
-                _log.debug("Unexpected AttributeError")
-
-    def analyse_package(self, scope, iface):
-        _log.debug("Plugin.analyse_package: " + scope.id)
-        try:
-            _log.debug("Calling module.package_analysis")
-            self.module.package_analysis(iface, scope)
-        except AttributeError as e:
-            _log.debug("Unexpected AttributeError")
-
-    def analyse_repository(self, scope, iface):
-        # Note: path may be None if the repo wasn't downloaded
-        # TODO: what action to take on None path
-        _log.debug("Plugin.analyse_repository: " + scope.id)
-        try:
-            _log.debug("Calling module.repository_analysis")
-            self.module.repository_analysis(iface, scope)
-        except AttributeError as e:
-            _log.debug("Unexpected AttributeError")
+        module = imp.load_source(self.name,
+                                 os.path.join(self.path, "plugin.py"))
+        languages = manifest.get("languages", [])
+        self.analysis = AnalysisInterface(module, languages)
+        self.process = ProcessingInterface(module)
+        self.export = ExportInterface()
 
 
 
-# Returns {Name -> (Manifest, Module)}
 def load_plugins(root, whitelist = None, blacklist = None):
     _log.debug("load_plugins(%s, %s, %s)", root, whitelist, blacklist)
-    plugins = {}
+    plugins = []
     filter = []
     mode = 0
     if whitelist:
@@ -131,7 +197,7 @@ def load_plugins(root, whitelist = None, blacklist = None):
             plugin = Plugin(item, d)
             try:
                 plugin.load()
-                plugins[item] = plugin
+                plugins.append(plugin)
             except MalformedManifestError as e:
                 _log.warning(e.value)
             except ImportError as e:

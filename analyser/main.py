@@ -238,10 +238,10 @@ def command_analyse(args):
     if not plugins:
         _log.warning("There are no analysis plugins.")
         return False
-    for id, plugin in plugins.iteritems():
-        dataman.extend_definitions(id, plugin.rules, plugin.metrics)
+    for plugin in plugins:
+        dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
     print "[HAROS] Running analysis..."
-    anaman.run_analysis(HAROS_DIR, plugins, dataman)
+    anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
     command_export(args, dataman)
