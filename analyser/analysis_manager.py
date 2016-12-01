@@ -215,6 +215,7 @@ def _analysis(iface, plugins, data):
         except (UndefinedPropertyError, AnalysisScopeError) as e:
             _log.error("%s", e.value)
         # Step 3: run finalisation
+        iface._scope = None
         plugin.analysis.post_analysis(iface)
 
 
@@ -255,6 +256,7 @@ def _processing(iface, plugins, data):
     except (UndefinedPropertyError, AnalysisScopeError) as e:
         _log.error("%s", e.value)
     # Step 3: run finalisation
+    iface._scope = None
     for plugin in plugins.iteritems():
         os.chdir(plugin.tmp_path)
         plugin.process.post_process(iface)

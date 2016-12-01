@@ -32,6 +32,11 @@ rules:
             - comments
             - comment-ratio
 metrics:
+    comments:
+        name: Lines of Comments
+        description: Number of lines of comments
+        scope: file
+        min: 0
     comment_ratio:
         name: Comment Ratio
         description: Ratio between comments and lines of code
@@ -66,11 +71,6 @@ metrics:
     lloc:
         name: Logical Lines of Code
         description: Logical lines of code
-        scope: file
-        min: 0
-    locom:
-        name: Lines of Comments
-        description: Number of lines of comments
         scope: file
         min: 0
     maintainability_index:
