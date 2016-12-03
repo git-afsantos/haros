@@ -59,31 +59,34 @@ class PluginInterface(object):
         self._plugin        = None
         self._scope         = None
 
+    def get_file(self, relative_path):
+        return os.path.join(self._plugin.path, relative_path)
+
     def report_file_violation(self, rule_id, msg, scope_id,
                               line = None, function = None, class_ = None):
         _log.debug("file_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.files)
-        r = self._get_property(rule_id, self._data.rules, "file")
+        r = self._get_property(rule_id, self._data.rules, scope)
         datum = FileRuleViolation(r, scope, msg, line, function, class_)
         scope._violations.append(datum)
 
     def report_package_violation(self, rule_id, msg, scope_id):
         _log.debug("package_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.packages)
-        r = self._get_property(rule_id, self._data.rules, "package")
+        r = self._get_property(rule_id, self._data.rules, scope)
         scope._violations.append(RuleViolation(r, scope, msg))
 
     def report_repository_violation(self, rule_id, msg, scope_id):
         _log.debug("repository_violation(%s, %s, %s)", rule_id, msg, scope_id)
         scope = self._get_scope(scope_id, self._data.repositories)
-        r = self._get_property(rule_id, self._data.rules, "repository")
+        r = self._get_property(rule_id, self._data.rules, scope)
         scope._violations.append(RuleViolation(r, scope, msg))
 
     # Shorthand for reporting a violation on the current scope
     def report_violation(self, rule_id, msg,
                          line = None, function = None, class_ = None):
         _log.debug("violation(%s, %s, %s)", rule_id, msg, self._scope.id)
-        r = self._get_property(rule_id, self._data.rules, self._scope.scope)
+        r = self._get_property(rule_id, self._data.rules, self._scope)
         if r.scope == "repository" or r.scope == "package":
             datum = RuleViolation(r, self._scope, msg)
         else:
@@ -95,7 +98,7 @@ class PluginInterface(object):
                            line = None, function = None, class_ = None):
         _log.debug("file_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.files)
-        m = self._get_property(metric_id, self._data.metrics, "file")
+        m = self._get_property(metric_id, self._data.metrics, scope)
         datum = FileMetricMeasurement(m, scope, value, line, function, class_)
         scope._metrics.append(datum)
         self._check_metric_violation(datum)
@@ -103,7 +106,7 @@ class PluginInterface(object):
     def report_package_metric(self, metric_id, value, scope_id):
         _log.debug("package_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.packages)
-        m = self._get_property(metric_id, self._data.metrics, "package")
+        m = self._get_property(metric_id, self._data.metrics, scope)
         datum = MetricMeasurement(m, scope, value)
         scope._metrics.append(datum)
         self._check_metric_violation(datum)
@@ -111,7 +114,7 @@ class PluginInterface(object):
     def report_repository_metric(self, metric_id, value, scope_id):
         _log.debug("repository_metric(%s, %s, %s)", metric_id, value, scope_id)
         scope = self._get_scope(scope_id, self._data.repositories)
-        m = self._get_property(metric_id, self._data.metrics, "repository")
+        m = self._get_property(metric_id, self._data.metrics, scope)
         datum = MetricMeasurement(m, scope, value)
         scope._metrics.append(datum)
         self._check_metric_violation(datum)
@@ -120,7 +123,7 @@ class PluginInterface(object):
     def report_metric(self, metric_id, value,
                       line = None, function = None, class_ = None):
         _log.debug("metric(%s, %s, %s)", metric_id, value, self._scope.id)
-        m = self._get_property(metric_id, self._data.metrics, self._scope.scope)
+        m = self._get_property(metric_id, self._data.metrics, self._scope)
         if m.scope == "repository" or m.scope == "package":
             datum = MetricMeasurement(m, self._scope, value)
         else:
@@ -137,16 +140,16 @@ class PluginInterface(object):
             raise AnalysisScopeError("Unrelated scope " + scope_id)
         return scope
 
-    def _get_property(self, property_id, data, scope_type):
+    def _get_property(self, property_id, data, scope):
         id = property_id
         if not property_id in data:
             id = self._plugin.name + ":" + property_id
             if not id in data:
                 raise UndefinedPropertyError(property_id)
         datum = data[id]
-        if datum.scope != scope_type:
+        if not scope.accepts_scope(datum.scope):
             raise AnalysisScopeError("Found " + datum.scope
-                                     + "; Expected " + scope_type)
+                                     + "; Expected " + scope.scope)
         return datum
 
     def _check_metric_violation(self, measurement):

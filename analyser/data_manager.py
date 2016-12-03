@@ -16,7 +16,7 @@ except ImportError:
 from rospkg import RosPack, ResourceNotFound
 
 
-SCOPE_TYPES = ("file", "package", "repository")
+SCOPE_TYPES = ("function", "class", "file", "package", "repository")
 
 _log = logging.getLogger(__name__)
 
@@ -61,19 +61,22 @@ class AnalysisScope(object):
         self.scope  = scope
 
     def lte_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) <= _scopes.index(scope)
+        return SCOPE_TYPES.index(self.scope) <= SCOPE_TYPES.index(scope)
 
     def gte_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) >= _scopes.index(scope)
+        return SCOPE_TYPES.index(self.scope) >= SCOPE_TYPES.index(scope)
 
     def lt_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) < _scopes.index(scope)
+        return SCOPE_TYPES.index(self.scope) < SCOPE_TYPES.index(scope)
 
     def gt_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) > _scopes.index(scope)
+        return SCOPE_TYPES.index(self.scope) > SCOPE_TYPES.index(scope)
 
     def bound_to(self, scope):
         return self == scope
+
+    def accepts_scope(self, scope):
+        return self.scope == scope
 
     def __str__(self):
         return self.id
@@ -167,6 +170,9 @@ class SourceFile(AnalysisScope):
         if other.scope == "repository":
             return self.package in other.packages
         return self == other
+
+    def accepts_scope(self, scope):
+        return self.gte_scope(scope)
 
 
 # Represents a ROS package
