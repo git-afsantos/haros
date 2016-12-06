@@ -199,7 +199,7 @@ def _violation_json(datum):
         try:
             s += '"line": ' + json.dumps(datum.line) + ", "
             s += '"function": ' + json.dumps(datum.function) + ", "
-            s += '"class":" ' + json.dumps(datum.class_) + ", "
+            s += '"class": ' + json.dumps(datum.class_) + ", "
         except AttributeError as e:
             _log.debug("_violation_json %s", e)
     s += '"comment": "' + _escaped(datum.details or "") + '"}'
