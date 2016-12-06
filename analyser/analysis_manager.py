@@ -188,8 +188,8 @@ def run_analysis_and_processing(datadir, plugins, data):
         plugin.tmp_path = path
     wd = os.getcwd()
     try:
-        _analysis(iface, plugins, data, plugout)
-        _processing(iface, plugins, data, plugout)
+        _analysis(iface, plugins, data)
+        _processing(iface, plugins, data)
     finally:
         os.chdir(wd)
         shutil.rmtree(plugout)
