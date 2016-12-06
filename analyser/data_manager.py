@@ -28,7 +28,7 @@ _log = logging.getLogger(__name__)
 # Represents a coding rule
 class Rule(object):
     def __init__(self, rule_id, name, scope, desc, tags):
-        self.id             = id
+        self.id             = rule_id
         self.name           = name
         assert scope in SCOPE_TYPES
         self.scope          = scope
@@ -39,7 +39,7 @@ class Rule(object):
 # Represents a quality metric
 class Metric(object):
     def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        self.id             = id
+        self.id             = metric_id
         self.name           = name
         assert scope in SCOPE_TYPES
         self.scope          = scope
