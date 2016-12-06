@@ -173,7 +173,7 @@ def _pkg_json(pkg):
     s += ', "maintainers": ' + json.dumps([p.name for p in pkg.maintainers])
     s += ', "dependencies": ' + json.dumps(list(pkg.dependencies))
     s += ', "size": ' + "{0:.2f}".format(pkg.size / 1000.0)
-    s += ', "ploc": ' + str(pkg.lines)
+    s += ', "lines": ' + str(pkg.lines)
     analysis = {}
     violations = {}
     metrics = {}

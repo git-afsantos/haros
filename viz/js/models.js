@@ -14,7 +14,7 @@
         analysis: {},
         dependencies: [],
         size,
-        ploc
+        lines
     */
     Models.Package = Backbone.Model.extend({
         defaults: function () {
