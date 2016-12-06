@@ -53,6 +53,11 @@ metrics:
         description: Number of executable lines (e.g. in a function).
         scope: file
         min: 0
+    function_parameters:
+        name: Number of Function Parameters
+        description: How many parameters a function takes.
+        scope: function
+        min: 0
     halstead_bugs:
         name: Number of Delivered Bugs
         description: Estimate of the number of delivered bugs, according to the Halstead metrics.
