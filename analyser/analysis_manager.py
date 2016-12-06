@@ -224,7 +224,7 @@ def _analysis(iface, plugins, data):
 
 def _processing(iface, plugins, data):
     # Step 1: run initialisation
-    for plugin in plugins.iteritems():
+    for plugin in plugins:
         os.chdir(plugin.tmp_path)
         plugin.process.pre_process()
     # Step 2: run processing; file > package > repository
@@ -260,6 +260,6 @@ def _processing(iface, plugins, data):
         _log.error("%s", e.value)
     # Step 3: run finalisation
     iface._scope = None
-    for plugin in plugins.iteritems():
+    for plugin in plugins:
         os.chdir(plugin.tmp_path)
         plugin.process.post_process(iface)
