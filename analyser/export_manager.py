@@ -192,7 +192,9 @@ def _pkg_json(pkg):
 
 def _violation_json(datum):
     s = '{"rule": "' + datum.rule.id + '", '
-    if datum.rule.scope == "file":
+    if datum.rule.scope == "file" \
+            or datum.metric.scope == "function" \
+            or datum.metric.scope == "class":
         s += '"file": "' + datum.scope.name + '", '
         try:
             s += '"line": ' + json.dumps(datum.line) + ", "
@@ -205,7 +207,9 @@ def _violation_json(datum):
 
 def _metric_json(datum):
     s = '{"metric": "' + datum.metric.id + '", '
-    if datum.metric.scope == "file":
+    if datum.metric.scope == "file" \
+            or datum.metric.scope == "function" \
+            or datum.metric.scope == "class":
         s += '"file": "' + datum.scope.name + '", '
         try:
             s += '"line": ' + json.dumps(datum.line) + ", "
