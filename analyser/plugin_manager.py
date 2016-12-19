@@ -1,6 +1,7 @@
-import imp
+import importlib
 import logging
 import os
+import sys
 import yaml
 
 _log = logging.getLogger(__name__)
@@ -164,8 +165,8 @@ class Plugin(object):
                 del self.metrics[id]
         _log.info("Loading plugin script.")
         _log.debug("Plugin script at %s", self.path)
-        module = imp.load_source(self.name,
-                                 os.path.join(self.path, "plugin.py"))
+        module = importlib.import_module(self.name + ".plugin",
+                                         package = self.name)
         languages = manifest.get("languages", [])
         self.analysis = AnalysisInterface(module, languages)
         self.process = ProcessingInterface(module)
@@ -184,6 +185,7 @@ def load_plugins(root, whitelist = None, blacklist = None):
     elif blacklist:
         filter = blacklist
         mode = -1
+    sys.path.insert(0, root)
     for item in os.listdir(root):
         if (mode > 0 and not item in filter) \
                 or (mode < 0 and item in filter) \
@@ -202,4 +204,5 @@ def load_plugins(root, whitelist = None, blacklist = None):
                 _log.warning(e.value)
             except ImportError as e:
                 _log.error("Failed to import %s; %s", item, e)
+    sys.path.pop(0)
     return plugins
