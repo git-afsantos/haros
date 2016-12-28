@@ -133,10 +133,7 @@ class PluginInterface(object):
         self._check_metric_violation(datum)
 
     def find_package(self, scope_id):
-        try:
-            return self._get_scope(scope_id, self._data.packages)
-        except AnalysisScopeError as e:
-            return None
+        return self._data.packages.get(scope_id, None)
 
     def _get_scope(self, scope_id, data):
         if not scope_id in data:
