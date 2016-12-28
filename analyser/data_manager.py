@@ -289,7 +289,7 @@ class Package(AnalysisScope):
             return other.package == self
         if other.scope == "repository":
             return self.repository == other
-        return self == other
+        return self == other or other.id in self.dependencies
 
 
 

@@ -132,6 +132,12 @@ class PluginInterface(object):
         self._scope._metrics.append(datum)
         self._check_metric_violation(datum)
 
+    def find_package(self, scope_id):
+        try:
+            return self._get_scope(scope_id, self._data.packages)
+        except AnalysisScopeError as e:
+            return None
+
     def _get_scope(self, scope_id, data):
         if not scope_id in data:
             raise AnalysisScopeError("Unknown scope id " + scope_id)
