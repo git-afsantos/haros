@@ -73,7 +73,7 @@ These operations include downloading a basic set of analysis plugins. Do so with
 ```
 
 After initialisation, you still need to install some analysis tools that HAROS
-uses behind the curtains. Install these $dependencies$ with the following commands.
+uses behind the curtains. Install these *$dependencies$* with the following commands.
 
 ```bash
 sudo apt-get install python-pip
