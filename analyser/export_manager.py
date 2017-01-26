@@ -193,8 +193,8 @@ def _pkg_json(pkg):
 def _violation_json(datum):
     s = '{"rule": "' + datum.rule.id + '", '
     if datum.rule.scope == "file" \
-            or datum.metric.scope == "function" \
-            or datum.metric.scope == "class":
+            or datum.rule.scope == "function" \
+            or datum.rule.scope == "class":
         s += '"file": "' + datum.scope.name + '", '
         try:
             s += '"line": ' + json.dumps(datum.line) + ", "
