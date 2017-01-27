@@ -16,7 +16,7 @@ rules:
         scope: file
         tags:
             - metrics
-            - uai
+            - unak
             - comments
             - comment-ratio
     min_comment_ratio_20:
@@ -27,10 +27,174 @@ rules:
             - metrics
             - nasa-satc
             - his
-            - uai
+            - unak
             - ros
             - comments
             - comment-ratio
+    max_cyclomatic_complexity_10:
+        name: Maximum Cyclomatic Complexity of 10
+        description: Maximum Cyclomatic Complexity of 10
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - his
+            - cyclomatic-complexity
+    max_cyclomatic_complexity_15:
+        name: Maximum Cyclomatic Complexity of 15
+        description: Maximum Cyclomatic Complexity of 15
+        scope: file
+        tags:
+            - metrics
+            - kth
+            - ros
+            - cyclomatic-complexity
+    max_eloc_50:
+        name: Maximum Executable Lines of Code of 50
+        description: Maximum Executable Lines of Code of 50
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - his
+            - eloc
+            - loc
+            - lines-of-code
+    max_eloc_70:
+        name: Maximum Executable Lines of Code of 70
+        description: Maximum Executable Lines of Code of 70
+        scope: file
+        tags:
+            - metrics
+            - kth
+            - ros
+            - eloc
+            - loc
+            - lines-of-code
+    max_function_calls_7:
+        name: Maximum Function Calls of 7
+        description: Maximum Function Calls of 7
+        scope: file
+        tags:
+            - metrics
+            - his
+            - function-calls
+    max_function_calls_10:
+        name: Maximum Function Calls of 10
+        description: Maximum Function Calls of 10
+        scope: file
+        tags:
+            - metrics
+            - kth
+            - ros
+            - function-calls
+    max_control_nesting_4:
+        name: Maximum Nesting of Control Structures of 4
+        description: Maximum Nesting of Control Structures of 4
+        scope: file
+        tags:
+            - metrics
+            - his
+            - nesting
+            - control-structures
+            - control-flow
+    max_control_nesting_5:
+        name: Maximum Nesting of Control Structures of 5
+        description: Maximum Nesting of Control Structures of 5
+        scope: file
+        tags:
+            - metrics
+            - kth
+            - ros
+            - nesting
+            - control-structures
+            - control-flow
+    max_static_path_80:
+        name: Maximum Estimated Static Path Count of 80
+        description: Maximum Estimated Static Path Count of 80
+        scope: file
+        tags:
+            - metrics
+            - his
+            - static-path
+    max_static_path_200:
+        name: Maximum Estimated Static Path Count of 200
+        description: Maximum Estimated Static Path Count of 200
+        scope: file
+        tags:
+            - metrics
+            - hicpp
+            - static-path
+    max_static_path_250:
+        name: Maximum Estimated Static Path Count of 250
+        description: Maximum Estimated Static Path Count of 250
+        scope: file
+        tags:
+            - metrics
+            - kth
+            - ros
+            - static-path
+    max_coupling_objects_5:
+        name: Maximum Coupling Between Objects of 5
+        description: Maximum Coupling Between Objects of 5
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - ros
+            - coupling
+            - cbo
+    max_immediate_children_10:
+        name: Maximum Number of Immediate Children of 10
+        description: Maximum Number of Immediate Children of 10
+        scope: file
+        tags:
+            - metrics
+            - unak
+            - immediate-children
+            - noc
+    max_weighted_methods_50:
+        name: Maximum Weighted Methods per Class of 50
+        description: Maximum Weighted Methods per Class of 50
+        scope: file
+        tags:
+            - metrics
+            - unak
+            - wmc
+            - weighted-methods
+            - methods
+    max_weighted_methods_100:
+        name: Maximum Weighted Methods per Class of 100
+        description: Maximum Weighted Methods per Class of 100
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - ros
+            - wmc
+            - weighted-methods
+            - methods
+    max_deepest_inheritance_5:
+        name: Maximum Deepest Level of Inheritance of 5
+        description: Maximum Deepest Level of Inheritance of 5
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - unak
+            - dit
+            - inheritance
+    max_methods_available_20:
+        name: Maximum Methods Available in Class of 20
+        description: Maximum Methods Available in Class of 20
+        scope: file
+        tags:
+            - metrics
+            - nasa-satc
+            - ros
+            - mac
+            - methods-available
+            - methods
 metrics:
     comments:
         name: Lines of Comments
@@ -43,6 +207,11 @@ metrics:
         scope: file
         min: 0
         max: 1.0
+    coupling:
+        name: Coupling Between Objects
+        description: Coupling between objects.
+        scope: file
+        min: 0
     cyclomatic_complexity:
         name: Cyclomatic Complexity
         description: Cyclomatic Complexity is a quantitative measure of the number of linearly independent paths through a program's source code.
@@ -52,6 +221,11 @@ metrics:
         name: Executable Lines of Code
         description: Number of executable lines (e.g. in a function).
         scope: file
+        min: 0
+    function_calls:
+        name: Number of Function Calls
+        description: How many functions a function calls.
+        scope: function
         min: 0
     function_parameters:
         name: Number of Function Parameters
@@ -73,6 +247,11 @@ metrics:
         description: Halstead's Volume metric, related to the number of operators and operands in a program.
         scope: file
         min: 0
+    depth_in_tree:
+        name: Deepest Level of Inheritance
+        description: This metric calculates how far down a class is declared in the inheritance hierarchy.
+        scope: file
+        min: 1
     lloc:
         name: Logical Lines of Code
         description: Logical lines of code
@@ -84,6 +263,21 @@ metrics:
         scope: file
         min: 0
         max: 100
+    methods_available:
+        name: Methods Available in Class
+        description: Number of exposed methods in a class.
+        scope: file
+        min: 1
+    nested_control:
+        name: Nesting of Control Structures
+        description: Level of nesting of control structures
+        scope: function
+        min: 0
+    number_of_children:
+        name: Number of Immediate Children
+        description: Number of Children in Tree (NOC) measures the number of direct subclasses of a class.
+        scope: file
+        min: 0
     ploc:
         name: Physical Lines of Code
         description: Lines of real code (no comments or blank lines).
@@ -94,3 +288,13 @@ metrics:
         description: Source lines of code (code and comments, no blank lines).
         scope: file
         min: 0
+    static_path_count:
+        name: Estimated Static Path Count
+        description: Estimated number of static program paths inside a function
+        scope: function
+        min: 1
+    weighted_methods:
+        name: Weighted Methods per Class
+        description: The WMC metric is the sum of the complexities of all class methods.
+        scope: file
+        min: 1
