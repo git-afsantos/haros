@@ -88,6 +88,36 @@ rules:
             - kth
             - ros
             - function-calls
+    max_function_parameters_6:
+        name: Maximum Function Parameters of 6
+        description: Maximum number of function parameters of 6
+        scope: function
+        tags:
+            - code-standards
+            - functions
+            - parameters
+            - hicpp
+    max_function_length_40:
+        name: Maximum Function Length of 40
+        description: Maximum number of function lines of code of 40
+        scope: function
+        tags:
+            - code-standards
+            - metrics
+            - functions
+            - loc
+            - lines-of-code
+            - google-cpp
+            - verifysoft
+    max_file_length_400:
+        name: Maximum File Length of 400
+        description: Maximum number of program lines of code in a file of 400
+        scope: file
+        tags:
+            - metrics
+            - loc
+            - lines-of-code
+            - verifysoft
     max_control_nesting_4:
         name: Maximum Nesting of Control Structures of 4
         description: Maximum Nesting of Control Structures of 4
@@ -195,6 +225,45 @@ rules:
             - mac
             - methods-available
             - methods
+    mi_below_20:
+        name: Maintainability Index Below 20
+        description: Maintainability Index below 20
+        scope: file
+        tags:
+            - metrics
+            - microsoft
+            - maintainability
+            - mi
+            - maintainability-index
+    mi_below_65:
+        name: Maintainability Index Below 65
+        description: Maintainability Index below 65
+        scope: file
+        tags:
+            - metrics
+            - verifysoft
+            - maintainability
+            - mi
+            - maintainability-index
+    halstead_volume_above_8000:
+        name: Halstead Volume Above 8000
+        description: Halstead Volume above 8000
+        scope: file
+        tags:
+            - metrics
+            - verifysoft
+            - halstead
+            - halstead-volume
+    halstead_bugs_above_2:
+        name: Halstead Bugs Above 2
+        description: Halstead Bugs above 2
+        scope: file
+        tags:
+            - metrics
+            - verifysoft
+            - halstead
+            - bugs
+            - halstead-bugs
 metrics:
     comments:
         name: Lines of Comments
@@ -279,7 +348,7 @@ metrics:
         scope: file
         min: 0
     ploc:
-        name: Physical Lines of Code
+        name: Program Lines of Code
         description: Lines of real code (no comments or blank lines).
         scope: file
         min: 0
