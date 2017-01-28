@@ -243,4 +243,4 @@ def _metric_json(datum):
 
 def _escaped(s):
     return s.replace('"', "\"").replace("\n", " ").replace("<", "&lt;")\
-            .replace(">", "&gt;").replace("&", "&amp;")
+            .replace(">", "&gt;").replace("&", "&amp;").replace("\t", " ")
