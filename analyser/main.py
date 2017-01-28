@@ -73,8 +73,17 @@ except ImportError:
     # Python 2
     import SimpleHTTPServer
     from BaseHTTPServer import HTTPServer
-    from SimpleHTTPServer import SimpleHTTPRequestHandler \
-                          as BaseHTTPRequestHandler
+    from SimpleHTTPServer import SimpleHTTPRequestHandler
+
+    class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
+        def end_headers(self):
+            self.send_my_headers()
+            SimpleHTTPRequestHandler.end_headers(self)
+
+        def send_my_headers(self):
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
 
 from distutils.dir_util import copy_tree
 from shutil import copyfile
