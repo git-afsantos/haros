@@ -355,17 +355,17 @@ THE SOFTWARE.
             else if (this.score > 10)
                 this.d3node.attr("style", "fill: rgb(255,99,71);");
             else if (this.score > 6.6667)
-                this.d3node.attr("style", "fill: rgb(242,191,71);");
+                this.d3node.attr("style", "fill: rgb(255,165,59);");
             else if (this.score > 4)
-                this.d3node.attr("style", "fill: rgb(190,230,72);");
+                this.d3node.attr("style", "fill: rgb(255,241,47);");
             else if (this.score > 2)
-                this.d3node.attr("style", "fill: rgb(101,217,72);");
+                this.d3node.attr("style", "fill: rgb(183,255,35);");
             else if (this.score > 1.5)
-                this.d3node.attr("style", "fill: rgb(72,205,119);");
+                this.d3node.attr("style", "fill: rgb(89,255,23);");
             else if (this.score > 1)
-                this.d3node.attr("style", "fill: rgb(71,192,180);");
+                this.d3node.attr("style", "fill: rgb(11,255,37);");
             else
-                this.d3node.attr("style", "fill: rgb(70,130,180);");
+                this.d3node.attr("style", "fill: rgb(0,255,126);");
         }
     });
 
