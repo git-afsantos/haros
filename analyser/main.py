@@ -86,7 +86,7 @@ except ImportError:
             self.send_header("Expires", "0")
 
 from distutils.dir_util import copy_tree
-from shutil import copyfile
+from shutil import copyfile, rmtree
 
 from data_manager import DataManager
 import plugin_manager as plugman
@@ -211,6 +211,8 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
+    if os.path.exists(VIZ_DIR):
+        rmtree(VIZ_DIR)
     if not os.path.exists(VIZ_DIR):
         _log.info("Creating %s", VIZ_DIR)
         os.mkdir(VIZ_DIR)
