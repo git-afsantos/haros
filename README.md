@@ -144,7 +144,7 @@ This command runs analysis on a given list of packages.
 Runs analysis with the list of packages found within the default index file
 (`~/.haros/index.yaml`). You are free to edit this file.
 
-####haros analyse -p <index file>
+####haros analyse -p &lt;index file&gt;
 
 Uses the given index file to run the analysis, instead of the default one.
 
@@ -176,12 +176,12 @@ repositories:
 The only supported repository type, for now, is `git`. There is partial support
 for `hg` and `svn`, but these have not been fully tested.
 
-####haros analyse -w <plugin name> [-w <another plugin>, ...]
+####haros analyse -w &lt;plugin name&gt; [-w &lt;another plugin&gt;, ...]
 
 Whitelist the given plugins. The analysis will **only** run these plugins.
 This option does not work with `-b`.
 
-####haros analyse -b <plugin name> [-b <another plugin>, ...]
+####haros analyse -b &lt;plugin name&gt; [-b &lt;another plugin&gt;, ...]
 
 Blacklist the given plugins. The analysis will **not** run these plugins.
 This option does not work with `-w`.
@@ -192,7 +192,7 @@ This option does not work with `-w`.
 This command exports the analysis results (e.g. JSON files) to a location of your
 choosing. It assumes that some analyses were run previously.
 
-####haros export <directory>
+####haros export &lt;directory&gt;
 
 Exports analysis data to the given directory. This command will create files and
 directories within the given directory.
@@ -207,7 +207,7 @@ previously.
 
 Launches the web visualiser and the visualisation server at `localhost:8080`.
 
-####haros viz -s <host:port>
+####haros viz -s &lt;host:port&gt;
 
 Launches the web visusaliser and the visualisation server at the given host.
 
