@@ -132,3 +132,87 @@ The `-p` option lets you specify an index file of your own, instead of using the
 
 When the analysis finishes, HAROS should start a visualisation server and your web browser
 on the appropriate page. To exit, just close your browser and press `Enter` on the terminal.
+
+Below you can find the basic commands that HAROS provides.
+
+###haros analyse
+
+This command runs analysis on a given list of packages.
+
+####haros analyse (no options)
+
+Runs analysis with the list of packages found within the default index file
+(`~/.haros/index.yaml`). You are free to edit this file.
+
+####haros analyse -p <index file>
+
+Uses the given index file to run the analysis, instead of the default one.
+
+####haros analyse -r
+
+Uses repository information when available. If HAROS cannot find one of the
+packages you specified, it will look for it in the official ROS distribution and
+download it.
+
+If your package is not in the official distribution, you can modify your index
+file to tell HAROS in which repository to look for the source (e.g. you can
+specify private repositories this way). Here is an example:
+
+```yaml
+%YAML 1.1
+---
+packages:
+    - my_package
+repositories:
+    repository_name:
+        type:       git
+        url:        https://github.com/git-user/repository_name.git
+        version:    master
+        packages:
+            - my_package
+            - another_package
+```
+
+The only supported repository type, for now, is `git`. There is partial support
+for `hg` and `svn`, but these have not been fully tested.
+
+####haros analyse -w <plugin name> [-w <another plugin>, ...]
+
+Whitelist the given plugins. The analysis will **only** run these plugins.
+This option does not work with `-b`.
+
+####haros analyse -b <plugin name> [-b <another plugin>, ...]
+
+Blacklist the given plugins. The analysis will **not** run these plugins.
+This option does not work with `-w`.
+
+
+###haros export
+
+This command exports the analysis results (e.g. JSON files) to a location of your
+choosing. It assumes that some analyses were run previously.
+
+####haros export <directory>
+
+Exports analysis data to the given directory. This command will create files and
+directories within the given directory.
+
+
+###haros viz
+
+This command runs the visualisation only. It assumes that some analyses were run
+previously.
+
+####haros viz (no options)
+
+Launches the web visualiser and the visualisation server at `localhost:8080`.
+
+####haros viz -s <host:port>
+
+Launches the web visusaliser and the visualisation server at the given host.
+
+
+###haros full
+
+Runs analysis and visualisation. This command accepts the same options as
+`haros analyse` and `haros viz`.
