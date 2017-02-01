@@ -214,7 +214,68 @@ THE SOFTWARE.
         </section>
 
         <section id="help-board">
-            <h1 class="text-center">Under construction.</h1>
+            <h2>Metrics</h2>
+            <h4>How are lines of code measured?</h4>
+            <p>HAROS supports several ways to measure lines of code:</p>
+            <dl>
+                <dt>LOC (Physical Lines of Code)</dt>
+                <dd>measures the number of line feeds in a text file.</dd>
+
+                <dt>SLOC (Source Lines of Code)</dt>
+                <dd>measures the number of physical lines, minus blank lines; it is the number of lines of source code and comments.</dd>
+
+                <dt>PLOC (Program Lines of Code)</dt>
+                <dd>measures the number of source code lines (no comments or blank lines).</dd>
+
+                <dt>LLOC (Logical Lines of Code)</dt>
+                <dd>measures the number of logical lines of code; e.g.
+                <span style="font-family: monospace; white-space: pre-wrap">if (condition) func();</span>
+                counts as two lines.</dd>
+
+                <dt>ELOC (Executable Lines of Code)</dt>
+                <dd>measures the number of executable lines of code; e.g. this
+                could exclude lines with braces and so on, depending on
+                the language.</dd>
+            </dl>
+
+            <p><b>Note:</b> HAROS, by itself, only counts LOC. All other types
+            are provided by plugins. Since you may be running HAROS without any
+            of the other LOC types, for calculating package score (colour) HAROS
+            uses an estimate of the <i>useful lines of code</i>, calculated from
+            the raw LOC value. This estimate tries to approximate a PLOC/ELOC
+            value, but may be quite wrong.</p>
+
+            <h4>What is Cyclomatic Complexity, and how to fix it?</h4>
+            <p>Cyclomatic Complexity measures the amount of execution paths that
+            result from decisions within a function. <i>In English:</i> the
+            minimum value is 1, because there is always one path for the
+            function; there is no maximum, by definition; it counts the amount of
+            <b>if</b>, <b>or</b>, <b>and</b>, <b>for</b>, <b>while</b>...
+            Typically, the greater the value, the harder it is to understand
+            the function.</p>
+
+            <p>Normally, when CC is high, the functions also tend to be
+            quite big. Try to split the function in smaller functions that
+            make sense (and ideally, ones that can be reused).</p>
+
+            <p><b>Note:</b> use your best judgement when breaking functions
+            into smaller chunks. Sometimes, a function has many decisions,
+            but may be easier to understand in the whole, rather than a
+            bunch of smaller functions whose sole purpose is to decrease
+            a number.</p>
+
+            <h4>What is the Maintainability Index, and how can I increase it?</h4>
+            <p>The Maintainability Index is a metric that is calculated from
+            a bunch of other metrics (lines of code, comment ratio,
+            Cyclomatic Complexity, Halstead Volume). It was designed to be a
+            <i>score</i> for how maintainable your code is. However, it has
+            received some criticism over time, and many people say that its
+            current definition could improve. Use it as feedback, but not
+            as a rule.</p>
+
+            <p>Naturally, to improve it, you need to improve these metrics.
+            Decrease lines of code, document your code, and reduce its
+            complexity.</p>
         </section>
 
 
