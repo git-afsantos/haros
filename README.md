@@ -78,7 +78,7 @@ uses behind the curtains. Install these *$dependencies$* with the following comm
 ```bash
 sudo apt-get install python-pip
 pip install --upgrade pip
-pip install radon
+sudo pip install radon
 sudo pip install lizard
 sudo apt-get install cppcheck
 ```
@@ -134,6 +134,10 @@ When the analysis finishes, HAROS should start a visualisation server and your w
 on the appropriate page. To exit, just close your browser and press `Enter` on the terminal.
 
 Below you can find the basic commands that HAROS provides.
+
+###haros init
+
+This command runs initialisation and setup operations. This command needs to be run before the first analysis takes place. You can also run this command later on when you update HAROS.
 
 ###haros analyse
 
