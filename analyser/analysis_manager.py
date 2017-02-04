@@ -78,9 +78,16 @@ class PluginInterface(object):
         self._data          = data
         self._plugin        = None
         self._scope         = None
+        self._exported      = set()
 
     def get_file(self, relative_path):
         return os.path.join(self._plugin.path, relative_path)
+
+    def export_file(self, relative_path):
+        # mark a file in the plugin's temporary directory as exportable
+        target = os.path.join(self._plugin.tmp_path, relative_path)
+        if os.path.isfile(target):
+            self._exported.add(target)
 
     def report_file_violation(self, rule_id, msg, scope_id,
                               line = None, function = None, class_ = None):
@@ -197,7 +204,7 @@ class PluginInterface(object):
 
 
 
-def run_analysis_and_processing(datadir, plugins, data):
+def run_analysis_and_processing(datadir, plugins, data, expodir):
     _log.info("Running plugins on collected data.")
     iface = PluginInterface(data)
     # Step 0: prepare directories
@@ -213,6 +220,7 @@ def run_analysis_and_processing(datadir, plugins, data):
     try:
         _analysis(iface, plugins, data)
         _processing(iface, plugins, data)
+        _exports(iface._exported, expodir)
     finally:
         os.chdir(wd)
         shutil.rmtree(plugout)
@@ -286,3 +294,18 @@ def _processing(iface, plugins, data):
     for plugin in plugins:
         os.chdir(plugin.tmp_path)
         plugin.process.post_process(iface)
+
+
+def _exports(sources, expodir):
+    counter = 1
+    for f in sources:
+        i = f.rfind(os.sep)
+        j = f.rfind(".")
+        if i >= j:
+            ext = ".data"
+        else:
+            ext = f[j:]
+        name = "d{:04d}.{}".format(counter, ext)
+        target = os.path.join(expodir, name)
+        shutil.move(f, target)
+        counter += 1

@@ -272,7 +272,7 @@ def command_analyse(args):
     for plugin in plugins:
         dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
     print "[HAROS] Running analysis..."
-    anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman)
+    anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman, EXPORT_DIR)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
     command_export(args, dataman)
