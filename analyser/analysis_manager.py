@@ -305,7 +305,7 @@ def _exports(sources, expodir):
             ext = ".data"
         else:
             ext = f[j:]
-        name = "d{:04d}.{}".format(counter, ext)
+        name = "d{:04d}{}".format(counter, ext)
         target = os.path.join(expodir, name)
         shutil.move(f, target)
         counter += 1
