@@ -289,6 +289,7 @@ def command_export(args, dataman = None):
         db_path     = None
         _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
         _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
+        _empty_dir(EXPORT_DIR)
     elif os.path.isdir(args.data_dir):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):

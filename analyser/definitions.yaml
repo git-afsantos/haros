@@ -381,6 +381,11 @@ metrics:
         description: Estimated number of static program paths inside a function
         scope: function
         min: 1
+    unique_function_calls:
+        name: Number of Distinct Function Calls
+        description: How many distinct functions a function calls.
+        scope: function
+        min: 0
     weighted_methods:
         name: Weighted Methods per Class
         description: The WMC metric is the sum of the complexities of all class methods.
