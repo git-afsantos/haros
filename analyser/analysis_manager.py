@@ -299,13 +299,15 @@ def _processing(iface, plugins, data):
 def _exports(sources, expodir):
     counter = 1
     for f in sources:
-        i = f.rfind(os.sep)
-        j = f.rfind(".")
-        if i >= j:
-            ext = ".data"
-        else:
-            ext = f[j:]
-        name = "d{:04d}{}".format(counter, ext)
-        target = os.path.join(expodir, name)
+        target = os.path.join(expodir, f[f.rfind(os.sep)+1:])
+        if os.isfile(target):
+            i = f.rfind(os.sep)
+            j = f.rfind(".")
+            if i >= j:
+                ext = ".data"
+            else:
+                ext = f[j:]
+            name = "d{:04d}{}".format(counter, ext)
+            target = os.path.join(expodir, name)
+            counter += 1
         shutil.move(f, target)
-        counter += 1
