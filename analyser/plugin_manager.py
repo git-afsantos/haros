@@ -208,9 +208,8 @@ def load_plugins(root, whitelist = None, blacklist = None):
         mode = -1
     sys.path.insert(0, root)
     for item in os.listdir(root):
-        if (mode > 0 and not item in filter) \
-                or (mode < 0 and item in filter) \
-                or item.startswith("."):
+        if (mode > 0 and not item in filter) or (mode < 0 and item in filter) \
+                or item.startswith(".") or item == "haros_util":
             continue
         d = os.path.join(root, item)
         _log.debug("Checking for plugins at %s", d)
