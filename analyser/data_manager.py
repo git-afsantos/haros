@@ -21,6 +21,7 @@
 
 import cPickle
 import logging
+from operator import attrgetter
 import os
 import subprocess
 import yaml
@@ -200,6 +201,7 @@ class SourceFile(AnalysisScope):
 class Package(AnalysisScope):
     def __init__(self, name, repo = None):
         AnalysisScope.__init__(self, name, name, "package")
+    # public:
         self.repository         = repo
         self.authors            = set()
         self.maintainers        = set()
@@ -214,8 +216,10 @@ class Package(AnalysisScope):
         self.source_files       = []
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
+    # private:
         self._violations        = []
         self._metrics           = []
+        self._tier              = 0 # for topological sort
 
     @classmethod
     def from_manifest(cls, pkg_file, repo = None):
@@ -311,6 +315,9 @@ class Package(AnalysisScope):
         if other.scope == "repository":
             return self.repository == other
         return self == other or other.id in self.dependencies
+
+    def __repr__(self):
+        return "Package({})".format(self.id)
 
 
 
@@ -502,6 +509,8 @@ class DataManager(object):
         self.common_rules   = set()
         self.common_metrics = set()
 
+        self._topological_packages = []
+
     def _add_metric(self, id, metric, common = False):
         minv = metric.get("min")
         maxv = metric.get("max")
@@ -557,7 +566,7 @@ class DataManager(object):
         _log.debug("DataManager.index_source(%s, %s)", index_file, repo_path)
         with open(index_file, "r") as handle:
             data = yaml.load(handle)
-        # Step 1: find packages locally
+    # Step 1: find packages locally
         _log.info("Looking for packages locally.")
         missing = []
         pkg_list = data["packages"]
@@ -568,7 +577,7 @@ class DataManager(object):
             else:
                 SourceFile.populate_package(pkg, self.files)
                 self.packages[id] = pkg
-        # Step 2: load repositories only if explicitly told to
+    # Step 2: load repositories only if explicitly told to
         _log.debug("Missing packages: %s", missing)
         if index_repos:
             _log.info("Indexing repositories.")
@@ -580,7 +589,7 @@ class DataManager(object):
                     if id in missing:
                         _log.debug("%s contains missing %s", _, id)
                         repos.add(repo)
-        # Step 3: clone necessary repositories
+    # Step 3: clone necessary repositories
             wd = os.getcwd()
             refresh = False
             for repo in repos:
@@ -593,7 +602,7 @@ class DataManager(object):
             if refresh:
                 _log.debug("Refreshing package cache for %s", repo_path)
                 Package.refresh_package_cache(repo_path)
-        # Step 4: find packages and link to repositories
+    # Step 4: find packages and link to repositories
             _log.info("Looking for missing packages in local repositories.")
             for _, repo in self.repositories.iteritems():
                 for id in repo.declared_packages:
@@ -612,9 +621,47 @@ class DataManager(object):
                             pkg.repository = repo
                         else:
                             _log.debug("%s was not found in clones.", id)
+    # Step 5: sort packages in topological order
+        self._topological_sort()
         for id in missing:
             _log.warning("Could not find package " + id)
-                    
+
+
+    def _topological_sort(self):
+        self._topological_packages = []
+        dependencies = {}
+        tier = 0
+        pending = []
+        emitted = []
+        for name, pkg in self.packages.iteritems():
+            pkg._tier = -1
+            pending.append(pkg)
+            dependencies[name] = set(p for p in pkg.dependencies \
+                                       if p in self.packages)
+        while pending:
+            next_pending = []
+            next_emitted = []
+            for pkg in pending:
+                deps = dependencies[pkg.id]
+                deps.difference_update(emitted)
+                if deps:
+                    next_pending.append(pkg)
+                else:
+                    pkg._tier = tier
+                    self._topological_packages.append(pkg)
+                    next_emitted.append(pkg.id)
+            if not next_emitted:
+                # cyclic dependencies detected
+                _log.warning("Cyclic dependencies detected %s", next_pending)
+                for pkg in next_pending:
+                    pkg._tier = tier
+                    self._topological_packages.append(pkg)
+                next_pending = None
+            pending = next_pending
+            emitted = next_emitted
+            tier += 1
+        self._topological_packages.sort(key = attrgetter("_tier", "id"))
+
 
     def save_state(self, file_path):
         _log.debug("DataManager.save_state(%s)", file_path)
@@ -626,3 +673,30 @@ class DataManager(object):
         _log.debug("DataManager.load_state(%s)", file_path)
         with open(file_path, "r") as handle:
             return cPickle.load(handle)
+
+
+if __name__ == "__main__":
+    data = DataManager()
+# ----- test data -------------------------------------------------------------
+    pkg = Package("A")
+    pkg.dependencies.add("X")
+    data.packages[pkg.id] = pkg
+    pkg = Package("B")
+    pkg.dependencies.add("A")
+    data.packages[pkg.id] = pkg
+    pkg = Package("C")
+    pkg.dependencies.add("X")
+    pkg.dependencies.add("A")
+    data.packages[pkg.id] = pkg
+    pkg = Package("D")
+    pkg.dependencies.add("A")
+    pkg.dependencies.add("C")
+    data.packages[pkg.id] = pkg
+    pkg = Package("E")
+    data.packages[pkg.id] = pkg
+    pkg = Package("F")
+    pkg.dependencies.add("E")
+    data.packages[pkg.id] = pkg
+# ----- topological sort test -------------------------------------------------
+    data._topological_sort()
+    print data._topological_packages

@@ -240,7 +240,7 @@ def _analysis(iface, plugins, data):
             for scope in data.files.itervalues():
                 iface._scope = scope
                 plugin.analysis.analyse_file(iface, scope)
-            for scope in data.packages.itervalues():
+            for scope in data._topological_packages:
                 iface._scope = scope
                 plugin.analysis.analyse_package(iface, scope)
             for scope in data.repositories.itervalues():
@@ -269,7 +269,7 @@ def _processing(iface, plugins, data):
                 iface.state = plugin.process.state
                 os.chdir(plugin.tmp_path)
                 plugin.process.process_file(iface, scope, v, m)
-        for scope in data.packages.itervalues():
+        for scope in data._topological_packages:
             iface._scope = scope
             v = list(scope._violations)
             m = list(scope._metrics)
