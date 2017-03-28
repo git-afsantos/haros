@@ -248,9 +248,9 @@ class Package(AnalysisScope):
             if not el.find("metapackage") is None:
                 package.isMetapackage = True
             elif not el.find("nodelet") is None:
-                nodelet_plugins = el.find("nodelet").get("plugin")
-                nodelet_plugins = nodelet.replace("${prefix}", package.path)
-                package._read_nodelets(nodelet_plugins)
+                nodelets = el.find("nodelet").get("plugin")
+                nodelets = nodelets.replace("${prefix}", package.path)
+                package._read_nodelets(nodelets)
         package.description = root.find("description").text.strip()
         for el in root.findall("license"):
             package.licenses.add(el.text)
