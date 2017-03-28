@@ -214,6 +214,7 @@ class Package(AnalysisScope):
         self.bug_url            = None
         self.path               = None
         self.source_files       = []
+        self.nodelets           = []
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
     # private:
@@ -243,8 +244,13 @@ class Package(AnalysisScope):
                 continue # No name, no email, move on
             package.authors.add(Person(name, email))
         el = root.find("export")
-        if not el is None and not el.find("metapackage") is None:
-            package.isMetapackage = True
+        if not el is None:
+            if not el.find("metapackage") is None:
+                package.isMetapackage = True
+            elif not el.find("nodelet") is None:
+                nodelet_plugins = el.find("nodelet").get("plugin")
+                nodelet_plugins = nodelet.replace("${prefix}", package.path)
+                package._read_nodelets(nodelet_plugins)
         package.description = root.find("description").text.strip()
         for el in root.findall("license"):
             package.licenses.add(el.text)
@@ -318,6 +324,16 @@ class Package(AnalysisScope):
 
     def __repr__(self):
         return "Package({})".format(self.id)
+
+    def _read_nodelets(self, nodelet_plugins):
+        _log.debug("Package._read_nodelets(%s)", nodelet_plugins)
+        with open(nodelet_plugins, "r") as handle:
+            root = ET.parse(handle).getroot()
+        _log.info("Found nodelets at %s", nodelet_plugins)
+        for el in root.findall("library"):
+            libname = el.get("path").rsplit(os.sep)[-1]
+            for cl in el.findall("class"):
+                self.nodelets.append((libname, cl.get("name")))
 
 
 
