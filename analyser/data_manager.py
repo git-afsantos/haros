@@ -247,7 +247,7 @@ class Package(AnalysisScope):
         if not el is None:
             if not el.find("metapackage") is None:
                 package.isMetapackage = True
-            elif not el.find("nodelet") is None:
+            if not el.find("nodelet") is None:
                 nodelets = el.find("nodelet").get("plugin")
                 nodelets = nodelets.replace("${prefix}", package.path)
                 package._read_nodelets(nodelets)
@@ -330,7 +330,11 @@ class Package(AnalysisScope):
         with open(nodelet_plugins, "r") as handle:
             root = ET.parse(handle).getroot()
         _log.info("Found nodelets at %s", nodelet_plugins)
-        for el in root.findall("library"):
+        if root.tag == "library":
+            libs = (root,)
+        else:
+            libs = root.findall("library")
+        for el in libs:
             libname = el.get("path").rsplit(os.sep)[-1]
             for cl in el.findall("class"):
                 self.nodelets.append((libname, cl.get("name")))
