@@ -166,7 +166,7 @@ class PluginInterface(object):
         if not scope_id in data:
             raise AnalysisScopeError("Unknown scope id " + scope_id)
         scope = data[scope_id]
-        if not self._scope.bound_to(scope):
+        if not self._scope is None and not self._scope.bound_to(scope):
             raise AnalysisScopeError("Unrelated scope " + scope_id)
         return scope
 
