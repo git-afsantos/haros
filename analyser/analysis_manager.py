@@ -238,6 +238,9 @@ def _analysis(iface, plugins, data):
         iface.state = plugin.analysis.state
         try:
             for scope in data.files.itervalues():
+                if (data.launch_files and scope.language == "launch"
+                                      and not scope in data.launch_files):
+                    continue
                 iface._scope = scope
                 plugin.analysis.analyse_file(iface, scope)
             for scope in data._topological_packages:

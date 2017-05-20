@@ -521,6 +521,7 @@ class Repository(AnalysisScope):
 # Object to store and manage all data
 class DataManager(object):
     def __init__(self):
+        self.launch_files   = []
         self.repositories   = {}
         self.packages       = {}
         self.files          = {}
@@ -589,7 +590,9 @@ class DataManager(object):
     # Step 1: find packages locally
         _log.info("Looking for packages locally.")
         missing = []
-        pkg_list = data["packages"]
+        pkg_list = self._read_launch_listing(data.get("launch"))
+        pkg_list.extend(data.get("packages", []))
+        pkg_list = set(pkg_list)
         for id in pkg_list:
             pkg = Package.locate_offline(id, repo_path)
             if pkg is None:
@@ -645,6 +648,8 @@ class DataManager(object):
         self._topological_sort()
         for id in missing:
             _log.warning("Could not find package " + id)
+    # Step 6: check if operating in launch mode
+        self._search_launch_files()
 
 
     def _topological_sort(self):
@@ -681,6 +686,41 @@ class DataManager(object):
             emitted = next_emitted
             tier += 1
         self._topological_packages.sort(key = attrgetter("_tier", "id"))
+
+
+    def _read_launch_listing(self, launch_files):
+        _log.debug("DataManager._read_launch_listing(%s)", launch_files)
+        if not launch_files:
+            _log.debug("No launch files were provided.")
+            return []
+        if isinstance(launch_files, basestring):
+            _log.debug("A single launch file was provided.")
+            launch_files = (launch_files,)
+        pkg_list = []
+        for path in launch_files:
+            path = path.split(os.sep, 1)
+            if len(path) < 2:
+                _log.warning("Launch files must be in the form <pkg>/path/to/file.")
+                continue
+            self.launch_files.append((path[0], path[1]))
+            pkg_list.append(path[0])
+        return pkg_list
+
+
+    def _search_launch_files(self):
+        _log.debug("DataManager._search_launch_files()")
+        launch_files = []
+        for pkg, path in self.launch_files:
+            if not pkg in self.packages:
+                _log.debug("Skipping %s because %s could not be found.",
+                            path, pkg)
+                continue
+            pkg = self.packages[pkg]
+            path = os.path.join(pkg.path, path)
+            for sf in pkg.source_files:
+                if sf.get_path() == path:
+                    launch_files.append(sf)
+        self.launch_files = launch_files
 
 
     def save_state(self, file_path):
