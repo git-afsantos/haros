@@ -34,5 +34,6 @@ setup(
     url             = "https://github.com/git-afsantos/haros",
     packages        = find_packages(),
     entry_points    = {"console_scripts": ["haros = haros.main:main"]},
-    package_data    = {"haros": extra_files}
+    package_data    = {"haros": extra_files},
+    zip_safe        = True
 )
