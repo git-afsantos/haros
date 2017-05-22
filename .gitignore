@@ -1,6 +1,6 @@
 unused
 img
-analyser/*.pyc
-analyser/**/*.pyc
-/viz/js/*.bat
+haros/*.pyc
+haros/**/*.pyc
+/viz/*.bat
 /viz/data
