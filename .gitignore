@@ -4,3 +4,6 @@ haros/*.pyc
 haros/**/*.pyc
 /viz/*.bat
 /viz/data
+build
+dist
+haros.egg-info

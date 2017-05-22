@@ -24,11 +24,11 @@ extra_files.append("*.yaml")
 
 setup(
     name            = "haros",
-    version         = "0.1",
+    version         = "0.1.1",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
-    long_description= read("README.md"),
+    long_description= read("README"),
     license         = "MIT",
     keywords        = "static-analysis ros",
     url             = "https://github.com/git-afsantos/haros",
