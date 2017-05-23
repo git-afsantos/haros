@@ -28,7 +28,7 @@ setup(
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
-    long_description= read("README"),
+    long_description= read("README.rst"),
     license         = "MIT",
     keywords        = "static-analysis ros",
     url             = "https://github.com/git-afsantos/haros",
