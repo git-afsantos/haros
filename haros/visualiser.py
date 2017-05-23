@@ -59,7 +59,7 @@ def install(dst):
         _log.info("Creating %s", dst)
         os.mkdir(dst)
         _log.info("Copying viz files.")
-        src = resource_filename(Requirement.parse("haros"), "viz")
+        src = resource_filename(Requirement.parse("haros"), "harosviz")
         copy_tree(src, dst)
         _log.info("Creating %s", data_dir)
         os.mkdir(data_dir)

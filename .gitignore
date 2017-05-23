@@ -2,8 +2,8 @@ unused
 img
 haros/*.pyc
 haros/**/*.pyc
-/viz/*.bat
-/viz/data
+/harosviz/*.bat
+/harosviz/data
 build
 dist
 haros.egg-info

@@ -18,7 +18,7 @@ def package_files(directory):
     return paths
 
 
-extra_files = package_files("viz")
+extra_files = package_files("harosviz")
 extra_files.append("*.yaml")
 
 
