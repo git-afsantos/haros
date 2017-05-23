@@ -21,6 +21,6 @@
 #THE SOFTWARE.
 
 import sys
-from .haros import main
+from haros.haros import main
 
 sys.exit(main())
