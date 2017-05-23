@@ -228,8 +228,8 @@ def command_analyse(args):
         _log.warning("There are no packages to analyse.")
         return False
     print "[HAROS] Loading common definitions..."
-    path = pkg_resources.resource_filename(Requirement.parse("haros"),
-                                           "haros/definitions.yaml")
+    path = resource_filename(Requirement.parse("haros"),
+                             "haros/definitions.yaml")
     dataman.load_definitions(path)
     print "[HAROS] Loading plugins..."
     plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
