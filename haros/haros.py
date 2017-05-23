@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 #Copyright (c) 2016 Andre Santos
 #
@@ -67,11 +66,11 @@ import sys
 from shutil import copyfile
 from pkg_resources import Requirement, resource_filename
 
-from private.data_manager import DataManager
-import private.plugin_manager as plugman
-import private.analysis_manager as anaman
-import private.export_manager as expoman
-import private.visualiser as viz
+from .data_manager import DataManager
+from . import plugin_manager as plugman
+from . import analysis_manager as anaman
+from . import export_manager as expoman
+from . import visualiser as viz
 
 
 HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
@@ -229,7 +228,8 @@ def command_analyse(args):
         _log.warning("There are no packages to analyse.")
         return False
     print "[HAROS] Loading common definitions..."
-    path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
+    path = pkg_resources.resource_filename(Requirement.parse("haros"),
+                                           "haros/definitions.yaml")
     dataman.load_definitions(path)
     print "[HAROS] Loading plugins..."
     plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
@@ -315,7 +315,3 @@ def main(argv = None):
     except RuntimeError as err:
         _log.error(str(err))
         return 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())

@@ -24,7 +24,7 @@ extra_files.append("*.yaml")
 
 setup(
     name            = "haros",
-    version         = "0.1.1",
+    version         = "0.1.2",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
@@ -33,7 +33,7 @@ setup(
     keywords        = "static-analysis ros",
     url             = "https://github.com/git-afsantos/haros",
     packages        = find_packages(),
-    entry_points    = {"console_scripts": ["haros = haros.main:main"]},
+    entry_points    = {"console_scripts": ["haros = haros.haros:main"]},
     package_data    = {"haros": extra_files},
     zip_safe        = True
 )
