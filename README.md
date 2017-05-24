@@ -21,7 +21,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is being developed, as of early 2017. It is undergoing some
+HAROS is being developed, as of May 2017. It is undergoing some
 substantial changes, compared to its original version, so I ask for your
 comprehension regarding bugs and a lack of documentation.
 Do not hesitate, however, to provide your feedback.
@@ -37,11 +37,13 @@ This assumes that you already have a **working installation of ROS**.
 HAROS has been tested with *ROS Indigo* and *ROS Kinetic*, on
 *Linux Mint* and *Linux Ubuntu*. These setups should provide you with
 most of the basic dependencies of HAROS, namely **Python 2.7**
-and a **Web browser**.
+and a **Web browser** (if you want to use the visualiser).
 
 **NOTE** This tool depends on other analysis tools. If you would rather
 install these dependencies first, then `Ctrl+F` *$dependencies$*.
 Otherwise, just keep reading.
+
+###Method 1: Running Without Installation
 
 Open a terminal, and move to a directory where you want to clone this
 repository.
@@ -53,24 +55,51 @@ git clone https://github.com/git-afsantos/haros.git
 ```
 
 There is an executable script in the root of this repository to help you get started.
-Copy the script to the directory where you want to be running HAROS from, and
-edit it to make sure it points to the right source path.
+It allows you to run haros without installing it. Make sure that your terminal is at
+the root of the repository.
 
 ```bash
-cp haros/haros run_haros
-nano run_haros
+cd haros
+python haros-runner.py &lt;args&gt;
 ```
 
-In this example, the path should look like this:
-
-    ~/ros/haros/analyser/main.py
-
-Before you can actually run HAROS, you need to perform some initialisation operations.
-These operations include downloading a basic set of analysis plugins. Do so with:
+You can also run it with the executable package syntax.
 
 ```bash
-./run_haros init
+python -m haros &lt;args&gt;
 ```
+
+###Method 2: Installing HAROS on Your Machine
+
+HAROS is now available on [PyPi](https://pypi.python.org/pypi/haros). You can install
+it from source or from an egg.
+
+```bash
+[sudo] pip install haros
+```
+
+The above command will install HAROS for you. Alternatively, download and extract its
+source, move to the project's root directory, and then execute the following.
+
+```bash
+python setup.py install
+```
+
+After installation, you should be able to run the command `haros` in your terminal
+from anywhere.
+
+###Prerequisites
+
+Before you can actually run analyses with HAROS, you need to perform some
+initialisation operations. These operations include downloading a basic set of
+analysis plugins. Do so with:
+
+```bash
+haros init
+```
+
+**Note:** if you opted for running HAROS without installing it, replace `haros`
+with your preferred method.
 
 After initialisation, you still need to install some analysis tools that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
@@ -122,7 +151,7 @@ packages:
 Now, you are ready to run analysis and visualisation on the given list of packages.
 
 ```bash
-./run_haros full -p my_index.yaml
+haros full -p my_index.yaml
 ```
 
 The `full` command tells HAROS to run analysis and then visualisation. If you just
