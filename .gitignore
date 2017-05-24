@@ -1,6 +1,9 @@
 unused
 img
-analyser/*.pyc
-analyser/**/*.pyc
-/viz/js/*.bat
-/viz/data
+haros/*.pyc
+haros/**/*.pyc
+/harosviz/*.bat
+/harosviz/data
+build
+dist
+haros.egg-info

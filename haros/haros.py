@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 #Copyright (c) 2016 Andre Santos
 #
@@ -63,35 +62,15 @@ import logging
 import os
 import subprocess
 import sys
-import threading
 
+from shutil import copyfile
+from pkg_resources import Requirement, resource_filename
 
-try: 
-    # Python 3
-    from http.server import HTTPServer, BaseHTTPRequestHandler
-except ImportError: 
-    # Python 2
-    import SimpleHTTPServer
-    from BaseHTTPServer import HTTPServer
-    from SimpleHTTPServer import SimpleHTTPRequestHandler
-
-    class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
-        def end_headers(self):
-            self.send_my_headers()
-            SimpleHTTPRequestHandler.end_headers(self)
-
-        def send_my_headers(self):
-            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-            self.send_header("Pragma", "no-cache")
-            self.send_header("Expires", "0")
-
-from distutils.dir_util import copy_tree
-from shutil import copyfile, rmtree
-
-from data_manager import DataManager
-import plugin_manager as plugman
-import analysis_manager as anaman
-import export_manager as expoman
+from .data_manager import DataManager
+from . import plugin_manager as plugman
+from . import analysis_manager as anaman
+from . import export_manager as expoman
+from . import visualiser as viz
 
 
 HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
@@ -100,7 +79,6 @@ EXPORT_DIR      = os.path.join(HAROS_DIR, "export")
 PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
-VIZ_SOURCE      = os.path.join(os.path.dirname(__file__), "..", "viz")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
 LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
 PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
@@ -211,19 +189,7 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
-    if os.path.exists(VIZ_DIR):
-        rmtree(VIZ_DIR)
-    if not os.path.exists(VIZ_DIR):
-        _log.info("Creating %s", VIZ_DIR)
-        os.mkdir(VIZ_DIR)
-        _log.info("Copying viz files.")
-        copy_tree(VIZ_SOURCE, VIZ_DIR)
-        _log.info("Creating %s", VIZ_DATA_DIR)
-        os.mkdir(VIZ_DATA_DIR)
-        _log.info("Creating %s", os.path.join(VIZ_DATA_DIR, "compliance"))
-        os.mkdir(os.path.join(VIZ_DATA_DIR, "compliance"))
-        _log.info("Creating %s", os.path.join(VIZ_DATA_DIR, "metrics"))
-        os.mkdir(os.path.join(VIZ_DATA_DIR, "metrics"))
+    viz.install(VIZ_DIR)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
         os.mkdir(PLUGIN_DIR)
@@ -262,7 +228,8 @@ def command_analyse(args):
         _log.warning("There are no packages to analyse.")
         return False
     print "[HAROS] Loading common definitions..."
-    path = os.path.join(os.path.dirname(__file__), "definitions.yaml")
+    path = resource_filename(Requirement.parse("haros"),
+                             "haros/definitions.yaml")
     dataman.load_definitions(path)
     print "[HAROS] Loading plugins..."
     plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
@@ -331,30 +298,7 @@ def command_export(args, dataman = None):
 
 def command_viz(args):
     _check_haros_directory()
-    host = args.host.split(":")
-    if len(host) != 2:
-        raise RuntimeError("Invalid host:port provided: " + args.host)
-    wd = os.getcwd()
-    try:
-        os.chdir(VIZ_DIR)
-        server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
-        print "[HAROS] Serving visualisation at", args.host
-        thread = threading.Thread(target = server.serve_forever)
-        thread.deamon = True
-        thread.start()
-        _log.info("Starting web browser process.")
-        p = subprocess.Popen(["python", "-m", "webbrowser",
-                        "-t", "http://" + args.host])
-        raw_input("[HAROS] Press enter to shutdown the viz server:")
-        return True
-    except ValueError as e:
-        _log.error("Invalid port for the viz server %s", host[1])
-        return False
-    finally:
-        server.shutdown()
-        os.chdir(wd)
-        _log.debug("Killing web browser process.")
-        p.kill()
+    viz.serve(VIZ_DIR, args.host)
 
 
 def main(argv = None):
@@ -371,7 +315,3 @@ def main(argv = None):
     except RuntimeError as err:
         _log.error(str(err))
         return 1
-
-
-if __name__ == "__main__":
-    sys.exit(main())
