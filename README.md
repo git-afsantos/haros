@@ -60,13 +60,13 @@ the root of the repository.
 
 ```bash
 cd haros
-python haros-runner.py &lt;args&gt;
+python haros-runner.py <args>
 ```
 
 You can also run it with the executable package syntax.
 
 ```bash
-python -m haros &lt;args&gt;
+python -m haros <args>
 ```
 
 ###Method 2: Installing HAROS on Your Machine
