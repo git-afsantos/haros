@@ -46,7 +46,8 @@ html, body {
     color: whitesmoke;
 }
 
-#dashboard .panel {
+#dashboard .panel,
+#ros-board .panel {
     background-color: snow;
     border-color: #333;
 }

@@ -32,6 +32,12 @@ THE SOFTWARE.
 
         initialize: function () {
             this.firstTime = true;
+
+            this.$packageSelect = this.$("#ros-package-select");
+            this.$launchSelect = this.$("#ros-launch-select");
+            this.$nodeDetails = this.$(".panel").first();
+
+            this.nodeTemplate = _.template($("#ros-board-node-details").html(), {variable: "data"});
         },
 
         render: function () {
@@ -44,6 +50,8 @@ THE SOFTWARE.
                 this.firstTime = false;
             }
             return this;
-        }
+        },
+
+        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
     });
 })();

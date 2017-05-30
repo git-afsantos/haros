@@ -215,3 +215,11 @@ p {
     text-decoration: none;
     cursor: pointer;
 }
+
+#ros-board .panel > .node {
+    word-wrap: break-word;
+}
+
+#ros-board .panel .node p {
+    font-family: monospace;
+}

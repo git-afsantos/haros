@@ -517,20 +517,23 @@ svg {
     /*TODO fix this some other way; filter view needs height*/
 }
 
-#issue-board > .header-menu {
+#issue-board > .header-menu,
+#ros-board > .header-menu {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-#issue-board > .header-menu > .menu-item {
+#issue-board > .header-menu > .menu-item,
+#ros-board > .header-menu > .menu-item {
     flex: 1 1 auto;
     display: flex;
     overflow: hidden;
 }
 
 @media (min-width: 48em) {
-    #issue-board > .header-menu {
+    #issue-board > .header-menu,
+    #ros-board > .header-menu {
         max-width: 48em;
     }
 }
@@ -569,6 +572,24 @@ svg {
 }
 
 
+
+#ros-board {
+    padding: 0 1em;
+}
+
+#ros-board .panel {
+    position: relative;
+    border-radius: 4px;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    min-height: 2em;
+}
+
+#ros-board .panel > .node > p.topic {
+    margin-left: 0.5em;
+}
 
 
 

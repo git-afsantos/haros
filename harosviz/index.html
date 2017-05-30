@@ -210,7 +210,26 @@ THE SOFTWARE.
         </section>
 
         <section id="ros-board">
-            <h1 class="text-center">Under construction.</h1>
+            <div class="header-menu">
+                <div class="menu-item margin-bottom">
+                    <label for="ros-package-select">
+                        <i class="fa fa-folder"></i>
+                        <strong class="show-inline-sm">Package</strong>
+                    </label>
+                    <select id="ros-package-select" class="flexible margin-h">
+                    <option>kobuki_safety_controller</option>
+                    <option>kobuki_random_walker</option>
+                    </select>
+                </div>
+                <div class="menu-item margin-bottom">
+                    <label for="ros-launch-select">
+                        <i class="fa fa-gears"></i>
+                        <strong class="show-inline-sm">Launch</strong>
+                    </label>
+                    <select id="ros-launch-select" class="flexible margin-h"></select>
+                </div>
+            </div>
+            <div class="panel"></div>
         </section>
 
         <section id="help-board">
@@ -444,6 +463,25 @@ THE SOFTWARE.
                     print('<li class="tag" data-tag="' + data.tags[i] + '">' + data.tags[i] + "</li>\n");
                 %>
             </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="ros-board-node-details">
+        <div class="node">
+            <h4><%= data.name %></h4>
+            <p class="node-type">[<%= data.type %>]</p>
+            <% for (var i = 0; i < data.pub.length; ++i)
+                print('<p class="topic"><strong>pub</strong> ' + data.pub[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.sub.length; ++i)
+                print('<p class="topic"><strong>sub</strong> ' + data.sub[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.srv.length; ++i)
+                print('<p class="topic"><strong>srv</strong> ' + data.srv[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.cli.length; ++i)
+                print('<p class="topic"><strong>cli</strong> ' + data.cli[i] + "</p>\n");
+            %>
         </div>
     </script>
 </body>
