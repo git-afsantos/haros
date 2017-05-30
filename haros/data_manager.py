@@ -220,6 +220,7 @@ class Package(AnalysisScope):
     # private:
         self._violations        = []
         self._metrics           = []
+        self._configs           = []
         self._tier              = 0 # for topological sort
 
     @classmethod

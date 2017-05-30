@@ -159,6 +159,11 @@ class PluginInterface(object):
         self._scope._metrics.append(datum)
         self._check_metric_violation(datum)
 
+    def register_configuration(self, configuration):
+        _log.debug("config(%s)", configuration)
+        scope = self._get_scope(configuration.package, self._data.packages)
+        scope._configs.append(configuration)
+
     def find_package(self, scope_id):
         return self._data.packages.get(scope_id, None)
 

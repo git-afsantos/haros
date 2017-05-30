@@ -74,6 +74,15 @@ def export_measurements(datadir, packages):
             _log.debug("Writing to %s", out)
             f.write("[" + ", ".join(data) + "]")
 
+def export_configurations(datadir, packages):
+    _log.info("Exporting launch configurations.")
+    for id, pkg in packages.iteritems():
+        out = os.path.join(datadir, id + ".json")
+        data = [_config_json(d) for d in pkg._configs]
+        with open(out, "w") as f:
+            _log.debug("Writing to %s", out)
+            f.write("[" + ", ".join(data) + "]")
+
 def export_summary(datadir, data):
     _log.info("Exporting analysis summary.")
     out = os.path.join(datadir, "summary.json")
@@ -239,6 +248,25 @@ def _metric_json(datum):
             _log.debug("_metric_json %s", e)
     s += '"value": ' + str(datum.value) + "}"
     return s
+
+def _config_json(config):
+    s = ('{"name": "' + config.name + '", "collisions": '
+         + str(config.resources.n_collisions) + ', "remaps": '
+         + str(len(config.resources.remaps)) + ', "dependencies": '
+         + json.dumps(list(config.pkg_depends)) + ', "environment": '
+         + json.dumps(list(config.env_depends)) + ', "nodes": '
+         + json.dumps(map(_node_json, config.nodes())) + "}")
+    return s
+
+def _node_json(node):
+    name = lambda t: t.full_name
+    return ('{"name": "' + node.full_name + '", "type": "'
+            + node.reference + '", "args": '
+            + json.dumps(node.argv) + ', "publishers": '
+            + json.dumps(map(name, node.publishers)) + ', "subscribers": '
+            + json.dumps(map(name, node.subscribers)) + ', "servers": '
+            + json.dumps(map(name, node.servers)) + ', "clients": '
+            + json.dumps(map(name, node.clients)) + "}")
 
 
 def _escaped(s):
