@@ -290,6 +290,11 @@ def command_export(args, dataman = None):
         _log.info("Creating directory %s", path)
         os.mkdir(path)
     expoman.export_measurements(path, dataman.packages)
+    path = os.path.join(json_path, "models")
+    if not os.path.exists(path):
+        _log.info("Creating directory %s", path)
+        os.mkdir(path)
+    expoman.export_configurations(path, dataman.packages)
     if db_path:
         _log.debug("Copying DB from %s to %s", DB_PATH, db_path)
         copyfile(DB_PATH, db_path)
