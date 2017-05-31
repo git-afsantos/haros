@@ -92,8 +92,8 @@ def export_summary(datadir, data):
             "source":           _summary_source(data.packages, data.files),
             "issues":           _summary_issues(data.repositories,
                                                 data.packages, data.files),
-            "components":       _summary_components(data.files),
-            "communications":   _summary_communications()
+            "components":       _summary_components(data.files, data.packages),
+            "communications":   _summary_communications(data.packages)
         }, f)
     
 
@@ -172,20 +172,38 @@ def _summary_issues(repositories, packages, files):
         "ratio":    "{0:.2f}".format(float(issues) / lines)
     }
 
-def _summary_components(files):
+def _summary_components(files, packages):
+    nodes = 0
+    nodelets = 0
+    configs = 0
+    for p in packages.itervalues():
+        for c in p._configs:
+            configs += 1
+            for n in c.nodes():
+                if n.nodelet:
+                    nodelets += 1
+                else:
+                    nodes += 1
     return {
         "launchFiles":      len([f for _, f in files.iteritems()
                                  if f.language == "launch"]),
-        "nodes":            None,
-        "nodelets":         None,
+        "nodes":            nodes,
+        "nodelets":         nodelets,
         "parameterFiles":   None,
-        "capabilities":     None
+        "configurations":   configs
     }
 
-def _summary_communications():
+def _summary_communications(packages):
+    topics = 0
+    remappings = 0
+    for p in packages.itervalues():
+        for c in p._configs:
+            remappings += len(c.resources.remaps)
+            topics += len(c.resources.get_topics())
+            topics += len(c.resources.get_services())
     return {
-        "topics":       None,
-        "remappings":   None,
+        "topics":       topics,
+        "remappings":   remappings,
         "messages":     None,
         "services":     None,
         "actions":      None
