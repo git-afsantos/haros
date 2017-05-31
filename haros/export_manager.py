@@ -251,7 +251,7 @@ def _metric_json(datum):
 
 def _config_json(config):
     i = config.name + "-" + str(hash(config.package + config.name) % 10000000)
-    s = ('{"id": ' + i + ', "name": "' + config.name + '", "collisions": '
+    s = ('{"id": "' + i + '", "name": "' + config.name + '", "collisions": '
          + str(config.resources.n_collisions) + ', "remaps": '
          + str(len(config.resources.remaps)) + ', "dependencies": '
          + json.dumps(list(config.pkg_depends)) + ', "environment": '
@@ -261,13 +261,15 @@ def _config_json(config):
 
 def _node_json(node):
     name = lambda t: t[0].full_name
-    return ('{"name": "' + node.full_name + '", "type": "'
-            + node.reference + '", "args": '
-            + json.dumps(node.argv) + ', "publishers": '
-            + json.dumps(map(name, node.publishers)) + ', "subscribers": '
-            + json.dumps(map(name, node.subscribers)) + ', "servers": '
-            + json.dumps(map(name, node.servers)) + ', "clients": '
-            + json.dumps(map(name, node.clients)) + "}")
+    return {
+        "name":         node.full_name,
+        "type":         node.reference,
+        "args":         node.argv,
+        "publishers":   map(name, node.publishers),
+        "subscribers":  map(name, node.subscribers),
+        "servers":      map(name, node.servers),
+        "clients":      map(name, node.clients)
+    }
 
 
 def _escaped(s):
