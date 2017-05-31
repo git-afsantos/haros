@@ -91,7 +91,7 @@ THE SOFTWARE.
         onSync: function (collection, response, options) {
             this.$launchSelect.html(this.collection.map(this.optionTemplate).join("\n"));
             if (this.collection.length > 0) {
-                this.$packageSelect.val(this.collection.first().id);
+                this.$launchSelect.val(this.collection.first().id);
             }
             if (this.visible) this.onLaunchSelect();
         },
