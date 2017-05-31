@@ -198,6 +198,8 @@ def _summary_communications(packages):
     remappings = 0
     for p in packages.itervalues():
         for c in p._configs:
+            for n in c.nodes():
+                remappings += len(n.remaps)
             remappings += len(c.resources.remaps)
             topics += len(c.resources.get_topics())
             topics += len(c.resources.get_services())
