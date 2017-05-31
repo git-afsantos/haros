@@ -250,7 +250,8 @@ def _metric_json(datum):
     return s
 
 def _config_json(config):
-    s = ('{"name": "' + config.name + '", "collisions": '
+    i = config.name + "-" + str(hash(config.package + config.name) % 10000000)
+    s = ('{"id": ' + i + ', "name": "' + config.name + '", "collisions": '
          + str(config.resources.n_collisions) + ', "remaps": '
          + str(len(config.resources.remaps)) + ', "dependencies": '
          + json.dumps(list(config.pkg_depends)) + ', "environment": '
