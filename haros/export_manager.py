@@ -272,9 +272,12 @@ def _metric_json(datum):
 
 def _config_json(config):
     i = config.name + "-" + str(hash(config.package + config.name) % 10000000)
+    r = dict(config.resources.remaps)
+    for n in config.nodes():
+        r.update(n.remaps)
     s = ('{"id": "' + i + '", "name": "' + config.name + '", "collisions": '
          + str(config.resources.n_collisions) + ', "remaps": '
-         + str(len(config.resources.remaps)) + ', "dependencies": '
+         + str(len(r)) + ', "dependencies": '
          + json.dumps(list(config.pkg_depends)) + ', "environment": '
          + json.dumps(list(config.env_depends)) + ', "nodes": '
          + json.dumps(map(_node_json, config.nodes())) + "}")
