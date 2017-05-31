@@ -32,7 +32,8 @@ THE SOFTWARE.
                 "issues":                   "issues",       // #issues
                 "issues/:pkg":              "issues",       // #issues/kobuki
                 "issues/:pkg/p:page":       "issues",       // #issues/kobuki/p2
-                "components":               "components"
+                "components":               "components",   // #components
+                "components/:pkg":          "components"    // #components/kobuki_node
             },
 
             home: function() {
@@ -69,10 +70,10 @@ THE SOFTWARE.
                 App.board = App.issueBoard;
             },
 
-            components: function() {
+            components: function(pkg) {
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("ros");
-                App.rosBoard.show().build();
+                App.rosBoard.show().build(pkg);
                 App.board = App.rosBoard;
             }
         });

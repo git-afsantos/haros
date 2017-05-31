@@ -156,6 +156,48 @@ THE SOFTWARE.
     ////////////////////////////////////////////////////////////////////////////
 
     /*
+        id,
+        name,
+        dependencies: [],
+        environment: [],
+        collisions,
+        remaps,
+        nodes: [{
+            name,
+            type,
+            args: [],
+            *error,
+            publishers: [],
+            subscribers: [],
+            servers: [],
+            clients: []
+        }]
+    */
+    Models.Configuration = Backbone.Model.extend({
+        defaults: function () {
+            return {
+                name: "?",
+                collisions: 0,
+                remaps: 0,
+                nodes: [],
+                dependencies: [],
+                environment: []
+            };
+        }
+    });
+
+    Models.ConfigurationCollection = Backbone.Collection.extend({
+        model: Models.Configuration,
+
+        url: function () {
+            return "data/models/" + this.packageId + ".json";
+        }
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /*
         source: {
             packages,
             files,

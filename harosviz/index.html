@@ -229,7 +229,8 @@ THE SOFTWARE.
                     <select id="ros-launch-select" class="flexible margin-h"></select>
                 </div>
             </div>
-            <div class="panel"></div>
+            <div id="config-details" class="panel"></div>
+            <div id="node-listing" class="panel"></div>
         </section>
 
         <section id="help-board">
@@ -466,10 +467,20 @@ THE SOFTWARE.
         </div>
     </script>
 
+    <script type="text/template" id="ros-board-config-summary">
+        <div class="panel">
+            <p><strong>Package Dependencies:</strong> <%= data.dependencies.join(", ") %></p>
+            <p><strong>Environment Dependencies:</strong> <%= data.environment.join(", ") %></p>
+            <p><strong>Name Collisions:</strong> <%= data.collisions %></p>
+            <p><strong>Name Remappings:</strong> <%= data.remaps %></p>
+            <p><strong>Launched Nodes:</strong> <%= data.nodes.length %></p>
+        </div>
+    </script>
+
     <script type="text/template" id="ros-board-node-details">
         <div class="node">
             <h4><%= data.name %></h4>
-            <p class="node-type">[<%= data.type %>]</p>
+            <p class="node-type">[<%= data.type %>] <%= data.args.join(" ") %></p>
             <% for (var i = 0; i < data.pub.length; ++i)
                 print('<p class="topic"><strong>pub</strong> ' + data.pub[i] + "</p>\n");
             %>

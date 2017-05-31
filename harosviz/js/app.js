@@ -98,7 +98,10 @@ This script creates the views with the document nodes, and the models from data.
             router: App.router
         });
         App.rosBoard = new App.Views.RosBoard({
-            el: $("#ros-board")
+            el: $("#ros-board"),
+            collection: new App.Models.ConfigurationCollection(),
+            packages: App.packages,
+            router: App.router
         });
         App.helpBoard = new App.Views.HelpBoard({
             el: $("#help-board")
