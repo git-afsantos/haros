@@ -2,6 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8" />
+<!--
+Copyright (c) 2016 Andre Santos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
     <title>HAROS Visualizer</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +56,8 @@
 <body>
     <!-- App Header -->
     <div id="app-header">
+        <!--<div class="my-button badge-empty"><h2><i class="fa fa-flag-o"></i></h2></div>
+        <div class="my-button badge-empty"><h2><i class="fa fa-ellipsis-h"></i></h2></div>-->
         <div class="navigation-menu">
             <a id="navigation-dashboard" href="#dashboard"><i class="fa fa-line-chart"></i> <span class="show-inline-lg">Dashboard</span></a>
             <a id="navigation-packages" href="#packages"><i class="fa fa-folder"></i> <span class="show-inline-lg">Packages</span></a>
@@ -100,14 +123,14 @@
                 </div>
 
                 <div class="issue-scale">
-                    <div class="issue-level-0"><span class="show-inline-md"><strong>L0</strong></span></div>
-                    <div class="issue-level-1"><span class="show-inline-md"><strong>L1</strong></span></div>
-                    <div class="issue-level-2"><span class="show-inline-md"><strong>L2</strong></span></div>
-                    <div class="issue-level-3"><span class="show-inline-md"><strong>L3</strong></span></div>
-                    <div class="issue-level-4"><span class="show-inline-md"><strong>L4</strong></span></div>
-                    <div class="issue-level-5"><span class="show-inline-md"><strong>L5</strong></span></div>
-                    <div class="issue-level-6"><span class="show-inline-md"><strong>L6</strong></span></div>
-                    <div class="issue-level-7"><span class="show-inline-md"><strong>L7</strong></span></div>
+                    <div class="issue-level-0" title="No issues!"><span class="show-inline-md"><strong>L0</strong></span></div>
+                    <div class="issue-level-1" title="&lt; 1 issue / 120 lines of code"><span class="show-inline-md"><strong>L1</strong></span></div>
+                    <div class="issue-level-2" title="&plusmn; 1 issue / 100 lines of code"><span class="show-inline-md"><strong>L2</strong></span></div>
+                    <div class="issue-level-3" title="&plusmn; 1 issue / 70 lines of code"><span class="show-inline-md"><strong>L3</strong></span></div>
+                    <div class="issue-level-4" title="&plusmn; 1 issue / 45 lines of code"><span class="show-inline-md"><strong>L4</strong></span></div>
+                    <div class="issue-level-5" title="&plusmn; 1 issue / 24 lines of code"><span class="show-inline-md"><strong>L5</strong></span></div>
+                    <div class="issue-level-6" title="&plusmn; 1 issue / 15 lines of code"><span class="show-inline-md"><strong>L6</strong></span></div>
+                    <div class="issue-level-7" title="&gt; 1 issue / 12 lines of code"><span class="show-inline-md"><strong>L7</strong></span></div>
                 </div>
 
                 <div id="pkg-filter-modal" class="modal">
@@ -189,11 +212,92 @@
         </section>
 
         <section id="ros-board">
-            <h1 class="text-center">Under construction.</h1>
+            <div class="header-menu">
+                <div class="menu-item margin-bottom">
+                    <label for="ros-package-select">
+                        <i class="fa fa-folder"></i>
+                        <strong class="show-inline-sm">Package</strong>
+                    </label>
+                    <select id="ros-package-select" class="flexible margin-h">
+                    <option>kobuki_safety_controller</option>
+                    <option>kobuki_random_walker</option>
+                    </select>
+                </div>
+                <div class="menu-item margin-bottom">
+                    <label for="ros-launch-select">
+                        <i class="fa fa-gears"></i>
+                        <strong class="show-inline-sm">Launch</strong>
+                    </label>
+                    <select id="ros-launch-select" class="flexible margin-h"></select>
+                </div>
+            </div>
+            <div id="config-details" class="panel"></div>
+            <div id="node-listing" class="panel"></div>
         </section>
 
         <section id="help-board">
-            <h1 class="text-center">Under construction.</h1>
+            <h2>Metrics</h2>
+            <h4>How are lines of code measured?</h4>
+            <p>HAROS supports several ways to measure lines of code:</p>
+            <dl>
+                <dt>LOC (Physical Lines of Code)</dt>
+                <dd>measures the number of line feeds in a text file.</dd>
+
+                <dt>SLOC (Source Lines of Code)</dt>
+                <dd>measures the number of physical lines, minus blank lines; it is the number of lines of source code and comments.</dd>
+
+                <dt>PLOC (Program Lines of Code)</dt>
+                <dd>measures the number of source code lines (no comments or blank lines).</dd>
+
+                <dt>LLOC (Logical Lines of Code)</dt>
+                <dd>measures the number of logical lines of code; e.g.
+                <span style="font-family: monospace; white-space: pre-wrap">if (condition) func();</span>
+                counts as two lines.</dd>
+
+                <dt>ELOC (Executable Lines of Code)</dt>
+                <dd>measures the number of executable lines of code; e.g. this
+                could exclude lines with braces and so on, depending on
+                the language.</dd>
+            </dl>
+
+            <p><b>Note:</b> HAROS, by itself, only counts LOC. All other types
+            are provided by plugins. Since you may be running HAROS without any
+            of the other LOC types, for calculating package score (colour) HAROS
+            uses an estimate of the <i>useful lines of code</i>, calculated from
+            the raw LOC value. This estimate tries to approximate a PLOC/ELOC
+            value, but may be quite wrong.</p>
+
+            <h4>What is Cyclomatic Complexity, and how to fix it?</h4>
+            <p>Cyclomatic Complexity measures the amount of execution paths that
+            result from decisions within a function. <i>In English:</i> the
+            minimum value is 1, because there is always one path for the
+            function; there is no maximum, by definition; it counts the amount of
+            <b>if</b>, <b>or</b>, <b>and</b>, <b>for</b>, <b>while</b>...
+            Typically, the greater the value, the harder it is to understand
+            the function.</p>
+
+            <p>Normally, when CC is high, the functions also tend to be
+            quite big. Try to split the function in smaller functions that
+            make sense (and ideally, ones that can be reused).</p>
+
+            <p><b>Note:</b> use your best judgement when breaking functions
+            into smaller chunks. Sometimes, a function has many decisions,
+            but may be easier to understand in the whole, rather than a
+            bunch of smaller functions whose sole purpose is to decrease
+            a number.</p>
+
+            <h4>What is the Maintainability Index, and how can I increase it?</h4>
+            <p>The Maintainability Index is a metric that is calculated from
+            a bunch of other metrics (lines of code, comment ratio,
+            Cyclomatic Complexity, Halstead Volume). It was designed to be a
+            <i>score</i> for how maintainable your code is. However, it has
+            received some criticism over time, and many people say that its
+            current definition could improve. Use it as feedback, but not
+            as a rule.</p>
+
+            <p>Naturally, to improve it, you need to improve these metrics.
+            Decrease lines of code, document your code, and reduce its
+            complexity.</p>
         </section>
 
 
@@ -207,15 +311,15 @@
         <a href="#packages"><h4 class="title"><i class="fa fa-file-code-o"></i> Source Code</h4></a>
         <p class="item">
             <span class="label">Packages</span>
-            <span class="badge-empty"><%= data.packages || "n/a" %></span>
+            <span class="badge-empty"><%= data.packages != null ? data.packages : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Files</span>
-            <span class="badge-empty"><%= data.files || "n/a" %></span>
+            <span class="badge-empty"><%= data.files != null ? data.files : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Scripts</span>
-            <span class="badge-empty"><%= data.scripts || "n/a" %></span>
+            <span class="badge-empty"><%= data.scripts != null ? data.scripts : "n/a" %></span>
         </p>
     </script>
 
@@ -223,23 +327,23 @@
         <a href="#issues"><h4 class="title"><i class="fa fa-bug"></i> Issues</h4></a>
         <p class="item">
             <span class="label">Total issues</span>
-            <span class="badge-empty"><%= data.total || "n/a" %></span>
+            <span class="badge-empty"><%= data.total != null ? data.total : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Coding standards</span>
-            <span class="badge-empty"><%= data.coding || "n/a" %></span>
+            <span class="badge-empty"><%= data.coding != null ? data.coding : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Code metrics</span>
-            <span class="badge-empty"><%= data.metrics || "n/a" %></span>
+            <span class="badge-empty"><%= data.metrics != null ? data.metrics : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Other issues</span>
-            <span class="badge-empty"><%= data.other || "n/a" %></span>
+            <span class="badge-empty"><%= data.other != null ? data.other : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Issues per line</span>
-            <span class="badge-empty"><%= data.ratio || "n/a" %></span>
+            <span class="badge-empty"><%= data.ratio != null ? data.ratio : "n/a" %></span>
         </p>
     </script>
 
@@ -247,23 +351,23 @@
         <a href="#components"><h4 class="title"><i class="fa fa-gears"></i> ROS Components</h4></a>
         <p class="item">
             <span class="label">Launch files</span>
-            <span class="badge-empty"><%= data.launchFiles || "n/a" %></span>
+            <span class="badge-empty"><%= data.launchFiles != null ? data.launchFiles : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label">Configurations</span>
+            <span class="badge-empty"><%= data.configurations != null ? data.configurations : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Node count</span>
-            <span class="badge-empty"><%= data.nodes || "n/a" %></span>
+            <span class="badge-empty"><%= data.nodes != null ? data.nodes : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Nodelets</span>
-            <span class="badge-empty"><%= data.nodelets || "n/a" %></span>
+            <span class="badge-empty"><%= data.nodelets != null ? data.nodelets : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Parameter files</span>
-            <span class="badge-empty"><%= data.parameterFiles || "n/a" %></span>
-        </p>
-        <p class="item">
-            <span class="label">Capabilities</span>
-            <span class="badge-empty"><%= data.capabilities || "n/a" %></span>
+            <span class="badge-empty"><%= data.parameterFiles != null ? data.parameterFiles : "n/a" %></span>
         </p>
     </script>
 
@@ -271,23 +375,23 @@
         <a href="#components"><h4 class="title"><i class="fa fa-exchange"></i> ROS Communications</h4></a>
         <p class="item">
             <span class="label">Topics</span>
-            <span class="badge-empty"><%= data.topics || "n/a" %></span>
+            <span class="badge-empty"><%= data.topics != null ? data.topics : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Remappings</span>
-            <span class="badge-empty"><%= data.remappings || "n/a" %></span>
+            <span class="badge-empty"><%= data.remappings != null ? data.remappings : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Custom messages</span>
-            <span class="badge-empty"><%= data.messages || "n/a" %></span>
+            <span class="badge-empty"><%= data.messages != null ? data.messages : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Custom services</span>
-            <span class="badge-empty"><%= data.services || "n/a" %></span>
+            <span class="badge-empty"><%= data.services != null ? data.services : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label">Custom actions</span>
-            <span class="badge-empty"><%= data.actions || "n/a" %></span>
+            <span class="badge-empty"><%= data.actions != null ? data.actions : "n/a" %></span>
         </p>
     </script>
 
@@ -298,7 +402,7 @@
     <script type="text/template" id="package-board-info-modal">
         <h4 class="title">
             <%= data.id %>
-            <small><a href="<%= data.wiki %>">Wiki <i class="fa fa-external-link"></i></a></small>
+            <small><a target="_blank" href="<%= data.wiki %>">Wiki <i class="fa fa-external-link"></i></a></small>
         </h4>
         <% if (data.metapackage) print('<span class="info">Metapackage</span>'); %>
         <hr>
@@ -316,32 +420,79 @@
         </p>
         <p>
             <i class="fa fa-code-fork bullet-icon"></i>
-            <strong>Repositories:</strong>
-            <%= _.map(data.repositories, function (r) {
-                var name = r.split("/")[1];
-                return '<a href="http://github.com/' + r + '">' + name + ' <i class="fa fa-external-link"></i></a>';
-            }).join(", ") || "n/a" %>
+            <strong>Repository:</strong>
+            <%= !!data.repository
+                ? '<a target="_blank" href="' + data.repository + '">'
+                    + data.repository.split("/")[2]
+                    + ' <i class="fa fa-external-link"></i></a>'
+                : "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-warning bullet-icon"></i>
+            <strong>Bug Tracker:</strong>
+            <%= !!data.bugTracker
+                ? '<a target="_blank" href="' + data.bugTracker + '">'
+                    + data.bugTracker.split("/")[2]
+                    + ' <i class="fa fa-external-link"></i></a>'
+                : "n/a" %>
         </p>
         <p>
             <i class="fa fa-sitemap bullet-icon"></i>
             <strong>Dependencies:</strong>
             <%= data.dependencies.join(", ") || "none" %>
         </p>
+        <p>
+            <i class="fa fa-database bullet-icon"></i>
+            <strong>Size:</strong>
+            <%= data.size != null ? data.size.toLocaleString() + " KB" : "n/a" %>
+        </p>
+        <p>
+            <i class="fa fa-list-ol bullet-icon"></i>
+            <strong>Physical Lines:</strong>
+            <%= data.lines != null ? data.lines.toLocaleString() : "n/a" %>
+        </p>
     </script>
 
     <script type="text/template" id="issue-board-violation">
         <div class="issue">
             <h4>Issue #<%= data.id %>
-                <span class="show-inline-md">- <%= data.rule %></span>
+                <span class="show-inline-md">- Rule <%= data.rule %></span>
                 <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
             </h4>
-            <p class="hide-block-md"><strong><%= data.rule %></strong></p>
+            <p><strong><%= data.description %></strong></p>
             <p><%= data.comment || "<i>No additional comment.</i>" %></p>
             <ul class="taglist">
                 <% for (var i = 0; i < data.tags.length; ++i)
                     print('<li class="tag" data-tag="' + data.tags[i] + '">' + data.tags[i] + "</li>\n");
                 %>
             </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="ros-board-config-summary">
+        <p><strong>Package Dependencies:</strong> <%= data.dependencies.join(", ") || "none" %></p>
+        <p><strong>Environment Dependencies:</strong> <%= data.environment.join(", ") || "none" %></p>
+        <p><strong>Name Collisions:</strong> <%= data.collisions %></p>
+        <p><strong>Name Remappings:</strong> <%= data.remaps %></p>
+        <p><strong>Launched Nodes:</strong> <%= data.nodes.length %></p>
+    </script>
+
+    <script type="text/template" id="ros-board-node-details">
+        <div class="node">
+            <h4><%= data.name %></h4>
+            <p class="node-type">[<%= data.type %>]</p>
+            <% for (var i = 0; i < data.publishers.length; ++i)
+                print('<p class="topic"><strong>pub</strong> ' + data.publishers[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.subscribers.length; ++i)
+                print('<p class="topic"><strong>sub</strong> ' + data.subscribers[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.servers.length; ++i)
+                print('<p class="topic"><strong>srv</strong> ' + data.servers[i] + "</p>\n");
+            %>
+            <% for (var i = 0; i < data.clients.length; ++i)
+                print('<p class="topic"><strong>cli</strong> ' + data.clients[i] + "</p>\n");
+            %>
         </div>
     </script>
 </body>

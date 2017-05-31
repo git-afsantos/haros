@@ -1,3 +1,25 @@
+/*
+Copyright (c) 2016 Andre Santos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 (function () {
     "use strict";
 
@@ -22,6 +44,7 @@
             this.page = 1;
             this.packageId = null;
             this.packages = options.packages;
+            this.rules = options.rules;
             this.router = options.router;
             this.filtered = null;
             this.publicVars = {};
@@ -64,8 +87,11 @@
         },
 
         renderViolation: function (violation, index) {
-            var data = _.clone(violation.attributes);
+            var data = _.clone(violation.attributes),
+                rule = this.rules.get(data.rule);
             data.id = this.pageSize * (this.page - 1) + index + 1;
+            data.description = rule.get("description");
+            data.tags = rule.get("tags");
             this.$explorer.append(this.violationTemplate(data));
         },
 
@@ -94,7 +120,9 @@
             this.page = Math.min(pages, Math.max(this.page, 1));
             this.filtered = this.filterView.tags.length === 0
                 ? null
-                : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
+                : this.collection.filterByRules(
+                        this.rules.filterByTags(this.filterView.tags),
+                        this.filterView.ignoring);
             this.render();
         },
 
@@ -145,11 +173,11 @@
 
         updateFilters: function () {
             var prev = this.filtered;
-            //console.log("filter", this.filterView.tags, this.filterView.ignoring);
             this.filtered = this.filterView.tags.length === 0
                 ? null
-                : this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring);
-            //console.log("  >", this.collection.filterByTags(this.filterView.tags, this.filterView.ignoring));
+                : this.collection.filterByRules(
+                        this.rules.filterByTags(this.filterView.tags),
+                        this.filterView.ignoring);
             if (prev != this.filtered) {
                 this.page = 1;
                 this.render();

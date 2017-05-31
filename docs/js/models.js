@@ -1,41 +1,59 @@
+/*
+Copyright (c) 2016 Andre Santos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 (function () {
     "use strict";
     var Models = window.App.Models;
 
     /*
         id,
-        name,
+        metapackage,
         description,
         wiki,
-        children: [],
-        repositories: [],
+        repository,
+        bugTracker,
         authors: [],
         maintainers: [],
         analysis: {},
         dependencies: [],
-        size
+        size,
+        lines
     */
     Models.Package = Backbone.Model.extend({
         defaults: function () {
             return {
-                children:       [],
-                repositories:   [],
+                wiki:           "http://wiki.ros.org/",
                 authors:        [],
                 maintainers:    [],
-                analysis:       {violations: {}},
+                analysis:       {violations: {}, metrics: {}},
                 dependencies:   []
             }
         },
 
-        isMetapackage: function () {
-            return this.get("children").length > 0;
-        },
-
         getViolations: function (filters, ignore) {
-            var i, sum = 0, fun = ignore ? "reject" : "filter",
+            var i, sum = 0, fun = ignore ? _["reject"] : _["filter"],
                 violations = this.get("analysis").violations;
             if (filters != null) {
-                violations = _[fun](violations, function (value, rule) {
+                violations = fun.call(_, violations, function (value, rule) {
                     return _.contains(filters, rule);
                 });
             } else {
@@ -57,12 +75,14 @@
 
     /*
         id,
+        scope,
         description,
         tags: []
     */
     Models.Rule = Backbone.Model.extend({
         defaults: function () {
             return {
+                scope: "file",
                 description: "n/a",
                 tags: []
             };
@@ -97,13 +117,12 @@
     ////////////////////////////////////////////////////////////////////////////
 
     /*
-        id,
         rule,
-        file,
-        line,
-        function,
-        comment,
-        tags: []
+        *file,
+        *line,
+        *function,
+        *class,
+        comment
     */
     Models.Violation = Backbone.Model.extend({
         defaults: function () {
@@ -111,19 +130,9 @@
                 file: null,
                 line: 0,
                 function: null,
-                comment: "",
-                tags: []
+                class: null,
+                comment: ""
             };
-        },
-
-        hasTag: function (tag) {
-            return _.contains(this.get("tags"), tag);
-        },
-
-        hasAnyTag: function (tags) {
-            var a = this.get("tags"), i = a.length;
-            while (i--) if (_.contains(tags, a[i])) return true;
-            return false;
         }
     });
 
@@ -134,12 +143,54 @@
             return "data/compliance/" + this.packageId + ".json";
         },
 
-        filterByTags: function (tags, ignore) {
-            if (tags.length === 0)
+        filterByRules: function (rules, ignore) {
+            if (rules.length === 0)
                 return this.toArray();
             return this[!!ignore ? "reject" : "filter"](function (model) {
-                return model.hasAnyTag(tags);
+                return _.contains(rules, model.get("rule"));
             });
+        }
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /*
+        id,
+        name,
+        dependencies: [],
+        environment: [],
+        collisions,
+        remaps,
+        nodes: [{
+            name,
+            type,
+            args: [],
+            *error,
+            publishers: [],
+            subscribers: [],
+            servers: [],
+            clients: []
+        }]
+    */
+    Models.Configuration = Backbone.Model.extend({
+        defaults: function () {
+            return {
+                name: "?",
+                collisions: 0,
+                remaps: 0,
+                nodes: [],
+                dependencies: [],
+                environment: []
+            };
+        }
+    });
+
+    Models.ConfigurationCollection = Backbone.Collection.extend({
+        model: Models.Configuration,
+
+        url: function () {
+            return "data/models/" + this.packageId + ".json";
         }
     });
 
