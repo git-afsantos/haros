@@ -260,7 +260,7 @@ def _config_json(config):
     return s
 
 def _node_json(node):
-    name = lambda t: t.full_name
+    name = lambda t: t[0].full_name
     return ('{"name": "' + node.full_name + '", "type": "'
             + node.reference + '", "args": '
             + json.dumps(node.argv) + ', "publishers": '
