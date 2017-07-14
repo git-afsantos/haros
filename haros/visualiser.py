@@ -51,7 +51,7 @@ except ImportError:
 _log = logging.getLogger(__name__)
 
 
-def install(dst):
+def install(dst, source_runner):
     if os.path.exists(dst):
         rmtree(dst)
     if not os.path.exists(dst):
@@ -59,7 +59,11 @@ def install(dst):
         _log.info("Creating %s", dst)
         os.mkdir(dst)
         _log.info("Copying viz files.")
-        src = resource_filename(Requirement.parse("haros"), "harosviz")
+        if source_runner:
+            src = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                  "..", "harosviz"))
+        else:
+            src = resource_filename(Requirement.parse("haros"), "harosviz")
         copy_tree(src, dst)
         _log.info("Creating %s", data_dir)
         os.mkdir(data_dir)

@@ -23,4 +23,4 @@
 import sys
 from .haros import main
 
-sys.exit(main())
+sys.exit(main(source_runner = True))

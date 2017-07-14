@@ -106,7 +106,7 @@ _log = logging.getLogger()
 #       -d export dir (input)
 #   haros full [args]
 #       full run (analyse + viz)
-def parse_arguments(argv):
+def parse_arguments(argv, source_runner):
     parser = argparse.ArgumentParser(prog="haros",
             description="ROS quality assurance.")
     parser.add_argument("--debug", action = "store_true",
@@ -114,7 +114,7 @@ def parse_arguments(argv):
     subparsers = parser.add_subparsers()
 
     parser_init = subparsers.add_parser("init")
-    parser_init.set_defaults(func = command_init)
+    parser_init.set_defaults(func = command_init, source_runner = source_runner)
 
     parser_full = subparsers.add_parser("full")
     parser_full.add_argument("-r", "--repositories", dest = "use_repos",
@@ -130,7 +130,7 @@ def parse_arguments(argv):
                        help = "execute only these plugins")
     group.add_argument("-b", "--blacklist", nargs = "*", dest = "blacklist",
                        help = "skip these plugins")
-    parser_full.set_defaults(func = command_full)
+    parser_full.set_defaults(func = command_full, source_runner = source_runner)
 
     parser_analyse = subparsers.add_parser("analyse")
     parser_analyse.add_argument("-r", "--repositories", dest = "use_repos",
@@ -143,19 +143,21 @@ def parse_arguments(argv):
                        help="execute only these plugins")
     group.add_argument("-b", "--blacklist", nargs = "*", dest = "blacklist",
                        help="skip these plugins")
-    parser_analyse.set_defaults(func = command_analyse)
+    parser_analyse.set_defaults(func = command_analyse,
+                                source_runner = source_runner)
 
     parser_export = subparsers.add_parser("export")
     parser_export.add_argument("data_dir", metavar = "dir",
                                help = "where to export data")
-    parser_export.set_defaults(func = command_export)
+    parser_export.set_defaults(func = command_export,
+                               source_runner = source_runner)
 
     parser_viz = subparsers.add_parser("viz")
     parser_viz.add_argument("-s", "--server-host", dest = "host",
                             default = "localhost:8080",
                             help = "visualisation host " \
                                    "(default: \"localhost:8080\")")
-    parser_viz.set_defaults(func = command_viz)
+    parser_viz.set_defaults(func = command_viz, source_runner = source_runner)
 
     return parser.parse_args() if argv is None else parser.parse_args(argv)
 
@@ -189,7 +191,7 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
-    viz.install(VIZ_DIR)
+    viz.install(VIZ_DIR, args.source_runner)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
         os.mkdir(PLUGIN_DIR)
@@ -228,8 +230,12 @@ def command_analyse(args):
         _log.warning("There are no packages to analyse.")
         return False
     print "[HAROS] Loading common definitions..."
-    path = resource_filename(Requirement.parse("haros"),
-                             "haros/definitions.yaml")
+    if args.source_runner:
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                               "definitions.yaml"))
+    else:
+        path = resource_filename(Requirement.parse("haros"),
+                                 "haros/definitions.yaml")
     dataman.load_definitions(path)
     print "[HAROS] Loading plugins..."
     plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
@@ -306,7 +312,7 @@ def command_viz(args):
     viz.serve(VIZ_DIR, args.host)
 
 
-def main(argv = None):
+def main(argv = None, source_runner = False):
     args = parse_arguments(argv)
     if args.debug:
         logging.basicConfig(filename = LOG_PATH, filemode = "w",

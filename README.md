@@ -43,7 +43,7 @@ and a **Web browser** (if you want to use the visualiser).
 install these dependencies first, then `Ctrl+F` *$dependencies$*.
 Otherwise, just keep reading.
 
-###Method 1: Running Without Installation
+### Method 1: Running Without Installation
 
 Open a terminal, and move to a directory where you want to clone this
 repository.
@@ -69,7 +69,7 @@ You can also run it with the executable package syntax.
 python -m haros <args>
 ```
 
-###Method 2: Installing HAROS on Your Machine
+### Method 2: Installing HAROS on Your Machine
 
 HAROS is now available on [PyPi](https://pypi.python.org/pypi/haros). You can install
 it from source or from an egg.
@@ -88,7 +88,7 @@ python setup.py install
 After installation, you should be able to run the command `haros` in your terminal
 from anywhere.
 
-###Prerequisites
+### Prerequisites
 
 Before you can actually run analyses with HAROS, you need to perform some
 initialisation operations. These operations include downloading a basic set of
@@ -164,24 +164,24 @@ on the appropriate page. To exit, just close your browser and press `Enter` on t
 
 Below you can find the basic commands that HAROS provides.
 
-###haros init
+### haros init
 
 This command runs initialisation and setup operations. This command needs to be run before the first analysis takes place. You can also run this command later on when you update HAROS.
 
-###haros analyse
+### haros analyse
 
 This command runs analysis on a given list of packages.
 
-####haros analyse (no options)
+#### haros analyse (no options)
 
 Runs analysis with the list of packages found within the default index file
 (`~/.haros/index.yaml`). You are free to edit this file.
 
-####haros analyse -p &lt;index file&gt;
+#### haros analyse -p &lt;index file&gt;
 
 Uses the given index file to run the analysis, instead of the default one.
 
-####haros analyse -r
+#### haros analyse -r
 
 Uses repository information when available. If HAROS cannot find one of the
 packages you specified, it will look for it in the official ROS distribution and
@@ -209,43 +209,43 @@ repositories:
 The only supported repository type, for now, is `git`. There is partial support
 for `hg` and `svn`, but these have not been fully tested.
 
-####haros analyse -w &lt;plugin name&gt; [-w &lt;another plugin&gt;, ...]
+#### haros analyse -w &lt;plugin name&gt; [-w &lt;another plugin&gt;, ...]
 
 Whitelist the given plugins. The analysis will **only** run these plugins.
 This option does not work with `-b`.
 
-####haros analyse -b &lt;plugin name&gt; [-b &lt;another plugin&gt;, ...]
+#### haros analyse -b &lt;plugin name&gt; [-b &lt;another plugin&gt;, ...]
 
 Blacklist the given plugins. The analysis will **not** run these plugins.
 This option does not work with `-w`.
 
 
-###haros export
+### haros export
 
 This command exports the analysis results (e.g. JSON files) to a location of your
 choosing. It assumes that some analyses were run previously.
 
-####haros export &lt;directory&gt;
+#### haros export &lt;directory&gt;
 
 Exports analysis data to the given directory. This command will create files and
 directories within the given directory.
 
 
-###haros viz
+### haros viz
 
 This command runs the visualisation only. It assumes that some analyses were run
 previously.
 
-####haros viz (no options)
+#### haros viz (no options)
 
 Launches the web visualiser and the visualisation server at `localhost:8080`.
 
-####haros viz -s &lt;host:port&gt;
+#### haros viz -s &lt;host:port&gt;
 
 Launches the web visusaliser and the visualisation server at the given host.
 
 
-###haros full
+### haros full
 
 Runs analysis and visualisation. This command accepts the same options as
 `haros analyse` and `haros viz`.
