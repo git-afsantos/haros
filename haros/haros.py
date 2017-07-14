@@ -313,7 +313,7 @@ def command_viz(args):
 
 
 def main(argv = None, source_runner = False):
-    args = parse_arguments(argv)
+    args = parse_arguments(argv, source_runner)
     if args.debug:
         logging.basicConfig(filename = LOG_PATH, filemode = "w",
                             level = logging.DEBUG)
