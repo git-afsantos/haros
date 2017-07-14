@@ -586,13 +586,19 @@ class DataManager(object):
     # and source files that are to be analysed
     def index_source(self, index_file, repo_path = None, index_repos = False):
         _log.debug("DataManager.index_source(%s, %s)", index_file, repo_path)
-        with open(index_file, "r") as handle:
-            data = yaml.load(handle)
+        if os.path.isfile(index_file):
+            with open(index_file, "r") as handle:
+                data = yaml.load(handle)
+        else:
+            data = { "packages": [] }
     # Step 1: find packages locally
         _log.info("Looking for packages locally.")
         missing = []
         pkg_list = self._read_launch_listing(data.get("launch"))
         pkg_list.extend(data.get("packages", []))
+        if not pkg_list and os.path.isfile("src/CMakeLists.txt"):
+            _log.info("Harvesting packages from catkin workspace")
+            pkg_list = RosPack.get_instance(".").list()
         pkg_list = set(pkg_list)
         for id in pkg_list:
             pkg = Package.locate_offline(id, repo_path)
@@ -651,6 +657,7 @@ class DataManager(object):
             _log.warning("Could not find package " + id)
     # Step 6: check if operating in launch mode
         self._search_launch_files()
+
 
 
     def _topological_sort(self):
