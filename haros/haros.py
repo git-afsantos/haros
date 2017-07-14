@@ -124,7 +124,7 @@ def parse_arguments(argv, source_runner):
                              help = "visualisation host " \
                                     "(default: \"localhost:8080\")")
     parser_full.add_argument("-p", "--package-index", dest = "pkg_filter",
-                             help = "package index file")
+                            help = "package index file (default: packages in current catkin workspace)")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help = "execute only these plugins")
@@ -223,8 +223,6 @@ def command_analyse(args):
            if args.pkg_filter and os.path.isfile(args.pkg_filter) \
            else os.path.join(HAROS_DIR, "index.yaml")
     _log.debug("Package index file %s", path)
-    if not os.path.isfile(path):
-        raise RuntimeError("There is no package index file. Aborting.")
     dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
     if not dataman.packages:
         _log.warning("There are no packages to analyse.")
