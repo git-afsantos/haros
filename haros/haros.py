@@ -111,6 +111,8 @@ def parse_arguments(argv, source_runner):
             description="ROS quality assurance.")
     parser.add_argument("--debug", action = "store_true",
                         help = "set debug logging")
+    parser.add_argument("-C", dest = "dir",
+            help = "change current directory to DIR before running")
     subparsers = parser.add_subparsers()
 
     parser_init = subparsers.add_parser("init")
@@ -124,7 +126,7 @@ def parse_arguments(argv, source_runner):
                              help = "visualisation host " \
                                     "(default: \"localhost:8080\")")
     parser_full.add_argument("-p", "--package-index", dest = "pkg_filter",
-                            help = "package index file (default: packages in current catkin workspace)")
+        help = "package index file (default: workspace packages below current dir)")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help = "execute only these plugins")
@@ -137,7 +139,7 @@ def parse_arguments(argv, source_runner):
                                 action = "store_true",
                                 help = "use repositories")
     parser_analyse.add_argument("-p", "--package-index", dest = "pkg_filter",
-                                help = "package index file")
+        help = "package index file (default: workspace packages below current dir)")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help="execute only these plugins")
@@ -317,10 +319,18 @@ def main(argv = None, source_runner = False):
                             level = logging.DEBUG)
     else:
         logging.basicConfig(level = logging.WARNING)
+
+    original_path = os.getcwd()
     try:
+        if args.dir:
+            os.chdir(args.dir)
         _log.info("Executing selected command.")
         args.func(args)
         return 0
+
     except RuntimeError as err:
         _log.error(str(err))
         return 1
+
+    finally:
+        os.chdir(original_path)

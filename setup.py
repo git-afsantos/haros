@@ -35,5 +35,11 @@ setup(
     packages        = find_packages(),
     entry_points    = {"console_scripts": ["haros = haros.haros:main"]},
     package_data    = {"haros": extra_files},
+    install_requires = [
+          'pyyaml',
+          'lizard',
+          'radon',
+          'rospkg'
+      ],
     zip_safe        = True
 )

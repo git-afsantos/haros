@@ -105,10 +105,6 @@ After initialisation, you still need to install some analysis tools that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
 
 ```bash
-sudo apt-get install python-pip
-pip install --upgrade pip
-sudo pip install radon
-sudo pip install lizard
 sudo apt-get install cppcheck
 ```
 

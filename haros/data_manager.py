@@ -596,7 +596,7 @@ class DataManager(object):
         missing = []
         pkg_list = self._read_launch_listing(data.get("launch"))
         pkg_list.extend(data.get("packages", []))
-        if not pkg_list and os.path.isfile("src/CMakeLists.txt"):
+        if not pkg_list:
             _log.info("Harvesting packages from catkin workspace")
             pkg_list = RosPack.get_instance(".").list()
         pkg_list = set(pkg_list)
