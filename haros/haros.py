@@ -320,6 +320,7 @@ def main(argv = None, source_runner = False):
     else:
         logging.basicConfig(level = logging.WARNING)
 
+    original_path = os.getcwd()
     try:
         if args.dir:
             os.chdir(args.dir)
@@ -330,3 +331,6 @@ def main(argv = None, source_runner = False):
     except RuntimeError as err:
         _log.error(str(err))
         return 1
+
+    finally:
+        os.chdir(original_path)
