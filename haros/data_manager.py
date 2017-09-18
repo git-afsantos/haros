@@ -123,7 +123,6 @@ class Person(object):
 
 # Represents a source code file
 class SourceFile(AnalysisScope):
-    _id_gen         = 1
     _excluded_dirs  = [".git", "doc", "bin", "cmake"]
     _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in",
                        ".hpp.in", ".c.in", ".cc.in")
@@ -132,9 +131,8 @@ class SourceFile(AnalysisScope):
     _launch_sources = ".launch"
 
     def __init__(self, name, path, pkg, lang):
-        AnalysisScope.__init__(self, pkg.id + ":" + str(SourceFile._id_gen),
-                                name, "file")
-        SourceFile._id_gen += 1
+        id = pkg.id + ":" + path.replace(os.path.sep, ":") + ":" + name
+        AnalysisScope.__init__(self, id, name, "file")
         self.path       = path # relative to package root
         self.package    = pkg
         self.language   = lang

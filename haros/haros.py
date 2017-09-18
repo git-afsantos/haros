@@ -256,11 +256,13 @@ def command_analyse(args):
 def command_export(args, dataman = None):
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
+    update_history = False
     if dataman:
         _log.debug("Exporting on-memory data manager.")
         json_path   = VIZ_DATA_DIR
         csv_path    = EXPORT_DIR
         db_path     = None
+        update_history = True
         _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
         _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
     elif os.path.isdir(args.data_dir):

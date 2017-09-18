@@ -208,6 +208,38 @@ class PluginInterface(object):
                 measurement.scope._violations.append(datum)
 
 
+class AnalysisSummary(object):
+    def __init__(self):
+        self.packages = set()
+        self.file_count = 0
+        self.script_count = 0
+        self.cpp_ratio = 0
+        self.python_ratio = 0
+        self.issue_count = 0
+        self.standard_issue_count = 0
+        self.metrics_issue_count = 0
+        self.other_issue_count = 0
+        self.launch_count = 0
+        self.node_count = 0
+        self.nodelet_count = 0
+        self.param_file_count = 0
+        self.configuration_count = 0
+        self.topic_count = 0
+        self.remap_count = 0
+        self.message_type_count = 0
+        self.service_type_count = 0
+        self.action_type_count = 0
+        self.file_line_count = 0
+        self.comment_ratio = 0
+        self.avg_cyclomatic_complexity = 1
+        self.avg_function_length = 0
+        self.avg_file_lines = 0
+
+    @property
+    def package_count(self):
+        return len(self.packages)
+
+
 
 def run_analysis_and_processing(datadir, plugins, data, expodir):
     _log.info("Running plugins on collected data.")
