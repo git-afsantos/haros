@@ -382,7 +382,7 @@ class Statistics(object):
 
 class AnalysisSummary(object):
     def __init__(self):
-        self.timestamp  = datetime.datetime.now().strftime("%Y%m%d-%H%M")
+        self.timestamp  = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
         self.packages   = {}
         self.statistics = Statistics()
 

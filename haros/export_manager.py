@@ -86,9 +86,21 @@ def export_configurations(datadir, packages):
 def export_summary(datadir, analysis):
     _log.info("Exporting analysis summary.")
     out = os.path.join(datadir, "summary.json")
+    data = analysis.last_summary.to_JSON_object()
+    past = analysis.summaries
+    data["history"] = {
+        "timestamps":       [s.timestamp for s in past],
+        "lines_of_code":    [s.statistics.lines_of_code for s in past],
+        "comments":         [s.statistics.comment_lines for s in past],
+        "issues":           [s.statistics.issue_count for s in past],
+        "standards":        [s.statistics.standard_issue_count for s in past],
+        "metrics":          [s.statistics.metrics_issue_count for s in past],
+        "complexity":       [s.statistics.avg_complexity for s in past],
+        "function_length":  [s.statistics.avg_function_length for s in past]
+    }
     with open(out, "w") as f:
         _log.debug("Writing to %s", out)
-        json.dump(analysis.last_summary.to_JSON_object(), f)
+        json.dump(data, f)
         # json.dump({
             # "source":           _summary_source(data.packages, data.files),
             # "issues":           _summary_issues(data.repositories,
