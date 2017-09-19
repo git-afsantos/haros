@@ -19,6 +19,8 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 
+import cPickle
+import datetime
 import logging
 import os
 import shutil
@@ -208,36 +210,69 @@ class PluginInterface(object):
                 measurement.scope._violations.append(datum)
 
 
+class Statistics(object):
+    def __init__(self):
+    # -- Files and Languages --------------------
+        self.file_count             = 0
+        self.script_count           = 0
+        self.launch_count           = 0
+        self.param_file_count       = 0
+        self.cpp_ratio              = 0
+        self.python_ratio           = 0
+    # -- Issues ---------------------------------
+        self.issue_count            = 0
+        self.standard_issue_count   = 0
+        self.metrics_issue_count    = 0
+        self.other_issue_count      = 0
+    # -- ROS Configuration Objects --------------
+        self.configuration_count    = 0
+        self.node_count             = 0
+        self.nodelet_count          = 0
+        self.topic_count            = 0
+        self.remap_count            = 0
+        self.message_type_count     = 0
+        self.service_type_count     = 0
+        self.action_type_count      = 0
+    # -- Source Code Metrics --------------------
+        self.file_line_count        = 0
+        self.comment_ratio          = 0
+        self.avg_complexity         = 1
+        self.avg_function_length    = 0
+        self.avg_file_lines         = 0
+    # -- private --------------------------------
+        self._complexities          = []
+        self._function_lines        = []
+        self._file_lines            = []
+
+
 class AnalysisSummary(object):
     def __init__(self):
-        self.packages = set()
-        self.file_count = 0
-        self.script_count = 0
-        self.cpp_ratio = 0
-        self.python_ratio = 0
-        self.issue_count = 0
-        self.standard_issue_count = 0
-        self.metrics_issue_count = 0
-        self.other_issue_count = 0
-        self.launch_count = 0
-        self.node_count = 0
-        self.nodelet_count = 0
-        self.param_file_count = 0
-        self.configuration_count = 0
-        self.topic_count = 0
-        self.remap_count = 0
-        self.message_type_count = 0
-        self.service_type_count = 0
-        self.action_type_count = 0
-        self.file_line_count = 0
-        self.comment_ratio = 0
-        self.avg_cyclomatic_complexity = 1
-        self.avg_function_length = 0
-        self.avg_file_lines = 0
+        self.timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M")
+        self.packages = {}
+        self.global_stats = Statistics()
 
     @property
     def package_count(self):
         return len(self.packages)
+
+
+class AnalysisManager(object):
+    def __init__(self):
+        self.summaries = []
+        self.week_stats = Statistics()  # these are relative values (7 days)
+        self.month_stats = Statistics() # these are relative values (30 days)
+
+
+    def save_state(self, file_path):
+        _log.debug("AnalysisManager.save_state(%s)", file_path)
+        with open(file_path, "w") as handle:
+            cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
+
+    @staticmethod
+    def load_state(file_path):
+        _log.debug("AnalysisManager.load_state(%s)", file_path)
+        with open(file_path, "r") as handle:
+            return cPickle.load(handle)
 
 
 
