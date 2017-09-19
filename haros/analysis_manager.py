@@ -217,8 +217,6 @@ class Statistics(object):
         self.script_count           = 0
         self.launch_count           = 0
         self.param_file_count       = 0
-        self.cpp_ratio              = 0
-        self.python_ratio           = 0
     # -- Issues ---------------------------------
         self.issue_count            = 0
         self.standard_issue_count   = 0
@@ -234,26 +232,197 @@ class Statistics(object):
         self.service_type_count     = 0
         self.action_type_count      = 0
     # -- Source Code Metrics --------------------
-        self.file_line_count        = 0
-        self.comment_ratio          = 0
+        self.lines_of_code          = 0 # total, code + comment + blank
+        self.comment_lines          = 0
+        self.cpp_lines              = 0
+        self.python_lines           = 0
         self.avg_complexity         = 1
         self.avg_function_length    = 0
-        self.avg_file_lines         = 0
+        self.avg_file_length        = 0
     # -- private --------------------------------
         self._complexities          = []
-        self._function_lines        = []
+        self._fun_lines             = []
         self._file_lines            = []
+
+    @property
+    def comment_ratio(self):
+        return self.comment_lines / float(self.cpp_lines + self.python_lines)
+
+    @property
+    def cpp_ratio(self):
+        return self.cpp_lines / float(self.lines_of_code)
+
+    @property
+    def python_ratio(self):
+        return self.python_lines / float(self.lines_of_code)
+
+    @property
+    def issue_ratio(self):
+        return self.issue_count / float(self.lines_of_code)
+
+    def update_averages(self):
+        self.avg_complexity         = avg(self._complexities)
+        self.avg_function_length    = avg(self._fun_lines)
+        self.avg_file_length        = avg(self._file_lines)
+
+    def take_from_file(self, source_file):
+        self.file_count += 1
+        self.lines_of_code += source_file.lines
+        self._file_lines.append(source_file.lines)
+        if (source_file.path == "scripts"
+                or source_file.path.startswith("scripts" + os.path.sep)):
+            self.script_count += 1
+        if source_file.language == "cpp":
+            self.cpp_lines += source_file.lines
+        elif source_file.language == "python":
+            self.python_lines += source_file.lines
+        elif source_file.language == "launch":
+            self.launch_count += 1
+        elif source_file.language == "yaml":
+            self.param_file_count += 1
+        self.issue_count += len(source_file._violations)
+        for issue in source_file._violations:
+            other = True
+            if "code-standards" in issue.rule.tags:
+                other = False
+                self.standard_issue_count += 1
+            if "metrics" in issue.rule.tags:
+                other = False
+                self.metrics_issue_count += 1
+            if other:
+                self.other_issue_count += 1
+        if source_file.language == "cpp" or source_file.language == "python":
+            for metric in source_file._metrics:
+                mid = metric.metric.id
+                if mid == "comments":
+                    self.comment_lines += metric.value
+                elif mid == "cyclomatic_complexity":
+                    self._complexities.append(metric.value)
+                elif mid == "sloc" or mid == "eloc" or mid == "ploc":
+                    if not metric.function is None:
+                        self._fun_lines.append(metric.value)
+
+    def take_from_package(self, package):
+        self.issue_count += len(package._violations)
+        for issue in package._violations:
+            other = True
+            if "code-standards" in issue.rule.tags:
+                other = False
+                self.standard_issue_count += 1
+            if "metrics" in issue.rule.tags:
+                other = False
+                self.metrics_issue_count += 1
+            if other:
+                self.other_issue_count += 1
+        self.configuration_count += len(package._configs)
+        for config in package._configs:
+            remaps = dict(config.resources.remaps)
+            for node in config.nodes():
+                remaps.update(node.remaps)
+                if node.nodelet:
+                    self.nodelet_count += 1
+                else:
+                    self.node_count += 1
+            self.remap_count += len(remaps)
+            self.topic_count += len(config.resources.get_topics())
+            self.topic_count += len(config.resources.get_services()
+
+    def relative_update(self, current, previous):
+    # -- Files and Languages --------------------
+        self.file_count = (current.file_count
+                           - avg([s.file_count for s in previous]))
+        self.script_count = (current.script_count
+                             - avg([s.script_count for s in previous]))
+        self.launch_count = (current.launch_count
+                             - avg([s.launch_count for s in previous]))
+        self.param_file_count = (current.param_file_count
+                                 - avg([s.param_file_count for s in previous]))
+    # -- Issues ---------------------------------
+        self.issue_count = (current.issue_count
+                            - avg([s.issue_count for s in previous]))
+        self.standard_issue_count = (current.standard_issue_count
+                               - avg([s.standard_issue_count for s in previous]))
+        self.metrics_issue_count = (current.metrics_issue_count
+                                - avg([s.metrics_issue_count for s in previous]))
+        self.other_issue_count = (current.other_issue_count
+                                  - avg([s.other_issue_count for s in previous]))
+    # -- ROS Configuration Objects --------------
+        self.configuration_count = (current.configuration_count
+                                - avg([s.configuration_count for s in previous]))
+        self.node_count = (current.node_count
+                           - avg([s.node_count for s in previous]))
+        self.nodelet_count = (current.nodelet_count
+                              - avg([s.nodelet_count for s in previous]))
+        self.topic_count = (current.topic_count
+                            - avg([s.topic_count for s in previous]))
+        self.remap_count = (current.remap_count
+                            - avg([s.remap_count for s in previous]))
+        self.message_type_count = (current.message_type_count
+                                 - avg([s.message_type_count for s in previous]))
+        self.service_type_count = (current.service_type_count
+                                 - avg([s.service_type_count for s in previous]))
+        self.action_type_count = (current.action_type_count
+                                  - avg([s.action_type_count for s in previous]))
+    # -- Source Code Metrics --------------------
+        self.lines_of_code = (current.lines_of_code
+                              - avg([s.lines_of_code for s in previous]))
+        self.comment_lines = (current.comment_lines
+                              - avg([s.comment_lines for s in previous]))
+        self.cpp_lines = (current.cpp_lines
+                          - avg([s.cpp_lines for s in previous]))
+        self.python_lines = (current.python_lines
+                             - avg([s.python_lines for s in previous]))
+        self.avg_complexity = (current.avg_complexity
+                               - avg([s.avg_complexity for s in previous]))
+        self.avg_function_length = (current.avg_function_length
+                                - avg([s.avg_function_length for s in previous]))
+        self.avg_file_length = (current.avg_file_length
+                                - avg([s.avg_file_length for s in previous]))
 
 
 class AnalysisSummary(object):
     def __init__(self):
-        self.timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M")
-        self.packages = {}
-        self.global_stats = Statistics()
+        self.timestamp  = datetime.datetime.now().strftime("%Y%m%d-%H%M")
+        self.packages   = {}
+        self.statistics = Statistics()
 
     @property
     def package_count(self):
         return len(self.packages)
+
+    def to_JSON_object(self):
+        return {
+            "source": {
+                "packages": len(self.packages),
+                "files":    self.statistics.file_count,
+                "scripts":  self.statistics.script_count,
+                "languages": {
+                    "cpp": self.statistics.cpp_ratio,
+                    "python": self.statistics.python_ratio
+                }
+            },
+            "issues": {
+                "total":    self.statistics.issue_count,
+                "coding":   self.statistics.standard_issue_count,
+                "metrics":  self.statistics.metrics_issue_count,
+                "other":    self.statistics.other_issue_count,
+                "ratio":    "{0:.2f}".format(self.statistics.issue_ratio)
+            },
+            "components": {
+                "launchFiles":      self.statistics.launch_count,
+                "nodes":            self.statistics.node_count,
+                "nodelets":         self.statistics.nodelet_count,
+                "parameterFiles":   None,
+                "configurations":   self.statistics.configuration_count
+            },
+            "communications": {
+                "topics":       self.statistics.topic_count,
+                "remappings":   self.statistics.remap_count,
+                "messages":     None,
+                "services":     None,
+                "actions":      None
+            }
+        }
 
 
 class AnalysisManager(object):
@@ -262,6 +431,11 @@ class AnalysisManager(object):
         self.week_stats = Statistics()  # these are relative values (7 days)
         self.month_stats = Statistics() # these are relative values (30 days)
 
+    @property
+    def last_summary(self):
+        if self.summaries:
+            return self.summaries[-1]
+        return None
 
     def save_state(self, file_path):
         _log.debug("AnalysisManager.save_state(%s)", file_path)
@@ -275,114 +449,139 @@ class AnalysisManager(object):
             return cPickle.load(handle)
 
 
+    def run_analysis_and_processing(self, datadir, plugins, data, expodir):
+        _log.info("Running plugins on collected data.")
+        iface = PluginInterface(data)
+        # Step 0: prepare directories
+        plugout = os.path.join(datadir, ".plugout")
+        if os.path.exists(plugout):
+            shutil.rmtree(plugout)
+        os.mkdir(plugout)
+        for plugin in plugins:
+            path = os.path.join(plugout, plugin.name)
+            os.mkdir(path)
+            plugin.tmp_path = path
+        wd = os.getcwd()
+        try:
+            self._analysis(iface, plugins, data)
+            self._processing(iface, plugins, data)
+            self._exports(iface._exported, expodir)
+            self._update_statistics(data)
+        finally:
+            os.chdir(wd)
+            shutil.rmtree(plugout)
 
-def run_analysis_and_processing(datadir, plugins, data, expodir):
-    _log.info("Running plugins on collected data.")
-    iface = PluginInterface(data)
-    # Step 0: prepare directories
-    plugout = os.path.join(datadir, ".plugout")
-    if os.path.exists(plugout):
-        shutil.rmtree(plugout)
-    os.mkdir(plugout)
-    for plugin in plugins:
-        path = os.path.join(plugout, plugin.name)
-        os.mkdir(path)
-        plugin.tmp_path = path
-    wd = os.getcwd()
-    try:
-        _analysis(iface, plugins, data)
-        _processing(iface, plugins, data)
-        _exports(iface._exported, expodir)
-    finally:
-        os.chdir(wd)
-        shutil.rmtree(plugout)
-    
 
+    def _analysis(self, iface, plugins, data):
+        for plugin in plugins:
+            _log.debug("Running analyses for " + plugin.name)
+            os.chdir(plugin.tmp_path)
+            # Step 1: run initialisation
+            plugin.analysis.pre_analysis()
+            # Step 2: run analysis; file > package > repository
+            iface._plugin = plugin
+            iface.state = plugin.analysis.state
+            try:
+                for scope in data.files.itervalues():
+                    if (data.launch_files and scope.language == "launch"
+                                          and not scope in data.launch_files):
+                        continue
+                    iface._scope = scope
+                    plugin.analysis.analyse_file(iface, scope)
+                for scope in data._topological_packages:
+                    iface._scope = scope
+                    plugin.analysis.analyse_package(iface, scope)
+                for scope in data.repositories.itervalues():
+                    iface._scope = scope
+                    plugin.analysis.analyse_repository(iface, scope)
+            except (UndefinedPropertyError, AnalysisScopeError) as e:
+                _log.error("%s", e.value)
+            # Step 3: run finalisation
+            iface._scope = None
+            plugin.analysis.post_analysis(iface)
 
-def _analysis(iface, plugins, data):
-    for plugin in plugins:
-        _log.debug("Running analyses for " + plugin.name)
-        os.chdir(plugin.tmp_path)
+    def _processing(self, iface, plugins, data):
         # Step 1: run initialisation
-        plugin.analysis.pre_analysis()
-        # Step 2: run analysis; file > package > repository
-        iface._plugin = plugin
-        iface.state = plugin.analysis.state
+        for plugin in plugins:
+            os.chdir(plugin.tmp_path)
+            plugin.process.pre_process()
+        # Step 2: run processing; file > package > repository
         try:
             for scope in data.files.itervalues():
-                if (data.launch_files and scope.language == "launch"
-                                      and not scope in data.launch_files):
-                    continue
                 iface._scope = scope
-                plugin.analysis.analyse_file(iface, scope)
+                v = list(scope._violations)
+                m = list(scope._metrics)
+                for plugin in plugins:
+                    iface._plugin = plugin
+                    iface.state = plugin.process.state
+                    os.chdir(plugin.tmp_path)
+                    plugin.process.process_file(iface, scope, v, m)
             for scope in data._topological_packages:
                 iface._scope = scope
-                plugin.analysis.analyse_package(iface, scope)
+                v = list(scope._violations)
+                m = list(scope._metrics)
+                for plugin in plugins:
+                    iface._plugin = plugin
+                    iface.state = plugin.process.state
+                    os.chdir(plugin.tmp_path)
+                    plugin.process.process_package(iface, scope, v, m)
             for scope in data.repositories.itervalues():
                 iface._scope = scope
-                plugin.analysis.analyse_repository(iface, scope)
+                v = list(scope._violations)
+                m = list(scope._metrics)
+                for plugin in plugins:
+                    iface._plugin = plugin
+                    iface.state = plugin.process.state
+                    os.chdir(plugin.tmp_path)
+                    plugin.process.process_repository(iface, scope, v, m)
         except (UndefinedPropertyError, AnalysisScopeError) as e:
             _log.error("%s", e.value)
         # Step 3: run finalisation
         iface._scope = None
-        plugin.analysis.post_analysis(iface)
+        for plugin in plugins:
+            os.chdir(plugin.tmp_path)
+            plugin.process.post_process(iface)
+
+    def _exports(self, sources, expodir):
+        counter = 1
+        for f in sources:
+            target = os.path.join(expodir, f[f.rfind(os.sep)+1:])
+            if os.path.isfile(target):
+                i = f.rfind(os.sep)
+                j = f.rfind(".")
+                if i >= j:
+                    ext = ".data"
+                else:
+                    ext = f[j:]
+                name = "d{:04d}{}".format(counter, ext)
+                target = os.path.join(expodir, name)
+                counter += 1
+            shutil.move(f, target)
+
+    def _update_statistics(self, data):
+        summary = AnalysisSummary()
+        for package in data._topological_packages:
+            pkg_stats = Statistics()
+            for source_file in package.source_files:
+                pkg_stats.take_from_file(source_file)
+                summary.statistics.take_from_file(source_file)
+            pkg_stats.take_from_package(package)
+            summary.statistics.take_from_package(package)
+            summary.packages[package.id] = pkg_stats
+            pkg_stats.update_averages()
+        summary.statistics.update_averages()
+    # TODO we are assuming one analysis per day, for now
+        while len(self.summaries) > 30:
+            self.summaries.pop(0)
+        self.week_stats.relative_update(summary, self.summaries[-7:])
+        self.month_stats.relative_update(summary, self.summaries)
+        self.summaries.append(summary)
+        if len(self.summaries) > 30:
+            self.summaries.pop(0)
 
 
-def _processing(iface, plugins, data):
-    # Step 1: run initialisation
-    for plugin in plugins:
-        os.chdir(plugin.tmp_path)
-        plugin.process.pre_process()
-    # Step 2: run processing; file > package > repository
-    try:
-        for scope in data.files.itervalues():
-            iface._scope = scope
-            v = list(scope._violations)
-            m = list(scope._metrics)
-            for plugin in plugins:
-                iface._plugin = plugin
-                iface.state = plugin.process.state
-                os.chdir(plugin.tmp_path)
-                plugin.process.process_file(iface, scope, v, m)
-        for scope in data._topological_packages:
-            iface._scope = scope
-            v = list(scope._violations)
-            m = list(scope._metrics)
-            for plugin in plugins:
-                iface._plugin = plugin
-                iface.state = plugin.process.state
-                os.chdir(plugin.tmp_path)
-                plugin.process.process_package(iface, scope, v, m)
-        for scope in data.repositories.itervalues():
-            iface._scope = scope
-            v = list(scope._violations)
-            m = list(scope._metrics)
-            for plugin in plugins:
-                iface._plugin = plugin
-                iface.state = plugin.process.state
-                os.chdir(plugin.tmp_path)
-                plugin.process.process_repository(iface, scope, v, m)
-    except (UndefinedPropertyError, AnalysisScopeError) as e:
-        _log.error("%s", e.value)
-    # Step 3: run finalisation
-    iface._scope = None
-    for plugin in plugins:
-        os.chdir(plugin.tmp_path)
-        plugin.process.post_process(iface)
 
-
-def _exports(sources, expodir):
-    counter = 1
-    for f in sources:
-        target = os.path.join(expodir, f[f.rfind(os.sep)+1:])
-        if os.path.isfile(target):
-            i = f.rfind(os.sep)
-            j = f.rfind(".")
-            if i >= j:
-                ext = ".data"
-            else:
-                ext = f[j:]
-            name = "d{:04d}{}".format(counter, ext)
-            target = os.path.join(expodir, name)
-            counter += 1
-        shutil.move(f, target)
+def avg(numbers, float_ = False):
+    if float_:
+        return sum(numbers) / float(len(numbers))
+    return sum(numbers) / len(numbers)

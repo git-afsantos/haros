@@ -83,18 +83,19 @@ def export_configurations(datadir, packages):
             _log.debug("Writing to %s", out)
             f.write("[" + ", ".join(data) + "]")
 
-def export_summary(datadir, data):
+def export_summary(datadir, analysis):
     _log.info("Exporting analysis summary.")
     out = os.path.join(datadir, "summary.json")
     with open(out, "w") as f:
         _log.debug("Writing to %s", out)
-        json.dump({
-            "source":           _summary_source(data.packages, data.files),
-            "issues":           _summary_issues(data.repositories,
-                                                data.packages, data.files),
-            "components":       _summary_components(data.files, data.packages),
-            "communications":   _summary_communications(data.packages)
-        }, f)
+        json.dump(analysis.last_summary.to_JSON_object(), f)
+        # json.dump({
+            # "source":           _summary_source(data.packages, data.files),
+            # "issues":           _summary_issues(data.repositories,
+            #                                     data.packages, data.files),
+            # "components":       _summary_components(data.files, data.packages),
+            # "communications":   _summary_communications(data.packages)
+        # }, f)
     
 
 

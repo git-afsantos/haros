@@ -68,7 +68,7 @@ from pkg_resources import Requirement, resource_filename
 
 from .data_manager import DataManager
 from . import plugin_manager as plugman
-from . import analysis_manager as anaman
+from .analysis_manager import AnalysisManager
 from . import export_manager as expoman
 from . import visualiser as viz
 
@@ -80,6 +80,7 @@ PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
+ANALYSIS_PATH   = os.path.join(HAROS_DIR, "analysis.db")
 LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
 PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
 
@@ -246,14 +247,20 @@ def command_analyse(args):
         dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
     print "[HAROS] Running analysis..."
     _empty_dir(EXPORT_DIR)
+    if os.path.isfile(ANALYSIS_PATH):
+        anaman = AnalysisManager.load_state(ANALYSIS_PATH)
+    else:
+        anaman = AnalysisManager()
     anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman, EXPORT_DIR)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
-    command_export(args, dataman)
+    anaman.save_state(ANALYSIS_PATH)
+    command_export(args, dataman, anaman)
     return True
 
 
-def command_export(args, dataman = None):
+def command_export(args, dataman = None, anaman = None):
+    assert (dataman is None) == (anaman is None)
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
     update_history = False
@@ -262,6 +269,7 @@ def command_export(args, dataman = None):
         json_path   = VIZ_DATA_DIR
         csv_path    = EXPORT_DIR
         db_path     = None
+        ana_path    = None
         update_history = True
         _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
         _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
@@ -269,6 +277,11 @@ def command_export(args, dataman = None):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
             dataman = DataManager.load_state(DB_PATH)
+        else:
+            _log.warning("There is no analysis data to export.")
+            return False
+        if os.path.isfile(ANALYSIS_PATH):
+            anaman = AnalysisManager.load_state(ANALYSIS_PATH)
         else:
             _log.warning("There is no analysis data to export.")
             return False
@@ -281,13 +294,14 @@ def command_export(args, dataman = None):
             _log.info("Creating directory %s", csv_path)
             os.mkdir(csv_path)
         db_path = os.path.join(args.data_dir, "haros.db")
+        ana_path = os.path.join(args.data_dir, "analysis.db")
     else:
         _log.error("%s is not a directory!", args.data_dir)
         return False
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
     expoman.export_metrics(json_path, dataman.metrics)
-    expoman.export_summary(json_path, dataman)
+    expoman.export_summary(json_path, anaman)
     path = os.path.join(json_path, "compliance")
     if not os.path.exists(path):
         _log.info("Creating directory %s", path)
@@ -304,8 +318,11 @@ def command_export(args, dataman = None):
         os.mkdir(path)
     expoman.export_configurations(path, dataman.packages)
     if db_path:
-        _log.debug("Copying DB from %s to %s", DB_PATH, db_path)
+        _log.debug("Copying data DB from %s to %s", DB_PATH, db_path)
         copyfile(DB_PATH, db_path)
+    if ana_path:
+        _log.debug("Copying analysis DB from %s to %s", ANALYSIS_PATH, ana_path)
+        copyfile(ANALYSIS_PATH, ana_path)
     return True
 
 
