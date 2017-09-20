@@ -325,7 +325,7 @@ class Statistics(object):
                     self.node_count += 1
             self.remap_count += len(remaps)
             self.topic_count += len(config.resources.get_topics())
-            self.topic_count += len(config.resources.get_services()
+            self.topic_count += len(config.resources.get_services())
 
     def relative_update(self, current, previous):
     # -- Files and Languages --------------------
@@ -573,8 +573,9 @@ class AnalysisManager(object):
     # TODO we are assuming one analysis per day, for now
         while len(self.summaries) > 30:
             self.summaries.pop(0)
-        self.week_stats.relative_update(summary, self.summaries[-7:])
-        self.month_stats.relative_update(summary, self.summaries)
+        previous = [s.statistics for s in self.summaries]
+        self.week_stats.relative_update(summary.statistics, previous[-7:])
+        self.month_stats.relative_update(summary.statistics, previous)
         self.summaries.append(summary)
         if len(self.summaries) > 30:
             self.summaries.pop(0)
@@ -582,6 +583,8 @@ class AnalysisManager(object):
 
 
 def avg(numbers, float_ = False):
+    if not numbers:
+        return 0.0 if float_ else 0
     if float_:
         return sum(numbers) / float(len(numbers))
     return sum(numbers) / len(numbers)
