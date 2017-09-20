@@ -224,6 +224,16 @@ THE SOFTWARE.
             messages,
             services,
             actions
+        },
+        history: {
+            [timestamps],
+            [lines_of_code],
+            [comments],
+            [issues],
+            [standards],
+            [metrics],
+            [complexity],
+            [function_length]
         }
     */
     Models.Summary = Backbone.Model.extend({

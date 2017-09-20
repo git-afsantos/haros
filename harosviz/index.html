@@ -100,8 +100,18 @@ THE SOFTWARE.
                 <div class="pure-u-1 pure-u-sm-1 pure-u-lg-1-2">
                     <div id="dashboard-panel-progress" class="panel double-size">
                         <h4 class="title"><i class="fa fa-line-chart"></i> Quality Progress</h4>
-                        <div class="diagram"></div>
-                        <h1>Under construction.</h1>
+                        <div class="flexbox margin-top">
+                            <select id="dashboard-metric-select" class="flexible margin-h">
+                                <option value="lines_of_code">Lines of Code</option>
+                                <option value="comments">Lines of Comments</option>
+                                <option value="issues">Number of Issues</option>
+                                <option value="standards">Coding Standards Issues</option>
+                                <option value="metrics">Metrics Issues</option>
+                                <option value="complexity">Avg. Cyclomatic Complexity</option>
+                                <option value="function_length">Avg. Function Length</option>
+                            </select>
+                        </div>
+                        <div class="chart"></div>
                     </div>
                 </div>
             </div>

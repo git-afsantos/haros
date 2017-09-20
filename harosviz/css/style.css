@@ -322,6 +322,33 @@ html, body {
 }
 
 
+#dashboard-panel-progress .chart .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+#dashboard-metric-select {
+    font-weight: bold;
+}
+
+/*#dashboard-panel-progress .chart {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+#dashboard-panel-progress .chart .responsive-svg {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}*/
+
+
 
 
 
