@@ -62,6 +62,8 @@ import logging
 import os
 import subprocess
 import sys
+import tempfile
+import shutil
 
 from shutil import copyfile
 from pkg_resources import Requirement, resource_filename
@@ -251,7 +253,9 @@ def command_analyse(args):
         anaman = AnalysisManager.load_state(ANALYSIS_PATH)
     else:
         anaman = AnalysisManager()
-    anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman, EXPORT_DIR)
+    temppath = tempfile.mkdtemp()
+    anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
+    shutil.rmtree(temppath)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
     anaman.save_state(ANALYSIS_PATH)
