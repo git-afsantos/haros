@@ -78,7 +78,6 @@ REPOSITORY_DIR  = os.path.join(HAROS_DIR, "repositories")
 EXPORT_DIR      = os.path.join(HAROS_DIR, "export")
 PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
-VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
 ANALYSIS_PATH   = os.path.join(HAROS_DIR, "analysis.db")
 LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
@@ -264,15 +263,16 @@ def command_export(args, dataman = None, anaman = None):
     print "[HAROS] Exporting analysis results..."
     update_history = False
     viz.install(VIZ_DIR, args.source_runner)
+    viz_data_dir    = os.path.join(VIZ_DIR, "data")
     if dataman:
         _log.debug("Exporting on-memory data manager.")
-        json_path   = VIZ_DATA_DIR
+        json_path   = viz_data_dir
         csv_path    = EXPORT_DIR
         db_path     = None
         ana_path    = None
         update_history = True
-        _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
-        _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
+        _empty_dir(os.path.join(viz_data_dir, "compliance"))
+        _empty_dir(os.path.join(viz_data_dir, "metrics"))
     elif os.path.isdir(args.data_dir):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
