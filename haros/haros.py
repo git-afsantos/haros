@@ -206,7 +206,9 @@ def command_init(args):
         _log.info("Updating plugin repository.")
         wd = os.getcwd()
         os.chdir(PLUGIN_DIR)
-        subprocess.check_call(["git", "pull"])
+        if not subprocess.call(["git", "branch"], stderr=subprocess.STDOUT, stdout=open(os.devnull, 'w')) != 0:
+            _log.info("Directory is a git repository. Execute git pull")
+            subprocess.check_call(["git", "pull"])
         os.chdir(wd)
 
 
