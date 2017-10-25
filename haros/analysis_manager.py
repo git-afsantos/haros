@@ -453,12 +453,8 @@ class AnalysisManager(object):
         _log.info("Running plugins on collected data.")
         iface = PluginInterface(data)
         # Step 0: prepare directories
-        plugout = os.path.join(datadir, ".plugout")
-        if os.path.exists(plugout):
-            shutil.rmtree(plugout)
-        os.mkdir(plugout)
         for plugin in plugins:
-            path = os.path.join(plugout, plugin.name)
+            path = os.path.join(datadir, plugin.name)
             os.mkdir(path)
             plugin.tmp_path = path
         wd = os.getcwd()
@@ -469,7 +465,6 @@ class AnalysisManager(object):
             self._update_statistics(data)
         finally:
             os.chdir(wd)
-            shutil.rmtree(plugout)
 
 
     def _analysis(self, iface, plugins, data):
