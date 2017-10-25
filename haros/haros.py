@@ -63,9 +63,8 @@ import os
 import subprocess
 import sys
 import tempfile
-import shutil
 
-from shutil import copyfile
+from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
 from .data_manager import DataManager
@@ -128,7 +127,10 @@ def parse_arguments(argv, source_runner):
                              help = "visualisation host " \
                                     "(default: \"localhost:8080\")")
     parser_full.add_argument("-p", "--package-index", dest = "pkg_filter",
-        help = "package index file (default: workspace packages below current dir)")
+                             help = ("package index file (default: "
+                                     "workspace packages below current dir)"))
+    parser_full.add_argument("-t", "--target-dir", default = VIZ_DIR,
+                             help = "export reports to target DIR")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help = "execute only these plugins")
@@ -141,9 +143,10 @@ def parse_arguments(argv, source_runner):
                                 action = "store_true",
                                 help = "use repositories")
     parser_analyse.add_argument("-p", "--package-index", dest = "pkg_filter",
-        help = "package index file (default: workspace packages below current dir)")
-    parser_analyse.add_argument("-t", dest = "target_dir",
-            help = "export result to target DIR")
+                                help = ("package index file (default: workspace"
+                                        " packages below current dir)"))
+    parser_analyse.add_argument("-t", "--target-dir", default = VIZ_DIR,
+                                help = "export reports to target DIR")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help="execute only these plugins")
@@ -153,16 +156,20 @@ def parse_arguments(argv, source_runner):
                                 source_runner = source_runner)
 
     parser_export = subparsers.add_parser("export")
-    parser_export.add_argument("data_dir", metavar = "dir",
+    parser_export.add_argument("-v", "--export-viz", action = "store_true",
+                                help = "export HTML viz files")
+    parser_export.add_argument("target_dir", metavar = "dir",
                                help = "where to export data")
     parser_export.set_defaults(func = command_export,
                                source_runner = source_runner)
 
     parser_viz = subparsers.add_parser("viz")
+    parser_viz.add_argument("-d", "--server-dir", default = VIZ_DIR,
+                            help = "served data directory")
     parser_viz.add_argument("-s", "--server-host", dest = "host",
                             default = "localhost:8080",
-                            help = "visualisation host " \
-                                   "(default: \"localhost:8080\")")
+                            help = ("visualisation host "
+                                    "(default: \"localhost:8080\")"))
     parser_viz.set_defaults(func = command_viz, source_runner = source_runner)
 
     return parser.parse_args() if argv is None else parser.parse_args(argv)
@@ -197,6 +204,7 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
+    viz.install(VIZ_DIR, args.source_runner)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
         os.mkdir(PLUGIN_DIR)
@@ -206,14 +214,16 @@ def command_init(args):
         _log.info("Updating plugin repository.")
         wd = os.getcwd()
         os.chdir(PLUGIN_DIR)
-        if not subprocess.call(["git", "branch"], stderr=subprocess.STDOUT, stdout=open(os.devnull, 'w')) != 0:
-            _log.info("Directory is a git repository. Execute git pull")
+        if subprocess.call(["git", "branch"], stderr = subprocess.STDOUT,
+                           stdout = open(os.devnull, 'w')) == 0:
+            _log.info("%s is a git repository. Executing git pull.", PLUGIN_DIR)
             subprocess.check_call(["git", "pull"])
         os.chdir(wd)
 
 
 def command_full(args):
     if command_analyse(args):
+        args.server_dir = args.target_dir
         return command_viz(args)
     return False
 
@@ -257,10 +267,13 @@ def command_analyse(args):
         anaman = AnalysisManager()
     temppath = tempfile.mkdtemp()
     anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
-    shutil.rmtree(temppath)
+    rmtree(temppath)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
     anaman.save_state(ANALYSIS_PATH)
+    index_file = os.path.join(args.target_dir, "index.html")
+    args.export_viz = (args.target_dir != VIZ_DIR
+                       and not os.path.isfile(index_file))
     command_export(args, dataman, anaman)
     return True
 
@@ -269,23 +282,18 @@ def command_export(args, dataman = None, anaman = None):
     assert (dataman is None) == (anaman is None)
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
-    update_history = False
-    if hasattr(args, 'target_dir'):
-        viz_target_dir = args.target_dir
-    else:
-        viz_target_dir = VIZ_DIR
-    viz.install(viz_target_dir, args.source_runner)
-    viz_data_dir    = os.path.join(viz_target_dir, "data")
+    if args.export_viz:
+        viz.install(args.target_dir, args.source_runner)
+    viz_data_dir = os.path.join(args.target_dir, "data")
     if dataman:
         _log.debug("Exporting on-memory data manager.")
         json_path   = viz_data_dir
         csv_path    = EXPORT_DIR
         db_path     = None
         ana_path    = None
-        update_history = True
         _empty_dir(os.path.join(viz_data_dir, "compliance"))
         _empty_dir(os.path.join(viz_data_dir, "metrics"))
-    elif os.path.isdir(args.data_dir):
+    elif os.path.isdir(args.target_dir):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
             dataman = DataManager.load_state(DB_PATH)
@@ -297,18 +305,18 @@ def command_export(args, dataman = None, anaman = None):
         else:
             _log.warning("There is no analysis data to export.")
             return False
-        json_path = os.path.join(args.data_dir, "json")
+        json_path = os.path.join(args.target_dir, "json")
         if not os.path.exists(json_path):
             _log.info("Creating directory %s", json_path)
             os.mkdir(json_path)
-        csv_path = os.path.join(args.data_dir, "csv")
+        csv_path = os.path.join(args.target_dir, "csv")
         if not os.path.exists(csv_path):
             _log.info("Creating directory %s", csv_path)
             os.mkdir(csv_path)
-        db_path = os.path.join(args.data_dir, "haros.db")
-        ana_path = os.path.join(args.data_dir, "analysis.db")
+        db_path = os.path.join(args.target_dir, "haros.db")
+        ana_path = os.path.join(args.target_dir, "analysis.db")
     else:
-        _log.error("%s is not a directory!", args.data_dir)
+        _log.error("%s is not a directory!", args.target_dir)
         return False
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
@@ -340,7 +348,7 @@ def command_export(args, dataman = None, anaman = None):
 
 def command_viz(args):
     _check_haros_directory()
-    viz.serve(VIZ_DIR, args.host)
+    viz.serve(args.server_dir, args.host)
 
 
 def main(argv = None, source_runner = False):
