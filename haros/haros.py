@@ -62,6 +62,8 @@ import logging
 import os
 import subprocess
 import sys
+import tempfile
+import shutil
 
 from shutil import copyfile
 from pkg_resources import Requirement, resource_filename
@@ -78,7 +80,6 @@ REPOSITORY_DIR  = os.path.join(HAROS_DIR, "repositories")
 EXPORT_DIR      = os.path.join(HAROS_DIR, "export")
 PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
-VIZ_DATA_DIR    = os.path.join(VIZ_DIR, "data")
 DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
 ANALYSIS_PATH   = os.path.join(HAROS_DIR, "analysis.db")
 LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
@@ -141,6 +142,8 @@ def parse_arguments(argv, source_runner):
                                 help = "use repositories")
     parser_analyse.add_argument("-p", "--package-index", dest = "pkg_filter",
         help = "package index file (default: workspace packages below current dir)")
+    parser_analyse.add_argument("-t", dest = "target_dir",
+            help = "export result to target DIR")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help="execute only these plugins")
@@ -194,7 +197,6 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
-    viz.install(VIZ_DIR, args.source_runner)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
         os.mkdir(PLUGIN_DIR)
@@ -204,7 +206,9 @@ def command_init(args):
         _log.info("Updating plugin repository.")
         wd = os.getcwd()
         os.chdir(PLUGIN_DIR)
-        subprocess.check_call(["git", "pull"])
+        if not subprocess.call(["git", "branch"], stderr=subprocess.STDOUT, stdout=open(os.devnull, 'w')) != 0:
+            _log.info("Directory is a git repository. Execute git pull")
+            subprocess.check_call(["git", "pull"])
         os.chdir(wd)
 
 
@@ -251,7 +255,9 @@ def command_analyse(args):
         anaman = AnalysisManager.load_state(ANALYSIS_PATH)
     else:
         anaman = AnalysisManager()
-    anaman.run_analysis_and_processing(HAROS_DIR, plugins, dataman, EXPORT_DIR)
+    temppath = tempfile.mkdtemp()
+    anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
+    shutil.rmtree(temppath)
     print "[HAROS] Saving analysis results..."
     dataman.save_state(DB_PATH)
     anaman.save_state(ANALYSIS_PATH)
@@ -264,15 +270,21 @@ def command_export(args, dataman = None, anaman = None):
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
     update_history = False
+    if hasattr(args, 'target_dir'):
+        viz_target_dir = args.target_dir
+    else:
+        viz_target_dir = VIZ_DIR
+    viz.install(viz_target_dir, args.source_runner)
+    viz_data_dir    = os.path.join(viz_target_dir, "data")
     if dataman:
         _log.debug("Exporting on-memory data manager.")
-        json_path   = VIZ_DATA_DIR
+        json_path   = viz_data_dir
         csv_path    = EXPORT_DIR
         db_path     = None
         ana_path    = None
         update_history = True
-        _empty_dir(os.path.join(VIZ_DATA_DIR, "compliance"))
-        _empty_dir(os.path.join(VIZ_DATA_DIR, "metrics"))
+        _empty_dir(os.path.join(viz_data_dir, "compliance"))
+        _empty_dir(os.path.join(viz_data_dir, "metrics"))
     elif os.path.isdir(args.data_dir):
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
