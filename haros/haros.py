@@ -140,6 +140,8 @@ def parse_arguments(argv, source_runner):
                                 help = "use repositories")
     parser_analyse.add_argument("-p", "--package-index", dest = "pkg_filter",
         help = "package index file (default: workspace packages below current dir)")
+    parser_analyse.add_argument("-t", dest = "target_dir",
+            help = "export result to target DIR")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help="execute only these plugins")
@@ -262,8 +264,12 @@ def command_export(args, dataman = None, anaman = None):
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
     update_history = False
-    viz.install(VIZ_DIR, args.source_runner)
-    viz_data_dir    = os.path.join(VIZ_DIR, "data")
+    if hasattr(args, 'target_dir'):
+        viz_target_dir = args.target_dir
+    else:
+        viz_target_dir = VIZ_DIR
+    viz.install(viz_target_dir, args.source_runner)
+    viz_data_dir    = os.path.join(viz_target_dir, "data")
     if dataman:
         _log.debug("Exporting on-memory data manager.")
         json_path   = viz_data_dir
