@@ -26,13 +26,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is being developed, as of May 2017. It is undergoing some
-substantial changes, compared to its original version, so I ask for your
-comprehension regarding bugs and a lack of documentation. Do not
-hesitate, however, to provide your feedback.
-
-Do note, also, that HAROS is not my job, and, as such, it is evolving at
-a relatively slow pace.
+HAROS is still being developed, as of October 2017, even though it may be evolving at a relatively slow pace.
 
 Installation
 ------------
@@ -69,7 +63,7 @@ You can also run it with the executable package syntax.
 Method 2: Installing HAROS on Your Machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can install HAROS from source or from an egg.
+You can install HAROS from source or from a wheel.
 Either of the following commands will install HAROS for you.
 
 .. code:: bash
@@ -100,10 +94,6 @@ with the following commands.
 
 .. code:: bash
 
-    sudo apt-get install python-pip
-    pip install --upgrade pip
-    sudo pip install radon
-    sudo pip install lizard
     sudo apt-get install cppcheck
 
 HAROS is now installed and ready to use.
@@ -178,8 +168,8 @@ haros analyse (no options)
 Runs analysis with the list of packages found within the default index
 file (``~/.haros/index.yaml``). You are free to edit this file.
 
-haros analyse -p <index file>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+haros analyse -p INDEX_FILE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Uses the given index file to run the analysis, instead of the default
 one.
@@ -215,17 +205,24 @@ The only supported repository type, for now, is ``git``. There is
 partial support for ``hg`` and ``svn``, but these have not been fully
 tested.
 
-haros analyse -w <plugin name> [-w <another plugin>, ...]
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+haros analyse -w PLUGIN [-w PLUGIN, ...]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Whitelist the given plugins. The analysis will **only** run these
 plugins. This option does not work with ``-b``.
 
-haros analyse -b <plugin name> [-b <another plugin>, ...]
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+haros analyse -b PLUGIN [-b PLUGIN, ...]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Blacklist the given plugins. The analysis will **not** run these
 plugins. This option does not work with ``-w``.
+
+haros analyse -t TARGET_DIR
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Export analysis results to the given directory, instead of the default one.
+This option will also install the visualisation files.
+**Existing files on this directory will be removed under some circumstances.**
 
 haros export
 ~~~~~~~~~~~~
@@ -234,11 +231,17 @@ This command exports the analysis results (e.g. JSON files) to a
 location of your choosing. It assumes that some analyses were run
 previously.
 
-haros export <directory>
-^^^^^^^^^^^^^^^^^^^^^^^^
+haros export TARGET_DIR
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Exports analysis data to the given directory. This command will create
 files and directories within the given directory.
+
+haros export -v
+^^^^^^^^^^^^^^^
+
+Export visualisation files along with analysis data.
+**Existing files on this directory will be removed under some circumstances.**
 
 haros viz
 ~~~~~~~~~
@@ -252,11 +255,16 @@ haros viz (no options)
 Launches the web visualiser and the visualisation server at
 ``localhost:8080``.
 
-haros viz -s <host:port>
-^^^^^^^^^^^^^^^^^^^^^^^^
+haros viz -s HOST:PORT
+^^^^^^^^^^^^^^^^^^^^^^
 
 Launches the web visusaliser and the visualisation server at the given
 host.
+
+haros viz -d DIR
+^^^^^^^^^^^^^^^^
+
+Serve the given directory, instead of the default one.
 
 haros full
 ~~~~~~~~~~

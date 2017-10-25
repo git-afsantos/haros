@@ -21,13 +21,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is being developed, as of May 2017. It is undergoing some
-substantial changes, compared to its original version, so I ask for your
-comprehension regarding bugs and a lack of documentation.
-Do not hesitate, however, to provide your feedback.
-
-Do note, also, that HAROS is not my job, and, as such, it is
-evolving at a relatively slow pace.
+HAROS is still being developed, as of October 2017, even though it may be evolving at a relatively slow pace.
 
 Installation
 ------------
@@ -72,7 +66,7 @@ python -m haros <args>
 ### Method 2: Installing HAROS on Your Machine
 
 HAROS is now available on [PyPi](https://pypi.python.org/pypi/haros). You can install
-it from source or from an egg.
+it from source or from a wheel.
 
 ```bash
 [sudo] pip install haros
@@ -173,7 +167,7 @@ This command runs analysis on a given list of packages.
 Runs analysis with the list of packages found within the default index file
 (`~/.haros/index.yaml`). You are free to edit this file.
 
-#### haros analyse -p &lt;index file&gt;
+#### haros analyse -p INDEX_FILE
 
 Uses the given index file to run the analysis, instead of the default one.
 
@@ -205,15 +199,21 @@ repositories:
 The only supported repository type, for now, is `git`. There is partial support
 for `hg` and `svn`, but these have not been fully tested.
 
-#### haros analyse -w &lt;plugin name&gt; [-w &lt;another plugin&gt;, ...]
+#### haros analyse -w PLUGIN [-w PLUGIN, ...]
 
 Whitelist the given plugins. The analysis will **only** run these plugins.
 This option does not work with `-b`.
 
-#### haros analyse -b &lt;plugin name&gt; [-b &lt;another plugin&gt;, ...]
+#### haros analyse -b PLUGIN [-b PLUGIN, ...]
 
 Blacklist the given plugins. The analysis will **not** run these plugins.
 This option does not work with `-w`.
+
+#### haros analyse -t TARGET_DIR
+
+Export analysis results to the given directory, instead of the default one.
+This option will also install the visualisation files.
+**Existing files on this directory will be removed under some circumstances.**
 
 
 ### haros export
@@ -221,10 +221,15 @@ This option does not work with `-w`.
 This command exports the analysis results (e.g. JSON files) to a location of your
 choosing. It assumes that some analyses were run previously.
 
-#### haros export &lt;directory&gt;
+#### haros export TARGET_DIR
 
 Exports analysis data to the given directory. This command will create files and
 directories within the given directory.
+
+#### haros export -v
+
+Export visualisation files along with analysis data.
+**Existing files on this directory will be removed under some circumstances.**
 
 
 ### haros viz
@@ -236,9 +241,13 @@ previously.
 
 Launches the web visualiser and the visualisation server at `localhost:8080`.
 
-#### haros viz -s &lt;host:port&gt;
+#### haros viz -s HOST:PORT
 
 Launches the web visusaliser and the visualisation server at the given host.
+
+#### haros viz -d DIR
+
+Serve the given directory, instead of the default one.
 
 
 ### haros full
