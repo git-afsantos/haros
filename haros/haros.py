@@ -306,9 +306,9 @@ def command_export(args, dataman = None, anaman = None):
             _log.warning("There is no analysis data to export.")
             return False
         if args.export_viz:
-            json_path = os.path.join(args.target_dir, "json")
-        else:
             json_path = viz_data_dir
+        else:
+            json_path = os.path.join(args.target_dir, "json")
         if not os.path.exists(json_path):
             _log.info("Creating directory %s", json_path)
             os.mkdir(json_path)
