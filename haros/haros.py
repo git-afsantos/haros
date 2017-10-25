@@ -194,7 +194,6 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
-    viz.install(VIZ_DIR, args.source_runner)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
         os.mkdir(PLUGIN_DIR)
@@ -264,6 +263,7 @@ def command_export(args, dataman = None, anaman = None):
     _check_haros_directory()
     print "[HAROS] Exporting analysis results..."
     update_history = False
+    viz.install(VIZ_DIR, args.source_runner)
     if dataman:
         _log.debug("Exporting on-memory data manager.")
         json_path   = VIZ_DATA_DIR
