@@ -30,6 +30,14 @@ _log = logging.getLogger(__name__)
 # Public Functions
 ################################################################################
 
+def export_projects(datadir, projects):
+    _log.info("Exporting project data.")
+    out = os.path.join(datadir, "projects.json")
+    s = "[" + ", ".join([_project_json(p) for p in projects]) + "]"
+    with open(out, "w") as f:
+        _log.debug("Writing to %s", out)
+        f.write(s)
+
 def export_packages(datadir, packages):
     _log.info("Exporting package data.")
     out = os.path.join(datadir, "packages.json")
@@ -224,6 +232,13 @@ def _summary_communications(packages):
         "services":     None,
         "actions":      None
     }
+
+def _project_json(project):
+    s = '{"id": "' + project.id + '", '
+    s += '"packages": '
+    s += json.dumps([p.id for p in project.packages])
+    s += '}'
+    return s
 
 def _pkg_json(pkg):
     s = '{"id": "' + pkg.id + '", '
