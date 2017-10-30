@@ -25,22 +25,28 @@ HAROS directory (data folder) structure:
 + ~/.haros
 |-- index.yaml
 |-+ plugins
-  |-+ ...
+| |-+ ...
 |-+ repositories
-  |-+ ...
+| |-+ ...
 |-+ viz
-  |-+ ...
-  |-+ data
-    |-- packages.json
-    |-- rules.json
-    |-- summary.json
-    |-+ compliance
-      |-- ...
-    |-+ metrics
-      |-- ...
-  |-- index.html
+| |-+ ...
+| |-+ data
+| | |-+ project
+| | | |-- packages.json
+| | | |-- rules.json
+| | | |-- summary.json
+| | | |-+ compliance
+| | | | |-- ...
+| | | |-+ metrics
+| | |   |-- ...
+| | |-- ...
+| |-- index.html
 |-+ export
-  |-- metrics.csv
+| |-- metrics.csv
+|-+ projects
+  |-+ project
+    |-- analysis.db
+    |-- haros.db
 """
 
 # start with init
@@ -51,7 +57,7 @@ HAROS directory (data folder) structure:
 # analysis may accept import option to use another db
 
 # export receives a dir where it will generate the export files
-# export still generates files in the data dir
+# export also generates files in the data dir
 # export uses db from analysis step or loads it from data dir
 
 # viz uses data from the data dir
@@ -75,36 +81,39 @@ from . import visualiser as viz
 
 
 HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
+LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
 REPOSITORY_DIR  = os.path.join(HAROS_DIR, "repositories")
 EXPORT_DIR      = os.path.join(HAROS_DIR, "export")
 PLUGIN_DIR      = os.path.join(HAROS_DIR, "plugins")
 VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
-DB_PATH         = os.path.join(HAROS_DIR, "haros.db")
-ANALYSIS_PATH   = os.path.join(HAROS_DIR, "analysis.db")
-LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
+PROJECTS_DIR    = os.path.join(HAROS_DIR, "projects")
+DEFAULT_PROJECT = os.path.join(PROJECTS_DIR, "default")
+DB_PATH         = os.path.join(DEFAULT_PROJECT, "haros.db")
+ANALYSIS_PATH   = os.path.join(DEFAULT_PROJECT, "analysis.db")
 PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
 
 _log = logging.getLogger()
 
 # Options:
 #   --debug sets the logging level to debug
+#   -C changes the CWD before running
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
 #       runs update, analysis and export
-#       -k  keep previous analyses (run analysis only for new packages)
 #       -r  also register and analyse repositories
+#       -p  package/project filter
 #       -w  whitelist plugins
 #       -b  blacklist plugins
-#       -p  package filter
-#       -d  db to import
+#       -t  export results to target directory
+#       -h  analysis history to import
 #   haros export [args]
 #       runs export only
-#       -d export dir (output)
+#       -v export viz files too
 #   haros viz [args]
 #       runs visualiser only
 #       -s host
-#       -d export dir (input)
+#       -t target dir (input)
 #   haros full [args]
 #       full run (analyse + viz)
 def parse_arguments(argv, source_runner):
@@ -131,6 +140,8 @@ def parse_arguments(argv, source_runner):
                                      "workspace packages below current dir)"))
     parser_full.add_argument("-t", "--target-dir", default = VIZ_DIR,
                              help = "export reports to target DIR")
+    parser_full.add_argument("-h", "--history",
+                             help = "import analysis history database")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help = "execute only these plugins")
@@ -147,6 +158,8 @@ def parse_arguments(argv, source_runner):
                                         " packages below current dir)"))
     parser_analyse.add_argument("-t", "--target-dir", default = VIZ_DIR,
                                 help = "export reports to target DIR")
+    parser_analyse.add_argument("-h", "--history",
+                                help = "import analysis history database")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
                        help="execute only these plugins")
@@ -164,7 +177,7 @@ def parse_arguments(argv, source_runner):
                                source_runner = source_runner)
 
     parser_viz = subparsers.add_parser("viz")
-    parser_viz.add_argument("-d", "--server-dir", default = VIZ_DIR,
+    parser_viz.add_argument("-t", "--target-dir", default = VIZ_DIR,
                             help = "served data directory")
     parser_viz.add_argument("-s", "--server-host", dest = "host",
                             default = "localhost:8080",
@@ -204,6 +217,11 @@ def command_init(args):
     if not os.path.exists(EXPORT_DIR):
         _log.info("Creating %s", EXPORT_DIR)
         os.mkdir(EXPORT_DIR)
+    if not os.path.exists(PROJECTS_DIR):
+        _log.info("Creating %s", PROJECTS_DIR)
+        os.mkdir(PROJECTS_DIR)
+        _log.info("Creating default project dir")
+        os.mkdir(DEFAULT_PROJECT)
     viz.install(VIZ_DIR, args.source_runner)
     if not os.path.exists(PLUGIN_DIR):
         _log.info("Creating %s", PLUGIN_DIR)
@@ -222,14 +240,14 @@ def command_init(args):
 
 
 def command_full(args):
-    if command_analyse(args):
-        args.server_dir = args.target_dir
-        return command_viz(args)
-    return False
+    return command_analyse(args) and command_viz(args)
 
 
 def command_analyse(args):
     _check_haros_directory()
+    if not os.path.isdir(args.target_dir):
+        _log.error("%s is not a directory!", args.target_dir)
+        return False
     _log.debug("Creating new data manager.")
     dataman = DataManager()
     # path = os.path.join(args.datadir, "haros.db")
@@ -261,16 +279,22 @@ def command_analyse(args):
         dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
     print "[HAROS] Running analysis..."
     _empty_dir(EXPORT_DIR)
-    if os.path.isfile(ANALYSIS_PATH):
-        anaman = AnalysisManager.load_state(ANALYSIS_PATH)
+    db_path = os.path.join(PROJECTS_DIR, dataman.project.name)
+    args.history = args.history or os.path.join(db_path, "analysis.db")
+    if os.path.isfile(args.history):
+        anaman = AnalysisManager.load_state(args.history)
     else:
         anaman = AnalysisManager()
     temppath = tempfile.mkdtemp()
     anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
     rmtree(temppath)
     print "[HAROS] Saving analysis results..."
-    dataman.save_state(DB_PATH)
-    anaman.save_state(ANALYSIS_PATH)
+    # TODO this needs refactoring
+    if not os.path.isdir(db_path):
+        _log.info("Creating %s...", db_path)
+        os.mkdir(db_path)
+    dataman.save_state(os.path.join(db_path, "haros.db"))
+    anaman.save_state(args.history)
     index_file = os.path.join(args.target_dir, "index.html")
     args.export_viz = (args.target_dir != VIZ_DIR
                        and not os.path.isfile(index_file))
@@ -351,7 +375,7 @@ def command_export(args, dataman = None, anaman = None):
 
 def command_viz(args):
     _check_haros_directory()
-    viz.serve(args.server_dir, args.host)
+    return viz.serve(args.target_dir, args.host)
 
 
 def main(argv = None, source_runner = False):
