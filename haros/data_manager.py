@@ -550,6 +550,7 @@ class Project(AnalysisScope):
 # Object to store and manage all data
 class DataManager(object):
     def __init__(self):
+        self.project        = None
         self.launch_files   = []
         self.repositories   = {}
         self.packages       = {}
@@ -619,6 +620,7 @@ class DataManager(object):
                 data = yaml.load(handle)
         else:
             data = { "packages": [] }
+        self.project = Project(data.get("project", "default"))
     # Step 1: find packages locally
         _log.info("Looking for packages locally.")
         missing = []
@@ -635,6 +637,8 @@ class DataManager(object):
             else:
                 SourceFile.populate_package(pkg, self.files)
                 self.packages[id] = pkg
+                self.project.packages.append(pkg)
+                pkg.project = self.project
     # Step 2: load repositories only if explicitly told to
         _log.debug("Missing packages: %s", missing)
         if index_repos:
@@ -677,6 +681,8 @@ class DataManager(object):
                             missing.remove(id)
                             repo.packages.append(pkg)
                             pkg.repository = repo
+                            self.project.packages.append(pkg)
+                            pkg.project = self.project
                         else:
                             _log.debug("%s was not found in clones.", id)
     # Step 5: sort packages in topological order
