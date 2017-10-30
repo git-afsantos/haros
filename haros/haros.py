@@ -194,12 +194,11 @@ def _check_haros_directory():
 
 def _empty_dir(dir_path):
     _log.debug("Emptying directory %s", dir_path)
-    if os.path.isdir(dir_path):
-        for f in os.listdir(dir_path):
-            path = os.path.join(dir_path, f)
-            if os.path.isfile(path):
-                _log.debug("Removing file %s", path)
-                os.unlink(path)
+    for f in os.listdir(dir_path):
+        path = os.path.join(dir_path, f)
+        if os.path.isfile(path):
+            _log.debug("Removing file %s", path)
+            os.unlink(path)
 
 def command_init(args):
     print "[HAROS] Creating directories..."
@@ -316,17 +315,10 @@ def command_export(args, dataman = None, anaman = None):
     if dataman:
         _log.debug("Exporting on-memory data manager.")
         json_path   = os.path.join(viz_data_dir, dataman.project.name)
-        csv_path    = EXPORT_DIR
+        # csv_path    = EXPORT_DIR
         db_path     = None
         ana_path    = None
-        if not os.path.isdir(json_path):
-            os.mkdir(json_path)
-            os.mkdir(os.path.join(json_path, "compliance"))
-            os.mkdir(os.path.join(json_path, "metrics"))
-            os.mkdir(os.path.join(json_path, "models"))
-        _empty_dir(os.path.join(json_path, "compliance"))
-        _empty_dir(os.path.join(json_path, "metrics"))
-        _empty_dir(os.path.join(json_path, "models"))
+        expoman.export_projects(viz_data_dir, [dataman.project])
     else:
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
@@ -341,17 +333,19 @@ def command_export(args, dataman = None, anaman = None):
             return False
         if args.export_viz:
             json_path = os.path.join(viz_data_dir, dataman.project.name)
+            expoman.export_projects(viz_data_dir, [dataman.project])
         else:
             json_path = os.path.join(args.target_dir, "json")
-        if not os.path.exists(json_path):
-            _log.info("Creating directory %s", json_path)
-            os.mkdir(json_path)
-        csv_path = os.path.join(args.target_dir, "csv")
-        if not os.path.exists(csv_path):
-            _log.info("Creating directory %s", csv_path)
-            os.mkdir(csv_path)
+            expoman.export_projects(json_path, [dataman.project])
+        # csv_path = os.path.join(args.target_dir, "csv")
         db_path = os.path.join(args.target_dir, "haros.db")
         ana_path = os.path.join(args.target_dir, "analysis.db")
+    if not os.path.exists(json_path):
+        _log.info("Creating directory %s", json_path)
+        os.mkdir(json_path)
+    # if not os.path.exists(csv_path):
+        # _log.info("Creating directory %s", csv_path)
+        # os.mkdir(csv_path)
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
     expoman.export_metrics(json_path, dataman.metrics)
@@ -360,16 +354,22 @@ def command_export(args, dataman = None, anaman = None):
     if not os.path.exists(path):
         _log.info("Creating directory %s", path)
         os.mkdir(path)
+    else:
+        _empty_dir(path)
     expoman.export_violations(path, dataman.packages)
     path = os.path.join(json_path, "metrics")
     if not os.path.exists(path):
         _log.info("Creating directory %s", path)
         os.mkdir(path)
+    else:
+        _empty_dir(path)
     expoman.export_measurements(path, dataman.packages)
     path = os.path.join(json_path, "models")
     if not os.path.exists(path):
         _log.info("Creating directory %s", path)
         os.mkdir(path)
+    else:
+        _empty_dir(path)
     expoman.export_configurations(path, dataman.packages)
     if db_path:
         _log.debug("Copying data DB from %s to %s", DB_PATH, db_path)
