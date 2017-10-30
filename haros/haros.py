@@ -194,11 +194,12 @@ def _check_haros_directory():
 
 def _empty_dir(dir_path):
     _log.debug("Emptying directory %s", dir_path)
-    for f in os.listdir(dir_path):
-        path = os.path.join(dir_path, f)
-        if os.path.isfile(path):
-            _log.debug("Removing file %s", path)
-            os.unlink(path)
+    if os.path.isdir(dir_path):
+        for f in os.listdir(dir_path):
+            path = os.path.join(dir_path, f)
+            if os.path.isfile(path):
+                _log.debug("Removing file %s", path)
+                os.unlink(path)
 
 def command_init(args):
     print "[HAROS] Creating directories..."
@@ -305,19 +306,28 @@ def command_analyse(args):
 def command_export(args, dataman = None, anaman = None):
     assert (dataman is None) == (anaman is None)
     _check_haros_directory()
+    if not os.path.isdir(args.target_dir):
+        _log.error("%s is not a directory!", args.target_dir)
+        return False
     print "[HAROS] Exporting analysis results..."
     if args.export_viz:
         viz.install(args.target_dir, args.source_runner)
     viz_data_dir = os.path.join(args.target_dir, "data")
     if dataman:
         _log.debug("Exporting on-memory data manager.")
-        json_path   = viz_data_dir
+        json_path   = os.path.join(viz_data_dir, dataman.project.name)
         csv_path    = EXPORT_DIR
         db_path     = None
         ana_path    = None
-        _empty_dir(os.path.join(viz_data_dir, "compliance"))
-        _empty_dir(os.path.join(viz_data_dir, "metrics"))
-    elif os.path.isdir(args.target_dir):
+        if not os.path.isdir(json_path):
+            os.mkdir(json_path)
+            os.mkdir(os.path.join(json_path, "compliance"))
+            os.mkdir(os.path.join(json_path, "metrics"))
+            os.mkdir(os.path.join(json_path, "models"))
+        _empty_dir(os.path.join(json_path, "compliance"))
+        _empty_dir(os.path.join(json_path, "metrics"))
+        _empty_dir(os.path.join(json_path, "models"))
+    else:
         _log.debug("Exporting data manager from file.")
         if os.path.isfile(DB_PATH):
             dataman = DataManager.load_state(DB_PATH)
@@ -330,7 +340,7 @@ def command_export(args, dataman = None, anaman = None):
             _log.warning("There is no analysis data to export.")
             return False
         if args.export_viz:
-            json_path = viz_data_dir
+            json_path = os.path.join(viz_data_dir, dataman.project.name)
         else:
             json_path = os.path.join(args.target_dir, "json")
         if not os.path.exists(json_path):
@@ -342,9 +352,6 @@ def command_export(args, dataman = None, anaman = None):
             os.mkdir(csv_path)
         db_path = os.path.join(args.target_dir, "haros.db")
         ana_path = os.path.join(args.target_dir, "analysis.db")
-    else:
-        _log.error("%s is not a directory!", args.target_dir)
-        return False
     expoman.export_packages(json_path, dataman.packages)
     expoman.export_rules(json_path, dataman.rules)
     expoman.export_metrics(json_path, dataman.metrics)
