@@ -38,7 +38,7 @@ except ImportError:
 from rospkg import RosPack, ResourceNotFound
 
 
-SCOPE_TYPES = ("function", "class", "file", "package", "repository")
+SCOPE_TYPES = ("function", "class", "file", "package", "repository", "project")
 
 _log = logging.getLogger(__name__)
 
@@ -187,7 +187,7 @@ class SourceFile(AnalysisScope):
     def bound_to(self, other):
         if other.scope == "package":
             return self.package == other
-        if other.scope == "repository":
+        if other.scope == "repository" or other.scope == "project":
             return self.package in other.packages
         return self == other
 
@@ -197,9 +197,10 @@ class SourceFile(AnalysisScope):
 
 # Represents a ROS package
 class Package(AnalysisScope):
-    def __init__(self, name, repo = None):
+    def __init__(self, name, repo = None, proj = None):
         AnalysisScope.__init__(self, name, name, "package")
     # public:
+        self.project            = proj
         self.repository         = repo
         self.authors            = set()
         self.maintainers        = set()
@@ -319,6 +320,8 @@ class Package(AnalysisScope):
             return other.package == self
         if other.scope == "repository":
             return self.repository == other
+        if other.scope == "project":
+            return self.project == other
         return self == other or other.id in self.dependencies
 
     def __repr__(self):
@@ -510,6 +513,33 @@ class Repository(AnalysisScope):
             return other.repository == self
         if other.scope == "file":
             return other.package in self.packages
+        if other.scope == "project":
+            for package in self.packages:
+                if not package in other.packages:
+                    return False
+                return True
+        return self == other
+
+
+class Project(AnalysisScope):
+    """A project is a custom grouping of packages, not necessarily
+        corresponding to a repository, and not even requiring the
+        existence of one.
+    """
+    def __init__(self, name, packages = None):
+        AnalysisScope.__init__(self, name, name, "project")
+        self.packages = packages if not packages is None else []
+
+    def bound_to(self, other):
+        if other.scope == "package":
+            return other.project == self
+        if other.scope == "file":
+            return other.package in self.packages
+        if other.scope == "repository":
+            for package in other.packages:
+                if not package in self.packages:
+                    return False
+                return True
         return self == other
 
 
@@ -520,6 +550,7 @@ class Repository(AnalysisScope):
 # Object to store and manage all data
 class DataManager(object):
     def __init__(self):
+        self.project        = None
         self.launch_files   = []
         self.repositories   = {}
         self.packages       = {}
@@ -589,6 +620,7 @@ class DataManager(object):
                 data = yaml.load(handle)
         else:
             data = { "packages": [] }
+        self.project = Project(data.get("project", "default"))
     # Step 1: find packages locally
         _log.info("Looking for packages locally.")
         missing = []
@@ -605,6 +637,8 @@ class DataManager(object):
             else:
                 SourceFile.populate_package(pkg, self.files)
                 self.packages[id] = pkg
+                self.project.packages.append(pkg)
+                pkg.project = self.project
     # Step 2: load repositories only if explicitly told to
         _log.debug("Missing packages: %s", missing)
         if index_repos:
@@ -647,6 +681,8 @@ class DataManager(object):
                             missing.remove(id)
                             repo.packages.append(pkg)
                             pkg.repository = repo
+                            self.project.packages.append(pkg)
+                            pkg.project = self.project
                         else:
                             _log.debug("%s was not found in clones.", id)
     # Step 5: sort packages in topological order

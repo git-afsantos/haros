@@ -43,7 +43,7 @@ THE SOFTWARE.
             dashboard: function() {
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("dashboard");
-                App.dashboard.show().build();
+                App.dashboard.show().build(App.project);
                 App.board = App.dashboard;
             },
 
@@ -55,25 +55,31 @@ THE SOFTWARE.
             },
 
             packages: function() {
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("packages");
-                App.packageBoard.show().build();
+                App.packageBoard.show().build(App.project);
                 App.board = App.packageBoard;
             },
 
             issues: function(pkg, page) {
                 // ? query is category/filter (standards, metrics...) ?
                 // maybe keep "resolved" issues from last run?
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("issues");
-                App.issueBoard.show().build(pkg, page);
+                App.issueBoard.show().build(App.project, pkg, page);
                 App.board = App.issueBoard;
             },
 
             components: function(pkg) {
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("ros");
-                App.rosBoard.show().build(pkg);
+                App.rosBoard.show().build(App.project, pkg);
                 App.board = App.rosBoard;
             }
         });

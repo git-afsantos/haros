@@ -42,6 +42,7 @@ THE SOFTWARE.
 
         initialize: function (options) {
             this.page = 1;
+            this.projectId = null;
             this.packageId = null;
             this.packages = options.packages;
             this.rules = options.rules;
@@ -95,8 +96,9 @@ THE SOFTWARE.
             this.$explorer.append(this.violationTemplate(data));
         },
 
-        build: function (packageId, page) {
+        build: function (project, packageId, page) {
             // save arguments to show later, in case the packages are not loaded
+            this.projectId = project.id;
             this.packageId = packageId;
             this.page = page ? +page || 1 : 1;
             if (this.publicVars.tags != null) {

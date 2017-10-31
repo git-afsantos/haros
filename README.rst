@@ -74,8 +74,8 @@ Either of the following commands will install HAROS for you.
 After installation, you should be able to run the command ``haros`` in
 your terminal from anywhere.
 
-Prerequisites
-~~~~~~~~~~~~~
+Requirements
+~~~~~~~~~~~~
 
 Before you can actually run analyses with HAROS, you need to perform
 some initialisation operations. These operations include downloading a
@@ -104,7 +104,8 @@ Usage
 Here is a basic example to help you get started with HAROS. Additional
 examples should be added in a future update.
 
-HAROS works with the concept of **index files**. These files tell HAROS
+HAROS works with the concept of **index files**. These files are more
+or less an equivalent to a project description, and they tell HAROS
 which packages you want to analyse. For this basic example, you should
 have the packages installed, and with available source code. If you run
 ``rospack find my_package`` and it returns the location of your
@@ -148,6 +149,20 @@ When the analysis finishes, HAROS should start a visualisation server
 and your web browser on the appropriate page. To exit, just close your
 browser and press ``Enter`` on the terminal.
 
+If you want to analyse several projects, or groups of packages, it is
+recommended to create an index file for each project, and define a project
+name as well. This way, HAROS will store analysis results separately.
+Example:
+
+.. code:: yaml
+
+    %YAML 1.1
+    ---
+    project: my_robot
+    packages:
+        - package1
+        - package2
+
 Below you can find the basic commands that HAROS provides.
 
 haros init
@@ -173,6 +188,12 @@ haros analyse -p INDEX_FILE
 
 Uses the given index file to run the analysis, instead of the default
 one.
+
+haros analyse -a ANALYSIS_DB_FILE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Uses the given analysis database to run the analysis.
+New analysis records are added to this file.
 
 haros analyse -r
 ^^^^^^^^^^^^^^^^
@@ -243,6 +264,11 @@ haros export -v
 Export visualisation files along with analysis data.
 **Existing files on this directory will be removed under some circumstances.**
 
+haros export -p PROJECT_NAME
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Export a specific project's data, instead of the default one.
+
 haros viz
 ~~~~~~~~~
 
@@ -261,8 +287,8 @@ haros viz -s HOST:PORT
 Launches the web visusaliser and the visualisation server at the given
 host.
 
-haros viz -d DIR
-^^^^^^^^^^^^^^^^
+haros viz -t TARGET_DIR
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Serve the given directory, instead of the default one.
 

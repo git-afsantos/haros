@@ -36,6 +36,7 @@ THE SOFTWARE.
         },
 
         initialize: function (options) {
+            this.projectId = null;
             this.packageId = null;
             this.packages = options.packages;
             this.router = options.router;
@@ -75,7 +76,8 @@ THE SOFTWARE.
             this.$nodes.append(this.nodeTemplate(data));
         },
 
-        build: function (packageId) {
+        build: function (project, packageId) {
+            this.projectId = project.id;
             this.packageId = packageId;
             this.$summary.html("Select a configuration to display.");
             this.$nodes.hide();
