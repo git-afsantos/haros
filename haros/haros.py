@@ -106,10 +106,11 @@ _log = logging.getLogger()
 #       -w  whitelist plugins
 #       -b  blacklist plugins
 #       -t  export results to target directory
-#       -h  analysis history to import
+#       -a  analysis history to import
 #   haros export [args]
 #       runs export only
 #       -v export viz files too
+#       -p project name to export
 #   haros viz [args]
 #       runs visualiser only
 #       -s host
@@ -140,7 +141,7 @@ def parse_arguments(argv, source_runner):
                                      "workspace packages below current dir)"))
     parser_full.add_argument("-t", "--target-dir", default = VIZ_DIR,
                              help = "export reports to target DIR")
-    parser_full.add_argument("-h", "--history",
+    parser_full.add_argument("-a", "--analysis-db",
                              help = "import analysis history database")
     group = parser_full.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
@@ -158,7 +159,7 @@ def parse_arguments(argv, source_runner):
                                         " packages below current dir)"))
     parser_analyse.add_argument("-t", "--target-dir", default = VIZ_DIR,
                                 help = "export reports to target DIR")
-    parser_analyse.add_argument("-h", "--history",
+    parser_analyse.add_argument("-a", "--analysis-db",
                                 help = "import analysis history database")
     group = parser_analyse.add_mutually_exclusive_group()
     group.add_argument("-w", "--whitelist", nargs = "*", dest = "whitelist",
@@ -171,6 +172,8 @@ def parse_arguments(argv, source_runner):
     parser_export = subparsers.add_parser("export")
     parser_export.add_argument("-v", "--export-viz", action = "store_true",
                                 help = "export HTML viz files")
+    parser_export.add_argument("-p", "--project", default = "default",
+                                help = "name of project to export")
     parser_export.add_argument("target_dir", metavar = "dir",
                                help = "where to export data")
     parser_export.set_defaults(func = command_export,
@@ -250,9 +253,6 @@ def command_analyse(args):
         return False
     _log.debug("Creating new data manager.")
     dataman = DataManager()
-    # path = os.path.join(args.datadir, "haros.db")
-    # if os.path.isfile(path):
-        # dataman = DataManager.load_state()
     print "[HAROS] Indexing source code..."
     path = args.pkg_filter \
            if args.pkg_filter and os.path.isfile(args.pkg_filter) \
@@ -280,9 +280,9 @@ def command_analyse(args):
     print "[HAROS] Running analysis..."
     _empty_dir(EXPORT_DIR)
     db_path = os.path.join(PROJECTS_DIR, dataman.project.name)
-    args.history = args.history or os.path.join(db_path, "analysis.db")
-    if os.path.isfile(args.history):
-        anaman = AnalysisManager.load_state(args.history)
+    args.analysis_db = args.analysis_db or os.path.join(db_path, "analysis.db")
+    if os.path.isfile(args.analysis_db):
+        anaman = AnalysisManager.load_state(args.analysis_db)
     else:
         anaman = AnalysisManager()
     temppath = tempfile.mkdtemp()
@@ -294,7 +294,7 @@ def command_analyse(args):
         _log.info("Creating %s...", db_path)
         os.mkdir(db_path)
     dataman.save_state(os.path.join(db_path, "haros.db"))
-    anaman.save_state(args.history)
+    anaman.save_state(args.analysis_db)
     index_file = os.path.join(args.target_dir, "index.html")
     args.export_viz = (args.target_dir != VIZ_DIR
                        and not os.path.isfile(index_file))
@@ -321,13 +321,16 @@ def command_export(args, dataman = None, anaman = None):
         expoman.export_projects(viz_data_dir, [dataman.project])
     else:
         _log.debug("Exporting data manager from file.")
-        if os.path.isfile(DB_PATH):
-            dataman = DataManager.load_state(DB_PATH)
+        db_src = os.path.join(PROJECTS_DIR, args.project)
+        db_file = os.path.join(db_src, "haros.db")
+        if os.path.isfile(db_file):
+            dataman = DataManager.load_state(db_file)
         else:
             _log.warning("There is no analysis data to export.")
             return False
-        if os.path.isfile(ANALYSIS_PATH):
-            anaman = AnalysisManager.load_state(ANALYSIS_PATH)
+        ana_file = os.path.join(db_src, "analysis.db")
+        if os.path.isfile(ana_file):
+            anaman = AnalysisManager.load_state(ana_file)
         else:
             _log.warning("There is no analysis data to export.")
             return False
@@ -336,6 +339,9 @@ def command_export(args, dataman = None, anaman = None):
             expoman.export_projects(viz_data_dir, [dataman.project])
         else:
             json_path = os.path.join(args.target_dir, "json")
+            if not os.path.exists(json_path):
+                _log.info("Creating directory %s", json_path)
+                os.mkdir(json_path)
             expoman.export_projects(json_path, [dataman.project])
         # csv_path = os.path.join(args.target_dir, "csv")
         db_path = os.path.join(args.target_dir, "haros.db")
@@ -372,11 +378,11 @@ def command_export(args, dataman = None, anaman = None):
         _empty_dir(path)
     expoman.export_configurations(path, dataman.packages)
     if db_path:
-        _log.debug("Copying data DB from %s to %s", DB_PATH, db_path)
-        copyfile(DB_PATH, db_path)
+        _log.debug("Copying data DB from %s to %s", db_file, db_path)
+        copyfile(db_file, db_path)
     if ana_path:
-        _log.debug("Copying analysis DB from %s to %s", ANALYSIS_PATH, ana_path)
-        copyfile(ANALYSIS_PATH, ana_path)
+        _log.debug("Copying analysis DB from %s to %s", ana_file, ana_path)
+        copyfile(ana_file, ana_path)
     return True
 
 

@@ -67,12 +67,6 @@ def install(dst, source_runner):
         copy_tree(src, dst)
         _log.info("Creating %s", data_dir)
         os.mkdir(data_dir)
-        _log.info("Creating %s", os.path.join(data_dir, "compliance"))
-        os.mkdir(os.path.join(data_dir, "compliance"))
-        _log.info("Creating %s", os.path.join(data_dir, "metrics"))
-        os.mkdir(os.path.join(data_dir, "metrics"))
-        _log.info("Creating %s", os.path.join(data_dir, "models"))
-        os.mkdir(os.path.join(data_dir, "models"))
 
 
 def serve(directory, host_str):
