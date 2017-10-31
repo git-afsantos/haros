@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2017-10-31
+### Added
+- Concept of project, more or less equivalent to an index file.
+- `-a` option for `analyse` and `full` commands, to import an existing analysis database.
+
+### Changed
+- `-d` option from viz is now `-t` for consistency with `analyse` and `full` commands.
+- Directory structure for viz and Haros data.
+- Viz dashboard now allows selection of displayed project.
+
 ## [0.3.0] - 2017-10-25
 ### Added
 - Change log.
