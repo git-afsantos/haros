@@ -40,7 +40,7 @@ THE SOFTWARE.
 
         initialize: function (options) {
             _.bindAll(this, "onEmptyClick");
-            this.firstTime = true;
+            this.projectId = null;
             this.rules = options.rules;
             this.router = options.router;
             this.publicVars = {};
@@ -56,8 +56,9 @@ THE SOFTWARE.
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             this.d3svg.on("click", this.onEmptyClick);
 
-            this.listenTo(this.collection, "add", this.onAdd);
-            this.listenTo(this.collection, "update", this.onUpdate);
+            this.listenTo(this.collection, "sync", this.onSync);
+            // this.listenTo(this.collection, "add", this.onAdd);
+            // this.listenTo(this.collection, "update", this.onUpdate);
 
 
             this.$graphActionBar = this.$graph.children("#pkg-graph-action-bar");
@@ -88,16 +89,26 @@ THE SOFTWARE.
             return this;
         },
 
-        build: function () {
-            if (this.firstTime) {
+        build: function (project) {
+            if (this.projectId != project.id) {
+                this.projectId = project.id;
                 this.render();
-                this.firstTime = false;
             } else {
                 this.onResize();
             }
             return this;
         },
 
+
+        onSync: function (collection, response, options) {
+            this.graph = new dagre.graphlib.Graph();
+            this.graph.setGraph({nodesep: this.spacing, ranksep: this.spacing});
+            this.d3g.remove();
+            this.d3g = this.d3svg.append("g").attr("class", "graph");
+            collection.each(this.onAdd, this);
+            collection.each(this._addEdges, this);
+            this.render();
+        },
 
         // add is triggered first, so the view can be created here
         onAdd: function (model) {

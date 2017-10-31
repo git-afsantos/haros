@@ -67,7 +67,31 @@ THE SOFTWARE.
     Models.PackageCollection = Backbone.Collection.extend({
         model: Models.Package,
 
-        url: "data/packages.json"
+        url: function () {
+            return "data/" + this.projectId + "/packages.json";
+        }
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /*
+        id,
+        packages: []
+    */
+    Models.Project = Backbone.Model.extend({
+        defaults: function () {
+            return {
+                id:         "default",
+                packages:   []
+            }
+        }
+    });
+
+    Models.ProjectCollection = Backbone.Collection.extend({
+        model: Models.Project,
+
+        url: "data/projects.json"
     });
 
 
@@ -102,7 +126,9 @@ THE SOFTWARE.
     Models.RuleCollection = Backbone.Collection.extend({
         model: Models.Rule,
 
-        url: "data/rules.json",
+        url: function () {
+            return "data/" + this.projectId + "/rules.json";
+        },
 
         filterByTags: function (tags) {
             if (tags.length === 0)
@@ -140,7 +166,7 @@ THE SOFTWARE.
         model: Models.Violation,
 
         url: function () {
-            return "data/compliance/" + this.packageId + ".json";
+            return "data/" + this.projectId + "/compliance/" + this.packageId + ".json";
         },
 
         filterByRules: function (rules, ignore) {
@@ -190,7 +216,7 @@ THE SOFTWARE.
         model: Models.Configuration,
 
         url: function () {
-            return "data/models/" + this.packageId + ".json";
+            return "data/" + this.projectId + "/models/" + this.packageId + ".json";
         }
     });
 
@@ -237,6 +263,8 @@ THE SOFTWARE.
         }
     */
     Models.Summary = Backbone.Model.extend({
-        url: "data/summary.json"
+        url: function () {
+            return "data/" + this.projectId + "/summary.json";
+        }
     });
 })();

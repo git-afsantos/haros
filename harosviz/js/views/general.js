@@ -97,17 +97,23 @@ THE SOFTWARE.
 
         initialize: function (options) {
             this.loading = 0;
+            this.projects = options.projects;
             this.packages = options.packages;
             this.rules = options.rules;
             this.violations = options.violations;
+            this.configurations = options.configurations;
             this.listenTo(this.model, "request", this.onRequest);
             this.listenTo(this.model, "sync", this.onSync);
+            this.listenTo(this.projects, "request", this.onRequest);
+            this.listenTo(this.projects, "sync", this.onSync);
             this.listenTo(this.packages, "request", this.onRequest);
             this.listenTo(this.packages, "sync", this.onSync);
             this.listenTo(this.rules, "request", this.onRequest);
             this.listenTo(this.rules, "sync", this.onSync);
             this.listenTo(this.violations, "request", this.onRequest);
             this.listenTo(this.violations, "sync", this.onSync);
+            this.listenTo(this.configurations, "request", this.onRequest);
+            this.listenTo(this.configurations, "sync", this.onSync);
         },
 
         onRequest: function (model_or_collection, xhr, options) {

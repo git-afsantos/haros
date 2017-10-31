@@ -28,11 +28,16 @@ THE SOFTWARE.
     views.Dashboard = views.BaseView.extend({
         id: "dashboard",
 
-        events: {},
+        events: {
+            "change #dashboard-project-select": "onProjectSelect"
+        },
 
         initialize: function (options) {
-            this.firstTime = true;
+            this.projectId = null;
+            this.projects = options.projects;
+            this.$projectSelect = this.$("#dashboard-project-select");
             this.listenTo(this.model, "change", this.render);
+            this.listenTo(this.projects, "sync", this.onProjectSync);
             this.panels = [
                 new views.DashboardSourcePanel({
                     el: $("#dashboard-panel-source"),
@@ -72,19 +77,37 @@ THE SOFTWARE.
             return this;
         },
 
-        build: function () {
-            if (this.firstTime) {
+        build: function (project) {
+            if (project != null && this.projectId != project.id) {
                 // this.model.fetch();
                 //this.dashboardDiagram();
+                this.projectId = project.id;
                 this.render();
-                this.firstTime = false;
             }
             return this;
         },
 
+        onProjectSync: function (collection, response, options) {
+            var project = this.projectId;
+            this.$projectSelect.html(collection.map(this.optionTemplate).join("\n"));
+            if (collection.length > 0) {
+                if (project == null || collection.get(project) == null)
+                    project = collection.first().id;
+                this.$projectSelect.val(project);
+            }
+            this.onProjectSelect();
+        },
+
+        onProjectSelect: function () {
+            this.projectId = this.$projectSelect.val();
+            this.trigger("change:project", this.projectId);
+        },
+
         onResize: function () {
             return this.panels[4].onResize();
-        }
+        },
+
+        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
     });
 
 
