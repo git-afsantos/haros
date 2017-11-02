@@ -65,7 +65,7 @@
 
 # Options:
 #   --debug sets the logging level to debug
-#   -C changes the CWD before running
+#   -c changes the CWD before running
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
@@ -74,8 +74,7 @@
 #       -p  package/project filter
 #       -w  whitelist plugins
 #       -b  blacklist plugins
-#       -t  export results to target directory
-#       -a  analysis history to import
+#       -d  use given directory to load and export
 #   haros export [args]
 #       runs export only
 #       -v export viz files too
@@ -83,7 +82,7 @@
 #   haros viz [args]
 #       runs visualiser only
 #       -s host
-#       -t target dir (input)
+#       -d serve given directory
 #   haros full [args]
 #       full run (analyse + viz)
 
@@ -136,11 +135,11 @@ class HarosLauncher(object):
             logging.basicConfig(level = logging.WARNING)
         original_path = os.getcwd()
         try:
-            if not os.path.isdir(HAROS_DIR):
+            if not os.path.isdir(self.HAROS_DIR):
                 print "[HAROS] It seems this is a first run."
                 self.command_init(args)
-            if args.dir:
-                os.chdir(args.dir)
+            if args.cwd:
+                os.chdir(args.cwd)
             self.log.info("Executing selected command.")
             return args.command(args)
         except RuntimeError as err:
@@ -151,8 +150,8 @@ class HarosLauncher(object):
 
     def command_init(self, args):
         if not self.initialised:
-            init = HarosInitRunner(self.HAROS_DIR, log = self.log,
-                                   run_from_source = self.run_from_source)
+            init = HarosInitRunner(self.HAROS_DIR, self.log,
+                                   self.run_from_source)
             if not init.run():
                 return False
             self.initialised = True
@@ -162,16 +161,20 @@ class HarosLauncher(object):
         pass
 
     def command_analyse(self, args):
-        if not os.path.isdir(args.target_dir):
-            raise ValueError("Not a directory: " + args.target_dir)
+        if not os.path.isdir(args.data_dir):
+            raise ValueError("Not a directory: " + args.data_dir)
         if not os.path.isfile(args.pkg_filter):
             raise ValueError("Not a file: " + args.pkg_filter)
-        analyse = HarosAnalyseRunner(args.pkg_filter, args.target_dir, log = self.log,
+        # TODO fix args
+        analyse = HarosAnalyseRunner(args.pkg_filter, args.data_dir, log = self.log,
                                      run_from_source = self.run_from_source)
         return analyse.run()
 
     def command_export(self, args):
-        pass
+        if not os.path.isdir(args.data_dir):
+            raise ValueError("Not a directory: " + args.data_dir)
+        export = HarosExportRunner()    # TODO fix args
+        return export.run()
 
     def command_viz(self, args):
         pass
@@ -181,9 +184,8 @@ class HarosLauncher(object):
                                 description = "ROS quality assurance.")
         parser.add_argument("--debug", action = "store_true",
                             help = "set debug logging")
-        parser.add_argument("-C", dest = "dir",
-                            help = ("change current directory "
-                                    "to DIR before running"))
+        parser.add_argument("-c", "--cwd",
+                            help = "change current directory before running")
         subparsers = parser.add_subparsers()
         self._init_parser(subparsers.add_parser("init"))
         self._full_parser(subparsers.add_parser("full"))
@@ -208,10 +210,8 @@ class HarosLauncher(object):
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
-        parser.add_argument("-t", "--target-dir", default = self.VIZ_DIR,
-                            help = "export reports to target DIR")
-        parser.add_argument("-a", "--analysis-db",
-                            help = "import analysis history database")
+        parser.add_argument("-d", "--data-dir",
+                            help = "load/export using the given directory")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -226,10 +226,8 @@ class HarosLauncher(object):
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
-        parser.add_argument("-t", "--target-dir", default = self.VIZ_DIR,
-                            help = "export reports to target DIR")
-        parser.add_argument("-a", "--analysis-db",
-                            help = "import analysis history database")
+        parser.add_argument("-d", "--data-dir",
+                            help = "load/export using the given directory")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -242,12 +240,12 @@ class HarosLauncher(object):
                             help = "export HTML viz files")
         parser.add_argument("-p", "--project", default = "default",
                             help = "name of project to export")
-        parser.add_argument("target_dir", metavar = "dir",
-                           help = "where to export data")
+        parser.add_argument("data_dir", metavar = "dir",
+                            help = "where to export data")
         parser.set_defaults(command = self.command_export)
 
     def _viz_parser(self, parser):
-        parser.add_argument("-t", "--target-dir", default = self.VIZ_DIR,
+        parser.add_argument("-d", "--data-dir", default = self.VIZ_DIR,
                             help = "served data directory")
         parser.add_argument("-s", "--server-host", dest = "host",
                             default = "localhost:8080",
@@ -259,9 +257,15 @@ class HarosLauncher(object):
 class HarosRunner(object):
     """This is a base class for the specific commands that HAROS provides."""
 
-    def __init__(self, log = None, run_from_source = False):
-        self.log = log or logging.getLogger()
-        self.run_from_source = run_from_source
+    def __init__(self, haros_dir, log, run_from_source):
+        self.root               = haros_dir
+        self.plugin_dir         = os.path.join(haros_dir, "plugins")
+        self.repo_dir           = os.path.join(haros_dir, "repositories")
+        self.export_dir         = os.path.join(haros_dir, "export")
+        self.project_dir        = os.path.join(haros_dir, "projects")
+        self.viz_dir            = os.path.join(haros_dir, "viz")
+        self.log                = log or logging.getLogger()
+        self.run_from_source    = run_from_source
 
     def run(self):
         return True
@@ -284,6 +288,21 @@ class HarosRunner(object):
                 os.mkdir(new_path)
                 self._generate_dir(new_path, contents)
 
+    def _empty_dir(self, dir_path):
+        """Deletes all files within a directory."""
+        self.log.debug("HarosRunner._empty_dir %s", dir_path)
+        for filename in os.listdir(dir_path):
+            path = os.path.join(dir_path, filename)
+            if os.path.isfile(path):
+                self.log.debug("Removing file %s", path)
+                os.unlink(path)
+
+    def _ensure_dir(self, dir_path):
+        if not os.path.isdir(dir_path):
+            if os.path.isfile(dir_path):
+                raise RuntimeError("Could not create dir: " + dir_path)
+            os.makedirs(dir_path)
+
 
 
 class HarosInitRunner(HarosRunner):
@@ -299,12 +318,6 @@ class HarosInitRunner(HarosRunner):
         }
         # viz is generated on viz.install
     }
-
-    def __init__(self, haros_dir, log = None, run_from_source = False):
-        HarosRunner.__init__(self, log = log, run_from_source = run_from_source)
-        self.root = haros_dir
-        self.plugin_dir = os.path.join(haros_dir, "plugins")
-        self.viz_dir = os.path.join(haros_dir, "viz")
 
     def run(self):
         print "[HAROS] Running initial setup operations..."
@@ -335,9 +348,9 @@ class HarosInitRunner(HarosRunner):
 
 
 class HarosFullRunner(HarosRunner):
-    def __init__(self, target_dir, host_str, log = None, run_from_source = False):
-        HarosRunner.__init__(self, log = log, run_from_source = run_from_source)
-        self.root = target_dir
+    def __init__(self, haros_dir, data_dir, host_str, log = None, run_from_source = False):
+        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        self.root = data_dir
         self.host = host_str
 
     def run(self):
@@ -345,46 +358,35 @@ class HarosFullRunner(HarosRunner):
 
 
 class HarosAnalyseRunner(HarosRunner):
-    def __init__(self, pkg_filter, target_dir, log = None, run_from_source = False):
-        HarosRunner.__init__(self, log = log, run_from_source = run_from_source)
-        self.projects = [pkg_filter]
-        self.target_dir = target_dir
+    def __init__(self, haros_dir, pkg_filter, data_dir, whitelist, blacklist,
+                 log = None, run_from_source = False, use_repos = False):
+        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        self.project_file = pkg_filter
+        self.use_repos = use_repos
+        self.whitelist = whitelist
+        self.blacklist = blacklist
+        self.project = None
+        self.dataman = None
+        self.anaman = None
+        self.analysis_db = None
+        self.current_proj_dir = None
+        if data_dir:
+            self.export_viz = True
+            self.data_dir = os.path.join(data_dir, "data")
+            self.io_projects_dir = os.path.join(data_dir, "projects")
+        else:
+            self.export_viz = False
+            self.data_dir = os.path.join(self.viz_dir, "data")
+            self.io_projects_dir = self.project_dir
 
     def run(self):
-        print "[HAROS] Indexing source code..."
         self.log.debug("Creating new data manager.")
-        dataman = DataManager()
-        self.log.debug("Package index file %s", self.projects[0])
-        dataman.index_source(self.projects[0], REPOSITORY_DIR, args.use_repos)
-        if not dataman.packages:
-            self.log.warning("There are no packages to analyse.")
-            return False
-        print "[HAROS] Loading common definitions..."
-        if args.source_runner:
-            path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                   "definitions.yaml"))
-        else:
-            path = resource_filename(Requirement.parse("haros"),
-                                     "haros/definitions.yaml")
-        dataman.load_definitions(path)
-        print "[HAROS] Loading plugins..."
-        plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
-        if not plugins:
-            self.log.warning("There are no analysis plugins.")
-            return False
-        for plugin in plugins:
-            dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
-        print "[HAROS] Running analysis..."
-        _empty_dir(EXPORT_DIR)
-        db_path = os.path.join(PROJECTS_DIR, dataman.project.name)
-        args.analysis_db = args.analysis_db or os.path.join(db_path, "analysis.db")
-        if os.path.isfile(args.analysis_db):
-            anaman = AnalysisManager.load_state(args.analysis_db)
-        else:
-            anaman = AnalysisManager()
-        temppath = tempfile.mkdtemp()
-        anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
-        rmtree(temppath)
+        self.dataman = DataManager()
+        plugins = self._load_definitions_and_plugins()
+        self._index_source()
+        self._analyse()
+        
+        
         print "[HAROS] Saving analysis results..."
         # TODO this needs refactoring
         if not os.path.isdir(db_path):
@@ -392,29 +394,173 @@ class HarosAnalyseRunner(HarosRunner):
             os.mkdir(db_path)
         dataman.save_state(os.path.join(db_path, "haros.db"))
         anaman.save_state(args.analysis_db)
-        index_file = os.path.join(args.target_dir, "index.html")
-        args.export_viz = (args.target_dir != VIZ_DIR
+        index_file = os.path.join(args.data_dir, "index.html")
+        args.export_viz = (args.data_dir != VIZ_DIR
                            and not os.path.isfile(index_file))
         command_export(args, dataman, anaman)
     
     
     
-        return True
+        return HarosExportRunner.run(self)
+
+    @property
+    def definitions_file(self):
+        if self.run_from_source:
+            return os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                   "definitions.yaml"))
+        return resource_filename(Requirement.parse("haros"),
+                                 "haros/definitions.yaml")
+
+    def _index_source(self):
+        print "[HAROS] Indexing source code..."
+        self.log.debug("Package index file %s", self.project_file)
+        self.dataman.index_source(self.project_file,
+                                  self.repo_dir, self.use_repos)
+        if not self.dataman.packages:
+            raise RuntimeError("There are no packages to analyse.")
+
+    def _load_definitions_and_plugins(self):
+        print "[HAROS] Loading common definitions..."
+        self.dataman.load_definitions(self.definitions_file)
+        print "[HAROS] Loading plugins..."
+        plugins = plugman.load_plugins(self.plugin_dir,
+                                       self.whitelist, self.blacklist)
+        if not plugins:
+            raise RuntimeError("There are no analysis plugins.")
+        for plugin in plugins:
+            self.dataman.extend_definitions(plugin.name,
+                                            plugin.rules, plugin.metrics)
+        return plugins
+
+    def _load_analysis_manager(self, name):
+        self.project = name
+        self.current_proj_dir = os.path.join(self.io_projects_dir, name)
+        self.analysis_db = os.path.join(self.current_proj_dir, "analysis.db")
+        if os.path.isfile(self.analysis_db):
+            self.log.info("Loading previous database: " + self.analysis_db)
+            self.anaman = AnalysisManager.load_state(args.analysis_db)
+        else:
+            self.log.info("Creating new analysis manager.")
+            self.anaman = AnalysisManager()
+
+    def _analyse(self, plugins):
+        print "[HAROS] Running analysis..."
+        self._empty_dir(self.export_dir)
+        self._load_analysis_manager(self.dataman.project.name)
+        temppath = tempfile.mkdtemp()
+        self.anaman.run_analysis_and_processing(temppath, plugins,
+                                                self.dataman, self.export_dir)
+        rmtree(temppath)
 
 
 class HarosExportRunner(HarosRunner):
-    def __init__(self, target_dir, log = None, run_from_source = False):
-        HarosRunner.__init__(self, log = log, run_from_source = run_from_source)
-        self.target_dir = target_dir
+    def __init__(self, haros_dir, data_dir, export_viz, project,
+                 dataman = None, anaman = None, log = None,
+                 run_from_source = False):
+        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        self.project = project
+        self.data_dir = data_dir
+        self.export_viz = export_viz
+        self.dataman = dataman
+        self.anaman = anaman
+        if export_viz:
+            self.io_projects_dir = os.path.join(data_dir, "projects")
+        else:
+            self.io_projects_dir = data_dir
 
     def run(self):
+        assert (self.dataman is None) == (self.anaman is None)
+        
+        # 1. export from memory without viz (default dir)
+            # .haros/projects/
+            # .haros/viz/data/
+        # 2. export from memory with viz (custom dir)
+            # dir/projects/
+            # dir/data/
+        # 3. export without viz
+            # dir/projects/
+            # dir/projects/
+        # 4. export with viz
+            # dir/projects/
+            # dir/data/
+        
+        print "[HAROS] Exporting analysis results..."
+        if self.export_viz:
+            viz.install(self.data_dir, self.run_from_source)
+        viz_data_dir = os.path.join(args.data_dir, "data")
+        if dataman:
+            self.log.debug("Exporting on-memory data manager.")
+            json_path   = os.path.join(viz_data_dir, dataman.project.name)
+            db_path     = None
+            ana_path    = None
+            expoman.export_projects(viz_data_dir, [dataman.project])
+        else:
+            self.log.debug("Exporting data manager from file.")
+            db_src = os.path.join(PROJECTS_DIR, args.project)
+            db_file = os.path.join(db_src, "haros.db")
+            if os.path.isfile(db_file):
+                dataman = DataManager.load_state(db_file)
+            else:
+                self.log.warning("There is no analysis data to export.")
+                return False
+            ana_file = os.path.join(db_src, "analysis.db")
+            if os.path.isfile(ana_file):
+                anaman = AnalysisManager.load_state(ana_file)
+            else:
+                self.log.warning("There is no analysis data to export.")
+                return False
+            if args.export_viz:
+                json_path = os.path.join(viz_data_dir, dataman.project.name)
+                expoman.export_projects(viz_data_dir, [dataman.project])
+            else:
+                json_path = os.path.join(args.data_dir, "json")
+                if not os.path.exists(json_path):
+                    self.log.info("Creating directory %s", json_path)
+                    os.mkdir(json_path)
+                expoman.export_projects(json_path, [dataman.project])
+            db_path = os.path.join(args.data_dir, "haros.db")
+            ana_path = os.path.join(args.data_dir, "analysis.db")
+        if not os.path.exists(json_path):
+            self.log.info("Creating directory %s", json_path)
+            os.mkdir(json_path)
+        expoman.export_packages(json_path, dataman.packages)
+        expoman.export_rules(json_path, dataman.rules)
+        expoman.export_metrics(json_path, dataman.metrics)
+        expoman.export_summary(json_path, anaman)
+        path = os.path.join(json_path, "compliance")
+        if not os.path.exists(path):
+            self.log.info("Creating directory %s", path)
+            os.mkdir(path)
+        else:
+            _empty_dir(path)
+        expoman.export_violations(path, dataman.packages)
+        path = os.path.join(json_path, "metrics")
+        if not os.path.exists(path):
+            self.log.info("Creating directory %s", path)
+            os.mkdir(path)
+        else:
+            _empty_dir(path)
+        expoman.export_measurements(path, dataman.packages)
+        path = os.path.join(json_path, "models")
+        if not os.path.exists(path):
+            self.log.info("Creating directory %s", path)
+            os.mkdir(path)
+        else:
+            _empty_dir(path)
+        expoman.export_configurations(path, dataman.packages)
+        if db_path:
+            self.log.debug("Copying data DB from %s to %s", db_file, db_path)
+            copyfile(db_file, db_path)
+        if ana_path:
+            self.log.debug("Copying analysis DB from %s to %s", ana_file, ana_path)
+            copyfile(ana_file, ana_path)
         return True
 
 
 class HarosVizRunner(HarosRunner):
-    def __init__(self, server_dir, host_str, log = None,
+    def __init__(self, haros_dir, server_dir, host_str, log = None,
                  run_from_source = False):
-        HarosRunner.__init__(self, log = log, run_from_source = run_from_source)
+        HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.server_dir = server_dir
         self.host = host_str
 
@@ -424,80 +570,16 @@ class HarosVizRunner(HarosRunner):
 
 
 
-def _empty_dir(dir_path):
-    self.log.debug("Emptying directory %s", dir_path)
-    for f in os.listdir(dir_path):
-        path = os.path.join(dir_path, f)
-        if os.path.isfile(path):
-            self.log.debug("Removing file %s", path)
-            os.unlink(path)
-
-def command_analyse(args):
-    _check_haros_directory()
-    if not os.path.isdir(args.target_dir):
-        self.log.error("%s is not a directory!", args.target_dir)
-        return False
-    self.log.debug("Creating new data manager.")
-    dataman = DataManager()
-    print "[HAROS] Indexing source code..."
-    path = args.pkg_filter \
-           if args.pkg_filter and os.path.isfile(args.pkg_filter) \
-           else os.path.join(HAROS_DIR, "index.yaml")
-    self.log.debug("Package index file %s", path)
-    dataman.index_source(path, REPOSITORY_DIR, args.use_repos)
-    if not dataman.packages:
-        self.log.warning("There are no packages to analyse.")
-        return False
-    print "[HAROS] Loading common definitions..."
-    if args.source_runner:
-        path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                               "definitions.yaml"))
-    else:
-        path = resource_filename(Requirement.parse("haros"),
-                                 "haros/definitions.yaml")
-    dataman.load_definitions(path)
-    print "[HAROS] Loading plugins..."
-    plugins = plugman.load_plugins(PLUGIN_DIR, args.whitelist, args.blacklist)
-    if not plugins:
-        self.log.warning("There are no analysis plugins.")
-        return False
-    for plugin in plugins:
-        dataman.extend_definitions(plugin.name, plugin.rules, plugin.metrics)
-    print "[HAROS] Running analysis..."
-    _empty_dir(EXPORT_DIR)
-    db_path = os.path.join(PROJECTS_DIR, dataman.project.name)
-    args.analysis_db = args.analysis_db or os.path.join(db_path, "analysis.db")
-    if os.path.isfile(args.analysis_db):
-        anaman = AnalysisManager.load_state(args.analysis_db)
-    else:
-        anaman = AnalysisManager()
-    temppath = tempfile.mkdtemp()
-    anaman.run_analysis_and_processing(temppath, plugins, dataman, EXPORT_DIR)
-    rmtree(temppath)
-    print "[HAROS] Saving analysis results..."
-    # TODO this needs refactoring
-    if not os.path.isdir(db_path):
-        self.log.info("Creating %s...", db_path)
-        os.mkdir(db_path)
-    dataman.save_state(os.path.join(db_path, "haros.db"))
-    anaman.save_state(args.analysis_db)
-    index_file = os.path.join(args.target_dir, "index.html")
-    args.export_viz = (args.target_dir != VIZ_DIR
-                       and not os.path.isfile(index_file))
-    command_export(args, dataman, anaman)
-    return True
-
-
 def command_export(args, dataman = None, anaman = None):
     assert (dataman is None) == (anaman is None)
     _check_haros_directory()
-    if not os.path.isdir(args.target_dir):
-        self.log.error("%s is not a directory!", args.target_dir)
+    if not os.path.isdir(args.data_dir):
+        self.log.error("%s is not a directory!", args.data_dir)
         return False
     print "[HAROS] Exporting analysis results..."
     if args.export_viz:
-        viz.install(args.target_dir, args.source_runner)
-    viz_data_dir = os.path.join(args.target_dir, "data")
+        viz.install(args.data_dir, args.source_runner)
+    viz_data_dir = os.path.join(args.data_dir, "data")
     if dataman:
         self.log.debug("Exporting on-memory data manager.")
         json_path   = os.path.join(viz_data_dir, dataman.project.name)
@@ -524,14 +606,14 @@ def command_export(args, dataman = None, anaman = None):
             json_path = os.path.join(viz_data_dir, dataman.project.name)
             expoman.export_projects(viz_data_dir, [dataman.project])
         else:
-            json_path = os.path.join(args.target_dir, "json")
+            json_path = os.path.join(args.data_dir, "json")
             if not os.path.exists(json_path):
                 self.log.info("Creating directory %s", json_path)
                 os.mkdir(json_path)
             expoman.export_projects(json_path, [dataman.project])
-        # csv_path = os.path.join(args.target_dir, "csv")
-        db_path = os.path.join(args.target_dir, "haros.db")
-        ana_path = os.path.join(args.target_dir, "analysis.db")
+        # csv_path = os.path.join(args.data_dir, "csv")
+        db_path = os.path.join(args.data_dir, "haros.db")
+        ana_path = os.path.join(args.data_dir, "analysis.db")
     if not os.path.exists(json_path):
         self.log.info("Creating directory %s", json_path)
         os.mkdir(json_path)
