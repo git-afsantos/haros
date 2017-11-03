@@ -155,7 +155,7 @@ class HarosLauncher(object):
         return self.command_analyse(args) and self.command_viz(args)
 
     def command_analyse(self, args):
-        if not os.path.isdir(args.data_dir):
+        if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         if not os.path.isfile(args.package_index):
             raise ValueError("Not a file: " + args.package_index)
@@ -286,10 +286,11 @@ class HarosRunner(object):
                 with open(new_path, "w") as handle:
                     handle.write(contents)
             elif isinstance(contents, dict):
-                if os.path.exists(new_path) and not os.path.isdir(new_path):
-                    raise RuntimeError("Could not create dir: " + new_path)
-                self.log.info("Creating %s", new_path)
-                os.mkdir(new_path)
+                if not os.path.isdir(new_path):
+                    if os.path.exists(new_path):
+                        raise RuntimeError("Could not create dir: " + new_path)
+                    self.log.info("Creating %s", new_path)
+                    os.mkdir(new_path)
                 self._generate_dir(new_path, contents)
 
     def _empty_dir(self, dir_path):
@@ -340,7 +341,7 @@ class HarosInitRunner(HarosRunner):
             os.makedirs(self.root)
         has_plugins = os.path.exists(self.plugin_dir)
         self._generate_dir(self.root, self.DIR_STRUCTURE)
-        viz.install(self.viz_dir, self.run_from_source)
+        viz.install(self.viz_dir, self.run_from_source, force = True)
         if has_plugins:
             self.log.info("Updating plugin repository.")
             wd = os.getcwd()
@@ -355,14 +356,43 @@ class HarosInitRunner(HarosRunner):
             self.log.info("Cloning plugin repository.")
             subprocess.check_call(["git", "clone",
                                    self.PLUGIN_REPOSITORY, self.plugin_dir])
-       return True
+        return True
 
 
 ###############################################################################
 #   HAROS Command Runner (analyse)
 ###############################################################################
 
-class HarosAnalyseRunner(HarosRunner):
+class HarosCommonExporter(HarosRunner):
+    """This is just an interface with common methods."""
+
+    def _prepare_project(self):
+        self.current_dir = os.path.join(self.io_projects_dir, self.project)
+        self._ensure_dir(self.current_dir)
+        self.json_dir = os.path.join(self.data_dir, self.project)
+        self._ensure_dir(self.json_dir)
+
+    def _export_project_data(self):
+    # ----- general data
+        expoman.export_packages(self.json_dir, self.dataman.packages)
+        expoman.export_rules(self.json_dir, self.dataman.rules)
+        expoman.export_metrics(self.json_dir, self.dataman.metrics)
+        expoman.export_summary(self.json_dir, self.anaman)
+    # ----- compliance reports
+        out_dir = os.path.join(self.json_dir, "compliance")
+        self._ensure_dir(out_dir, empty = True)
+        expoman.export_violations(out_dir, self.dataman.packages)
+    # ----- metrics reports
+        out_dir = os.path.join(self.json_dir, "metrics")
+        self._ensure_dir(out_dir, empty = True)
+        expoman.export_measurements(out_dir, self.dataman.packages)
+    # ----- extracted models
+        out_dir = os.path.join(self.json_dir, "models")
+        self._ensure_dir(out_dir, empty = True)
+        expoman.export_configurations(out_dir, self.dataman.packages)
+
+
+class HarosAnalyseRunner(HarosCommonExporter):
     def __init__(self, haros_dir, pkg_filter, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
@@ -390,7 +420,7 @@ class HarosAnalyseRunner(HarosRunner):
         self.dataman = DataManager()
         plugins = self._load_definitions_and_plugins()
         self._index_source()
-        self._analyse()
+        self._analyse(plugins)
         self._save_results()
         self.dataman = None
         self.anaman = None
@@ -456,8 +486,8 @@ class HarosAnalyseRunner(HarosRunner):
         self.dataman.save_state(os.path.join(self.current_dir, "haros.db"))
         self.anaman.save_state(self.analysis_db)
         self.log.debug("Exporting on-memory data manager.")
-        HarosExportRunner._prepare_project(self)
-        HarosExportRunner._export_project_data(self)
+        self._prepare_project()
+        self._export_project_data()
         expoman.export_projects(self.data_dir, [self.dataman.project],
                                 overwrite = False)
 
@@ -480,7 +510,7 @@ class HarosAnalyseRunner(HarosRunner):
     # dir/projects/<name>
     # dir/data/<name>
 
-class HarosExportRunner(HarosRunner):
+class HarosExportRunner(HarosCommonExporter):
     def __init__(self, haros_dir, data_dir, export_viz, project,
                  log = None, run_from_source = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
@@ -518,12 +548,6 @@ class HarosExportRunner(HarosRunner):
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.io_projects_dir)
 
-    def _prepare_project(self):
-        self.current_dir = os.path.join(self.io_projects_dir, self.project)
-        self._ensure_dir(self.current_dir)
-        self.json_dir = os.path.join(self.data_dir, self.project)
-        self._ensure_dir(self.json_dir)
-
     def _project_list(self):
         if self.project == "all":
             return [name for name in os.listdir(self.project_dir)
@@ -552,25 +576,6 @@ class HarosExportRunner(HarosRunner):
         db_path = os.path.join(self.current_dir, "analysis.db")
         self.log.debug("Copying %s to %s", self.analysis_db, db_path)
         copyfile(self.analysis_db, db_path)
-
-    def _export_project_data(self):
-    # ----- general data
-        expoman.export_packages(self.json_dir, self.dataman.packages)
-        expoman.export_rules(self.json_dir, self.dataman.rules)
-        expoman.export_metrics(self.json_dir, self.dataman.metrics)
-        expoman.export_summary(self.json_dir, self.anaman)
-    # ----- compliance reports
-        out_dir = os.path.join(self.json_dir, "compliance")
-        self._ensure_dir(out_dir, empty = True)
-        expoman.export_violations(out_dir, self.dataman.packages)
-    # ----- metrics reports
-        out_dir = os.path.join(self.json_dir, "metrics")
-        self._ensure_dir(out_dir, empty = True)
-        expoman.export_measurements(out_dir, self.dataman.packages)
-    # ----- extracted models
-        out_dir = os.path.join(self.json_dir, "models")
-        self._ensure_dir(out_dir, empty = True)
-        expoman.export_configurations(out_dir, self.dataman.packages)
 
 
 ###############################################################################
