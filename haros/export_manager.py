@@ -30,13 +30,27 @@ _log = logging.getLogger(__name__)
 # Public Functions
 ################################################################################
 
-def export_projects(datadir, projects):
+def export_projects(datadir, projects, overwrite = True):
     _log.info("Exporting project data.")
     out = os.path.join(datadir, "projects.json")
-    s = "[" + ", ".join([_project_json(p) for p in projects]) + "]"
+    
+    if not overwrite and os.path.isfile(out):
+        with open(out, "r") as f:
+            data = json.load(f)
+        for p in projects:
+            is_new = True
+            for i in xrange(len(data)):
+                if data[i]["id"] == p.id:
+                    is_new = False
+                    data[i] = p.to_JSON_object()
+                    break
+            if is_new:
+                data.append(p.to_JSON_object())
+    else:
+        data = [p.to_JSON_object() for p in projects]
     with open(out, "w") as f:
         _log.debug("Writing to %s", out)
-        f.write(s)
+        json.dump(data, f)
 
 def export_packages(datadir, packages):
     _log.info("Exporting package data.")
