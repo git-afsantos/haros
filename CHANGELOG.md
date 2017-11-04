@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.0] - 2017-11-04
+### Added
+- `--headless` option for `viz` and `full` to allow the server to run without opening a web browser.
+
 ## [2.0.0] - 2017-11-04
 ### Added
 - A reserved project name `all`. When running `export -p all` all available projects will be exported.

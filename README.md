@@ -276,6 +276,10 @@ Launches the web visusaliser and the visualisation server at the given host.
 
 Serve the given directory, instead of the default one.
 
+#### haros viz --headless
+
+Start the viz server without launching a web browser.
+
 
 ### haros full
 

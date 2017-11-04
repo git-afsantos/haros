@@ -294,6 +294,11 @@ haros viz -d DATA_DIR
 
 Serve the given directory, instead of the default one.
 
+haros viz --headless
+^^^^^^^^^^^^^^^^^^^^
+
+Start the viz server without launching a web browser.
+
 haros full
 ~~~~~~~~~~
 

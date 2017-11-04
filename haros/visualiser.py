@@ -70,10 +70,12 @@ def install(dst, source_runner, force = False):
         os.mkdir(data_dir)
 
 
-def serve(directory, host_str):
+def serve(directory, host_str, headless = False):
     host = host_str.split(":")
     if len(host) != 2:
         raise RuntimeError("Invalid host:port provided: " + host_str)
+    server = None
+    p = None
     wd = os.getcwd()
     try:
         os.chdir(directory)
@@ -82,18 +84,23 @@ def serve(directory, host_str):
         thread = threading.Thread(target = server.serve_forever)
         thread.daemon = True
         thread.start()
-        _log.info("Starting web browser process.")
-        cmd = ["python", "-m", "webbrowser", "-t", "http://" + host_str]
-        with open(os.devnull, "wb") as devnull:
-            p = subprocess.Popen(cmd, stdout = devnull,
-                                 stderr = subprocess.STDOUT)
+        if not headless:
+            _log.info("Starting web browser process.")
+            cmd = ["python", "-m", "webbrowser", "-t", "http://" + host_str]
+            with open(os.devnull, "wb") as devnull:
+                p = subprocess.Popen(cmd, stdout = devnull,
+                                     stderr = subprocess.STDOUT)
+                raw_input("[HAROS] Press enter to shutdown the viz server:")
+        else:
             raw_input("[HAROS] Press enter to shutdown the viz server:")
         return True
     except ValueError as e:
         _log.error("Invalid port for the viz server %s", host[1])
         return False
     finally:
-        server.shutdown()
+        if server:
+            server.shutdown()
         os.chdir(wd)
-        _log.debug("Killing web browser process.")
-        p.kill()
+        if p:
+            _log.debug("Killing web browser process.")
+            p.kill()

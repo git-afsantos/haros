@@ -179,7 +179,8 @@ class HarosLauncher(object):
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         server = HarosVizRunner(self.HAROS_DIR, args.data_dir,
-                                args.server_host, log = self.log,
+                                args.server_host, args.headless,
+                                log = self.log,
                                 run_from_source = self.run_from_source)
         return server.run()
 
@@ -218,6 +219,8 @@ class HarosLauncher(object):
                            help = "execute only these plugins")
         group.add_argument("-b", "--blacklist", nargs = "*",
                            help = "skip these plugins")
+        parser.add_argument("--headless", action = "store_true",
+                            help = "start server without web browser")
         parser.set_defaults(command = self.command_full)
 
     def _analyse_parser(self, parser):
@@ -251,6 +254,8 @@ class HarosLauncher(object):
         parser.add_argument("-s", "--server-host", default = "localhost:8080",
                             help = ("visualisation host "
                                     "(default: \"localhost:8080\")"))
+        parser.add_argument("--headless", action = "store_true",
+                            help = "start server without web browser")
         parser.set_defaults(command = self.command_viz)
 
 
@@ -583,14 +588,15 @@ class HarosExportRunner(HarosCommonExporter):
 ###############################################################################
 
 class HarosVizRunner(HarosRunner):
-    def __init__(self, haros_dir, server_dir, host_str, log = None,
+    def __init__(self, haros_dir, server_dir, host_str, headless, log = None,
                  run_from_source = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.server_dir = server_dir
         self.host = host_str
+        self.headless = headless
 
     def run(self):
-        return viz.serve(self.server_dir, self.host)
+        return viz.serve(self.server_dir, self.host, headless = self.headless)
 
 
 ###############################################################################
