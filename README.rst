@@ -189,12 +189,6 @@ haros analyse -p INDEX_FILE
 Uses the given index file to run the analysis, instead of the default
 one.
 
-haros analyse -a ANALYSIS_DB_FILE
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Uses the given analysis database to run the analysis.
-New analysis records are added to this file.
-
 haros analyse -r
 ^^^^^^^^^^^^^^^^
 
@@ -238,12 +232,17 @@ haros analyse -b PLUGIN [-b PLUGIN, ...]
 Blacklist the given plugins. The analysis will **not** run these
 plugins. This option does not work with ``-w``.
 
-haros analyse -t TARGET_DIR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+haros analyse -d DATA_DIR
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Export analysis results to the given directory, instead of the default one.
 This option will also install the visualisation files.
-**Existing files on this directory will be removed under some circumstances.**
+If ``DATA_DIR`` contains a previous analysis database for the current project
+within its tree, it will be loaded and new results will be added to that
+database.
+
+**Note:** it is advised to use an empty/dedicated directory for this purpose.
+Previous versions deleted any existing files within ``DATA_DIR``.
 
 haros export
 ~~~~~~~~~~~~
@@ -252,8 +251,8 @@ This command exports the analysis results (e.g. JSON files) to a
 location of your choosing. It assumes that some analyses were run
 previously.
 
-haros export TARGET_DIR
-^^^^^^^^^^^^^^^^^^^^^^^
+haros export DATA_DIR
+^^^^^^^^^^^^^^^^^^^^^
 
 Exports analysis data to the given directory. This command will create
 files and directories within the given directory.
@@ -262,12 +261,15 @@ haros export -v
 ^^^^^^^^^^^^^^^
 
 Export visualisation files along with analysis data.
-**Existing files on this directory will be removed under some circumstances.**
+
+**Note:** it is advised to use an empty/dedicated directory for this purpose.
+Previous versions deleted any existing files within ``DATA_DIR``.
 
 haros export -p PROJECT_NAME
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Export a specific project's data, instead of the default one.
+A special project name, ``all``, can be used to export all available projects.
 
 haros viz
 ~~~~~~~~~
@@ -287,8 +289,8 @@ haros viz -s HOST:PORT
 Launches the web visusaliser and the visualisation server at the given
 host.
 
-haros viz -t TARGET_DIR
-^^^^^^^^^^^^^^^^^^^^^^^
+haros viz -d DATA_DIR
+^^^^^^^^^^^^^^^^^^^^^
 
 Serve the given directory, instead of the default one.
 

@@ -542,6 +542,12 @@ class Project(AnalysisScope):
                 return True
         return self == other
 
+    def to_JSON_object(self):
+        return {
+            "id": self.id,
+            "packages": [pkg.id for pkg in self.packages]
+        }
+
 
 ################################################################################
 # Data Manager

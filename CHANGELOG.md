@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.0] - 2017-11-04
+### Added
+- A reserved project name `all`. When running `export -p all` all available projects will be exported.
+- Dependency on PyLint.
+
+### Changed
+- `-C` base option has been renamed to `-c` or `--cwd`.
+- `--repositories` long option for `analyse` and `full` has been renamed to `--use-repos`.
+- `-t`/`--target-dir` option for `analyse` and `full` has been renamed to `-d`/`--data-dir`.
+- When `-d` is given, HAROS will try to load an existing analysis database from that directory. If there is one, new analysis reports will be added and stored on that database.
+- `analyse -d DIR` and `export -v DIR` will no longer delete the contents of `DIR`.
+- Changed the directory structure for exported results. For `analyse -d DIR` and `export -v DIR`, viz files go into `DIR`, with an additional `projects` directory for databases. For `export DIR` all results go directly into `DIR/PROJECT`.
+- The main `haros` module has been rewritten to be more modular and maintainable. It is completely **backwards incompatible**.
+
+### Removed
+- `-a` option that allowed a specific analysis database to be imported. See `-d` for more.
+
 ## [1.0.0] - 2017-10-31
 ### Added
 - Concept of project, more or less equivalent to an index file.
