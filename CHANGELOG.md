@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.1] - 2017-11-05
+### Changed
+- `--headless` option for `viz` does not require any user input.
+
 ## [2.1.0] - 2017-11-04
 ### Added
 - `--headless` option for `viz` and `full` to allow the server to run without opening a web browser.
