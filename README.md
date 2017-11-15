@@ -153,6 +153,28 @@ The `-p` option lets you specify an index file of your own, instead of using the
 When the analysis finishes, HAROS should start a visualisation server and your web browser
 on the appropriate page. To exit, just close your browser and press `Enter` on the terminal.
 
+The visualiser presents you with different views of the analysis results. By default,
+the first thing you see will be the dashboard. The dashboard gives you an overview of
+the analysed items and the number of issues found.
+
+![Dashboard screenshot](/docs/screenshots/dashboard_1.png?raw=true "Dashboard Statistics")
+
+It also shows you the evolution of some metrics over time.
+
+![Dashboard screenshot](/docs/screenshots/dashboard_2.png?raw=true "Dashboard Tracking")
+
+Using the other tabs at the top bar, you can navigate to a package graph view,
+showing the analysed packages and their dependencies. Each package is coloured
+according to a scale at the bottom, to give you an idea of how many issues the
+analysis found for that package.
+
+![Packages screenshot](/docs/screenshots/packages.png?raw=true "Package Graph")
+
+Finally, you can view the list of issues, filtering by package or by a number of
+tags that each rule provides.
+
+![Issues screenshot](/docs/screenshots/issues.png?raw=true "Issues List")
+
 If you want to analyse several projects, or groups of packages, it is
 recommended to create an index file for each project, and define a project
 name as well. This way, HAROS will store analysis results separately.
