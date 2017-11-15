@@ -81,10 +81,10 @@ def serve(directory, host_str, headless = False):
         os.chdir(directory)
         server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
         print "[HAROS] Serving visualisation at", host_str
-        thread = threading.Thread(target = server.serve_forever)
-        thread.daemon = True
-        thread.start()
-        if not headless:
+        if not headless:            
+            thread = threading.Thread(target = server.serve_forever)
+            thread.daemon = True
+            thread.start()
             _log.info("Starting web browser process.")
             cmd = ["python", "-m", "webbrowser", "-t", "http://" + host_str]
             with open(os.devnull, "wb") as devnull:
@@ -92,7 +92,7 @@ def serve(directory, host_str, headless = False):
                                      stderr = subprocess.STDOUT)
                 raw_input("[HAROS] Press enter to shutdown the viz server:")
         else:
-            raw_input("[HAROS] Press enter to shutdown the viz server:")
+            server.serve_forever()
         return True
     except ValueError as e:
         _log.error("Invalid port for the viz server %s", host[1])
