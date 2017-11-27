@@ -176,9 +176,10 @@ class HarosLauncher(object):
         return export.run()
 
     def command_viz(self, args):
-        if not os.path.isdir(args.data_dir):
-            raise ValueError("Not a directory: " + args.data_dir)
-        server = HarosVizRunner(self.HAROS_DIR, args.data_dir,
+        data_dir = args.data_dir or self.VIZ_DIR
+        if not os.path.isdir(data_dir):
+            raise ValueError("Not a directory: " + data_dir)
+        server = HarosVizRunner(self.HAROS_DIR, data_dir,
                                 args.server_host, args.headless,
                                 log = self.log,
                                 run_from_source = self.run_from_source)

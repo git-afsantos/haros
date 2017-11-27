@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.2] - 2017-11-27
+### Changed
+- Fixed an issue where `full` and `viz` commands were crashing if the `-d` option was not present.
+
 ## [2.1.1] - 2017-11-05
 ### Changed
 - `--headless` option for `viz` does not require any user input.

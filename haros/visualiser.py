@@ -28,24 +28,19 @@ from distutils.dir_util import copy_tree
 from pkg_resources import Requirement, resource_filename
 from shutil import rmtree
 
-try: 
-    # Python 3
-    from http.server import HTTPServer, BaseHTTPRequestHandler
-except ImportError: 
-    # Python 2
-    import SimpleHTTPServer
-    from BaseHTTPServer import HTTPServer
-    from SimpleHTTPServer import SimpleHTTPRequestHandler
+import SimpleHTTPServer
+from BaseHTTPServer import HTTPServer
+from SimpleHTTPServer import SimpleHTTPRequestHandler
 
-    class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
-        def end_headers(self):
-            self.send_my_headers()
-            SimpleHTTPRequestHandler.end_headers(self)
+class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_my_headers()
+        SimpleHTTPRequestHandler.end_headers(self)
 
-        def send_my_headers(self):
-            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-            self.send_header("Pragma", "no-cache")
-            self.send_header("Expires", "0")
+    def send_my_headers(self):
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
 
 
 _log = logging.getLogger(__name__)
