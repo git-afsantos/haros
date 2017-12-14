@@ -37,111 +37,22 @@ except ImportError:
 
 from rospkg import RosPack, ResourceNotFound
 
+from .metamodel import (
+    Rule, Metric, Person, SourceFile, LaunchFile, Package,
+    Repository, Project, Node
+)
 
-SCOPE_TYPES = ("function", "class", "file", "package", "repository", "project")
 
 _log = logging.getLogger(__name__)
-
-
-###############################################################################
-# Analysis Properties
-###############################################################################
-
-# Represents a coding rule
-class Rule(object):
-    def __init__(self, rule_id, name, scope, desc, tags):
-        self.id             = rule_id
-        self.name           = name
-        assert scope in SCOPE_TYPES
-        self.scope          = scope
-        self.description    = desc
-        self.tags           = tags
-
-
-# Represents a quality metric
-class Metric(object):
-    def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        self.id             = metric_id
-        self.name           = name
-        assert scope in SCOPE_TYPES
-        self.scope          = scope
-        self.description    = desc
-        self.minimum        = minv
-        self.maximum        = maxv
 
 
 ###############################################################################
 # Source Code Structures
 ###############################################################################
 
-# Base class for general utility
-class AnalysisScope(object):
-    def __init__(self, id, name, scope):
-        self.id     = id
-        self.name   = name
-        assert scope in SCOPE_TYPES
-        self.scope  = scope
-
-    def lte_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) <= SCOPE_TYPES.index(scope)
-
-    def gte_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) >= SCOPE_TYPES.index(scope)
-
-    def lt_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) < SCOPE_TYPES.index(scope)
-
-    def gt_scope(self, scope):
-        return SCOPE_TYPES.index(self.scope) > SCOPE_TYPES.index(scope)
-
-    def bound_to(self, scope):
-        return self == scope
-
-    def accepts_scope(self, scope):
-        return self.scope == scope
-
-    def __str__(self):
-        return self.id
-
-
-# Represents a person (author/maintainer)
-class Person(object):
-    def __init__(self, name, email = None):
-        self.name = name if name else "?"
-        self.email = email
-
-    def __eq__(self, other):
-        if not type(self) is type(other):
-            return False
-        if self.email and other.email:
-            return self.email == other.email
-        return self.name == other.name
-
-    def __hash__(self):
-        return hash(self.email) if self.email else hash(self.name)
-
-
 # Represents a source code file
 class SourceFile(AnalysisScope):
     _excluded_dirs  = [".git", "doc", "bin", "cmake"]
-    _cpp_sources    = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in", ".h.in",
-                       ".hpp.in", ".c.in", ".cc.in")
-    _py_sources     = ".py"
-    _manifests      = "package.xml"
-    _launch_sources = ".launch"
-
-    def __init__(self, name, path, pkg, lang):
-        id = pkg.id + ":" + path.replace(os.path.sep, ":") + ":" + name
-        AnalysisScope.__init__(self, id, name, "file")
-        self.path       = path # relative to package root
-        self.package    = pkg
-        self.language   = lang
-        full_path       = self.get_path()
-        self.size       = os.path.getsize(full_path)
-        self.lines      = SourceFile._count_physical_lines(full_path)
-        self._violations = []
-        self._metrics   = []
-
     @classmethod
     def populate_package(cls, pkg, idx = None):
         _log.debug("SourceFile.populate_package(%s)", pkg)
@@ -172,56 +83,9 @@ class SourceFile(AnalysisScope):
                     if not idx is None:
                         idx[source.id] = source
 
-    def get_path(self):
-        return os.path.join(self.package.path, self.path, self.name)
-
-    @staticmethod
-    def _count_physical_lines(path):
-        _log.debug("SourceFile._count_physical_lines(%s)", path)
-        count = 0
-        with open(path, "r") as handle:
-            for count, _ in enumerate(handle, start = 1):
-                pass
-        return count
-
-    def bound_to(self, other):
-        if other.scope == "package":
-            return self.package == other
-        if other.scope == "repository" or other.scope == "project":
-            return self.package in other.packages
-        return self == other
-
-    def accepts_scope(self, scope):
-        return self.gte_scope(scope)
-
 
 # Represents a ROS package
 class Package(AnalysisScope):
-    def __init__(self, name, repo = None, proj = None):
-        AnalysisScope.__init__(self, name, name, "package")
-    # public:
-        self.project            = proj
-        self.repository         = repo
-        self.authors            = set()
-        self.maintainers        = set()
-        self.isMetapackage      = False
-        self.description        = ""
-        self.licenses           = set()
-        self.dependencies       = set()
-        self.website            = None
-        self.vcs_url            = None
-        self.bug_url            = None
-        self.path               = None
-        self.source_files       = []
-        self.nodelets           = []
-        self.size               = 0 # sum of file sizes
-        self.lines              = 0 # sum of physical file lines
-    # private:
-        self._violations        = []
-        self._metrics           = []
-        self._configs           = []
-        self._tier              = 0 # for topological sort
-
     @classmethod
     def from_manifest(cls, pkg_file, repo = None):
         _log.debug("Package.from_manifest(%s, %s)", pkg_file, repo)
@@ -315,18 +179,6 @@ class Package(AnalysisScope):
             rp = RosPack.get_instance()
         rp._location_cache = None
 
-    def bound_to(self, other):
-        if other.scope == "file":
-            return other.package == self
-        if other.scope == "repository":
-            return self.repository == other
-        if other.scope == "project":
-            return self.project == other
-        return self == other or other.id in self.dependencies
-
-    def __repr__(self):
-        return "Package({})".format(self.id)
-
     def _read_nodelets(self, nodelet_plugins):
         _log.debug("Package._read_nodelets(%s)", nodelet_plugins)
         with open(nodelet_plugins, "r") as handle:
@@ -351,28 +203,6 @@ class RepositoryCloneError(Exception):
 
 
 class Repository(AnalysisScope):
-    def __init__(self, name):
-        AnalysisScope.__init__(self, name, name, "repository")
-        self.vcs            = None 
-        self.url            = None 
-        self.version        = None
-        self.status         = None
-        self.path           = None
-        self.packages       = []
-        self.declared_packages = []
-        self.commits        = 1
-        self.contributors   = 1
-        self._violations    = []
-        self._metrics       = []
-
-    def __eq__(self, other):
-        if not type(self) is type(other):
-            return False
-        return self.id == other.id
-
-    def __hash__(self):
-        return hash(self.id)
-
     def download(self, repo_path):
         _log.debug("Repository.download(%s)", repo_path)
         if not self.url:
@@ -507,46 +337,6 @@ class Repository(AnalysisScope):
                             repos[id] = repo
                             pkg_list.remove(pkg)
         return repos
-
-    def bound_to(self, other):
-        if other.scope == "package":
-            return other.repository == self
-        if other.scope == "file":
-            return other.package in self.packages
-        if other.scope == "project":
-            for package in self.packages:
-                if not package in other.packages:
-                    return False
-                return True
-        return self == other
-
-
-class Project(AnalysisScope):
-    """A project is a custom grouping of packages, not necessarily
-        corresponding to a repository, and not even requiring the
-        existence of one.
-    """
-    def __init__(self, name, packages = None):
-        AnalysisScope.__init__(self, name, name, "project")
-        self.packages = packages if not packages is None else []
-
-    def bound_to(self, other):
-        if other.scope == "package":
-            return other.project == self
-        if other.scope == "file":
-            return other.package in self.packages
-        if other.scope == "repository":
-            for package in other.packages:
-                if not package in self.packages:
-                    return False
-                return True
-        return self == other
-
-    def to_JSON_object(self):
-        return {
-            "id": self.id,
-            "packages": [pkg.id for pkg in self.packages]
-        }
 
 
 ################################################################################
