@@ -64,7 +64,7 @@ class Rule(object):
         self.query          = query
 
 
-class RuleViolation(object):
+class Violation(object):
     def __init__(self, rule, scope, details = None, location = None):
         self.rule = rule
         self.scope = scope
@@ -83,7 +83,7 @@ class Metric(object):
         self.maximum        = maxv
 
 
-class MetricMeasurement(object):
+class Measurement(object):
     def __init__(self, metric, scope, value, location = None):
         self.metric = metric
         self.scope = scope
@@ -103,6 +103,61 @@ class PackageAnalysis(object):
         self.package = package
         self.violations = []
         self.metrics = []
+        self.configurations = []
+        self.file_analysis = []
+        self.statistics = None
+
+    def all_violations(self):
+        result = list(self.violations)
+        for f in self.file_analysis:
+            result.extend(f.violations)
+        return result
+
+    def sum_metric(self, metric_id):
+        result = 0
+        for f in self.file_analysis:
+            for m in f.metrics:
+                if m.metric.id == metric_id:
+                    result += m.value
+        return result
+
+    def avg_metric(self, metric_id):
+        result = []
+        for f in self.file_analysis:
+            for m in f.metrics:
+                if m.metric.id == metric_id:
+                    result.append(m.value)
+        return avg(result)
+
+    def get_statistics(self):
+        if self.statistics:
+            return self.statistics
+        stats = Statistics()
+        self.statistics = stats
+        stats.issue_count += len(self.violations)
+        for issue in self.violations:
+            other = True
+            if "code-standards" in issue.rule.tags:
+                other = False
+                stats.standard_issue_count += 1
+            if "metrics" in issue.rule.tags:
+                other = False
+                stats.metrics_issue_count += 1
+            if other:
+                stats.other_issue_count += 1
+        self.configuration_count += len(package._configs)
+        for config in self.configurations:
+            remaps = dict(config.resources.remaps)
+            for node in config.nodes():
+                remaps.update(node.remaps)
+                if node.nodelet:
+                    self.nodelet_count += 1
+                else:
+                    self.node_count += 1
+            self.remap_count += len(remaps)
+            self.topic_count += len(config.resources.get_topics())
+            self.topic_count += len(config.resources.get_services())
+        return stats
 
 
 class Statistics(object):
@@ -275,7 +330,7 @@ class Statistics(object):
                                 - avg([s.avg_file_length for s in previous]))
 
 
-class AnalysisSummary(object):
+class AnalysisReport(object):
     def __init__(self):
         self.timestamp  = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
         self.by_package   = {}
@@ -347,3 +402,15 @@ class HarosDatabase(object):
         self.summaries = []
         self.week_stats = Statistics()  # these are relative values (7 days)
         self.month_stats = Statistics() # these are relative values (30 days)
+
+
+###############################################################################
+# Helper Functions
+###############################################################################
+
+def avg(numbers, float_ = False):
+    if not numbers:
+        return 0.0 if float_ else 0
+    if float_:
+        return sum(numbers) / float(len(numbers))
+    return sum(numbers) / len(numbers)

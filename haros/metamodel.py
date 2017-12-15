@@ -290,7 +290,7 @@ class Package(SourceObject):
         self.bug_url            = None
         self.path               = None
         self.source_files       = []
-        self.nodelets           = []
+        self.nodes              = []
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
     # private:
