@@ -47,28 +47,6 @@ import os
 # Analysis Properties
 ###############################################################################
 
-class Rule(object):
-    """Represents a coding rule."""
-    def __init__(self, rule_id, name, scope, desc, tags, query = None):
-        self.id             = rule_id
-        self.name           = name
-        self.scope          = scope
-        self.description    = desc
-        self.tags           = tags
-        self.query          = query
-
-
-class Metric(object):
-    """Represents a quality metric."""
-    def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        self.id             = metric_id
-        self.name           = name
-        self.scope          = scope
-        self.description    = desc
-        self.minimum        = minv
-        self.maximum        = maxv
-
-
 class DependencySet(object):
     def __init__(self):
         self.files          = set()
@@ -148,6 +126,29 @@ class Person(object):
         return self.id.__hash__()
 
 
+class Location(object):
+    """A location to report (package, file, line)."""
+    def __init__(self, pkg, fpath = None, line = None, fun = None, cls = None):
+        self.package = pkg
+        self.file = fpath
+        self.line = line
+        self.function = fun
+        self.class_ = cls
+
+    def __str__(self):
+        s = "in " + self.package
+        if not self.file:
+            return s
+        s += "/" + self.file
+        if not self.line is None:
+            s += ":" + str(self.line)
+            if self.function:
+                s += ", in function " + self.function
+            if self.class_:
+                s += ", in class " + self.class_
+        return s
+
+
 class SourceObject(object):
     """Base class for objects subject to analysis."""
     SCOPES = ("file", "node", "package", "repository", "project")
@@ -206,28 +207,22 @@ class SourceFile(SourceObject):
     PKG_XML = "package.xml"
     LAUNCH = ".launch"
 
-    def __init__(self, name, path, pkg):
-        id = pkg.id + "/" + path.replace(os.path.sep, "/") + "/" + name
+    def __init__(self, name, directory, pkg):
+        id = pkg.id + "/" + directory.replace(os.path.sep, "/") + "/" + name
         SourceObject.__init__(self, id, name)
-        self.path       = path # relative to package root
-        self.package    = pkg
-        self.language   = self._get_language()
-        self.size       = 0
-        self.lines      = 0
-        self.sloc       = 0
-        self._file_stats()
-        self._violations = []
-        self._metrics   = []
+        self.directory = directory
+        self.full_name = os.path.join(directory, name)
+        self.path = os.path.join(pkg.path, directory)
+        self.full_path = os.path.join(pkg.path, directory, name)
+        self.package = pkg
+        self.language = self._get_language()
+        self.size = 0
+        self.lines = 0
+        self.sloc = 0
 
     @property
     def scope(self):
         return "file"
-
-    def get_path(self):
-        return os.path.join(self.package.path, self.path, self.name)
-
-    def get_dirname(self):
-        return os.path.join(self.package.path, self.path)
 
     def bound_to(self, other):
         if other.scope == "node":
@@ -241,12 +236,11 @@ class SourceFile(SourceObject):
     def accepts_scope(self, scope):
         return self >= scope
 
-    def _file_stats(self):
-        full_path = self.get_path()
-        self.size = os.path.getsize(full_path)
+    def set_file_stats(self):
+        self.size = os.path.getsize(self.full_path)
         self.lines = 0
         self.sloc = 0
-        with open(full_path, "r") as handle:
+        with open(self.full_path, "r") as handle:
             for line in handle:
                 self.lines += 1
                 if line.strip():
@@ -294,13 +288,15 @@ class Package(SourceObject):
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
     # private:
-        self._violations        = []
-        self._metrics           = []
         self._tier              = 0 # for topological sort
 
     @property
     def scope(self):
         return "package"
+
+    @property
+    def file_count(self):
+        return len(self.source_files)
 
     def bound_to(self, other):
         if other.scope == "file" or other.scope == "node":
@@ -335,8 +331,6 @@ class Repository(SourceObject):
         self.declared_packages = []
         self.commits        = 1
         self.contributors   = 1
-        self._violations    = []
-        self._metrics       = []
 
     @property
     def scope(self):
@@ -388,11 +382,11 @@ class Project(SourceObject):
 
 
 class Node(SourceObject):
-    def __init__(self, name, pkg, rosname = None, is_nodelet = False):
+    def __init__(self, name, pkg, rosname = None, nodelet = None):
         SourceObject.__init__(self, pkg.id + "/" + name, name)
         self.package = pkg
         self.rosname = rosname
-        self.is_nodelet = is_nodelet
+        self.nodelet_class = nodelet
         self.source_files = []
         self.source_tree = None
         self.instances = []
@@ -404,6 +398,10 @@ class Node(SourceObject):
     @property
     def scope(self):
         return "node"
+
+    @property
+    def is_nodelet(self):
+        return not self.nodelet is None
 
     def bound_to(self, other):
         if other.scope == "package":

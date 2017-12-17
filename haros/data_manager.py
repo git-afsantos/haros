@@ -87,60 +87,6 @@ class SourceFile(AnalysisScope):
 # Represents a ROS package
 class Package(AnalysisScope):
     @classmethod
-    def from_manifest(cls, pkg_file, repo = None):
-        _log.debug("Package.from_manifest(%s, %s)", pkg_file, repo)
-        with open(pkg_file, "r") as handle:
-            root = ET.parse(handle).getroot()
-        name = root.find("name").text
-        package = cls(name, repo)
-        package.path = os.path.dirname(pkg_file)
-        _log.info("Found package %s at %s", package, package.path)
-        for el in root.findall("maintainer"):
-            name = el.text
-            email = el.get("email")
-            if not name and not email:
-                continue # No name, no email, move on
-            package.maintainers.add(Person(name, email))
-        for el in root.findall("author"):
-            name = el.text
-            email = el.get("email")
-            if not name and not email:
-                continue # No name, no email, move on
-            package.authors.add(Person(name, email))
-        el = root.find("export")
-        if not el is None:
-            if not el.find("metapackage") is None:
-                package.isMetapackage = True
-            if not el.find("nodelet") is None:
-                nodelets = el.find("nodelet").get("plugin")
-                nodelets = nodelets.replace("${prefix}", package.path)
-                package._read_nodelets(nodelets)
-        package.description = root.find("description").text.strip()
-        for el in root.findall("license"):
-            package.licenses.add(el.text)
-        for el in root.findall("url"):
-            value = el.get("type")
-            if value is None or value == "website":
-                package.website = el.text
-            elif value == "repository":
-                package.vcs_url = el.text
-            elif value == "bugtracker":
-                package.bug_url = el.text
-        for el in root.findall("build_depend"):
-            package.dependencies.add(el.text)
-        if root.get("format") == "2":
-            for el in root.findall("depend"):
-                package.dependencies.add(el.text)
-            for el in root.findall("build_export_depend"):
-                package.dependencies.add(el.text)
-            for el in root.findall("exec_depend"):
-                package.dependencies.add(el.text)
-        else:
-            for el in root.findall("run_depend"):
-                package.dependencies.add(el.text)
-        return package
-
-    @classmethod
     def locate_offline(cls, name, repo_path = None):
         _log.debug("Package.locate_offline(%s, %s)", name, repo_path)
         # Step 1: use repository download directory
@@ -178,20 +124,6 @@ class Package(AnalysisScope):
         else:
             rp = RosPack.get_instance()
         rp._location_cache = None
-
-    def _read_nodelets(self, nodelet_plugins):
-        _log.debug("Package._read_nodelets(%s)", nodelet_plugins)
-        with open(nodelet_plugins, "r") as handle:
-            root = ET.parse(handle).getroot()
-        _log.info("Found nodelets at %s", nodelet_plugins)
-        if root.tag == "library":
-            libs = (root,)
-        else:
-            libs = root.findall("library")
-        for el in libs:
-            libname = el.get("path").rsplit(os.sep)[-1]
-            for cl in el.findall("class"):
-                self.nodelets.append((libname, cl.get("name")))
 
 
 

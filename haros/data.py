@@ -23,35 +23,13 @@
 # Imports
 ###############################################################################
 
+import cPickle
 import datetime
 
 
 ###############################################################################
 # Analysis Properties
 ###############################################################################
-
-class Location(object):
-    """A location to report (package, file, line)."""
-    def __init__(self, pkg, fpath = None, line = None, fun = None, cls = None):
-        self.package = pkg
-        self.file = fpath
-        self.line = line
-        self.function = fun
-        self.class_ = cls
-
-    def __str__(self):
-        s = "in " + self.package
-        if not self.file:
-            return s
-        s += "/" + self.file
-        if not self.line is None:
-            s += ":" + str(self.line)
-            if self.function:
-                s += ", in function " + self.function
-            if self.class_:
-                s += ", in class " + self.class_
-        return s
-
 
 class Rule(object):
     """Represents a coding rule."""
@@ -132,8 +110,13 @@ class PackageAnalysis(object):
     def get_statistics(self):
         if self.statistics:
             return self.statistics
-        stats = Statistics()
-        self.statistics = stats
+        self.statistics = Statistics()
+        self._pkg_statistics()
+        self._file_statistics()
+        return stats
+
+    def _pkg_statistics(self):
+        stats = self.statistics
         stats.issue_count += len(self.violations)
         for issue in self.violations:
             other = True
@@ -145,19 +128,58 @@ class PackageAnalysis(object):
                 stats.metrics_issue_count += 1
             if other:
                 stats.other_issue_count += 1
-        self.configuration_count += len(package._configs)
+        stats.configuration_count += len(self.configurations)
         for config in self.configurations:
-            remaps = dict(config.resources.remaps)
             for node in config.nodes():
-                remaps.update(node.remaps)
                 if node.nodelet:
                     self.nodelet_count += 1
                 else:
                     self.node_count += 1
-            self.remap_count += len(remaps)
-            self.topic_count += len(config.resources.get_topics())
-            self.topic_count += len(config.resources.get_services())
-        return stats
+
+    def _file_statistics(self):
+        stats = self.statistics
+        complexities = []
+        fun_lines = []
+        file_lines = []
+        stats.file_count = self.package.file_count
+        for sfa in self.file_analysis:
+            sf = sfa.source_file
+            stats.lines_of_code += sf.lines
+            file_lines.append(sf.lines)
+            if (sf.full_name.startswith("scripts" + os.path.sep)):
+                stats.script_count += 1
+            if sf.language == "cpp":
+                stats.cpp_lines += sf.lines
+            elif sf.language == "python":
+                stats.python_lines += sf.lines
+            elif sf.language == "launch":
+                stats.launch_count += 1
+            elif sf.language == "yaml":
+                stats.param_file_count += 1
+            stats.issue_count += len(sfa.violations)
+            for issue in sfa.violations:
+                other = True
+                if "code-standards" in issue.rule.tags:
+                    other = False
+                    stats.standard_issue_count += 1
+                if "metrics" in issue.rule.tags:
+                    other = False
+                    stats.metrics_issue_count += 1
+                if other:
+                    stats.other_issue_count += 1
+            if sf.language == "cpp" or sf.language == "python":
+                for metric in sf.metrics:
+                    mid = metric.metric.id
+                    if mid == "comments":
+                        stats.comment_lines += metric.value
+                    elif mid == "cyclomatic_complexity":
+                        complexities.append(metric.value)
+                    elif mid == "sloc" or mid == "eloc" or mid == "ploc":
+                        if not metric.function is None:
+                            fun_lines.append(metric.value)
+        stats.avg_complexity = avg(complexities)
+        stats.avg_function_length = avg(fun_lines)
+        stats.avg_file_length = avg(file_lines)
 
 
 class Statistics(object):
@@ -176,8 +198,6 @@ class Statistics(object):
         self.configuration_count    = 0
         self.node_count             = 0
         self.nodelet_count          = 0
-        self.topic_count            = 0
-        self.remap_count            = 0
         self.message_type_count     = 0
         self.service_type_count     = 0
         self.action_type_count      = 0
@@ -189,10 +209,6 @@ class Statistics(object):
         self.avg_complexity         = 1
         self.avg_function_length    = 0
         self.avg_file_length        = 0
-    # -- private --------------------------------
-        self._complexities          = []
-        self._fun_lines             = []
-        self._file_lines            = []
 
     @property
     def comment_ratio(self):
@@ -209,73 +225,6 @@ class Statistics(object):
     @property
     def issue_ratio(self):
         return self.issue_count / float(self.lines_of_code)
-
-    def update_averages(self):
-        self.avg_complexity         = avg(self._complexities)
-        self.avg_function_length    = avg(self._fun_lines)
-        self.avg_file_length        = avg(self._file_lines)
-
-    def take_from_file(self, source_file):
-        self.file_count += 1
-        self.lines_of_code += source_file.lines
-        self._file_lines.append(source_file.lines)
-        if (source_file.path == "scripts"
-                or source_file.path.startswith("scripts" + os.path.sep)):
-            self.script_count += 1
-        if source_file.language == "cpp":
-            self.cpp_lines += source_file.lines
-        elif source_file.language == "python":
-            self.python_lines += source_file.lines
-        elif source_file.language == "launch":
-            self.launch_count += 1
-        elif source_file.language == "yaml":
-            self.param_file_count += 1
-        self.issue_count += len(source_file._violations)
-        for issue in source_file._violations:
-            other = True
-            if "code-standards" in issue.rule.tags:
-                other = False
-                self.standard_issue_count += 1
-            if "metrics" in issue.rule.tags:
-                other = False
-                self.metrics_issue_count += 1
-            if other:
-                self.other_issue_count += 1
-        if source_file.language == "cpp" or source_file.language == "python":
-            for metric in source_file._metrics:
-                mid = metric.metric.id
-                if mid == "comments":
-                    self.comment_lines += metric.value
-                elif mid == "cyclomatic_complexity":
-                    self._complexities.append(metric.value)
-                elif mid == "sloc" or mid == "eloc" or mid == "ploc":
-                    if not metric.function is None:
-                        self._fun_lines.append(metric.value)
-
-    def take_from_package(self, package):
-        self.issue_count += len(package._violations)
-        for issue in package._violations:
-            other = True
-            if "code-standards" in issue.rule.tags:
-                other = False
-                self.standard_issue_count += 1
-            if "metrics" in issue.rule.tags:
-                other = False
-                self.metrics_issue_count += 1
-            if other:
-                self.other_issue_count += 1
-        self.configuration_count += len(package._configs)
-        for config in package._configs:
-            remaps = dict(config.resources.remaps)
-            for node in config.nodes():
-                remaps.update(node.remaps)
-                if node.nodelet:
-                    self.nodelet_count += 1
-                else:
-                    self.node_count += 1
-            self.remap_count += len(remaps)
-            self.topic_count += len(config.resources.get_topics())
-            self.topic_count += len(config.resources.get_services())
 
     def relative_update(self, current, previous):
     # -- Files and Languages --------------------
@@ -303,10 +252,6 @@ class Statistics(object):
                            - avg([s.node_count for s in previous]))
         self.nodelet_count = (current.nodelet_count
                               - avg([s.nodelet_count for s in previous]))
-        self.topic_count = (current.topic_count
-                            - avg([s.topic_count for s in previous]))
-        self.remap_count = (current.remap_count
-                            - avg([s.remap_count for s in previous]))
         self.message_type_count = (current.message_type_count
                                  - avg([s.message_type_count for s in previous]))
         self.service_type_count = (current.service_type_count
@@ -332,8 +277,8 @@ class Statistics(object):
 
 class AnalysisReport(object):
     def __init__(self):
-        self.timestamp  = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
-        self.by_package   = {}
+        self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+        self.by_package = {}
         self.statistics = Statistics()
 
     @property
@@ -366,8 +311,8 @@ class AnalysisReport(object):
                 "configurations":   self.statistics.configuration_count
             },
             "communications": {
-                "topics":       self.statistics.topic_count,
-                "remappings":   self.statistics.remap_count,
+                "topics":       None,
+                "remappings":   None,
                 "messages":     None,
                 "services":     None,
                 "actions":      None
@@ -399,9 +344,18 @@ class HarosDatabase(object):
     # ----- runtime
         self.configurations = []
     # ----- analysis
-        self.summaries = []
-        self.week_stats = Statistics()  # these are relative values (7 days)
-        self.month_stats = Statistics() # these are relative values (30 days)
+        self.reports = []
+
+    def save_state(self, file_path):
+        # _log.debug("DataManager.save_state(%s)", file_path)
+        with open(file_path, "w") as handle:
+            cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
+
+    @staticmethod
+    def load_state(file_path):
+        # _log.debug("DataManager.load_state(%s)", file_path)
+        with open(file_path, "r") as handle:
+            return cPickle.load(handle)
 
 
 ###############################################################################
