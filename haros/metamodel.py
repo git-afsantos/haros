@@ -212,8 +212,8 @@ class SourceFile(SourceObject):
         SourceObject.__init__(self, id, name)
         self.directory = directory
         self.full_name = os.path.join(directory, name)
-        self.path = os.path.join(pkg.path, directory)
-        self.full_path = os.path.join(pkg.path, directory, name)
+        self.dir_path = os.path.join(pkg.path, directory)
+        self.path = os.path.join(pkg.path, directory, name)
         self.package = pkg
         self.language = self._get_language()
         self.size = 0
@@ -237,10 +237,10 @@ class SourceFile(SourceObject):
         return self >= scope
 
     def set_file_stats(self):
-        self.size = os.path.getsize(self.full_path)
+        self.size = os.path.getsize(self.path)
         self.lines = 0
         self.sloc = 0
-        with open(self.full_path, "r") as handle:
+        with open(self.path, "r") as handle:
             for line in handle:
                 self.lines += 1
                 if line.strip():
@@ -259,8 +259,8 @@ class SourceFile(SourceObject):
 
 
 class LaunchFile(SourceFile):
-    def __init__(self, name, path, pkg):
-        SourceFile.__init__(self, name, path, pkg)
+    def __init__(self, name, directory, pkg):
+        SourceFile.__init__(self, name, directory, pkg)
         self.language = "launch"
         self.tree = None
         self.nodes = []
@@ -287,6 +287,7 @@ class Package(SourceObject):
         self.nodes              = []
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
+        self.sloc               = 0 # sum of file source lines of code
     # private:
         self._tier              = 0 # for topological sort
 
@@ -355,6 +356,8 @@ class Project(SourceObject):
         existence of one.
     """
     def __init__(self, name, packages = None):
+        if name == "all":
+            raise ValueError("Forbidden project name: all")
         SourceObject.__init__(self, name, name)
         self.packages = packages if not packages is None else []
 

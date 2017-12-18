@@ -447,8 +447,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                   self.repo_dir, self.use_repos)
         if not self.dataman.packages:
             raise RuntimeError("There are no packages to analyse.")
-        if self.dataman.project.name == "all":
-            raise ValueError("Forbidden project name: all")
+        # if self.dataman.project.name == "all":
+            # raise ValueError("Forbidden project name: all")
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."

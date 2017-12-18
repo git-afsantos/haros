@@ -50,68 +50,8 @@ _log = logging.getLogger(__name__)
 # Source Code Structures
 ###############################################################################
 
-# Represents a source code file
-class SourceFile(AnalysisScope):
-    _excluded_dirs  = [".git", "doc", "bin", "cmake"]
-    @classmethod
-    def populate_package(cls, pkg, idx = None):
-        _log.debug("SourceFile.populate_package(%s)", pkg)
-        if pkg.path is None:
-            _log.debug("Package %s has no path", pkg)
-            return
-        _log.info("Indexing source files for package %s", pkg)
-        prefix = len(pkg.path) + len(os.path.sep)
-        for root, subdirs, files in os.walk(pkg.path, topdown = True):
-            subdirs[:] = [d for d in subdirs if d not in cls._excluded_dirs]
-            path = root[prefix:]
-            for f in files:
-                source = None
-                if f.endswith(cls._cpp_sources):
-                    source = "cpp"
-                elif f.endswith(cls._py_sources):
-                    source = "python"
-                elif f == cls._manifests:
-                    source = "package"
-                elif f.endswith(cls._launch_sources):
-                    source = "launch"
-                if source:
-                    _log.debug("Found %s file %s at %s", source, f, path)
-                    source = cls(f, path, pkg, source)
-                    pkg.source_files.append(source)
-                    pkg.size += source.size
-                    pkg.lines += source.lines
-                    if not idx is None:
-                        idx[source.id] = source
-
-
 # Represents a ROS package
 class Package(AnalysisScope):
-    @classmethod
-    def locate_offline(cls, name, repo_path = None):
-        _log.debug("Package.locate_offline(%s, %s)", name, repo_path)
-        # Step 1: use repository download directory
-        if repo_path:
-            rp = RosPack.get_instance([repo_path])
-            try:
-                path = rp.get_path(name)
-                path = os.path.join(path, "package.xml")
-                if os.path.isfile(path):
-                    _log.debug("Found %s in local repositories.", name)
-                    return cls.from_manifest(path)
-            except ResourceNotFound as e:
-                _log.debug("%s was not found in local repositories.", name)
-        # Step 2: use known directories
-        rp = RosPack.get_instance()
-        try:
-            path = rp.get_path(name)
-            path = os.path.join(path, "package.xml")
-            if os.path.isfile(path):
-                _log.debug("Found %s in default paths.", name)
-                return cls.from_manifest(path)
-        except ResourceNotFound as e:
-            _log.debug("%s was not found in default paths.", name)
-        return None
-
     # Note: this method messes with private variables of the RosPack
     # class. This is needed because, at some point, we download new
     # repositories and the package cache becomes outdated.
