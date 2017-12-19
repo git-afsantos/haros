@@ -37,10 +37,10 @@ from .metamodel import (
 ###############################################################################
 
 class SourceExtractor(object):
-    def __init__(self, index_file, repo_path = None, index_repos = False):
+    def __init__(self, index_file, repo_path = None, distro = None):
         self.index_file = index_file
         self.repo_path = repo_path
-        self.index_repos = index_repos
+        self.distribution = distro
         self.packages = None
         self.project = None
         self._missing = None
@@ -113,6 +113,7 @@ class SourceExtractor(object):
 
     def _find_local_packages(self):
         # _log.info("Looking for packages locally.")
+        extractor = PackageExtractor()
         self._missing = []
         for name in self.packages:
             try:
@@ -161,6 +162,11 @@ class SourceExtractor(object):
                 pkg.lines += source.lines
                 pkg.sloc += source.sloc
 
+    def _load_repositories(self, repo_data):
+        self.repositories = []
+        for name, data in repo_data.iteritems():
+            self.repositories.append()
+
     def load_repositories(self, user_repos = None, pkg_list = None):
         _log.debug("Repository.load_repositories(%s)", pkg_list)
         repos = {}
@@ -204,15 +210,71 @@ class SourceExtractor(object):
 
 
 ###############################################################################
-# Package Parser
+# Repository Extractor
 ###############################################################################
 
-class PackageExtractionError(Exception):
-    def __init__(self, value):
-        self.value = value
-    def __str__(self):
-        return repr(self.value)
+class RepositoryExtractor(object):
+    
 
+
+###############################################################################
+# Package Extractor
+###############################################################################
+
+class PackageExtractor(object):
+    def __init__(self, alt_paths = None):
+        self.packages = []
+        self.missing = []
+        self.rospack = RosPack.get_instance()
+        if alt_paths is None:
+            self.altpack = self.rospack
+        else:
+            self.altpack = RosPack.get_instance(alt_paths)
+
+    def find_package(self, name, project = None):
+        try:
+            pkg = self._find(name, project)
+            if project:
+                project.packages.append(pkg)
+            self._populate_package(pkg)
+        except (IOError, ET.ParseError, ResourceNotFound) as e:
+            self.missing.append(name)
+
+    def _find(self, name, project):
+        try:
+            path = os.path.join(self.altpack.get_path(name), "package.xml")
+        except ResourceNotFound as e:
+            path = os.path.join(self.rospack.get_path(name), "package.xml")
+        return PackageParser.parse(path, project = project)
+
+    EXCLUDED = (".git", "doc", "bin", "cmake")
+
+    def _populate_package(self, pkg):
+        # _log.debug("SourceFile.populate_package(%s)", pkg)
+        if not pkg.path:
+            # _log.debug("Package %s has no path", pkg)
+            return
+        # _log.info("Indexing source files for package %s", pkg)
+        prefix = len(pkg.path) + len(os.path.sep)
+        for root, subdirs, files in os.walk(pkg.path, topdown = True):
+            subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]
+            path = root[prefix:]
+            for f in files:
+                cls = SourceFile
+                if f.endswith(SourceFile.LAUNCH):
+                    cls = LaunchFile
+                # _log.debug("Found %s file %s at %s", source, f, path)
+                source = cls(f, path, pkg)
+                source.set_file_stats()
+                pkg.source_files.append(source)
+                pkg.size += source.size
+                pkg.lines += source.lines
+                pkg.sloc += source.sloc
+
+
+###############################################################################
+# Package Parser
+###############################################################################
 
 class PackageParser(object):
     @staticmethod
