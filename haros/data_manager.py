@@ -139,33 +139,6 @@ class Repository(AnalysisScope):
         except subprocess.CalledProcessError as e:
             raise RepositoryCloneError("git-svn error")
 
-    @classmethod
-    def from_distribution_data(cls, name, data):
-        _log.debug("Repository.from_distribution_data(%s)", name)
-        if not "source" in data:
-            _log.debug("There is no source in provided data.")
-            return None
-        repo = cls(name)
-        repo.status = data.get("status")
-        src = data["source"]
-        repo.vcs = src["type"]
-        repo.url = src["url"]
-        repo.version = src["version"]
-        if "release" in data:
-            repo.declared_packages = data["release"].get("packages", [])
-        return repo
-
-    @classmethod
-    def from_user_data(cls, name, data):
-        _log.debug("Repository.from_user_data(%s)", name)
-        repo = cls(name)
-        repo.status = "private"
-        repo.vcs = data["type"]
-        repo.url = data["url"]
-        repo.version = data["version"]
-        repo.declared_packages = data["packages"]
-        return repo
-
     # User-defined repositories have priority.
     # Tries to build and save as few repositories as possible.
     @classmethod

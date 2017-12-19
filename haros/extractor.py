@@ -23,7 +23,11 @@
 # Imports
 ###############################################################################
 
+import logging
+import os
+import subprocess
 import xml.etree.ElementTree as ET
+import yaml
 
 from rospkg import RosPack, ResourceNotFound
 
@@ -33,20 +37,30 @@ from .metamodel import (
 
 
 ###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
+
+
+###############################################################################
 # Source Extractor
 ###############################################################################
 
-class SourceExtractor(object):
-    def __init__(self, index_file, repo_path = None, distro = None):
+class SourceExtractor(LoggingObject):
+    def __init__(self, index_file, repo_path = None, distro_url = None):
+        self.log.debug("SourceExtractor(%s, %s, %s)",
+                       index_file, repo_path, distro_url)
         self.index_file = index_file
         self.repo_path = repo_path
-        self.distribution = distro
+        self.distribution = distro_url
         self.packages = None
         self.project = None
         self._missing = None
 
     def index_source(self):
-        # _log.debug("DataManager.index_source(%s, %s)", index_file, repo_path)
+        self.log.debug("SourceExtractor.index_source()")
         if os.path.isfile(self.index_file):
             with open(self.index_file, "r") as handle:
                 data = yaml.load(handle)
@@ -54,7 +68,7 @@ class SourceExtractor(object):
             data = { "packages": [] }
         self.project = Project(data.get("project", "default"))
         self.packages = set(data.get("packages")
-                            or RosPack.get_instance(".").list())
+                            or RosPack.get_instance(["."]).list())
     # Step 1: find packages locally
         self._find_local_packages()
     # Step 2: load repositories only if explicitly told to
@@ -112,60 +126,20 @@ class SourceExtractor(object):
         self._search_launch_files()
 
     def _find_local_packages(self):
-        # _log.info("Looking for packages locally.")
-        extractor = PackageExtractor()
-        self._missing = []
+        self.log.info("Looking for packages locally.")
+        cdir = os.path.abspath(".")
+        alt_paths = [self.repo_path, cdir] if self.repo_path else [cdir]
+        extractor = PackageExtractor(alt_paths = alt_paths)
         for name in self.packages:
-            try:
-                pkg = self._local_package(name)
-                self.project.packages.append(pkg)
-                self._populate_package(pkg)
-            except (IOError, ET.ParseError, ResourceNotFound) as e:
-                self._missing.append(name)
-
-    def _local_package(self, name):
-        # _log.debug("Package.locate_offline(%s, %s)", name, repo_path)
-        # Step 1: use repository download directory
-        if self.repo_path:
-            rp = RosPack.get_instance([repo_path])
-            try:
-                path = os.path.join(rp.get_path(name), "package.xml")
-                return PackageParser.parse(path, project = self.project)
-            except ResourceNotFound as e:
-                pass
-                # _log.debug("%s was not found in local repositories.", name)
-        # Step 2: use known directories
-        rp = RosPack.get_instance()
-        path = os.path.join(rp.get_path(name), "package.xml")
-        return PackageParser.parse(path, project = self.project)
-
-    def _populate_package(self, pkg):
-        # _log.debug("SourceFile.populate_package(%s)", pkg)
-        if not pkg.path:
-            # _log.debug("Package %s has no path", pkg)
-            return
-        # _log.info("Indexing source files for package %s", pkg)
-        excluded_dirs = (".git", "doc", "bin", "cmake")
-        prefix = len(pkg.path) + len(os.path.sep)
-        for root, subdirs, files in os.walk(pkg.path, topdown = True):
-            subdirs[:] = [d for d in subdirs if d not in excluded_dirs]
-            path = root[prefix:]
-            for f in files:
-                cls = SourceFile
-                if f.endswith(SourceFile.LAUNCH):
-                    cls = LaunchFile
-                # _log.debug("Found %s file %s at %s", source, f, path)
-                source = cls(f, path, pkg)
-                source.set_file_stats()
-                pkg.source_files.append(source)
-                pkg.size += source.size
-                pkg.lines += source.lines
-                pkg.sloc += source.sloc
+            extractor.find_package(name, project = self.project)
+        self._missing = extractor.missing
 
     def _load_repositories(self, repo_data):
         self.repositories = []
+        extractor = RepositoryExtractor()
         for name, data in repo_data.iteritems():
-            self.repositories.append()
+            extractor.load_from_user(name, data)
+        self.repositories.extend(extractor.repositories)
 
     def load_repositories(self, user_repos = None, pkg_list = None):
         _log.debug("Repository.load_repositories(%s)", pkg_list)
@@ -213,15 +187,41 @@ class SourceExtractor(object):
 # Repository Extractor
 ###############################################################################
 
-class RepositoryExtractor(object):
-    
+class RepositoryExtractor(LoggingObject):
+    def __init__(self):
+        self.repositories = []
+
+    def load_from_user(self, name, data):
+        self.log.debug("RepositoryExtractor.from_user(%s, %s)", name, data)
+        repo = Repository(name)
+        repo.status = "private"
+        repo.vcs = data["type"]
+        repo.url = data["url"]
+        repo.version = data["version"]
+        repo.declared_packages = data["packages"]
+        self.repositories.append(repo)
+
+    def load_from_distro(self, name, data):
+        self.log.debug("RepositoryExtractor.from_distro(%s, %s)", name, data)
+        if not "source" in data:
+            self.log.debug("There is no source in provided data.")
+            return
+        repo = Repository(name)
+        repo.status = data.get("status")
+        src = data["source"]
+        repo.vcs = src["type"]
+        repo.url = src["url"]
+        repo.version = src["version"]
+        if "release" in data:
+            repo.declared_packages = data["release"].get("packages", [])
+        self.repositories.append(repo)
 
 
 ###############################################################################
 # Package Extractor
 ###############################################################################
 
-class PackageExtractor(object):
+class PackageExtractor(LoggingObject):
     def __init__(self, alt_paths = None):
         self.packages = []
         self.missing = []
@@ -250,21 +250,21 @@ class PackageExtractor(object):
     EXCLUDED = (".git", "doc", "bin", "cmake")
 
     def _populate_package(self, pkg):
-        # _log.debug("SourceFile.populate_package(%s)", pkg)
+        self.log.debug("PackageExtractor.populate(%s)", pkg)
         if not pkg.path:
-            # _log.debug("Package %s has no path", pkg)
+            self.log.debug("Package %s has no path", pkg.name)
             return
-        # _log.info("Indexing source files for package %s", pkg)
+        self.log.info("Indexing source files for package %s", pkg.name)
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown = True):
             subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]
             path = root[prefix:]
-            for f in files:
+            for filename in files:
                 cls = SourceFile
-                if f.endswith(SourceFile.LAUNCH):
+                if filename.endswith(SourceFile.LAUNCH):
                     cls = LaunchFile
-                # _log.debug("Found %s file %s at %s", source, f, path)
-                source = cls(f, path, pkg)
+                self.log.debug("Found file %s at %s", filename, path)
+                source = cls(filename, path, pkg)
                 source.set_file_stats()
                 pkg.source_files.append(source)
                 pkg.size += source.size
@@ -276,16 +276,16 @@ class PackageExtractor(object):
 # Package Parser
 ###############################################################################
 
-class PackageParser(object):
+class PackageParser(LoggingObject):
     @staticmethod
     def parse(pkg_file, project = None):
-        # _log.debug("Package.from_manifest(%s)", pkg_file)
+        PackageParser.log.debug("PkgParser.parse(%s, %s)", pkg_file, project)
         with open(pkg_file, "r") as handle:
             root = ET.parse(handle).getroot()
         name = root.find("name").text.strip()
         package = Package(name, proj = project)
         package.path = os.path.dirname(pkg_file)
-        # _log.info("Found package %s at %s", package, package.path)
+        PackageParser.log.info("Found package %s at %s", package, package.path)
         PackageParser._parse_metadata(root, package)
         PackageParser._parse_export(root, package)
         PackageParser._parse_dependencies(root, package)
@@ -321,10 +321,9 @@ class PackageParser(object):
             if not el.find("nodelet") is None:
                 nodelets = el.find("nodelet").get("plugin")
                 nodelets = nodelets.replace("${prefix}", package.path)
-                # _log.debug("Package._read_nodelets(%s)", nodelet_plugins)
                 with open(nodelets, "r") as handle:
                     root = ET.parse(handle).getroot()
-                # _log.info("Found nodelets at %s", nodelet_plugins)
+                PackageParser.log.info("Found nodelets at %s", nodelets)
                 if root.tag == "library":
                     libs = (root,)
                 else:
