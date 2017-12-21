@@ -121,7 +121,7 @@ class SourceExtractor(LoggingObject):
     def _load_distro_repositories(self):
         self.log.info("Looking up repositories from official distribution.")
         try:
-            data = yaml.load(urlopen(url).read())["repositories"]
+            data = yaml.load(urlopen(self.distribution).read())["repositories"]
         except URLError as e:
             self.log.warning("Could not download distribution data.")
             return
@@ -210,7 +210,7 @@ class RepositoryExtractor(LoggingObject):
         repo.url = src["url"]
         repo.version = src["version"]
         if "release" in data:
-            repo.declared_packages = data["release"].get("packages", [])
+            repo.declared_packages = data["release"].get("packages", [name])
         self.repositories.append(repo)
         self.declared_packages.update(repo.declared_packages)
         if project:
@@ -220,11 +220,11 @@ class RepositoryExtractor(LoggingObject):
     def load_needed_from_distro(self, data, pkgs, project = None):
         if not pkgs:
             return True
-        edict = {}
-        elist = ()
         remaining = set(pkgs)
         for name, info in data.iteritems():
-            for pkg in info.get("release", edict).get("packages", elist):
+            if not "release" in info:
+                continue
+            for pkg in info["release"].get("packages", [name]):
                 try:
                     remaining.remove(pkg)
                     self.load_from_distro(name, info, project = project)
@@ -266,7 +266,7 @@ class RepositoryExtractor(LoggingObject):
                 subprocess.check_call(["git", "remote",
                                        "add", "-t", repo.version,
                                        "-f", "origin", repo.url])
-                subprocess.check_call(["git", "checkout", self.version])
+                subprocess.check_call(["git", "checkout", repo.version])
             else:
                 subprocess.check_call(self.GIT_PULL)
             repo.path = path
