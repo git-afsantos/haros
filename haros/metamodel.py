@@ -288,8 +288,7 @@ class Package(SourceObject):
         self.size               = 0 # sum of file sizes
         self.lines              = 0 # sum of physical file lines
         self.sloc               = 0 # sum of file source lines of code
-    # private:
-        self._tier              = 0 # for topological sort
+        self.topological_tier   = 0
 
     @property
     def scope(self):
@@ -321,8 +320,9 @@ class Package(SourceObject):
 class Repository(SourceObject):
     """Represents a source code repository."""
     def __init__(self, name, vcs = None, url = None, version = None,
-                 status = None, path = None):
+                 status = None, path = None, proj = None):
         SourceObject.__init__(self, name, name)
+        self.project        = None
         self.vcs            = vcs
         self.url            = url
         self.version        = version
@@ -343,6 +343,8 @@ class Repository(SourceObject):
         if other.scope == "file" or other.scope == "node":
             return other.package in self.packages
         if other.scope == "project":
+            if self.project == other:
+                return True
             for package in self.packages:
                 if not package in other.packages:
                     return False
@@ -355,11 +357,12 @@ class Project(SourceObject):
         corresponding to a repository, and not even requiring the
         existence of one.
     """
-    def __init__(self, name, packages = None):
+    def __init__(self, name):
         if name == "all":
             raise ValueError("Forbidden project name: all")
         SourceObject.__init__(self, name, name)
-        self.packages = packages if not packages is None else []
+        self.packages = []
+        self.repositories = []
 
     @property
     def scope(self):
@@ -371,6 +374,8 @@ class Project(SourceObject):
         if other.scope == "file" or other.scope == "node":
             return other.package in self.packages
         if other.scope == "repository":
+            if other.project == self:
+                return True
             for package in other.packages:
                 if not package in self.packages:
                     return False
@@ -380,7 +385,8 @@ class Project(SourceObject):
     def to_JSON_object(self):
         return {
             "id": self.id,
-            "packages": [pkg.id for pkg in self.packages]
+            "packages": [pkg.id for pkg in self.packages],
+            "repositories": [repo.id for repo in self.repositories]
         }
 
 

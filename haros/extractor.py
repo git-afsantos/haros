@@ -24,8 +24,10 @@
 ###############################################################################
 
 import logging
+from operator import attrgetter
 import os
 import subprocess
+from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
 import yaml
 
@@ -34,6 +36,7 @@ from rospkg import RosPack, ResourceNotFound
 from .metamodel import (
     Project, Repository, Package, SourceFile, LaunchFile, Node, Person
 )
+from .util import cwd
 
 
 ###############################################################################
@@ -48,165 +51,159 @@ class LoggingObject(object):
 # Source Extractor
 ###############################################################################
 
+# url = "https://raw.githubusercontent.com/ros/rosdistro/master/" \
+#              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
+
 class SourceExtractor(LoggingObject):
-    def __init__(self, index_file, repo_path = None, distro_url = None):
+    def __init__(self, index_file, repo_path = None, distro_url = None,
+                 require_repos = False):
         self.log.debug("SourceExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
         self.repo_path = repo_path
         self.distribution = distro_url
-        self.packages = None
+        self.require_repos = require_repos
         self.project = None
-        self._missing = None
+        self.packages = None
+        self.missing = None
+        self.repositories = None
 
     def index_source(self):
         self.log.debug("SourceExtractor.index_source()")
-        if os.path.isfile(self.index_file):
+        self._setup()
+        self._load_user_repositories()
+        self._find_local_packages()
+        if self.missing and self.distribution:
+            self._load_distro_repositories()
+            self._find_local_packages()
+        self._topological_sort()
+        for name in self.missing:
+            self.log.warning("Could not find package " + name)
+
+    def _setup(self):
+        try:
             with open(self.index_file, "r") as handle:
                 data = yaml.load(handle)
-        else:
-            data = { "packages": [] }
+        except IOError as e:
+            data = {}
         self.project = Project(data.get("project", "default"))
+        self.repositories = data.get("repositories", {})
         self.packages = set(data.get("packages")
                             or RosPack.get_instance(["."]).list())
-    # Step 1: find packages locally
-        self._find_local_packages()
-    # Step 2: load repositories only if explicitly told to
-        # _log.debug("Missing packages: %s", missing)
-        if index_repos:
-            # _log.info("Indexing repositories.")
-            self._load_repositories()
-            self.repositories = Repository.load_repositories(
-                    data.get("repositories", {}), pkg_list)
-            repos = set()
-            for _, repo in self.repositories.iteritems():
-                for id in repo.declared_packages:
-                    if id in missing:
-                        # _log.debug("%s contains missing %s", _, id)
-                        repos.add(repo)
-    # Step 3: clone necessary repositories
-            wd = os.getcwd()
-            refresh = False
-            for repo in repos:
-                try:
-                    repo.download(repo_path)
-                    refresh = True
-                except RepositoryCloneError as e:
-                    _log.warning("Could not download %s: %s", repo.id, e.value)
-            os.chdir(wd)
-            if refresh:
-                _log.debug("Refreshing package cache for %s", repo_path)
-                Package.refresh_package_cache(repo_path)
-    # Step 4: find packages and link to repositories
-            _log.info("Looking for missing packages in local repositories.")
-            for _, repo in self.repositories.iteritems():
-                for id in repo.declared_packages:
-                    if id in self.packages:
-                        _log.debug("Binding %s to %s", id, _)
-                        repo.packages.append(self.packages[id])
-                        self.packages[id].repository = repo
-                    elif id in missing:
-                        pkg = Package.locate_offline(id, repo_path)
-                        if pkg:
-                            _log.debug("Found %s in clones.", id)
-                            SourceFile.populate_package(pkg, self.files)
-                            self.packages[id] = pkg
-                            missing.remove(id)
-                            repo.packages.append(pkg)
-                            pkg.repository = repo
-                            self.project.packages.append(pkg)
-                            pkg.project = self.project
-                        else:
-                            _log.debug("%s was not found in clones.", id)
-    # Step 5: sort packages in topological order
-        self._topological_sort()
-        for id in missing:
-            _log.warning("Could not find package " + id)
-    # Step 6: check if operating in launch mode
-        self._search_launch_files()
+        self.missing = set(self.packages)
+
+    def _load_user_repositories(self):
+        self.log.info("Looking up user provided repositories.")
+        extractor = RepositoryExtractor()
+        for name, data in self.repositories.iteritems():
+            extractor.load_from_user(name, data, project = self.project)
+        if self.repo_path:
+            try:
+                extractor.download(self.repo_path)
+            except RepositoryCloneError as e:
+                if self.require_repos:
+                    raise e
+                else:
+                    self.log.warning("Could not download all repositories.")
 
     def _find_local_packages(self):
         self.log.info("Looking for packages locally.")
         cdir = os.path.abspath(".")
         alt_paths = [self.repo_path, cdir] if self.repo_path else [cdir]
         extractor = PackageExtractor(alt_paths = alt_paths)
-        for name in self.packages:
-            extractor.find_package(name, project = self.project)
-        self._missing = extractor.missing
+        extractor.refresh_package_cache()
+        found = []
+        for name in self.missing:
+            if extractor.find_package(name, project = self.project):
+                found.append(name)
+        self.missing.difference_update(found)
 
-    def _load_repositories(self, repo_data):
-        self.repositories = []
+    def _load_distro_repositories(self):
+        self.log.info("Looking up repositories from official distribution.")
+        try:
+            data = yaml.load(urlopen(url).read())["repositories"]
+        except URLError as e:
+            self.log.warning("Could not download distribution data.")
+            return
         extractor = RepositoryExtractor()
-        for name, data in repo_data.iteritems():
-            extractor.load_from_user(name, data)
-        self.repositories.extend(extractor.repositories)
+        extractor.load_needed_from_distro(data, self.missing, self.project)
+        if self.repo_path:
+            try:
+                extractor.download(self.repo_path)
+            except RepositoryCloneError as e:
+                if self.require_repos:
+                    raise e
+                else:
+                    self.log.warning("Could not download all repositories.")
 
-    def load_repositories(self, user_repos = None, pkg_list = None):
-        _log.debug("Repository.load_repositories(%s)", pkg_list)
-        repos = {}
-        pkg_list = list(pkg_list) if pkg_list else None
-        if user_repos:
-            _log.info("Looking up user provided repositories.")
-            if pkg_list is None:
-                for id, info in user_repos.iteritems():
-                    repos[id] = cls.from_user_data(id, info)
-            else:
-                for id, info in user_repos.iteritems():
-                    if not pkg_list:
-                        return repos
-                    repo = cls.from_user_data(id, info)
-                    for pkg in repo.declared_packages:
-                        if pkg in pkg_list:
-                            repos[id] = repo
-                            pkg_list.remove(pkg)
-        if not pkg_list:
-            return repos
-        url = "https://raw.githubusercontent.com/ros/rosdistro/master/" \
-              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
-        _log.info("Looking up repositories from official distribution.")
-        data = yaml.load(urlopen(url).read())["repositories"]
-        if pkg_list is None:
-            for id, info in data.iteritems():
-                repo = cls.from_distribution_data(id, info)
-                if repo:
-                    repos[id] = repo
-        else:
-            for id, info in data.iteritems():
-                if not pkg_list:
-                    return repos
-                repo = cls.from_distribution_data(id, info)
-                if repo:
-                    for pkg in repo.declared_packages:
-                        if pkg in pkg_list:
-                            repos[id] = repo
-                            pkg_list.remove(pkg)
-        return repos
+    def _topological_sort(self):
+        dependencies = {}
+        pending = list(self.project.packages)
+        for pkg in self.project.packages:
+            pkg.topological_tier = -1
+            dependencies[pkg.id] = set(p for p in pkg.dependencies.packages
+                                       if p in self.packages)
+        tier = 0
+        emitted = []
+        while pending:
+            next_pending = []
+            next_emitted = []
+            for pkg in pending:
+                deps = dependencies[pkg.id]
+                deps.difference_update(emitted)
+                if deps:
+                    next_pending.append(pkg)
+                else:
+                    pkg.topological_tier = tier
+                    next_emitted.append(pkg.id)
+            if not next_emitted:
+                # cyclic dependencies detected
+                self.log.warning("Cyclic dependencies: %s", next_pending)
+                for pkg in next_pending:
+                    pkg.topological_tier = tier
+                next_pending = None
+            pending = next_pending
+            emitted = next_emitted
+            tier += 1
+        self.project.packages.sort(key = attrgetter("topological_tier", "id"))
 
 
 ###############################################################################
 # Repository Extractor
 ###############################################################################
 
+class RepositoryCloneError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+
 class RepositoryExtractor(LoggingObject):
     def __init__(self):
         self.repositories = []
+        self.declared_packages = set()
 
-    def load_from_user(self, name, data):
+    def load_from_user(self, name, data, project = None):
         self.log.debug("RepositoryExtractor.from_user(%s, %s)", name, data)
-        repo = Repository(name)
+        repo = Repository(name, proj = project)
         repo.status = "private"
         repo.vcs = data["type"]
         repo.url = data["url"]
         repo.version = data["version"]
         repo.declared_packages = data["packages"]
         self.repositories.append(repo)
+        self.declared_packages.update(repo.declared_packages)
+        if project:
+            project.repositories.append(repo)
+        return repo
 
-    def load_from_distro(self, name, data):
+    def load_from_distro(self, name, data, project = None):
         self.log.debug("RepositoryExtractor.from_distro(%s, %s)", name, data)
         if not "source" in data:
             self.log.debug("There is no source in provided data.")
             return
-        repo = Repository(name)
+        repo = Repository(name, proj = project)
         repo.status = data.get("status")
         src = data["source"]
         repo.vcs = src["type"]
@@ -215,6 +212,102 @@ class RepositoryExtractor(LoggingObject):
         if "release" in data:
             repo.declared_packages = data["release"].get("packages", [])
         self.repositories.append(repo)
+        self.declared_packages.update(repo.declared_packages)
+        if project:
+            project.repositories.append(repo)
+        return repo
+
+    def load_needed_from_distro(self, data, pkgs, project = None):
+        if not pkgs:
+            return True
+        edict = {}
+        elist = ()
+        remaining = set(pkgs)
+        for name, info in data.iteritems():
+            for pkg in info.get("release", edict).get("packages", elist):
+                try:
+                    remaining.remove(pkg)
+                    self.load_from_distro(name, info, project = project)
+                except KeyError as e:
+                    pass
+            if not remaining:
+                break
+        return not remaining
+
+    def download(self, repo_path):
+        self.log.debug("RepositoryExtractor.download(%s)", repo_path)
+        for repo in self.repositories:
+            if not repo.url:
+                self.log.debug("%s has no URL to download from.", repo.id)
+                continue
+            path = os.path.join(repo_path, repo.id)
+            clone = False
+            if not os.path.exists(path):
+                os.makedirs(path)
+                clone = True
+            with cwd(path):
+                if repo.vcs == "git":
+                    self._download_git(repo, path, clone)
+                elif repo.vcs == "hg":
+                    self._download_hg(repo, path, clone)
+                elif repo.vcs == "svn":
+                    self._download_svn(repo, path, clone)
+        return True
+
+    GIT_INIT = ("git", "init")
+    GIT_PULL = ("git", "pull")
+    GIT_COUNT = ("git", "rev-list", "HEAD", "--count")
+
+    def _download_git(self, repo, path, clone = False):
+        self.log.debug("RepositoryExtractor._download_git(%s)", path)
+        try:
+            if clone:
+                subprocess.check_call(self.GIT_INIT)
+                subprocess.check_call(["git", "remote",
+                                       "add", "-t", repo.version,
+                                       "-f", "origin", repo.url])
+                subprocess.check_call(["git", "checkout", self.version])
+            else:
+                subprocess.check_call(self.GIT_PULL)
+            repo.path = path
+            repo.commits = int(subprocess.check_output(self.GIT_COUNT).rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("git error: " + str(e))
+
+    HG_PULL = ("hg", "pull")
+    HG_COUNT = ("hg", "id", "--num", "--rev", "tip")
+
+    def _download_hg(self, repo, path, clone = False):
+        self.log.debug("RepositoryExtractor._download_hg(%s)", path)
+        try:
+            if clone:
+                subprocess.check_call(["hg", "clone", repo.url,
+                                       "-r", repo.version])
+            else:
+                subprocess.check_call(self.HG_PULL)
+            repo.path = path
+            repo.commits = int(subprocess.check_output(self.HG_COUNT).rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("hg error: " + str(e))
+
+    SVN_FETCH = ("git", "svn", "fetch")
+
+    def _download_svn(self, repo, path, clone = False):
+        self.log.debug("RepositoryExtractor._download_svn(%s)", path)
+        try:
+            if clone:
+                if repo.version == "trunk":
+                    version = repo.version
+                else:
+                    version = "branches/" + repo.version
+                subprocess.check_call(["git", "svn", "clone",
+                                       "-T", version, repo.url])
+            else:
+                subprocess.check_call(self.SVN_FETCH)
+            self.path = path
+            self.commits = int(subprocess.check_output(self.GIT_COUNT).rstrip())
+        except subprocess.CalledProcessError as e:
+            raise RepositoryCloneError("git-svn error: " + str(e))
 
 
 ###############################################################################
@@ -224,21 +317,36 @@ class RepositoryExtractor(LoggingObject):
 class PackageExtractor(LoggingObject):
     def __init__(self, alt_paths = None):
         self.packages = []
-        self.missing = []
         self.rospack = RosPack.get_instance()
         if alt_paths is None:
             self.altpack = self.rospack
         else:
             self.altpack = RosPack.get_instance(alt_paths)
 
+    # Note: this method messes with private variables of the RosPack
+    # class. This is needed because, at some point, we download new
+    # repositories and the package cache becomes outdated.
+    # RosPack provides no public method to refresh the cache, hence
+    # changing private variables directly.
+    def refresh_package_cache(self):
+        self.rospack._location_cache = None
+        self.altpack._location_cache = None
+
     def find_package(self, name, project = None):
         try:
             pkg = self._find(name, project)
+            self.packages.append(pkg)
             if project:
                 project.packages.append(pkg)
+                for repo in project.repositories:
+                    if name in repo.declared_packages:
+                        pkg.repository = repo
+                        repo.packages.append(pkg)
+                        break
             self._populate_package(pkg)
         except (IOError, ET.ParseError, ResourceNotFound) as e:
-            self.missing.append(name)
+            return None
+        return pkg
 
     def _find(self, name, project):
         try:
