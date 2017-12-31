@@ -368,14 +368,14 @@ class BuildTarget(object):
         # TODO elif prop == "<CONFIG>_OUTPUT_NAME":
 
 
-class CMakeAnalyser(object):
-    def __init__(self, environment, finder, srcdir, bindir, variables = None):
+class RosCMakeParser(object):
+    def __init__(self, srcdir, bindir, pkgs = None, env = None, vars = None):
         self.parser = CMakeParser()
-        self.resource_finder = finder
-        self.variables = variables if not variables is None else {}
-        self.environment = environment
         self.source_dir = srcdir
         self.binary_dir = bindir
+        self.packages = pkgs if not pkgs is None else set()
+        self.variables = vars if not vars is None else {}
+        self.environment = env if not env is None else {}
         self.variables["CMAKE_BINARY_DIR"] = bindir
         self._reset()
 
@@ -397,16 +397,17 @@ class CMakeAnalyser(object):
             command = stmt[0].lower()
             args = self.parser.split_paren_args(stmt[1]) if stmt[1] else []
             children = stmt[3]
-            if command in CMakeAnalyser._CONTROL_FLOW and children:
+            if command in self._CONTROL_FLOW and children:
                 self._analyse_control_flow(command, args, children)
             else:
                 self._analyse_command(command, args)
         for subdir in self.subdirectories:
             path = os.path.join(self.directory, subdir, "CMakeLists.txt")
             if os.path.isfile(path):
-                analyser = CMakeAnalyser(self.environment, self.resource_finder,
-                                         self.source_dir, self.binary_dir,
-                                         variables = dict(self.variables))
+                analyser = RosCMakeParser(self.source_dir, self.binary_dir,
+                                          pkgs = self.packages,
+                                          env = self.environment,
+                                          vars = dict(self.variables))
                 analyser.analyse(path, toplevel = False)
                 self._merge(analyser)
         if toplevel:
@@ -422,7 +423,7 @@ class CMakeAnalyser(object):
                 child_command = stmt[0].lower()
                 child_args = self.parser.split_paren_args(stmt[1]) if stmt[1] else []
                 child_children = stmt[3]
-                if child_command in CMakeAnalyser._CONTROL_FLOW and child_children:
+                if child_command in self._CONTROL_FLOW and child_children:
                     self._analyse_control_flow(child_command, child_args, child_children)
                 else:
                     self._analyse_command(child_command, child_args)
@@ -589,7 +590,7 @@ class CMakeAnalyser(object):
                 k += 1
             args = args[i:k]
             for arg in args:
-                if self.resource_finder.find_package(arg):
+                if arg in self.packages:
                     self.variables[arg + "_FOUND"] = "TRUE"
                 else:
                     self.variables[arg + "_FOUND"] = "FALSE"
@@ -649,7 +650,7 @@ class CMakeAnalyser(object):
         n = len(args)
         while i < n:
             arg = args[i]
-            if arg in CMakeAnalyser._UNARY_OPERATORS:
+            if arg in self._UNARY_OPERATORS:
                 i += 1
                 arg = self._unary_test(arg, args[i])
             values.append(arg)
@@ -661,7 +662,7 @@ class CMakeAnalyser(object):
         n = len(args)
         while i < n:
             arg = args[i]
-            if arg in CMakeAnalyser._BINARY_OPERATORS:
+            if arg in self._BINARY_OPERATORS:
                 i += 1
                 values.pop()
                 arg = self._binary_test(arg, args[i-2], args[i])
@@ -673,15 +674,14 @@ class CMakeAnalyser(object):
         while i < n:
             value = values[i]
             uval = value.upper()
-            if uval in CMakeAnalyser._TRUTH_CONSTANTS:
+            if uval in self._TRUTH_CONSTANTS:
                 values[i] = True
-            elif uval in CMakeAnalyser._FALSE_CONSTANTS \
-                    or uval.endswith("-NOTFOUND"):
+            elif uval in self._FALSE_CONSTANTS or uval.endswith("-NOTFOUND"):
                 values[i] = False
             elif value != "NOT" and value != "AND" and value != "OR":
                 value = self.variables.get(value, "FALSE")
-                values[i] = not value in CMakeAnalyser._FALSE_CONSTANTS \
-                            and not value.endswith("-NOTFOUND")
+                values[i] = (not value in self._FALSE_CONSTANTS
+                             and not value.endswith("-NOTFOUND"))
             i += 1
         # Step 5: evaluate boolean NOT
         args = values
