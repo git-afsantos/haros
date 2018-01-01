@@ -381,7 +381,7 @@ class RosCMakeParser(object):
 
     _CONTROL_FLOW = ("if", "else", "elseif", "foreach", "while")
 
-    def analyse(self, cmakelists, toplevel = True):
+    def parse(self, cmakelists, toplevel = True):
         self.directory = os.path.dirname(cmakelists)
         if toplevel:
             self.directory = os.path.abspath(self.directory)
@@ -404,12 +404,12 @@ class RosCMakeParser(object):
         for subdir in self.subdirectories:
             path = os.path.join(self.directory, subdir, "CMakeLists.txt")
             if os.path.isfile(path):
-                analyser = RosCMakeParser(self.source_dir, self.binary_dir,
+                parser = RosCMakeParser(self.source_dir, self.binary_dir,
                                           pkgs = self.packages,
                                           env = self.environment,
                                           vars = dict(self.variables))
-                analyser.analyse(path, toplevel = False)
-                self._merge(analyser)
+                parser.parse(path, toplevel = False)
+                self._merge(parser)
         if toplevel:
             self._link_targets()
 
@@ -810,31 +810,3 @@ class RosCMakeParser(object):
         self.libraries = {}
         self.executables = {}
         self.subdirectories = []
-
-
-"""
-function roscd {
-    local rosvals
-    if [[ $1 = "--help" ]] || [[ $# -gt 1 ]]; then
-        echo -e "usage: roscd package\n\nJump to target package."
-        return 0
-    fi
-    if [ -z $1 ]; then
-      if [ ! -z $ROS_WORKSPACE ]; then
-        cd ${ROS_WORKSPACE}
-        return 0
-      fi
-      if [ ! -z $CMAKE_PREFIX_PATH ]; then
-        IFS=":" read -a workspaces <<< "$CMAKE_PREFIX_PATH"
-        for ws in "${workspaces[@]}"; do
-          if [ -f $ws/.catkin ]; then
-            cd ${ws}
-            return 0
-          fi
-        done
-      fi
-      echo -e "Neither ROS_WORKSPACE is set nor a catkin workspace is listed in CMAKE_PREFIX_PATH.  Please set ROS_WORKSPACE or source a catkin workspace to use roscd with no arguments."
-      return 1
-    fi
-}
-"""
