@@ -33,6 +33,7 @@ import yaml
 
 from rospkg import RosPack, ResourceNotFound
 
+from .cmake_parser import RosCMakeParser
 from .metamodel import (
     Project, Repository, Package, SourceFile, LaunchFile, Node, Person
 )
@@ -56,13 +57,14 @@ class LoggingObject(object):
 
 class SourceExtractor(LoggingObject):
     def __init__(self, index_file, repo_path = None, distro_url = None,
-                 require_repos = False):
+                 require_repos = False, env = None):
         self.log.debug("SourceExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
         self.repo_path = repo_path
         self.distribution = distro_url
         self.require_repos = require_repos
+        self.environment = env if not env is None else {}
         self.project = None
         self.packages = None
         self.missing = None
@@ -79,6 +81,7 @@ class SourceExtractor(LoggingObject):
         self._topological_sort()
         for name in self.missing:
             self.log.warning("Could not find package " + name)
+        self._find_nodes()
 
     def _setup(self):
         try:
@@ -166,6 +169,12 @@ class SourceExtractor(LoggingObject):
             emitted = next_emitted
             tier += 1
         self.project.packages.sort(key = attrgetter("topological_tier", "id"))
+
+    def _find_nodes(self):
+        pkgs = {pkg.name, pkg for pkg in self.project.packages}
+        extractor = NodeExtractor(pkgs, self.environment)
+        for pkg in self.project.packages:
+            extractor.find_nodes(pkg)
 
 
 ###############################################################################
@@ -455,3 +464,65 @@ class PackageParser(LoggingObject):
                 name = el.text.strip()
                 if name:
                     package.dependencies.packages.add(name)
+
+
+###############################################################################
+# Node Extractor
+###############################################################################
+
+class NodeExtractor(LoggingObject):
+    def __init__(self, pkgs, env, ws = None):
+        self.package = None
+        self.packages = pkgs
+        self.environment = env
+        self.workspace = ws or self._find_workspace()
+        self.nodes = []
+
+    def find_nodes(self, pkg):
+        self.package = pkg
+        srcdir = self.package.path[len(self.workspace):]
+        srcdir = os.path.join(self.workspace, srcdir.split(os.sep, 1)[0])
+        bindir = os.path.join(self.workspace, "build")
+        parser = RosCMakeParser(srcdir, bindir, pkgs = self.packages,
+                                env = self.environment,
+                                vars = self._default_variables())
+        parser.parse(os.path.join(self.package.path, "CMakeLists.txt"))
+        lib_files = {}
+        for target in parser.libraries.itervalues():
+            files = list(target.files)
+            for link in target.links:
+                files.extend(link.files)
+            lib_files[target.prefixed_name] = files
+        for nodelet in self.package.nodes:
+            if not nodelet.is_nodelet:
+                continue
+            if nodelet.name in lib_files:
+                nodelet.source_files = lib_files[nodelet.name]
+        for target in parser.executables.itervalues():
+            node = Node(target.output_name, self.package)
+            node.source_files.extend(target.files)
+            for link in target.links:
+                node.source_files.extend(link.files)
+            self.nodes.append(node)
+            self.package.nodes.append(node)
+
+    def _find_workspace(self):
+        """This replicates the behaviour of `roscd`."""
+        ws = self.environment.get("ROS_WORKSPACE")
+        if ws:
+            return ws
+        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        for path in paths:
+            if os.path.exists(os.path.join(path, ".catkin")):
+                return path
+        raise KeyError("ROS_WORKSPACE")
+
+    def _default_variables(self):
+    # TODO: clean up these hardcoded values
+        v = {}
+        v["catkin_INCLUDE_DIRS"] = os.path.join(self.workspace, "devel/include")
+        v["Boost_INCLUDE_DIRS"] = "/usr/include/"
+        v["Eigen_INCLUDE_DIRS"] = "/usr/include/eigen3"
+        v["ImageMagick_INCLUDE_DIRS"] = "/usr/include/ImageMagick"
+        v["PROJECT_SOURCE_DIR"] = self.package.path
+        return v
