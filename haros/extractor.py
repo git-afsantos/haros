@@ -31,11 +31,18 @@ from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
 import yaml
 
+from bonsai.model import CodeGlobalScope
+from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
+from bonsai.analysis import (
+    CodeQuery, resolve_reference, resolve_expression, get_control_depth
+)
+from bonsai.cpp.clang_parser import CppAstParser
 from rospkg import RosPack, ResourceNotFound
 
 from .cmake_parser import RosCMakeParser
 from .metamodel import (
-    Project, Repository, Package, SourceFile, LaunchFile, Node, Person
+    Project, Repository, Package, SourceFile, LaunchFile, Node, Person,
+    Publication, Subscription, ServiceServerCall, ServiceClientCall, Location
 )
 from .util import cwd
 
@@ -171,8 +178,12 @@ class SourceExtractor(LoggingObject):
         self.project.packages.sort(key = attrgetter("topological_tier", "id"))
 
     def _find_nodes(self):
-        pkgs = {pkg.name, pkg for pkg in self.project.packages}
+        pkgs = {pkg.name: pkg for pkg in self.project.packages}
         extractor = NodeExtractor(pkgs, self.environment)
+        CppAstParser.set_library_path()
+        db_dir = os.path.join(extractor.workspace, "build")
+        if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
+            CppAstParser.set_database(db_dir)
         for pkg in self.project.packages:
             extractor.find_nodes(pkg)
 
@@ -487,24 +498,9 @@ class NodeExtractor(LoggingObject):
                                 env = self.environment,
                                 vars = self._default_variables())
         parser.parse(os.path.join(self.package.path, "CMakeLists.txt"))
-        lib_files = {}
-        for target in parser.libraries.itervalues():
-            files = list(target.files)
-            for link in target.links:
-                files.extend(link.files)
-            lib_files[target.prefixed_name] = files
-        for nodelet in self.package.nodes:
-            if not nodelet.is_nodelet:
-                continue
-            if nodelet.name in lib_files:
-                nodelet.source_files = lib_files[nodelet.name]
-        for target in parser.executables.itervalues():
-            node = Node(target.output_name, self.package)
-            node.source_files.extend(target.files)
-            for link in target.links:
-                node.source_files.extend(link.files)
-            self.nodes.append(node)
-            self.package.nodes.append(node)
+        self._update_nodelets(parser.libraries)
+        self._register_nodes(parser.executables)
+        self._extract_primitives()
 
     def _find_workspace(self):
         """This replicates the behaviour of `roscd`."""
@@ -514,7 +510,9 @@ class NodeExtractor(LoggingObject):
         paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
         for path in paths:
             if os.path.exists(os.path.join(path, ".catkin")):
-                return path
+                if (path.endswith(os.sep + "devel")
+                        or path.endswith(os.sep + "install")):
+                    return os.path.abspath(os.path.join(path, os.pardir))
         raise KeyError("ROS_WORKSPACE")
 
     def _default_variables(self):
@@ -526,3 +524,207 @@ class NodeExtractor(LoggingObject):
         v["ImageMagick_INCLUDE_DIRS"] = "/usr/include/ImageMagick"
         v["PROJECT_SOURCE_DIR"] = self.package.path
         return v
+
+    def _get_file(self, path):
+        for sf in self.package.source_files:
+            if sf.path == path:
+                return sf
+        return None
+
+    def _update_nodelets(self, libraries):
+        lib_files = {}
+        for target in libraries.itervalues():
+            files = []
+            for path in target.files:
+                sf = self._get_file(path)
+                if sf:
+                    files.append(sf)
+            for link in target.links:
+                for path in link.files:
+                    sf = self._get_file(path)
+                    if sf:
+                        files.append(sf)
+            lib_files[target.prefixed_name] = files
+        for nodelet in self.package.nodes:
+            if not nodelet.is_nodelet:
+                continue
+            if nodelet.name in lib_files:
+                nodelet.source_files = lib_files[nodelet.name]
+
+    def _register_nodes(self, executables):
+        for target in executables.itervalues():
+            node = Node(target.output_name, self.package)
+            for path in target.files:
+                sf = self._get_file(path)
+                if sf:
+                    node.source_files.append(sf)
+            for link in target.links:
+                for path in link.files:
+                    sf = self._get_file(path)
+                    if sf:
+                        node.source_files.append(sf)
+            self.nodes.append(node)
+            self.package.nodes.append(node)
+
+    def _extract_primitives(self):
+        for node in self.package.nodes:
+            if not node.source_tree is None:
+                continue
+            node.source_tree = CodeGlobalScope()
+            node.advertise = []
+            node.subscribe = []
+            node.service = []
+            node.client = []
+            if not node.source_files:
+                self.log.warning("no source files for node " + node.id)
+            if node.language == "cpp":
+                self._roscpp_analysis(node)
+
+    def _roscpp_analysis(self, node):
+        parser = CppAstParser(workspace = self.workspace)
+        for sf in node.source_files:
+            if parser.parse(sf.path) is None:
+                self.log.warning("no compile commands for " + sf.path)
+        node.source_tree = parser.global_scope
+    # ----- queries after parsing, since global scope is reused ---------------
+        for call in (CodeQuery(parser.global_scope).all_calls
+                     .where_name("advertise")
+                     .where_result("ros::Publisher").get()):
+            self._on_publication(node, self._resolve_node_handle(call), call)
+        for call in (CodeQuery(parser.global_scope).all_calls
+                     .where_name("subscribe")
+                     .where_result("ros::Subscriber").get()):
+            self._on_subscription(node, self._resolve_node_handle(call), call)
+        for call in (CodeQuery(parser.global_scope).all_calls
+                     .where_name("advertiseService")
+                     .where_result("ros::ServiceServer").get()):
+            self._on_service(node, self._resolve_node_handle(call), call)
+        for call in (CodeQuery(parser.global_scope).all_calls
+                     .where_name("serviceClient")
+                     .where_result("ros::ServiceClient").get()):
+            self._on_client(node, self._resolve_node_handle(call), call)
+
+    def _on_publication(self, node, ns, call):
+        if len(call.arguments) <= 1:
+            return
+        name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        pub = Publication(name, ns, msg_type, queue_size,
+                          control_depth = depth, location = location)
+        node.advertise.append(pub)
+
+    def _on_subscription(self, node, ns, call):
+        if len(call.arguments) <= 1:
+            return
+        name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        sub = Subscription(name, ns, msg_type, queue_size,
+                           control_depth = depth, location = location)
+        node.subscribe.append(sub)
+
+    def _on_service(self, node, ns, call):
+        if len(call.arguments) <= 1:
+            return
+        name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        srv = ServiceServerCall(name, ns, msg_type,
+                                control_depth = depth, location = location)
+        node.service.append(srv)
+
+    def _on_client(self, node, ns, call):
+        if len(call.arguments) <= 1:
+            return
+        name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        cli = ServiceClientCall(name, ns, msg_type,
+                                control_depth = depth, location = location)
+        node.client.append(cli)
+
+    def _call_location(self, call):
+        fpath = None
+        if call.file:
+            fpath = call.file.replace(self.package.path, "")
+            if fpath.startswith(os.sep):
+                fpath = fpath[len(os.sep):]
+        function = call.function
+        if function:
+            function = function.name
+        return Location(self.package.name, fpath = fpath,
+                        line = call.line, fun = function)
+
+    def _resolve_node_handle(self, call):
+        ns = "?"
+        value = resolve_reference(call.method_of) if call.method_of else None
+        if not value is None:
+            if isinstance(value, CppFunctionCall):
+                if value.name == "NodeHandle":
+                    if len(value.arguments) == 2:
+                        value = value.arguments[0]
+                        if isinstance(value, basestring):
+                            ns = value
+                        elif isinstance(value, CppDefaultArgument):
+                            ns = ""
+                    elif len(value.arguments) == 1:
+                        value = value.arguments[0]
+                        if isinstance(value, CppFunctionCall):
+                            if value.name == "getNodeHandle":
+                                ns = ""
+                            elif value.name == "getPrivateNodeHandle":
+                                ns = "~"
+                elif value.name == "getNodeHandle":
+                    ns = ""
+                elif value.name == "getPrivateNodeHandle":
+                    ns = "~"
+        return ns
+
+    def _extract_topic(self, call):
+        name = resolve_expression(call.arguments[0])
+        if not isinstance(name, basestring):
+            name = "?"
+        return name
+
+    def _extract_message_type(self, call):
+        if call.template:
+            return call.template[0]
+        if call.name != "subscribe" and call.name != "advertiseService":
+            return "?"
+        callback = call.arguments[2] if call.name == "subscribe" \
+                                     else call.arguments[1]
+        while isinstance(callback, CppOperator):
+            callback = callback.arguments[0]
+        type_string = callback.result
+        type_string = type_string.split(None, 1)[1]
+        if type_string[0] == "(" and type_string[-1] == ")":
+            type_string = type_string[1:-1]
+            is_const = type_string.startswith("const ")
+            if is_const:
+                type_string = type_string[6:]
+            is_ref = type_string.endswith(" &")
+            if is_ref:
+                type_string = type_string[:-2]
+            is_ptr = type_string.endswith("::ConstPtr")
+            if is_ptr:
+                type_string = type_string[:-10]
+            else:
+                is_ptr = type_string.endswith("ConstPtr")
+                if is_ptr:
+                    type_string = type_string[:-8]
+        if type_string.startswith("boost::function"):
+            type_string = type_string[52:-25]
+        return type_string
+
+    def _extract_queue_size(self, call):
+        queue_size = resolve_expression(call.arguments[1])
+        if isinstance(queue_size, (int, long, float)):
+            return queue_size
+        return None
