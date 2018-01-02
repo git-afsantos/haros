@@ -34,6 +34,7 @@
 # Imports
 ###############################################################################
 
+import os
 import re
 
 
@@ -167,122 +168,122 @@ assert len(CMakeGrammar._blockTagsDict) == len(CMakeGrammar.dReBlockTagsDict)
 ###############################################################################
 
 class UnclosedChildBlockError(Exception):
-	pass
+    pass
 
 class InputExhaustedError(Exception):
-	pass
+    pass
 
 
 class ParseInput():
-	"""Class providing an iterable interface to the parser's input"""
+    """Class providing an iterable interface to the parser's input"""
 
-	def __init__(self, strdata):
-		self._data = strdata.splitlines()
-		# Add a None to the end as a sentry.
-		self._data.append(None)
-		self._lineindex = 0
-		self.alldone = False
-		self.gotline = False
-		self.alreadyseen = False
+    def __init__(self, strdata):
+        self._data = strdata.splitlines()
+        # Add a None to the end as a sentry.
+        self._data.append(None)
+        self._lineindex = 0
+        self.alldone = False
+        self.gotline = False
+        self.alreadyseen = False
 
-	def __iter__(self):
-		"""Be usable as an iterator."""
-		return self
+    def __iter__(self):
+        """Be usable as an iterator."""
+        return self
 
-	def next(self):
-		"""Return the current line each time we are iterated.
-		We don't go to the next line unless we've been accepted."""
+    def next(self):
+        """Return the current line each time we are iterated.
+        We don't go to the next line unless we've been accepted."""
 
-		# Will always hit this condition if all works well
-		if self._lineindex == len(self._data):
-			self.alldone = True
-			raise StopIteration()
+        # Will always hit this condition if all works well
+        if self._lineindex == len(self._data):
+            self.alldone = True
+            raise StopIteration()
 
-		# If we break, break big
-		assert self._lineindex < len(self._data)
+        # If we break, break big
+        assert self._lineindex < len(self._data)
 
-		# OK, we can actually return the data now
-		self.alreadyseen = self.gotline
-		self.gotline = True
-		return self._data[self._lineindex]
+        # OK, we can actually return the data now
+        self.alreadyseen = self.gotline
+        self.gotline = True
+        return self._data[self._lineindex]
 
-	def accept(self):
-		"""Signal that we've processed this line and should go to the next"""
+    def accept(self):
+        """Signal that we've processed this line and should go to the next"""
 
-		# We shouldn't accept a line we haven't even seen
-		assert self.gotline
+        # We shouldn't accept a line we haven't even seen
+        assert self.gotline
 
-		self._lineindex = self._lineindex + 1
-		self.gotline = False
+        self._lineindex = self._lineindex + 1
+        self.gotline = False
 
-	def merge(self):
-		# Don't want to merge current line with the next if we don't
-		# know what the current line is
-		assert self.gotline
+    def merge(self):
+        # Don't want to merge current line with the next if we don't
+        # know what the current line is
+        assert self.gotline
 
-		ln = self._lineindex
-		if len(self._data) <= ln + 2:
-			# we want 2 - one more text line, and the EOF sentinel
-			raise InputExhaustedError()
-		newdata = self._data[:ln] + [self._data[ln] + "\n" + self._data[ln+1]]
-		newdata.extend(self._data[ln+2:])
-		# Make sure we didn't change anything - leave off end of file sentinel
-		old = "\n".join(self._data[:-1])
-		thenew = "\n".join(newdata[:-1])
-		assert old == thenew
+        ln = self._lineindex
+        if len(self._data) <= ln + 2:
+            # we want 2 - one more text line, and the EOF sentinel
+            raise InputExhaustedError()
+        newdata = self._data[:ln] + [self._data[ln] + "\n" + self._data[ln+1]]
+        newdata.extend(self._data[ln+2:])
+        # Make sure we didn't change anything - leave off end of file sentinel
+        old = "\n".join(self._data[:-1])
+        thenew = "\n".join(newdata[:-1])
+        assert old == thenew
 
-		self._data = newdata
-		return self._data[ln]
+        self._data = newdata
+        return self._data[ln]
 
 
 class CMakeParser():
-	def __init__(self):
-		self.input = None
-		self.parsetree = None
+    def __init__(self):
+        self.input = None
+        self.parsetree = None
 
     def parse(self, filename):
         with open(filename, "r") as cmakefile:
             self.input = ParseInput(cmakefile.read())
-		self.parsetree = self.parse_block_children(None)
-		if self.parsetree is None:
-			self.parsetree = []
+        self.parsetree = self.parse_block_children(None)
+        if self.parsetree is None:
+            self.parsetree = []
 
-	def parse_block_children(self, startTag):
-		if startTag is None:
-			isEnder = lambda x: (x is None)
-		elif CMakeGrammar.reBlockBeginnings.match(startTag):
-			endblock = CMakeGrammar.dReBlockTagsDict[startTag.lower()]
-			isEnder = endblock.match
-		else:
-			return None
+    def parse_block_children(self, startTag):
+        if startTag is None:
+            isEnder = lambda x: (x is None)
+        elif CMakeGrammar.reBlockBeginnings.match(startTag):
+            endblock = CMakeGrammar.dReBlockTagsDict[startTag.lower()]
+            isEnder = endblock.match
+        else:
+            return None
 
-		block = []
-		for line in self.input:
-			while True:
-				try:
-					func, args, comment = CMakeGrammar.parse_line(line)
-				except IncompleteStatementError:
-					try:
-						line = self.input.merge()
-					except InputExhaustedError:
-						raise IncompleteStatementError()
-				else:
-					break
+        block = []
+        for line in self.input:
+            while True:
+                try:
+                    func, args, comment = CMakeGrammar.parse_line(line)
+                except IncompleteStatementError:
+                    try:
+                        line = self.input.merge()
+                    except InputExhaustedError:
+                        raise IncompleteStatementError()
+                else:
+                    break
 
-			if startTag == None and isEnder(func):
-				return block
-			elif (func is not None and isEnder(func)
+            if startTag == None and isEnder(func):
+                return block
+            elif (func is not None and isEnder(func)
                     and not self.input.alreadyseen):
-				return block
+                return block
 
-			# Not an ender, so we accept this child.
-			self.input.accept()
-			children = self.parse_block_children(func)
-			statement = (func, args, comment, children)
-			block.append(statement)
+            # Not an ender, so we accept this child.
+            self.input.accept()
+            children = self.parse_block_children(func)
+            statement = (func, args, comment, children)
+            block.append(statement)
 
-		# If we make it this far, we never found our Ender.
-		raise UnclosedChildBlockError()
+        # If we make it this far, we never found our Ender.
+        raise UnclosedChildBlockError()
 
     def read_until_match(self, text, chars = "()", start = 0):
         left = chars[0]
