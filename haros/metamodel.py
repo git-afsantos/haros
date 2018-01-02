@@ -72,28 +72,27 @@ class DependencySet(object):
 class RosPrimitiveCall(object):
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = 0,
-                 filename = None, line = None):
+                 location = None):
         self.name = name
         self.namespace = namespace
         self.type = msg_type
         self.control_depth = control_depth
-        self.file = filename
-        self.line = line
+        self.location = location
 
 class Publication(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = 0, filename = None, line = None):
+                 control_depth = 0, location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
-                                  filename = filename, line = line)
+                                  location = location)
         self.queue_size = queue_size
 
 class Subscription(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = 0, filename = None, line = None):
+                 control_depth = 0, location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
-                                  filename = filename, line = line)
+                                  location = location)
         self.queue_size = queue_size
 
 class ServiceServerCall(RosPrimitiveCall):
@@ -410,7 +409,13 @@ class Node(SourceObject):
 
     @property
     def is_nodelet(self):
-        return not self.nodelet is None
+        return not self.nodelet_class is None
+
+    @property
+    def language(self):
+        for sf in self.source_files:
+            return sf.language
+        return None
 
     def bound_to(self, other):
         if other.scope == "package":
@@ -468,7 +473,7 @@ class RosName(object):
             return private_ns + "/" + name[1:]
         elif name[0] == "/":
             return name
-        elif ns != "/":
+        elif ns == "" or ns[-1] != "/":
             return ns + "/" + name
         else:
             return ns + name
