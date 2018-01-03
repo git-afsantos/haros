@@ -215,6 +215,7 @@ class SourceFile(SourceObject):
         self.path = os.path.join(pkg.path, directory, name)
         self.package = pkg
         self.language = self._get_language()
+        self.tree = None
         self.size = 0
         self.lines = 0
         self.sloc = 0
@@ -255,15 +256,6 @@ class SourceFile(SourceObject):
         if self.name == self.PKG_XML:
             return "package"
         return "unknown"
-
-
-class LaunchFile(SourceFile):
-    def __init__(self, name, directory, pkg):
-        SourceFile.__init__(self, name, directory, pkg)
-        self.language = "launch"
-        self.tree = None
-        self.nodes = []
-        self.parameters = []
 
 
 class Package(SourceObject):

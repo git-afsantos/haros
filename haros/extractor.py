@@ -43,8 +43,9 @@ except ImportError:
 from rospkg import RosPack, ResourceNotFound
 
 from .cmake_parser import RosCMakeParser
+from .launch_parser import LaunchParser, LaunchParserError
 from .metamodel import (
-    Project, Repository, Package, SourceFile, LaunchFile, Node, Person,
+    Project, Repository, Package, SourceFile, Node, Person,
     Publication, Subscription, ServiceServerCall, ServiceClientCall, Location
 )
 from .util import cwd
@@ -389,17 +390,17 @@ class PackageExtractor(LoggingObject):
             self.log.debug("Package %s has no path", pkg.name)
             return
         self.log.info("Indexing source files for package %s", pkg.name)
+        launch_parser = LaunchParser()
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown = True):
             subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]
             path = root[prefix:]
             for filename in files:
-                cls = SourceFile
-                if filename.endswith(SourceFile.LAUNCH):
-                    cls = LaunchFile
                 self.log.debug("Found file %s at %s", filename, path)
-                source = cls(filename, path, pkg)
+                source = SourceFile(filename, path, pkg)
                 source.set_file_stats()
+                if source.language == "launch":
+                    source.tree = launch_parser.parse(source.path)
                 pkg.source_files.append(source)
                 pkg.size += source.size
                 pkg.lines += source.lines
