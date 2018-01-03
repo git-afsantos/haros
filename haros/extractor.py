@@ -67,8 +67,9 @@ class LoggingObject(object):
 #              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
 
 class SourceExtractor(LoggingObject):
-    def __init__(self, index_file, env = None, repo_path = None,
-                 distro_url = None, require_repos = False, parse_nodes = False):
+    def __init__(self, index_file, env = None, pkg_cache = None,
+                 repo_cache = None, repo_path = None, distro_url = None,
+                 require_repos = False, parse_nodes = False):
         self.log.debug("SourceExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
@@ -77,6 +78,8 @@ class SourceExtractor(LoggingObject):
         self.require_repos = require_repos
         self.parse_nodes = parse_nodes
         self.environment = env if not env is None else {}
+        self.package_cache = pkg_cache if not pkg_cache is None else {}
+        self.repo_cache = repo_cache if not repo_cache is None else {}
         self.project = None
         self.packages = None
         self.missing = None
@@ -111,7 +114,11 @@ class SourceExtractor(LoggingObject):
         self.log.info("Looking up user provided repositories.")
         extractor = RepositoryExtractor()
         for name, data in self.repositories.iteritems():
-            extractor.load_from_user(name, data, project = self.project)
+            repo = self.repo_cache.get(name)
+            if repo:
+                self.project.repositories.append(repo)
+            else:
+                extractor.load_from_user(name, data, project = self.project)
         if self.repo_path:
             try:
                 extractor.download(self.repo_path)
@@ -129,7 +136,11 @@ class SourceExtractor(LoggingObject):
         extractor.refresh_package_cache()
         found = []
         for name in self.missing:
-            if extractor.find_package(name, project = self.project):
+            pkg = self.package_cache.get(name)
+            if pkg:
+                self.project.packages.append(pkg)
+                found.append(name)
+            elif extractor.find_package(name, project = self.project):
                 found.append(name)
         self.missing.difference_update(found)
 
@@ -192,7 +203,8 @@ class SourceExtractor(LoggingObject):
             if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
                 CppAstParser.set_database(db_dir)
         for pkg in self.project.packages:
-            extractor.find_nodes(pkg)
+            if not pkg.name in self.package_cache:
+                extractor.find_nodes(pkg)
 
 
 ###############################################################################
