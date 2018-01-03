@@ -36,7 +36,10 @@ from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth
 )
-from bonsai.cpp.clang_parser import CppAstParser
+try:
+    from bonsai.cpp.clang_parser import CppAstParser
+except ImportError:
+    CppAstParser = None
 from rospkg import RosPack, ResourceNotFound
 
 from .cmake_parser import RosCMakeParser
@@ -63,14 +66,15 @@ class LoggingObject(object):
 #              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
 
 class SourceExtractor(LoggingObject):
-    def __init__(self, index_file, repo_path = None, distro_url = None,
-                 require_repos = False, env = None):
+    def __init__(self, index_file, env = None, repo_path = None,
+                 distro_url = None, require_repos = False, parse_nodes = False):
         self.log.debug("SourceExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
         self.repo_path = repo_path
         self.distribution = distro_url
         self.require_repos = require_repos
+        self.parse_nodes = parse_nodes
         self.environment = env if not env is None else {}
         self.project = None
         self.packages = None
@@ -179,11 +183,13 @@ class SourceExtractor(LoggingObject):
 
     def _find_nodes(self):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
-        extractor = NodeExtractor(pkgs, self.environment)
-        CppAstParser.set_library_path()
-        db_dir = os.path.join(extractor.workspace, "build")
-        if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
-            CppAstParser.set_database(db_dir)
+        extractor = NodeExtractor(pkgs, self.environment,
+                                  parse_nodes = self.parse_nodes)
+        if self.parse_nodes and not CppAstParser is None:
+            CppAstParser.set_library_path()
+            db_dir = os.path.join(extractor.workspace, "build")
+            if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
+                CppAstParser.set_database(db_dir)
         for pkg in self.project.packages:
             extractor.find_nodes(pkg)
 
@@ -482,11 +488,12 @@ class PackageParser(LoggingObject):
 ###############################################################################
 
 class NodeExtractor(LoggingObject):
-    def __init__(self, pkgs, env, ws = None):
+    def __init__(self, pkgs, env, ws = None, parse_nodes = False):
         self.package = None
         self.packages = pkgs
         self.environment = env
         self.workspace = ws or self._find_workspace()
+        self.parse_nodes = parse_nodes
         self.nodes = []
 
     def find_nodes(self, pkg):
@@ -500,7 +507,8 @@ class NodeExtractor(LoggingObject):
         parser.parse(os.path.join(self.package.path, "CMakeLists.txt"))
         self._update_nodelets(parser.libraries)
         self._register_nodes(parser.executables)
-        self._extract_primitives()
+        if self.parse_nodes:
+            self._extract_primitives()
 
     def _find_workspace(self):
         """This replicates the behaviour of `roscd`."""
@@ -577,7 +585,7 @@ class NodeExtractor(LoggingObject):
             node.client = []
             if not node.source_files:
                 self.log.warning("no source files for node " + node.id)
-            if node.language == "cpp":
+            if node.language == "cpp" and not CppAstParser is None:
                 self._roscpp_analysis(node)
 
     def _roscpp_analysis(self, node):
