@@ -400,7 +400,11 @@ class PackageExtractor(LoggingObject):
                 source = SourceFile(filename, path, pkg)
                 source.set_file_stats()
                 if source.language == "launch":
-                    source.tree = launch_parser.parse(source.path)
+                    self.log.info("Parsing launch file: " + source.path)
+                    try:
+                        source.tree = launch_parser.parse(source.path)
+                    except LaunchParserError as e:
+                        self.log.warning("Error parsing launch file: " + str(e))
                 pkg.source_files.append(source)
                 pkg.size += source.size
                 pkg.lines += source.lines
