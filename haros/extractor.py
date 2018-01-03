@@ -63,9 +63,6 @@ class LoggingObject(object):
 # Source Extractor
 ###############################################################################
 
-# url = "https://raw.githubusercontent.com/ros/rosdistro/master/" \
-#              + os.environ["ROS_DISTRO"] + "/distribution.yaml"
-
 class SourceExtractor(LoggingObject):
     def __init__(self, index_file, env = None, pkg_cache = None,
                  repo_cache = None, repo_path = None, distro_url = None,

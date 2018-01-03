@@ -93,6 +93,8 @@ import tempfile
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
+from .data import HarosDatabase
+from .extractor import SourceExtractor
 from .data_manager import DataManager
 from . import plugin_manager as plugman
 from .analysis_manager import AnalysisManager
@@ -442,7 +444,23 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def _index_source(self):
         print "[HAROS] Indexing source code..."
-        self.log.debug("Package index file %s", self.project_file)
+        self.log.debug("Project file %s", self.project_file)
+
+        url = ("https://raw.githubusercontent.com/ros/rosdistro/master/"
+               + os.environ.get("ROS_DISTRO", "kinetic")
+               + "/distribution.yaml")
+
+        db = HarosDatabase()
+
+        extractor = SourceExtractor(self.project_file,
+                                    env = dict(os.environ),
+                                    pkg_cache = db.packages,
+                                    repo_cache = db.repositories,
+                                    repo_path = self.repo_dir,
+                                    distro_url = url,
+                                    require_repos = self.use_repos,
+                                    parse_nodes = True)
+
         self.dataman.index_source(self.project_file,
                                   self.repo_dir, self.use_repos)
         if not self.dataman.packages:
