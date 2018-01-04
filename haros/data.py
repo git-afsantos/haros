@@ -113,7 +113,7 @@ class PackageAnalysis(object):
         self.statistics = Statistics()
         self._pkg_statistics()
         self._file_statistics()
-        return stats
+        return self.statistics
 
     def _pkg_statistics(self):
         stats = self.statistics
@@ -344,6 +344,8 @@ class HarosDatabase(object):
     # ----- runtime
         self.configurations = []
     # ----- analysis
+        self.rules = {}
+        self.metrics = {}
         self.reports = []
 
     def save_state(self, file_path):
