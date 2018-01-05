@@ -22,12 +22,14 @@
 import logging
 import os
 import shutil
+import traceback
 
 from .metamodel import Location
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
     Statistics, AnalysisReport
 )
+from .util import cwd
 
 
 ###############################################################################
@@ -62,20 +64,15 @@ class AnalysisScopeError(Exception):
 class PluginInterface(LoggingObject):
     """Provides an interface for plugins to communicate with the framework."""
 
-    def __init__(self, data):
+    def __init__(self, data, reports):
         self.state = None
         self._data = data
         self._plugin = None
-        self._scope = None
+        self._reports = reports
+        self._report = None
         self._exported = set()
-        self._file_reports = {}
-        self._pkg_reports = {}
-        for id, pkg in data.packages.iteritems():
-            self._pkg_reports[id] = PackageAnalysis(pkg)
-        for id, sf in data.files.iteritems():
-            analysis = FileAnalysis(sf)
-            self._file_reports[id] = analysis
-            self._pkg_reports[sf.package.id].file_analysis.append(analysis)
+        self._buffer_violations = None
+        self._buffer_metrics = None
 
     def get_file(self, relative_path):
         return os.path.join(self._plugin.path, relative_path)
@@ -86,112 +83,77 @@ class PluginInterface(LoggingObject):
         if os.path.isfile(target):
             self._exported.add(target)
 
-    def report_file_violation(self, rule_id, msg, scope_id,
-                              line = None, function = None, class_ = None):
-        self.log.debug("file_violation(%s, %s, %s)", rule_id, msg, scope_id)
-        scope = self._get_scope(scope_id, self._data.files)
-        r = self._get_property(rule_id, self._data.rules, scope)
-        datum = FileRuleViolation(r, scope, msg, line, function, class_)
-        scope._violations.append(datum)
+    def find_package(self, scope_id):
+        return self._data.packages.get(scope_id)
 
-    def report_package_violation(self, rule_id, msg, scope_id):
-        self.log.debug("package_violation(%s, %s, %s)", rule_id, msg, scope_id)
-        scope = self._get_scope(scope_id, self._data.packages)
-        r = self._get_property(rule_id, self._data.rules, scope)
-        scope._violations.append(RuleViolation(r, scope, msg))
-
-    # Shorthand for reporting a violation on the current scope
     def report_violation(self, rule_id, msg, scope = None,
                          line = None, function = None, class_ = None):
-        scope = scope or self._scope
-        self.log.debug("violation(%s, %s, %s)", rule_id, msg, scope.id)
+        self.log.debug("violation(%s, %s, %s)", rule_id, msg, scope)
+        scope = scope or self._report.scope
+        if scope is None:
+            raise AnalysisScopeError("must provide a scope")
+        report = self._reports.get(scope.id)
+        if report is None:
+            raise AnalysisScopeError("invalid scope: " + scope.id)
         rule = self._get_property(rule_id, self._data.rules)
-        if scope.scope == "package":
-            reports = self._pkg_reports
-            loc = Location(scope)
-        elif scope.scope == "file":
-            reports = self._file_reports
-            loc = Location(scope.package, fpath = scope.full_name,
+        if scope.scope == "file":
+            loc = Location(scope.package.name, fpath = scope.full_name,
                            line = line, fun = function, cls = class_)
         else:
-            raise AnalysisScopeError("invalid scope: " + scope.scope)
-        if not scope.id in reports:
-            raise AnalysisScopeError("unknown scope: " + scope.id)
+            loc = Location(scope.name)
         datum = Violation(rule, scope, details = msg, location = loc)
-        reports.violations.append(datum)
-
-    def report_file_metric(self, metric_id, value, scope_id,
-                           line = None, function = None, class_ = None):
-        self.log.debug("file_metric(%s, %s, %s)", metric_id, value, scope_id)
-        scope = self._get_scope(scope_id, self._data.files)
-        m = self._get_property(metric_id, self._data.metrics, scope)
-        datum = FileMetricMeasurement(m, scope, value, line, function, class_)
-        scope._metrics.append(datum)
-        self._check_metric_violation(datum)
-
-    def report_package_metric(self, metric_id, value, scope_id):
-        self.log.debug("package_metric(%s, %s, %s)", metric_id, value, scope_id)
-        scope = self._get_scope(scope_id, self._data.packages)
-        m = self._get_property(metric_id, self._data.metrics, scope)
-        datum = MetricMeasurement(m, scope, value)
-        scope._metrics.append(datum)
-        self._check_metric_violation(datum)
-
-    # Shorthand for reporting a metric on the current scope
-    def report_metric(self, metric_id, value,
-                      line = None, function = None, class_ = None):
-        self.log.debug("metric(%s, %s, %s)", metric_id, value, self._scope.id)
-        m = self._get_property(metric_id, self._data.metrics, self._scope)
-        if m.scope == "repository" or m.scope == "package":
-            datum = MetricMeasurement(m, self._scope, value)
+        if not self._buffer_violations is None:
+            self._buffer_violations.append(datum)
         else:
-            datum = FileMetricMeasurement(m, self._scope, value,
-                                          line, function, class_)
-        self._scope._metrics.append(datum)
-        self._check_metric_violation(datum)
+            report.violations.append(datum)
 
-    def find_package(self, scope_id):
-        return self._data.packages.get(scope_id, None)
+    def report_metric(self, metric_id, value, scope = None,
+                      line = None, function = None, class_ = None):
+        self.log.debug("metric(%s, %s, %s)", metric_id, value, scope)
+        scope = scope or self._report.scope
+        if scope is None:
+            raise AnalysisScopeError("must provide a scope")
+        report = self._reports.get(scope.id)
+        if report is None:
+            raise AnalysisScopeError("invalid scope: " + scope.id)
+        metric = self._get_property(metric_id, self._data.metrics)
+        self._check_metric_value(metric, value)
+        if scope.scope == "file":
+            loc = Location(scope.package.name, fpath = scope.full_name,
+                           line = line, fun = function, cls = class_)
+        else:
+            loc = Location(scope.name)
+        datum = Measurement(metric, scope, value, location = loc)
+        if not self._buffer_metrics is None:
+            self._buffer_metrics.append(datum)
+        else:
+            report.metrics.append(datum)
 
-    def _get_scope(self, scope_id, data):
-        if not scope_id in data:
-            raise AnalysisScopeError("Unknown scope id " + scope_id)
-        scope = data[scope_id]
-        if not self._scope is None and not self._scope.bound_to(scope):
-            raise AnalysisScopeError("Unrelated scope " + scope_id)
-        return scope
-
-    def _get_property(self, property_id, data, scope):
+    def _get_property(self, property_id, data):
         id = property_id
         if not property_id in data:
             id = self._plugin.name + ":" + property_id
             if not id in data:
                 raise UndefinedPropertyError(property_id)
-        datum = data[id]
-        if not scope.accepts_scope(datum.scope):
-            raise AnalysisScopeError("Found " + datum.scope
-                                     + "; Expected " + scope.scope)
-        return datum
+        return data[id]
 
-    def _check_metric_violation(self, measurement):
-        self.log.debug("_check_metric_violation(%s)", measurement.metric.id)
-        tmax = measurement.metric.maximum
-        tmin = measurement.metric.minimum
-        value = measurement.value
-        if (not tmax is None and value > tmax) \
-                or (not tmin is None and value < tmin):
-            rule_id = "metric:" + measurement.metric.id
-            if rule_id in self._data.rules:
-                rule = self._data.rules[rule_id]
-                msg = "Reported metric value: " + str(value)
-                if rule.scope == "repository" or rule.scope == "package":
-                    datum = RuleViolation(rule, measurement.scope, msg)
-                else:
-                    datum = FileRuleViolation(rule, measurement.scope, msg,
-                                              measurement.line,
-                                              measurement.function,
-                                              measurement.class_)
-                measurement.scope._violations.append(datum)
+    def _check_metric_value(self, metric, value):
+        self.log.debug("_check_metric_value(%s, %s)", metric.id, str(value))
+        tmax = metric.maximum
+        tmin = metric.minimum
+        if ((not tmax is None and value > tmax)
+                or (not tmin is None and value < tmin)):
+            raise ValueError("metric value outside bounds: "
+                             + metric.id
+                             + ", " + str(value))
+
+    def _commit_buffers(self):
+        for datum in self._buffer_violations:
+            self._reports[datum.scope.id].violations.append(datum)
+        self._buffer_violations = None
+        for datum in self._buffer_metrics:
+            self._reports[datum.scope.id].metrics.append(datum)
+        self._buffer_metrics = None
 
 
 ###############################################################################
@@ -199,140 +161,118 @@ class PluginInterface(LoggingObject):
 ###############################################################################
 
 class AnalysisManager(LoggingObject):
-    def __init__(self):
-        self.summaries = []
-        self.week_stats = Statistics()  # these are relative values (7 days)
-        self.month_stats = Statistics() # these are relative values (30 days)
+    def __init__(self, data, out_dir, export_dir):
+        self.database = data
+        self.report = None
+        self.out_dir = out_dir
+        self.export_dir = export_dir
+        self.reports = []
 
-    @property
-    def last_summary(self):
-        if self.summaries:
-            return self.summaries[-1]
-        return None
-
-
-    def run_analysis_and_processing(self, datadir, plugins, data, expodir):
+    def run(self, plugins):
         self.log.info("Running plugins on collected data.")
-        iface = PluginInterface(data)
-        # Step 0: prepare directories
+        self._prepare_directories(plugins)
+        for project in self.database.projects.itervalues():
+            reports = self._make_reports(project)
+            iface = PluginInterface(self.database, reports)
+            self._analysis(iface, plugins)
+            self._processing(iface, plugins)
+            self._exports(iface._exported)
+            self.report.calculate_statistics()
+
+    def _prepare_directories(self, plugins):
         for plugin in plugins:
-            path = os.path.join(datadir, plugin.name)
+            path = os.path.join(self.out_dir, plugin.name)
             os.mkdir(path)
             plugin.tmp_path = path
-        wd = os.getcwd()
-        try:
-            self._analysis(iface, plugins, data)
-            self._processing(iface, plugins, data)
-            self._exports(iface._exported, expodir)
-            self._update_statistics(data)
-        finally:
-            os.chdir(wd)
 
+    def _make_reports(self, project):
+    # ----- NOTE: package and file ids should never collide
+        reports = {}
+        self.report = AnalysisReport(project)
+        self.reports.append(self.report)
+        for pkg in project.packages:
+            pkg_report = PackageAnalysis(pkg)
+            self.report.by_package[pkg.id] = pkg_report
+            reports[pkg.id] = pkg_report
+            for sf in pkg.source_files:
+                file_report = FileAnalysis(sf)
+                pkg_report.file_analysis.append(file_report)
+                reports[sf.id] = file_report
+        return reports
 
-    def _analysis(self, iface, plugins, data):
+    def _analysis(self, iface, plugins):
         for plugin in plugins:
             self.log.debug("Running analyses for " + plugin.name)
-            os.chdir(plugin.tmp_path)
-            # Step 1: run initialisation
-            plugin.analysis.pre_analysis()
-            # Step 2: run analysis; file > package > repository
-            iface._plugin = plugin
-            iface.state = plugin.analysis.state
-            try:
-                for scope in data.files.itervalues():
-                    if (data.launch_files and scope.language == "launch"
-                                          and not scope in data.launch_files):
-                        continue
-                    iface._scope = scope
-                    plugin.analysis.analyse_file(iface, scope)
-                for scope in data._topological_packages:
-                    iface._scope = scope
-                    plugin.analysis.analyse_package(iface, scope)
-                for scope in data.repositories.itervalues():
-                    iface._scope = scope
-                    plugin.analysis.analyse_repository(iface, scope)
-            except (UndefinedPropertyError, AnalysisScopeError) as e:
-                self.log.error("%s", e.value)
-            # Step 3: run finalisation
-            iface._scope = None
-            plugin.analysis.post_analysis(iface)
+            with cwd(plugin.tmp_path):
+                try:
+                    plugin.analysis.pre_analysis()
+                    iface._plugin = plugin
+                    iface.state = plugin.analysis.state
+                    for pkg in self.report.project.packages:
+                        for scope in pkg.source_files:
+                            iface._report = iface._reports[scope.id]
+                            plugin.analysis.analyse_file(iface, scope)
+                    for scope in self.report.project.packages:
+                        iface._report = iface._reports[scope.id]
+                        plugin.analysis.analyse_package(iface, scope)
+                    iface._report = None
+                    plugin.analysis.post_analysis(iface)
+                except Exception:
+                    self.log.error("Plugin %s ran into an error.", plugin.name)
+                    self.log.debug("%s", traceback.format_exc())
 
-    def _processing(self, iface, plugins, data):
-        # Step 1: run initialisation
+    def _processing(self, iface, plugins):
+        iface._buffer_violations = []
+        iface._buffer_metrics = []
         for plugin in plugins:
-            os.chdir(plugin.tmp_path)
-            plugin.process.pre_process()
-        # Step 2: run processing; file > package > repository
-        try:
-            for scope in data.files.itervalues():
-                iface._scope = scope
-                v = list(scope._violations)
-                m = list(scope._metrics)
-                for plugin in plugins:
+            self.log.debug("Running processing for " + plugin.name)
+            with cwd(plugin.tmp_path):
+                try:
+                    plugin.process.pre_process()
                     iface._plugin = plugin
                     iface.state = plugin.process.state
-                    os.chdir(plugin.tmp_path)
-                    plugin.process.process_file(iface, scope, v, m)
-            for scope in data._topological_packages:
-                iface._scope = scope
-                v = list(scope._violations)
-                m = list(scope._metrics)
-                for plugin in plugins:
-                    iface._plugin = plugin
-                    iface.state = plugin.process.state
-                    os.chdir(plugin.tmp_path)
-                    plugin.process.process_package(iface, scope, v, m)
-            for scope in data.repositories.itervalues():
-                iface._scope = scope
-                v = list(scope._violations)
-                m = list(scope._metrics)
-                for plugin in plugins:
-                    iface._plugin = plugin
-                    iface.state = plugin.process.state
-                    os.chdir(plugin.tmp_path)
-                    plugin.process.process_repository(iface, scope, v, m)
-        except (UndefinedPropertyError, AnalysisScopeError) as e:
-            self.log.error("%s", e.value)
-        # Step 3: run finalisation
-        iface._scope = None
-        for plugin in plugins:
-            os.chdir(plugin.tmp_path)
-            plugin.process.post_process(iface)
+                    for pkg in self.report.project.packages:
+                        for scope in pkg.source_files:
+                            iface._report = iface._reports[scope.id]
+                            plugin.process.process_file(iface, scope,
+                                    iface._report.violations,
+                                    iface._report.metrics)
+                    for scope in self.report.project.packages:
+                        iface._report = iface._reports[scope.id]
+                        plugin.process.process_package(iface, scope,
+                                iface._report.violations,
+                                iface._report.metrics)
+                    iface._report = None
+                    plugin.process.post_process(iface)
+                except Exception:
+                    self.log.error("Plugin %s ran into an error.", plugin.name)
+                    self.log.debug("%s", traceback.format_exc())
+        iface._commit_buffers()
 
-    def _exports(self, sources, expodir):
-        counter = 1
-        for f in sources:
-            target = os.path.join(expodir, f[f.rfind(os.sep)+1:])
-            if os.path.isfile(target):
-                i = f.rfind(os.sep)
-                j = f.rfind(".")
-                if i >= j:
-                    ext = ".data"
-                else:
-                    ext = f[j:]
-                name = "d{:04d}{}".format(counter, ext)
-                target = os.path.join(expodir, name)
+    def _exports(self, files):
+        for f in files:
+            i = f.rfind(os.sep)
+            j = f.rfind(".")
+            name = f[i + 1:]
+            if i >= j:
+                name += ".data"
+            path = os.path.join(self.export_dir, name)
+            counter = 1
+            while os.path.isfile(path) and counter < 10000:
+                new_name = "d{:04d}{}".format(counter, name)
+                path = os.path.join(self.export_dir, new_name)
                 counter += 1
-            shutil.move(f, target)
+            if counter >= 10000:
+                self.log.error("Cannot copy file " + f)
+                continue
+            shutil.move(f, path)
 
-    def _update_statistics(self, data):
-        summary = AnalysisSummary()
-        for package in data._topological_packages:
-            pkg_stats = Statistics()
-            for source_file in package.source_files:
-                pkg_stats.take_from_file(source_file)
-                summary.statistics.take_from_file(source_file)
-            pkg_stats.take_from_package(package)
-            summary.statistics.take_from_package(package)
-            summary.packages[package.id] = pkg_stats
-            pkg_stats.update_averages()
-        summary.statistics.update_averages()
-    # TODO we are assuming one analysis per day, for now
-        while len(self.summaries) > 30:
-            self.summaries.pop(0)
-        previous = [s.statistics for s in self.summaries]
-        self.week_stats.relative_update(summary.statistics, previous[-7:])
-        self.month_stats.relative_update(summary.statistics, previous)
-        self.summaries.append(summary)
-        if len(self.summaries) > 30:
-            self.summaries.pop(0)
+    # def _update_statistics(self):
+        # while len(self.summaries) > 30:
+            # self.summaries.pop(0)
+        # previous = [s.statistics for s in self.summaries]
+        # self.week_stats.relative_update(summary.statistics, previous[-7:])
+        # self.month_stats.relative_update(summary.statistics, previous)
+        # self.summaries.append(summary)
+        # if len(self.summaries) > 30:
+            # self.summaries.pop(0)
