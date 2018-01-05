@@ -257,6 +257,12 @@ class SourceFile(SourceObject):
             return "package"
         return "unknown"
 
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return "File({})".format(self.id)
+
 
 class Package(SourceObject):
     """Represents a ROS package."""
@@ -304,6 +310,9 @@ class Package(SourceObject):
                     return True
         return False
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         return "Package({})".format(self.id)
 
@@ -342,6 +351,12 @@ class Repository(SourceObject):
                 return True
         return other.scope == "repository" and self == other
 
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return "Repository({})".format(self.id)
+
 
 class Project(SourceObject):
     """A project is a custom grouping of packages, not necessarily
@@ -354,6 +369,7 @@ class Project(SourceObject):
         SourceObject.__init__(self, name, name)
         self.packages = []
         self.repositories = []
+        self.configurations = []
 
     @property
     def scope(self):
@@ -379,6 +395,12 @@ class Project(SourceObject):
             "packages": [pkg.id for pkg in self.packages],
             "repositories": [repo.id for repo in self.repositories]
         }
+
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return "Project({})".format(self.id)
 
 
 class Node(SourceObject):
@@ -420,6 +442,12 @@ class Node(SourceObject):
                     return True
                 return False
         return other.scope == "node" and self == other
+
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return "Node({})".format(self.id)
 
 
 ###############################################################################

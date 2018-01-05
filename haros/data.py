@@ -75,6 +75,10 @@ class FileAnalysis(object):
         self.violations = []
         self.metrics = []
 
+    @property
+    def scope(self):
+        return self.source_file
+
 
 class PackageAnalysis(object):
     def __init__(self, package):
@@ -84,6 +88,10 @@ class PackageAnalysis(object):
         self.configurations = []
         self.file_analysis = []
         self.statistics = None
+
+    @property
+    def scope(self):
+        return self.package
 
     def all_violations(self):
         result = list(self.violations)
@@ -108,78 +116,9 @@ class PackageAnalysis(object):
         return avg(result)
 
     def get_statistics(self):
-        if self.statistics:
-            return self.statistics
-        self.statistics = Statistics()
-        self._pkg_statistics()
-        self._file_statistics()
+        if not self.statistics:
+            self.statistics = Statistics.from_reports((self,))
         return self.statistics
-
-    def _pkg_statistics(self):
-        stats = self.statistics
-        stats.issue_count += len(self.violations)
-        for issue in self.violations:
-            other = True
-            if "code-standards" in issue.rule.tags:
-                other = False
-                stats.standard_issue_count += 1
-            if "metrics" in issue.rule.tags:
-                other = False
-                stats.metrics_issue_count += 1
-            if other:
-                stats.other_issue_count += 1
-        stats.configuration_count += len(self.configurations)
-        for config in self.configurations:
-            for node in config.nodes():
-                if node.nodelet:
-                    self.nodelet_count += 1
-                else:
-                    self.node_count += 1
-
-    def _file_statistics(self):
-        stats = self.statistics
-        complexities = []
-        fun_lines = []
-        file_lines = []
-        stats.file_count = self.package.file_count
-        for sfa in self.file_analysis:
-            sf = sfa.source_file
-            stats.lines_of_code += sf.lines
-            file_lines.append(sf.lines)
-            if (sf.full_name.startswith("scripts" + os.path.sep)):
-                stats.script_count += 1
-            if sf.language == "cpp":
-                stats.cpp_lines += sf.lines
-            elif sf.language == "python":
-                stats.python_lines += sf.lines
-            elif sf.language == "launch":
-                stats.launch_count += 1
-            elif sf.language == "yaml":
-                stats.param_file_count += 1
-            stats.issue_count += len(sfa.violations)
-            for issue in sfa.violations:
-                other = True
-                if "code-standards" in issue.rule.tags:
-                    other = False
-                    stats.standard_issue_count += 1
-                if "metrics" in issue.rule.tags:
-                    other = False
-                    stats.metrics_issue_count += 1
-                if other:
-                    stats.other_issue_count += 1
-            if sf.language == "cpp" or sf.language == "python":
-                for metric in sf.metrics:
-                    mid = metric.metric.id
-                    if mid == "comments":
-                        stats.comment_lines += metric.value
-                    elif mid == "cyclomatic_complexity":
-                        complexities.append(metric.value)
-                    elif mid == "sloc" or mid == "eloc" or mid == "ploc":
-                        if not metric.function is None:
-                            fun_lines.append(metric.value)
-        stats.avg_complexity = avg(complexities)
-        stats.avg_function_length = avg(fun_lines)
-        stats.avg_file_length = avg(file_lines)
 
 
 class Statistics(object):
@@ -274,16 +213,96 @@ class Statistics(object):
         self.avg_file_length = (current.avg_file_length
                                 - avg([s.avg_file_length for s in previous]))
 
+    @classmethod
+    def from_reports(cls, reports):
+        stats = cls()
+        stats._pkg_statistics(reports)
+        file_analysis = [r for p in reports for r in p.file_analysis]
+        stats._file_statistics(file_analysis)
+        return stats
+
+    def _pkg_statistics(self, reports):
+        for report in reports:
+            self.issue_count += len(report.violations)
+            for issue in report.violations:
+                other = True
+                if "code-standards" in issue.rule.tags:
+                    other = False
+                    self.standard_issue_count += 1
+                if "metrics" in issue.rule.tags:
+                    other = False
+                    self.metrics_issue_count += 1
+                if other:
+                    self.other_issue_count += 1
+            # self.configuration_count += len(self.configurations)
+            for node in report.package.nodes:
+                self.node_count += 1
+                if node.is_nodelet:
+                    self.nodelet_count += 1
+
+    def _file_statistics(self, reports):
+        complexities = []
+        fun_lines = []
+        file_lines = []
+        for report in reports:
+            self.file_count += report.package.file_count
+            for sfa in report.file_analysis:
+                sf = sfa.source_file
+                self.lines_of_code += sf.lines
+                file_lines.append(sf.lines)
+                if (sf.full_name.startswith("scripts" + os.path.sep)):
+                    self.script_count += 1
+                if sf.language == "cpp":
+                    self.cpp_lines += sf.lines
+                elif sf.language == "python":
+                    self.python_lines += sf.lines
+                elif sf.language == "launch":
+                    self.launch_count += 1
+                elif sf.language == "yaml":
+                    self.param_file_count += 1
+                self.issue_count += len(sfa.violations)
+                for issue in sfa.violations:
+                    other = True
+                    if "code-standards" in issue.rule.tags:
+                        other = False
+                        self.standard_issue_count += 1
+                    if "metrics" in issue.rule.tags:
+                        other = False
+                        self.metrics_issue_count += 1
+                    if other:
+                        self.other_issue_count += 1
+                if sf.language == "cpp" or sf.language == "python":
+                    for metric in sf.metrics:
+                        mid = metric.metric.id
+                        if mid == "comments":
+                            self.comment_lines += metric.value
+                        elif mid == "cyclomatic_complexity":
+                            complexities.append(metric.value)
+                        elif mid == "sloc" or mid == "eloc" or mid == "ploc":
+                            if not metric.function is None:
+                                fun_lines.append(metric.value)
+        self.avg_complexity = avg(complexities)
+        self.avg_function_length = avg(fun_lines)
+        self.avg_file_length = avg(file_lines)
+
 
 class AnalysisReport(object):
-    def __init__(self):
+    def __init__(self, project):
+        self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
         self.by_package = {}
-        self.statistics = Statistics()
+        self.statistics = None
 
     @property
     def package_count(self):
         return len(self.by_package)
+
+    def calculate_statistics(self):
+        reports = self.by_package.viewvalues()
+        self.statistics = Statistics.from_reports(reports)
+        for pkg_report in self.by_package.itervalues():
+            pkg_report.statistics = None
+            pkg_report.get_statistics()
 
     def to_JSON_object(self):
         return {
