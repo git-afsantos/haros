@@ -25,6 +25,15 @@
 
 import cPickle
 import datetime
+import yaml
+
+
+###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -352,7 +361,7 @@ class Preferences(object):
 # HAROS Database
 ###############################################################################
 
-class HarosDatabase(object):
+class HarosDatabase(LoggingObject):
     def __init__(self):
     # ----- source
         self.projects = {}
@@ -367,14 +376,58 @@ class HarosDatabase(object):
         self.metrics = {}
         self.reports = []
 
+    def get_file(self, filepath):
+        for sf in self.files.itervalues():
+            if sf.path == filepath:
+                return sf
+        return None
+
+    def register_project(self, project):
+        self.projects[project.id] = project
+        for repo in project.repositories:
+            self.repositories[repo.id] = repo
+        for pkg in project.packages:
+            self.packages[pkg.id] = pkg
+            for sf in pkg.source_files:
+                self.files[sf.id] = sf
+            for node in pkg.nodes:
+                self.nodes[node.id] = node
+        self.configurations.extend(project.configurations)
+
+    # Used at startup to load the common rules and metrics
+    def load_definitions(self, data_file, prefix = ""):
+        self.log.debug("HarosDatabase.load_definitions(%s)", data_file)
+        with open(data_file, "r") as handle:
+            data = yaml.load(handle)
+        self.register_rules(data.get("rules", {}), prefix = prefix)
+        self.register_metrics(data.get("metrics", {}), prefix = prefix)
+
+    def register_rules(self, rules, prefix = ""):
+        for id, rule in rules.iteritems():
+            rule_id = prefix + id
+            self.rules[rule_id] = Rule(rule_id, rule["name"],
+                                       rule.get("scope"),
+                                       rule["description"], rule["tags"],
+                                       query = rule.get("query"))
+
+    def register_metrics(self, metrics, prefix = ""):
+        for id, metric in metrics.iteritems():
+            metric_id = prefix + id
+            minv = float(minv) if not metric.get("min") is None else None
+            maxv = float(maxv) if not metric.get("max") is None else None
+            self.metrics[metric_id] = Metric(metric_id, metric["name"],
+                                             metric.get("scope"),
+                                             metric["description"],
+                                             minv = minv, maxv = maxv)
+
     def save_state(self, file_path):
-        # _log.debug("DataManager.save_state(%s)", file_path)
+        self.log.debug("HarosDatabase.save_state(%s)", file_path)
         with open(file_path, "w") as handle:
             cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def load_state(file_path):
-        # _log.debug("DataManager.load_state(%s)", file_path)
+        self.log.debug("HarosDatabase.load_state(%s)", file_path)
         with open(file_path, "r") as handle:
             return cPickle.load(handle)
 

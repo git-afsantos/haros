@@ -405,7 +405,8 @@ class Project(SourceObject):
 
 class Node(SourceObject):
     def __init__(self, name, pkg, rosname = None, nodelet = None):
-        SourceObject.__init__(self, pkg.id + "/" + name, name)
+        id = pkg.name + "/" + (nodelet or name)
+        SourceObject.__init__(self, id, name)
         self.package = pkg
         self.rosname = rosname
         self.nodelet_class = nodelet

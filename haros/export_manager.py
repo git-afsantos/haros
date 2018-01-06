@@ -255,8 +255,8 @@ def _project_json(project):
     return s
 
 def _pkg_json(pkg):
-    s = '{"id": "' + pkg.id + '", '
-    s += '"metapackage": ' + json.dumps(pkg.isMetapackage)
+    s = '{"id": "' + pkg.name + '", '
+    s += '"metapackage": ' + json.dumps(pkg.is_metapackage)
     s += ', "description": "' + _escaped(pkg.description)
     s += '", "wiki": ' + json.dumps(pkg.website)
     s += ', "repository": ' + json.dumps(pkg.vcs_url)
@@ -266,6 +266,7 @@ def _pkg_json(pkg):
     s += ', "dependencies": ' + json.dumps(list(pkg.dependencies))
     s += ', "size": ' + "{0:.2f}".format(pkg.size / 1000.0)
     s += ', "lines": ' + str(pkg.lines)
+    s += ', "sloc": ' + str(pkg.sloc)
     analysis = {}
     violations = {}
     metrics = {}

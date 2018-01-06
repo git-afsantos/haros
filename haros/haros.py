@@ -84,6 +84,10 @@
 #       full run (analyse + viz)
 
 
+###############################################################################
+#   Imports
+###############################################################################
+
 from argparse import ArgumentParser
 import logging
 import os
@@ -94,9 +98,9 @@ from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase
-from .extractor import SourceExtractor
+from .extractor import ProjectExtractor
 from .data_manager import DataManager
-from . import plugin_manager as plugman
+from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
 from . import export_manager as expoman
 from . import visualiser as viz
@@ -399,19 +403,25 @@ class HarosCommonExporter(HarosRunner):
         self._ensure_dir(out_dir, empty = True)
         expoman.export_configurations(out_dir, self.dataman.packages)
 
+    def _export_database(self):
+        pass
+
 
 class HarosAnalyseRunner(HarosCommonExporter):
-    def __init__(self, haros_dir, pkg_filter, data_dir, whitelist, blacklist,
+    distro_url = ("https://raw.githubusercontent.com/ros/rosdistro/master/"
+                  + os.environ.get("ROS_DISTRO", "kinetic")
+                  + "/distribution.yaml")
+
+    def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
-        self.project_file = pkg_filter
+        self.project_file = project_file
         self.use_repos = use_repos
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.project = None
-        self.dataman = None
-        self.anaman = None
-        self.analysis_db = None
+        self.database = None
+        self.analysis = None
         self.current_dir = None
         self.json_dir = None
         if data_dir:
@@ -423,17 +433,6 @@ class HarosAnalyseRunner(HarosCommonExporter):
             self.io_projects_dir = self.project_dir
         self.data_dir = os.path.join(self.viz_dir, "data")
 
-    def run(self):
-        self.log.debug("Creating new data manager.")
-        self.dataman = DataManager()
-        plugins = self._load_definitions_and_plugins()
-        self._index_source()
-        self._analyse(plugins)
-        self._save_results()
-        self.dataman = None
-        self.anaman = None
-        return True
-
     @property
     def definitions_file(self):
         if self.run_from_source:
@@ -442,64 +441,94 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return resource_filename(Requirement.parse("haros"),
                                  "haros/definitions.yaml")
 
-    def _index_source(self):
-        print "[HAROS] Indexing source code..."
+    def run(self):
+        self.database = HarosDatabase()
+        self._extract_metamodel()
+        self._load_database()
+        plugins = self._load_definitions_and_plugins()
+        
+        self._analyse(plugins)
+        self._save_results()
+        self.dataman = None
+        self.anaman = None
+        return True
+
+    def _extract_metamodel(self):
+        print "[HAROS] Reading project, indexing source code..."
         self.log.debug("Project file %s", self.project_file)
-
-        url = ("https://raw.githubusercontent.com/ros/rosdistro/master/"
-               + os.environ.get("ROS_DISTRO", "kinetic")
-               + "/distribution.yaml")
-
-        db = HarosDatabase()
-
-        extractor = SourceExtractor(self.project_file,
-                                    env = dict(os.environ),
-                                    pkg_cache = db.packages,
-                                    repo_cache = db.repositories,
-                                    repo_path = self.repo_dir,
-                                    distro_url = url,
-                                    require_repos = self.use_repos,
-                                    parse_nodes = True)
-
-        self.dataman.index_source(self.project_file,
-                                  self.repo_dir, self.use_repos)
-        if not self.dataman.packages:
+        env = dict(os.environ)
+        extractor = ProjectExtractor(self.project_file, env = env,
+                                     repo_path = self.repo_dir,
+                                     distro_url = self.distro_url,
+                                     require_repos = self.use_repos,
+                                     parse_nodes = True)
+        extractor.index_source()
+        self.project = extractor.project.name
+        if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
-        # if self.dataman.project.name == "all":
-            # raise ValueError("Forbidden project name: all")
+        self._extract_configurations(extractor.project,
+                                     extractor.configurations, env)
+        self.database.register_project(extractor.project)
+
+    def _extract_configurations(self, project, configs, environment):
+        for name, launch_files in configs.iteritems():
+            builder = ConfigurationBuilder(name, environment, self.database)
+            for launch_file in launch_files:
+                parts = launch_file.split(os.sep, 1)
+                if not len(parts) == 2:
+                    raise ValueError("invalid launch file: " + launch_file)
+                pkg = self.database.packages.get(parts[0])
+                if not pkg:
+                    raise ValueError("unknown package: " + parts[0])
+                path = os.path.join(pkg.path, parts[1])
+                launch = self.database.get_file(path)
+                if not launch:
+                    raise ValueError("unknown launch file: " + launch_file)
+                builder.add_launch(launch_file)
+            project.configurations.append(builder.configuration)
+
+    def _load_database(self):
+        haros_db = os.path.join(self.project_dir, self.project, "haros.db")
+        try:
+            haros_db = HarosDatabase.load_state(haros_db)
+        except IOError:
+            self.log.info("No previous analysis data for " + self.project)
+        else:
+            # NOTE: This has a tendency to grow in size.
+            # Old reports will have violations and metrics with references
+            # to old packages, files, etc. There will be multiple versions
+            # of the same projects over time, as long as the history exists.
+            self.database.reports = haros_db.reports
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."
-        self.dataman.load_definitions(self.definitions_file)
+        self.database.load_definitions(self.definitions_file)
         print "[HAROS] Loading plugins..."
-        plugins = plugman.load_plugins(self.plugin_dir,
-                                       self.whitelist, self.blacklist)
+        plugins = Plugin.load_plugins(self.plugin_dir,
+                                      whitelist = self.whitelist,
+                                      blacklist = self.blacklist,
+                                      common_rules = self.database.rules,
+                                      common_metrics = self.database.metrics)
         if not plugins:
             raise RuntimeError("There are no analysis plugins.")
         for plugin in plugins:
-            self.dataman.extend_definitions(plugin.name,
-                                            plugin.rules, plugin.metrics)
+            print "  > Loaded " + plugin.name
+            self.database.register_rules(plugin.rules, prefix = plugin.name)
+            self.database.register_metrics(plugin.rules, prefix = plugin.name)
         return plugins
-
-    def _load_analysis_manager(self, name):
-        self.project = name
-        self.current_dir = os.path.join(self.io_projects_dir, name)
-        self.analysis_db = os.path.join(self.current_dir, "analysis.db")
-        if os.path.isfile(self.analysis_db):
-            self.log.info("Loading previous database: " + self.analysis_db)
-            self.anaman = AnalysisManager.load_state(self.analysis_db)
-        else:
-            self.log.info("Creating new analysis manager.")
-            self.anaman = AnalysisManager()
 
     def _analyse(self, plugins):
         print "[HAROS] Running analysis..."
         self._empty_dir(self.export_dir)
         self._load_analysis_manager(self.dataman.project.name)
-        temppath = tempfile.mkdtemp()
-        self.anaman.run_analysis_and_processing(temppath, plugins,
-                                                self.dataman, self.export_dir)
-        rmtree(temppath)
+        temp_path = tempfile.mkdtemp()
+        try:
+            self.analysis = AnalysisManager(self.database,
+                                            temp_path, self.export_dir)
+            self.analysis.run(plugins)
+            self.database.reports.extend(self.analysis.reports)
+        finally:
+            rmtree(temp_path)
 
     def _save_results(self):
         print "[HAROS] Saving analysis results..."
@@ -507,8 +536,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             viz.install(self.viz_dir, self.run_from_source)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
-        self.dataman.save_state(os.path.join(self.current_dir, "haros.db"))
-        self.anaman.save_state(self.analysis_db)
+        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
         self._export_project_data()

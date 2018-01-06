@@ -63,11 +63,11 @@ class LoggingObject(object):
 # Source Extractor
 ###############################################################################
 
-class SourceExtractor(LoggingObject):
+class ProjectExtractor(LoggingObject):
     def __init__(self, index_file, env = None, pkg_cache = None,
                  repo_cache = None, repo_path = None, distro_url = None,
                  require_repos = False, parse_nodes = False):
-        self.log.debug("SourceExtractor(%s, %s, %s)",
+        self.log.debug("ProjectExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
         self.repo_path = repo_path
@@ -81,9 +81,10 @@ class SourceExtractor(LoggingObject):
         self.packages = None
         self.missing = None
         self.repositories = None
+        self.configurations = None
 
     def index_source(self):
-        self.log.debug("SourceExtractor.index_source()")
+        self.log.debug("ProjectExtractor.index_source()")
         self._setup()
         self._load_user_repositories()
         self._find_local_packages()
@@ -106,6 +107,7 @@ class SourceExtractor(LoggingObject):
         self.packages = set(data.get("packages")
                             or RosPack.get_instance(["."]).list())
         self.missing = set(self.packages)
+        self.configurations = data.get("configurations", {})
 
     def _load_user_repositories(self):
         self.log.info("Looking up user provided repositories.")

@@ -178,6 +178,8 @@ class AnalysisManager(LoggingObject):
             self._processing(iface, plugins)
             self._exports(iface._exported)
             self.report.calculate_statistics()
+            stats = self.report.statistics
+            stats.configuration_count = len(project.configurations)
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:
