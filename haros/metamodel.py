@@ -134,6 +134,15 @@ class Location(object):
         self.function = fun
         self.class_ = cls
 
+    def to_JSON_object(self):
+        return {
+            "package": self.package,
+            "file": self.file,
+            "line": self.line,
+            "function": self.function,
+            "class": self.class_
+        }
+
     def __str__(self):
         s = "in " + self.package
         if not self.file:
@@ -310,6 +319,22 @@ class Package(SourceObject):
                     return True
         return False
 
+    def to_JSON_object(self):
+        return {
+            "id": self.name,
+            "metapackage": self.is_metapackage,
+            "description": self.description,
+            "wiki": self.website,
+            "repository": self.vcs_url,
+            "bugTracker": self.bug_url,
+            "authors": [person.name for person in self.authors],
+            "maintainers": [person.name for person in self.maintainers],
+            "dependencies": [pkg for pkg in self.dependencies.packages],
+            "size": "{0:.2f}".format(self.size / 1000.0),
+            "lines": str(self.lines),
+            "sloc": str(self.sloc)
+        }
+
     def __str__(self):
         return self.__repr__()
 
@@ -431,6 +456,10 @@ class Node(SourceObject):
         for sf in self.source_files:
             return sf.language
         return None
+
+    @property
+    def node_name(self):
+        return self.package.name + "/" + (self.nodelet_class or self.name)
 
     def bound_to(self, other):
         if other.scope == "package":
@@ -601,6 +630,17 @@ class NodeInstance(Resource):
                     queue.append(cli.service.server.node)
         return nodes
 
+    def to_JSON_object(self):
+        {
+            "name": self.id,
+            "type": self.node.node_name,
+            "args": self.argv,
+            "publishers": [p.topic_name for p in self.publishers],
+            "subscribers": [p.topic_name for p in self.subscribers],
+            "servers": [p.topic_name for p in self.servers],
+            "clients": [p.topic_name for p in self.clients]
+        }
+
     def __repr__(self):
         return self.__str__()
 
@@ -668,6 +708,10 @@ class PubSubPrimitive(object):
         self.rosname = rosname  # before remappings
         self.queue_size = queue_size
 
+    @property
+    def topic_name(self):
+        return self.topic.rosname.full
+
     def __repr__(self):
         return self.__str__()
 
@@ -680,6 +724,10 @@ class ServicePrimitive(object):
         self.service = service
         self.type = message_type
         self.rosname = rosname  # before remappings
+
+    @property
+    def topic_name(self):
+        return self.topic.rosname.full
 
     def __repr__(self):
         return self.__str__()
@@ -746,6 +794,7 @@ class Configuration(object):
         self.topics = ResourceCollection(topics)
         self.services = ResourceCollection(services)
         self.parameters = ResourceCollection(parameters)
+        self.dependencies = DependencySet()
 
     def get_collisions(self):
         counter = Counter()
@@ -754,6 +803,23 @@ class Configuration(object):
         counter += self.services.counter
         counter += self.parameters.counter
         return sum(counter.values()) - len(counter)
+
+    def get_remaps(self):
+        unique = set()
+        for node in self.nodes:
+            unique.update(node.remaps.viewitems())
+        return len(unique)
+
+    def to_JSON_object(self):
+        {
+            "id": self.name,
+            "name": self.name,
+            "collisions": self.get_collisions(),
+            "remaps": self.get_remaps(),
+            "dependencies": list(self.dependencies.packages),
+            "environment": list(self.dependencies.environment),
+            "nodes": [n.to_JSON_object() for n in self.nodes]
+        }
 
     def __repr__(self):
         return self.__str__()

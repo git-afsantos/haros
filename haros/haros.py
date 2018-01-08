@@ -99,10 +99,9 @@ from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase
 from .extractor import ProjectExtractor
-from .data_manager import DataManager
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
-from . import export_manager as expoman
+from .export_manager import JsonExporter
 from . import visualiser as viz
 
 
@@ -361,8 +360,8 @@ class HarosInitRunner(HarosRunner):
             with open(os.devnull, "w") as devnull:
                 subprocess.check_call(["git", "rev-parse"], stdout = devnull,
                                       stderr = subprocess.STDOUT)
-                self.log.debug("Executing git pull at %s.", self.plugin_dir)
-                subprocess.check_call(["git", "pull"])
+            self.log.debug("Executing git pull at %s.", self.plugin_dir)
+            subprocess.check_call(["git", "pull"])
             os.chdir(wd)
         else:
             self.log.info("Cloning plugin repository.")
@@ -384,27 +383,26 @@ class HarosCommonExporter(HarosRunner):
         self.json_dir = os.path.join(self.data_dir, self.project)
         self._ensure_dir(self.json_dir)
 
-    def _export_project_data(self):
+    def _export_project_data(self, exporter):
     # ----- general data
-        expoman.export_packages(self.json_dir, self.dataman.packages)
-        expoman.export_rules(self.json_dir, self.dataman.rules)
-        expoman.export_metrics(self.json_dir, self.dataman.metrics)
-        expoman.export_summary(self.json_dir, self.anaman)
+        exporter.export_packages(self.json_dir, self.database.packages)
+        exporter.export_rules(self.json_dir, self.database.rules)
+        exporter.export_metrics(self.json_dir, self.database.metrics)
+        report = self.database.reports[-1]
+        exporter.export_summary(self.json_dir, report,
+                                self.database.reports[:-1])
     # ----- compliance reports
         out_dir = os.path.join(self.json_dir, "compliance")
         self._ensure_dir(out_dir, empty = True)
-        expoman.export_violations(out_dir, self.dataman.packages)
+        exporter.export_violations(out_dir, report.by_package)
     # ----- metrics reports
         out_dir = os.path.join(self.json_dir, "metrics")
         self._ensure_dir(out_dir, empty = True)
-        expoman.export_measurements(out_dir, self.dataman.packages)
-    # ----- extracted models
+        exporter.export_measurements(out_dir, report.by_package)
+    # ----- extracted configurations
         out_dir = os.path.join(self.json_dir, "models")
         self._ensure_dir(out_dir, empty = True)
-        expoman.export_configurations(out_dir, self.dataman.packages)
-
-    def _export_database(self):
-        pass
+        exporter.export_configurations(out_dir, self.database.configurations)
 
 
 class HarosAnalyseRunner(HarosCommonExporter):
@@ -421,7 +419,6 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.blacklist = blacklist
         self.project = None
         self.database = None
-        self.analysis = None
         self.current_dir = None
         self.json_dir = None
         if data_dir:
@@ -446,11 +443,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self._extract_metamodel()
         self._load_database()
         plugins = self._load_definitions_and_plugins()
-        
         self._analyse(plugins)
         self._save_results()
-        self.dataman = None
-        self.anaman = None
+        self.database = None
         return True
 
     def _extract_metamodel(self):
@@ -520,13 +515,11 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _analyse(self, plugins):
         print "[HAROS] Running analysis..."
         self._empty_dir(self.export_dir)
-        self._load_analysis_manager(self.dataman.project.name)
         temp_path = tempfile.mkdtemp()
+        analysis = AnalysisManager(self.database, temp_path, self.export_dir)
         try:
-            self.analysis = AnalysisManager(self.database,
-                                            temp_path, self.export_dir)
-            self.analysis.run(plugins)
-            self.database.reports.extend(self.analysis.reports)
+            analysis.run(plugins)
+            self.database.reports.append(analysis.report)
         finally:
             rmtree(temp_path)
 
@@ -539,9 +532,10 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
-        self._export_project_data()
-        expoman.export_projects(self.data_dir, [self.dataman.project],
-                                overwrite = False)
+        exporter = JsonExporter()
+        self._export_project_data(exporter)
+        exporter.export_projects(self.data_dir, (self.database.project,),
+                                 overwrite = False)
 
 
 ###############################################################################
@@ -569,8 +563,8 @@ class HarosExportRunner(HarosCommonExporter):
         self.project = project
         self.project_data_list = []
         self.export_viz = export_viz
-        self.dataman = None
-        self.anaman = None
+        self.database = None
+        self.haros_db = None
         if export_viz:
             self.viz_dir = data_dir
             self.data_dir = os.path.join(data_dir, "data")
@@ -582,15 +576,15 @@ class HarosExportRunner(HarosCommonExporter):
     def run(self):
         print "[HAROS] Exporting analysis results..."
         self._prepare_directory()
+        exporter = JsonExporter()
         for project in self._project_list():
             self.project = project
             self._prepare_project()
-            if self._load_databases():
-                self._save_databases()
-                self._export_project_data()
-        expoman.export_projects(self.data_dir, self.project_data_list)
-        self.dataman = None
-        self.anaman = None
+            if self._load_database():
+                self._save_database()
+                self._export_project_data(exporter)
+        exporter.export_projects(self.data_dir, self.project_data_list)
+        self.database = None
         self.project_data_list = []
         return True
 
@@ -606,28 +600,21 @@ class HarosExportRunner(HarosCommonExporter):
                     if os.path.isdir(os.path.join(self.project_dir, name))]
         return [self.project]
 
-    def _load_databases(self):
+    def _load_database(self):
         self.log.debug("Exporting data manager from file.")
         self.haros_db = os.path.join(self.project_dir, self.project,
                                      "haros.db")
-        self.analysis_db = os.path.join(self.project_dir, self.project,
-                                        "analysis.db")
-        if (not os.path.isfile(self.haros_db)
-                or not os.path.isfile(self.analysis_db)):
+        if not os.path.isfile(self.haros_db):
             self.log.error("There is no analysis data for " + self.project)
             return False
-        self.dataman = DataManager.load_state(self.haros_db)
-        self.anaman = AnalysisManager.load_state(self.analysis_db)
-        self.project_data_list.append(self.dataman.project)
+        self.database = HarosDatabase.load_state(self.haros_db)
+        self.project_data_list.append(self.database.project)
         return True
 
-    def _save_databases(self):
+    def _save_database(self):
         db_path = os.path.join(self.current_dir, "haros.db")
         self.log.debug("Copying %s to %s", self.haros_db, db_path)
         copyfile(self.haros_db, db_path)
-        db_path = os.path.join(self.current_dir, "analysis.db")
-        self.log.debug("Copying %s to %s", self.analysis_db, db_path)
-        copyfile(self.analysis_db, db_path)
 
 
 ###############################################################################

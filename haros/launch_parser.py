@@ -110,12 +110,14 @@ class SubstitutionParser(object):
     COMMANDS = ("find", "env", "optenv", "dirname", "anon", "arg", "eval")
 
     def __init__(self, args = None, env = None, pkgs = None, anon = None,
-                 dirname = None):
+                 dirname = None, pkg_depends = None, env_depends = None):
         self.arguments = args if not args is None else {}
         self.environment = env if not env is None else {}
         self.packages = pkgs if not pkgs is None else {}
         self.anonymous = anon if not anon is None else {}
         self.dirname = dirname
+        self.pkg_depends = pkg_depends if not pkg_depends is None else set()
+        self.env_depends = env_depends if not env_depends is None else set()
 
     def sub(self, value, conversion = str):
         """Resolve substitution arguments in the given string.
@@ -208,6 +210,7 @@ class SubstitutionParser(object):
         if len(parts) != 2:
             raise SubstitutionError("find takes exactly one argument")
         name = parts[1]
+        self.pkg_depends.add(name)
         package = self.packages.get(name)
         if package:
             if package.path:
@@ -239,11 +242,13 @@ class SubstitutionParser(object):
     def _env(self, parts):
         if len(parts) != 2:
             raise SubstitutionError("env takes exactly one argument")
+        self.env_depends.add(parts[1])
         return self.environment.get(parts[1], tuple(parts))
 
     def _optenv(self, parts):
         if len(parts) != 2 and len(parts) != 3:
             raise SubstitutionError("optenv takes one or two arguments")
+        self.env_depends.add(parts[1])
         return self.environment.get(parts[1], tuple(parts))
 
     def _dirname(self, parts):

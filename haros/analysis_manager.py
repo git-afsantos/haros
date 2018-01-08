@@ -166,20 +166,19 @@ class AnalysisManager(LoggingObject):
         self.report = None
         self.out_dir = out_dir
         self.export_dir = export_dir
-        self.reports = []
 
     def run(self, plugins):
         self.log.info("Running plugins on collected data.")
         self._prepare_directories(plugins)
-        for project in self.database.projects.itervalues():
-            reports = self._make_reports(project)
-            iface = PluginInterface(self.database, reports)
-            self._analysis(iface, plugins)
-            self._processing(iface, plugins)
-            self._exports(iface._exported)
-            self.report.calculate_statistics()
-            stats = self.report.statistics
-            stats.configuration_count = len(project.configurations)
+        project = self.database.project
+        reports = self._make_reports(project)
+        iface = PluginInterface(self.database, reports)
+        self._analysis(iface, plugins)
+        self._processing(iface, plugins)
+        self._exports(iface._exported)
+        self.report.calculate_statistics()
+        stats = self.report.statistics
+        stats.configuration_count = len(project.configurations)
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:
@@ -191,7 +190,6 @@ class AnalysisManager(LoggingObject):
     # ----- NOTE: package and file ids should never collide
         reports = {}
         self.report = AnalysisReport(project)
-        self.reports.append(self.report)
         for pkg in project.packages:
             pkg_report = PackageAnalysis(pkg)
             self.report.by_package[pkg.id] = pkg_report

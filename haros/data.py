@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+from collections import Counter
 import cPickle
 import datetime
 import yaml
@@ -50,6 +51,16 @@ class Rule(object):
         self.tags           = tags
         self.query          = query
 
+    def to_JSON_object(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "scope": self.scope,
+            "description": self.description,
+            "tags": self.tags,
+            "query": self.query
+        }
+
 
 class Violation(object):
     def __init__(self, rule, scope, details = None, location = None):
@@ -57,6 +68,12 @@ class Violation(object):
         self.scope = scope
         self.details = details
         self.location = location
+
+    def to_JSON_object(self):
+        data = self.location.to_JSON_object() if self.location else {}
+        data["rule"] = self.rule.id
+        data["comment"] = self.details
+        return data
 
 
 class Metric(object):
@@ -69,6 +86,16 @@ class Metric(object):
         self.minimum        = minv
         self.maximum        = maxv
 
+    def to_JSON_object(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "scope": self.scope,
+            "description": self.description,
+            "minimum": self.minimum,
+            "maximum": self.maximum
+        }
+
 
 class Measurement(object):
     def __init__(self, metric, scope, value, location = None):
@@ -76,6 +103,12 @@ class Measurement(object):
         self.scope = scope
         self.value = value
         self.location = location
+
+    def to_JSON_object(self):
+        data = self.location.to_JSON_object() if self.location else {}
+        data["metric"] = self.metric.id
+        data["value"] = self.value
+        return data
 
 
 class FileAnalysis(object):
@@ -94,7 +127,6 @@ class PackageAnalysis(object):
         self.package = package
         self.violations = []
         self.metrics = []
-        self.configurations = []
         self.file_analysis = []
         self.statistics = None
 
@@ -128,6 +160,16 @@ class PackageAnalysis(object):
         if not self.statistics:
             self.statistics = Statistics.from_reports((self,))
         return self.statistics
+
+    def to_JSON_object(self):
+        data = self.package.to_JSON_object()
+        violations = Counter(v.rule.id for v in self.violations)
+        violations.update(v.rule.id for fa in self.file_analysis for v in fa)
+        data["analysis"] = {
+            "violations": violations,
+            "metrics": {m.metric.id: m.value for m in self.metrics}
+        }
+        return data
 
 
 class Statistics(object):
@@ -364,7 +406,7 @@ class Preferences(object):
 class HarosDatabase(LoggingObject):
     def __init__(self):
     # ----- source
-        self.projects = {}
+        self.project = None
         self.repositories = {}
         self.packages = {}
         self.files = {}
@@ -383,7 +425,7 @@ class HarosDatabase(LoggingObject):
         return None
 
     def register_project(self, project):
-        self.projects[project.id] = project
+        self.project = project
         for repo in project.repositories:
             self.repositories[repo.id] = repo
         for pkg in project.packages:
