@@ -331,8 +331,8 @@ class Package(SourceObject):
             "maintainers": [person.name for person in self.maintainers],
             "dependencies": [pkg for pkg in self.dependencies.packages],
             "size": "{0:.2f}".format(self.size / 1000.0),
-            "lines": str(self.lines),
-            "sloc": str(self.sloc)
+            "lines": self.lines,
+            "sloc": self.sloc
         }
 
     def __str__(self):
@@ -631,7 +631,7 @@ class NodeInstance(Resource):
         return nodes
 
     def to_JSON_object(self):
-        {
+        return {
             "name": self.id,
             "type": self.node.node_name,
             "args": self.argv,
@@ -811,7 +811,7 @@ class Configuration(object):
         return len(unique)
 
     def to_JSON_object(self):
-        {
+        return {
             "id": self.name,
             "name": self.name,
             "collisions": self.get_collisions(),

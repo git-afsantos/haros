@@ -321,7 +321,8 @@ THE SOFTWARE.
             this.d3node = this.d3g.append("circle");
             this.d3text = this.d3g.append("text").attr("text-anchor", "middle").text(this.model.id);
 
-            this.height = Math.min(320, 32 + this.model.get("size") | 0);
+            s = +(this.model.get("size") || 1)
+            this.height = Math.min(320, 32 + s | 0);
             this.width = Math.max(this.height, this.model.id.length * 16);
             this.radius = this.height / 2;
 //            if (this.model.get("metapackage")) {

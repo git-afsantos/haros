@@ -40,7 +40,7 @@ try:
     from bonsai.cpp.clang_parser import CppAstParser
 except ImportError:
     CppAstParser = None
-from rospkg import RosPack, ResourceNotFound
+from rospkg import RosPack, RosStack, ResourceNotFound
 
 from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
@@ -356,10 +356,13 @@ class PackageExtractor(LoggingObject):
     def __init__(self, alt_paths = None):
         self.packages = []
         self.rospack = RosPack.get_instance()
+        self.rosstack = RosStack.get_instance()
         if alt_paths is None:
             self.altpack = self.rospack
+            self.altstack = self.rosstack
         else:
             self.altpack = RosPack.get_instance(alt_paths)
+            self.altstack = RosStack.get_instance(alt_paths)
 
     # Note: this method messes with private variables of the RosPack
     # class. This is needed because, at some point, we download new
@@ -369,6 +372,8 @@ class PackageExtractor(LoggingObject):
     def refresh_package_cache(self):
         self.rospack._location_cache = None
         self.altpack._location_cache = None
+        self.rosstack._location_cache = None
+        self.altstack._location_cache = None
 
     def find_package(self, name, project = None):
         try:
@@ -382,16 +387,23 @@ class PackageExtractor(LoggingObject):
                         repo.packages.append(pkg)
                         break
             self._populate_package(pkg)
-        except (IOError, ET.ParseError, ResourceNotFound) as e:
+        except (IOError, ET.ParseError, ResourceNotFound):
             return None
         return pkg
 
     def _find(self, name, project):
         try:
-            path = os.path.join(self.altpack.get_path(name), "package.xml")
-        except ResourceNotFound as e:
-            path = os.path.join(self.rospack.get_path(name), "package.xml")
-        return PackageParser.parse(path, project = project)
+            path = self.altpack.get_path(name)
+        except ResourceNotFound:
+            try:
+                path = self.altstack.get_path(name)
+            except ResourceNotFound:
+                try:
+                    path = self.rospack.get_path(name)
+                except ResourceNotFound:
+                    path = self.rosstack.get_path(name)
+        return PackageParser.parse(os.path.join(path, "package.xml"),
+                                   project = project)
 
     EXCLUDED = (".git", "doc", "bin", "cmake")
 

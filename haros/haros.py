@@ -99,6 +99,7 @@ from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase
 from .extractor import ProjectExtractor
+from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
 from .export_manager import JsonExporter
@@ -162,13 +163,15 @@ class HarosLauncher(object):
     def command_analyse(self, args):
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        if not os.path.isfile(args.package_index):
+        if not os.path.isfile(args.project_file):
             raise ValueError("Not a file: " + args.package_index)
-        analyse = HarosAnalyseRunner(self.HAROS_DIR, args.package_index,
+        analyse = HarosAnalyseRunner(self.HAROS_DIR, args.project_file,
                                      args.data_dir, args.whitelist,
                                      args.blacklist, log = self.log,
                                      run_from_source = self.run_from_source,
-                                     use_repos = args.use_repos)
+                                     use_repos = args.use_repos,
+                                     parse_nodes = args.parse_nodes,
+                                     copy_env = args.env)
         return analyse.run()
 
     def command_export(self, args):
@@ -214,10 +217,14 @@ class HarosLauncher(object):
         parser.add_argument("-s", "--server-host", default = "localhost:8080",
                             help = ("visualisation host "
                                     "(default: \"localhost:8080\")"))
-        parser.add_argument("-p", "--package-index",
+        parser.add_argument("-p", "--project-file",
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
+        parser.add_argument("-n", "--parse-nodes", action = "store_true",
+                            help = "parse C++/Python nodes (slow)")
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
         group = parser.add_mutually_exclusive_group()
@@ -232,10 +239,14 @@ class HarosLauncher(object):
     def _analyse_parser(self, parser):
         parser.add_argument("-r", "--use-repos", action = "store_true",
                             help = "use repository information")
-        parser.add_argument("-p", "--package-index",
+        parser.add_argument("-p", "--project-file",
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
+        parser.add_argument("-n", "--parse-nodes", action = "store_true",
+                            help = "parse C++/Python nodes (slow)")
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
         group = parser.add_mutually_exclusive_group()
@@ -385,20 +396,19 @@ class HarosCommonExporter(HarosRunner):
 
     def _export_project_data(self, exporter):
     # ----- general data
-        exporter.export_packages(self.json_dir, self.database.packages)
+        exporter.export_packages(self.json_dir, self.database.report.by_package)
         exporter.export_rules(self.json_dir, self.database.rules)
         exporter.export_metrics(self.json_dir, self.database.metrics)
-        report = self.database.reports[-1]
-        exporter.export_summary(self.json_dir, report,
-                                self.database.reports[:-1])
+        exporter.export_summary(self.json_dir, self.database.report,
+                                self.database.history)
     # ----- compliance reports
         out_dir = os.path.join(self.json_dir, "compliance")
         self._ensure_dir(out_dir, empty = True)
-        exporter.export_violations(out_dir, report.by_package)
+        exporter.export_violations(out_dir, self.database.report.by_package)
     # ----- metrics reports
         out_dir = os.path.join(self.json_dir, "metrics")
         self._ensure_dir(out_dir, empty = True)
-        exporter.export_measurements(out_dir, report.by_package)
+        exporter.export_measurements(out_dir, self.database.report.by_package)
     # ----- extracted configurations
         out_dir = os.path.join(self.json_dir, "models")
         self._ensure_dir(out_dir, empty = True)
@@ -411,10 +421,13 @@ class HarosAnalyseRunner(HarosCommonExporter):
                   + "/distribution.yaml")
 
     def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
-                 log = None, run_from_source = False, use_repos = False):
+                 log = None, run_from_source = False, use_repos = False,
+                 parse_nodes = False, copy_env = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.project_file = project_file
         self.use_repos = use_repos
+        self.parse_nodes = parse_nodes
+        self.copy_env = copy_env
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.project = None
@@ -449,21 +462,30 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return True
 
     def _extract_metamodel(self):
-        print "[HAROS] Reading project, indexing source code..."
+        print "[HAROS] Reading project and indexing source code..."
         self.log.debug("Project file %s", self.project_file)
-        env = dict(os.environ)
+        if self.copy_env:
+            env = dict(os.environ)
+        else:
+            env = {
+                "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
+                "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
+            }
+        distro = self.distro_url if self.use_repos else None
         extractor = ProjectExtractor(self.project_file, env = env,
                                      repo_path = self.repo_dir,
-                                     distro_url = self.distro_url,
-                                     require_repos = self.use_repos,
-                                     parse_nodes = True)
+                                     distro_url = distro,
+                                     require_repos = True,
+                                     parse_nodes = self.parse_nodes)
+        if self.parse_nodes:
+            print "  > Parsing nodes might take some time."
         extractor.index_source()
         self.project = extractor.project.name
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
+        self.database.register_project(extractor.project)
         self._extract_configurations(extractor.project,
                                      extractor.configurations, env)
-        self.database.register_project(extractor.project)
 
     def _extract_configurations(self, project, configs, environment):
         for name, launch_files in configs.iteritems():
@@ -479,8 +501,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 launch = self.database.get_file(path)
                 if not launch:
                     raise ValueError("unknown launch file: " + launch_file)
-                builder.add_launch(launch_file)
+                builder.add_launch(launch)
             project.configurations.append(builder.configuration)
+            self.database.configurations.append(builder.configuration)
 
     def _load_database(self):
         self.current_dir = os.path.join(self.io_projects_dir, self.project)
@@ -494,7 +517,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
             # Old reports will have violations and metrics with references
             # to old packages, files, etc. There will be multiple versions
             # of the same projects over time, as long as the history exists.
-            self.database.reports = haros_db.reports
+            # This is why I added "compact" to the database.
+            self.database.history = haros_db.history
+            self.database.history.append(haros_db.report)
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."
@@ -521,7 +546,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         analysis = AnalysisManager(self.database, temp_path, self.export_dir)
         try:
             analysis.run(plugins)
-            self.database.reports.append(analysis.report)
+            self.database.report = analysis.report
         finally:
             rmtree(temp_path)
 

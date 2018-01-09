@@ -123,7 +123,7 @@ class LaunchScope(object):
 
     def make_params(self, name, ptype, value, condition):
         if not value is None:
-            value = self._convert_value(value, ptype)
+            value = self._convert_value(str(value), ptype)
             ptype = Parameter.type_of(value)
         conditions = list(self.conditions)
         if not condition is True:
@@ -504,7 +504,7 @@ class ConfigurationBuilder(object):
                 raise ConfigurationError("nodelet without args")
             args = args.split()
             if args[0] == "load" or args[0] == "standalone":
-                if len(args < 3):
+                if len(args) < 3:
                     raise ConfigurationError("nodelet load: too few arguments")
                 pkg, exe = args[1].split("/")
         node = self.sources.nodes.get(pkg + "/" + exe)

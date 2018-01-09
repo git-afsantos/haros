@@ -118,6 +118,15 @@ class JsonExporter(LoggingObject):
             "complexity": [r.statistics.avg_complexity for r in past],
             "function_length": [r.statistics.avg_function_length for r in past]
         }
+        stats = report.statistics
+        data["history"]["timestamps"].append(report.timestamp)
+        data["history"]["lines_of_code"].append(stats.lines_of_code)
+        data["history"]["comments"].append(stats.comment_lines)
+        data["history"]["issues"].append(stats.issue_count)
+        data["history"]["standards"].append(stats.standard_issue_count)
+        data["history"]["metrics"].append(stats.metrics_issue_count)
+        data["history"]["complexity"].append(stats.avg_complexity)
+        data["history"]["function_length"].append(stats.avg_function_length)
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
             json.dump(data, f)

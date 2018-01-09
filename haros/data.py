@@ -166,7 +166,8 @@ class PackageAnalysis(object):
     def to_JSON_object(self):
         data = self.package.to_JSON_object()
         violations = Counter(v.rule.id for v in self.violations)
-        violations.update(v.rule.id for fa in self.file_analysis for v in fa)
+        violations.update(v.rule.id for fa in self.file_analysis
+                          for v in fa.violations)
         data["analysis"] = {
             "violations": violations,
             "metrics": {m.metric.id: m.value for m in self.metrics}
@@ -417,7 +418,8 @@ class HarosDatabase(LoggingObject):
     # ----- analysis
         self.rules = {}
         self.metrics = {}
-        self.reports = []
+        self.report = None
+        self.history = []
 
     def get_file(self, filepath):
         for sf in self.files.itervalues():
@@ -469,14 +471,26 @@ class HarosDatabase(LoggingObject):
 
     def save_state(self, file_path):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)
-        with open(file_path, "w") as handle:
+        self._compact()
+        with open(file_path, "wb") as handle:
             cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def load_state(file_path):
         HarosDatabase.log.debug("HarosDatabase.load_state(%s)", file_path)
-        with open(file_path, "r") as handle:
+        with open(file_path, "rb") as handle:
             return cPickle.load(handle)
+
+    def _compact(self):
+        for report in self.history:
+            report.project = None
+            report.by_package = {}
+        # NOTE IMPORTANT!
+        # storing bonsai source trees can sometimes hit the recursion limit
+        for node in self.nodes.itervalues():
+            node.source_tree = None
+        for sf in self.files.itervalues():
+            sf.tree = None
 
 
 ###############################################################################
