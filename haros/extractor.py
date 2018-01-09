@@ -415,7 +415,8 @@ class PackageExtractor(LoggingObject):
                     try:
                         source.tree = launch_parser.parse(source.path)
                     except LaunchParserError as e:
-                        self.log.warning("Error parsing launch file: " + str(e))
+                        self.log.warning("Parsing error in %s:\n%s",
+                                         source.path, str(e))
                 pkg.source_files.append(source)
                 pkg.size += source.size
                 pkg.lines += source.lines

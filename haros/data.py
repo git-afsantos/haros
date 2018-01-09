@@ -26,6 +26,8 @@
 from collections import Counter
 import cPickle
 import datetime
+import logging
+import os
 import yaml
 
 
@@ -274,6 +276,7 @@ class Statistics(object):
 
     def _pkg_statistics(self, reports):
         for report in reports:
+            self.file_count += report.package.file_count
             self.issue_count += len(report.violations)
             for issue in report.violations:
                 other = True
@@ -296,42 +299,40 @@ class Statistics(object):
         fun_lines = []
         file_lines = []
         for report in reports:
-            self.file_count += report.package.file_count
-            for sfa in report.file_analysis:
-                sf = sfa.source_file
-                self.lines_of_code += sf.lines
-                file_lines.append(sf.lines)
-                if (sf.full_name.startswith("scripts" + os.path.sep)):
-                    self.script_count += 1
-                if sf.language == "cpp":
-                    self.cpp_lines += sf.lines
-                elif sf.language == "python":
-                    self.python_lines += sf.lines
-                elif sf.language == "launch":
-                    self.launch_count += 1
-                elif sf.language == "yaml":
-                    self.param_file_count += 1
-                self.issue_count += len(sfa.violations)
-                for issue in sfa.violations:
-                    other = True
-                    if "code-standards" in issue.rule.tags:
-                        other = False
-                        self.standard_issue_count += 1
-                    if "metrics" in issue.rule.tags:
-                        other = False
-                        self.metrics_issue_count += 1
-                    if other:
-                        self.other_issue_count += 1
-                if sf.language == "cpp" or sf.language == "python":
-                    for metric in sf.metrics:
-                        mid = metric.metric.id
-                        if mid == "comments":
-                            self.comment_lines += metric.value
-                        elif mid == "cyclomatic_complexity":
-                            complexities.append(metric.value)
-                        elif mid == "sloc" or mid == "eloc" or mid == "ploc":
-                            if not metric.function is None:
-                                fun_lines.append(metric.value)
+            sf = report.source_file
+            self.lines_of_code += sf.lines
+            file_lines.append(sf.lines)
+            if (sf.full_name.startswith("scripts" + os.path.sep)):
+                self.script_count += 1
+            if sf.language == "cpp":
+                self.cpp_lines += sf.lines
+            elif sf.language == "python":
+                self.python_lines += sf.lines
+            elif sf.language == "launch":
+                self.launch_count += 1
+            elif sf.language == "yaml":
+                self.param_file_count += 1
+            self.issue_count += len(report.violations)
+            for issue in report.violations:
+                other = True
+                if "code-standards" in issue.rule.tags:
+                    other = False
+                    self.standard_issue_count += 1
+                if "metrics" in issue.rule.tags:
+                    other = False
+                    self.metrics_issue_count += 1
+                if other:
+                    self.other_issue_count += 1
+            if sf.language == "cpp" or sf.language == "python":
+                for metric in report.metrics:
+                    mid = metric.metric.id
+                    if mid == "comments":
+                        self.comment_lines += metric.value
+                    elif mid == "cyclomatic_complexity":
+                        complexities.append(metric.value)
+                    elif mid == "sloc" or mid == "eloc" or mid == "ploc":
+                        if not metric.location.function is None:
+                            fun_lines.append(metric.value)
         self.avg_complexity = avg(complexities)
         self.avg_function_length = avg(fun_lines)
         self.avg_file_length = avg(file_lines)
@@ -447,6 +448,7 @@ class HarosDatabase(LoggingObject):
     def register_rules(self, rules, prefix = ""):
         for id, rule in rules.iteritems():
             rule_id = prefix + id
+            self.log.debug("HarosDatabase.register rule " + rule_id)
             self.rules[rule_id] = Rule(rule_id, rule["name"],
                                        rule.get("scope"),
                                        rule["description"], rule["tags"],
@@ -455,8 +457,11 @@ class HarosDatabase(LoggingObject):
     def register_metrics(self, metrics, prefix = ""):
         for id, metric in metrics.iteritems():
             metric_id = prefix + id
-            minv = float(minv) if not metric.get("min") is None else None
-            maxv = float(maxv) if not metric.get("max") is None else None
+            minv = metric.get("min")
+            minv = float(minv) if not minv is None else None
+            maxv = metric.get("max")
+            maxv = float(maxv) if not maxv is None else None
+            self.log.debug("HarosDatabase.register metric " + metric_id)
             self.metrics[metric_id] = Metric(metric_id, metric["name"],
                                              metric.get("scope"),
                                              metric["description"],
@@ -469,7 +474,7 @@ class HarosDatabase(LoggingObject):
 
     @staticmethod
     def load_state(file_path):
-        self.log.debug("HarosDatabase.load_state(%s)", file_path)
+        HarosDatabase.log.debug("HarosDatabase.load_state(%s)", file_path)
         with open(file_path, "r") as handle:
             return cPickle.load(handle)
 

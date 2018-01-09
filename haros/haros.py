@@ -483,7 +483,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
             project.configurations.append(builder.configuration)
 
     def _load_database(self):
-        haros_db = os.path.join(self.project_dir, self.project, "haros.db")
+        self.current_dir = os.path.join(self.io_projects_dir, self.project)
+        haros_db = os.path.join(self.current_dir, "haros.db")
         try:
             haros_db = HarosDatabase.load_state(haros_db)
         except IOError:
@@ -508,8 +509,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
             raise RuntimeError("There are no analysis plugins.")
         for plugin in plugins:
             print "  > Loaded " + plugin.name
-            self.database.register_rules(plugin.rules, prefix = plugin.name)
-            self.database.register_metrics(plugin.rules, prefix = plugin.name)
+            prefix = plugin.name + ":"
+            self.database.register_rules(plugin.rules, prefix = prefix)
+            self.database.register_metrics(plugin.metrics, prefix = prefix)
         return plugins
 
     def _analyse(self, plugins):
@@ -564,6 +566,7 @@ class HarosExportRunner(HarosCommonExporter):
         self.project_data_list = []
         self.export_viz = export_viz
         self.database = None
+        self.current_dir = None
         self.haros_db = None
         if export_viz:
             self.viz_dir = data_dir
