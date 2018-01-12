@@ -526,6 +526,7 @@ class NodeExtractor(LoggingObject):
         self.nodes = []
 
     def find_nodes(self, pkg):
+        self.log.debug("NodeExtractor.find_nodes(%s)", pkg)
         self.package = pkg
         srcdir = self.package.path[len(self.workspace):]
         srcdir = os.path.join(self.workspace, srcdir.split(os.sep, 1)[0])
@@ -605,6 +606,7 @@ class NodeExtractor(LoggingObject):
 
     def _extract_primitives(self):
         for node in self.package.nodes:
+            self.log.debug("Extracting primitives for node %s", node.id)
             if not node.source_tree is None:
                 continue
             node.source_tree = CodeGlobalScope()
@@ -618,8 +620,10 @@ class NodeExtractor(LoggingObject):
                 self._roscpp_analysis(node)
 
     def _roscpp_analysis(self, node):
+        self.log.debug("Parsing C++ files for node %s", node.id)
         parser = CppAstParser(workspace = self.workspace)
         for sf in node.source_files:
+            self.log.debug("Parsing C++ file %s", sf.path)
             if parser.parse(sf.path) is None:
                 self.log.warning("no compile commands for " + sf.path)
         node.source_tree = parser.global_scope
@@ -652,6 +656,7 @@ class NodeExtractor(LoggingObject):
         pub = Publication(name, ns, msg_type, queue_size,
                           control_depth = depth, location = location)
         node.advertise.append(pub)
+        self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
     def _on_subscription(self, node, ns, call):
         if len(call.arguments) <= 1:
@@ -664,6 +669,7 @@ class NodeExtractor(LoggingObject):
         sub = Subscription(name, ns, msg_type, queue_size,
                            control_depth = depth, location = location)
         node.subscribe.append(sub)
+        self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
 
     def _on_service(self, node, ns, call):
         if len(call.arguments) <= 1:
@@ -675,6 +681,7 @@ class NodeExtractor(LoggingObject):
         srv = ServiceServerCall(name, ns, msg_type,
                                 control_depth = depth, location = location)
         node.service.append(srv)
+        self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
 
     def _on_client(self, node, ns, call):
         if len(call.arguments) <= 1:
@@ -686,6 +693,7 @@ class NodeExtractor(LoggingObject):
         cli = ServiceClientCall(name, ns, msg_type,
                                 control_depth = depth, location = location)
         node.client.append(cli)
+        self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
     def _call_location(self, call):
         fpath = None

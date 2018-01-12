@@ -101,6 +101,7 @@ class LaunchScope(object):
                                 launch = self.launch_file, argv = args,
                                 remaps = dict(self.remaps),
                                 conditions = list(self.conditions))
+        node.instances.append(instance)
         if not condition is True:
             instance.conditions.append(condition)
         previous = self.configuration.nodes.add(instance)
