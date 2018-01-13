@@ -79,6 +79,15 @@ class RosPrimitiveCall(object):
         self.control_depth = control_depth
         self.location = location
 
+    def __str__(self):
+        return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
+            self.name, self.namespace, self.type,
+            self.location, self.control_depth
+        )
+
+    def __repr__(self):
+        return self.__str__()
+
 class Publication(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
                  control_depth = 0, location = None):

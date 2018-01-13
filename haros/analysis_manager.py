@@ -217,13 +217,24 @@ class AnalysisManager(LoggingObject):
         for rule in self.database.rules.itervalues():
             if rule.query:
                 try:
-                    query = pyflwor.execute(rule.query)
-                    result = query(data)
+                    result = pyflwor.execute(rule.query, data)
                 except SyntaxError as e:
                     self.log.error("%s", e)
                 else:
-                    print "Query:", rule.name
-                    print result
+                    self._report_query(rule, result)
+
+    def _report_query(self, rule, matches):
+        self.log.debug("query violation(%s, %s)", rule.id, matches)
+        for match in matches:
+            scope = self.database.project
+            report = self._reports.get(scope.id)
+            if scope.scope == "file":
+                loc = Location(scope.package.name, fpath = scope.full_name,
+                               line = line, fun = function, cls = class_)
+            else:
+                loc = Location(scope.name)
+            datum = Violation(rule, scope, details = msg, location = loc)
+            report.violations.append(datum)
 
     def _analysis(self, iface, plugins):
         for plugin in plugins:
@@ -301,9 +312,6 @@ class AnalysisManager(LoggingObject):
         "packages": [],
         "nodes": [],
         "configs": [],
-
-        "is_rosglobal": AnalysisManager.is_rosglobal,
-
         "True": True,
         "False": False,
         "None": None,
@@ -332,3 +340,5 @@ class AnalysisManager(LoggingObject):
         # self.summaries.append(summary)
         # if len(self.summaries) > 30:
             # self.summaries.pop(0)
+
+AnalysisManager.query_data["is_rosglobal"] = AnalysisManager.is_rosglobal
