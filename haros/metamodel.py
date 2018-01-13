@@ -136,27 +136,35 @@ class Person(object):
 
 class Location(object):
     """A location to report (package, file, line)."""
-    def __init__(self, pkg, fpath = None, line = None, fun = None, cls = None):
+    def __init__(self, pkg, file = None, line = None, fun = None, cls = None):
         self.package = pkg
-        self.file = fpath
+        self.file = file
         self.line = line
         self.function = fun
         self.class_ = cls
 
+    @property
+    def largest_scope(self):
+        return self.package
+
+    @property
+    def smallest_scope(self):
+        return self.file or self.package
+
     def to_JSON_object(self):
         return {
-            "package": self.package,
-            "file": self.file,
+            "package": self.package.name,
+            "file": self.file.full_name if self.file else None,
             "line": self.line,
             "function": self.function,
             "class": self.class_
         }
 
     def __str__(self):
-        s = "in " + self.package
+        s = "in " + self.package.name
         if not self.file:
             return s
-        s += "/" + self.file
+        s += "/" + self.file.full_name
         if not self.line is None:
             s += ":" + str(self.line)
             if self.function:
@@ -174,6 +182,10 @@ class SourceObject(object):
         self.id = id
         self.name = name
         self.dependencies = DependencySet()
+
+    @property
+    def location(self):
+        return None
 
     def __lt__(self, scope):
         if isinstance(scope, basestring):
@@ -225,7 +237,8 @@ class SourceFile(SourceObject):
     LAUNCH = ".launch"
 
     def __init__(self, name, directory, pkg):
-        id = pkg.id + "/" + directory.replace(os.path.sep, "/") + "/" + name
+        id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
+              + "/" + name)
         SourceObject.__init__(self, id, name)
         self.directory = directory
         self.full_name = os.path.join(directory, name)
@@ -241,6 +254,10 @@ class SourceFile(SourceObject):
     @property
     def scope(self):
         return "file"
+
+    @property
+    def location(self):
+        return Location(self.package, file = self)
 
     def bound_to(self, other):
         if other.scope == "node":
@@ -279,13 +296,13 @@ class SourceFile(SourceObject):
         return self.__repr__()
 
     def __repr__(self):
-        return "File({})".format(self.id)
+        return self.id
 
 
 class Package(SourceObject):
     """Represents a ROS package."""
     def __init__(self, name, repo = None, proj = None):
-        SourceObject.__init__(self, name, name)
+        SourceObject.__init__(self, "package:" + name, name)
     # public:
         self.project            = proj
         self.repository         = repo
@@ -310,6 +327,10 @@ class Package(SourceObject):
         return "package"
 
     @property
+    def location(self):
+        return Location(self)
+
+    @property
     def file_count(self):
         return len(self.source_files)
 
@@ -324,7 +345,7 @@ class Package(SourceObject):
             if self == other:
                 return True
             for dep in self.dependencies.packages:
-                if dep.type == "package" and dep.value == other.id:
+                if dep.type == "package" and dep.value == other.name:
                     return True
         return False
 
@@ -348,14 +369,14 @@ class Package(SourceObject):
         return self.__repr__()
 
     def __repr__(self):
-        return "Package({})".format(self.id)
+        return self.id
 
 
 class Repository(SourceObject):
     """Represents a source code repository."""
     def __init__(self, name, vcs = None, url = None, version = None,
                  status = None, path = None, proj = None):
-        SourceObject.__init__(self, name, name)
+        SourceObject.__init__(self, "repository:" + name, name)
         self.project        = None
         self.vcs            = vcs
         self.url            = url
@@ -389,7 +410,7 @@ class Repository(SourceObject):
         return self.__repr__()
 
     def __repr__(self):
-        return "Repository({})".format(self.id)
+        return self.id
 
 
 class Project(SourceObject):
@@ -400,7 +421,7 @@ class Project(SourceObject):
     def __init__(self, name):
         if name == "all":
             raise ValueError("Forbidden project name: all")
-        SourceObject.__init__(self, name, name)
+        SourceObject.__init__(self, "project:" + name, name)
         self.packages = []
         self.repositories = []
         self.configurations = []
@@ -425,21 +446,21 @@ class Project(SourceObject):
 
     def to_JSON_object(self):
         return {
-            "id": self.id,
-            "packages": [pkg.id for pkg in self.packages],
-            "repositories": [repo.id for repo in self.repositories]
+            "id": self.name,
+            "packages": [pkg.name for pkg in self.packages],
+            "repositories": [repo.name for repo in self.repositories]
         }
 
     def __str__(self):
         return self.__repr__()
 
     def __repr__(self):
-        return "Project({})".format(self.id)
+        return self.id
 
 
 class Node(SourceObject):
     def __init__(self, name, pkg, rosname = None, nodelet = None):
-        id = pkg.name + "/" + (nodelet or name)
+        id = "node:" + pkg.name + "/" + (nodelet or name)
         SourceObject.__init__(self, id, name)
         self.package = pkg
         self.rosname = rosname
@@ -455,6 +476,10 @@ class Node(SourceObject):
     @property
     def scope(self):
         return "node"
+
+    @property
+    def location(self):
+        return Location(self.package)
 
     @property
     def is_nodelet(self):
@@ -486,7 +511,7 @@ class Node(SourceObject):
         return self.__repr__()
 
     def __repr__(self):
-        return "Node({})".format(self.id)
+        return self.id
 
 
 ###############################################################################
@@ -556,6 +581,25 @@ class RosName(object):
         return self._name.__hash__()
 
 
+class RuntimeLocation(object):
+    def __init__(self, configuration):
+        self.configuration = configuration
+
+    @property
+    def largest_scope(self):
+        return self.configuration
+
+    @property
+    def smallest_scope(self):
+        return self.configuration
+
+    def to_JSON_object(self):
+        return {"configuration": self.configuration.name}
+
+    def __str__(self):
+        return "in configuration " + self.configuration.name
+
+
 class Resource(object):
     """This is the base class for all runtime objects belonging
         to the ROS Computation Graph.
@@ -593,6 +637,10 @@ class Resource(object):
     @property
     def unresolved(self):
         return "?" in self.rosname.full
+
+    @property
+    def location(self):
+        return RuntimeLocation(self.configuration)
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -721,11 +769,16 @@ class PubSubPrimitive(object):
     def topic_name(self):
         return self.topic.rosname.full
 
+    @property
+    def location(self):
+        return self.node.location
+
     def __repr__(self):
         return self.__str__()
 
     def __str__(self):
-        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id, self.type)
+        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id,
+                                           self.type)
 
 class ServicePrimitive(object):
     def __init__(self, node, service, message_type, rosname):
@@ -738,11 +791,16 @@ class ServicePrimitive(object):
     def topic_name(self):
         return self.topic.rosname.full
 
+    @property
+    def location(self):
+        return self.node.location
+
     def __repr__(self):
         return self.__str__()
 
     def __str__(self):
-        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id, self.type)
+        return "SrvCli({}, {}, {})".format(self.node.id, self.topic.id,
+                                           self.type)
 
 
 class ResourceCollection(object):
@@ -796,6 +854,7 @@ class Configuration(object):
 
     def __init__(self, name, env = None, nodes = None,
                  topics = None, services = None, parameters = None):
+        self.id = "configuration:" + name
         self.name = name
         self.roslaunch = []
         self.environment = env if not env is None else {}
@@ -804,6 +863,10 @@ class Configuration(object):
         self.services = ResourceCollection(services)
         self.parameters = ResourceCollection(parameters)
         self.dependencies = DependencySet()
+
+    @property
+    def location(self):
+        return RuntimeLocation(self)
 
     def get_collisions(self):
         counter = Counter()
@@ -821,7 +884,7 @@ class Configuration(object):
 
     def to_JSON_object(self):
         return {
-            "id": self.name,
+            "id": self.id,
             "name": self.name,
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
@@ -835,20 +898,6 @@ class Configuration(object):
 
     def __str__(self):
         return "Configuration " + self.name
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
