@@ -82,6 +82,7 @@ class ProjectExtractor(LoggingObject):
         self.missing = None
         self.repositories = None
         self.configurations = None
+        self.rules = None
 
     def index_source(self):
         self.log.debug("ProjectExtractor.index_source()")
@@ -108,6 +109,7 @@ class ProjectExtractor(LoggingObject):
                             or RosPack.get_instance(["."]).list())
         self.missing = set(self.packages)
         self.configurations = data.get("configurations", {})
+        self.rules = data.get("rules", {})
 
     def _load_user_repositories(self):
         self.log.info("Looking up user provided repositories.")

@@ -453,9 +453,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def run(self):
         self.database = HarosDatabase()
+        plugins = self._load_definitions_and_plugins()
         self._extract_metamodel()
         self._load_database()
-        plugins = self._load_definitions_and_plugins()
         self._analyse(plugins)
         self._save_results()
         self.database = None
@@ -484,6 +484,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
+        self.database.register_rules(extractor.rules, prefix = "user:")
         self._extract_configurations(extractor.project,
                                      extractor.configurations, env)
 

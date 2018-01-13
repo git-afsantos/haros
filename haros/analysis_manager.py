@@ -19,10 +19,17 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 
+
+###############################################################################
+# Imports
+###############################################################################
+
 import logging
 import os
 import shutil
 import traceback
+
+import pyflwor
 
 from .metamodel import Location
 from .data import (
@@ -173,6 +180,7 @@ class AnalysisManager(LoggingObject):
         project = self.database.project
         reports = self._make_reports(project)
         iface = PluginInterface(self.database, reports)
+        self._execute_queries()
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
@@ -199,6 +207,23 @@ class AnalysisManager(LoggingObject):
                 pkg_report.file_analysis.append(file_report)
                 reports[sf.id] = file_report
         return reports
+
+    def _execute_queries(self):
+        data = dict(self.query_data)
+        data["files"] = list(self.database.files.itervalues())
+        data["packages"] = list(self.database.packages.itervalues())
+        data["nodes"] = list(self.database.nodes.itervalues())
+        data["configs"] = list(self.database.configurations)
+        for rule in self.database.rules.itervalues():
+            if rule.query:
+                try:
+                    query = pyflwor.execute(rule.query)
+                    result = query(data)
+                except SyntaxError as e:
+                    self.log.error("%s", e)
+                else:
+                    print "Query:", rule.name
+                    print result
 
     def _analysis(self, iface, plugins):
         for plugin in plugins:
@@ -266,6 +291,37 @@ class AnalysisManager(LoggingObject):
                 self.log.error("Cannot copy file " + f)
                 continue
             shutil.move(f, path)
+
+    @staticmethod
+    def is_rosglobal(name):
+        return name and name.startswith("/")
+
+    query_data = {
+        "files": [],
+        "packages": [],
+        "nodes": [],
+        "configs": [],
+
+        "is_rosglobal": AnalysisManager.is_rosglobal,
+
+        "True": True,
+        "False": False,
+        "None": None,
+        "abs": abs,
+        "bool": bool,
+        "cmp": cmp,
+        "divmod": divmod,
+        "float": float,
+        "int": int,
+        "isinstance": isinstance,
+        "len": len,
+        "long": long,
+        "max": max,
+        "min": min,
+        "pow": pow,
+        "sum": sum,
+        "round": round
+    }
 
     # def _update_statistics(self):
         # while len(self.summaries) > 30:
