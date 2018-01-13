@@ -206,7 +206,7 @@ class QueryEngine(LoggingObject):
         for rule in rules:
             if rule.query:
                 try:
-                    result = pyflwor.execute(rule.query, data)
+                    result = pyflwor.execute(rule.query, self.data)
                 except SyntaxError as e:
                     self.log.error("%s", e)
                 else:
