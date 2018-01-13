@@ -46,12 +46,12 @@ class LoggingObject(object):
 class Rule(object):
     """Represents a coding rule."""
     def __init__(self, rule_id, name, scope, desc, tags, query = None):
-        self.id             = rule_id
-        self.name           = name
-        self.scope          = scope
-        self.description    = desc
-        self.tags           = tags
-        self.query          = query
+        self.id = rule_id
+        self.name = name
+        self.scope = scope
+        self.description = desc
+        self.tags = tags
+        self.query = query
 
     def to_JSON_object(self):
         return {
@@ -65,11 +65,14 @@ class Rule(object):
 
 
 class Violation(object):
-    def __init__(self, rule, scope, details = None, location = None):
+    def __init__(self, rule, location, details = None):
         self.rule = rule
-        self.scope = scope
-        self.details = details
         self.location = location
+        self.details = details
+
+    @property
+    def scope(self):
+        return self.location.smallest_scope
 
     def to_JSON_object(self):
         data = self.location.to_JSON_object() if self.location else {}
@@ -81,12 +84,12 @@ class Violation(object):
 class Metric(object):
     """Represents a quality metric."""
     def __init__(self, metric_id, name, scope, desc, minv = None, maxv = None):
-        self.id             = metric_id
-        self.name           = name
-        self.scope          = scope
-        self.description    = desc
-        self.minimum        = minv
-        self.maximum        = maxv
+        self.id = metric_id
+        self.name = name
+        self.scope = scope
+        self.description = desc
+        self.minimum = minv
+        self.maximum = maxv
 
     def to_JSON_object(self):
         return {
@@ -100,11 +103,14 @@ class Metric(object):
 
 
 class Measurement(object):
-    def __init__(self, metric, scope, value, location = None):
+    def __init__(self, metric, location, value):
         self.metric = metric
-        self.scope = scope
-        self.value = value
         self.location = location
+        self.value = value
+
+    @property
+    def scope(self):
+        return self.location.smallest_scope
 
     def to_JSON_object(self):
         data = self.location.to_JSON_object() if self.location else {}
@@ -173,6 +179,17 @@ class PackageAnalysis(object):
             "metrics": {m.metric.id: m.value for m in self.metrics}
         }
         return data
+
+
+class ConfigurationAnalysis(object):
+    def __init__(self, configuration):
+        self.configuration = configuration
+        self.violations = []
+        self.metrics = []
+
+    @property
+    def scope(self):
+        return self.configuration
 
 
 class Statistics(object):
@@ -344,6 +361,7 @@ class AnalysisReport(object):
         self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
         self.by_package = {}
+        self.by_config = {}
         self.statistics = None
 
     @property
