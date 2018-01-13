@@ -280,7 +280,7 @@ class RepositoryExtractor(LoggingObject):
             if not repo.url:
                 self.log.debug("%s has no URL to download from.", repo.id)
                 continue
-            path = os.path.join(repo_path, repo.id)
+            path = os.path.join(repo_path, repo.name)
             clone = False
             if not os.path.exists(path):
                 os.makedirs(path)
@@ -698,15 +698,16 @@ class NodeExtractor(LoggingObject):
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
     def _call_location(self, call):
-        fpath = None
+        source_file = None
         if call.file:
-            fpath = call.file.replace(self.package.path, "")
-            if fpath.startswith(os.sep):
-                fpath = fpath[len(os.sep):]
+            for sf in self.package.source_files:
+                if sf.path == call.file:
+                    source_file = sf
+                    break
         function = call.function
         if function:
             function = function.name
-        return Location(self.package.name, fpath = fpath,
+        return Location(self.package, file = source_file,
                         line = call.line, fun = function)
 
     def _resolve_node_handle(self, call):
