@@ -34,7 +34,7 @@ import pyflwor
 from .metamodel import Location
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
-    Statistics, AnalysisReport
+    ConfigurationAnalysis, Statistics, AnalysisReport
 )
 from .util import cwd
 
@@ -103,12 +103,11 @@ class PluginInterface(LoggingObject):
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
         rule = self._get_property(rule_id, self._data.rules)
-        if scope.scope == "file":
-            loc = Location(scope.package.name, fpath = scope.full_name,
-                           line = line, fun = function, cls = class_)
-        else:
-            loc = Location(scope.name)
-        datum = Violation(rule, scope, details = msg, location = loc)
+        location = scope.location
+        location.line = line
+        location.function = function
+        location.class_ = class_
+        datum = Violation(rule, location, details = msg)
         if not self._buffer_violations is None:
             self._buffer_violations.append(datum)
         else:
@@ -125,12 +124,11 @@ class PluginInterface(LoggingObject):
             raise AnalysisScopeError("invalid scope: " + scope.id)
         metric = self._get_property(metric_id, self._data.metrics)
         self._check_metric_value(metric, value)
-        if scope.scope == "file":
-            loc = Location(scope.package.name, fpath = scope.full_name,
-                           line = line, fun = function, cls = class_)
-        else:
-            loc = Location(scope.name)
-        datum = Measurement(metric, scope, value, location = loc)
+        location = scope.location
+        location.line = line
+        location.function = function
+        location.class_ = class_
+        datum = Measurement(metric, location, value)
         if not self._buffer_metrics is None:
             self._buffer_metrics.append(datum)
         else:
@@ -156,11 +154,83 @@ class PluginInterface(LoggingObject):
 
     def _commit_buffers(self):
         for datum in self._buffer_violations:
-            self._reports[datum.scope.id].violations.append(datum)
+            report = self._reports.get(datum.location.smallest_scope.id,
+                                       datum.location.largest_scope.id)
+            report.violations.append(datum)
         self._buffer_violations = None
         for datum in self._buffer_metrics:
-            self._reports[datum.scope.id].metrics.append(datum)
+            report = self._reports.get(datum.location.smallest_scope.id,
+                                       datum.location.largest_scope.id)
+            report.metrics.append(datum)
         self._buffer_metrics = None
+
+
+###############################################################################
+# HAROS Query Engine
+###############################################################################
+
+class QueryEngine(LoggingObject):
+    query_data = {
+        "files": [],
+        "packages": [],
+        "nodes": [],
+        "configs": [],
+        "True": True,
+        "False": False,
+        "None": None,
+        "abs": abs,
+        "bool": bool,
+        "cmp": cmp,
+        "divmod": divmod,
+        "float": float,
+        "int": int,
+        "isinstance": isinstance,
+        "len": len,
+        "long": long,
+        "max": max,
+        "min": min,
+        "pow": pow,
+        "sum": sum,
+        "round": round
+    }
+
+    def __init__(self, database):
+        self.data = dict(self.query_data)
+        self.data["is_rosglobal"] = QueryEngine.is_rosglobal
+        self.data["files"] = list(database.files.itervalues())
+        self.data["packages"] = list(database.packages.itervalues())
+        self.data["nodes"] = list(database.nodes.itervalues())
+        self.data["configs"] = list(database.configurations)
+
+    def execute(self, rules, reports):
+        for rule in rules:
+            if rule.query:
+                try:
+                    result = pyflwor.execute(rule.query, data)
+                except SyntaxError as e:
+                    self.log.error("%s", e)
+                else:
+                    for match in result:
+                        self._report(rule, match, reports)
+
+    def _report(self, rule, item, reports):
+        self.log.debug("query(%s, %s)", rule.id, item)
+        try:
+            location = item.location
+        except AttributeError:
+            self.log.error("query %s returned invalid item", rule.id)
+        else:
+            scope = location.smallest_scope
+            try:
+                report = reports.get(scope.id)
+            except KeyError:
+                self.log.error("invalid scope: " + scope.id)
+            else:
+                report.violations.append(Violation(rule, location))
+
+    @staticmethod
+    def is_rosglobal(name):
+        return name and name.startswith("/")
 
 
 ###############################################################################
@@ -179,8 +249,8 @@ class AnalysisManager(LoggingObject):
         self._prepare_directories(plugins)
         project = self.database.project
         reports = self._make_reports(project)
+        self._execute_queries(reports)
         iface = PluginInterface(self.database, reports)
-        self._execute_queries()
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
@@ -206,35 +276,16 @@ class AnalysisManager(LoggingObject):
                 file_report = FileAnalysis(sf)
                 pkg_report.file_analysis.append(file_report)
                 reports[sf.id] = file_report
+        for config in project.configurations:
+            config_report = ConfigurationAnalysis(config)
+            self.report.by_config[config.id] = config_report
+            reports[config.id] = config_report
         return reports
 
-    def _execute_queries(self):
-        data = dict(self.query_data)
-        data["files"] = list(self.database.files.itervalues())
-        data["packages"] = list(self.database.packages.itervalues())
-        data["nodes"] = list(self.database.nodes.itervalues())
-        data["configs"] = list(self.database.configurations)
-        for rule in self.database.rules.itervalues():
-            if rule.query:
-                try:
-                    result = pyflwor.execute(rule.query, data)
-                except SyntaxError as e:
-                    self.log.error("%s", e)
-                else:
-                    self._report_query(rule, result)
-
-    def _report_query(self, rule, matches):
-        self.log.debug("query violation(%s, %s)", rule.id, matches)
-        for match in matches:
-            scope = self.database.project
-            report = self._reports.get(scope.id)
-            if scope.scope == "file":
-                loc = Location(scope.package.name, fpath = scope.full_name,
-                               line = line, fun = function, cls = class_)
-            else:
-                loc = Location(scope.name)
-            datum = Violation(rule, scope, details = msg, location = loc)
-            report.violations.append(datum)
+    def _execute_queries(self, reports):
+        self.log.debug("Creating query engine.")
+        query_engine = QueryEngine(self.database)
+        query_engine.execute(self.database.rules.viewvalues(), reports)
 
     def _analysis(self, iface, plugins):
         for plugin in plugins:
@@ -303,34 +354,6 @@ class AnalysisManager(LoggingObject):
                 continue
             shutil.move(f, path)
 
-    @staticmethod
-    def is_rosglobal(name):
-        return name and name.startswith("/")
-
-    query_data = {
-        "files": [],
-        "packages": [],
-        "nodes": [],
-        "configs": [],
-        "True": True,
-        "False": False,
-        "None": None,
-        "abs": abs,
-        "bool": bool,
-        "cmp": cmp,
-        "divmod": divmod,
-        "float": float,
-        "int": int,
-        "isinstance": isinstance,
-        "len": len,
-        "long": long,
-        "max": max,
-        "min": min,
-        "pow": pow,
-        "sum": sum,
-        "round": round
-    }
-
     # def _update_statistics(self):
         # while len(self.summaries) > 30:
             # self.summaries.pop(0)
@@ -340,5 +363,3 @@ class AnalysisManager(LoggingObject):
         # self.summaries.append(summary)
         # if len(self.summaries) > 30:
             # self.summaries.pop(0)
-
-AnalysisManager.query_data["is_rosglobal"] = AnalysisManager.is_rosglobal
