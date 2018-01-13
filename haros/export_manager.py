@@ -50,7 +50,7 @@ class JsonExporter(LoggingObject):
             for p in projects:
                 is_new = True
                 for i in xrange(len(data)):
-                    if data[i]["id"] == p.id:
+                    if data[i]["id"] == p.name:
                         is_new = False
                         data[i] = p.to_JSON_object()
                         break
