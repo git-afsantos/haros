@@ -192,6 +192,7 @@ THE SOFTWARE.
             name,
             type,
             args: [],
+            conditions: [],
             publishers: [],
             subscribers: [],
             servers: [],

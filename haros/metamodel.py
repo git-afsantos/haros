@@ -692,6 +692,7 @@ class NodeInstance(Resource):
             "name": self.id,
             "type": self.node.node_name,
             "args": self.argv,
+            "conditions": [str(c) for c in self.conditions],
             "publishers": [p.topic_name for p in self.publishers],
             "subscribers": [p.topic_name for p in self.subscribers],
             "servers": [p.topic_name for p in self.servers],

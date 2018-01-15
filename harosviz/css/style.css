@@ -479,6 +479,11 @@ svg {
 	/*stroke: #104227;*/
 }
 
+#package-graph .node.conditional,
+#config-graph .node.conditional {
+	stroke-dasharray: 5;
+}
+
 #package-graph .graph.hovering .node.selected circle,
 #config-graph .graph.hovering .node.selected circle {
 	stroke-width: 8px;
