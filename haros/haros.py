@@ -401,6 +401,9 @@ class HarosCommonExporter(HarosRunner):
         exporter.export_metrics(self.json_dir, self.database.metrics)
         exporter.export_summary(self.json_dir, self.database.report,
                                 self.database.history)
+    # ----- extracted configurations
+        exporter.export_configurations(self.json_dir,
+                                       self.database.configurations)
     # ----- compliance reports
         out_dir = os.path.join(self.json_dir, "compliance")
         self._ensure_dir(out_dir, empty = True)
@@ -409,10 +412,6 @@ class HarosCommonExporter(HarosRunner):
         out_dir = os.path.join(self.json_dir, "metrics")
         self._ensure_dir(out_dir, empty = True)
         exporter.export_measurements(out_dir, self.database.report.by_package)
-    # ----- extracted configurations
-        out_dir = os.path.join(self.json_dir, "models")
-        self._ensure_dir(out_dir, empty = True)
-        exporter.export_configurations(out_dir, self.database.configurations)
 
 
 class HarosAnalyseRunner(HarosCommonExporter):

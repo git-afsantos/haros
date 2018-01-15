@@ -384,14 +384,16 @@ html, body {
 }
 
 
-#package-graph {
+#package-graph,
+#config-graph {
     position: relative;
     flex: 1;
     height: 15em;
     border: 1px solid lightgrey;
 }
 
-#package-graph > .action-bar {
+#package-graph > .action-bar,
+#config-graph > .action-bar {
     position: absolute;
     top: auto;
     bottom: 1em;
@@ -400,12 +402,14 @@ html, body {
     font-size: 1.25em;
 }
 
-#package-graph > #pkg-graph-action-bar {
+#package-graph > #pkg-graph-action-bar,
+#config-graph > #config-graph-action-bar {
     left: 1em;
     right: auto;
 }
 
-#package-graph > #pkg-node-action-bar {
+#package-graph > #pkg-node-action-bar,
+#config-graph > #config-node-action-bar {
     left: auto;
     right: 1em;
 }
@@ -434,14 +438,16 @@ html, body {
 }
 
 @media (min-width: 40em) {
-    #package-graph > #pkg-graph-action-bar {
+    #package-graph > #pkg-graph-action-bar,
+    #config-graph > #config-graph-action-bar {
         top: 1em;
         bottom: auto;
         left: auto;
         right: 1em;
     }
 
-    #package-graph > #pkg-node-action-bar {
+    #package-graph > #pkg-node-action-bar,
+    #config-graph > #config-node-action-bar {
         top: 3em;
         bottom: auto;
     }
@@ -459,19 +465,22 @@ svg {
     height: 100%;
 }
 
-#package-graph .node circle {
+#package-graph .node circle,
+#config-graph .node circle {
     /* fill: #FFF2CC; */
     stroke-width: 2px;
     /* stroke: #A16D00; */
     stroke: #8A6D3B;
 }
 
-#package-graph .node.focus {
+#package-graph .node.focus,
+#config-graph .node.focus {
 	stroke-width: 8px;
 	/*stroke: #104227;*/
 }
 
-#package-graph .graph.hovering .node.selected circle {
+#package-graph .graph.hovering .node.selected circle,
+#config-graph .graph.hovering .node.selected circle {
 	stroke-width: 8px;
 	/*stroke: #0F4BFF;*/
 	/* stroke: #386AFF; */
@@ -483,12 +492,14 @@ svg {
 	/*fill: #B3ECFF;*/
 }
 
-#package-graph .graph .node.focus circle {
+#package-graph .graph .node.focus circle,
+#config-graph .graph .node.focus circle {
 	stroke-width: 8px;
 	/*stroke: #104227;*/
 }
 
-#package-graph .edge {
+#package-graph .edge,
+#config-graph .edge {
 	fill: none;
 	stroke-width: 2px;
 	stroke: #D19D00;
@@ -497,37 +508,45 @@ svg {
 }
 
 
-#package-graph .graph.hovering .edge.selected {
+#package-graph .graph.hovering .edge.selected,
+#config-graph .graph.hovering .edge.selected {
 	stroke-width: 6px;
 	/* stroke: #386AFF; */
 	stroke: #007AFF;
 }
 
-#package-graph .graph.hovering .node {
+#package-graph .graph.hovering .node,
+#config-graph .graph.hovering .node {
 	opacity: 0.2;
 }
 
-#package-graph .graph.hovering .edge {
+#package-graph .graph.hovering .edge,
+#config-graph .graph.hovering .edge {
 	opacity: 0;
 }
 
 #package-graph .graph.hovering .node.selected,
-#package-graph .graph.hovering .edge.selected {
+#config-graph .graph.hovering .node.selected,
+#package-graph .graph.hovering .edge.selected,
+#config-graph .graph.hovering .edge.selected {
 	opacity: 1;
 }
 
-#package-graph .graph.hovering .node.highlight circle {
+#package-graph .graph.hovering .node.highlight circle,
+#config-graph .graph.hovering .node.highlight circle {
 	stroke-width: 8px;
 	/* stroke: #A4011B; */
 	stroke: #3C763D;
 	/*fill: #FFE0E5;*/
 }
 
-#package-graph .graph.hovering .node.highlight {
+#package-graph .graph.hovering .node.highlight,
+#config-graph .graph.hovering .node.highlight {
     opacity: 1;
 }
 
-#package-graph .graph.hovering .edge.highlight {
+#package-graph .graph.hovering .edge.highlight,
+#config-graph .graph.hovering .edge.highlight {
 	/* stroke: #A4011B; */
 	stroke: #3C763D;
 	stroke-width: 4px;
@@ -540,7 +559,13 @@ svg {
     cursor: default;
 }
 
-#package-graph .graph.zoomed-out .node text {
+#config-graph .graph .node text {
+	font-size: 1em;
+    cursor: default;
+}
+
+#package-graph .graph.zoomed-out .node text,
+#config-graph .graph.zoomed-out .node text {
 	opacity: 0;
 }
 

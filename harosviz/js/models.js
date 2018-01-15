@@ -192,7 +192,6 @@ THE SOFTWARE.
             name,
             type,
             args: [],
-            *error,
             publishers: [],
             subscribers: [],
             servers: [],
@@ -216,7 +215,7 @@ THE SOFTWARE.
         model: Models.Configuration,
 
         url: function () {
-            return "data/" + this.projectId + "/models/" + this.packageId + ".json";
+            return "data/" + this.projectId + "/configurations.json";
         }
     });
 

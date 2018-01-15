@@ -25,15 +25,15 @@ THE SOFTWARE.
     var App = window.App,
         Router = Backbone.Router.extend({
             routes: {
-                "":                         "home",
-                "dashboard":                "dashboard",
-                "help":                     "help",
-                "packages":                 "packages",
-                "issues":                   "issues",       // #issues
-                "issues/:pkg":              "issues",       // #issues/kobuki
-                "issues/:pkg/p:page":       "issues",       // #issues/kobuki/p2
-                "components":               "components",   // #components
-                "components/:pkg":          "components"    // #components/kobuki_node
+                "":                     "home",
+                "dashboard":            "dashboard",
+                "help":                 "help",
+                "packages":             "packages",
+                "issues":               "issues",   // #issues
+                "issues/:pkg":          "issues",   // #issues/kobuki
+                "issues/:pkg/p:page":   "issues",   // #issues/kobuki/p2
+                "models":               "models",   // #models
+                "models/:config":       "models"    // #models/minimal
             },
 
             home: function() {
@@ -74,12 +74,12 @@ THE SOFTWARE.
                 App.board = App.issueBoard;
             },
 
-            components: function(pkg) {
+            models: function(config) {
                 if (App.project == null)
                     return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("ros");
-                App.rosBoard.show().build(App.project, pkg);
+                App.rosBoard.show().build(App.project, config);
                 App.board = App.rosBoard;
             }
         });
