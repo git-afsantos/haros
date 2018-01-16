@@ -565,8 +565,14 @@ svg {
 }
 
 #config-graph .graph .node text {
-	font-size: 1em;
+	font-size: 0.75em;
     cursor: default;
+	display: none;
+}
+
+#config-graph .graph .node.selected text,
+#config-graph .graph .node.hovering text {
+	display: inline;
 }
 
 #package-graph .graph.zoomed-out .node text,

@@ -101,6 +101,9 @@ THE SOFTWARE.
 
 
         onSync: function (collection, response, options) {
+            var i, nodes = this.graph.nodes();
+            for (i = nodes.length; i--;)
+                this.stopListening(this.graph.node(nodes[i]));
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({nodesep: this.spacing, ranksep: this.spacing});
             this.d3g.remove();

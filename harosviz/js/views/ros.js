@@ -28,76 +28,128 @@ THE SOFTWARE.
     views.RosBoard = views.BaseView.extend({
         id: "ros-board",
 
-        spacing: 16,
-
         navigateOptions: { trigger: false, replace: true },
 
         events: {
-            "change #ros-config-select":    "onConfigSelect",
-            "click #config-btn-focus":      "onFocus",
-            "click #config-btn-info":       "onInfo"
+            "change #ros-config-select": "onSelect"
         },
 
         initialize: function (options) {
-            _.bindAll(this, "onEmptyClick");
             this.projectId = null;
             this.router = options.router;
-            this.nodes = null;
 
             this.$configSelect = this.$("#ros-config-select");
             this.$summary = this.$("#config-details");
 
-            this.graph = new dagre.graphlib.Graph();
-            this.graph.setGraph({
-                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
+            this.graph = new views.RosStaticGraph({
+                el: this.$el.find("#config-graph"),
+                collection: new Backbone.Collection()
             });
-            this.$graph = this.$el.find("#config-graph");
-            this.focus = null;
-            this.selection = null;
-            this.onZoom = _.bind(this.onZoom, this);
-            this.zoom = d3.zoom().scaleExtent([0.125, 8]).on("zoom", this.onZoom);
-            this.d3svg = d3.select(this.$graph[0]).append("svg").call(this.zoom);
-            this.d3g = this.d3svg.append("g").attr("class", "graph");
-            this.d3svg.on("click", this.onEmptyClick);
-
-            this.$nodeActionBar = this.$graph.children("#config-node-action-bar");
-            this.$nodeActionBar.hide();
-
-            this.infoView = new views.NodeInfo({ el: this.$("#config-info-modal") });
-            this.infoView.hide();
 
             this.configTemplate = _.template($("#ros-board-config-summary").html(), {variable: "data"});
-            this.nodeTemplate = _.template($("#ros-board-info-modal").html(), {variable: "data"});
 
             this.listenTo(this.collection, "sync", this.onSync);
         },
 
         render: function () {
+            this.graph.visible = this.visible;
             if (!this.visible) return this;
             if (this.collection.length > 0) {
                 var config = this.collection.get(this.$configSelect.val());
                 this.$summary.html(this.configTemplate(_.clone(config.attributes)));
-                /*if (config.get("nodes").length > 0) {
-                    this.$nodes.show();
-                    _.each(config.get("nodes"), this.renderNode, this);
-                } else {
-                    this.$nodes.hide();
-                }*/
+                this.graph.render();
             } else {
                 this.$summary.html("There are no configurations to display.");
             }
             return this;
         },
 
-        renderGraph: function () {
+        build: function (project, configId) {
+            this.projectId = project.id;
+            this.$summary.html("Select a configuration to display.");
+            if (this.collection.length > 0) {
+                if (configId == null || this.collection.get(configId) == null)
+                    configId = this.collection.first().id;
+                this.$configSelect.val(configId);
+                this.onSelect();
+            }
+            return this;
+        },
+
+        onSync: function (collection, response, options) {
+            this.$configSelect.html(this.collection.map(this.optionTemplate).join("\n"));
+            if (this.collection.length > 0) {
+                this.$configSelect.val(this.collection.first().id);
+            }
+            if (this.visible) this.onSelect();
+        },
+
+        onSelect: function () {
+            var config = this.collection.get(this.$configSelect.val());
+            this.router.navigate("models/" + config.id, this.navigateOptions);
+            this.graph.collection.reset(config.get("nodes"));
+            this.render();
+        },
+
+        onResize: function () {
+            this.graph.onResize();
+        },
+
+        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    views.RosStaticGraph = Backbone.View.extend({
+        id: "config-graph",
+
+        spacing: 16,
+
+        events: {
+            "click #config-btn-focus":      "onFocus",
+            "click #config-btn-info":       "onInfo"
+        },
+
+        initialize: function (options) {
+            _.bindAll(this, "onEmptyClick", "onZoom");
+            this.visible = false;
+
+            this.graph = new dagre.graphlib.Graph();
+            this.graph.setGraph({
+                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
+            });
+            this.focus = null;
+            this.selection = null;
+            this.zoom = d3.zoom().scaleExtent([0.125, 4]).on("zoom", this.onZoom);
+            this.d3svg = d3.select(this.$el[0]).append("svg").call(this.zoom);
+            this.d3g = this.d3svg.append("g").attr("class", "graph");
+            this.d3svg.on("click", this.onEmptyClick);
+
+            this.$nodeActionBar = this.$("#config-node-action-bar");
+            this.$nodeActionBar.hide();
+
+            this.infoView = new views.NodeInfo({ el: this.$("#config-info-modal") });
+            this.infoView.hide();
+
+            this.nodeTemplate = _.template($("#ros-board-info-modal").html(), {variable: "data"});
+
+            this.listenTo(this.collection, "reset", this.onReset);
+        },
+
+        render: function () {
             var i, v, nodes, edges, g = this.graph, graph;
-            graph = this.updateVisibility();
-            this.layout(graph);
-            for (nodes = g.nodes(), i = nodes.length; i--;)
-                g.node(nodes[i]).render();
-            for (edges = g.edges(), i = edges.length; i--;)
-                g.edge(edges[i]).render();
-            this.onResize();
+            if (!this.visible) return this;
+            if (this.collection.length > 0) {
+                graph = this.updateVisibility();
+                dagre.layout(graph);
+                for (nodes = g.nodes(), i = nodes.length; i--;)
+                    g.node(nodes[i]).render();
+                for (edges = g.edges(), i = edges.length; i--;)
+                    g.edge(edges[i]).render();
+                this.onResize();
+            }
+            return this;
         },
 
         renderEdge: function () {
@@ -110,51 +162,6 @@ THE SOFTWARE.
                 this.d3path.attr("d", path);
             }
             return this;
-        },
-
-        build: function (project, configId) {
-            this.projectId = project.id;
-            this.$summary.html("Select a configuration to display.");
-            if (this.collection.length > 0) {
-                if (configId == null || this.collection.get(configId) == null)
-                    configId = this.collection.first().id;
-                this.$configSelect.val(configId);
-                this.onConfigSelect();
-            }
-            return this;
-        },
-
-        onSync: function (collection, response, options) {
-            this.$configSelect.html(this.collection.map(this.optionTemplate).join("\n"));
-            if (this.collection.length > 0) {
-                this.$configSelect.val(this.collection.first().id);
-            }
-            if (this.visible) this.onConfigSelect();
-        },
-
-        onConfigSelect: function () {
-            var config = this.collection.get(this.$configSelect.val()),
-                nodes = config.get("nodes");
-            this.router.navigate("models/" + config.id, this.navigateOptions);
-            this.graph = new dagre.graphlib.Graph();
-            this.graph.setGraph({
-                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
-            });
-            this.d3g.remove();
-            this.d3g = this.d3svg.append("g").attr("class", "graph");
-            _.each(nodes, this._addNodes, this);
-            _.each(nodes, this._addEdges, this);
-            this.render();
-        },
-
-        onZoom: function () {
-            this.d3g.attr("transform", d3.event.transform);
-            this.d3g.classed("zoomed-out", d3.event.transform.k < 0.3);
-        },
-
-        onEmptyClick: function () {
-            d3.event.stopImmediatePropagation();
-            this.deselect();
         },
 
         updateVisibility: function () {
@@ -177,104 +184,99 @@ THE SOFTWARE.
                 }
             } else {
                 visibleGraph = this.graph;
-                for (i = nodes.length; i--;)
+                for (i = nodes.length; i--;) {
                     this.graph.node(nodes[i]).visible = true;
+                }
+                    
                 for (i = edges.length; i--;)
                     this.graph.edge(edges[i]).visible = true;
             }
             return visibleGraph;
         },
 
-        layout: function (graph) {
-            dagre.layout(graph);
+        onReset: function (collection, options) {
+            var i, nodes = this.graph.nodes();
+            for (i = nodes.length; i--;)
+                this.stopListening(this.graph.node(nodes[i]));
+            this.graph = new dagre.graphlib.Graph();
+            this.graph.setGraph({
+                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
+            });
+            this.d3g.remove();
+            this.d3g = this.d3svg.append("g").attr("class", "graph");
+            collection.each(this.onAdd, this);
+            this.focus = null;
+            this.selection = null;
+            // this.render();
         },
 
-        _addNodes: function (node) {
-            var i, v, el = this.d3g.append("g").node(),
-                model = new Backbone.Model(node);
-            model.set({ id: "node:" + node.name, resourceType: "node" });
-            v = new views.ResourceNode({ el: el, model: model });
-            this.listenTo(v, "selected", this.onSelection);
-            this.graph.setNode(model.id, v);
-            // ----- publishers ------------------------------------------------
-            for (i = node.publishers.length; i--;) {
-                topic = node.publishers[i];
-                if (this.graph.hasNode("topic:" + topic)) continue;
-                model = new Backbone.Model({
-                    id: "topic:" + topic, name: topic, resourceType: "topic"
-                });
-                v = new views.ResourceNode({ el: this.d3g.append("g").node(), model: model });
-                this.listenTo(v, "selected", this.onSelection);
-                this.graph.setNode(model.id, v);
-            }
-            // ----- subscribers -----------------------------------------------
-            for (i = node.subscribers.length; i--;) {
-                topic = node.subscribers[i];
-                if (this.graph.hasNode("topic:" + topic)) continue;
-                model = new Backbone.Model({
-                    id: "topic:" + topic, name: topic, resourceType: "topic"
-                });
-                v = new views.ResourceNode({ el: this.d3g.append("g").node(), model: model });
-                this.listenTo(v, "selected", this.onSelection);
-                this.graph.setNode(model.id, v);
-            }
-            // ----- services --------------------------------------------------
-            for (i = node.servers.length; i--;) {
-                topic = node.servers[i];
-                if (this.graph.hasNode("service:" + topic)) continue;
-                model = new Backbone.Model({
-                    id: "service:" + topic, name: topic, resourceType: "service"
-                });
-                v = new views.ResourceNode({ el: this.d3g.append("g").node(), model: model });
-                this.listenTo(v, "selected", this.onSelection);
-                this.graph.setNode(model.id, v);
-            }
-            // ----- clients ---------------------------------------------------
-            for (i = node.clients.length; i--;) {
-                topic = node.clients[i];
-                if (this.graph.hasNode("service:" + topic)) continue;
-                model = new Backbone.Model({
-                    id: "service:" + topic, name: topic, resourceType: "service"
-                });
-                v = new views.ResourceNode({ el: this.d3g.append("g").node(), model: model });
-                this.listenTo(v, "selected", this.onSelection);
-                this.graph.setNode(model.id, v);
+        onAdd: function (model) {
+            var view, names = {};
+            model.set({ id: model.cid, resourceType: "node" });
+            view = new views.ResourceNode({
+                model: model, el: this.d3g.append("g").node()
+            });
+            this.listenTo(view, "selected", this.onSelection);
+            this.graph.setNode(model.id, view);
+            this._addLinkNodes(model.id, model.get("publishers"), "topic", names, "source");
+            this._addLinkNodes(model.id, model.get("subscribers"), "topic", names, "target");
+            this._addLinkNodes(model.id, model.get("servers"), "service", names, "target");
+            this._addLinkNodes(model.id, model.get("clients"), "service", names, "source");
+        },
+
+        _addLinkNodes: function (node, list, type, names, direction) {
+            var i = list.length, name, model, view;
+            while (i--) {
+                name = type + ":" + list[i];
+                if (!names.hasOwnProperty(name)) {
+                    model = new Backbone.Model({
+                        name: list[i], resourceType: type, conditions: []
+                    });
+                    model.set("id", model.cid);
+                    names[name] = model;
+                    view = new views.ResourceNode({
+                        model: model, el: this.d3g.append("g").node()
+                    });
+                    this.listenTo(view, "selected", this.onSelection);
+                    this.graph.setNode(model.id, view);
+                }
+                this._addEdge(node, model.id, direction);
             }
         },
 
-        _addEdges: function (model) {
-            var el, ds = model.get("dependencies"), i = ds.length;
-            while (i--) if (this.graph.hasNode(ds[i])) {
-                el = this.d3g.insert("path", ":first-child").classed("edge hidden", true);
-                this.graph.setEdge(model.id, ds[i], {
+        _addEdge: function (node, link, direction) {
+            var el = this.d3g.insert("path", ":first-child")
+                             .classed("edge hidden", true),
+                edge = {
                     d3path: el,
                     visible: false,
-                    source: this.graph.node(model.id),
-                    target: this.graph.node(ds[i]),
                     render: this.renderEdge
-                });
+                };
+            if (direction === "source") {
+                edge.source = this.graph.node(node);
+                edge.target = this.graph.node(link);
+                this.graph.setEdge(node, link, edge);
+            } else {
+                edge.target = this.graph.node(node);
+                edge.source = this.graph.node(link);
+                this.graph.setEdge(link, node, edge);
             }
         },
 
-        resetViewport: function () {
-            var ow = this.$graph.outerWidth() - 2 * this.spacing,      // size of container
-                oh = this.$graph.outerHeight() - 2 * this.spacing,
-                bbox = this.d3g.node().getBBox(),   // size needed by the graph
-                gw = Math.max(bbox.width | 0, this.spacing * 2),
-                gh = Math.max(bbox.height | 0, this.spacing * 2),
-                scale = Math.max(Math.min(ow/gw, oh/gh), 0.125),
-                w = gw * scale | 0,
-                h = gh * scale | 0,
-                tx = (ow - w) / 2 + this.spacing,
-                ty = (oh - h) / 2 + this.spacing;
-            // translate to center the graph
-            this.d3svg.call(this.zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        onZoom: function () {
+            this.d3g.attr("transform", d3.event.transform);
+            this.d3g.classed("zoomed-out", d3.event.transform.k < 0.3);
+        },
+
+        onEmptyClick: function () {
+            d3.event.stopImmediatePropagation();
+            this.deselect();
         },
 
         onSelection: function (id) {
             if (this.selection != null) {
                 this.selection.setClass("selected", false);
-                this.highlightNeighbours(this.selection.label, false);
+                this.highlightNeighbours(this.selection.model.id, false);
             }
             var v = this.graph.node(id);
             if (this.selection !== v) {
@@ -289,27 +291,6 @@ THE SOFTWARE.
                 this.$nodeActionBar.hide();
             }
         },
-
-        deselect: function () {
-            if (this.selection != null) {
-                this.selection.setClass("selected", false);
-                this.highlightNeighbours(this.selection.label, false);
-                this.selection = null;
-                this.d3g.classed("hovering", false);
-                this.$nodeActionBar.hide();
-            }
-        },
-
-        highlightNeighbours: function (node, highlight) {
-            var i, nodes = this.graph.neighbors(node),
-                edges = this.graph.nodeEdges(node);
-            for (i = nodes.length; i--;)
-                this.graph.node(nodes[i]).setClass("highlight", highlight);
-            for (i = edges.length; i--;)
-                this.graph.edge(edges[i]).d3path.classed("highlight", highlight);
-            return this;
-        },
-
 
         onFocus: function () {
             if (this.selection == null) return;
@@ -326,20 +307,57 @@ THE SOFTWARE.
             this.render();
         },
 
+        deselect: function () {
+            if (this.selection != null) {
+                this.selection.setClass("selected", false);
+                this.highlightNeighbours(this.selection.model.id, false);
+                this.selection = null;
+                this.d3g.classed("hovering", false);
+                this.$nodeActionBar.hide();
+            }
+        },
+
+        highlightNeighbours: function (node, highlight) {
+            var i, view, nodes = this.graph.neighbors(node),
+                edges = this.graph.nodeEdges(node);
+            for (i = nodes.length; i--;) {
+                view = this.graph.node(nodes[i]);
+                view.setClass("highlight", highlight);
+            }
+            for (i = edges.length; i--;)
+                this.graph.edge(edges[i]).d3path.classed("highlight", highlight);
+            return this;
+        },
+
 
         onInfo: function () {
             if (this.selection == null) return;
-            this.infoView.model = this.selection.model;
-            this.infoView.show();
+            if (this.selection.model.get("resourceType") === "node") {
+                this.infoView.model = this.selection.model;
+                this.infoView.show();
+            }
         },
 
 
         onResize: function () {
-            this.$graph.height(Math.min($(window).height() - 120, 800));
+            this.$el.height(Math.min($(window).height() - 120, 800));
             this.resetViewport();
         },
 
-        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
+        resetViewport: function () {
+            var ow = this.$el.outerWidth() - 2 * this.spacing,      // size of container
+                oh = this.$el.outerHeight() - 2 * this.spacing,
+                bbox = this.d3g.node().getBBox(),   // size needed by the graph
+                gw = Math.max(bbox.width | 0, this.spacing * 2),
+                gh = Math.max(bbox.height | 0, this.spacing * 2),
+                scale = Math.max(Math.min(ow/gw, oh/gh), 0.125),
+                w = gw * scale | 0,
+                h = gh * scale | 0,
+                tx = (ow - w) / 2 + this.spacing,
+                ty = (oh - h) / 2 + this.spacing;
+            // translate to center the graph
+            this.d3svg.call(this.zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        }
     });
 
 
@@ -357,7 +375,7 @@ THE SOFTWARE.
             _.bindAll(this, "onClick");
             this.label = this.model.get("name");
             this.visible = false;
-            this.conditional = !!this.model.get("conditions").length;
+            this.conditional = !!(this.model.get("conditions").length);
 
             this.d3g = d3.select(this.el).attr("class", "node").on("click", this.onClick);
             this.d3node = this.d3g.append("circle");
