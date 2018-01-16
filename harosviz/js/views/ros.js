@@ -174,13 +174,15 @@ THE SOFTWARE.
                 visibleGraph.setGraph(this.graph.graph());
                 for (i = nodes.length; i--;) {
                     v = this.graph.node(nodes[i]);
-                    v.visible = v === this.focus || this.graph.hasEdge(v.label, this.focus.label) ||
-                            this.graph.hasEdge(this.focus.label, v.label);
-                    if (v.visible) visibleGraph.setNode(v.label, v);
+                    v.visible = (v === this.focus
+                                 || this.graph.hasEdge(v.model.id, this.focus.model.id)
+                                 || this.graph.hasEdge(this.focus.model.id, v.model.id));
+                    if (v.visible) visibleGraph.setNode(v.model.id, v);
                 }
                 for (i = edges.length; i--;) {
                     v = this.graph.edge(edges[i]);
-                    v.visible = edges[i].v === this.focus.label || edges[i].w === this.focus.label;
+                    v.visible = (edges[i].v === this.focus.model.id
+                                 || edges[i].w === this.focus.model.id);
                     if (v.visible) visibleGraph.setEdge(edges[i], v);
                 }
             } else {
