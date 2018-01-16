@@ -114,6 +114,7 @@ THE SOFTWARE.
         initialize: function (options) {
             _.bindAll(this, "onEmptyClick", "onZoom");
             this.visible = false;
+            this.topics = {};
 
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
@@ -198,6 +199,7 @@ THE SOFTWARE.
             var i, nodes = this.graph.nodes();
             for (i = nodes.length; i--;)
                 this.stopListening(this.graph.node(nodes[i]));
+            this.topics = {};
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
                 nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
@@ -211,36 +213,36 @@ THE SOFTWARE.
         },
 
         onAdd: function (model) {
-            var view, names = {};
+            var view;
             model.set({ id: model.cid, resourceType: "node" });
             view = new views.ResourceNode({
                 model: model, el: this.d3g.append("g").node()
             });
             this.listenTo(view, "selected", this.onSelection);
             this.graph.setNode(model.id, view);
-            this._addLinkNodes(model.id, model.get("publishers"), "topic", names, "source");
-            this._addLinkNodes(model.id, model.get("subscribers"), "topic", names, "target");
-            this._addLinkNodes(model.id, model.get("servers"), "service", names, "target");
-            this._addLinkNodes(model.id, model.get("clients"), "service", names, "source");
+            this._addLinkNodes(model.id, model.get("publishers"), "topic", "source");
+            this._addLinkNodes(model.id, model.get("subscribers"), "topic", "target");
+            this._addLinkNodes(model.id, model.get("servers"), "service", "target");
+            this._addLinkNodes(model.id, model.get("clients"), "service", "source");
         },
 
-        _addLinkNodes: function (node, list, type, names, direction) {
+        _addLinkNodes: function (node, list, type, direction) {
             var i = list.length, name, model, view;
             while (i--) {
                 name = type + ":" + list[i];
-                if (!names.hasOwnProperty(name)) {
+                if (!this.topics.hasOwnProperty(name)) {
                     model = new Backbone.Model({
                         name: list[i], resourceType: type, conditions: []
                     });
                     model.set("id", model.cid);
-                    names[name] = model;
+                    this.topics[name] = model;
                     view = new views.ResourceNode({
                         model: model, el: this.d3g.append("g").node()
                     });
                     this.listenTo(view, "selected", this.onSelection);
                     this.graph.setNode(model.id, view);
                 }
-                this._addEdge(node, model.id, direction);
+                this._addEdge(node, this.topics[name].id, direction);
             }
         },
 
