@@ -475,7 +475,7 @@ svg {
 
 #package-graph .node.focus,
 #config-graph .node.focus {
-	stroke-width: 8px;
+	/* stroke-width: 4px; */
 	/*stroke: #104227;*/
 }
 
@@ -486,7 +486,7 @@ svg {
 
 #package-graph .graph.hovering .node.selected circle,
 #config-graph .graph.hovering .node.selected circle {
-	stroke-width: 8px;
+	/* stroke-width: 4px; */
 	/*stroke: #0F4BFF;*/
 	/* stroke: #386AFF; */
 	stroke: #007AFF;
@@ -499,7 +499,7 @@ svg {
 
 #package-graph .graph .node.focus circle,
 #config-graph .graph .node.focus circle {
-	stroke-width: 8px;
+	/* stroke-width: 4px; */
 	/*stroke: #104227;*/
 }
 
@@ -515,7 +515,7 @@ svg {
 
 #package-graph .graph.hovering .edge.selected,
 #config-graph .graph.hovering .edge.selected {
-	stroke-width: 6px;
+	/* stroke-width: 4px; */
 	/* stroke: #386AFF; */
 	stroke: #007AFF;
 }
@@ -539,7 +539,7 @@ svg {
 
 #package-graph .graph.hovering .node.highlight circle,
 #config-graph .graph.hovering .node.highlight circle {
-	stroke-width: 8px;
+	/* stroke-width: 4px; */
 	/* stroke: #A4011B; */
 	stroke: #3C763D;
 	/*fill: #FFE0E5;*/
@@ -554,7 +554,7 @@ svg {
 #config-graph .graph.hovering .edge.highlight {
 	/* stroke: #A4011B; */
 	stroke: #3C763D;
-	stroke-width: 4px;
+	/* stroke-width: 4px; */
     opacity: 1;
 }
 

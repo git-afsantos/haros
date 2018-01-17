@@ -51,7 +51,7 @@ THE SOFTWARE.
             this.focus = null;
             this.selection = null;
             this.onZoom = _.bind(this.onZoom, this);
-            this.zoom = d3.zoom().scaleExtent([0.125, 8]).on("zoom", this.onZoom);
+            this.zoom = d3.zoom().scaleExtent([0.125, 4]).on("zoom", this.onZoom);
             this.d3svg = d3.select(this.$graph[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             this.d3svg.on("click", this.onEmptyClick);
@@ -192,7 +192,7 @@ THE SOFTWARE.
                 bbox = this.d3g.node().getBBox(),   // size needed by the graph
                 gw = Math.max(bbox.width | 0, this.spacing * 2),
                 gh = Math.max(bbox.height | 0, this.spacing * 2),
-                scale = Math.max(Math.min(ow/gw, oh/gh), 0.125),
+                scale = Math.min(Math.max(Math.min(ow/gw, oh/gh), 0.125), 4),
                 w = gw * scale | 0,
                 h = gh * scale | 0,
                 tx = (ow - w) / 2 + this.spacing,

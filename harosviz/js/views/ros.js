@@ -126,6 +126,7 @@ THE SOFTWARE.
             this.d3svg = d3.select(this.$el[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             this.d3svg.on("click", this.onEmptyClick);
+            this._genArrowhead();
 
             this.$nodeActionBar = this.$("#config-node-action-bar");
             this.$nodeActionBar.hide();
@@ -154,12 +155,17 @@ THE SOFTWARE.
         },
 
         renderEdge: function () {
-            var path;
+            var path, diffX, diffY, pathLength, offsetX, offsetY;
             this.d3path.classed("hidden", !this.visible);
             if (this.visible) {
+                diffX = this.target.x - this.source.x;
+                diffY = this.target.y - this.source.y;
+                pathLength = Math.sqrt((diffX * diffX) + (diffY * diffY));
+                offsetX = (diffX * this.target.radius) / pathLength;
+                offsetY = (diffY * this.target.radius) / pathLength;
                 path = d3.path();
                 path.moveTo(this.source.x, this.source.y);
-                path.lineTo(this.target.x, this.target.y);
+                path.lineTo(this.target.x - offsetX, this.target.y - offsetY);
                 this.d3path.attr("d", path);
             }
             return this;
@@ -250,7 +256,8 @@ THE SOFTWARE.
 
         _addEdge: function (node, link, direction) {
             var el = this.d3g.insert("path", ":first-child")
-                             .classed("edge hidden", true),
+                             .classed("edge hidden", true)
+                             .attr("marker-end", "url(#arrowhead)"),
                 edge = {
                     d3path: el,
                     visible: false,
@@ -361,6 +368,21 @@ THE SOFTWARE.
                 ty = (oh - h) / 2 + this.spacing;
             // translate to center the graph
             this.d3svg.call(this.zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+        },
+
+        _genArrowhead: function () {
+            var defs = this.d3svg.append("defs"),
+                marker = defs.append("marker"),
+                path = marker.append("path");
+            marker.attr("id", "arrowhead");
+            marker.attr("viewBox", "0 -5 10 10");
+            marker.attr("refX", 12);
+            marker.attr("refY", 0);
+            marker.attr("markerUnits", "userSpaceOnUse");
+            marker.attr("markerWidth", 8);
+            marker.attr("markerHeight", 8);
+            marker.attr("orient", "auto");
+            path.attr("d", "M0,-5 L10,0 L0,5");
         }
     });
 
@@ -376,7 +398,7 @@ THE SOFTWARE.
         },
 
         initialize: function (options) {
-            _.bindAll(this, "onClick");
+            _.bindAll(this, "onClick", "onDrag", "onDragEnd");
             this.label = this.model.get("name");
             this.visible = false;
             this.conditional = !!(this.model.get("conditions").length);
@@ -387,6 +409,9 @@ THE SOFTWARE.
 
             this.d3g.classed("conditional", this.conditional);
             this.d3node.attr("style", "fill: " + this.colours[this.model.get("resourceType")] + ";");
+            this.d3g.call(d3.drag()
+                            .on("drag", this.onDrag)
+                            .on("end", this.onDragEnd));
 
             this.height = 32;
             this.width = this.height;
@@ -410,6 +435,15 @@ THE SOFTWARE.
                 this.d3text.attr("x", this.x).attr("y", this.y);
             }
             return this;
+        },
+
+        onDrag: function (d) {
+            this.x = d3.event.x;
+            this.y = d3.event.y;
+        },
+
+        onDragEnd: function (d) {
+            this.trigger("drag", this);
         }
     });
 
