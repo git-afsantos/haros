@@ -467,16 +467,12 @@ svg {
 
 #package-graph .node circle,
 #config-graph .node circle {
-    /* fill: #FFF2CC; */
     stroke-width: 2px;
-    /* stroke: #A16D00; */
     stroke: #8A6D3B;
 }
 
-#package-graph .node.focus,
-#config-graph .node.focus {
-	/* stroke-width: 4px; */
-	/*stroke: #104227;*/
+#package-graph .node.focus {
+	stroke-width: 4px;
 }
 
 #package-graph .node.conditional,
@@ -486,21 +482,15 @@ svg {
 
 #package-graph .graph.hovering .node.selected circle,
 #config-graph .graph.hovering .node.selected circle {
-	/* stroke-width: 4px; */
-	/*stroke: #0F4BFF;*/
-	/* stroke: #386AFF; */
 	stroke: #007AFF;
-	/*-webkit-animation: stroke-pulse 2s infinite;
-	-moz-animation: stroke-pulse 2s infinite;
-	-o-animation: stroke-pulse 2s infinite;
-	animation: stroke-pulse 2s infinite;*/
-	/*fill: #B3ECFF;*/
 }
 
-#package-graph .graph .node.focus circle,
-#config-graph .graph .node.focus circle {
-	/* stroke-width: 4px; */
-	/*stroke: #104227;*/
+#package-graph .graph.hovering .node.selected circle {
+	stroke-width: 4px;
+}
+
+#package-graph .graph .node.focus circle {
+	stroke-width: 4px;
 }
 
 #package-graph .edge,
@@ -509,15 +499,16 @@ svg {
 	stroke-width: 2px;
 	stroke: #D19D00;
 	stroke-linejoin: round;
-/*	marker-end: url(#markerDot);*/
 }
 
 
 #package-graph .graph.hovering .edge.selected,
 #config-graph .graph.hovering .edge.selected {
-	/* stroke-width: 4px; */
-	/* stroke: #386AFF; */
 	stroke: #007AFF;
+}
+
+#package-graph .graph.hovering .edge.selected {
+	stroke-width: 4px;
 }
 
 #package-graph .graph.hovering .node,
@@ -539,10 +530,11 @@ svg {
 
 #package-graph .graph.hovering .node.highlight circle,
 #config-graph .graph.hovering .node.highlight circle {
-	/* stroke-width: 4px; */
-	/* stroke: #A4011B; */
 	stroke: #3C763D;
-	/*fill: #FFE0E5;*/
+}
+
+#package-graph .graph.hovering .node.highlight circle {
+	stroke-width: 4px;
 }
 
 #package-graph .graph.hovering .node.highlight,
@@ -552,10 +544,17 @@ svg {
 
 #package-graph .graph.hovering .edge.highlight,
 #config-graph .graph.hovering .edge.highlight {
-	/* stroke: #A4011B; */
 	stroke: #3C763D;
-	/* stroke-width: 4px; */
     opacity: 1;
+}
+
+#package-graph .graph.hovering .edge.highlight {
+	stroke-width: 4px;
+}
+
+#package-graph .graph .node.dragging circle,
+#config-graph .graph .node.dragging circle {
+	stroke: #007AFF !important;
 }
 
 

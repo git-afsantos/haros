@@ -227,6 +227,7 @@ THE SOFTWARE.
                 model: model, el: this.d3g.append("g").node()
             });
             this.listenTo(view, "selected", this.onSelection);
+            this.listenTo(view, "drag", this.onDrag);
             this.graph.setNode(model.id, view);
             this._addLinkNodes(model.id, model.get("publishers"), "topic", "source");
             this._addLinkNodes(model.id, model.get("subscribers"), "topic", "target");
@@ -248,6 +249,7 @@ THE SOFTWARE.
                         model: model, el: this.d3g.append("g").node()
                     });
                     this.listenTo(view, "selected", this.onSelection);
+                    this.listenTo(view, "drag", this.onDrag);
                     this.graph.setNode(model.id, view);
                 }
                 this._addEdge(node, this.topics[name].id, direction);
@@ -257,7 +259,7 @@ THE SOFTWARE.
         _addEdge: function (node, link, direction) {
             var el = this.d3g.insert("path", ":first-child")
                              .classed("edge hidden", true)
-                             .attr("marker-end", "url(#arrowhead)"),
+                             .attr("marker-end", "url(#config-arrowhead)"),
                 edge = {
                     d3path: el,
                     visible: false,
@@ -329,15 +331,20 @@ THE SOFTWARE.
         },
 
         highlightNeighbours: function (node, highlight) {
-            var i, view, nodes = this.graph.neighbors(node),
+            var i, nodes = this.graph.neighbors(node),
                 edges = this.graph.nodeEdges(node);
-            for (i = nodes.length; i--;) {
-                view = this.graph.node(nodes[i]);
-                view.setClass("highlight", highlight);
-            }
+            for (i = nodes.length; i--;)
+                this.graph.node(nodes[i]).setClass("highlight", highlight);
             for (i = edges.length; i--;)
                 this.graph.edge(edges[i]).d3path.classed("highlight", highlight);
             return this;
+        },
+
+        onDrag: function (node) {
+            var i, edges = this.graph.nodeEdges(node.model.id);
+            node.render();
+            for (i = edges.length; i--;)
+                this.graph.edge(edges[i]).render();
         },
 
 
@@ -374,7 +381,7 @@ THE SOFTWARE.
             var defs = this.d3svg.append("defs"),
                 marker = defs.append("marker"),
                 path = marker.append("path");
-            marker.attr("id", "arrowhead");
+            marker.attr("id", "config-arrowhead");
             marker.attr("viewBox", "0 -5 10 10");
             marker.attr("refX", 12);
             marker.attr("refY", 0);
@@ -398,7 +405,7 @@ THE SOFTWARE.
         },
 
         initialize: function (options) {
-            _.bindAll(this, "onClick", "onDrag", "onDragEnd");
+            _.bindAll(this, "onClick", "onDrag", "onDragStart", "onDragEnd");
             this.label = this.model.get("name");
             this.visible = false;
             this.conditional = !!(this.model.get("conditions").length);
@@ -410,6 +417,7 @@ THE SOFTWARE.
             this.d3g.classed("conditional", this.conditional);
             this.d3node.attr("style", "fill: " + this.colours[this.model.get("resourceType")] + ";");
             this.d3g.call(d3.drag()
+                            .on("start", this.onDragStart)
                             .on("drag", this.onDrag)
                             .on("end", this.onDragEnd));
 
@@ -437,12 +445,17 @@ THE SOFTWARE.
             return this;
         },
 
+        onDragStart: function (d) {
+            this.d3g.classed("dragging", true);
+        },
+
         onDrag: function (d) {
             this.x = d3.event.x;
             this.y = d3.event.y;
         },
 
         onDragEnd: function (d) {
+            this.d3g.classed("dragging", false);
             this.trigger("drag", this);
         }
     });

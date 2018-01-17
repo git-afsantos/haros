@@ -55,6 +55,7 @@ THE SOFTWARE.
             this.d3svg = d3.select(this.$graph[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             this.d3svg.on("click", this.onEmptyClick);
+            this._genArrowhead();
 
             this.listenTo(this.collection, "sync", this.onSync);
             // this.listenTo(this.collection, "add", this.onAdd);
@@ -130,7 +131,9 @@ THE SOFTWARE.
         _addEdges: function (model) {
             var el, ds = model.get("dependencies"), i = ds.length;
             while (i--) if (this.graph.hasNode(ds[i])) {
-                el = this.d3g.insert("path", ":first-child").classed("edge hidden", true);
+                el = this.d3g.insert("path", ":first-child")
+                             .classed("edge hidden", true)
+                             .attr("marker-end", "url(#pkg-arrowhead)");
                 this.graph.setEdge(model.id, ds[i], {
                     d3path: el,
                     visible: false,
@@ -175,12 +178,17 @@ THE SOFTWARE.
         },
 
         renderEdge: function () {
-            var path;
+            var path, diffX, diffY, pathLength, offsetX, offsetY;
             this.d3path.classed("hidden", !this.visible);
             if (this.visible) {
+                diffX = this.target.x - this.source.x;
+                diffY = this.target.y - this.source.y;
+                pathLength = Math.sqrt((diffX * diffX) + (diffY * diffY));
+                offsetX = (diffX * this.target.radius) / pathLength;
+                offsetY = (diffY * this.target.radius) / pathLength;
                 path = d3.path();
                 path.moveTo(this.source.x, this.source.y);
-                path.lineTo(this.target.x, this.target.y);
+                path.lineTo(this.target.x - offsetX, this.target.y - offsetY);
                 this.d3path.attr("d", path);
             }
             return this;
@@ -304,6 +312,21 @@ THE SOFTWARE.
         onResize: function () {
             this.$graph.height(Math.min($(window).height() - 80, 800));
             this.resetViewport();
+        },
+
+        _genArrowhead: function () {
+            var defs = this.d3svg.append("defs"),
+                marker = defs.append("marker"),
+                path = marker.append("path");
+            marker.attr("id", "pkg-arrowhead");
+            marker.attr("viewBox", "0 -5 10 10");
+            marker.attr("refX", 10);
+            marker.attr("refY", 0);
+            marker.attr("markerUnits", "userSpaceOnUse");
+            marker.attr("markerWidth", 16);
+            marker.attr("markerHeight", 16);
+            marker.attr("orient", "auto");
+            path.attr("d", "M0,-5 L10,0 L0,5");
         }
     });
 
