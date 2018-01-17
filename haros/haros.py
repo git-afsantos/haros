@@ -502,6 +502,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 if not launch:
                     raise ValueError("unknown launch file: " + launch_file)
                 builder.add_launch(launch)
+            for msg in builder.errors:
+                self.log.warning("Configuration %s: %s",
+                                 builder.configuration.name, msg)
             project.configurations.append(builder.configuration)
             self.database.configurations.append(builder.configuration)
 
