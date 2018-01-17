@@ -107,6 +107,8 @@ THE SOFTWARE.
         spacing: 16,
 
         events: {
+            "click #config-btn-viewport":   "render",
+            "click #config-btn-drag":       "onSetDrag",
             "click #config-btn-focus":      "onFocus",
             "click #config-btn-info":       "onInfo"
         },
@@ -122,6 +124,7 @@ THE SOFTWARE.
             });
             this.focus = null;
             this.selection = null;
+            this.allowDrag = false;
             this.zoom = d3.zoom().scaleExtent([0.125, 4]).on("zoom", this.onZoom);
             this.d3svg = d3.select(this.$el[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
@@ -340,11 +343,19 @@ THE SOFTWARE.
             return this;
         },
 
+        onSetDrag: function () {
+            this.allowDrag = !this.allowDrag;
+        },
+
         onDrag: function (node) {
-            var i, edges = this.graph.nodeEdges(node.model.id);
-            node.render();
-            for (i = edges.length; i--;)
-                this.graph.edge(edges[i]).render();
+            if (this.allowDrag) {
+                var i, edges = this.graph.nodeEdges(node.model.id);
+                node.x = node.dragx;
+                node.y = node.dragy;
+                node.render();
+                for (i = edges.length; i--;)
+                    this.graph.edge(edges[i]).render();
+            }
         },
 
 
@@ -420,6 +431,8 @@ THE SOFTWARE.
                             .on("start", this.onDragStart)
                             .on("drag", this.onDrag)
                             .on("end", this.onDragEnd));
+            this.dragx = 0;
+            this.dragy = 0;
 
             this.height = 32;
             this.width = this.height;
@@ -446,12 +459,14 @@ THE SOFTWARE.
         },
 
         onDragStart: function (d) {
+            this.dragx = this.x;
+            this.dragy = this.y;
             this.d3g.classed("dragging", true);
         },
 
         onDrag: function (d) {
-            this.x = d3.event.x;
-            this.y = d3.event.y;
+            this.dragx = d3.event.x;
+            this.dragy = d3.event.y;
         },
 
         onDragEnd: function (d) {
