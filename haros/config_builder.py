@@ -197,7 +197,8 @@ class LaunchScope(object):
                               message_type = call.type)
                 self.configuration.topics.add(topic)
             link = PubSubPrimitive(self.node, topic, call.type,
-                                   rosname, call.queue_size,
+                                   RosName(call.name, ns, pns),
+                                   call.queue_size,
                                    conditions = call.conditions)
             self.node.publishers.append(link)
             topic.publishers.append(link)
@@ -211,7 +212,8 @@ class LaunchScope(object):
                               message_type = call.type)
                 self.configuration.topics.add(topic)
             link = PubSubPrimitive(self.node, topic, call.type,
-                                   rosname, call.queue_size,
+                                   RosName(call.name, ns, pns),
+                                   call.queue_size,
                                    conditions = call.conditions)
             self.node.subscribers.append(link)
             topic.subscribers.append(link)
@@ -228,7 +230,8 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
-            link = ServicePrimitive(self.node, topic, call.type, rosname,
+            link = ServicePrimitive(self.node, topic, call.type,
+                                    RosName(call.name, ns, pns),
                                     conditions = call.conditions)
             self.node.servers.append(link)
             service.server = link
@@ -241,7 +244,8 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
-            link = ServicePrimitive(self.node, topic, call.type, rosname,
+            link = ServicePrimitive(self.node, topic, call.type,
+                                    RosName(call.name, ns, pns),
                                     conditions = call.conditions)
             self.node.clients.append(link)
             service.clients.append(link)
@@ -349,9 +353,9 @@ class LaunchScope(object):
         if link:
             if not link.node.conditions:
                 service.conditions = link.conditions
-                break
-            service.conditions.extend(link.node.conditions)
-            service.conditions.extend(link.conditions)
+            else:
+                service.conditions.extend(link.node.conditions)
+                service.conditions.extend(link.conditions)
         for link in service.clients:
             if not link.node.conditions:
                 service.conditions = link.conditions

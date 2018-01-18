@@ -80,6 +80,13 @@ class SourceCondition(object):
             return self.location.file.language
         return "unknown"
 
+    def to_JSON_object(self):
+        return {
+            "condition": str(self.condition),
+            "location": (self.location.to_JSON_object()
+                         if self.location else None)
+        }
+
     def __str__(self):
         return str(self.condition)
 
@@ -711,11 +718,11 @@ class NodeInstance(Resource):
             "name": self.id,
             "type": self.node.node_name,
             "args": self.argv,
-            "conditions": [str(c) for c in self.conditions],
-            "publishers": [p.topic_name for p in self.publishers],
-            "subscribers": [p.topic_name for p in self.subscribers],
-            "servers": [p.topic_name for p in self.servers],
-            "clients": [p.topic_name for p in self.clients]
+            "conditions": [c.to_JSON_object() for c in self.conditions],
+            "publishers": [p.to_JSON_object() for p in self.publishers],
+            "subscribers": [p.to_JSON_object() for p in self.subscribers],
+            "servers": [p.to_JSON_object() for p in self.servers],
+            "clients": [p.to_JSON_object() for p in self.clients]
         }
 
     def __repr__(self):
@@ -795,6 +802,15 @@ class PubSubPrimitive(object):
     def location(self):
         return self.node.location
 
+    def to_JSON_object(self):
+        return {
+            "topic": self.topic_name,
+            "name": self.rosname.full,
+            "type": self.type,
+            "queue": self.queue_size,
+            "conditions": [c.to_JSON_object() for c in self.conditions]
+        }
+
     def __repr__(self):
         return self.__str__()
 
@@ -818,6 +834,14 @@ class ServicePrimitive(object):
     @property
     def location(self):
         return self.node.location
+
+    def to_JSON_object(self):
+        return {
+            "topic": self.topic_name,
+            "name": self.rosname.full,
+            "type": self.type,
+            "conditions": [c.to_JSON_object() for c in self.conditions]
+        }
 
     def __repr__(self):
         return self.__str__()

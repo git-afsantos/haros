@@ -494,7 +494,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 parts = launch_file.split(os.sep, 1)
                 if not len(parts) == 2:
                     raise ValueError("invalid launch file: " + launch_file)
-                pkg = self.database.packages.get(parts[0])
+                pkg = self.database.packages.get("package:" + parts[0])
                 if not pkg:
                     raise ValueError("unknown package: " + parts[0])
                 path = os.path.join(pkg.path, parts[1])

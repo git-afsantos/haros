@@ -91,7 +91,8 @@ class PluginInterface(LoggingObject):
             self._exported.add(target)
 
     def find_package(self, scope_id):
-        return self._data.packages.get(scope_id)
+        pkgs = self._data.packages
+        return pkgs.get(scope_id, pkgs.get("package:" + scope_id))
 
     def report_violation(self, rule_id, msg, scope = None,
                          line = None, function = None, class_ = None):
