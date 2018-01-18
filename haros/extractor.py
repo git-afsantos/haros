@@ -31,10 +31,11 @@ from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
 import yaml
 
-from bonsai.model import CodeGlobalScope
+from bonsai.model import CodeGlobalScope, pretty_str
 from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
 from bonsai.analysis import (
-    CodeQuery, resolve_reference, resolve_expression, get_control_depth
+    CodeQuery, resolve_reference, resolve_expression, get_control_depth,
+    get_conditions
 )
 try:
     from bonsai.cpp.clang_parser import CppAstParser
@@ -45,7 +46,7 @@ from rospkg import RosPack, RosStack, ResourceNotFound
 from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
 from .metamodel import (
-    Project, Repository, Package, SourceFile, Node, Person,
+    Project, Repository, Package, SourceFile, Node, Person, SourceCondition,
     Publication, Subscription, ServiceServerCall, ServiceClientCall, Location
 )
 from .util import cwd
@@ -655,8 +656,10 @@ class NodeExtractor(LoggingObject):
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        pub = Publication(name, ns, msg_type, queue_size,
-                          control_depth = depth, location = location)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        pub = Publication(name, ns, msg_type, queue_size, location = location,
+                          control_depth = depth, conditions = conditions)
         node.advertise.append(pub)
         self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
@@ -668,8 +671,10 @@ class NodeExtractor(LoggingObject):
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        sub = Subscription(name, ns, msg_type, queue_size,
-                           control_depth = depth, location = location)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        sub = Subscription(name, ns, msg_type, queue_size, location = location,
+                           control_depth = depth, conditions = conditions)
         node.subscribe.append(sub)
         self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
 
@@ -680,8 +685,10 @@ class NodeExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        srv = ServiceServerCall(name, ns, msg_type,
-                                control_depth = depth, location = location)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        srv = ServiceServerCall(name, ns, msg_type, location = location,
+                                control_depth = depth, conditions = conditions)
         node.service.append(srv)
         self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
 
@@ -692,8 +699,10 @@ class NodeExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        cli = ServiceClientCall(name, ns, msg_type,
-                                control_depth = depth, location = location)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        cli = ServiceClientCall(name, ns, msg_type, location = location,
+                                control_depth = depth, conditions = conditions)
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 

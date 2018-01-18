@@ -69,14 +69,33 @@ class DependencySet(object):
         return not self.__eq__(other)
 
 
+class SourceCondition(object):
+    def __init__(self, condition, location = None):
+        self.condition = condition
+        self.location = location
+
+    @property
+    def language(self):
+        if self.location and self.location.file:
+            return self.location.file.language
+        return "unknown"
+
+    def __str__(self):
+        return str(self.condition)
+
+    def __repr__(self):
+        return self.__str__()
+
+
 class RosPrimitiveCall(object):
     """"Base class for calls to ROS primitives."""
-    def __init__(self, name, namespace, msg_type, control_depth = 0,
-                 location = None):
+    def __init__(self, name, namespace, msg_type, control_depth = None,
+                 conditions = None, location = None):
         self.name = name
         self.namespace = namespace
         self.type = msg_type
-        self.control_depth = control_depth
+        self.conditions = conditions if not conditions is None else []
+        self.control_depth = control_depth or len(self.conditions)
         self.location = location
 
     def __str__(self):
@@ -90,18 +109,18 @@ class RosPrimitiveCall(object):
 
 class Publication(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = 0, location = None):
+                 control_depth = None, conditions = None, location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
-                                  location = location)
+                                  conditions = conditions, location = location)
         self.queue_size = queue_size
 
 class Subscription(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = 0, location = None):
+                 control_depth = None, conditions = None, location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
-                                  location = location)
+                                  conditions = conditions, location = location)
         self.queue_size = queue_size
 
 class ServiceServerCall(RosPrimitiveCall):
@@ -759,12 +778,14 @@ class Parameter(Resource):
 
 
 class PubSubPrimitive(object):
-    def __init__(self, node, topic, message_type, rosname, queue_size):
+    def __init__(self, node, topic, message_type, rosname, queue_size,
+                 conditions = None):
         self.node = node
         self.topic = topic
         self.type = message_type
         self.rosname = rosname  # before remappings
         self.queue_size = queue_size
+        self.conditions = conditions if not conditions is None else []
 
     @property
     def topic_name(self):
@@ -782,11 +803,13 @@ class PubSubPrimitive(object):
                                            self.type)
 
 class ServicePrimitive(object):
-    def __init__(self, node, service, message_type, rosname):
+    def __init__(self, node, service, message_type, rosname,
+                 conditions = None):
         self.node = node
         self.service = service
         self.type = message_type
         self.rosname = rosname  # before remappings
+        self.conditions = conditions if not conditions is None else []
 
     @property
     def topic_name(self):

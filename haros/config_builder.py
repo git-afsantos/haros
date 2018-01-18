@@ -45,7 +45,7 @@ rosparam = None # lazy import
 from .launch_parser import SubstitutionError, SubstitutionParser
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter,
-    Topic, Service, PubSubPrimitive, ServicePrimitive
+    Topic, Service, PubSubPrimitive, ServicePrimitive, SourceCondition
 )
 
 
@@ -196,11 +196,12 @@ class LaunchScope(object):
                 topic = Topic(self.configuration, rosname,
                               message_type = call.type)
                 self.configuration.topics.add(topic)
-            topic.conditions.extend(self.node.conditions)
-            link = PubSubPrimitive(self.node, topic, call.type, rosname,
-                                   call.queue_size)
+            link = PubSubPrimitive(self.node, topic, call.type,
+                                   rosname, call.queue_size,
+                                   conditions = call.conditions)
             self.node.publishers.append(link)
             topic.publishers.append(link)
+            self._update_topic_conditions(topic)
         for call in self.node.node.subscribe:
             ns = call.namespace or self.namespace
             rosname = RosName(call.name, ns, pns, self.node.remaps)
@@ -209,11 +210,12 @@ class LaunchScope(object):
                 topic = Topic(self.configuration, rosname,
                               message_type = call.type)
                 self.configuration.topics.add(topic)
-            topic.conditions.extend(self.node.conditions)
-            link = PubSubPrimitive(self.node, topic, call.type, rosname,
-                                   call.queue_size)
+            link = PubSubPrimitive(self.node, topic, call.type,
+                                   rosname, call.queue_size,
+                                   conditions = call.conditions)
             self.node.subscribers.append(link)
             topic.subscribers.append(link)
+            self._update_topic_conditions(topic)
 
     def make_services(self):
         assert not self.node is None
@@ -226,10 +228,11 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
-            service.conditions.extend(self.node.conditions)
-            link = ServicePrimitive(self.node, topic, call.type, rosname)
+            link = ServicePrimitive(self.node, topic, call.type, rosname,
+                                    conditions = call.conditions)
             self.node.servers.append(link)
             service.server = link
+            self._update_service_conditions(service)
         for call in self.node.node.client:
             ns = call.namespace or self.namespace
             rosname = RosName(call.name, ns, pns, self.node.remaps)
@@ -238,10 +241,11 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
-            service.conditions.extend(self.node.conditions)
-            link = ServicePrimitive(self.node, topic, call.type, rosname)
+            link = ServicePrimitive(self.node, topic, call.type, rosname,
+                                    conditions = call.conditions)
             self.node.clients.append(link)
             service.clients.append(link)
+            self._update_service_conditions(service)
 
     # as seen in roslaunch code, sans a few details
     def _convert_value(self, value, ptype):
@@ -323,6 +327,37 @@ class LaunchScope(object):
         if ns[-1] == "/":
             return ns + name
         return ns + "/" + name
+
+    def _update_topic_conditions(self, topic):
+        topic.conditions = []
+        for link in topic.publishers:
+            if not link.node.conditions:
+                topic.conditions = link.conditions
+                break
+            topic.conditions.extend(link.node.conditions)
+            topic.conditions.extend(link.conditions)
+        for link in topic.subscribers:
+            if not link.node.conditions:
+                topic.conditions = link.conditions
+                break
+            topic.conditions.extend(link.node.conditions)
+            topic.conditions.extend(link.conditions)
+
+    def _update_service_conditions(self, service):
+        service.conditions = []
+        link = service.server
+        if link:
+            if not link.node.conditions:
+                service.conditions = link.conditions
+                break
+            service.conditions.extend(link.node.conditions)
+            service.conditions.extend(link.conditions)
+        for link in service.clients:
+            if not link.node.conditions:
+                service.conditions = link.conditions
+                break
+            service.conditions.extend(link.node.conditions)
+            service.conditions.extend(link.conditions)
 
 
 ###############################################################################
@@ -492,7 +527,8 @@ class ConfigurationBuilder(object):
         value = sub.resolve(condition[1])
         if value is None:
             # not sure if tag is part of the configuration
-            return condition[1] # UnresolvedValue
+            return SourceCondition(condition[1], # UnresolvedValue
+                                   location = config.roslaunch[-1].location)
         if value is condition[0]:
             # tag is part of the configuration
             return True
