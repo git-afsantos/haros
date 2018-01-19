@@ -507,13 +507,29 @@ THE SOFTWARE.
     </script>
 
     <script type="text/template" id="ros-board-info-modal">
-        <h4 class="title"><%= data.name %></h4>
+        <h4 class="title"><%= data.name %> <span class="info"><%= data.resourceType %></span></h4>
         <span class="info"><%= data.type %></span>
         <hr>
         <p>
             <i class="fa fa-terminal bullet-icon"></i>
             <strong>Arguments:</strong>
-            <%= data.args.join(" ") || "(none)" %>
+            <%= data.args || "(none)" %>
+        </p>
+        <p>
+            <i class="fa fa-asterisk bullet-icon"></i>
+            <strong>Conditions:</strong>
+            <% if (!data.conditions.length) print("(none)");
+            for (var i = 0; i < data.conditions.length; ++i)
+                print('<br/><span class="code">' + data.conditions[i].condition
+                      + "</span> in <i>"
+                      + data.conditions[i].location.package
+                      + (data.conditions[i].location.file
+                         ? "/" + data.conditions[i].location.file : "")
+                      + "</i>"
+                      + (data.conditions[i].location.line
+                         ? ", line " + data.conditions[i].location.line : "")
+                      + "\n");
+            %>
         </p>
     </script>
 </body>

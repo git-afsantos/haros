@@ -778,7 +778,7 @@ class NodeExtractor(LoggingObject):
                     type_string = type_string[:-8]
         if type_string.startswith("boost::function"):
             type_string = type_string[52:-25]
-        return type_string
+        return type_string.replace("::", "/")
 
     def _extract_queue_size(self, call):
         queue_size = resolve_expression(call.arguments[1])
