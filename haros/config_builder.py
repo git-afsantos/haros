@@ -189,7 +189,7 @@ class LaunchScope(object):
         assert not self.node is None
         pns = self.private_ns
         for call in self.node.node.advertise:
-            ns = call.namespace or self.namespace
+            ns = self._call_ns(call.namespace)
             rosname = RosName(call.name, ns, pns, self.node.remaps)
             topic = self.configuration.topics.get(rosname.full)
             if topic is None:
@@ -204,7 +204,7 @@ class LaunchScope(object):
             topic.publishers.append(link)
             self._update_topic_conditions(topic)
         for call in self.node.node.subscribe:
-            ns = call.namespace or self.namespace
+            ns = self._call_ns(call.namespace)
             rosname = RosName(call.name, ns, pns, self.node.remaps)
             topic = self.configuration.topics.get(rosname.full)
             if topic is None:
@@ -223,7 +223,7 @@ class LaunchScope(object):
         assert not self.node is None
         pns = self.private_ns
         for call in self.node.node.service:
-            ns = call.namespace or self.namespace
+            ns = self._call_ns(call.namespace)
             rosname = RosName(call.name, ns, pns, self.node.remaps)
             service = self.configuration.services.get(rosname.full)
             if service is None:
@@ -237,7 +237,7 @@ class LaunchScope(object):
             service.server = link
             self._update_service_conditions(service)
         for call in self.node.node.client:
-            ns = call.namespace or self.namespace
+            ns = self._call_ns(call.namespace)
             rosname = RosName(call.name, ns, pns, self.node.remaps)
             service = self.configuration.services.get(rosname.full)
             if service is None:
@@ -331,6 +331,13 @@ class LaunchScope(object):
         if ns[-1] == "/":
             return ns + name
         return ns + "/" + name
+
+    def _call_ns(self, ns):
+        if not ns:
+            return self.namespace
+        if ns == "~":
+            return self.private_ns
+        return RosName.resolve(ns, self.namespace, self.private_ns)
 
     def _update_topic_conditions(self, topic):
         topic.conditions = []
