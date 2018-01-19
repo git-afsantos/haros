@@ -548,8 +548,8 @@ class ConfigurationBuilder(object):
                 if len(args) < 3:
                     raise ConfigurationError("nodelet load: too few arguments")
                 pkg, exe = args[1].split("/")
-        node = self.sources.nodes.get(pkg + "/" + exe)
-        package = self.sources.packages.get(pkg)
+        node = self.sources.nodes.get("node:" + pkg + "/" + exe)
+        package = self.sources.packages.get("package:" + pkg)
         if not package:
             raise ConfigurationError("cannot find package: " + pkg)
         if not node:
