@@ -367,10 +367,8 @@ THE SOFTWARE.
 
         onInfo: function () {
             if (this.selection == null) return;
-            if (this.selection.model.get("resourceType") === "node") {
-                this.infoView.model = this.selection.model;
-                this.infoView.show();
-            }
+            this.infoView.model = this.selection.model;
+            this.infoView.show();
         },
 
 
@@ -494,6 +492,9 @@ THE SOFTWARE.
 
         render: function () {
             var data = this.model != null ? _.clone(this.model.attributes) : {};
+            if (data.types != null) {
+                data.type = Object.keys(data.types).join(", ");
+            }
             this.$content.html(this.template(data));
             return this;
         }
