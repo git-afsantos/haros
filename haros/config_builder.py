@@ -196,6 +196,7 @@ class LaunchScope(object):
                 topic = Topic(self.configuration, rosname,
                               message_type = call.type)
                 self.configuration.topics.add(topic)
+            ns = call.namespace or self.namespace
             link = PubSubPrimitive(self.node, topic, call.type,
                                    RosName(call.name, ns, pns),
                                    call.queue_size,
@@ -211,6 +212,7 @@ class LaunchScope(object):
                 topic = Topic(self.configuration, rosname,
                               message_type = call.type)
                 self.configuration.topics.add(topic)
+            ns = call.namespace or self.namespace
             link = PubSubPrimitive(self.node, topic, call.type,
                                    RosName(call.name, ns, pns),
                                    call.queue_size,
@@ -230,6 +232,7 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
+            ns = call.namespace or self.namespace
             link = ServicePrimitive(self.node, topic, call.type,
                                     RosName(call.name, ns, pns),
                                     conditions = call.conditions)
@@ -244,6 +247,7 @@ class LaunchScope(object):
                 service = Service(self.configuration, rosname,
                                   message_type = call.type)
                 self.configuration.services.add(service)
+            ns = call.namespace or self.namespace
             link = ServicePrimitive(self.node, topic, call.type,
                                     RosName(call.name, ns, pns),
                                     conditions = call.conditions)
