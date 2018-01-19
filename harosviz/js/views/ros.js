@@ -95,7 +95,8 @@ THE SOFTWARE.
             this.graph.onResize();
         },
 
-        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
+        optionTemplate: _.template("<option value=<%= data.id %>><%= data.get('name') %></option>",
+                                   {variable: "data"})
     });
 
 
@@ -239,12 +240,15 @@ THE SOFTWARE.
         },
 
         _addLinkNodes: function (node, list, type, direction) {
-            var i = list.length, name, model, view;
+            var i = list.length, link, name, model, view;
             while (i--) {
-                name = type + ":" + list[i];
+                link = list[i];
+                name = type + ":" + link.topic;
                 if (!this.topics.hasOwnProperty(name)) {
                     model = new Backbone.Model({
-                        name: list[i], resourceType: type, conditions: []
+                        name: link.topic, types: {},
+                        resourceType: type,
+                        conditions: link.conditions
                     });
                     model.set("id", model.cid);
                     this.topics[name] = model;
@@ -255,7 +259,9 @@ THE SOFTWARE.
                     this.listenTo(view, "drag", this.onDrag);
                     this.graph.setNode(model.id, view);
                 }
-                this._addEdge(node, this.topics[name].id, direction);
+                model = this.topics[name]
+                model.get("types")[link.type] = true;
+                this._addEdge(node, model.id, direction);
             }
         },
 
@@ -408,13 +414,6 @@ THE SOFTWARE.
     ////////////////////////////////////////////////////////////////////////////
 
     views.ResourceNode = Backbone.View.extend({
-        colours: {
-            "node":     "rgb(255, 255, 255)",
-            "topic":    "rgb(255,165,59)",
-            "service":  "rgb(255,99,71)",
-            "param":    "rgb(0,255,126)"
-        },
-
         initialize: function (options) {
             _.bindAll(this, "onClick", "onDrag", "onDragStart", "onDragEnd");
             this.label = this.model.get("name");
@@ -426,7 +425,7 @@ THE SOFTWARE.
             this.d3text = this.d3g.append("text").attr("text-anchor", "middle").text(this.label);
 
             this.d3g.classed("conditional", this.conditional);
-            this.d3node.attr("style", "fill: " + this.colours[this.model.get("resourceType")] + ";");
+            this.d3node.attr("style", "fill: " + this._colour(this.model.get("resourceType")) + ";");
             this.d3g.call(d3.drag()
                             .on("start", this.onDragStart)
                             .on("drag", this.onDrag)
@@ -472,6 +471,15 @@ THE SOFTWARE.
         onDragEnd: function (d) {
             this.d3g.classed("dragging", false);
             this.trigger("drag", this);
+        },
+
+        _colour: function (resourceType) {
+            var types, resourceType = this.model.get("resourceType");
+            if (resourceType === "node") return "rgb(255, 255, 255)";
+            types = Object.keys(this.model.get("types")).length;
+            if (types < 2) return "rgb(0,255,126)";
+            if (types < 3) return "rgb(255,165,59)";
+            return "rgb(255,99,71)";
         }
     });
 

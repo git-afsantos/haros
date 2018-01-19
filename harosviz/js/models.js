@@ -193,7 +193,22 @@ THE SOFTWARE.
             type,
             args: [],
             conditions: [],
-            publishers: [],
+            publishers: [{
+                topic,
+                name,   // before remappings
+                type,
+                queue,
+                conditions: [{
+                    condition,
+                    location: {
+                        package,
+                        file,
+                        line,
+                        function,
+                        class
+                    }
+                }]
+            }],
             subscribers: [],
             servers: [],
             clients: []
