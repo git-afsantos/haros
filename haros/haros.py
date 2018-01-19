@@ -488,8 +488,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      extractor.configurations, env)
 
     def _extract_configurations(self, project, configs, environment):
-        for name, launch_files in configs.iteritems():
+        for name, data in configs.iteritems():
             builder = ConfigurationBuilder(name, environment, self.database)
+            launch_files = data if isinstance(data, list) else data["launch"]
             for launch_file in launch_files:
                 parts = launch_file.split(os.sep, 1)
                 if not len(parts) == 2:
