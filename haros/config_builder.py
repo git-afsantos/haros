@@ -185,75 +185,84 @@ class LaunchScope(object):
             return RosName.resolve(ns, pns, private_ns = pns)
         return RosName.resolve(ns, self.namespace)
 
-    def make_topics(self):
+    def make_topics(self, hints = None):
         assert not self.node is None
         pns = self.private_ns
+        hints = hints or {}
         for call in self.node.node.advertise:
-            ns = self._call_ns(call.namespace)
-            rosname = RosName(call.name, ns, pns, self.node.remaps)
-            topic = self.configuration.topics.get(rosname.full)
-            if topic is None:
-                topic = Topic(self.configuration, rosname,
-                              message_type = call.type)
-                self.configuration.topics.add(topic)
-            ns = call.namespace or self.namespace
-            link = PubSubPrimitive(self.node, topic, call.type,
-                                   RosName(call.name, ns, pns),
-                                   call.queue_size,
-                                   conditions = call.conditions)
+            link = self._make_topic_link(call.name, call.namespace, pns,
+                                         call.type, call.queue_size,
+                                         call.conditions, hints)
             self.node.publishers.append(link)
-            topic.publishers.append(link)
-            self._update_topic_conditions(topic)
+            link.topic.publishers.append(link)
+            self._update_topic_conditions(link.topic)
         for call in self.node.node.subscribe:
-            ns = self._call_ns(call.namespace)
-            rosname = RosName(call.name, ns, pns, self.node.remaps)
-            topic = self.configuration.topics.get(rosname.full)
-            if topic is None:
-                topic = Topic(self.configuration, rosname,
-                              message_type = call.type)
-                self.configuration.topics.add(topic)
-            ns = call.namespace or self.namespace
-            link = PubSubPrimitive(self.node, topic, call.type,
-                                   RosName(call.name, ns, pns),
-                                   call.queue_size,
-                                   conditions = call.conditions)
+            link = self._make_topic_link(call.name, call.namespace, pns,
+                                         call.type, call.queue_size,
+                                         call.conditions, hints)
             self.node.subscribers.append(link)
-            topic.subscribers.append(link)
-            self._update_topic_conditions(topic)
+            link.topic.subscribers.append(link)
+            self._update_topic_conditions(link.topic)
 
-    def make_services(self):
+    def make_services(self, hints = None):
         assert not self.node is None
         pns = self.private_ns
+        hints = hints or {}
         for call in self.node.node.service:
-            ns = self._call_ns(call.namespace)
-            rosname = RosName(call.name, ns, pns, self.node.remaps)
-            service = self.configuration.services.get(rosname.full)
-            if service is None:
-                service = Service(self.configuration, rosname,
-                                  message_type = call.type)
-                self.configuration.services.add(service)
-            ns = call.namespace or self.namespace
-            link = ServicePrimitive(self.node, topic, call.type,
-                                    RosName(call.name, ns, pns),
-                                    conditions = call.conditions)
+            link = self._make_service_link(call.name, call.namespace, pns,
+                                           call.type, call.conditions, hints)
             self.node.servers.append(link)
-            service.server = link
-            self._update_service_conditions(service)
+            link.service.server = link
+            self._update_service_conditions(link.service)
         for call in self.node.node.client:
-            ns = self._call_ns(call.namespace)
-            rosname = RosName(call.name, ns, pns, self.node.remaps)
-            service = self.configuration.services.get(rosname.full)
-            if service is None:
-                service = Service(self.configuration, rosname,
-                                  message_type = call.type)
-                self.configuration.services.add(service)
-            ns = call.namespace or self.namespace
-            link = ServicePrimitive(self.node, topic, call.type,
-                                    RosName(call.name, ns, pns),
-                                    conditions = call.conditions)
+            link = self._make_service_link(call.name, call.namespace, pns,
+                                           call.type, call.conditions, hints)
             self.node.clients.append(link)
-            service.clients.append(link)
-            self._update_service_conditions(service)
+            link.service.clients.append(link)
+            self._update_service_conditions(link.service)
+
+    def _make_topic_link(self, name, ns, pns, type, queue, conditions, hints):
+        collection = self.configuration.topics
+        rosname = RosName(name, self._resolve_ns(ns), pns, self.node.remaps)
+        topic = self._lookup_resource(rosname.full, type, collection, hints)
+        if topic is None:
+            topic = Topic(self.configuration, rosname, message_type = type)
+        if collection.get(topic.rosname.full) is None:
+            collection.add(topic)
+        return PubSubPrimitive(self.node, topic, type,
+                               RosName(name, ns or self.namespace, pns),
+                               queue, conditions = conditions)
+
+    def _make_service_link(self, name, ns, pns, type, conditions, hints):
+        collection = self.configuration.services
+        rosname = RosName(name, self._resolve_ns(ns), pns, self.node.remaps)
+        service = self._lookup_resource(rosname.full, type, collection, hints)
+        if service is None:
+            service = Service(self.configuration, rosname, message_type = type)
+        if collection.get(service.rosname.full) is None:
+            collection.add(service)
+        return ServicePrimitive(self.node, service, type,
+                                RosName(name, ns or self.namespace, pns),
+                                conditions = conditions)
+
+    def _lookup_resource(self, name, type, collection, hints):
+        if not "?" in name:
+            return collection.get(name)
+        candidate = None
+        pattern = name.replace("?", "(?:.+?)") + "$"
+        for rosname, resource in hints.iteritems():
+            if re.match(pattern, rosname):
+                if resource.type == type:
+                    return resource
+                elif candidate is None:
+                    candidate = resource
+        for resource in collection:
+            if re.match(pattern, resource.rosname.full):
+                if resource.type == type:
+                    return resource
+                elif candidate is None:
+                    candidate = resource
+        return candidate
 
     # as seen in roslaunch code, sans a few details
     def _convert_value(self, value, ptype):
@@ -336,7 +345,7 @@ class LaunchScope(object):
             return ns + name
         return ns + "/" + name
 
-    def _call_ns(self, ns):
+    def _resolve_ns(self, ns):
         if not ns:
             return self.namespace
         if ns == "~":
@@ -386,11 +395,62 @@ class ConfigurationError(Exception):
         return repr(self.value)
 
 
+class ConfigurationHints(object):
+    defaults = {
+        "advertise": {},
+        "subscribe": {},
+        "service": {},
+        "client": {}
+    }
+
+    def __init__(self, hints):
+        self.advertise = []
+        self.subscribe = []
+        self.service = []
+        self.client = []
+        for name, type in hints.get("advertise", {}).iteritems():
+            topic = self._make_comm_hint(Topic, name, type, pns, scope)
+            topics[topic.rosname.full] = topic
+        for name, type in hints.get("subscribe", {}).iteritems():
+            topic = self._make_comm_hint(Topic, name, type, pns, scope)
+            topics[topic.rosname.full] = topic
+        for name, type in hints.get("service", {}).iteritems():
+            service = self._make_comm_hint(Service, name, type, pns, scope)
+            services[service.rosname.full] = service
+        for name, type in hints.get("client", {}).iteritems():
+            service = self._make_comm_hint(Service, name, type, pns, scope)
+            services[service.rosname.full] = service
+
+    def topics(self):
+        return self.advertise + self.subscribe
+
+    def services(self):
+        return self.service + self.client
+
+    @classmethod
+    def make_hints(cls, hints, pns, scope):
+        pass
+
+    def _make_comm_hint(self, cls, name, type, pns, scope):
+        parts = name.rsplit("/", 1)
+        name = parts[-1]
+        ns = parts[0] if len(parts) > 1 else "/"
+        rosname = RosName(name, scope._resolve_ns(ns), pns, scope.node.remaps)
+        return cls(self.configuration, rosname, message_type = type)
+
+
+# NOTE: hints are always taken as true, so the topics in the hints will always
+# be created. The strategy here is to create the topics as soon as we find a
+# matching node. This way, the automated extraction can match against those
+# topics. After the extraction takes place, we manually create the missing
+# links to the topics in the hints.
+
 class ConfigurationBuilder(object):
-    def __init__(self, name, environment, source_finder):
+    def __init__(self, name, environment, source_finder, hints = None):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
+        self.hints = hints if not hints is None else {}
 
     def add_launch(self, launch_file):
         assert launch_file.language == "launch"
@@ -425,6 +485,13 @@ class ConfigurationBuilder(object):
             except (ConfigurationError, SubstitutionError) as e:
                 self.errors.append(e.value)
 
+    _default_hints = {
+        "advertise": {},
+        "subscribe": {},
+        "service": {},
+        "client": {}
+    }
+
     def _node_tag(self, tag, condition, scope, sub):
         pkg = sub.resolve(tag.package, strict = True)
         exe = sub.resolve(tag.type, strict = True)
@@ -436,8 +503,12 @@ class ConfigurationBuilder(object):
         ns = sub.resolve(tag.namespace, strict = True)
         new_scope = scope.make_node(node, name, ns, args, condition)
         self._analyse_tree(tag, new_scope, sub)
-        new_scope.make_topics()
-        new_scope.make_services()
+        hints = self.hints.get(new_scope.node.rosname.full,
+                               self._default_hints)
+        topics, services = self._make_comm_hints(hints, new_scope)
+        new_scope.make_topics(hints = topics)
+        new_scope.make_services(hints = services)
+        self._make_missing_links(topics, services, )
 
     def _include_tag(self, tag, condition, scope, sub):
         filepath = sub.resolve(tag.file, strict = True)
@@ -566,3 +637,28 @@ class ConfigurationBuilder(object):
         if not node:
             node = Node(exe, package, rosname = RosName("?"), nodelet = exe)
         return node
+
+    def _make_comm_hints(self, hints, scope):
+        pns = scope.private_ns
+        topics = {}
+        services = {}
+        for name, type in hints.get("advertise", {}).iteritems():
+            topic = self._make_comm_hint(Topic, name, type, pns, scope)
+            topics[topic.rosname.full] = topic
+        for name, type in hints.get("subscribe", {}).iteritems():
+            topic = self._make_comm_hint(Topic, name, type, pns, scope)
+            topics[topic.rosname.full] = topic
+        for name, type in hints.get("service", {}).iteritems():
+            service = self._make_comm_hint(Service, name, type, pns, scope)
+            services[service.rosname.full] = service
+        for name, type in hints.get("client", {}).iteritems():
+            service = self._make_comm_hint(Service, name, type, pns, scope)
+            services[service.rosname.full] = service
+        return (topics, services)
+
+    def _make_comm_hint(self, cls, name, type, pns, scope):
+        parts = name.rsplit("/", 1)
+        name = parts[-1]
+        ns = parts[0] if len(parts) > 1 else "/"
+        rosname = RosName(name, scope._resolve_ns(ns), pns, scope.node.remaps)
+        return cls(self.configuration, rosname, message_type = type)
