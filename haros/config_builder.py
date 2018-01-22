@@ -37,7 +37,9 @@
 ###############################################################################
 
 from collections import namedtuple
+import logging
 import os
+import re
 import yaml
 
 rosparam = None # lazy import
@@ -50,10 +52,18 @@ from .metamodel import (
 
 
 ###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
+
+
+###############################################################################
 # Launch File Analysis
 ###############################################################################
 
-class LaunchScope(object):
+class LaunchScope(LoggingObject):
     TempParam = namedtuple("TempParam", ["name", "type", "value", "ifs"])
 
     def __init__(self, parent, config, launch_file, ns = "/", node = None,
@@ -185,38 +195,40 @@ class LaunchScope(object):
             return RosName.resolve(ns, pns, private_ns = pns)
         return RosName.resolve(ns, self.namespace)
 
-    def make_topics(self, hints = None):
+    def make_topics(self, advertise = None, subscribe = None):
         assert not self.node is None
         pns = self.private_ns
-        hints = hints or ()
+        advertise = advertise or ()
+        subscribe = subscribe or ()
         for call in self.node.node.advertise:
             link = self._make_topic_link(call.name, call.namespace, pns,
                                          call.type, call.queue_size,
-                                         call.conditions, hints)
+                                         call.conditions, advertise)
             self.node.publishers.append(link)
             link.topic.publishers.append(link)
             self._update_topic_conditions(link.topic)
         for call in self.node.node.subscribe:
             link = self._make_topic_link(call.name, call.namespace, pns,
                                          call.type, call.queue_size,
-                                         call.conditions, hints)
+                                         call.conditions, subscribe)
             self.node.subscribers.append(link)
             link.topic.subscribers.append(link)
             self._update_topic_conditions(link.topic)
 
-    def make_services(self, hints = None):
+    def make_services(self, service = None, client = None):
         assert not self.node is None
         pns = self.private_ns
-        hints = hints or ()
+        service = service or ()
+        client = client or ()
         for call in self.node.node.service:
             link = self._make_service_link(call.name, call.namespace, pns,
-                                           call.type, call.conditions, hints)
+                                           call.type, call.conditions, service)
             self.node.servers.append(link)
             link.service.server = link
             self._update_service_conditions(link.service)
         for call in self.node.node.client:
             link = self._make_service_link(call.name, call.namespace, pns,
-                                           call.type, call.conditions, hints)
+                                           call.type, call.conditions, client)
             self.node.clients.append(link)
             link.service.clients.append(link)
             self._update_service_conditions(link.service)
@@ -248,11 +260,16 @@ class LaunchScope(object):
     def _lookup_resource(self, name, type, collection, hints):
         if not "?" in name:
             return collection.get(name)
+        candidates = []
         pattern = name.replace("?", "(?:.+?)") + "$"
         for resource in hints:
             if re.match(pattern, resource.rosname.full):
                 if resource.type == type:
-                    return resource
+                    candidates.append(resource)
+        if len(candidates) == 1:
+            return candidates[0]
+        elif len(candidates) > 1:
+            return None
     # TODO: not sure whether this is correct; might have to consider remaps
         for resource in collection:
             if re.match(pattern, resource.rosname.full):
@@ -397,7 +414,7 @@ class ConfigurationError(Exception):
 # topics. After the extraction takes place, we manually create the missing
 # links to the topics in the hints.
 
-class ConfigurationHints(object):
+class ConfigurationHints(LoggingObject):
     defaults = {
         "advertise": {},
         "subscribe": {},
@@ -422,6 +439,7 @@ class ConfigurationHints(object):
 
     @classmethod
     def make_hints(cls, hints, scope):
+        cls.log.debug("making hints for node %s", scope.node.rosname.full)
         instance = cls()
         pns = scope.private_ns
         hints = hints or cls.defaults
@@ -432,24 +450,32 @@ class ConfigurationHints(object):
                 ns = parts[0] if len(parts) > 1 else "/"
     # ----- NOTE: we do not remap before using the hints for lookup
                 rosname = RosName(own_name, scope.resolve_ns(ns), pns)
+                cls.log.debug("%s hint: %s", key, rosname.full)
                 getattr(instance, key).append(rcls(scope.configuration, rosname,
                                                    message_type = type))
         return instance
 
     def make_missing_links(self, scope):
+        self.log.debug("making missing links for %s", scope.node.rosname.full)
         pns = scope.private_ns
         for topic in self.advertise:
+            self.log.debug("hint topic %s", topic.rosname.full)
             for link in scope.node.publishers:
                 if link.topic == topic:
-                    continue # extracted; TODO what about different types?
+                    self.log.debug("%s (%s) is already extracted",
+                                   link.topic.rosname.full, link.topic.type)
+                    continue # TODO what about different types?
             link = scope._make_topic_link(topic.rosname.full, scope.namespace,
                                           pns, topic.type, None, None, ())
             link.node.publishers.append(link)
             link.topic.publishers.append(link)
             link.topic.conditions.extend(link.node.conditions)
         for topic in self.subscribe:
+            self.log.debug("hint topic %s", topic.rosname.full)
             for link in scope.node.subscribers:
                 if link.topic == topic:
+                    self.log.debug("%s (%s) is already extracted",
+                                   link.topic.rosname.full, link.topic.type)
                     continue
             link = scope._make_topic_link(topic.rosname.full, scope.namespace,
                                           pns, topic.type, None, None, ())
@@ -457,8 +483,11 @@ class ConfigurationHints(object):
             link.topic.subscribers.append(link)
             link.topic.conditions.extend(link.node.conditions)
         for service in self.service:
+            self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.servers:
                 if link.service == service:
+                    self.log.debug("%s (%s) is already extracted",
+                                   link.service.rosname.full, link.service.type)
                     continue
             link = scope._make_service_link(service.rosname.full,
                                             scope.namespace, pns,
@@ -467,8 +496,11 @@ class ConfigurationHints(object):
             link.service.server = link
             link.service.conditions.extend(link.node.conditions)
         for service in self.client:
+            self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.clients:
                 if link.service == service:
+                    self.log.debug("%s (%s) is already extracted",
+                                   link.service.rosname.full, link.service.type)
                     continue
             link = scope._make_service_link(service.rosname.full,
                                             scope.namespace, pns,
@@ -478,7 +510,7 @@ class ConfigurationHints(object):
             link.service.conditions.extend(link.node.conditions)
 
 
-class ConfigurationBuilder(object):
+class ConfigurationBuilder(LoggingObject):
     def __init__(self, name, environment, source_finder, hints = None):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
@@ -531,8 +563,10 @@ class ConfigurationBuilder(object):
         self._analyse_tree(tag, new_scope, sub)
         hints = self.hints.get(new_scope.node.rosname.full)
         config_hints = ConfigurationHints.make_hints(hints, new_scope)
-        new_scope.make_topics(hints = config_hints.topics)
-        new_scope.make_services(hints = config_hints.services)
+        new_scope.make_topics(advertise = config_hints.advertise,
+                              subscribe = config_hints.subscribe)
+        new_scope.make_services(service = config_hints.service,
+                                client = config_hints.client)
         config_hints.make_missing_links(new_scope)
 
     def _include_tag(self, tag, condition, scope, sub):
