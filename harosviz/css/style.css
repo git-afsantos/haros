@@ -475,8 +475,8 @@ svg {
 	stroke-width: 4px;
 }
 
-#package-graph .node.conditional,
-#config-graph .node.conditional {
+#package-graph .conditional,
+#config-graph .conditional {
 	stroke-dasharray: 5;
 }
 

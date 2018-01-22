@@ -121,7 +121,7 @@ THE SOFTWARE.
 
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
-                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
+                nodesep: this.spacing, ranksep: 2 * this.spacing, acyclicer: "greedy"
             });
             this.focus = null;
             this.selection = null;
@@ -214,7 +214,7 @@ THE SOFTWARE.
             this.topics = {};
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
-                nodesep: this.spacing, ranksep: this.spacing, acyclicer: "greedy"
+                nodesep: this.spacing, ranksep: 2 * this.spacing, acyclicer: "greedy"
             });
             this.d3g.remove();
             this.d3g = this.d3svg.append("g").attr("class", "graph");
@@ -261,13 +261,14 @@ THE SOFTWARE.
                 }
                 model = this.topics[name]
                 model.get("types")[link.type] = true;
-                this._addEdge(node, model.id, direction);
+                this._addEdge(node, model.id, direction, !!link.conditions.length);
             }
         },
 
-        _addEdge: function (node, link, direction) {
+        _addEdge: function (node, link, direction, conditional) {
             var el = this.d3g.insert("path", ":first-child")
                              .classed("edge hidden", true)
+                             .classed("conditional", conditional)
                              .attr("marker-end", "url(#config-arrowhead)"),
                 edge = {
                     d3path: el,
