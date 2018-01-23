@@ -752,7 +752,7 @@ class NodeExtractor(LoggingObject):
 
     def _extract_message_type(self, call):
         if call.template:
-            return call.template[0]
+            return call.template[0].replace("::", "/")
         if call.name != "subscribe" and call.name != "advertiseService":
             return "?"
         callback = call.arguments[2] if call.name == "subscribe" \
