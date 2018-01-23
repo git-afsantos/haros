@@ -260,16 +260,11 @@ class LaunchScope(LoggingObject):
     def _lookup_resource(self, name, type, collection, hints):
         if not "?" in name:
             return collection.get(name)
-        candidates = []
         pattern = name.replace("?", "(?:.+?)") + "$"
         for resource in hints:
             if re.match(pattern, resource.rosname.full):
                 if resource.type == type:
-                    candidates.append(resource)
-        if len(candidates) == 1:
-            return candidates[0]
-        elif len(candidates) > 1:
-            return None
+                    return resource
     # TODO: not sure whether this is correct; might have to consider remaps
         for resource in collection:
             if re.match(pattern, resource.rosname.full):

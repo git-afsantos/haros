@@ -171,7 +171,8 @@ class HarosLauncher(object):
                                      run_from_source = self.run_from_source,
                                      use_repos = args.use_repos,
                                      parse_nodes = args.parse_nodes,
-                                     copy_env = args.env)
+                                     copy_env = args.env,
+                                     cache_parsing = args.cache_parsing)
         return analyse.run()
 
     def command_export(self, args):
@@ -227,6 +228,8 @@ class HarosLauncher(object):
                             help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
+        parser.add_argument("--cache-parsing", action = "store_true",
+                            help = "undocumented feature")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -249,6 +252,8 @@ class HarosLauncher(object):
                             help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
+        parser.add_argument("--cache-parsing", action = "store_true",
+                            help = "undocumented feature")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -421,12 +426,13 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False,
-                 parse_nodes = False, copy_env = False):
+                 parse_nodes = False, copy_env = False, cache_parsing = False):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.project_file = project_file
         self.use_repos = use_repos
         self.parse_nodes = parse_nodes
         self.copy_env = copy_env
+        self.cache_parsing = cache_parsing
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.project = None
@@ -453,8 +459,13 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def run(self):
         self.database = HarosDatabase()
         plugins = self._load_definitions_and_plugins()
-        self._extract_metamodel()
-        self._load_database()
+        if self.cache_parsing:
+            configs, env = self._extract_metamodel()
+            self._load_database()
+            self._extract_configurations(self.database.project, configs, env)
+        else:
+            self._extract_metamodel()
+            self._load_database()
         self._analyse(plugins)
         self._save_results()
         self.database = None
@@ -475,7 +486,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      repo_path = self.repo_dir,
                                      distro_url = distro,
                                      require_repos = True,
-                                     parse_nodes = self.parse_nodes)
+                                     parse_nodes = (self.parse_nodes
+                                                    and not self.cache_parsing))
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
         extractor.index_source()
@@ -484,6 +496,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
         self.database.register_rules(extractor.rules, prefix = "user:")
+        if self.cache_parsing:
+            return extractor.configurations, env
         self._extract_configurations(extractor.project,
                                      extractor.configurations, env)
 
@@ -529,6 +543,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
             # This is why I added "compact" to the database.
             self.database.history = haros_db.history
             self.database.history.append(haros_db.report)
+            if self.cache_parsing:
+                self.database._cached_nodes(haros_db.nodes)
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."

@@ -30,6 +30,8 @@ import logging
 import os
 import yaml
 
+from .metamodel import Location
+
 
 ###############################################################################
 # Utility
@@ -509,6 +511,31 @@ class HarosDatabase(LoggingObject):
             node.source_tree = None
         for sf in self.files.itervalues():
             sf.tree = None
+
+    def _cached_nodes(self, nodes):
+        for id, node in self.nodes.iteritems():
+            previous = nodes.get(id)
+            if not previous is None:
+                node.advertise = list(previous.advertise)
+                for p in node.advertise:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
+                node.subscribe = list(previous.subscribe)
+                for p in node.subscribe:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
+                node.service = list(previous.service)
+                for p in node.service:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
+                node.client = list(previous.client)
+                for p in node.client:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
 
 
 ###############################################################################

@@ -105,6 +105,17 @@ class RosPrimitiveCall(object):
         self.control_depth = control_depth or len(self.conditions)
         self.location = location
 
+    def to_JSON_object(self):
+        return {
+            "name": self.name,
+            "namespace": self.namespace,
+            "type": self.type,
+            "depth": self.control_depth,
+            "conditions": [c.to_JSON_object() for c in self.conditions],
+            "location": (self.location.to_JSON_object()
+                         if self.location else None)
+        }
+
     def __str__(self):
         return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
             self.name, self.namespace, self.type,
@@ -122,6 +133,11 @@ class Publication(RosPrimitiveCall):
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["queue"] = self.queue_size
+        return data
+
 class Subscription(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
                  control_depth = None, conditions = None, location = None):
@@ -129,6 +145,11 @@ class Subscription(RosPrimitiveCall):
                                   control_depth = control_depth,
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["queue"] = self.queue_size
+        return data
 
 class ServiceServerCall(RosPrimitiveCall):
     pass
@@ -520,6 +541,20 @@ class Node(SourceObject):
     @property
     def node_name(self):
         return self.package.name + "/" + (self.nodelet_class or self.name)
+
+    def to_JSON_object(self):
+        return {
+            "id": self.node_name,
+            "name": self.name,
+            "package": self.package.name,
+            "rosname": self.rosname,
+            "nodelet": self.nodelet_class,
+            "files": [f.full_name for f in self.source_files],
+            "advertise": [p.to_JSON_object() for p in self.advertise],
+            "subscribe": [p.to_JSON_object() for p in self.subscribe],
+            "service": [p.to_JSON_object() for p in self.service],
+            "client": [p.to_JSON_object() for p in self.client]
+        }
 
     def bound_to(self, other):
         if other.scope == "package":
