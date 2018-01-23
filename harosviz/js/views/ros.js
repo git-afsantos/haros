@@ -219,6 +219,8 @@ THE SOFTWARE.
             this.d3g.remove();
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             collection.each(this.onAdd, this);
+            // NOTE: topic models are not added to the collection. FIXME?
+            _.each(this.topics, this._connectUnknown, this);
             this.focus = null;
             this.selection = null;
             // this.render();
@@ -226,7 +228,11 @@ THE SOFTWARE.
 
         onAdd: function (model) {
             var view;
-            model.set({ id: model.cid, resourceType: "node" });
+            model.set({
+                id: model.cid,
+                resourceType: "node",
+                candidates: []
+            });
             view = new views.ResourceNode({
                 model: model, el: this.d3g.append("g").node()
             });
@@ -248,7 +254,8 @@ THE SOFTWARE.
                     model = new Backbone.Model({
                         name: link.topic, types: {},
                         resourceType: type,
-                        conditions: link.conditions
+                        conditions: link.conditions,
+                        candidates: []
                     });
                     model.set("id", model.cid);
                     this.topics[name] = model;
@@ -284,6 +291,74 @@ THE SOFTWARE.
                 edge.source = this.graph.node(link);
                 this.graph.setEdge(link, node, edge);
             }
+        },
+
+        _connectUnknown: function (model) {
+            if (model.get("resourceType") === "node") return;
+            if (model.get("name").indexOf("?") < 0) return;
+            var other, key, candidates = model.get("candidates");
+            for (key in this.topics) if (this.topics.hasOwnProperty(key)) {
+                other = this.topics[key];
+                if (other === model) continue;
+                if (other.get("resourceType") !== model.get("resourceType")) continue;
+                if (!_.isEqual(model.get("types"), other.get("types"))) continue;
+                if (this._nameMatch(model.get("name").split("/"), 0,
+                                    other.get("name").split("/"), 0)) {
+                    candidates.push(other.id);
+                }
+            }
+        },
+
+        /*
+            This implementation passes the following tests.
+            test("/ns/a", "/ns/a", true);
+            test("/ns/a", "/a", false);
+            test("/?/a", "/a", true);
+            test("/?/a", "/ns/a", true);
+            test("/?/a", "/ns/ns/a", true);
+            test("/a", "/?/a", true);
+            test("/ns/a", "/?/a", true);
+            test("/ns/ns/a", "/?/a", true);
+            test("/ns/?/a", "/ns/a", true);
+            test("/ns/?/a", "/ns/ns/a", true);
+            test("/ns/?/a", "/ns/ns/ns/a", true);
+            test("/ns/?/b", "/ns/a", false);
+            test("/ns/?", "/a", false);
+            test("/ns/?", "/ns/a", true);
+            test("/ns/?", "/ns/ns/a", true);
+            test("/?", "/a", true);
+            test("/?", "/ns/a", true);
+            test("/?", "/?", true);
+            test("/ns/?", "/?/a", true);
+            test("/ns/?", "/ns/?", true);
+            test("/ns/?", "/ns/?/a", true);
+            test("/?/?", "/a", true);
+            test("/?/?", "/ns/a", true);
+            test("/?/?", "/ns/ns/a", true);
+        */
+        _nameMatch: function (a1, k1, a2, k2) {
+            var k, i = k1, len1 = a1.length,
+                j = k2, len2 = a2.length;
+            for (; i < len1 && j < len2; ++i, ++j) {
+                if (a1[i] === "?") {
+                    if (i === len1 - 1)
+                        return true;
+                    for (k = j; k < len2; ++k)
+                        if (this._nameMatch(a1, i + 1, a2, k))
+                            return true;
+                    return false;
+                } else if (a2[j] === "?") {
+                    if (j === len2 - 1)
+                        return true;
+                    for (k = i; k < len1; ++k)
+                        if (this._nameMatch(a1, k, a2, j + 1))
+                            return true;
+                    return false;
+                } else if (a1[i] !== a2[j]) {
+                    return false;
+                }
+            }
+            return i === len1 && j === len2;
         },
 
         onZoom: function () {
@@ -341,12 +416,19 @@ THE SOFTWARE.
         },
 
         highlightNeighbours: function (node, highlight) {
-            var i, nodes = this.graph.neighbors(node),
-                edges = this.graph.nodeEdges(node);
+            var i, model = this.graph.node(node).model,
+                nodes = this.graph.neighbors(node),
+                edges = this.graph.nodeEdges(node),
+                candidates = model.get("candidates");
             for (i = nodes.length; i--;)
                 this.graph.node(nodes[i]).setClass("highlight", highlight);
             for (i = edges.length; i--;)
                 this.graph.edge(edges[i]).d3path.classed("highlight", highlight);
+            for (i = candidates.length; i--;) {
+                this.graph.node(candidates[i])
+                        .setClass("candidate", highlight)
+                        .setClass("highlight", highlight);
+            }
             return this;
         },
 
@@ -423,8 +505,8 @@ THE SOFTWARE.
             this.d3node = this.d3g.append("circle");
             this.d3text = this.d3g.append("text").attr("text-anchor", "middle").text(this.label);
 
+            this.d3g.classed("ros-" + this.model.get("resourceType"), true);
             this.d3g.classed("conditional", this.conditional);
-            this.d3node.attr("style", "fill: " + this._colour(this.model.get("resourceType")) + ";");
             this.d3g.call(d3.drag()
                             .on("start", this.onDragStart)
                             .on("drag", this.onDrag)
@@ -470,15 +552,6 @@ THE SOFTWARE.
         onDragEnd: function (d) {
             this.d3g.classed("dragging", false);
             this.trigger("drag", this);
-        },
-
-        _colour: function (resourceType) {
-            var types, resourceType = this.model.get("resourceType");
-            if (resourceType === "node") return "rgb(255, 255, 255)";
-            types = Object.keys(this.model.get("types")).length;
-            if (types < 2) return "rgb(0,255,126)";
-            if (types < 3) return "rgb(255,165,59)";
-            return "rgb(255,99,71)";
         }
     });
 

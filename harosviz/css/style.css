@@ -471,6 +471,26 @@ svg {
     stroke: #8A6D3B;
 }
 
+#config-graph .graph .node.ros-node {
+	fill: white;
+}
+
+#config-graph .graph .node.ros-topic {
+	fill: lightgreen;
+}
+
+#config-graph .graph .node.ros-service {
+	fill: lightblue;
+}
+
+#config-graph .graph .node.ros-param {
+	fill: plum;
+}
+
+#config-graph .graph .node.candidate {
+	fill: orange !important;
+}
+
 #package-graph .node.focus {
 	stroke-width: 4px;
 }
@@ -564,6 +584,7 @@ svg {
 }
 
 #config-graph .graph .node text {
+    fill: black;
 	font-size: 0.75em;
     cursor: default;
 	display: none;
