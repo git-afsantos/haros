@@ -35,7 +35,7 @@ from bonsai.model import CodeGlobalScope, pretty_str
 from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
-    get_conditions
+    get_conditions, is_under_loop
 )
 try:
     from bonsai.cpp.clang_parser import CppAstParser
@@ -659,7 +659,8 @@ class NodeExtractor(LoggingObject):
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
         pub = Publication(name, ns, msg_type, queue_size, location = location,
-                          control_depth = depth, conditions = conditions)
+                          control_depth = depth, conditions = conditions,
+                          repeats = is_under_loop(call, recursive = True))
         node.advertise.append(pub)
         self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
@@ -674,7 +675,8 @@ class NodeExtractor(LoggingObject):
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
         sub = Subscription(name, ns, msg_type, queue_size, location = location,
-                           control_depth = depth, conditions = conditions)
+                           control_depth = depth, conditions = conditions,
+                           repeats = is_under_loop(call, recursive = True))
         node.subscribe.append(sub)
         self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
 
@@ -688,7 +690,8 @@ class NodeExtractor(LoggingObject):
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
         srv = ServiceServerCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions)
+                                control_depth = depth, conditions = conditions,
+                                repeats = is_under_loop(call, recursive = True))
         node.service.append(srv)
         self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
 
@@ -702,7 +705,8 @@ class NodeExtractor(LoggingObject):
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
         cli = ServiceClientCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions)
+                                control_depth = depth, conditions = conditions,
+                                repeats = is_under_loop(call, recursive = True))
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 

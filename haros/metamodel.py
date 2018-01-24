@@ -97,12 +97,13 @@ class SourceCondition(object):
 class RosPrimitiveCall(object):
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = None,
-                 conditions = None, location = None):
+                 repeats = False, conditions = None, location = None):
         self.name = name
         self.namespace = namespace
         self.type = msg_type
         self.conditions = conditions if not conditions is None else []
         self.control_depth = control_depth or len(self.conditions)
+        self.repeats = repeats and control_depth >= 1
         self.location = location
 
     def to_JSON_object(self):
@@ -111,6 +112,7 @@ class RosPrimitiveCall(object):
             "namespace": self.namespace,
             "type": self.type,
             "depth": self.control_depth,
+            "repeats": self.repeats,
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "location": (self.location.to_JSON_object()
                          if self.location else None)
@@ -127,9 +129,11 @@ class RosPrimitiveCall(object):
 
 class Publication(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = None, conditions = None, location = None):
+                 control_depth = None, repeats = False, conditions = None,
+                 location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
+                                  repeats = repeats,
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
@@ -140,9 +144,11 @@ class Publication(RosPrimitiveCall):
 
 class Subscription(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = None, conditions = None, location = None):
+                 control_depth = None, repeats = False, conditions = None,
+                 location = None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
+                                  repeats = repeats,
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
