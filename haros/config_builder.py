@@ -59,6 +59,48 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
+class ResourceFactory(LoggingObject):
+    def __init__(self, config):
+        self.configuration = config
+        self.collection = None
+
+    def make_from_call(self, node, call):
+        links = self._links_from_call(call)
+        link = self._make_topic_link(call.name, call.namespace, pns,
+                                     call.type, call.queue_size,
+                                     call.conditions, advertise)
+        self.node.publishers.append(link)
+        link.topic.publishers.append(link)
+        self._update_topic_conditions(link.topic)
+
+    def _links_from_call(self, call):
+        return ()
+
+    def _get_match(self, name, rtype, start = 0):
+        pattern = name.replace("?", "(?:.+?)") + "$"
+        for i in xrange(start, len(self.collection)):
+            resource = self.collection[i]
+            if re.match(pattern, resource.rosname.full):
+                if resource.type == rtype:
+                    return resource
+        return None
+
+    def _get_matches(self, name, rtype):
+        pattern = name.replace("?", "(?:.+?)") + "$"
+        candidates = []
+        for resource in self.collection:
+            if re.match(pattern, resource.rosname.full):
+                if resource.type == rtype:
+                    candidates.append(resource)
+        return candidates
+
+
+class TopicFactory(ResourceFactory):
+    def __init__(self, config):
+        ResourceFactory.__init__(self, config)
+        self.collection = config.topics
+
+
 ###############################################################################
 # Launch File Analysis
 ###############################################################################
