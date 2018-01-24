@@ -239,6 +239,9 @@ class LaunchScope(LoggingObject):
         topic = self._lookup_resource(rosname.full, type, collection, hints)
         if topic is None:
             topic = Topic(self.configuration, rosname, message_type = type)
+        elif "?" in rosname.full:
+            rosname = RosName(topic.rosname.full, remaps = self.node.remaps)
+            topic = Topic(self.configuration, rosname, message_type = type)
         if collection.get(topic.rosname.full) is None:
             collection.add(topic)
         return PubSubPrimitive(self.node, topic, type,
@@ -250,6 +253,9 @@ class LaunchScope(LoggingObject):
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
         service = self._lookup_resource(rosname.full, type, collection, hints)
         if service is None:
+            service = Service(self.configuration, rosname, message_type = type)
+        elif "?" in rosname:
+            rosname = RosName(service.rosname.full, remaps = self.node.remaps)
             service = Service(self.configuration, rosname, message_type = type)
         if collection.get(service.rosname.full) is None:
             collection.add(service)
@@ -459,50 +465,56 @@ class ConfigurationHints(LoggingObject):
                 if link.topic == topic:
                     self.log.debug("%s (%s) is already extracted",
                                    link.topic.rosname.full, link.topic.type)
-                    continue # TODO what about different types?
-            link = scope._make_topic_link(topic.rosname.full, scope.namespace,
-                                          pns, topic.type, None, None, ())
-            link.node.publishers.append(link)
-            link.topic.publishers.append(link)
-            link.topic.conditions.extend(link.node.conditions)
+                    break # TODO what about different types?
+            else:
+                link = scope._make_topic_link(topic.rosname.full,
+                                              scope.namespace, pns,
+                                              topic.type, None, None, ())
+                link.node.publishers.append(link)
+                link.topic.publishers.append(link)
+                link.topic.conditions.extend(link.node.conditions)
         for topic in self.subscribe:
             self.log.debug("hint topic %s", topic.rosname.full)
             for link in scope.node.subscribers:
                 if link.topic == topic:
                     self.log.debug("%s (%s) is already extracted",
                                    link.topic.rosname.full, link.topic.type)
-                    continue
-            link = scope._make_topic_link(topic.rosname.full, scope.namespace,
-                                          pns, topic.type, None, None, ())
-            link.node.subscribers.append(link)
-            link.topic.subscribers.append(link)
-            link.topic.conditions.extend(link.node.conditions)
+                    break
+            else:
+                link = scope._make_topic_link(topic.rosname.full,
+                                              scope.namespace, pns,
+                                              topic.type, None, None, ())
+                link.node.subscribers.append(link)
+                link.topic.subscribers.append(link)
+                link.topic.conditions.extend(link.node.conditions)
         for service in self.service:
             self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.servers:
                 if link.service == service:
                     self.log.debug("%s (%s) is already extracted",
                                    link.service.rosname.full, link.service.type)
-                    continue
-            link = scope._make_service_link(service.rosname.full,
-                                            scope.namespace, pns,
-                                            service.type, None, None, ())
-            link.node.servers.append(link)
-            link.service.server = link
-            link.service.conditions.extend(link.node.conditions)
+                    break
+            else:
+                link = scope._make_service_link(service.rosname.full,
+                                                scope.namespace, pns,
+                                                service.type, None, None, ())
+                link.node.servers.append(link)
+                link.service.server = link
+                link.service.conditions.extend(link.node.conditions)
         for service in self.client:
             self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.clients:
                 if link.service == service:
                     self.log.debug("%s (%s) is already extracted",
                                    link.service.rosname.full, link.service.type)
-                    continue
-            link = scope._make_service_link(service.rosname.full,
-                                            scope.namespace, pns,
-                                            service.type, None, None, ())
-            link.node.clients.append(link)
-            link.service.clients.append(link)
-            link.service.conditions.extend(link.node.conditions)
+                    break
+            else:
+                link = scope._make_service_link(service.rosname.full,
+                                                scope.namespace, pns,
+                                                service.type, None, None, ())
+                link.node.clients.append(link)
+                link.service.clients.append(link)
+                link.service.conditions.extend(link.node.conditions)
 
 
 class ConfigurationBuilder(LoggingObject):
