@@ -59,73 +59,6 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
-class ResourceFactory(LoggingObject):
-    def __init__(self, config):
-        self.configuration = config
-        self.collection = None
-
-    def make_from_call(self, node, call):
-        links = self._links_from_call(call)
-        link = self._make_topic_link(call.name, call.namespace, pns,
-                                     call.type, call.queue_size,
-                                     call.conditions, advertise)
-        self.node.publishers.append(link)
-        link.topic.publishers.append(link)
-        self._update_topic_conditions(link.topic)
-
-    def _links_from_call(self, call):
-        return ()
-
-    def _get_match(self, name, rtype, start = 0):
-        pattern = name.replace("?", "(?:.+?)") + "$"
-        for i in xrange(start, len(self.collection)):
-            resource = self.collection[i]
-            if re.match(pattern, resource.rosname.full):
-                if resource.type == rtype:
-                    return resource
-        return None
-
-    def _get_matches(self, name, rtype):
-        pattern = name.replace("?", "(?:.+?)") + "$"
-        candidates = []
-        for resource in self.collection:
-            if re.match(pattern, resource.rosname.full):
-                if resource.type == rtype:
-                    candidates.append(resource)
-        return candidates
-
-
-class TopicFactory(ResourceFactory):
-    def __init__(self, config):
-        ResourceFactory.__init__(self, config)
-        self.collection = config.topics
-        self.unresolved = {}
-
-    def make_link(self, node):
-        call_name = RosName(name, ns or self.namespace, pns)
-        ns = self.resolve_ns(ns)
-        rosname = RosName(name, ns, pns, self.node.remaps)
-        if rosname.is_unresolved:
-            pattern = rosname.pattern
-            topics = self._pattern_match(pattern, rtype, collection)
-            if not topics:
-                topics = self._pattern_match(pattern, rtype, hints)
-                for topic in topics:
-                    new = topic.remap(RosName(topic.rosname.full,
-                                              remaps = self.node.remaps))
-                    collection.add(new)
-        else:
-            topic = collection.get(rosname.full)
-        if topic is None:
-            topic = Topic(self.configuration, rosname, message_type = rtype)
-            collection.add(topic)
-        return PubSubPrimitive(self.node, topic, rtype, call_name, queue,
-                               conditions = conditions)
-
-    def make(self):
-        pass
-
-
 ###############################################################################
 # Launch File Analysis
 ###############################################################################
@@ -268,19 +201,23 @@ class LaunchScope(LoggingObject):
         advertise = advertise or ()
         subscribe = subscribe or ()
         for call in self.node.node.advertise:
-            link = self._make_topic_link(call.name, call.namespace, pns,
-                                         call.type, call.queue_size,
-                                         call.conditions, advertise)
-            self.node.publishers.append(link)
-            link.topic.publishers.append(link)
-            self._update_topic_conditions(link.topic)
+            for link in self._make_topic_links(call.name, call.namespace, pns,
+                                               call.type, call.queue_size,
+                                               call.conditions, advertise):
+                self.node.publishers.append(link)
+                link.topic.publishers.append(link)
+                self._update_topic_conditions(link.topic)
+                if not call.repeats:
+                    break
         for call in self.node.node.subscribe:
-            link = self._make_topic_link(call.name, call.namespace, pns,
-                                         call.type, call.queue_size,
-                                         call.conditions, subscribe)
-            self.node.subscribers.append(link)
-            link.topic.subscribers.append(link)
-            self._update_topic_conditions(link.topic)
+            for link in self._make_topic_links(call.name, call.namespace, pns,
+                                               call.type, call.queue_size,
+                                               call.conditions, subscribe):
+                self.node.subscribers.append(link)
+                link.topic.subscribers.append(link)
+                self._update_topic_conditions(link.topic)
+                if not call.repeats:
+                    break
 
     def make_services(self, service = None, client = None):
         assert not self.node is None
@@ -288,17 +225,23 @@ class LaunchScope(LoggingObject):
         service = service or ()
         client = client or ()
         for call in self.node.node.service:
-            link = self._make_service_link(call.name, call.namespace, pns,
-                                           call.type, call.conditions, service)
-            self.node.servers.append(link)
-            link.service.server = link
-            self._update_service_conditions(link.service)
+            for link in self._make_service_links(call.name, call.namespace,
+                                                 pns, call.type,
+                                                 call.conditions, service):
+                self.node.servers.append(link)
+                link.service.server = link
+                self._update_service_conditions(link.service)
+                if not call.repeats:
+                    break
         for call in self.node.node.client:
-            link = self._make_service_link(call.name, call.namespace, pns,
-                                           call.type, call.conditions, client)
-            self.node.clients.append(link)
-            link.service.clients.append(link)
-            self._update_service_conditions(link.service)
+            for link in self._make_service_links(call.name, call.namespace,
+                                                 pns, call.type,
+                                                 call.conditions, client):
+                self.node.clients.append(link)
+                link.service.clients.append(link)
+                self._update_service_conditions(link.service)
+                if not call.repeats:
+                    break
 
     def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints):
         collection = self.configuration.topics
@@ -557,12 +500,12 @@ class ConfigurationHints(LoggingObject):
                                    link.topic.rosname.full, link.topic.type)
                     break # TODO what about different types?
             else:
-                link = scope._make_topic_link(topic.rosname.full,
-                                              scope.namespace, pns,
-                                              topic.type, None, None, ())
-                link.node.publishers.append(link)
-                link.topic.publishers.append(link)
-                link.topic.conditions.extend(link.node.conditions)
+                for link in scope._make_topic_links(topic.rosname.full,
+                                                    scope.namespace, pns,
+                                                    topic.type, None, None, ()):
+                    link.node.publishers.append(link)
+                    link.topic.publishers.append(link)
+                    link.topic.conditions.extend(link.node.conditions)
         for topic in self.subscribe:
             self.log.debug("hint topic %s", topic.rosname.full)
             for link in scope.node.subscribers:
@@ -571,12 +514,12 @@ class ConfigurationHints(LoggingObject):
                                    link.topic.rosname.full, link.topic.type)
                     break
             else:
-                link = scope._make_topic_link(topic.rosname.full,
-                                              scope.namespace, pns,
-                                              topic.type, None, None, ())
-                link.node.subscribers.append(link)
-                link.topic.subscribers.append(link)
-                link.topic.conditions.extend(link.node.conditions)
+                for link in scope._make_topic_links(topic.rosname.full,
+                                                    scope.namespace, pns,
+                                                    topic.type, None, None, ()):
+                    link.node.subscribers.append(link)
+                    link.topic.subscribers.append(link)
+                    link.topic.conditions.extend(link.node.conditions)
         for service in self.service:
             self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.servers:
@@ -585,12 +528,13 @@ class ConfigurationHints(LoggingObject):
                                    link.service.rosname.full, link.service.type)
                     break
             else:
-                link = scope._make_service_link(service.rosname.full,
-                                                scope.namespace, pns,
-                                                service.type, None, None, ())
-                link.node.servers.append(link)
-                link.service.server = link
-                link.service.conditions.extend(link.node.conditions)
+                for link in scope._make_service_links(service.rosname.full,
+                                                      scope.namespace, pns,
+                                                      service.type,
+                                                      None, None, ()):
+                    link.node.servers.append(link)
+                    link.service.server = link
+                    link.service.conditions.extend(link.node.conditions)
         for service in self.client:
             self.log.debug("hint service %s", service.rosname.full)
             for link in scope.node.clients:
@@ -599,12 +543,13 @@ class ConfigurationHints(LoggingObject):
                                    link.service.rosname.full, link.service.type)
                     break
             else:
-                link = scope._make_service_link(service.rosname.full,
-                                                scope.namespace, pns,
-                                                service.type, None, None, ())
-                link.node.clients.append(link)
-                link.service.clients.append(link)
-                link.service.conditions.extend(link.node.conditions)
+                for link in scope._make_service_links(service.rosname.full,
+                                                      scope.namespace, pns,
+                                                      service.type,
+                                                      None, None, ()):
+                    link.node.clients.append(link)
+                    link.service.clients.append(link)
+                    link.service.conditions.extend(link.node.conditions)
 
 
 class ConfigurationBuilder(LoggingObject):
