@@ -248,7 +248,7 @@ class LaunchScope(LoggingObject):
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
         links = []
-        if rosname.is_unresolved:
+        if rosname.is_unresolved and hints:
             pattern = rosname.pattern
             topics = self._pattern_match(pattern, rtype, collection)
             for topic in topics:
@@ -278,7 +278,7 @@ class LaunchScope(LoggingObject):
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
         links = []
-        if rosname.is_unresolved:
+        if rosname.is_unresolved and hints:
             pattern = rosname.pattern
             services = self._pattern_match(pattern, rtype, collection)
             for srv in services:
