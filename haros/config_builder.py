@@ -99,6 +99,31 @@ class TopicFactory(ResourceFactory):
     def __init__(self, config):
         ResourceFactory.__init__(self, config)
         self.collection = config.topics
+        self.unresolved = {}
+
+    def make_link(self, node):
+        call_name = RosName(name, ns or self.namespace, pns)
+        ns = self.resolve_ns(ns)
+        rosname = RosName(name, ns, pns, self.node.remaps)
+        if rosname.is_unresolved:
+            pattern = rosname.pattern
+            topics = self._pattern_match(pattern, rtype, collection)
+            if not topics:
+                topics = self._pattern_match(pattern, rtype, hints)
+                for topic in topics:
+                    new = topic.remap(RosName(topic.rosname.full,
+                                              remaps = self.node.remaps))
+                    collection.add(new)
+        else:
+            topic = collection.get(rosname.full)
+        if topic is None:
+            topic = Topic(self.configuration, rosname, message_type = rtype)
+            collection.add(topic)
+        return PubSubPrimitive(self.node, topic, rtype, call_name, queue,
+                               conditions = conditions)
+
+    def make(self):
+        pass
 
 
 ###############################################################################
@@ -275,50 +300,73 @@ class LaunchScope(LoggingObject):
             link.service.clients.append(link)
             self._update_service_conditions(link.service)
 
-    def _make_topic_link(self, name, ns, pns, type, queue, conditions, hints):
+    def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints):
         collection = self.configuration.topics
+        call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
-        topic = self._lookup_resource(rosname.full, type, collection, hints)
-        if topic is None:
-            topic = Topic(self.configuration, rosname, message_type = type)
-        elif "?" in rosname.full:
-            rosname = RosName(topic.rosname.full, remaps = self.node.remaps)
-            topic = Topic(self.configuration, rosname, message_type = type)
-        if collection.get(topic.rosname.full) is None:
+        links = []
+        if rosname.is_unresolved:
+            pattern = rosname.pattern
+            topics = self._pattern_match(pattern, rtype, collection)
+            for topic in topics:
+                links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+                                             queue, conditions = conditions))
+            topics = self._pattern_match(pattern, rtype, hints)
+            for topic in topics:
+                new = topic.remap(RosName(topic.rosname.full,
+                                          remaps = self.node.remaps))
+                collection.add(new)
+                links.append(PubSubPrimitive(self.node, new, rtype, call_name,
+                                             queue, conditions = conditions))
+        else:
+            topic = collection.get(rosname.full)
+            if not topic is None:
+                links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+                                             queue, conditions = conditions))
+        if not links:
+            topic = Topic(self.configuration, rosname, message_type = rtype)
             collection.add(topic)
-        return PubSubPrimitive(self.node, topic, type,
-                               RosName(name, ns or self.namespace, pns),
-                               queue, conditions = conditions)
+            links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+                                         queue, conditions = conditions))
+        return links
 
-    def _make_service_link(self, name, ns, pns, type, conditions, hints):
+    def _make_service_links(self, name, ns, pns, rtype, conditions, hints):
         collection = self.configuration.services
+        call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
-        service = self._lookup_resource(rosname.full, type, collection, hints)
-        if service is None:
-            service = Service(self.configuration, rosname, message_type = type)
-        elif "?" in rosname:
-            rosname = RosName(service.rosname.full, remaps = self.node.remaps)
-            service = Service(self.configuration, rosname, message_type = type)
-        if collection.get(service.rosname.full) is None:
-            collection.add(service)
-        return ServicePrimitive(self.node, service, type,
-                                RosName(name, ns or self.namespace, pns),
-                                conditions = conditions)
+        links = []
+        if rosname.is_unresolved:
+            pattern = rosname.pattern
+            services = self._pattern_match(pattern, rtype, collection)
+            for srv in services:
+                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
+                                              conditions = conditions))
+            services = self._pattern_match(pattern, rtype, hints)
+            for srv in services:
+                new = srv.remap(RosName(srv.rosname.full,
+                                        remaps = self.node.remaps))
+                collection.add(new)
+                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
+                                              conditions = conditions))
+        else:
+            srv = collection.get(rosname.full)
+            if not srv is None:
+                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
+                                              conditions = conditions))
+        if not links:
+            srv = Service(self.configuration, rosname, message_type = rtype)
+            collection.add(srv)
+            links.append(ServicePrimitive(self.node, srv, rtype, call_name,
+                                          conditions = conditions))
+        return links
 
-    def _lookup_resource(self, name, type, collection, hints):
-        if not "?" in name:
-            return collection.get(name)
-        pattern = name.replace("?", "(?:.+?)") + "$"
-        for resource in hints:
-            if re.match(pattern, resource.rosname.full):
-                if resource.type == type:
-                    return resource
-    # TODO: not sure whether this is correct; might have to consider remaps
+    def _pattern_match(self, pattern, rtype, collection):
+        candidates = []
         for resource in collection:
             if re.match(pattern, resource.rosname.full):
-                if resource.type == type:
-                    return resource
-        return None
+                if resource.type == rtype:
+                    candidates.append(resource)
+        return candidates
 
     # as seen in roslaunch code, sans a few details
     def _convert_value(self, value, ptype):
