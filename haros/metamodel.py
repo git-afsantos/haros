@@ -103,7 +103,7 @@ class RosPrimitiveCall(object):
         self.type = msg_type
         self.conditions = conditions if not conditions is None else []
         self.control_depth = control_depth or len(self.conditions)
-        self.repeats = repeats and control_depth >= 1
+        self.repeats = repeats and self.control_depth >= 1
         self.location = location
 
     def to_JSON_object(self):
