@@ -618,6 +618,14 @@ class RosName(object):
     def is_private(self):
         return self._given.startswith("~")
 
+    @property
+    def is_unresolved(self):
+        return "?" in self._name
+
+    @property
+    def pattern(self):
+        return self._name.replace("?", "(.+?)") + "$"
+
     @staticmethod
     def resolve(name, ns = "/", private_ns = ""):
         if name[0] == "~":
@@ -703,11 +711,14 @@ class Resource(object):
 
     @property
     def unresolved(self):
-        return "?" in self.rosname.full
+        return self.rosname.is_unresolved
 
     @property
     def location(self):
         return RuntimeLocation(self.configuration)
+
+    def remap(self, rosname):
+        raise NotImplementedError("subclasses must implement this method")
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -754,6 +765,17 @@ class NodeInstance(Resource):
                     queue.append(cli.service.server.node)
         return nodes
 
+    def remap(self, rosname):
+        new = NodeInstance(self.configuration, rosname, self.node,
+                           launch = self.launch, argv = list(self.argv),
+                           remaps = dict(self.remaps),
+                           conditions = list(self.conditions))
+        new.publishers = list(self.publishers)
+        new.subscribers = list(self.subscribers)
+        new.servers = list(self.servers)
+        new.clients = list(self.clients)
+        return new
+
     def to_JSON_object(self):
         return {
             "name": self.id,
@@ -787,6 +809,13 @@ class Topic(Resource):
         s = len(self.subscribers)
         return p + s > 0 and (p == 0 or s == 0)
 
+    def remap(self, rosname):
+        new = Topic(self.configuration, rosname, message_type = self.type,
+                    conditions = list(self.conditions))
+        new.publishers = list(self.publishers)
+        new.subscribers = list(self.subscribers)
+        return new
+
 
 class Service(Resource):
     def __init__(self, config, rosname, message_type = None, conditions = None):
@@ -800,6 +829,19 @@ class Service(Resource):
         s = 1 if not self.server is None else 0
         c = len(self.clients)
         return s + c > 0 and (s == 0 or c == 0)
+
+    @property
+    def servers(self):
+        if self.server:
+            return (self.server,)
+        return ()
+
+    def remap(self, rosname):
+        new = Service(self.configuration, rosname, message_type = self.type,
+                      conditions = list(self.conditions))
+        new.server = self.servers
+        new.clients = list(self.clients)
+        return new
 
 
 class Parameter(Resource):
@@ -823,6 +865,11 @@ class Parameter(Resource):
         if isinstance(value, bool):
             return "boolean"
         return "yaml"
+
+    def remap(self, rosname):
+        return Parameter(self.configuration, rosname, self.type,
+                         self.value, node_scope = self.node_scope,
+                         conditions = list(self.conditions))
 
 
 class PubSubPrimitive(object):
