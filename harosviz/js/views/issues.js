@@ -91,6 +91,7 @@ THE SOFTWARE.
             var data = _.clone(violation.attributes),
                 rule = this.rules.get(data.rule);
             data.id = this.pageSize * (this.page - 1) + index + 1;
+            data.rule = rule.get("name");
             data.description = rule.get("description");
             data.tags = rule.get("tags");
             this.$explorer.append(this.violationTemplate(data));

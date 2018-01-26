@@ -77,10 +77,12 @@ class Violation(object):
         return self.location.smallest_scope
 
     def to_JSON_object(self):
-        data = self.location.to_JSON_object() if self.location else {}
-        data["rule"] = self.rule.id
-        data["comment"] = self.details
-        return data
+        return {
+            "rule": self.rule.id,
+            "comment": self.details,
+            "location": (self.location.to_JSON_object()
+                         if self.location else None)
+        }
 
 
 class Metric(object):
@@ -115,10 +117,12 @@ class Measurement(object):
         return self.location.smallest_scope
 
     def to_JSON_object(self):
-        data = self.location.to_JSON_object() if self.location else {}
-        data["metric"] = self.metric.id
-        data["value"] = self.value
-        return data
+        return {
+            "metric": self.metric.id,
+            "value": self.value,
+            "location": (self.location.to_JSON_object()
+                         if self.location else None)
+        }
 
 
 class FileAnalysis(object):
@@ -365,6 +369,7 @@ class AnalysisReport(object):
         self.by_package = {}
         self.by_config = {}
         self.statistics = None
+        self.violations = []    # unknown location
 
     @property
     def package_count(self):

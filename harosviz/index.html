@@ -486,7 +486,10 @@ THE SOFTWARE.
         <div class="issue">
             <h4>Issue #<%= data.id %>
                 <span class="show-inline-md">- Rule <%= data.rule %></span>
-                <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
+                <small><% if (data.location != null && data.location.file) {
+                    print("in " + data.location.file);
+                    if (data.location.line) print(", line " + data.location.line);
+                } %></small>
             </h4>
             <p><strong><%= data.description %></strong></p>
             <p><%= data.comment || "<i>No additional comment.</i>" %></p>

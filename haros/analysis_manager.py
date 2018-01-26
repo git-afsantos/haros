@@ -31,7 +31,7 @@ import traceback
 
 import pyflwor
 
-from .metamodel import Location
+from .metamodel import MetamodelObject, Location, RuntimeLocation
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
     ConfigurationAnalysis, Statistics, AnalysisReport
@@ -209,25 +209,68 @@ class QueryEngine(LoggingObject):
                 try:
                     result = pyflwor.execute(rule.query, self.data)
                 except SyntaxError as e:
-                    self.log.error("%s", e)
+                    self.log.error("SyntaxError on query %s: %s", rule.id, e)
                 else:
+                    # result can be of types:
+                    # - pyflwor.OrderedSet.OrderedSet<object> for Path queries
+                    # - tuple<object> for FLWR queries single return
+                    # - tuple<tuple<object>> for FLWR queries multi return
+                    # - tuple<dict<str, object>> for FLWR queries named return
+                    # NOTE: sometimes 'object' can be a tuple or dict...
+                    self.log.info("Query %s found %d matches.",
+                                  rule.id, len(result))
                     for match in result:
+                        self.log.debug("Query %s found %s", rule.id, match)
                         self._report(rule, match, reports)
 
-    def _report(self, rule, item, reports):
-        self.log.debug("query(%s, %s)", rule.id, item)
-        try:
-            location = item.location
-        except AttributeError:
-            self.log.error("query %s returned invalid item", rule.id)
+    def _report(self, rule, match, reports):
+        details = ""
+        locations = {}
+        if isinstance(match, tuple):
+            # assume tuple<tuple<object>> for FLWR queries multi return
+            parts = []
+            for item in match:
+                parts.append(str(item))
+                if isinstance(item, MetamodelObject):
+                    location = item.location
+                    locations[location.smallest_scope.id] = location
+            details = "(" + ", ".join(parts) + ")"
+        elif isinstance(match, dict):
+            # assume tuple<dict<str, object>> for FLWR queries named return
+            parts = []
+            for key, item in match.iteritems():
+                parts.append(str(key) + ": " + str(item))
+                if isinstance(item, MetamodelObject):
+                    location = item.location
+                    locations[location.smallest_scope.id] = location
+            details = "{" + ", ".join(parts) + "}"
+        elif isinstance(match, MetamodelObject):
+            location = match.location
+            locations[location.smallest_scope.id] = location
+            details = str(match)
         else:
-            scope = location.smallest_scope
-            try:
-                report = reports.get(scope.id)
-            except KeyError:
-                self.log.error("invalid scope: " + scope.id)
-            else:
-                report.violations.append(Violation(rule, location))
+            # literals and other return values
+            details = str(match)
+        details = "Query found: " + details
+        if not locations:
+            report = reports[None]
+            report.violations.append(Violation(rule, location, details))
+        else:
+            report = None
+            location = None
+            locations = list(locations.itervalues())
+            for item in locations:
+                details += "\nReported " + str(item)
+                scope = item.smallest_scope
+                try:
+                    report = reports[scope.id]
+                except KeyError:
+                    self.log.debug("invalid scope: " + scope.id)
+                else:
+                    location = item
+                    break
+            report = report or reports[None]
+            report.violations.append(Violation(rule, location, details))
 
     @staticmethod
     def is_rosglobal(name):
@@ -281,6 +324,7 @@ class AnalysisManager(LoggingObject):
             config_report = ConfigurationAnalysis(config)
             self.report.by_config[config.id] = config_report
             reports[config.id] = config_report
+        reports[None] = self.report
         return reports
 
     def _execute_queries(self, reports):

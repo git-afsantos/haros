@@ -99,9 +99,11 @@ THE SOFTWARE.
 
     /*
         id,
+        name,
         scope,
         description,
-        tags: []
+        tags: [],
+        query
     */
     Models.Rule = Backbone.Model.extend({
         defaults: function () {
@@ -144,11 +146,14 @@ THE SOFTWARE.
 
     /*
         rule,
-        *file,
-        *line,
-        *function,
-        *class,
-        comment
+        comment,
+        location: {
+            package,
+            file,
+            line,
+            function,
+            class
+        }
     */
     Models.Violation = Backbone.Model.extend({
         defaults: function () {
