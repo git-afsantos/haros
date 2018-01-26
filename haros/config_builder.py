@@ -46,8 +46,8 @@ rosparam = None # lazy import
 
 from .launch_parser import SubstitutionError, SubstitutionParser
 from .metamodel import (
-    Node, Configuration, RosName, NodeInstance, Parameter,
-    Topic, Service, PubSubPrimitive, ServicePrimitive, SourceCondition
+    Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
+    SourceCondition, TopicPrimitive, ServicePrimitive
 )
 
 
@@ -252,24 +252,24 @@ class LaunchScope(LoggingObject):
             pattern = rosname.pattern
             topics = self._pattern_match(pattern, rtype, collection)
             for topic in topics:
-                links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+                links.append(TopicPrimitive(self.node, topic, rtype, call_name,
                                              queue, conditions = conditions))
             topics = self._pattern_match(pattern, rtype, hints)
             for topic in topics:
                 new = topic.remap(RosName(topic.rosname.full,
                                           remaps = self.node.remaps))
                 collection.add(new)
-                links.append(PubSubPrimitive(self.node, new, rtype, call_name,
+                links.append(TopicPrimitive(self.node, new, rtype, call_name,
                                              queue, conditions = conditions))
         else:
             topic = collection.get(rosname.full)
             if not topic is None:
-                links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+                links.append(TopicPrimitive(self.node, topic, rtype, call_name,
                                              queue, conditions = conditions))
         if not links:
             topic = Topic(self.configuration, rosname, message_type = rtype)
             collection.add(topic)
-            links.append(PubSubPrimitive(self.node, topic, rtype, call_name,
+            links.append(TopicPrimitive(self.node, topic, rtype, call_name,
                                          queue, conditions = conditions))
         return links
 

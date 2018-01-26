@@ -44,6 +44,14 @@ import os
 
 
 ###############################################################################
+# Base Metamodel Object
+###############################################################################
+
+class MetamodelObject(object):
+    pass
+
+
+###############################################################################
 # Analysis Properties
 ###############################################################################
 
@@ -94,7 +102,7 @@ class SourceCondition(object):
         return self.__str__()
 
 
-class RosPrimitiveCall(object):
+class RosPrimitiveCall(MetamodelObject):
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = None,
                  repeats = False, conditions = None, location = None):
@@ -227,7 +235,7 @@ class Location(object):
         return s
 
 
-class SourceObject(object):
+class SourceObject(MetamodelObject):
     """Base class for objects subject to analysis."""
     SCOPES = ("file", "node", "package", "repository", "project")
 
@@ -675,7 +683,7 @@ class RuntimeLocation(object):
         return "in configuration " + self.configuration.name
 
 
-class Resource(object):
+class Resource(MetamodelObject):
     """This is the base class for all runtime objects belonging
         to the ROS Computation Graph.
     """
@@ -816,6 +824,20 @@ class Topic(Resource):
         new.subscribers = list(self.subscribers)
         return new
 
+    def _get_conditions(self):
+        conditional = True
+        conditions = []
+        for links in (self.publishers, self.subscribers):
+            for link in links:
+                if not link.node.conditions:
+                    conditional = False
+                    if not link.conditions:
+                        return []
+                conditions.extend(link.conditions)
+                if conditional:
+                    conditions.extend(link.node.conditions)
+        return conditions
+
 
 class Service(Resource):
     def __init__(self, config, rosname, message_type = None, conditions = None):
@@ -842,6 +864,20 @@ class Service(Resource):
         new.server = self.servers
         new.clients = list(self.clients)
         return new
+
+    def _get_conditions(self):
+        conditional = True
+        conditions = []
+        for links in (self.servers, self.clients):
+            for link in links:
+                if not link.node.conditions:
+                    conditional = False
+                    if not link.conditions:
+                        return []
+                conditions.extend(link.conditions)
+                if conditional:
+                    conditions.extend(link.node.conditions)
+        return conditions
 
 
 class Parameter(Resource):
@@ -870,73 +906,6 @@ class Parameter(Resource):
         return Parameter(self.configuration, rosname, self.type,
                          self.value, node_scope = self.node_scope,
                          conditions = list(self.conditions))
-
-
-class PubSubPrimitive(object):
-    def __init__(self, node, topic, message_type, rosname, queue_size,
-                 conditions = None):
-        self.node = node
-        self.topic = topic
-        self.type = message_type
-        self.rosname = rosname  # before remappings
-        self.queue_size = queue_size
-        self.conditions = conditions if not conditions is None else []
-
-    @property
-    def topic_name(self):
-        return self.topic.rosname.full
-
-    @property
-    def location(self):
-        return self.node.location
-
-    def to_JSON_object(self):
-        return {
-            "topic": self.topic_name,
-            "name": self.rosname.full,
-            "type": self.type,
-            "queue": self.queue_size,
-            "conditions": [c.to_JSON_object() for c in self.conditions]
-        }
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id,
-                                           self.type)
-
-class ServicePrimitive(object):
-    def __init__(self, node, service, message_type, rosname,
-                 conditions = None):
-        self.node = node
-        self.service = service
-        self.type = message_type
-        self.rosname = rosname  # before remappings
-        self.conditions = conditions if not conditions is None else []
-
-    @property
-    def topic_name(self):
-        return self.topic.rosname.full
-
-    @property
-    def location(self):
-        return self.node.location
-
-    def to_JSON_object(self):
-        return {
-            "topic": self.topic_name,
-            "name": self.rosname.full,
-            "type": self.type,
-            "conditions": [c.to_JSON_object() for c in self.conditions]
-        }
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return "SrvCli({}, {}, {})".format(self.node.id, self.topic.id,
-                                           self.type)
 
 
 class ResourceCollection(object):
@@ -982,7 +951,7 @@ class ResourceCollection(object):
         return previous
 
 
-class Configuration(object):
+class Configuration(MetamodelObject):
     """A configuration is more or less equivalent to an application.
         It is the result of a set of launch files,
         plus environment, parameters, etc.
@@ -1034,6 +1003,136 @@ class Configuration(object):
 
     def __str__(self):
         return "Configuration " + self.name
+
+
+###############################################################################
+# ROS Runtime Analysis Properties
+###############################################################################
+
+class RosPrimitive(MetamodelObject):
+    def __init__(self, node, rosname, conditions = None, location = None):
+        self.node = node
+        self.rosname = rosname # before remappings
+        self.conditions = conditions if not conditions is None else []
+        self.source_location = location
+
+    @property
+    def location(self):
+        return self.node.location
+
+    def to_JSON_object(self):
+        return {
+            "name": self.rosname.full,
+            "location": (self.source_location.to_JSON_object()
+                         if self.source_location else None),
+            "conditions": [c.to_JSON_object() for c in self.conditions]
+        }
+
+
+class TopicPrimitive(RosPrimitive):
+    def __init__(self, node, topic, message_type, rosname, queue_size,
+                 conditions = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+        self.topic = topic
+        self.type = message_type
+        self.queue_size = queue_size
+
+    @property
+    def topic_name(self):
+        return self.topic.rosname.full
+
+    def to_JSON_object(self):
+        data = RosPrimitive.to_JSON_object(self)
+        data["topic"] = self.topic_name
+        data["type"] = self.type
+        data["queue"] = self.queue_size
+        return data
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id,
+                                           self.type)
+
+class PublishLink(TopicPrimitive):
+    @classmethod
+    def link(cls, node, topic, message_type, rosname, queue_size,
+             conditions = None):
+        link = cls(node, topic, message_type, rosname, queue_size,
+                   conditions = conditions)
+        link.node.publishers.append(link)
+        link.topic.publishers.append(link)
+        return link
+
+    def __str__(self):
+        return "Advertise({}, {}, {})".format(self.node.id, self.topic.id,
+                                              self.type)
+
+class SubscribeLink(TopicPrimitive):
+    @classmethod
+    def link(cls, node, topic, message_type, rosname, queue_size,
+             conditions = None):
+        link = cls(node, topic, message_type, rosname, queue_size,
+                   conditions = conditions)
+        link.node.subscribers.append(link)
+        link.topic.subscribers.append(link)
+        return link
+
+    def __str__(self):
+        return "Subscribe({}, {}, {})".format(self.node.id, self.topic.id,
+                                              self.type)
+
+
+class ServicePrimitive(RosPrimitive):
+    def __init__(self, node, service, message_type, rosname,
+                 conditions = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+        self.service = service
+        self.type = message_type
+
+    @property
+    def topic_name(self):
+        return self.topic.rosname.full
+
+    def to_JSON_object(self):
+        data = RosPrimitive.to_JSON_object(self)
+        data["topic"] = self.topic_name
+        data["type"] = self.type
+        return data
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return "SrvCli({}, {}, {})".format(self.node.id, self.topic.id,
+                                           self.type)
+
+class ServiceLink(ServicePrimitive):
+    @classmethod
+    def link(cls, node, service, message_type, rosname, conditions = None):
+        link = cls(node, service, message_type, rosname,
+                   conditions = conditions)
+        link.node.servers.append(link)
+        link.service.server = link
+        return link
+
+    def __str__(self):
+        return "Service({}, {}, {})".format(self.node.id, self.service.id,
+                                            self.type)
+
+class ClientLink(ServicePrimitive):
+    @classmethod
+    def link(cls, node, service, message_type, rosname, conditions = None):
+        link = cls(node, service, message_type, rosname,
+                   conditions = conditions)
+        link.node.clients.append(link)
+        link.service.clients.append(link)
+        return link
+
+    def __str__(self):
+        return "Client({}, {}, {})".format(self.node.id, self.service.id,
+                                           self.type)
 
 
 
