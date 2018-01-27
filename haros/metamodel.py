@@ -992,8 +992,7 @@ class Configuration(MetamodelObject):
 
     def to_JSON_object(self):
         return {
-            "id": self.id,
-            "name": self.name,
+            "id": self.name,
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),
