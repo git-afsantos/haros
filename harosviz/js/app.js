@@ -96,6 +96,7 @@ This script creates the views with the document nodes, and the models from data.
             el: $("#issue-board"),
             collection: App.violations,
             packages: App.packages,
+            configurations: App.configurations,
             rules: App.rules,
             router: App.router
         });

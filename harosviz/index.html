@@ -176,11 +176,15 @@ THE SOFTWARE.
         <section id="issue-board">
             <div class="header-menu">
                 <div class="menu-item margin-bottom">
-                    <label for="issue-package-select">
-                        <i class="fa fa-folder"></i>
-                        <strong class="show-inline-sm">Package</strong>
-                    </label>
+                    <select id="issue-type-select" class="flexible margin-h">
+                        <option value="source">Source Issues</option>
+                        <option value="runtime">Runtime Issues</option>
+                        <option value="other">Other Issues</option>
+                    </select>
+                </div>
+                <div class="menu-item margin-bottom">
                     <select id="issue-package-select" class="flexible margin-h"></select>
+                    <select id="issue-config-select" class="flexible margin-h"></select>
                 </div>
                 <div class="menu-item margin-bottom">
 <!--
@@ -229,10 +233,6 @@ THE SOFTWARE.
         <section id="ros-board">
             <div class="header-menu">
                 <div class="menu-item margin-bottom">
-                    <label for="ros-config-select">
-                        <i class="fa fa-gears"></i>
-                        <strong class="show-inline-sm">Configuration</strong>
-                    </label>
                     <select id="ros-config-select" class="flexible margin-h"></select>
                 </div>
             </div>
@@ -492,7 +492,7 @@ THE SOFTWARE.
                 } %></small>
             </h4>
             <p><strong><%= data.description %></strong></p>
-            <p><%= data.comment || "<i>No additional comment.</i>" %></p>
+            <p><%= (data.comment || "").replace("\n", "<br/>") || "<i>No additional comment.</i>" %></p>
             <ul class="taglist">
                 <% for (var i = 0; i < data.tags.length; ++i)
                     print('<li class="tag" data-tag="' + data.tags[i] + '">' + data.tags[i] + "</li>\n");

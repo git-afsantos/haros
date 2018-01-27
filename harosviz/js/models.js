@@ -170,8 +170,17 @@ THE SOFTWARE.
     Models.ViolationCollection = Backbone.Collection.extend({
         model: Models.Violation,
 
+        projectId: null,
+        packageId: null,
+        configId: null,
+
         url: function () {
-            return "data/" + this.projectId + "/compliance/" + this.packageId + ".json";
+            var prefix = "data/" + this.projectId + "/compliance/";
+            if (this.packageId != null)
+                return prefix + "source/" + this.packageId + ".json";
+            if (this.configId != null)
+                return prefix + "runtime/" + this.configId + ".json";
+            return prefix + "unknown.json";
         },
 
         filterByRules: function (rules, ignore) {
@@ -188,7 +197,6 @@ THE SOFTWARE.
 
     /*
         id,
-        name,
         dependencies: [],
         environment: [],
         collisions,
@@ -222,7 +230,6 @@ THE SOFTWARE.
     Models.Configuration = Backbone.Model.extend({
         defaults: function () {
             return {
-                name: "?",
                 collisions: 0,
                 remaps: 0,
                 nodes: [],

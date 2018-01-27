@@ -305,7 +305,7 @@ THE SOFTWARE.
                 this.publicVars.issues.tags = this.filterView.tags;
                 this.publicVars.issues.ignore = !!this.filterView.ignoring;
             }
-            this.router.navigate("issues/" + this.selection.model.id, {trigger: true});
+            this.router.navigate("issues/source/" + this.selection.model.id, {trigger: true});
         },
 
 
