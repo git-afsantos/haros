@@ -254,7 +254,7 @@ class QueryEngine(LoggingObject):
         details = "Query found: " + details
         if not locations:
             report = reports[None]
-            report.violations.append(Violation(rule, location, details))
+            report.violations.append(Violation(rule, None, details))
         else:
             report = None
             location = None

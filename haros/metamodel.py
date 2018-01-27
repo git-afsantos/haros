@@ -928,6 +928,9 @@ class ResourceCollection(object):
     def __contains__(self, key):
         return key in self.counter
 
+    def __iter__(self):
+        return self.all.__iter__()
+
     def get(self, name, conditional = True):
         for resource in reversed(self.all):
             if resource.id == name:

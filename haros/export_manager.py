@@ -74,8 +74,8 @@ class JsonExporter(LoggingObject):
         self.log.info("Exporting analysis metrics.")
         self._export_collection(datadir, metrics, "metrics.json")
 
-    def export_violations(self, datadir, pkg_reports):
-        self.log.info("Exporting reported rule violations.")
+    def export_source_violations(self, datadir, pkg_reports):
+        self.log.info("Exporting reported source rule violations.")
         if isinstance(pkg_reports, dict):
             pkg_reports = pkg_reports.viewvalues()
         for report in pkg_reports:
@@ -86,6 +86,18 @@ class JsonExporter(LoggingObject):
             with open(out, "w") as f:
                 self.log.debug("Writing to %s", out)
                 json.dump(data, f)
+
+    def export_runtime_violations(self, datadir, config_reports):
+        self.log.info("Exporting reported runtime rule violations.")
+        if isinstance(config_reports, dict):
+            config_reports = config_reports.viewvalues()
+        for report in config_reports:
+            self._export_collection(datadir, report.violations,
+                                    report.configuration.name + ".json")
+
+    def export_other_violations(self, datadir, violations):
+        self.log.info("Exporting reported rule violations.")
+        self._export_collection(datadir, violations, "unknown.json")
 
     def export_measurements(self, datadir, pkg_reports):
         self.log.info("Exporting metrics measurements.")
