@@ -31,6 +31,7 @@ THE SOFTWARE.
         navigateOptions: { trigger: false, replace: true },
 
         events: {
+            "click #ros-config-issues":  "goToIssues",
             "change #ros-config-select": "onSelect"
         },
 
@@ -89,6 +90,12 @@ THE SOFTWARE.
             this.router.navigate("models/" + config.id, this.navigateOptions);
             this.graph.collection.reset(config.get("nodes"));
             this.render();
+        },
+
+        goToIssues: function () {
+            var config = this.$configSelect.val();
+            if (config != null)
+                this.router.navigate("issues/runtime/" + config, {trigger: true});
         },
 
         onResize: function () {

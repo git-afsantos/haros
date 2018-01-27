@@ -647,7 +647,8 @@ svg {
     font-weight: normal;
 }
 
-#issue-board button {
+#issue-board button,
+#ros-board .menu-item button {
     background: none;
     border: 1px solid grey;
     font-size: 1em;

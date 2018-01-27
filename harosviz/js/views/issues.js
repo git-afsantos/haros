@@ -135,6 +135,7 @@ THE SOFTWARE.
         buildSource: function (id) {
             this.packageId = id;
             this.configId = null;
+            this.$typeSelect.val("source");
             this.$pkgSelect.show();
             this.$configSelect.hide();
             if (this.packages.length > 0) {
@@ -148,6 +149,7 @@ THE SOFTWARE.
         buildRuntime: function (id) {
             this.packageId = null;
             this.configId = id;
+            this.$typeSelect.val("runtime");
             this.$pkgSelect.hide();
             this.$configSelect.show();
             if (this.configurations.length > 0) {
@@ -161,6 +163,7 @@ THE SOFTWARE.
         buildOther: function () {
             this.packageId = null;
             this.configId = null;
+            this.$typeSelect.val("other");
             this.$pkgSelect.hide();
             this.$configSelect.hide();
         },
