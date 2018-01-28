@@ -258,6 +258,8 @@ class LaunchScope(LoggingObject):
             for topic in topics:
                 new = topic.remap(RosName(topic.rosname.full,
                                           remaps = self.node.remaps))
+                if new.id in collection:
+                    continue # already done in the step above
                 collection.add(new)
                 links.append(TopicPrimitive(self.node, new, rtype, call_name,
                                              queue, conditions = conditions))
@@ -288,6 +290,8 @@ class LaunchScope(LoggingObject):
             for srv in services:
                 new = srv.remap(RosName(srv.rosname.full,
                                         remaps = self.node.remaps))
+                if new.id in collection:
+                    continue # already done in the step above
                 collection.add(new)
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
                                               conditions = conditions))
