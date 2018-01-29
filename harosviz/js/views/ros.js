@@ -102,7 +102,7 @@ THE SOFTWARE.
             this.graph.onResize();
         },
 
-        optionTemplate: _.template("<option value=<%= data.id %>><%= data.get('name') %></option>",
+        optionTemplate: _.template("<option><%= data.id %></option>",
                                    {variable: "data"})
     });
 
