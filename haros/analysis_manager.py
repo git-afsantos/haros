@@ -347,6 +347,9 @@ class AnalysisManager(LoggingObject):
                     for scope in self.report.project.packages:
                         iface._report = iface._reports[scope.id]
                         plugin.analysis.analyse_package(iface, scope)
+                    for scope in self.report.project.configurations:
+                        iface._report = iface._reports[scope.id]
+                        plugin.analysis.analyse_configuration(iface, scope)
                     iface._report = None
                     plugin.analysis.post_analysis(iface)
                 except Exception:
@@ -372,6 +375,11 @@ class AnalysisManager(LoggingObject):
                     for scope in self.report.project.packages:
                         iface._report = iface._reports[scope.id]
                         plugin.process.process_package(iface, scope,
+                                iface._report.violations,
+                                iface._report.metrics)
+                    for scope in self.report.project.configurations:
+                        iface._report = iface._reports[scope.id]
+                        plugin.process.process_configuration(iface, scope,
                                 iface._report.violations,
                                 iface._report.metrics)
                     iface._report = None

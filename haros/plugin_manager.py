@@ -60,6 +60,7 @@ class AnalysisInterface(LoggingObject):
         self.state      = None
         self.f_analysis = hasattr(module, "file_analysis")
         self.p_analysis = hasattr(module, "package_analysis")
+        self.c_analysis = hasattr(module, "configuration_analysis")
 
     def analyse_file(self, iface, scope):
         self.log.debug("Plugin.analyse_file: " + scope.id)
@@ -72,6 +73,12 @@ class AnalysisInterface(LoggingObject):
         if self.p_analysis:
             self.log.debug("Calling module.package_analysis")
             self.module.package_analysis(iface, scope)
+
+    def analyse_configuration(self, iface, scope):
+        self.log.debug("Plugin.analyse_configuration: " + scope.id)
+        if self.c_analysis:
+            self.log.debug("Calling module.configuration_analysis")
+            self.module.configuration_analysis(iface, scope)
 
     def pre_analysis(self):
         self.log.debug("Plugin.pre_analysis")
@@ -98,6 +105,8 @@ class ProcessingInterface(LoggingObject):
         self.f_metrics      = hasattr(module, "process_file_metric")
         self.p_violations   = hasattr(module, "process_package_violation")
         self.p_metrics      = hasattr(module, "process_package_metric")
+        self.c_violations   = hasattr(module, "process_configuration_violation")
+        self.c_metrics      = hasattr(module, "process_configuration_metric")
 
     def process_file(self, iface, scope, violations, metrics):
         # Receives a copy of the issues because the actual lists may change
@@ -122,6 +131,18 @@ class ProcessingInterface(LoggingObject):
             self.log.debug("Calling module.process_package_metric")
             for datum in metrics:
                 self.module.process_package_metric(iface, datum)
+
+    def process_configuration(self, iface, scope, violations, metrics):
+        # Receives a copy of the issues because the actual lists may change
+        self.log.debug("Plugin.process_configuration: " + scope.id)
+        if self.c_violations:
+            self.log.debug("Calling module.process_configuration_violation")
+            for datum in violations:
+                self.module.process_configuration_violation(iface, datum)
+        if self.c_metrics:
+            self.log.debug("Calling module.process_configuration_metric")
+            for datum in metrics:
+                self.module.process_configuration_metric(iface, datum)
 
     def pre_process(self):
         self.log.debug("Plugin.pre_process")
