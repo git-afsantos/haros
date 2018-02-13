@@ -117,6 +117,7 @@ THE SOFTWARE.
         events: {
             "click #config-btn-viewport":   "render",
             "click #config-btn-drag":       "onSetDrag",
+            "click #config-btn-param":      "onToggleParams",
             "click #config-btn-focus":      "onFocus",
             "click #config-btn-info":       "onInfo"
         },
@@ -124,7 +125,8 @@ THE SOFTWARE.
         initialize: function (options) {
             _.bindAll(this, "onEmptyClick", "onZoom");
             this.visible = false;
-            this.topics = {};
+            this.resources = {};
+            this.showParams = false;
 
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
@@ -151,11 +153,10 @@ THE SOFTWARE.
         },
 
         render: function () {
-            var i, v, nodes, edges, g = this.graph, graph;
+            var i, v, nodes, edges, g = this.graph;
             if (!this.visible) return this;
             if (this.collection.length > 0) {
-                graph = this.updateVisibility();
-                dagre.layout(graph);
+                dagre.layout(this.updateVisibility());
                 for (nodes = g.nodes(), i = nodes.length; i--;)
                     g.node(nodes[i]).render();
                 for (edges = g.edges(), i = edges.length; i--;)
@@ -186,30 +187,51 @@ THE SOFTWARE.
             var i, v, visibleGraph,
                 nodes = this.graph.nodes(),
                 edges = this.graph.edges();
-            if (this.focus != null) {
-                visibleGraph = new dagre.graphlib.Graph();
-                visibleGraph.setGraph(this.graph.graph());
+            if (this.showParams) {
+                for (i = nodes.length; i--;)
+                    this.graph.node(nodes[i]).visible = true;
+                for (i = edges.length; i--;)
+                    this.graph.edge(edges[i]).visible = true;
+                if (this.focus == null)
+                    return this.graph;
+            } else {
                 for (i = nodes.length; i--;) {
                     v = this.graph.node(nodes[i]);
-                    v.visible = (v === this.focus
-                                 || this.graph.hasEdge(v.model.id, this.focus.model.id)
-                                 || this.graph.hasEdge(this.focus.model.id, v.model.id));
+                    v.visible = v.model.get("resourceType") !== "param";
+                }
+                for (i = edges.length; i--;) {
+                    v = this.graph.edge(edges[i]);
+                    v.visible = (v.source.model.get("resourceType") !== "param"
+                                 && v.target.model.get("resourceType") !== "param");
+                }
+            }
+            visibleGraph = new dagre.graphlib.Graph();
+            visibleGraph.setGraph(this.graph.graph());
+            if (this.focus != null) {
+                for (i = nodes.length; i--;) {
+                    v = this.graph.node(nodes[i]);
+                    v.visible = v.visible
+                                && (v === this.focus
+                                    || this.graph.hasEdge(v.model.id, this.focus.model.id)
+                                    || this.graph.hasEdge(this.focus.model.id, v.model.id));
                     if (v.visible) visibleGraph.setNode(v.model.id, v);
                 }
                 for (i = edges.length; i--;) {
                     v = this.graph.edge(edges[i]);
-                    v.visible = (edges[i].v === this.focus.model.id
-                                 || edges[i].w === this.focus.model.id);
+                    v.visible = v.visible
+                                && (edges[i].v === this.focus.model.id
+                                    || edges[i].w === this.focus.model.id);
                     if (v.visible) visibleGraph.setEdge(edges[i], v);
                 }
             } else {
-                visibleGraph = this.graph;
                 for (i = nodes.length; i--;) {
-                    this.graph.node(nodes[i]).visible = true;
+                    v = this.graph.node(nodes[i]);
+                    if (v.visible) visibleGraph.setNode(v.model.id, v);
                 }
-                    
-                for (i = edges.length; i--;)
-                    this.graph.edge(edges[i]).visible = true;
+                for (i = edges.length; i--;) {
+                    v = this.graph.edge(edges[i]);
+                    if (v.visible) visibleGraph.setEdge(edges[i], v);
+                }
             }
             return visibleGraph;
         },
@@ -218,7 +240,7 @@ THE SOFTWARE.
             var i, nodes = this.graph.nodes();
             for (i = nodes.length; i--;)
                 this.stopListening(this.graph.node(nodes[i]));
-            this.topics = {};
+            this.resources = {};
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
                 nodesep: this.spacing, ranksep: 2 * this.spacing, acyclicer: "greedy"
@@ -227,7 +249,7 @@ THE SOFTWARE.
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             collection.each(this.onAdd, this);
             // NOTE: topic models are not added to the collection. FIXME?
-            _.each(this.topics, this._connectUnknown, this);
+            _.each(this.resources, this._connectUnknown, this);
             this.focus = null;
             this.selection = null;
             // this.render();
@@ -250,22 +272,24 @@ THE SOFTWARE.
             this._addLinkNodes(model.id, model.get("subscribers"), "topic", "target");
             this._addLinkNodes(model.id, model.get("servers"), "service", "target");
             this._addLinkNodes(model.id, model.get("clients"), "service", "source");
+            this._addLinkNodes(model.id, model.get("reads"), "param", "target");
+            this._addLinkNodes(model.id, model.get("writes"), "param", "source");
         },
 
         _addLinkNodes: function (node, list, type, direction) {
             var i = list.length, link, name, model, view;
             while (i--) {
                 link = list[i];
-                name = type + ":" + link.topic;
-                if (!this.topics.hasOwnProperty(name)) {
+                name = type + ":" + (link.topic || link.param);
+                if (!this.resources.hasOwnProperty(name)) {
                     model = new Backbone.Model({
-                        name: link.topic, types: {},
+                        name: (link.topic || link.param), types: {},
                         resourceType: type,
                         conditions: link.conditions,
                         candidates: []
                     });
                     model.set("id", model.cid);
-                    this.topics[name] = model;
+                    this.resources[name] = model;
                     view = new views.ResourceNode({
                         model: model, el: this.d3g.append("g").node()
                     });
@@ -273,7 +297,7 @@ THE SOFTWARE.
                     this.listenTo(view, "drag", this.onDrag);
                     this.graph.setNode(model.id, view);
                 }
-                model = this.topics[name]
+                model = this.resources[name]
                 model.get("types")[link.type] = true;
                 this._addEdge(node, model.id, direction, !!link.conditions.length);
             }
@@ -304,8 +328,8 @@ THE SOFTWARE.
             if (model.get("resourceType") === "node") return;
             if (model.get("name").indexOf("?") < 0) return;
             var other, key, candidates = model.get("candidates");
-            for (key in this.topics) if (this.topics.hasOwnProperty(key)) {
-                other = this.topics[key];
+            for (key in this.resources) if (this.resources.hasOwnProperty(key)) {
+                other = this.resources[key];
                 if (other === model) continue;
                 if (other.get("resourceType") !== model.get("resourceType")) continue;
                 if (!_.isEqual(model.get("types"), other.get("types"))) continue;
@@ -441,6 +465,15 @@ THE SOFTWARE.
 
         onSetDrag: function () {
             this.allowDrag = !this.allowDrag;
+        },
+
+        onToggleParams: function () {
+            this.showParams = !this.showParams;
+            if (!this.showParams && this.focus != null) {
+                if (this.focus.model.get("resourceType") === "param")
+                    this.focus = null;
+            }
+            this.render();
         },
 
         onDrag: function (node) {
