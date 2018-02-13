@@ -470,17 +470,18 @@ class FutureParamLink(object):
     def make(self):
         configuration = self.node.configuration
         collection = configuration.parameters
-        call_name = RosName(self.name, self.ns, pns)
-        rosname = RosName(name, self.resolved_ns, pns, self.node.remaps)
+        call_name = RosName(self.name, self.ns, self.pns)
+        rosname = RosName(self.name, self.resolved_ns, self.pns,
+                          self.node.remaps)
         links = []
-        if rosname.is_unresolved and hints:
+        if rosname.is_unresolved and self.hints:
             pattern = rosname.pattern
             params = self._pattern_match(pattern, collection)
             for param in params:
                 links.append(ParameterPrimitive(self.node, param, self.type,
                                                 call_name,
                                                 conditions = self.conditions))
-            params = self._pattern_match(pattern, hints)
+            params = self._pattern_match(pattern, self.hints)
             for param in params:
                 new = param.remap(RosName(param.rosname.full,
                                           remaps = self.node.remaps))
@@ -497,7 +498,7 @@ class FutureParamLink(object):
                                                 call_name,
                                                 conditions = self.conditions))
         if not links:
-            param = Parameter(configuration, rosname, message_type = self.type)
+            param = Parameter(configuration, rosname, self.type, None)
             collection.add(param)
             links.append(ParameterPrimitive(self.node, param, self.type,
                                             call_name,
