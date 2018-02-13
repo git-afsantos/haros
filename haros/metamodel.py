@@ -171,6 +171,12 @@ class ServiceServerCall(RosPrimitiveCall):
 class ServiceClientCall(RosPrimitiveCall):
     pass
 
+class ReadParameterCall(RosPrimitiveCall):
+    pass
+
+class WriteParameterCall(RosPrimitiveCall):
+    pass
+
 
 ###############################################################################
 # Source Code Structures
@@ -533,6 +539,8 @@ class Node(SourceObject):
         self.subscribe = []
         self.service = []
         self.client = []
+        self.read_param = []
+        self.write_param = []
 
     @property
     def scope(self):
@@ -567,7 +575,9 @@ class Node(SourceObject):
             "advertise": [p.to_JSON_object() for p in self.advertise],
             "subscribe": [p.to_JSON_object() for p in self.subscribe],
             "service": [p.to_JSON_object() for p in self.service],
-            "client": [p.to_JSON_object() for p in self.client]
+            "client": [p.to_JSON_object() for p in self.client],
+            "readParam": [p.to_JSON_object() for p in self.read_param],
+            "writeParam": [p.to_JSON_object() for p in self.write_param]
         }
 
     def bound_to(self, other):
@@ -753,6 +763,8 @@ class NodeInstance(Resource):
         self.subscribers = []
         self.servers = []
         self.clients = []
+        self.reads = []
+        self.writes = []
 
     @property
     def rt_outlinks(self):
@@ -782,6 +794,8 @@ class NodeInstance(Resource):
         new.subscribers = list(self.subscribers)
         new.servers = list(self.servers)
         new.clients = list(self.clients)
+        new.reads = list(self.reads)
+        new.writes = list(self.writes)
         return new
 
     def to_JSON_object(self):
@@ -793,7 +807,9 @@ class NodeInstance(Resource):
             "publishers": [p.to_JSON_object() for p in self.publishers],
             "subscribers": [p.to_JSON_object() for p in self.subscribers],
             "servers": [p.to_JSON_object() for p in self.servers],
-            "clients": [p.to_JSON_object() for p in self.clients]
+            "clients": [p.to_JSON_object() for p in self.clients],
+            "reads": [p.to_JSON_object() for p in self.reads],
+            "writes": [p.to_JSON_object() for p in self.writes]
         }
 
     def __repr__(self):
@@ -887,6 +903,8 @@ class Parameter(Resource):
         self.type = ptype or Parameter.type_of(value)
         self.value = value
         self.node_scope = node_scope
+        self.reads = []
+        self.writes = []
 
     @staticmethod
     def type_of(value):
@@ -903,9 +921,12 @@ class Parameter(Resource):
         return "yaml"
 
     def remap(self, rosname):
-        return Parameter(self.configuration, rosname, self.type,
+        new = Parameter(self.configuration, rosname, self.type,
                          self.value, node_scope = self.node_scope,
                          conditions = list(self.conditions))
+        new.reads = list(self.reads)
+        new.writes = list(self.writes)
+        return new
 
 
 class ResourceCollection(object):
@@ -1135,6 +1156,54 @@ class ClientLink(ServicePrimitive):
     def __str__(self):
         return "Client({}, {}, {})".format(self.node.id, self.service.id,
                                            self.type)
+
+
+class ParameterPrimitive(RosPrimitive):
+    def __init__(self, node, param, param_type, rosname, conditions = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+        self.parameter = param
+        self.type = param_type
+
+    @property
+    def param_name(self):
+        return self.parameter.rosname.full
+
+    def to_JSON_object(self):
+        data = RosPrimitive.to_JSON_object(self)
+        data["param"] = self.param_name
+        data["type"] = self.type
+        return data
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return "Param({}, {}, {})".format(self.node.id, self.parameter.id,
+                                          self.type)
+
+class ReadLink(ParameterPrimitive):
+    @classmethod
+    def link(cls, node, param, param_type, rosname, conditions = None):
+        link = cls(node, param, param_type, rosname, conditions = conditions)
+        link.node.reads.append(link)
+        link.parameter.reads.append(link)
+        return link
+
+    def __str__(self):
+        return "Read({}, {}, {})".format(self.node.id, self.parameter.id,
+                                         self.type)
+
+class WriteLink(ParameterPrimitive):
+    @classmethod
+    def link(cls, node, param, param_type, rosname, conditions = None):
+        link = cls(node, param, param_type, rosname, conditions = conditions)
+        link.node.writes.append(link)
+        link.parameter.writes.append(link)
+        return link
+
+    def __str__(self):
+        return "Write({}, {}, {})".format(self.node.id, self.parameter.id,
+                                          self.type)
 
 
 

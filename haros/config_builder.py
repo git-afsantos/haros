@@ -47,7 +47,7 @@ rosparam = None # lazy import
 from .launch_parser import SubstitutionError, SubstitutionParser
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
-    SourceCondition, TopicPrimitive, ServicePrimitive
+    SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive
 )
 
 
@@ -79,6 +79,7 @@ class LaunchScope(LoggingObject):
         self.arguments = args if not args is None else {}
         self.conditions = conditions if not conditions is None else []
         self._params = list(parent._params) if parent else []
+        self._future = []
 
     @property
     def private_ns(self):
@@ -242,6 +243,22 @@ class LaunchScope(LoggingObject):
                 self._update_service_conditions(link.service)
                 if not call.repeats:
                     break
+
+    def _make_param_links(self, read = None, write = None):
+        assert not self.node is None
+        pns = self.private_ns
+        for call in self.node.node.read_param:
+            self._future.append(FutureParamLink(
+                    self.node, call.name, call.namespace or self.namespace,
+                    self.resolve_ns(call.namespace), pns, call.type,
+                    call.conditions, read or (), call.repeats, "reads"
+            ))
+        for call in self.node.node.write_param:
+            self._future.append(FutureParamLink(
+                    self.node, call.name, call.namespace or self.namespace,
+                    self.resolve_ns(call.namespace), pns, call.type,
+                    call.conditions, write or (), call.repeats, "writes"
+            ))
 
     def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints):
         collection = self.configuration.topics
@@ -435,6 +452,70 @@ class LaunchScope(LoggingObject):
             service.conditions.extend(link.conditions)
 
 
+class FutureParamLink(object):
+    def __init__(self, node, name, ns, rns, pns, rtype,
+                 conditions, hints, repeats, rw):
+        self.node = node
+        self.name = name
+        self.ns = ns
+        self.resolved_ns = rns
+        self.pns = pns
+        self.type = rtype
+        self.conditions = conditions
+        self.hints = hints
+        self.repeats = repeats
+        assert rw == "reads" or rw == "writes"
+        self.rw = rw
+
+    def make(self):
+        configuration = self.node.configuration
+        collection = configuration.parameters
+        call_name = RosName(self.name, self.ns, pns)
+        rosname = RosName(name, self.resolved_ns, pns, self.node.remaps)
+        links = []
+        if rosname.is_unresolved and hints:
+            pattern = rosname.pattern
+            params = self._pattern_match(pattern, collection)
+            for param in params:
+                links.append(ParameterPrimitive(self.node, param, self.type,
+                                                call_name,
+                                                conditions = self.conditions))
+            params = self._pattern_match(pattern, hints)
+            for param in params:
+                new = param.remap(RosName(param.rosname.full,
+                                          remaps = self.node.remaps))
+                if new.id in collection:
+                    continue # already done in the step above
+                collection.add(new)
+                links.append(ParameterPrimitive(self.node, param, self.type,
+                                                call_name,
+                                                conditions = self.conditions))
+        else:
+            param = collection.get(rosname.full)
+            if not param is None:
+                links.append(ParameterPrimitive(self.node, param, self.type,
+                                                call_name,
+                                                conditions = self.conditions))
+        if not links:
+            param = Parameter(configuration, rosname, message_type = self.type)
+            collection.add(param)
+            links.append(ParameterPrimitive(self.node, param, self.type,
+                                            call_name,
+                                            conditions = self.conditions))
+        for link in links:
+            getattr(self.node, self.rw).append(link)
+            getattr(link.parameter, self.rw).append(link)
+            if not self.repeats:
+                return
+
+    def _pattern_match(self, pattern, collection):
+        candidates = []
+        for resource in collection:
+            if re.match(pattern, resource.rosname.full):
+                candidates.append(resource)
+        return candidates
+
+
 ###############################################################################
 # Configuration Builder
 ###############################################################################
@@ -562,6 +643,7 @@ class ConfigurationBuilder(LoggingObject):
         self.sources = source_finder
         self.errors = []
         self.hints = hints if not hints is None else {}
+        self._future = []
 
     def add_launch(self, launch_file):
         assert launch_file.language == "launch"
@@ -581,6 +663,8 @@ class ConfigurationBuilder(LoggingObject):
     # ----- parameters can only be added in the end, because of rosparam
         for param in scope.parameters:
             self.configuration.parameters.add(param)
+        for link in self._future:
+            link.make()
 
     def _analyse_tree(self, tree, scope, sub):
         for tag in tree.children:
@@ -614,6 +698,8 @@ class ConfigurationBuilder(LoggingObject):
         new_scope.make_services(service = config_hints.service,
                                 client = config_hints.client)
         config_hints.make_missing_links(new_scope)
+        new_scope._make_param_links()
+        self._future.extend(new_scope._future)
 
     def _include_tag(self, tag, condition, scope, sub):
         filepath = sub.resolve(tag.file, strict = True)

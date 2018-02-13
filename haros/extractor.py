@@ -47,7 +47,8 @@ from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
 from .metamodel import (
     Project, Repository, Package, SourceFile, Node, Person, SourceCondition,
-    Publication, Subscription, ServiceServerCall, ServiceClientCall, Location
+    Publication, Subscription, ServiceServerCall, ServiceClientCall, Location,
+    ReadParameterCall, WriteParameterCall
 )
 from .util import cwd
 
@@ -617,6 +618,8 @@ class NodeExtractor(LoggingObject):
             node.subscribe = []
             node.service = []
             node.client = []
+            node.read_param = []
+            node.write_param = []
             if not node.source_files:
                 self.log.warning("no source files for node " + node.id)
             if node.language == "cpp" and not CppAstParser is None:
@@ -631,22 +634,65 @@ class NodeExtractor(LoggingObject):
                 self.log.warning("no compile commands for " + sf.path)
         node.source_tree = parser.global_scope
     # ----- queries after parsing, since global scope is reused ---------------
-        for call in (CodeQuery(parser.global_scope).all_calls
-                     .where_name("advertise")
+        self._query_comm_primitives(node, parser.global_scope)
+        self._query_nh_param_primitives(node, parser.global_scope)
+        self._query_param_primitives(node, parser.global_scope)
+
+    def _query_comm_primitives(self, node, gs):
+        for call in (CodeQuery(gs).all_calls.where_name("advertise")
                      .where_result("ros::Publisher").get()):
             self._on_publication(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(parser.global_scope).all_calls
-                     .where_name("subscribe")
+        for call in (CodeQuery(gs).all_calls.where_name("subscribe")
                      .where_result("ros::Subscriber").get()):
             self._on_subscription(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(parser.global_scope).all_calls
-                     .where_name("advertiseService")
+        for call in (CodeQuery(gs).all_calls.where_name("advertiseService")
                      .where_result("ros::ServiceServer").get()):
             self._on_service(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(parser.global_scope).all_calls
-                     .where_name("serviceClient")
+        for call in (CodeQuery(gs).all_calls.where_name("serviceClient")
                      .where_result("ros::ServiceClient").get()):
             self._on_client(node, self._resolve_node_handle(call), call)
+
+    def _query_nh_param_primitives(self, node, gs):
+        nh_prefix = "c:@N@ros@S@NodeHandle@"
+        reads = ("getParam", "getParamCached", "param", "hasParam", "searchParam")
+        for call in CodeQuery(gs).all_calls.where_name(reads).get():
+            if (call.full_name.startswith("ros::NodeHandle")
+                    or (isinstance(call.reference, str)
+                        and call.reference.startswith(nh_prefix))):
+                self._on_read_param(node, self._resolve_node_handle(call), call)
+        writes = ("setParam", "deleteParam")
+        for call in CodeQuery(gs).all_calls.where_name(writes).get():
+            if (call.full_name.startswith("ros::NodeHandle")
+                    or (isinstance(call.reference, str)
+                        and call.reference.startswith(nh_prefix))):
+                self._on_write_param(node, self._resolve_node_handle(call), call)
+
+    def _query_param_primitives(self, node, gs):
+        ros_prefix = "c:@N@ros@N@param@"
+        reads = ("get", "getCached", "param", "has")
+        for call in CodeQuery(gs).all_calls.where_name(reads).get():
+            if (call.full_name.startswith("ros::param")
+                    or (isinstance(call.reference, str)
+                        and call.reference.startswith(ros_prefix))):
+                self._on_read_param(node, "", call)
+        for call in (CodeQuery(gs).all_calls.where_name("search")
+                     .where_result("bool").get()):
+            if (call.full_name.startswith("ros::param")
+                    or (isinstance(call.reference, str)
+                        and call.reference.startswith(ros_prefix))):
+                if len(call.arguments) > 2:
+                    ns = resolve_expression(call.arguments[0])
+                    if not isinstance(ns, basestring):
+                        ns = "?"
+                else:
+                    ns = "~"
+                self._on_read_param(node, ns, call)
+        writes = ("set", "del")
+        for call in CodeQuery(gs).all_calls.where_name(writes).get():
+            if (call.full_name.startswith("ros::param")
+                    or (isinstance(call.reference, str)
+                        and call.reference.startswith(ros_prefix))):
+                self._on_write_param(node, "", call)
 
     def _on_publication(self, node, ns, call):
         if len(call.arguments) <= 1:
@@ -709,6 +755,34 @@ class NodeExtractor(LoggingObject):
                                 repeats = is_under_loop(call, recursive = True))
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
+
+    def _on_read_param(self, node, ns, call):
+        if len(call.arguments) < 1:
+            return
+        name = self._extract_topic(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        read = ReadParameterCall(name, ns, "string", location = location,
+                                 control_depth = depth, conditions = conditions,
+                                 repeats = is_under_loop(call, recursive = True))
+        node.read_param.append(read)
+        self.log.debug("Found Read on %s/%s (%s)", ns, name, "string")
+
+    def _on_write_param(self, node, ns, call):
+        if len(call.arguments) < 1:
+            return
+        name = self._extract_topic(call)
+        depth = get_control_depth(call, recursive = True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location = location)
+                      for c in get_conditions(call, recursive = True)]
+        wrt = WriteParameterCall(name, ns, "string", location = location,
+                                 control_depth = depth, conditions = conditions,
+                                 repeats = is_under_loop(call, recursive = True))
+        node.write_param.append(wrt)
+        self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
 
     def _call_location(self, call):
         source_file = None
