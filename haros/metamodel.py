@@ -804,12 +804,12 @@ class NodeInstance(Resource):
             "type": self.node.node_name,
             "args": self.argv,
             "conditions": [c.to_JSON_object() for c in self.conditions],
-            "publishers": [p.to_JSON_object() for p in self.publishers],
-            "subscribers": [p.to_JSON_object() for p in self.subscribers],
-            "servers": [p.to_JSON_object() for p in self.servers],
-            "clients": [p.to_JSON_object() for p in self.clients],
-            "reads": [p.to_JSON_object() for p in self.reads],
-            "writes": [p.to_JSON_object() for p in self.writes]
+            "publishers": [p.topic.rosname.full for p in self.publishers],
+            "subscribers": [p.topic.rosname.full for p in self.subscribers],
+            "servers": [p.service.rosname.full for p in self.servers],
+            "clients": [p.service.rosname.full for p in self.clients],
+            "reads": [p.parameter.rosname.full for p in self.reads],
+            "writes": [p.parameter.rosname.full for p in self.writes]
         }
 
     def __repr__(self):
@@ -839,6 +839,15 @@ class Topic(Resource):
         new.publishers = list(self.publishers)
         new.subscribers = list(self.subscribers)
         return new
+
+    def to_JSON_object(self):
+        return {
+            "name": self.id,
+            "type": self.type,
+            "conditions": [c.to_JSON_object() for c in self.conditions],
+            "publishers": [p.node.rosname.full for p in self.publishers],
+            "subscribers": [p.node.rosname.full for p in self.subscribers]
+        }
 
     def _get_conditions(self):
         conditional = True
@@ -880,6 +889,16 @@ class Service(Resource):
         new.server = self.servers
         new.clients = list(self.clients)
         return new
+
+    def to_JSON_object(self):
+        return {
+            "name": self.id,
+            "type": self.type,
+            "conditions": [c.to_JSON_object() for c in self.conditions],
+            "servers": ([self.server.node.rosname.full]
+                        if not self.server is None else []),
+            "clients": [p.node.rosname.full for p in self.clients]
+        }
 
     def _get_conditions(self):
         conditional = True
@@ -927,6 +946,16 @@ class Parameter(Resource):
         new.reads = list(self.reads)
         new.writes = list(self.writes)
         return new
+
+    def to_JSON_object(self):
+        return {
+            "name": self.id,
+            "type": self.type,
+            "value": self.value,
+            "conditions": [c.to_JSON_object() for c in self.conditions],
+            "reads": [p.node.rosname.full for p in self.reads],
+            "writes": [p.node.rosname.full for p in self.writes]
+        }
 
 
 class ResourceCollection(object):
@@ -1012,13 +1041,37 @@ class Configuration(MetamodelObject):
         return len(unique)
 
     def to_JSON_object(self):
+        publishers = []
+        subscribers = []
+        servers = []
+        clients = []
+        reads = []
+        writes = []
+        for node in self.nodes:
+            publishers.extend(node.publishers)
+            subscribers.extend(node.subscribers)
+            servers.extend(node.servers)
+            clients.extend(node.clients)
+            reads.extend(node.reads)
+            writes.extend(node.writes)
         return {
             "id": self.name,
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),
             "environment": list(self.dependencies.environment),
-            "nodes": [n.to_JSON_object() for n in self.nodes]
+            "nodes": [n.to_JSON_object() for n in self.nodes],
+            "topics": [t.to_JSON_object() for t in self.topics],
+            "services": [s.to_JSON_object() for s in self.services],
+            "parameters": [p.to_JSON_object() for p in self.parameters],
+            "links": {
+                "publishers": publishers,
+                "subscribers": subscribers,
+                "servers": servers,
+                "clients": clients,
+                "reads": reads,
+                "writes": writes
+            }
         }
 
     def __repr__(self):
@@ -1045,6 +1098,7 @@ class RosPrimitive(MetamodelObject):
 
     def to_JSON_object(self):
         return {
+            "node": self.node.rosname.full,
             "name": self.rosname.full,
             "location": (self.source_location.to_JSON_object()
                          if self.source_location else None),
@@ -1120,7 +1174,7 @@ class ServicePrimitive(RosPrimitive):
 
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
-        data["topic"] = self.topic_name
+        data["service"] = self.topic_name
         data["type"] = self.type
         return data
 
