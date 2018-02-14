@@ -1048,12 +1048,12 @@ class Configuration(MetamodelObject):
         reads = []
         writes = []
         for node in self.nodes:
-            publishers.extend(node.publishers)
-            subscribers.extend(node.subscribers)
-            servers.extend(node.servers)
-            clients.extend(node.clients)
-            reads.extend(node.reads)
-            writes.extend(node.writes)
+            publishers.extend(p.to_JSON_object() for p in node.publishers)
+            subscribers.extend(p.to_JSON_object() for p in node.subscribers)
+            servers.extend(p.to_JSON_object() for p in node.servers)
+            clients.extend(p.to_JSON_object() for p in node.clients)
+            reads.extend(p.to_JSON_object() for p in node.reads)
+            writes.extend(p.to_JSON_object() for p in node.writes)
         return {
             "id": self.name,
             "collisions": self.get_collisions(),
