@@ -22,7 +22,7 @@ THE SOFTWARE.
 
 (function () {
     "use strict";
-
+    /* globals window:false, $:false, _:false, dagre:false, Backbone:false, d3:false */
     var views = window.App.Views;
 
     views.RosBoard = views.BaseView.extend({
@@ -42,10 +42,7 @@ THE SOFTWARE.
             this.$configSelect = this.$("#ros-config-select");
             this.$summary = this.$("#config-details");
 
-            this.graph = new views.RosStaticGraph({
-                el: this.$el.find("#config-graph"),
-                collection: new Backbone.Collection()
-            });
+            this.graph = new views.RosStaticGraph({ el: this.$el.find("#config-graph") });
 
             this.configTemplate = _.template($("#ros-board-config-summary").html(), {variable: "data"});
 
@@ -77,7 +74,7 @@ THE SOFTWARE.
             return this;
         },
 
-        onSync: function (collection, response, options) {
+        onSync: function () {
             this.$configSelect.html(this.collection.map(this.optionTemplate).join("\n"));
             if (this.collection.length > 0) {
                 this.$configSelect.val(this.collection.first().id);
@@ -88,7 +85,7 @@ THE SOFTWARE.
         onSelect: function () {
             var config = this.collection.get(this.$configSelect.val());
             this.router.navigate("models/" + config.id, this.navigateOptions);
-            this.graph.collection.reset(config.get("nodes"));
+            this.graph.setModel(config);
             this.render();
         },
 
@@ -122,10 +119,13 @@ THE SOFTWARE.
             "click #config-btn-info":       "onInfo"
         },
 
-        initialize: function (options) {
+        initialize: function () {
             _.bindAll(this, "onEmptyClick", "onZoom");
             this.visible = false;
-            this.resources = {};
+            this.nodes = {};
+            this.topics = {};
+            this.services = {};
+            this.params = {};
             this.showParams = false;
 
             this.graph = new dagre.graphlib.Graph();
@@ -153,7 +153,7 @@ THE SOFTWARE.
         },
 
         render: function () {
-            var i, v, nodes, edges, g = this.graph;
+            var i, nodes, edges, g = this.graph;
             if (!this.visible) return this;
             if (this.collection.length > 0) {
                 dagre.layout(this.updateVisibility());
@@ -236,102 +236,142 @@ THE SOFTWARE.
             return visibleGraph;
         },
 
-        onReset: function (collection, options) {
+        setModel: function (model) {
             var i, nodes = this.graph.nodes();
             for (i = nodes.length; i--;)
                 this.stopListening(this.graph.node(nodes[i]));
-            this.resources = {};
+            this.model = model;
+            this.nodes = {};
+            this.topics = {};
+            this.services = {};
+            this.params = {};
             this.graph = new dagre.graphlib.Graph();
             this.graph.setGraph({
                 nodesep: this.spacing, ranksep: 2 * this.spacing, acyclicer: "greedy"
             });
             this.d3g.remove();
             this.d3g = this.d3svg.append("g").attr("class", "graph");
-            collection.each(this.onAdd, this);
-            // NOTE: topic models are not added to the collection. FIXME?
-            _.each(this.resources, this._connectUnknown, this);
+            _.each(model.get("nodes"), this.addNode, this);
+            _.each(model.get("topics"), this.addTopic, this);
+            _.each(model.get("services"), this.addService, this);
+            _.each(model.get("parameters"), this.addParameter, this);
+            _.each(model.get("links").publishers, this.addPublisher, this);
+            _.each(model.get("links").subscribers, this.addSubscriber, this);
+            _.each(model.get("links").servers, this.addServer, this);
+            _.each(model.get("links").clients, this.addClient, this);
+            _.each(model.get("links").reads, this.addRead, this);
+            _.each(model.get("links").writes, this.addWrite, this);
+            _.each(this.topics, this.connectUnknownTopic, this);
+            _.each(this.services, this.connectUnknownService, this);
+            _.each(this.params, this.connectUnknownParam, this);
             this.focus = null;
             this.selection = null;
-            // this.render();
         },
 
-        onAdd: function (model) {
-            var view;
-            model.set({
-                id: model.cid,
-                resourceType: "node",
-                candidates: []
-            });
+        addNode: function (node) {
+            node.resourceType = "node";
+            this._addResource(node, this.nodes);
+        },
+
+        addTopic: function (topic) {
+            topic.resourceType = "topic";
+            topic.types = {};
+            this._addResource(topic, this.topics);
+        },
+
+        addService: function (service) {
+            service.resourceType = "service";
+            service.types = {};
+            this._addResource(service, this.services);
+        },
+
+        addParameter: function (param) {
+            param.resourceType = "param";
+            param.types = {};
+            this._addResource(param, this.params);
+        },
+
+        _addResource: function (resource, mapping) {
+            var view, model = new Backbone.Model(resource);
+            model.set({ id: model.cid, candidates: [] });
             view = new views.ResourceNode({
                 model: model, el: this.d3g.append("g").node()
             });
             this.listenTo(view, "selected", this.onSelection);
             this.listenTo(view, "drag", this.onDrag);
             this.graph.setNode(model.id, view);
-            this._addLinkNodes(model.id, model.get("publishers"), "topic", "source");
-            this._addLinkNodes(model.id, model.get("subscribers"), "topic", "target");
-            this._addLinkNodes(model.id, model.get("servers"), "service", "target");
-            this._addLinkNodes(model.id, model.get("clients"), "service", "source");
-            this._addLinkNodes(model.id, model.get("reads"), "param", "target");
-            this._addLinkNodes(model.id, model.get("writes"), "param", "source");
+            mapping[resource.name] = model;
         },
 
-        _addLinkNodes: function (node, list, type, direction) {
-            var i = list.length, link, name, model, view;
-            while (i--) {
-                link = list[i];
-                name = type + ":" + (link.topic || link.param);
-                if (!this.resources.hasOwnProperty(name)) {
-                    model = new Backbone.Model({
-                        name: (link.topic || link.param), types: {},
-                        resourceType: type,
-                        conditions: link.conditions,
-                        candidates: []
-                    });
-                    model.set("id", model.cid);
-                    this.resources[name] = model;
-                    view = new views.ResourceNode({
-                        model: model, el: this.d3g.append("g").node()
-                    });
-                    this.listenTo(view, "selected", this.onSelection);
-                    this.listenTo(view, "drag", this.onDrag);
-                    this.graph.setNode(model.id, view);
-                }
-                model = this.resources[name]
-                model.get("types")[link.type] = true;
-                this._addEdge(node, model.id, direction, !!link.conditions.length);
-            }
+        addPublisher: function (link) {
+            var topic = this.topics[link.topic];
+            topic.get("types")[link.type] = true;
+            this._addEdge(this.nodes[link.node].id, topic.id, !!link.conditions.length);
         },
 
-        _addEdge: function (node, link, direction, conditional) {
+        addSubscriber: function (link) {
+            var topic = this.topics[link.topic];
+            topic.get("types")[link.type] = true;
+            this._addEdge(topic.id, this.nodes[link.node].id, !!link.conditions.length);
+        },
+
+        addClient: function (link) {
+            var service = this.services[link.service];
+            service.get("types")[link.type] = true;
+            this._addEdge(this.nodes[link.node].id, service.id, !!link.conditions.length);
+        },
+
+        addServer: function (link) {
+            var service = this.topics[link.service];
+            service.get("types")[link.type] = true;
+            this._addEdge(service.id, this.nodes[link.node].id, !!link.conditions.length);
+        },
+
+        addWrite: function (link) {
+            var param = this.params[link.param];
+            param.get("types")[link.type] = true;
+            this._addEdge(this.nodes[link.node].id, param.id, !!link.conditions.length);
+        },
+
+        addRead: function (link) {
+            var param = this.params[link.param];
+            param.get("types")[link.type] = true;
+            this._addEdge(param.id, this.nodes[link.node].id, !!link.conditions.length);
+        },
+
+        _addEdge: function (sourceCid, targetCid, conditional) {
             var el = this.d3g.insert("path", ":first-child")
                              .classed("edge hidden", true)
                              .classed("conditional", conditional)
                              .attr("marker-end", "url(#config-arrowhead)"),
                 edge = {
+                    source: this.graph.node(sourceCid),
+                    target: this.graph.node(targetCid),
                     d3path: el,
                     visible: false,
                     render: this.renderEdge
                 };
-            if (direction === "source") {
-                edge.source = this.graph.node(node);
-                edge.target = this.graph.node(link);
-                this.graph.setEdge(node, link, edge);
-            } else {
-                edge.target = this.graph.node(node);
-                edge.source = this.graph.node(link);
-                this.graph.setEdge(link, node, edge);
-            }
+            this.graph.setEdge(sourceCid, targetCid, edge);
         },
 
-        _connectUnknown: function (model) {
-            if (model.get("resourceType") === "node") return;
+        connectUnknownTopic: function (model) {
+            this._connectUnknown(model, this.topics);
+        },
+
+        connectUnknownService: function (model) {
+            this._connectUnknown(model, this.services);
+        },
+
+        connectUnknownParam: function (model) {
+            this._connectUnknown(model, this.params);
+        },
+
+        _connectUnknown: function (model, mapping) {
             if (model.get("name").indexOf("?") < 0) return;
             var other, key, candidates = model.get("candidates");
-            for (key in this.resources) if (this.resources.hasOwnProperty(key)) {
-                other = this.resources[key];
+            for (key in mapping) if (mapping.hasOwnProperty(key)) {
+                other = mapping[key];
                 if (other === model) continue;
-                if (other.get("resourceType") !== model.get("resourceType")) continue;
                 if (!_.isEqual(model.get("types"), other.get("types"))) continue;
                 if (this._nameMatch(model.get("name").split("/"), 0,
                                     other.get("name").split("/"), 0)) {
@@ -535,7 +575,7 @@ THE SOFTWARE.
     ////////////////////////////////////////////////////////////////////////////
 
     views.ResourceNode = Backbone.View.extend({
-        initialize: function (options) {
+        initialize: function () {
             _.bindAll(this, "onClick", "onDrag", "onDragStart", "onDragEnd");
             this.label = this.model.get("name");
             this.visible = false;
@@ -578,18 +618,18 @@ THE SOFTWARE.
             return this;
         },
 
-        onDragStart: function (d) {
+        onDragStart: function () {
             this.dragx = this.x;
             this.dragy = this.y;
             this.d3g.classed("dragging", true);
         },
 
-        onDrag: function (d) {
+        onDrag: function () {
             this.dragx = d3.event.x;
             this.dragy = d3.event.y;
         },
 
-        onDragEnd: function (d) {
+        onDragEnd: function () {
             this.d3g.classed("dragging", false);
             this.trigger("drag", this);
         }
@@ -599,7 +639,7 @@ THE SOFTWARE.
     ////////////////////////////////////////////////////////////////////////////
 
     views.NodeInfo = views.Modal.extend({
-        initialize: function (options) {
+        initialize: function () {
             this.$content = this.$el.find(".template-wrapper");
             this.template = _.template($("#ros-board-info-modal").html(), {variable: "data"});
         },

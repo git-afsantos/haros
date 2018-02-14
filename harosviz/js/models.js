@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 (function () {
     "use strict";
+    /* globals window:false, Backbone:false, _:false */
     var Models = window.App.Models;
 
     /*
@@ -186,7 +187,7 @@ THE SOFTWARE.
         filterByRules: function (rules, ignore) {
             if (rules.length === 0)
                 return this.toArray();
-            return this[!!ignore ? "reject" : "filter"](function (model) {
+            return this[ignore ? "reject" : "filter"](function (model) {
                 return _.contains(rules, model.get("rule"));
             });
         }
@@ -204,28 +205,101 @@ THE SOFTWARE.
         nodes: [{
             name,
             type,
-            args: [],
-            conditions: [],
-            publishers: [{
-                topic,
-                name,   // before remappings
-                type,
-                queue,
-                conditions: [{
-                    condition,
-                    location: {
-                        package,
-                        file,
-                        line,
-                        function,
-                        class
-                    }
-                }]
+            args,
+            conditions: [{
+                condition,
+                location: {}
             }],
+            publishers: [],
             subscribers: [],
             servers: [],
+            clients: [],
+            reads: [],
+            writes: []
+        }],
+        topics: [{
+            name,
+            type,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            publishers: [],
+            subscribers: []
+        }],
+        services: [{
+            name,
+            type,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            servers: [],
             clients: []
-        }]
+        }],
+        parameters: [{
+            name,
+            type,
+            value,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            reads: [],
+            writes: []
+        }],
+        links: {
+            publishers: [{
+                node,
+                topic,
+                type,
+                queue,
+                name,
+                location: {},
+                conditions": [{}]
+            }],
+            subscribers: [{
+                node,
+                topic,
+                type,
+                queue,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            servers: [{
+                node,
+                service,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            clients: [{
+                node,
+                service,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            reads: [{
+                node,
+                param,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            writes: [{
+                node,
+                param,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }]
+        }
     */
     Models.Configuration = Backbone.Model.extend({
         defaults: function () {
@@ -233,8 +307,19 @@ THE SOFTWARE.
                 collisions: 0,
                 remaps: 0,
                 nodes: [],
+                topics: [],
+                services: [],
+                parameters: [],
                 dependencies: [],
-                environment: []
+                environment: [],
+                links: {
+                    publishers: [],
+                    subscribers: [],
+                    servers: [],
+                    clients: [],
+                    reads: [],
+                    writes: []
+                }
             };
         }
     });
