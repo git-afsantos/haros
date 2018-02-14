@@ -321,6 +321,13 @@ THE SOFTWARE.
                     writes: []
                 }
             };
+        },
+
+        hasResources: function () {
+            return this.get("nodes").length > 0
+                    || this.get("topics").length > 0
+                    || this.get("services").length > 0
+                    || this.get("parameters").length > 0;
         }
     });
 

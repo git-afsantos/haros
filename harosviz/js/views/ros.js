@@ -148,14 +148,12 @@ THE SOFTWARE.
             this.infoView.hide();
 
             this.nodeTemplate = _.template($("#ros-board-info-modal").html(), {variable: "data"});
-
-            this.listenTo(this.collection, "reset", this.onReset);
         },
 
         render: function () {
             var i, nodes, edges, g = this.graph;
             if (!this.visible) return this;
-            if (this.collection.length > 0) {
+            if (this.model != null && this.model.hasResources()) {
                 dagre.layout(this.updateVisibility());
                 for (nodes = g.nodes(), i = nodes.length; i--;)
                     g.node(nodes[i]).render();
