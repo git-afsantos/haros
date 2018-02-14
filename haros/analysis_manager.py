@@ -204,28 +204,68 @@ class QueryEngine(LoggingObject):
         self.data["configs"] = list(database.configurations)
 
     def execute(self, rules, reports):
+        pkg_rules = []
+        config_rules = []
+        other_rules = []
         for rule in rules:
             if rule.query:
-                try:
-                    result = pyflwor.execute(rule.query, self.data)
-                except SyntaxError as e:
-                    self.log.error("SyntaxError on query %s: %s", rule.id, e)
+                if rule.scope == "package":
+                    pkg_rules.append(rule)
+                elif rule.scope == "configuration":
+                    config_rules.append(rule)
                 else:
-                    # result can be of types:
-                    # - pyflwor.OrderedSet.OrderedSet<object> for Path queries
-                    # - tuple<object> for FLWR queries single return
-                    # - tuple<tuple<object>> for FLWR queries multi return
-                    # - tuple<dict<str, object>> for FLWR queries named return
-                    # NOTE: sometimes 'object' can be a tuple or dict...
-                    self.log.info("Query %s found %d matches.",
-                                  rule.id, len(result))
-                    for match in result:
-                        self.log.debug("Query %s found %s", rule.id, match)
-                        self._report(rule, match, reports)
+                    other_rules.append(rule)
+        self._execute_pkg_queries(pkg_rules, reports)
+        self._execute_config_queries(config_rules, reports)
+        for rule in other_rules:
+            self._execute(rule, self.data, reports, None)
 
-    def _report(self, rule, match, reports):
+    def _execute_pkg_queries(self, rules, reports):
+        data = dict(self.query_data)
+        data["is_rosglobal"] = QueryEngine.is_rosglobal
+        for pkg in self.data["packages"]:
+            data["package"] = pkg
+            data["files"] = pkg.source_files
+            data["nodes"] = pkg.nodes
+            location = pkg.location
+            for rule in rules:
+                self._execute(rule, data, reports, location)
+
+    def _execute_config_queries(self, rules, reports):
+        data = dict(self.query_data)
+        data["is_rosglobal"] = QueryEngine.is_rosglobal
+        for config in self.data["configs"]:
+            data["config"] = config
+            data["nodes"] = config.nodes
+            data["topics"] = config.topics
+            data["services"] = config.services
+            data["parameters"] = config.parameters
+            location = config.location
+            for rule in rules:
+                self._execute(rule, data, reports, location)
+
+    def _execute(self, rule, data, reports, default_location):
+        try:
+            result = pyflwor.execute(rule.query, data)
+        except SyntaxError as e:
+            self.log.error("SyntaxError on query %s: %s", rule.id, e)
+        else:
+            # result can be of types:
+            # - pyflwor.OrderedSet.OrderedSet<object> for Path queries
+            # - tuple<object> for FLWR queries single return
+            # - tuple<tuple<object>> for FLWR queries multi return
+            # - tuple<dict<str, object>> for FLWR queries named return
+            # NOTE: sometimes 'object' can be a tuple or dict...
+            self.log.info("Query %s found %d matches.", rule.id, len(result))
+            for match in result:
+                self.log.debug("Query %s found %s", rule.id, match)
+                self._report(rule, match, reports, default_location)
+
+    def _report(self, rule, match, reports, default_location):
         details = ""
         locations = {}
+        if not default_location is None:
+            locations[default_location.smallest_scope.id] = default_location
         if isinstance(match, tuple):
             # assume tuple<tuple<object>> for FLWR queries multi return
             parts = []

@@ -50,7 +50,7 @@ class Rule(object):
     def __init__(self, rule_id, name, scope, desc, tags, query = None):
         self.id = rule_id
         self.name = name
-        self.scope = scope
+        self.scope = scope  # can be "global", "package" or "configuration"
         self.description = desc
         self.tags = tags
         self.query = query
@@ -477,7 +477,7 @@ class HarosDatabase(LoggingObject):
             rule_id = prefix + id
             self.log.debug("HarosDatabase.register rule " + rule_id)
             self.rules[rule_id] = Rule(rule_id, rule["name"],
-                                       rule.get("scope"),
+                                       rule.get("scope", "global"),
                                        rule["description"], rule["tags"],
                                        query = rule.get("query"))
 
