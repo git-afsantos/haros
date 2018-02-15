@@ -125,7 +125,7 @@ class JsonExporter(LoggingObject):
             for datum in report.violations:
                 if not datum.affected:
                     continue
-                queries.append({
+                query = {
                     "rule": datum.rule.id,
                     "name": datum.rule.name,
                     "objects": [{
@@ -133,10 +133,16 @@ class JsonExporter(LoggingObject):
                                     "resourceType": obj.resource_type
                                 } for obj in datum.affected
                                 if isinstance(obj, Resource)]
-                })
+                }
+                if not query["objects"]:
+                    continue
+                queries.append(query)
             data["queries"] = queries
             configs.append(data)
-        self._export_collection(datadir, configs, "configurations.json")
+        out = os.path.join(datadir, "configurations.json")
+        with open(out, "w") as f:
+            self.log.debug("Writing to %s", out)
+            json.dump([config for config in configs], f)
 
     def export_summary(self, datadir, report, past):
         self.log.info("Exporting analysis summary.")
