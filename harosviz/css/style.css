@@ -492,8 +492,8 @@ svg {
 }
 
 #config-graph .graph .node.query-object {
-    animation: pulse 2s infinite;
-    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite alternate;
+    -webkit-animation: pulse 2s infinite alternate;
 }
 
 @keyframes pulse {
