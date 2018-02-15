@@ -299,7 +299,15 @@ THE SOFTWARE.
                 location: {},
                 conditions: [{}]
             }]
-        }
+        },
+        queries: [{
+            rule,
+            name,
+            objects: [{
+                name,
+                resourceType
+            }]
+        }]
     */
     Models.Configuration = Backbone.Model.extend({
         defaults: function () {

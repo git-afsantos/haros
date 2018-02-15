@@ -30,7 +30,7 @@ import logging
 import os
 import yaml
 
-from .metamodel import Location
+from .metamodel import Location, Resource
 
 
 ###############################################################################
@@ -71,17 +71,26 @@ class Violation(object):
         self.rule = rule
         self.location = location
         self.details = details
+        self.affected = []
 
     @property
     def scope(self):
         return self.location.smallest_scope
 
     def to_JSON_object(self):
+        affected = []
+        for obj in self.affected:
+            if isinstance(obj, Resource):
+                affected.append({
+                    "name": obj.id,
+                    "resourceType": obj.resource_type
+                })
         return {
             "rule": self.rule.id,
             "comment": self.details,
             "location": (self.location.to_JSON_object()
-                         if self.location else None)
+                         if self.location else None),
+            "resources": affected
         }
 
 

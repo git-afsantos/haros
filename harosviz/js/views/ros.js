@@ -32,7 +32,8 @@ THE SOFTWARE.
 
         events: {
             "click #ros-config-issues":  "goToIssues",
-            "change #ros-config-select": "onSelect"
+            "change #ros-config-select": "onSelect",
+            "change #ros-query-select": "onQuerySelect"
         },
 
         initialize: function (options) {
@@ -40,6 +41,7 @@ THE SOFTWARE.
             this.router = options.router;
 
             this.$configSelect = this.$("#ros-config-select");
+            this.$querySelect = this.$("#ros-query-select");
             this.$summary = this.$("#config-details");
 
             this.graph = new views.RosStaticGraph({ el: this.$el.find("#config-graph") });
@@ -84,9 +86,16 @@ THE SOFTWARE.
 
         onSelect: function () {
             var config = this.collection.get(this.$configSelect.val());
+            this.$querySelect.html('<option value="null">--No highlights--</option>\n'
+                                   + _.map(config.get("queries"), this.queryTemplate).join("\n"));
+            this.$querySelect.val("null");
             this.router.navigate("models/" + config.id, this.navigateOptions);
             this.graph.setModel(config);
             this.render();
+        },
+
+        onQuerySelect: function () {
+            this.graph.setHighlights(this.$querySelect.val());
         },
 
         goToIssues: function () {
@@ -100,7 +109,10 @@ THE SOFTWARE.
         },
 
         optionTemplate: _.template("<option><%= data.id %></option>",
-                                   {variable: "data"})
+                                   {variable: "data"}),
+
+        queryTemplate: _.template("<option value=\"<%= data.rule %>\"><%= data.name %></option>",
+                                   {variable: "data"}),
     });
 
 
@@ -234,6 +246,14 @@ THE SOFTWARE.
             return visibleGraph;
         },
 
+        setHighlights: function (ruleId) {
+            var i, v, nodes = this.graph.nodes();
+            for (i = nodes.length; i--;) {
+                v = this.graph.node(nodes[i]);
+                v.setClass("query-object", v.queries[ruleId] === true);
+            }
+        },
+
         setModel: function (model) {
             var i, nodes = this.graph.nodes();
             for (i = nodes.length; i--;)
@@ -262,6 +282,7 @@ THE SOFTWARE.
             _.each(this.topics, this.connectUnknownTopic, this);
             _.each(this.services, this.connectUnknownService, this);
             _.each(this.params, this.connectUnknownParam, this);
+            _.each(model.get("queries"), this.mapQuery, this);
             this.focus = null;
             this.selection = null;
         },
@@ -430,6 +451,27 @@ THE SOFTWARE.
             return i === len1 && j === len2;
         },
 
+        mapQuery: function (query) {
+            var i, obj, objs = query.objects;
+            for (i = objs.length; i--;) {
+                obj = objs[i];
+                switch (obj.resourceType) {
+                    case "node":
+                        this.graph.node(this.nodes[obj.name].id).queries[query.rule] = true;
+                        break;
+                    case "topic":
+                        this.graph.node(this.topics[obj.name].id).queries[query.rule] = true;
+                        break;
+                    case "service":
+                        this.graph.node(this.services[obj.name].id).queries[query.rule] = true;
+                        break;
+                    case "param":
+                        this.graph.node(this.params[obj.name].id).queries[query.rule] = true;
+                        break;
+                }
+            }
+        },
+
         onZoom: function () {
             this.d3g.attr("transform", d3.event.transform);
             this.d3g.classed("zoomed-out", d3.event.transform.k < 0.3);
@@ -578,6 +620,7 @@ THE SOFTWARE.
             this.label = this.model.get("name");
             this.visible = false;
             this.conditional = !!(this.model.get("conditions").length);
+            this.queries = {};
 
             this.d3g = d3.select(this.el).attr("class", "node").on("click", this.onClick);
             this.d3node = this.d3g.append("circle");

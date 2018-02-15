@@ -491,6 +491,15 @@ svg {
 	fill: orange !important;
 }
 
+#config-graph .graph .node.query-object {
+    animation: pulse 2s infinite;
+    -webkit-animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    to { fill: crimson; }
+}
+
 #package-graph .node.focus {
 	stroke-width: 4px;
 }
@@ -681,6 +690,10 @@ svg {
 
 #ros-board .panel > .node > p.topic {
     margin-left: 0.5em;
+}
+
+#ros-query-select {
+    max-width: 100%;
 }
 
 

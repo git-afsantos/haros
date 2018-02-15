@@ -27,6 +27,8 @@ import json
 import logging
 import os
 
+from .metamodel import Resource
+
 
 ###############################################################################
 # Utility
@@ -112,8 +114,28 @@ class JsonExporter(LoggingObject):
                 self.log.debug("Writing to %s", out)
                 json.dump(data, f)
 
-    def export_configurations(self, datadir, configs):
+    def export_configurations(self, datadir, config_reports):
         self.log.info("Exporting launch configurations.")
+        if isinstance(config_reports, dict):
+            config_reports = config_reports.viewvalues()
+        configs = []
+        for report in config_reports:
+            data = report.configuration.to_JSON_object()
+            queries = []
+            for datum in report.violations:
+                if not datum.affected:
+                    continue
+                queries.append({
+                    "rule": datum.rule.id,
+                    "name": datum.rule.name,
+                    "objects": [{
+                                    "name": obj.id,
+                                    "resourceType": obj.resource_type
+                                } for obj in datum.affected
+                                if isinstance(obj, Resource)]
+                })
+            data["queries"] = queries
+            configs.append(data)
         self._export_collection(datadir, configs, "configurations.json")
 
     def export_summary(self, datadir, report, past):

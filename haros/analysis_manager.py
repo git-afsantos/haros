@@ -264,6 +264,7 @@ class QueryEngine(LoggingObject):
     def _report(self, rule, match, reports, default_location):
         details = ""
         locations = {}
+        affected = []
         if not default_location is None:
             locations[default_location.smallest_scope.id] = default_location
         if isinstance(match, tuple):
@@ -274,6 +275,7 @@ class QueryEngine(LoggingObject):
                 if isinstance(item, MetamodelObject):
                     location = item.location
                     locations[location.smallest_scope.id] = location
+                    affected.append(item)
             details = "(" + ", ".join(parts) + ")"
         elif isinstance(match, dict):
             # assume tuple<dict<str, object>> for FLWR queries named return
@@ -283,18 +285,22 @@ class QueryEngine(LoggingObject):
                 if isinstance(item, MetamodelObject):
                     location = item.location
                     locations[location.smallest_scope.id] = location
+                    affected.append(item)
             details = "{" + ", ".join(parts) + "}"
         elif isinstance(match, MetamodelObject):
             location = match.location
             locations[location.smallest_scope.id] = location
             details = str(match)
+            affected.append(match)
         else:
             # literals and other return values
             details = str(match)
         details = "Query found: " + details
         if not locations:
             report = reports[None]
-            report.violations.append(Violation(rule, None, details))
+            violation = Violation(rule, None, details)
+            violation.affected = affected
+            report.violations.append(violation)
         else:
             report = None
             location = None
@@ -310,7 +316,9 @@ class QueryEngine(LoggingObject):
                     location = item
                     break
             report = report or reports[None]
-            report.violations.append(Violation(rule, location, details))
+            violation = Violation(rule, location, details)
+            violation.affected = affected
+            report.violations.append(violation)
 
     @staticmethod
     def is_rosglobal(name):

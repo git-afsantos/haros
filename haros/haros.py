@@ -407,8 +407,7 @@ class HarosCommonExporter(HarosRunner):
         exporter.export_metrics(self.json_dir, self.database.metrics)
         exporter.export_summary(self.json_dir, report, self.database.history)
     # ----- extracted configurations
-        exporter.export_configurations(self.json_dir,
-                                       self.database.configurations)
+        exporter.export_configurations(self.json_dir, report.by_config)
     # ----- compliance reports
         out_dir = os.path.join(self.json_dir, "compliance")
         self._ensure_dir(out_dir, empty = True)

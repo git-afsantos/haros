@@ -735,6 +735,10 @@ class Resource(MetamodelObject):
     def location(self):
         return RuntimeLocation(self.configuration)
 
+    @property
+    def resource_type(self):
+        raise NotImplementedError("subclasses must implement this property")
+
     def remap(self, rosname):
         raise NotImplementedError("subclasses must implement this method")
 
@@ -765,6 +769,10 @@ class NodeInstance(Resource):
         self.clients = []
         self.reads = []
         self.writes = []
+
+    @property
+    def resource_type(self):
+        return "node"
 
     @property
     def rt_outlinks(self):
@@ -833,6 +841,10 @@ class Topic(Resource):
         s = len(self.subscribers)
         return p + s > 0 and (p == 0 or s == 0)
 
+    @property
+    def resource_type(self):
+        return "topic"
+
     def remap(self, rosname):
         new = Topic(self.configuration, rosname, message_type = self.type,
                     conditions = list(self.conditions))
@@ -882,6 +894,10 @@ class Service(Resource):
         if self.server:
             return (self.server,)
         return ()
+
+    @property
+    def resource_type(self):
+        return "service"
 
     def remap(self, rosname):
         new = Service(self.configuration, rosname, message_type = self.type,
@@ -938,6 +954,10 @@ class Parameter(Resource):
         if isinstance(value, bool):
             return "boolean"
         return "yaml"
+
+    @property
+    def resource_type(self):
+        return "param"
 
     def remap(self, rosname):
         new = Parameter(self.configuration, rosname, self.type,
