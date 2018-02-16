@@ -265,8 +265,6 @@ class QueryEngine(LoggingObject):
         details = ""
         locations = {}
         affected = []
-        if not default_location is None:
-            locations[default_location.smallest_scope.id] = default_location
         if isinstance(match, tuple):
             # assume tuple<tuple<object>> for FLWR queries multi return
             parts = []
@@ -296,14 +294,12 @@ class QueryEngine(LoggingObject):
             # literals and other return values
             details = str(match)
         details = "Query found: " + details
-        if not locations:
-            report = reports[None]
-            violation = Violation(rule, None, details)
-            violation.affected = affected
-            report.violations.append(violation)
-        else:
-            report = None
-            location = None
+        report = None
+        location = None
+        if not default_location is None:
+            report = reports[default_location.smallest_scope.id]
+            location = default_location
+        elif locations:
             locations = list(locations.itervalues())
             for item in locations:
                 details += "\nReported " + str(item)
@@ -315,10 +311,10 @@ class QueryEngine(LoggingObject):
                 else:
                     location = item
                     break
-            report = report or reports[None]
-            violation = Violation(rule, location, details)
-            violation.affected = affected
-            report.violations.append(violation)
+        report = report or reports[None]
+        violation = Violation(rule, location, details)
+        violation.affected = affected
+        report.violations.append(violation)
 
     @staticmethod
     def is_rosglobal(name):

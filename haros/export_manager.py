@@ -27,7 +27,7 @@ import json
 import logging
 import os
 
-from .metamodel import Resource
+from .metamodel import Resource, RosPrimitive
 
 
 ###############################################################################
@@ -125,17 +125,25 @@ class JsonExporter(LoggingObject):
             for datum in report.violations:
                 if not datum.affected:
                     continue
+                objects = []
+                for obj in datum.affected:
+                    if isinstance(obj, Resource):
+                        objects.append({
+                            "name": obj.id,
+                            "resourceType": obj.resource_type
+                        })
+                    elif isinstance(obj, RosPrimitive):
+                        objects.append({
+                            "name": obj.node.id,
+                            "resourceType": obj.node.resource_type
+                        })
+                if not objects:
+                    continue
                 query = {
                     "rule": datum.rule.id,
                     "name": datum.rule.name,
-                    "objects": [{
-                                    "name": obj.id,
-                                    "resourceType": obj.resource_type
-                                } for obj in datum.affected
-                                if isinstance(obj, Resource)]
+                    "objects": objects
                 }
-                if not query["objects"]:
-                    continue
                 queries.append(query)
             data["queries"] = queries
             configs.append(data)
