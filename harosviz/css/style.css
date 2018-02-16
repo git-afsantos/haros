@@ -530,6 +530,15 @@ svg {
 	stroke-linejoin: round;
 }
 
+#config-graph .graph .edge.query-object {
+    animation: pulseStroke 2s infinite alternate;
+    -webkit-animation: pulseStroke 2s infinite alternate;
+}
+
+@keyframes pulseStroke {
+    to { stroke-width: 4px; stroke: crimson; }
+}
+
 
 #package-graph .graph.hovering .edge.selected,
 #config-graph .graph.hovering .edge.selected {

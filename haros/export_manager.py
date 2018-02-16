@@ -27,7 +27,9 @@ import json
 import logging
 import os
 
-from .metamodel import Resource, RosPrimitive
+from .metamodel import (
+    Resource, TopicPrimitive, ServicePrimitive, ParameterPrimitive
+)
 
 
 ###############################################################################
@@ -127,16 +129,9 @@ class JsonExporter(LoggingObject):
                     continue
                 objects = []
                 for obj in datum.affected:
-                    if isinstance(obj, Resource):
-                        objects.append({
-                            "name": obj.id,
-                            "resourceType": obj.resource_type
-                        })
-                    elif isinstance(obj, RosPrimitive):
-                        objects.append({
-                            "name": obj.node.id,
-                            "resourceType": obj.node.resource_type
-                        })
+                    obj_json = self._query_object_JSON(obj, report.configuration)
+                    if not obj_json is None:
+                        objects.append(obj_json)
                 if not objects:
                     continue
                 query = {
@@ -186,3 +181,29 @@ class JsonExporter(LoggingObject):
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
             json.dump([item.to_JSON_object() for item in items], f)
+
+    def _query_object_JSON(self, obj, config):
+        if isinstance(obj, Resource) and obj.configuration == config:
+             return {
+                "name": obj.id,
+                "resourceType": obj.resource_type
+            }
+        elif isinstance(obj, TopicPrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "topic": obj.topic.id,
+                "resourceType": "link"
+            }
+        elif isinstance(obj, ServicePrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "service": obj.service.id,
+                "resourceType": "link"
+            }
+        elif isinstance(obj, ParameterPrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "param": obj.parameter.id,
+                "resourceType": "link"
+            }
+        return None

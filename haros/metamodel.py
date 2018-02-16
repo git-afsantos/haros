@@ -1116,6 +1116,10 @@ class RosPrimitive(MetamodelObject):
     def location(self):
         return self.node.location
 
+    @property
+    def configuration(self):
+        return self.node.configuration
+
     def to_JSON_object(self):
         return {
             "node": self.node.rosname.full,

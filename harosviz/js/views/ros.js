@@ -247,10 +247,16 @@ THE SOFTWARE.
         },
 
         setHighlights: function (ruleId) {
-            var i, v, nodes = this.graph.nodes();
+            var i, v,
+                nodes = this.graph.nodes(),
+                edges = this.graph.edges();
             for (i = nodes.length; i--;) {
                 v = this.graph.node(nodes[i]);
                 v.setClass("query-object", v.queries[ruleId] === true);
+            }
+            for (i = edges.length; i--;) {
+                v = this.graph.edge(edges[i]);
+                v.d3path.classed("query-object", v.queries[ruleId] === true);
             }
         },
 
@@ -368,7 +374,8 @@ THE SOFTWARE.
                     target: this.graph.node(targetCid),
                     d3path: el,
                     visible: false,
-                    render: this.renderEdge
+                    render: this.renderEdge,
+                    queries: {}
                 };
             this.graph.setEdge(sourceCid, targetCid, edge);
         },
@@ -452,7 +459,7 @@ THE SOFTWARE.
         },
 
         mapQuery: function (query) {
-            var i, obj, objs = query.objects;
+            var i, v, n1, n2, obj, objs = query.objects;
             for (i = objs.length; i--;) {
                 obj = objs[i];
                 switch (obj.resourceType) {
@@ -467,6 +474,14 @@ THE SOFTWARE.
                         break;
                     case "param":
                         this.graph.node(this.params[obj.name].id).queries[query.rule] = true;
+                        break;
+                    case "link":
+                        n1 = this.nodes[obj.node].id;
+                        n2 = (this.topics[obj.topic]
+                              || this.services[obj.service]
+                              || this.params[obj.param]).id;
+                        v = this.graph.edge(n1, n2) || this.graph.edge(n2, n1);
+                        v.queries[query.rule] = true;
                         break;
                 }
             }
