@@ -550,6 +550,16 @@ class HarosDatabase(LoggingObject):
                     p.location = Location(self.packages[p.location.package.id])
                     for c in p.conditions:
                         c.location = Location(self.packages[c.location.package.id])
+                node.read_param = list(previous.read_param)
+                for p in node.read_param:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
+                node.write_param = list(previous.write_param)
+                for p in node.write_param:
+                    p.location = Location(self.packages[p.location.package.id])
+                    for c in p.conditions:
+                        c.location = Location(self.packages[c.location.package.id])
 
 
 ###############################################################################
