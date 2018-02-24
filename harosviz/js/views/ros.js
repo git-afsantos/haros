@@ -127,6 +127,7 @@ THE SOFTWARE.
             "click #config-btn-viewport":   "render",
             "click #config-btn-drag":       "onSetDrag",
             "click #config-btn-param":      "onToggleParams",
+            "click #config-btn-names":      "onToggleNames",
             "click #config-btn-focus":      "onFocus",
             "click #config-btn-info":       "onInfo"
         },
@@ -138,6 +139,7 @@ THE SOFTWARE.
             this.topics = {};
             this.services = {};
             this.params = {};
+            this.showNames = false;
             this.showParams = false;
 
             this.graph = new dagre.graphlib.Graph();
@@ -150,6 +152,7 @@ THE SOFTWARE.
             this.zoom = d3.zoom().scaleExtent([0.125, 4]).on("zoom", this.onZoom);
             this.d3svg = d3.select(this.$el[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
+            this.d3g.classed("hide-text", true);
             this.d3svg.on("click", this.onEmptyClick);
             this._genArrowhead();
 
@@ -275,6 +278,7 @@ THE SOFTWARE.
             });
             this.d3g.remove();
             this.d3g = this.d3svg.append("g").attr("class", "graph");
+            this.d3g.classed("hide-text", !this.showNames);
             _.each(model.get("nodes"), this.addNode, this);
             _.each(model.get("topics"), this.addTopic, this);
             _.each(model.get("services"), this.addService, this);
@@ -313,6 +317,8 @@ THE SOFTWARE.
         addParameter: function (param) {
             param.resourceType = "param";
             param.types = {};
+            if (param.type != null)
+                param.types[param.type] = true;
             this._addResource(param, this.params);
         },
 
@@ -347,20 +353,22 @@ THE SOFTWARE.
         },
 
         addServer: function (link) {
-            var service = this.topics[link.service];
+            var service = this.services[link.service];
             service.get("types")[link.type] = true;
             this._addEdge(service.id, this.nodes[link.node].id, !!link.conditions.length);
         },
 
         addWrite: function (link) {
             var param = this.params[link.param];
-            param.get("types")[link.type] = true;
+            if (link.type != null)
+                param.get("types")[link.type] = true;
             this._addEdge(this.nodes[link.node].id, param.id, !!link.conditions.length);
         },
 
         addRead: function (link) {
             var param = this.params[link.param];
-            param.get("types")[link.type] = true;
+            if (link.type != null)
+                param.get("types")[link.type] = true;
             this._addEdge(param.id, this.nodes[link.node].id, !!link.conditions.length);
         },
 
@@ -381,24 +389,24 @@ THE SOFTWARE.
         },
 
         connectUnknownTopic: function (model) {
-            this._connectUnknown(model, this.topics);
+            this._connectUnknown(model, this.topics, true);
         },
 
         connectUnknownService: function (model) {
-            this._connectUnknown(model, this.services);
+            this._connectUnknown(model, this.services, true);
         },
 
         connectUnknownParam: function (model) {
-            this._connectUnknown(model, this.params);
+            this._connectUnknown(model, this.params, false);
         },
 
-        _connectUnknown: function (model, mapping) {
+        _connectUnknown: function (model, mapping, typeCheck) {
             if (model.get("name").indexOf("?") < 0) return;
             var other, key, candidates = model.get("candidates");
             for (key in mapping) if (mapping.hasOwnProperty(key)) {
                 other = mapping[key];
                 if (other === model) continue;
-                if (!_.isEqual(model.get("types"), other.get("types"))) continue;
+                if (typeCheck && !_.isEqual(model.get("types"), other.get("types"))) continue;
                 if (this._nameMatch(model.get("name").split("/"), 0,
                                     other.get("name").split("/"), 0)) {
                     candidates.push(other.id);
@@ -569,6 +577,11 @@ THE SOFTWARE.
                     this.focus = null;
             }
             this.render();
+        },
+
+        onToggleNames: function () {
+            this.showNames = !this.showNames;
+            this.d3g.classed("hide-text", !this.showNames);
         },
 
         onDrag: function (node) {

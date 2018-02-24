@@ -764,7 +764,7 @@ class NodeExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
-        read = ReadParameterCall(name, ns, "string", location = location,
+        read = ReadParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
         node.read_param.append(read)
@@ -778,7 +778,7 @@ class NodeExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location = location)
                       for c in get_conditions(call, recursive = True)]
-        wrt = WriteParameterCall(name, ns, "string", location = location,
+        wrt = WriteParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
         node.write_param.append(wrt)
@@ -839,8 +839,12 @@ class NodeExtractor(LoggingObject):
             callback = callback.arguments[0]
         type_string = callback.result
         type_string = type_string.split(None, 1)[1]
+        if type_string.startswith("(*)"):
+            type_string = type_string[3:]
         if type_string[0] == "(" and type_string[-1] == ")":
             type_string = type_string[1:-1]
+            if call.name == "advertiseService":
+                type_string = type_string.split(", ")[0]
             is_const = type_string.startswith("const ")
             if is_const:
                 type_string = type_string[6:]
@@ -854,6 +858,8 @@ class NodeExtractor(LoggingObject):
                 is_ptr = type_string.endswith("ConstPtr")
                 if is_ptr:
                     type_string = type_string[:-8]
+            if type_string.endswith("::Request"):
+                type_string = type_string[:-9]
         if type_string.startswith("boost::function"):
             type_string = type_string[52:-25]
         return type_string.replace("::", "/")
