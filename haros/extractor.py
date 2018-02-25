@@ -474,11 +474,14 @@ class PackageParser(LoggingObject):
         for el in xml.findall("url"):
             value = el.get("type")
             if value is None or value == "website":
-                package.website = el.text.strip()
+                if el.text:
+                    package.website = el.text.strip()
             elif value == "repository":
-                package.vcs_url = el.text.strip()
+                if el.text:
+                    package.vcs_url = el.text.strip()
             elif value == "bugtracker":
-                package.bug_url = el.text.strip()
+                if el.text:
+                    package.bug_url = el.text.strip()
 
     @staticmethod
     def _parse_export(xml, package):
