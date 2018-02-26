@@ -94,21 +94,27 @@ class PluginInterface(LoggingObject):
         pkgs = self._data.packages
         return pkgs.get(scope_id, pkgs.get("package:" + scope_id))
 
+    def find_configuration(self, scope_id):
+        configs = self._data.configurations
+        return configs.get(scope_id, configs.get("configuration:" + scope_id))
+
     def report_violation(self, rule_id, msg, scope = None,
                          line = None, function = None, class_ = None):
         self.log.debug("violation(%s, %s, %s)", rule_id, msg, scope)
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
-        report = self._reports.get(scope.id)
-        if report is None:
-            raise AnalysisScopeError("invalid scope: " + scope.id)
-        rule = self._get_property(rule_id, self._data.rules)
         location = scope.location
         location.line = line
         location.function = function
         location.class_ = class_
+        report = self._reports.get(scope.id,
+                                   self._reports.get(location.largest_scope.id))
+        if report is None:
+            raise AnalysisScopeError("invalid scope: " + scope.id)
+        rule = self._get_property(rule_id, self._data.rules)
         datum = Violation(rule, location, details = msg)
+        datum.affected.append(scope)
         if not self._buffer_violations is None:
             self._buffer_violations.append(datum)
         else:
@@ -120,15 +126,16 @@ class PluginInterface(LoggingObject):
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
-        report = self._reports.get(scope.id)
-        if report is None:
-            raise AnalysisScopeError("invalid scope: " + scope.id)
-        metric = self._get_property(metric_id, self._data.metrics)
-        self._check_metric_value(metric, value)
         location = scope.location
         location.line = line
         location.function = function
         location.class_ = class_
+        report = self._reports.get(scope.id,
+                                   self._reports.get(location.largest_scope.id))
+        if report is None:
+            raise AnalysisScopeError("invalid scope: " + scope.id)
+        metric = self._get_property(metric_id, self._data.metrics)
+        self._check_metric_value(metric, value)
         datum = Measurement(metric, location, value)
         if not self._buffer_metrics is None:
             self._buffer_metrics.append(datum)
