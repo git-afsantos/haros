@@ -1194,7 +1194,7 @@ class ServicePrimitive(RosPrimitive):
 
     @property
     def topic_name(self):
-        return self.topic.rosname.full
+        return self.service.rosname.full
 
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
@@ -1206,7 +1206,7 @@ class ServicePrimitive(RosPrimitive):
         return self.__str__()
 
     def __str__(self):
-        return "SrvCli({}, {}, {})".format(self.node.id, self.topic.id,
+        return "SrvCli({}, {}, {})".format(self.node.id, self.service.id,
                                            self.type)
 
 class ServiceLink(ServicePrimitive):
