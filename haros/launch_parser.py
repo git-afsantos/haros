@@ -69,6 +69,7 @@ class UnresolvedValue(object):
         self.parts = []
 
     def append(self, part):
+        assert isinstance(part, (basestring, tuple))
         self.parts.append(part)
 
     @property
@@ -170,9 +171,9 @@ class SubstitutionParser(object):
         return self.convert_str("".join(parts), conversion)
 
     def to_bool(self, value):
-        if value == "1" or value == "true":
+        if value is True or value == "1" or str(value).lower() == "true":
             return True
-        if value == "0" or value == "false":
+        if value is False or value == "0" or str(value).lower() == "false":
             return False
         raise SubstitutionError("invalid boolean value: " + value)
 
@@ -224,7 +225,7 @@ class SubstitutionParser(object):
         name = parts[1]
         if name in self.arguments:
             value = self.arguments[name]
-            if value is None:
+            if value is None or isinstance(value, UnresolvedValue):
                 return ("arg", name)
             return value
         raise SubstitutionError("undeclared arg: " + name)
@@ -633,14 +634,15 @@ class LaunchParser(object):
         "test": TestTag
     }
 
-    def __init__(self):
+    def __init__(self, pkgs = None):
         self.sub_parser = None
+        self.packages = pkgs if not pkgs is None else {}
 
     def parse(self, filepath):
         if not filepath or not os.path.isfile(filepath):
             raise LaunchParserError("not a file: " + str(filepath))
         try:
-            self.sub_parser = SubstitutionParser()
+            self.sub_parser = SubstitutionParser(pkgs = self.packages)
             xml_root = ET.parse(filepath).getroot()
             if not xml_root.tag == "launch":
                 raise LaunchParserError("invalid root tag: " + xml_root.tag)

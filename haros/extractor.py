@@ -97,6 +97,7 @@ class ProjectExtractor(LoggingObject):
         self._topological_sort()
         for name in self.missing:
             self.log.warning("Could not find package " + name)
+        self._populate_packages()
         self._find_nodes()
 
     def _setup(self):
@@ -195,6 +196,12 @@ class ProjectExtractor(LoggingObject):
             emitted = next_emitted
             tier += 1
         self.project.packages.sort(key = attrgetter("topological_tier", "id"))
+
+    def _populate_packages(self):
+        extractor = PackageExtractor()
+        extractor.packages = self.project.packages
+        for pkg in self.project.packages:
+            extractor._populate_package(pkg)
 
     def _find_nodes(self):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
@@ -390,7 +397,7 @@ class PackageExtractor(LoggingObject):
                         pkg.repository = repo
                         repo.packages.append(pkg)
                         break
-            self._populate_package(pkg)
+            # self._populate_package(pkg)
         except (IOError, ET.ParseError, ResourceNotFound):
             return None
         return pkg
@@ -417,7 +424,8 @@ class PackageExtractor(LoggingObject):
             self.log.debug("Package %s has no path", pkg.name)
             return
         self.log.info("Indexing source files for package %s", pkg.name)
-        launch_parser = LaunchParser()
+        pkgs = {pkg.id: pkg for pkg in self.packages}
+        launch_parser = LaunchParser(pkgs = pkgs)
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown = True):
             subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]

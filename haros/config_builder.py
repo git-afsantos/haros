@@ -718,7 +718,7 @@ class ConfigurationBuilder(LoggingObject):
         self._analyse_tree(tag, new_scope, sub)
         new_sub = SubstitutionParser(args = args, env = sub.environment,
                                      pkgs = sub.packages,
-                                     dirname = launch_file.get_dirname(),
+                                     dirname = launch_file.dir_path,
                                      pkg_depends = sub.pkg_depends,
                                      env_depends = sub.env_depends)
         self._analyse_tree(launch_file.tree, new_scope, new_sub)

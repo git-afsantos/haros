@@ -301,7 +301,7 @@ class SourceFile(SourceObject):
            ".h.in", ".hpp.in", ".c.in", ".cc.in")
     PYTHON = ".py"
     PKG_XML = "package.xml"
-    LAUNCH = ".launch"
+    LAUNCH = (".launch", ".launch.xml")
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
