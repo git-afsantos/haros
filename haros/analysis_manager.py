@@ -275,6 +275,8 @@ class QueryEngine(LoggingObject):
         if isinstance(match, tuple):
             # assume tuple<tuple<object>> for FLWR queries multi return
             parts = []
+            if len(match) == 1 and isinstance(match[0], tuple):
+                match = match[0]
             for item in match:
                 parts.append(str(item))
                 if isinstance(item, MetamodelObject):
