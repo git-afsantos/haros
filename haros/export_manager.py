@@ -68,7 +68,12 @@ class JsonExporter(LoggingObject):
 
     def export_packages(self, datadir, packages):
         self.log.info("Exporting package data.")
-        self._export_collection(datadir, packages, "packages.json")
+        out = os.path.join(datadir, "packages.json")
+        if isinstance(packages, dict):
+            packages = packages.viewvalues()
+        with open(out, "w") as f:
+            self.log.debug("Writing to %s", out)
+            json.dump([self._pkg_JSON(pkg) for pkg in packages], f)
 
     def export_rules(self, datadir, rules):
         self.log.info("Exporting analysis rules.")
@@ -209,3 +214,19 @@ class JsonExporter(LoggingObject):
                 "resourceType": "link"
             }
         return None
+
+    def _pkg_JSON(self, pkg):
+        return {
+            "id": pkg.name,
+            "metapackage": pkg.is_metapackage,
+            "description": pkg.description,
+            "wiki": pkg.website,
+            "repository": pkg.vcs_url,
+            "bugTracker": pkg.bug_url,
+            "authors": [person.name for person in pkg.authors],
+            "maintainers": [person.name for person in pkg.maintainers],
+            "dependencies": [name for name in pkg.dependencies.packages],
+            "size": "{0:.2f}".format(pkg.size / 1000.0),
+            "lines": pkg.lines,
+            "sloc": pkg.sloc
+        }

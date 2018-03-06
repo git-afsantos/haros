@@ -317,6 +317,7 @@ class SourceFile(SourceObject):
         self.size = 0
         self.lines = 0
         self.sloc = 0
+        self.timestamp = 0
 
     @property
     def scope(self):
@@ -340,6 +341,7 @@ class SourceFile(SourceObject):
 
     def set_file_stats(self):
         self.size = os.path.getsize(self.path)
+        self.timestamp = os.path.getmtime(self.path)
         self.lines = 0
         self.sloc = 0
         with open(self.path, "r") as handle:
@@ -347,6 +349,18 @@ class SourceFile(SourceObject):
                 self.lines += 1
                 if line.strip():
                     self.sloc += 1
+
+    def to_JSON_object(self):
+        return {
+            "name": self.name,
+            "directory": self.directory,
+            "package": self.package.name,
+            "language": self.language,
+            "size": self.size,
+            "timestamp": self.timestamp,
+            "lines": self.lines,
+            "sloc": self.sloc
+        }
 
     def _get_language(self):
         if self.name.endswith(self.CPP):
@@ -418,7 +432,7 @@ class Package(SourceObject):
 
     def to_JSON_object(self):
         return {
-            "id": self.name,
+            "name": self.name,
             "metapackage": self.is_metapackage,
             "description": self.description,
             "wiki": self.website,
@@ -427,9 +441,8 @@ class Package(SourceObject):
             "authors": [person.name for person in self.authors],
             "maintainers": [person.name for person in self.maintainers],
             "dependencies": [pkg for pkg in self.dependencies.packages],
-            "size": "{0:.2f}".format(self.size / 1000.0),
-            "lines": self.lines,
-            "sloc": self.sloc
+            "files": [f.full_name for f in self.files],
+            "nodes": [n.node_name for n in self.nodes]
         }
 
     def __str__(self):
