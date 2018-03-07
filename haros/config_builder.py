@@ -204,7 +204,8 @@ class LaunchScope(LoggingObject):
         for call in self.node.node.advertise:
             for link in self._make_topic_links(call.name, call.namespace, pns,
                                                call.type, call.queue_size,
-                                               call.conditions, advertise):
+                                               call.conditions, advertise,
+                                               call.location):
                 self.node.publishers.append(link)
                 link.topic.publishers.append(link)
                 self._update_topic_conditions(link.topic)
@@ -213,7 +214,8 @@ class LaunchScope(LoggingObject):
         for call in self.node.node.subscribe:
             for link in self._make_topic_links(call.name, call.namespace, pns,
                                                call.type, call.queue_size,
-                                               call.conditions, subscribe):
+                                               call.conditions, subscribe,
+                                               call.location):
                 self.node.subscribers.append(link)
                 link.topic.subscribers.append(link)
                 self._update_topic_conditions(link.topic)
@@ -228,7 +230,8 @@ class LaunchScope(LoggingObject):
         for call in self.node.node.service:
             for link in self._make_service_links(call.name, call.namespace,
                                                  pns, call.type,
-                                                 call.conditions, service):
+                                                 call.conditions, service,
+                                                 call.location):
                 self.node.servers.append(link)
                 link.service.server = link
                 self._update_service_conditions(link.service)
@@ -237,7 +240,8 @@ class LaunchScope(LoggingObject):
         for call in self.node.node.client:
             for link in self._make_service_links(call.name, call.namespace,
                                                  pns, call.type,
-                                                 call.conditions, client):
+                                                 call.conditions, client,
+                                                 call.location):
                 self.node.clients.append(link)
                 link.service.clients.append(link)
                 self._update_service_conditions(link.service)
@@ -251,16 +255,19 @@ class LaunchScope(LoggingObject):
             self._future.append(FutureParamLink(
                     self.node, call.name, call.namespace or self.namespace,
                     self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, read or (), call.repeats, "reads"
+                    call.conditions, read or (), call.repeats, "reads",
+                    call.location
             ))
         for call in self.node.node.write_param:
             self._future.append(FutureParamLink(
                     self.node, call.name, call.namespace or self.namespace,
                     self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, write or (), call.repeats, "writes"
+                    call.conditions, write or (), call.repeats, "writes",
+                    call.location
             ))
 
-    def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints):
+    def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints,
+                          source_location):
         collection = self.configuration.topics
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
@@ -270,7 +277,8 @@ class LaunchScope(LoggingObject):
             topics = self._pattern_match(pattern, rtype, collection)
             for topic in topics:
                 links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                             queue, conditions = conditions))
+                                            queue, conditions = conditions,
+                                            location = source_location))
             topics = self._pattern_match(pattern, rtype, hints)
             for topic in topics:
                 new = topic.remap(RosName(topic.rosname.full,
@@ -279,20 +287,24 @@ class LaunchScope(LoggingObject):
                     continue # already done in the step above
                 collection.add(new)
                 links.append(TopicPrimitive(self.node, new, rtype, call_name,
-                                             queue, conditions = conditions))
+                                            queue, conditions = conditions,
+                                            location = source_location))
         else:
             topic = collection.get(rosname.full)
             if not topic is None:
                 links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                             queue, conditions = conditions))
+                                            queue, conditions = conditions,
+                                            location = source_location))
         if not links:
             topic = Topic(self.configuration, rosname, message_type = rtype)
             collection.add(topic)
             links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                         queue, conditions = conditions))
+                                        queue, conditions = conditions,
+                                        location = source_location))
         return links
 
-    def _make_service_links(self, name, ns, pns, rtype, conditions, hints):
+    def _make_service_links(self, name, ns, pns, rtype, conditions, hints,
+                            source_location):
         collection = self.configuration.services
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
@@ -302,7 +314,8 @@ class LaunchScope(LoggingObject):
             services = self._pattern_match(pattern, rtype, collection)
             for srv in services:
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions))
+                                              conditions = conditions,
+                                              location = source_location))
             services = self._pattern_match(pattern, rtype, hints)
             for srv in services:
                 new = srv.remap(RosName(srv.rosname.full,
@@ -311,17 +324,20 @@ class LaunchScope(LoggingObject):
                     continue # already done in the step above
                 collection.add(new)
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions))
+                                              conditions = conditions,
+                                              location = source_location))
         else:
             srv = collection.get(rosname.full)
             if not srv is None:
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions))
+                                              conditions = conditions,
+                                              location = source_location))
         if not links:
             srv = Service(self.configuration, rosname, message_type = rtype)
             collection.add(srv)
             links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                          conditions = conditions))
+                                          conditions = conditions,
+                                          location = source_location))
         return links
 
     def _pattern_match(self, pattern, rtype, collection):
@@ -454,7 +470,7 @@ class LaunchScope(LoggingObject):
 
 class FutureParamLink(object):
     def __init__(self, node, name, ns, rns, pns, rtype,
-                 conditions, hints, repeats, rw):
+                 conditions, hints, repeats, rw, location):
         self.node = node
         self.name = name
         self.ns = ns
@@ -466,6 +482,7 @@ class FutureParamLink(object):
         self.repeats = repeats
         assert rw == "reads" or rw == "writes"
         self.rw = rw
+        self.source_location = location
 
     def make(self):
         configuration = self.node.configuration
@@ -480,7 +497,8 @@ class FutureParamLink(object):
             for param in params:
                 links.append(ParameterPrimitive(self.node, param, self.type,
                                                 call_name,
-                                                conditions = self.conditions))
+                                                conditions = self.conditions,
+                                                location = self.source_location))
             params = self._pattern_match(pattern, self.hints)
             for param in params:
                 new = param.remap(RosName(param.rosname.full,
@@ -490,19 +508,22 @@ class FutureParamLink(object):
                 collection.add(new)
                 links.append(ParameterPrimitive(self.node, param, self.type,
                                                 call_name,
-                                                conditions = self.conditions))
+                                                conditions = self.conditions,
+                                                location = self.source_location))
         else:
             param = collection.get(rosname.full)
             if not param is None:
                 links.append(ParameterPrimitive(self.node, param, self.type,
                                                 call_name,
-                                                conditions = self.conditions))
+                                                conditions = self.conditions,
+                                                location = self.source_location))
         if not links:
             param = Parameter(configuration, rosname, self.type, None)
             collection.add(param)
             links.append(ParameterPrimitive(self.node, param, self.type,
                                             call_name,
-                                            conditions = self.conditions))
+                                            conditions = self.conditions,
+                                            location = self.source_location))
         for link in links:
             getattr(self.node, self.rw).append(link)
             getattr(link.parameter, self.rw).append(link)
@@ -588,7 +609,8 @@ class ConfigurationHints(LoggingObject):
             else:
                 for link in scope._make_topic_links(topic.rosname.full,
                                                     scope.namespace, pns,
-                                                    topic.type, None, None, ()):
+                                                    topic.type, None,
+                                                    None, (), None):
                     link.node.publishers.append(link)
                     link.topic.publishers.append(link)
                     link.topic.conditions.extend(link.node.conditions)
@@ -602,7 +624,8 @@ class ConfigurationHints(LoggingObject):
             else:
                 for link in scope._make_topic_links(topic.rosname.full,
                                                     scope.namespace, pns,
-                                                    topic.type, None, None, ()):
+                                                    topic.type, None,
+                                                    None, (), None):
                     link.node.subscribers.append(link)
                     link.topic.subscribers.append(link)
                     link.topic.conditions.extend(link.node.conditions)
@@ -617,7 +640,7 @@ class ConfigurationHints(LoggingObject):
                 for link in scope._make_service_links(service.rosname.full,
                                                       scope.namespace, pns,
                                                       service.type,
-                                                      None, None, ()):
+                                                      None, None, (), None):
                     link.node.servers.append(link)
                     link.service.server = link
                     link.service.conditions.extend(link.node.conditions)
@@ -632,7 +655,7 @@ class ConfigurationHints(LoggingObject):
                 for link in scope._make_service_links(service.rosname.full,
                                                       scope.namespace, pns,
                                                       service.type,
-                                                      None, None, ()):
+                                                      None, None, (), None):
                     link.node.clients.append(link)
                     link.service.clients.append(link)
                     link.service.conditions.extend(link.node.conditions)

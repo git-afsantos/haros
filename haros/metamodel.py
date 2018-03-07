@@ -752,6 +752,9 @@ class Resource(MetamodelObject):
     def resource_type(self):
         raise NotImplementedError("subclasses must implement this property")
 
+    def traceability(self):
+        raise NotImplementedError("subclasses must implement this method")
+
     def remap(self, rosname):
         raise NotImplementedError("subclasses must implement this method")
 
@@ -806,6 +809,9 @@ class NodeInstance(Resource):
                     queue.append(cli.service.server.node)
         return nodes
 
+    def traceability(self):
+        return [self.launch.location]
+
     def remap(self, rosname):
         new = NodeInstance(self.configuration, rosname, self.node,
                            launch = self.launch, argv = list(self.argv),
@@ -830,7 +836,8 @@ class NodeInstance(Resource):
             "servers": [p.service.rosname.full for p in self.servers],
             "clients": [p.service.rosname.full for p in self.clients],
             "reads": [p.parameter.rosname.full for p in self.reads],
-            "writes": [p.parameter.rosname.full for p in self.writes]
+            "writes": [p.parameter.rosname.full for p in self.writes],
+            "traceability": [l.to_JSON_object() for l in self.traceability()]
         }
 
     def __repr__(self):
@@ -858,6 +865,16 @@ class Topic(Resource):
     def resource_type(self):
         return "topic"
 
+    def traceability(self):
+        sl = []
+        for p in self.publishers:
+            if not p.source_location is None:
+                sl.append(p.source_location)
+        for p in self.subscribers:
+            if not p.source_location is None:
+                sl.append(p.source_location)
+        return sl
+
     def remap(self, rosname):
         new = Topic(self.configuration, rosname, message_type = self.type,
                     conditions = list(self.conditions))
@@ -871,7 +888,8 @@ class Topic(Resource):
             "type": self.type,
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "publishers": [p.node.rosname.full for p in self.publishers],
-            "subscribers": [p.node.rosname.full for p in self.subscribers]
+            "subscribers": [p.node.rosname.full for p in self.subscribers],
+            "traceability": [l.to_JSON_object() for l in self.traceability()]
         }
 
     def _get_conditions(self):
@@ -912,6 +930,16 @@ class Service(Resource):
     def resource_type(self):
         return "service"
 
+    def traceability(self):
+        sl = []
+        if not self.server is None:
+            if not self.server.source_location is None:
+                sl.append(self.server.source_location)
+        for p in self.clients:
+            if not p.source_location is None:
+                sl.append(p.source_location)
+        return sl
+
     def remap(self, rosname):
         new = Service(self.configuration, rosname, message_type = self.type,
                       conditions = list(self.conditions))
@@ -926,7 +954,8 @@ class Service(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "servers": ([self.server.node.rosname.full]
                         if not self.server is None else []),
-            "clients": [p.node.rosname.full for p in self.clients]
+            "clients": [p.node.rosname.full for p in self.clients],
+            "traceability": [l.to_JSON_object() for l in self.traceability()]
         }
 
     def _get_conditions(self):
@@ -972,6 +1001,16 @@ class Parameter(Resource):
     def resource_type(self):
         return "param"
 
+    def traceability(self):
+        sl = []
+        for p in self.reads:
+            if not p.source_location is None:
+                sl.append(p.source_location)
+        for p in self.writes:
+            if not p.source_location is None:
+                sl.append(p.source_location)
+        return sl
+
     def remap(self, rosname):
         new = Parameter(self.configuration, rosname, self.type,
                          self.value, node_scope = self.node_scope,
@@ -987,7 +1026,8 @@ class Parameter(Resource):
             "value": self.value,
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "reads": [p.node.rosname.full for p in self.reads],
-            "writes": [p.node.rosname.full for p in self.writes]
+            "writes": [p.node.rosname.full for p in self.writes],
+            "traceability": [l.to_JSON_object() for l in self.traceability()]
         }
 
 
@@ -1145,8 +1185,9 @@ class RosPrimitive(MetamodelObject):
 
 class TopicPrimitive(RosPrimitive):
     def __init__(self, node, topic, message_type, rosname, queue_size,
-                 conditions = None):
-        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+                 conditions = None, location = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions,
+                              location = location)
         self.topic = topic
         self.type = message_type
         self.queue_size = queue_size
@@ -1172,9 +1213,9 @@ class TopicPrimitive(RosPrimitive):
 class PublishLink(TopicPrimitive):
     @classmethod
     def link(cls, node, topic, message_type, rosname, queue_size,
-             conditions = None):
+             conditions = None, location = None):
         link = cls(node, topic, message_type, rosname, queue_size,
-                   conditions = conditions)
+                   conditions = conditions, location = location)
         link.node.publishers.append(link)
         link.topic.publishers.append(link)
         return link
@@ -1186,9 +1227,9 @@ class PublishLink(TopicPrimitive):
 class SubscribeLink(TopicPrimitive):
     @classmethod
     def link(cls, node, topic, message_type, rosname, queue_size,
-             conditions = None):
+             conditions = None, location = None):
         link = cls(node, topic, message_type, rosname, queue_size,
-                   conditions = conditions)
+                   conditions = conditions, location = location)
         link.node.subscribers.append(link)
         link.topic.subscribers.append(link)
         return link
@@ -1200,8 +1241,9 @@ class SubscribeLink(TopicPrimitive):
 
 class ServicePrimitive(RosPrimitive):
     def __init__(self, node, service, message_type, rosname,
-                 conditions = None):
-        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+                 conditions = None, location = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions,
+                              location = location)
         self.service = service
         self.type = message_type
 
@@ -1224,9 +1266,10 @@ class ServicePrimitive(RosPrimitive):
 
 class ServiceLink(ServicePrimitive):
     @classmethod
-    def link(cls, node, service, message_type, rosname, conditions = None):
+    def link(cls, node, service, message_type, rosname, conditions = None,
+             location = None):
         link = cls(node, service, message_type, rosname,
-                   conditions = conditions)
+                   conditions = conditions, location = location)
         link.node.servers.append(link)
         link.service.server = link
         return link
@@ -1237,9 +1280,10 @@ class ServiceLink(ServicePrimitive):
 
 class ClientLink(ServicePrimitive):
     @classmethod
-    def link(cls, node, service, message_type, rosname, conditions = None):
+    def link(cls, node, service, message_type, rosname, conditions = None,
+             location = None):
         link = cls(node, service, message_type, rosname,
-                   conditions = conditions)
+                   conditions = conditions, location = location)
         link.node.clients.append(link)
         link.service.clients.append(link)
         return link
@@ -1250,8 +1294,10 @@ class ClientLink(ServicePrimitive):
 
 
 class ParameterPrimitive(RosPrimitive):
-    def __init__(self, node, param, param_type, rosname, conditions = None):
-        RosPrimitive.__init__(self, node, rosname, conditions = conditions)
+    def __init__(self, node, param, param_type, rosname, conditions = None,
+                 location = None):
+        RosPrimitive.__init__(self, node, rosname, conditions = conditions,
+                              location = location)
         self.parameter = param
         self.type = param_type
 
@@ -1274,8 +1320,10 @@ class ParameterPrimitive(RosPrimitive):
 
 class ReadLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None):
-        link = cls(node, param, param_type, rosname, conditions = conditions)
+    def link(cls, node, param, param_type, rosname, conditions = None,
+             location = None):
+        link = cls(node, param, param_type, rosname, conditions = conditions,
+                   location = location)
         link.node.reads.append(link)
         link.parameter.reads.append(link)
         return link
@@ -1286,8 +1334,10 @@ class ReadLink(ParameterPrimitive):
 
 class WriteLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None):
-        link = cls(node, param, param_type, rosname, conditions = conditions)
+    def link(cls, node, param, param_type, rosname, conditions = None,
+             location = None):
+        link = cls(node, param, param_type, rosname, conditions = conditions,
+                   location = location)
         link.node.writes.append(link)
         link.parameter.writes.append(link)
         return link
