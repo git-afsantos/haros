@@ -68,7 +68,7 @@ class LoggingObject(object):
 class ProjectExtractor(LoggingObject):
     def __init__(self, index_file, env = None, pkg_cache = None,
                  repo_cache = None, repo_path = None, distro_url = None,
-                 require_repos = False, parse_nodes = False):
+                 require_repos = False, parse_nodes = False, node_cache = None):
         self.log.debug("ProjectExtractor(%s, %s, %s)",
                        index_file, repo_path, distro_url)
         self.index_file = index_file
@@ -79,6 +79,7 @@ class ProjectExtractor(LoggingObject):
         self.environment = env if not env is None else {}
         self.package_cache = pkg_cache if not pkg_cache is None else {}
         self.repo_cache = repo_cache if not repo_cache is None else {}
+        self.node_cache = node_cache if not node_cache is None else {}
         self.project = None
         self.packages = None
         self.missing = None
@@ -98,6 +99,7 @@ class ProjectExtractor(LoggingObject):
         for name in self.missing:
             self.log.warning("Could not find package " + name)
         self._populate_packages()
+        self._update_node_cache()
         self._find_nodes()
 
     def _setup(self):
@@ -206,6 +208,7 @@ class ProjectExtractor(LoggingObject):
     def _find_nodes(self):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
         extractor = NodeExtractor(pkgs, self.environment,
+                                  node_cache = self.node_cache,
                                   parse_nodes = self.parse_nodes)
         if self.parse_nodes and not CppAstParser is None:
             CppAstParser.set_library_path()
@@ -215,6 +218,129 @@ class ProjectExtractor(LoggingObject):
         for pkg in self.project.packages:
             if not pkg.name in self.package_cache:
                 extractor.find_nodes(pkg)
+
+    def _update_node_cache(self):
+        self.log.debug("Importing cached Nodes.")
+        data = [datum for datum in self.node_cache.itervalues()]
+        self.node_cache = {}
+        for datum in data:
+            try:
+                pkg = self._get_package(datum["package"])
+                source_files = self._get_files(pkg, datum["files"])
+            except ValueError as e:
+                # either a package or a file is no longer part of the analysis
+                self.log.debug("Cached node %s: %s", datum["name"], e)
+                continue
+            mtime = datum["timestamp"]
+            for sf in source_files:
+                if sf.timestamp > mtime:
+                    # a file was modified, needs to be parsed again
+                    continue
+            node = Node(datum["name"], pkg, rosname = datum["rosname"],
+                        nodelet = datum["nodelet"])
+            node.source_files = source_files
+            for p in datum["advertise"]:
+                node.advertise.append(self._pub_from_JSON(p))
+            for p in datum["subscribe"]:
+                node.subscribe.append(self._sub_from_JSON(p))
+            for p in datum["service"]:
+                node.service.append(self._srv_from_JSON(p))
+            for p in datum["client"]:
+                node.client.append(self._client_from_JSON(p))
+            for p in datum["read_param"]:
+                node.read_param.append(self._read_from_JSON(p))
+            for p in datum["write_param"]:
+                node.write_param.append(self._write_from_JSON(p))
+            self.node_cache[node.node_name] = node
+
+    def _get_package(self, name):
+        for pkg in self.project.packages:
+            if pkg.name == name:
+                return pkg
+        raise ValueError("cannot find package: " + name)
+
+    def _get_files(self, pkg, filenames):
+        files = []
+        for filename in filenames:
+            found = False
+            for sf in pkg.source_files:
+                if sf.full_name == filename:
+                    found = True
+                    files.append(sf)
+                    break
+            if not found:
+                raise ValueError("cannot find file: " + filename)
+        return files
+
+    def _pub_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return Publication(datum["name"], datum["namespace"], datum["type"],
+                           datum["queue"], control_depth = datum["depth"],
+                           repeats = datum["repeats"],
+                           conditions = cs, location = l(datum["location"]))
+
+    def _sub_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return Subscription(datum["name"], datum["namespace"], datum["type"],
+                            datum["queue"], control_depth = datum["depth"],
+                            repeats = datum["repeats"],
+                            conditions = cs, location = l(datum["location"]))
+
+    def _srv_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return ServiceServerCall(datum["name"], datum["namespace"],
+                                 datum["type"], control_depth = datum["depth"],
+                                 repeats = datum["repeats"],
+                                 conditions = cs,
+                                 location = l(datum["location"]))
+
+    def _client_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return ServiceClientCall(datum["name"], datum["namespace"],
+                                 datum["type"], control_depth = datum["depth"],
+                                 repeats = datum["repeats"],
+                                 conditions = cs,
+                                 location = l(datum["location"]))
+
+    def _read_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return ReadParameterCall(datum["name"], datum["namespace"],
+                                 datum["type"], control_depth = datum["depth"],
+                                 repeats = datum["repeats"],
+                                 conditions = cs,
+                                 location = l(datum["location"]))
+
+    def _write_from_JSON(self, datum):
+        l = self._location_from_JSON
+        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+              for c in datum["conditions"]]
+        return WriteParameterCall(datum["name"], datum["namespace"],
+                                  datum["type"], control_depth = datum["depth"],
+                                  repeats = datum["repeats"],
+                                  conditions = cs,
+                                  location = l(datum["location"]))
+
+    def _location_from_JSON(self, datum):
+        try:
+            pkg = self._get_package(datum["package"])
+            sf = None
+            filename = datum["file"]
+            if filename:
+                sf = self._get_files(pkg, [filename])[0]
+        except ValueError:
+            return None
+        return Location(pkg, file = sf, line = datum["line"],
+                        fun = datum["function"], cls = datum["class"])
 
 
 ###############################################################################
@@ -532,11 +658,12 @@ class PackageParser(LoggingObject):
 ###############################################################################
 
 class NodeExtractor(LoggingObject):
-    def __init__(self, pkgs, env, ws = None, parse_nodes = False):
+    def __init__(self, pkgs, env, ws = None, cache = None, parse_nodes = False):
         self.package = None
         self.packages = pkgs
         self.environment = env
         self.workspace = ws or self._find_workspace()
+        self.node_cache = cache
         self.parse_nodes = parse_nodes
         self.nodes = []
 
@@ -620,9 +747,16 @@ class NodeExtractor(LoggingObject):
             self.package.nodes.append(node)
 
     def _extract_primitives(self):
-        for node in self.package.nodes:
+        for i in xrange(len(self.package.nodes)):
+            node = self.package.nodes[i]
             self.log.debug("Extracting primitives for node %s", node.id)
             if not node.source_tree is None:
+                continue
+            if node.node_name in self.node_cache:
+                self.log.debug("Using Node %s from cache.", node.node_name)
+                node = self.node_cache[node.node_name]
+                assert node.package is self.package
+                self.package.nodes[i] = node
                 continue
             node.source_tree = CodeGlobalScope()
             node.advertise = []
