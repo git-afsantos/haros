@@ -577,6 +577,10 @@ class Node(SourceObject):
     def node_name(self):
         return self.package.name + "/" + (self.nodelet_class or self.name)
 
+    @property
+    def timestamp(self):
+        return max([f.timestamp for f in self.source_files] or [0])
+
     def to_JSON_object(self):
         return {
             "id": self.node_name,
@@ -590,7 +594,8 @@ class Node(SourceObject):
             "service": [p.to_JSON_object() for p in self.service],
             "client": [p.to_JSON_object() for p in self.client],
             "readParam": [p.to_JSON_object() for p in self.read_param],
-            "writeParam": [p.to_JSON_object() for p in self.write_param]
+            "writeParam": [p.to_JSON_object() for p in self.write_param],
+            "timestamp": self.timestamp
         }
 
     def bound_to(self, other):
