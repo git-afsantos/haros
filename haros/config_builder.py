@@ -129,6 +129,7 @@ class LaunchScope(LoggingObject):
             conditions = param.conditions + instance.conditions
             param = Parameter(self.configuration, rosname, param.type,
                               param.value, node_scope = param.node_scope,
+                              launch = param.launch_file,
                               conditions = conditions)
             self.parameters.append(param)
         return new_scope
@@ -146,6 +147,7 @@ class LaunchScope(LoggingObject):
             rosname = RosName(name, self.private_ns, self.private_ns)
             param = Parameter(self.configuration, rosname, ptype, value,
                               node_scope = not self.node is None,
+                              launch = self.launch_file,
                               conditions = conditions)
             if not self.node and rosname.is_private:
                 self._params.append(param)
@@ -398,7 +400,8 @@ class LaunchScope(LoggingObject):
             else:
                 rosname = RosName(name, pns, pns)
             param = Parameter(self.configuration, rosname, None, value,
-                              node_scope = node_scope, conditions = conditions)
+                              node_scope = node_scope,
+                              launch = self.launch_file, conditions = conditions)
             if independent or not private:
                 self.parameters.append(param)
             else:

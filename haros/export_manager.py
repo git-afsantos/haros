@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+from collections import Counter
 import json
 import logging
 import os
@@ -73,7 +74,7 @@ class JsonExporter(LoggingObject):
             packages = packages.viewvalues()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([self._pkg_JSON(pkg) for pkg in packages], f)
+            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f)
 
     def export_rules(self, datadir, rules):
         self.log.info("Exporting analysis rules.")
@@ -215,8 +216,9 @@ class JsonExporter(LoggingObject):
             }
         return None
 
-    def _pkg_JSON(self, pkg):
-        return {
+    def _pkg_analysis_JSON(self, pkg_analysis):
+        pkg = pkg_analysis.package
+        data = {
             "id": pkg.name,
             "metapackage": pkg.is_metapackage,
             "description": pkg.description,
@@ -230,3 +232,11 @@ class JsonExporter(LoggingObject):
             "lines": pkg.lines,
             "sloc": pkg.sloc
         }
+        violations = Counter(v.rule.id for v in pkg_analysis.violations)
+        violations.update(v.rule.id for fa in pkg_analysis.file_analysis
+                          for v in fa.violations)
+        data["analysis"] = {
+            "violations": violations,
+            "metrics": {m.metric.id: m.value for m in pkg_analysis.metrics}
+        }
+        return data

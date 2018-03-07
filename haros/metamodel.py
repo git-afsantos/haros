@@ -975,13 +975,14 @@ class Service(Resource):
 
 class Parameter(Resource):
     def __init__(self, config, rosname, ptype, value,
-                 node_scope = False, conditions = None):
+                 node_scope = False, launch = None, conditions = None):
         Resource.__init__(self, config, rosname, conditions = conditions)
         self.type = ptype or Parameter.type_of(value)
         self.value = value
         self.node_scope = node_scope
         self.reads = []
         self.writes = []
+        self.launch = launch
 
     @staticmethod
     def type_of(value):
@@ -1003,6 +1004,8 @@ class Parameter(Resource):
 
     def traceability(self):
         sl = []
+        if not self.launch is None:
+            sl.append(self.launch.location)
         for p in self.reads:
             if not p.source_location is None:
                 sl.append(p.source_location)

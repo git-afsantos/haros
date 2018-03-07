@@ -527,6 +527,23 @@ THE SOFTWARE.
             <%= data.args || "(none)" %>
         </p>
         <p>
+            <i class="fa fa-file-text bullet-icon"></i>
+            <strong>Source Code Locations:</strong>
+            <% if (!data.traceability.length) print("(unknown)");
+            for (var j = 0; j < data.traceability.length; ++j)
+                print("<br/><small>in package <i>"
+                      + data.traceability[j].package
+                      + "</i>"
+                      + (data.traceability[j].file
+                         ? ", file <i>" + data.traceability[j].file + "</i>"
+                         : "")
+                      + (data.traceability[j].file && data.traceability[j].line
+                         ? ", line " + data.traceability[j].line
+                         : "")
+                      + "</small>\n");
+            %>
+        </p>
+        <p>
             <i class="fa fa-asterisk bullet-icon"></i>
             <strong>Conditions:</strong>
             <% if (!data.conditions.length) print("(none)");
