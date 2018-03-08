@@ -87,7 +87,7 @@ class ProjectExtractor(LoggingObject):
         self.configurations = None
         self.rules = None
 
-    def index_source(self):
+    def index_source(self, settings = None):
         self.log.debug("ProjectExtractor.index_source()")
         self._setup()
         self._load_user_repositories()
@@ -100,7 +100,7 @@ class ProjectExtractor(LoggingObject):
             self.log.warning("Could not find package " + name)
         self._populate_packages()
         self._update_node_cache()
-        self._find_nodes()
+        self._find_nodes(settings)
 
     def _setup(self):
         try:
@@ -205,16 +205,25 @@ class ProjectExtractor(LoggingObject):
         for pkg in self.project.packages:
             extractor._populate_package(pkg)
 
-    def _find_nodes(self):
+    def _find_nodes(self, settings):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
+        ws = settings.workspace if settings else None
         extractor = NodeExtractor(pkgs, self.environment,
+                                  workspace = ws,
                                   node_cache = self.node_cache,
                                   parse_nodes = self.parse_nodes)
         if self.parse_nodes and not CppAstParser is None:
-            CppAstParser.set_library_path()
-            db_dir = os.path.join(extractor.workspace, "build")
-            if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
-                CppAstParser.set_database(db_dir)
+            if settings is None:
+                CppAstParser.set_library_path()
+                db_dir = os.path.join(extractor.workspace, "build")
+                if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
+                    CppAstParser.set_database(db_dir)
+            else:
+                CppAstParser.set_library_path(settings.cpp_parser_lib)
+                CppAstParser.set_standard_includes(settings.cpp_includes)
+                if os.path.isfile(os.path.join(settings.cpp_compile_db,
+                                               "compile_commands.json")):
+                    CppAstParser.set_database(settings.cpp_compile_db)
         for pkg in self.project.packages:
             if not pkg.name in self.package_cache:
                 extractor.find_nodes(pkg)

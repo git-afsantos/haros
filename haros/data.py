@@ -427,12 +427,76 @@ class AnalysisReport(object):
 
 
 ###############################################################################
-# User Preferences
+# User Preferences and Settings
 ###############################################################################
 
-class Preferences(object):
-    def __init__(self):
-        self.plugin_blacklist = []
+class HarosSettings(object):
+    DEFAULTS = {
+        "environment": {
+            "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
+            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
+        },
+        "blacklist": [],
+        "workspace": None,
+        "cpp": {
+            "parser": "clang",
+            "parser_lib": "/usr/lib/llvm-3.8/lib",
+            "std_includes": "/usr/lib/llvm-3.8/lib/clang/3.8.0/include",
+            "compile_db": None  # path to file, None (default path) or False
+        }
+    }
+
+    def __init__(self, env = None, blacklist = None, workspace = None,
+                 cpp_parser = None, cpp_includes = None, cpp_parser_lib = None,
+                 cpp_compile_db = None):
+        self.environment = env or dict(self.DEFAULTS["environment"])
+        self.plugin_blacklist = blacklist if not blacklist is None else []
+        self.workspace = workspace or self.find_workspace()
+        self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
+        self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
+        self.cpp_includes = cpp_includes or self.DEFAULTS["cpp"]["std_includes"]
+        self.cpp_compile_db = cpp_compile_db
+        if cpp_compile_db is None:
+            db = os.path.join(self.workspace, "build")
+            if os.path.isfile(db):
+                self.cpp_compile_db = db
+        elif cpp_compile_db is False:
+            self.cpp_compile_db = None
+
+    @classmethod
+    def parse_from(cls, path):
+        with open(path, "r") as handle:
+            data = yaml.load(handle)
+        env = data.get("environment")
+        if env == "copy" or env == "all" or env is True:
+            env = dict(os.environ)
+        elif isinstance(env, dict):
+            env = (dict(cls.DEFAULTS["environment"])).update(env)
+        elif not env is None:
+            raise ValueError("invalid value for environment")
+        blacklist = data.get("plugin_blacklist", [])
+        workspace = data.get("workspace")
+        cpp = data.get("cpp", cls.DEFAULTS["cpp"])
+        cpp_parser = cpp.get("parser")
+        cpp_parser_lib = cpp.get("parser_lib")
+        cpp_includes = cpp.get("std_includes")
+        cpp_compile_db = cpp.get("compile_db")
+        return cls(env = env, blacklist = blacklist, workspace = workspace,
+                   cpp_parser = cpp_parser, cpp_parser_lib = cpp_parser_lib,
+                   cpp_includes = cpp_includes, cpp_compile_db = cpp_compile_db)
+
+    def find_workspace(self):
+        """This replicates the behaviour of `roscd`."""
+        ws = self.environment.get("ROS_WORKSPACE")
+        if ws:
+            return ws
+        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        for path in paths:
+            if os.path.exists(os.path.join(path, ".catkin")):
+                if (path.endswith(os.sep + "devel")
+                        or path.endswith(os.sep + "install")):
+                    return os.path.abspath(os.path.join(path, os.pardir))
+        raise KeyError("ROS_WORKSPACE")
 
 
 ###############################################################################

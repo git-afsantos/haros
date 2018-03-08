@@ -98,7 +98,7 @@ import tempfile
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
-from .data import HarosDatabase
+from .data import HarosDatabase, HarosSettings
 from .extractor import ProjectExtractor
 from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
@@ -119,6 +119,7 @@ class HarosLauncher(object):
 
     HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
     DEFAULT_INDEX   = os.path.join(HAROS_DIR, "index.yaml")
+    USER_SETINGS    = os.path.join(HAROS_DIR, "configs.yaml")
     LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
     VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 
@@ -139,17 +140,18 @@ class HarosLauncher(object):
             if not os.path.isdir(self.HAROS_DIR):
                 print "[HAROS] It seems this is a first run."
                 self.command_init(args)
+            settings = HarosSettings.parse_from(self.USER_SETINGS)
             if args.cwd:
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
-            return args.command(args)
+            return args.command(args, settings)
         except RuntimeError as err:
             self.log.error(str(err))
             return False
         finally:
             os.chdir(original_path)
 
-    def command_init(self, args):
+    def command_init(self, args, settings):
         if not self.initialised:
             init = HarosInitRunner(self.HAROS_DIR, self.log,
                                    self.run_from_source)
@@ -158,10 +160,11 @@ class HarosLauncher(object):
             self.initialised = True
         return True
 
-    def command_full(self, args):
-        return self.command_analyse(args) and self.command_viz(args)
+    def command_full(self, args, settings):
+        return (self.command_analyse(args, settings)
+                and self.command_viz(args, settings))
 
-    def command_analyse(self, args):
+    def command_analyse(self, args, settings):
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         if not os.path.isfile(args.project_file):
@@ -173,10 +176,11 @@ class HarosLauncher(object):
                                      use_repos = args.use_repos,
                                      parse_nodes = args.parse_nodes,
                                      copy_env = args.env,
-                                     use_cache = not args.no_cache)
+                                     use_cache = not args.no_cache,
+                                     settings = settings)
         return analyse.run()
 
-    def command_export(self, args):
+    def command_export(self, args, settings):
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         export = HarosExportRunner(self.HAROS_DIR, args.data_dir,
@@ -185,7 +189,7 @@ class HarosLauncher(object):
                                    run_from_source = self.run_from_source)
         return export.run()
 
-    def command_viz(self, args):
+    def command_viz(self, args, settings):
         data_dir = args.data_dir or self.VIZ_DIR
         if not os.path.isdir(data_dir):
             raise ValueError("Not a directory: " + data_dir)
@@ -350,6 +354,17 @@ class HarosInitRunner(HarosRunner):
 
     DIR_STRUCTURE = {
         "index.yaml": "%YAML 1.1\n---\npackages: []\n",
+        "configs.yaml": (
+            "%YAML 1.1\n---\n"
+            " # workspace: '/path/to/ws'\n"
+            " # environment: null\n"
+            " # plugin_blacklist: []\n"
+            " # cpp:\n"
+            # " #    parser: clang,\n"
+            " #    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            " #    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
+            " #    compile_db: '/path/to/ws/build'\n"
+        ),
         "parse_cache.json": "{}",
         "plugins": {},
         "repositories": {},
@@ -433,7 +448,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False,
-                 parse_nodes = False, copy_env = False, use_cache = True):
+                 parse_nodes = False, copy_env = False, use_cache = True,
+                 settings = None):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.project_file = project_file
         self.use_repos = use_repos
@@ -442,6 +458,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.use_cache = use_cache
         self.whitelist = whitelist
         self.blacklist = blacklist
+        self.settings = settings
         self.project = None
         self.database = None
         self.current_dir = None
@@ -467,7 +484,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.database = HarosDatabase()
         plugins = self._load_definitions_and_plugins()
         node_cache = {}
-        if self.use_cache:
+        if self.parse_nodes and self.use_cache:
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
                 with open(parse_cache, "r") as f:
@@ -485,13 +502,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _extract_metamodel(self, node_cache):
         print "[HAROS] Reading project and indexing source code..."
         self.log.debug("Project file %s", self.project_file)
-        if self.copy_env:
-            env = dict(os.environ)
-        else:
-            env = {
-                "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
-                "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
-            }
+        env = dict(os.environ) if self.copy_env else self.settings.environment
         distro = self.distro_url if self.use_repos else None
         extractor = ProjectExtractor(self.project_file, env = env,
                                      repo_path = self.repo_dir,
@@ -501,7 +512,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
-        extractor.index_source()
+        extractor.index_source(settings = self.settings)
         self.project = extractor.project.name
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
@@ -556,6 +567,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         print "[HAROS] Loading common definitions..."
         self.database.load_definitions(self.definitions_file)
         print "[HAROS] Loading plugins..."
+        blacklist = self.blacklist or self.settings.plugin_blacklist
         plugins = Plugin.load_plugins(self.plugin_dir,
                                       whitelist = self.whitelist,
                                       blacklist = self.blacklist,
