@@ -24,7 +24,7 @@ extra_files.append("*.yaml")
 
 setup(
     name            = "haros",
-    version         = "2.1.2",
+    version         = "3.0.0",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
@@ -40,7 +40,8 @@ setup(
             "lizard",
             "radon",
             "rospkg",
-            "pylint"
+            "pylint",
+            "bonsai-code"
       ],
     zip_safe        = True
 )
