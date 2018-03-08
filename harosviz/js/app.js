@@ -96,13 +96,13 @@ This script creates the views with the document nodes, and the models from data.
             el: $("#issue-board"),
             collection: App.violations,
             packages: App.packages,
+            configurations: App.configurations,
             rules: App.rules,
             router: App.router
         });
         App.rosBoard = new App.Views.RosBoard({
             el: $("#ros-board"),
             collection: App.configurations,
-            packages: App.packages,
             router: App.router
         });
         App.helpBoard = new App.Views.HelpBoard({
@@ -129,6 +129,7 @@ This script creates the views with the document nodes, and the models from data.
         App.summary.fetch();
         App.violations.projectId = projectId;
         App.configurations.projectId = projectId;
+        App.configurations.fetch();
     }
 
 

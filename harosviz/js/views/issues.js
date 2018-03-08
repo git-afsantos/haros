@@ -33,7 +33,9 @@ THE SOFTWARE.
         navigateOptions: { trigger: false, replace: true },
 
         events: {
-            "change #issue-package-select": "onSelect",
+            "change #issue-type-select":    "onSelectType",
+            "change #issue-package-select": "onSelectPackage",
+            "change #issue-config-select":  "onSelectConfiguration",
             "click #issue-btn-page-left":   "onPageLeft",
             "click #issue-btn-page-right":  "onPageRight",
             "click #issue-btn-top":         "scrollToTop",
@@ -41,19 +43,26 @@ THE SOFTWARE.
         },
 
         initialize: function (options) {
+            this.type = "source";
             this.page = 1;
             this.projectId = null;
             this.packageId = null;
+            this.configId = null;
             this.packages = options.packages;
+            this.configurations = options.configurations;
             this.rules = options.rules;
             this.router = options.router;
             this.filtered = null;
             this.publicVars = {};
 
-            this.$select = this.$("#issue-package-select");
+            this.$typeSelect = this.$("#issue-type-select");
+            this.$pkgSelect = this.$("#issue-package-select");
+            this.$configSelect = this.$("#issue-config-select");
             this.$page = this.$("#issue-label-page");
             this.$explorer = this.$("#issue-explorer");
             this.$topButton = this.$("#issue-btn-top");
+            this.$typeSelect.val("source");
+            this.$configSelect.hide();
 
             this.filterView = new views.ViolationFilter({ el: this.$("#issue-filter-modal") });
             this.filterView.hide();
@@ -63,6 +72,7 @@ THE SOFTWARE.
 
             this.listenTo(this.collection, "sync", this.onSync);
             this.listenTo(this.packages, "sync", this.onPackageSync);
+            this.listenTo(this.configurations, "sync", this.onConfigurationSync);
         },
 
         render: function () {
@@ -81,7 +91,12 @@ THE SOFTWARE.
                     this.$topButton.hide();
                 }
             } else {
-                this.$explorer.html("There are no issues for this package.");
+                if (this.type === "source")
+                    this.$explorer.html("There are no issues for this package.");
+                else if (this.type === "runtime")
+                    this.$explorer.html("There are no issues for this configuration.");
+                else
+                    this.$explorer.html("There are no other issues.");
                 this.$topButton.hide();
             }
             return this;
@@ -91,28 +106,66 @@ THE SOFTWARE.
             var data = _.clone(violation.attributes),
                 rule = this.rules.get(data.rule);
             data.id = this.pageSize * (this.page - 1) + index + 1;
+            data.rule = rule.get("name");
             data.description = rule.get("description");
             data.tags = rule.get("tags");
             this.$explorer.append(this.violationTemplate(data));
         },
 
-        build: function (project, packageId, page) {
+        build: function (project, type, id, page) {
             // save arguments to show later, in case the packages are not loaded
             this.projectId = project.id;
-            this.packageId = packageId;
+            this.type = type;
             this.page = page ? +page || 1 : 1;
             if (this.publicVars.tags != null) {
                 this.filterView.setVariables(this.publicVars.tags, this.publicVars.ignore);
                 this.publicVars.tags = null;
                 this.publicVars.ignore = null;
             }
-            if (this.packages.length > 0) {
-                if (packageId == null || this.packages.get(packageId) == null)
-                    packageId = this.packages.first().id;
-                this.$select.val(packageId);
-                this.onSelect();
+            if (type === "source") {
+                this.buildSource(id);
+            } else if (type === "runtime") {
+                this.buildRuntime(id);
+            } else {
+                this.buildOther();
             }
             return this;
+        },
+
+        buildSource: function (id) {
+            this.packageId = id;
+            this.configId = null;
+            this.$typeSelect.val("source");
+            this.$pkgSelect.show();
+            this.$configSelect.hide();
+            if (this.packages.length > 0) {
+                if (id == null || this.packages.get(id) == null)
+                    id = this.packages.first().id;
+                this.$pkgSelect.val(id);
+                this.onSelectPackage();
+            }
+        },
+
+        buildRuntime: function (id) {
+            this.packageId = null;
+            this.configId = id;
+            this.$typeSelect.val("runtime");
+            this.$pkgSelect.hide();
+            this.$configSelect.show();
+            if (this.configurations.length > 0) {
+                if (id == null || this.configurations.get(id) == null)
+                    id = this.configurations.first().id;
+                this.$configSelect.val(id);
+                this.onSelectConfiguration();
+            }
+        },
+
+        buildOther: function () {
+            this.packageId = null;
+            this.configId = null;
+            this.$typeSelect.val("other");
+            this.$pkgSelect.hide();
+            this.$configSelect.hide();
         },
 
 
@@ -130,20 +183,69 @@ THE SOFTWARE.
 
         onPackageSync: function (collection, response, options) {
             var pkg = this.packageId;
-            this.$select.html(collection.map(this.optionTemplate).join("\n"));
+            this.$pkgSelect.html(collection.map(this.optionTemplate).join("\n"));
             if (collection.length > 0) {
                 if (pkg == null || collection.get(pkg) == null)
                     pkg = collection.first().id;
-                this.$select.val(pkg);
+                this.$pkgSelect.val(pkg);
             }
-            if (this.visible) this.onSelect();
+            if (this.visible) this.onSelectPackage();
         },
 
-        onSelect: function () {
-            var pkg = this.$select.val();
-            this.router.navigate("issues/" + pkg, this.navigateOptions);
+        onConfigurationSync: function (collection, response, options) {
+            var config = this.configId;
+            this.$configSelect.html(collection.map(this.optionTemplate).join("\n"));
+            if (collection.length > 0) {
+                if (config == null || collection.get(config) == null)
+                    config = collection.first().id;
+                this.$configSelect.val(config);
+            }
+            if (this.visible) this.onSelectConfiguration();
+        },
+
+        onSelectType: function () {
+            var type = this.$typeSelect.val(), previous = this.type;
+            this.type = type;
+            if (type != previous) this.page = 1;
+            if (type === "source") {
+                this.router.navigate("issues/source", this.navigateOptions);
+                this.buildSource(null);
+            } else if (type === "runtime") {
+                this.router.navigate("issues/runtime", this.navigateOptions);
+                this.buildRuntime(null);
+            } else if (type === "other") {
+                this.router.navigate("issues/other", this.navigateOptions);
+                this.buildOther();
+                if (type != previous) {
+                    this.collection.packageId = null;
+                    this.collection.configId = null;
+                    this.collection.fetch({reset: true});
+                    this.filtered = null;
+                } else {
+                    this.onSync();
+                }
+            }
+        },
+
+        onSelectPackage: function () {
+            var pkg = this.$pkgSelect.val();
+            this.router.navigate("issues/source/" + pkg, this.navigateOptions);
             if (this.collection.packageId != pkg) {
                 this.collection.packageId = pkg;
+                this.collection.configId = null;
+                this.collection.fetch({reset: true});
+                this.filtered = null;
+            } else {
+                this.onSync();
+            }
+        },
+
+        onSelectConfiguration: function () {
+            var config = this.$configSelect.val();
+            this.router.navigate("issues/runtime/" + config, this.navigateOptions);
+            if (this.collection.configId != config) {
+                this.collection.packageId = null;
+                this.collection.configId = config;
                 this.collection.fetch({reset: true});
                 this.filtered = null;
             } else {

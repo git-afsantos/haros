@@ -283,6 +283,19 @@ rules:
             - halstead
             - bugs
             - halstead-bugs
+    no_global_names:
+        name: No Global ROS Names
+        description: Avoid using global ROS names (e.g. '/odom')
+        scope: file
+        tags:
+            - code-standards
+            - ros
+            - naming
+        query:
+            "nodes/advertise[is_rosglobal(self.name)] |
+             nodes/subscribe[is_rosglobal(self.name)] |
+             nodes/service[is_rosglobal(self.name)] |
+             nodes/client[is_rosglobal(self.name)]"
 metrics:
     comments:
         name: Lines of Comments

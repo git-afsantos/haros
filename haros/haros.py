@@ -84,7 +84,12 @@
 #       full run (analyse + viz)
 
 
+###############################################################################
+#   Imports
+###############################################################################
+
 from argparse import ArgumentParser
+import json
 import logging
 import os
 import subprocess
@@ -93,10 +98,12 @@ import tempfile
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
-from .data_manager import DataManager
-from . import plugin_manager as plugman
+from .data import HarosDatabase, HarosSettings
+from .extractor import ProjectExtractor
+from .config_builder import ConfigurationBuilder
+from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
-from . import export_manager as expoman
+from .export_manager import JsonExporter
 from . import visualiser as viz
 
 
@@ -112,6 +119,7 @@ class HarosLauncher(object):
 
     HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
     DEFAULT_INDEX   = os.path.join(HAROS_DIR, "index.yaml")
+    USER_SETINGS    = os.path.join(HAROS_DIR, "configs.yaml")
     LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
     VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
 
@@ -132,17 +140,21 @@ class HarosLauncher(object):
             if not os.path.isdir(self.HAROS_DIR):
                 print "[HAROS] It seems this is a first run."
                 self.command_init(args)
+            try:
+                settings = HarosSettings.parse_from(self.USER_SETINGS)
+            except IOError:
+                settings = HarosSettings()
             if args.cwd:
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
-            return args.command(args)
+            return args.command(args, settings)
         except RuntimeError as err:
             self.log.error(str(err))
             return False
         finally:
             os.chdir(original_path)
 
-    def command_init(self, args):
+    def command_init(self, args, settings):
         if not self.initialised:
             init = HarosInitRunner(self.HAROS_DIR, self.log,
                                    self.run_from_source)
@@ -151,22 +163,27 @@ class HarosLauncher(object):
             self.initialised = True
         return True
 
-    def command_full(self, args):
-        return self.command_analyse(args) and self.command_viz(args)
+    def command_full(self, args, settings):
+        return (self.command_analyse(args, settings)
+                and self.command_viz(args, settings))
 
-    def command_analyse(self, args):
+    def command_analyse(self, args, settings):
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        if not os.path.isfile(args.package_index):
+        if not os.path.isfile(args.project_file):
             raise ValueError("Not a file: " + args.package_index)
-        analyse = HarosAnalyseRunner(self.HAROS_DIR, args.package_index,
+        analyse = HarosAnalyseRunner(self.HAROS_DIR, args.project_file,
                                      args.data_dir, args.whitelist,
                                      args.blacklist, log = self.log,
                                      run_from_source = self.run_from_source,
-                                     use_repos = args.use_repos)
+                                     use_repos = args.use_repos,
+                                     parse_nodes = args.parse_nodes,
+                                     copy_env = args.env,
+                                     use_cache = not args.no_cache,
+                                     settings = settings)
         return analyse.run()
 
-    def command_export(self, args):
+    def command_export(self, args, settings):
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         export = HarosExportRunner(self.HAROS_DIR, args.data_dir,
@@ -175,7 +192,7 @@ class HarosLauncher(object):
                                    run_from_source = self.run_from_source)
         return export.run()
 
-    def command_viz(self, args):
+    def command_viz(self, args, settings):
         data_dir = args.data_dir or self.VIZ_DIR
         if not os.path.isdir(data_dir):
             raise ValueError("Not a directory: " + data_dir)
@@ -209,12 +226,18 @@ class HarosLauncher(object):
         parser.add_argument("-s", "--server-host", default = "localhost:8080",
                             help = ("visualisation host "
                                     "(default: \"localhost:8080\")"))
-        parser.add_argument("-p", "--package-index",
+        parser.add_argument("-p", "--project-file",
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
+        parser.add_argument("-n", "--parse-nodes", action = "store_true",
+                            help = "parse C++/Python nodes (slow)")
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
+        parser.add_argument("--cache-parsing", action = "store_true",
+                            help = "undocumented feature")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -227,12 +250,18 @@ class HarosLauncher(object):
     def _analyse_parser(self, parser):
         parser.add_argument("-r", "--use-repos", action = "store_true",
                             help = "use repository information")
-        parser.add_argument("-p", "--package-index",
+        parser.add_argument("-p", "--project-file",
                             default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
+        parser.add_argument("-n", "--parse-nodes", action = "store_true",
+                            help = "parse C++/Python nodes (slow)")
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -328,6 +357,18 @@ class HarosInitRunner(HarosRunner):
 
     DIR_STRUCTURE = {
         "index.yaml": "%YAML 1.1\n---\npackages: []\n",
+        "configs.yaml": (
+            "%YAML 1.1\n---\n"
+            " # workspace: '/path/to/ws'\n"
+            " # environment: null\n"
+            " # plugin_blacklist: []\n"
+            " # cpp:\n"
+            # " #    parser: clang,\n"
+            " #    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            " #    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
+            " #    compile_db: '/path/to/ws/build'\n"
+        ),
+        "parse_cache.json": "{}",
         "plugins": {},
         "repositories": {},
         "export": {},
@@ -355,8 +396,8 @@ class HarosInitRunner(HarosRunner):
             with open(os.devnull, "w") as devnull:
                 subprocess.check_call(["git", "rev-parse"], stdout = devnull,
                                       stderr = subprocess.STDOUT)
-                self.log.debug("Executing git pull at %s.", self.plugin_dir)
-                subprocess.check_call(["git", "pull"])
+            self.log.debug("Executing git pull at %s.", self.plugin_dir)
+            subprocess.check_call(["git", "pull"])
             os.chdir(wd)
         else:
             self.log.info("Cloning plugin repository.")
@@ -378,38 +419,51 @@ class HarosCommonExporter(HarosRunner):
         self.json_dir = os.path.join(self.data_dir, self.project)
         self._ensure_dir(self.json_dir)
 
-    def _export_project_data(self):
+    def _export_project_data(self, exporter):
+        report = self.database.report
     # ----- general data
-        expoman.export_packages(self.json_dir, self.dataman.packages)
-        expoman.export_rules(self.json_dir, self.dataman.rules)
-        expoman.export_metrics(self.json_dir, self.dataman.metrics)
-        expoman.export_summary(self.json_dir, self.anaman)
+        exporter.export_packages(self.json_dir, report.by_package)
+        exporter.export_rules(self.json_dir, self.database.rules)
+        exporter.export_metrics(self.json_dir, self.database.metrics)
+        exporter.export_summary(self.json_dir, report, self.database.history)
+    # ----- extracted configurations
+        exporter.export_configurations(self.json_dir, report.by_config)
     # ----- compliance reports
         out_dir = os.path.join(self.json_dir, "compliance")
         self._ensure_dir(out_dir, empty = True)
-        expoman.export_violations(out_dir, self.dataman.packages)
+        exporter.export_other_violations(out_dir, report.violations)
+        out_dir = os.path.join(self.json_dir, "compliance", "source")
+        self._ensure_dir(out_dir, empty = True)
+        exporter.export_source_violations(out_dir, report.by_package)
+        out_dir = os.path.join(self.json_dir, "compliance", "runtime")
+        self._ensure_dir(out_dir, empty = True)
+        exporter.export_runtime_violations(out_dir, report.by_config)
     # ----- metrics reports
         out_dir = os.path.join(self.json_dir, "metrics")
         self._ensure_dir(out_dir, empty = True)
-        expoman.export_measurements(out_dir, self.dataman.packages)
-    # ----- extracted models
-        out_dir = os.path.join(self.json_dir, "models")
-        self._ensure_dir(out_dir, empty = True)
-        expoman.export_configurations(out_dir, self.dataman.packages)
+        exporter.export_measurements(out_dir, report.by_package)
 
 
 class HarosAnalyseRunner(HarosCommonExporter):
-    def __init__(self, haros_dir, pkg_filter, data_dir, whitelist, blacklist,
-                 log = None, run_from_source = False, use_repos = False):
+    distro_url = ("https://raw.githubusercontent.com/ros/rosdistro/master/"
+                  + os.environ.get("ROS_DISTRO", "kinetic")
+                  + "/distribution.yaml")
+
+    def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
+                 log = None, run_from_source = False, use_repos = False,
+                 parse_nodes = False, copy_env = False, use_cache = True,
+                 settings = None):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
-        self.project_file = pkg_filter
+        self.project_file = project_file
         self.use_repos = use_repos
+        self.parse_nodes = parse_nodes
+        self.copy_env = copy_env
+        self.use_cache = use_cache
         self.whitelist = whitelist
         self.blacklist = blacklist
+        self.settings = settings
         self.project = None
-        self.dataman = None
-        self.anaman = None
-        self.analysis_db = None
+        self.database = None
         self.current_dir = None
         self.json_dir = None
         if data_dir:
@@ -421,17 +475,6 @@ class HarosAnalyseRunner(HarosCommonExporter):
             self.io_projects_dir = self.project_dir
         self.data_dir = os.path.join(self.viz_dir, "data")
 
-    def run(self):
-        self.log.debug("Creating new data manager.")
-        self.dataman = DataManager()
-        plugins = self._load_definitions_and_plugins()
-        self._index_source()
-        self._analyse(plugins)
-        self._save_results()
-        self.dataman = None
-        self.anaman = None
-        return True
-
     @property
     def definitions_file(self):
         if self.run_from_source:
@@ -440,62 +483,141 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return resource_filename(Requirement.parse("haros"),
                                  "haros/definitions.yaml")
 
-    def _index_source(self):
-        print "[HAROS] Indexing source code..."
-        self.log.debug("Package index file %s", self.project_file)
-        self.dataman.index_source(self.project_file,
-                                  self.repo_dir, self.use_repos)
-        if not self.dataman.packages:
+    def run(self):
+        self.database = HarosDatabase()
+        plugins = self._load_definitions_and_plugins()
+        node_cache = {}
+        if self.parse_nodes and self.use_cache:
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "r") as f:
+                    node_cache = json.load(f)
+            except IOError as e:
+                self.log.warning("Could not read parsing cache: %s", e)
+        configs, env = self._extract_metamodel(node_cache)
+        self._load_database()
+        self._extract_configurations(self.database.project, configs, env)
+        self._analyse(plugins)
+        self._save_results(node_cache)
+        self.database = None
+        return True
+
+    def _extract_metamodel(self, node_cache):
+        print "[HAROS] Reading project and indexing source code..."
+        self.log.debug("Project file %s", self.project_file)
+        env = dict(os.environ) if self.copy_env else self.settings.environment
+        distro = self.distro_url if self.use_repos else None
+        extractor = ProjectExtractor(self.project_file, env = env,
+                                     repo_path = self.repo_dir,
+                                     distro_url = distro,
+                                     require_repos = True,
+                                     node_cache = node_cache,
+                                     parse_nodes = self.parse_nodes)
+        if self.parse_nodes:
+            print "  > Parsing nodes might take some time."
+        extractor.index_source(settings = self.settings)
+        self.project = extractor.project.name
+        if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
-        if self.dataman.project.name == "all":
-            raise ValueError("Forbidden project name: all")
+        self.database.register_project(extractor.project)
+        self.database.register_rules(extractor.rules, prefix = "user:")
+        return extractor.configurations, env
+
+    def _extract_configurations(self, project, configs, environment):
+        for name, data in configs.iteritems():
+            if isinstance(data, list):
+                builder = ConfigurationBuilder(name, environment, self.database)
+                launch_files = data if isinstance(data, list) else data["launch"]
+            else:
+                builder = ConfigurationBuilder(name, environment, self.database,
+                                               hints = data.get("hints"))
+                launch_files = data["launch"]
+            for launch_file in launch_files:
+                parts = launch_file.split(os.sep, 1)
+                if not len(parts) == 2:
+                    raise ValueError("invalid launch file: " + launch_file)
+                pkg = self.database.packages.get("package:" + parts[0])
+                if not pkg:
+                    raise ValueError("unknown package: " + parts[0])
+                path = os.path.join(pkg.path, parts[1])
+                launch = self.database.get_file(path)
+                if not launch:
+                    raise ValueError("unknown launch file: " + launch_file)
+                builder.add_launch(launch)
+            for msg in builder.errors:
+                self.log.warning("Configuration %s: %s",
+                                 builder.configuration.name, msg)
+            project.configurations.append(builder.configuration)
+            self.database.configurations.append(builder.configuration)
+
+    def _load_database(self):
+        self.current_dir = os.path.join(self.io_projects_dir, self.project)
+        haros_db = os.path.join(self.current_dir, "haros.db")
+        try:
+            haros_db = HarosDatabase.load_state(haros_db)
+        except IOError:
+            self.log.info("No previous analysis data for " + self.project)
+        else:
+            # NOTE: This has a tendency to grow in size.
+            # Old reports will have violations and metrics with references
+            # to old packages, files, etc. There will be multiple versions
+            # of the same projects over time, as long as the history exists.
+            # This is why I added "compact" to the database.
+            self.database.history = haros_db.history
+            self.database.history.append(haros_db.report)
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."
-        self.dataman.load_definitions(self.definitions_file)
+        self.database.load_definitions(self.definitions_file)
         print "[HAROS] Loading plugins..."
-        plugins = plugman.load_plugins(self.plugin_dir,
-                                       self.whitelist, self.blacklist)
+        blacklist = self.blacklist or self.settings.plugin_blacklist
+        plugins = Plugin.load_plugins(self.plugin_dir,
+                                      whitelist = self.whitelist,
+                                      blacklist = blacklist,
+                                      common_rules = self.database.rules,
+                                      common_metrics = self.database.metrics)
         if not plugins:
             raise RuntimeError("There are no analysis plugins.")
         for plugin in plugins:
-            self.dataman.extend_definitions(plugin.name,
-                                            plugin.rules, plugin.metrics)
+            print "  > Loaded " + plugin.name
+            prefix = plugin.name + ":"
+            self.database.register_rules(plugin.rules, prefix = prefix)
+            self.database.register_metrics(plugin.metrics, prefix = prefix)
         return plugins
-
-    def _load_analysis_manager(self, name):
-        self.project = name
-        self.current_dir = os.path.join(self.io_projects_dir, name)
-        self.analysis_db = os.path.join(self.current_dir, "analysis.db")
-        if os.path.isfile(self.analysis_db):
-            self.log.info("Loading previous database: " + self.analysis_db)
-            self.anaman = AnalysisManager.load_state(self.analysis_db)
-        else:
-            self.log.info("Creating new analysis manager.")
-            self.anaman = AnalysisManager()
 
     def _analyse(self, plugins):
         print "[HAROS] Running analysis..."
         self._empty_dir(self.export_dir)
-        self._load_analysis_manager(self.dataman.project.name)
-        temppath = tempfile.mkdtemp()
-        self.anaman.run_analysis_and_processing(temppath, plugins,
-                                                self.dataman, self.export_dir)
-        rmtree(temppath)
+        temp_path = tempfile.mkdtemp()
+        analysis = AnalysisManager(self.database, temp_path, self.export_dir)
+        try:
+            analysis.run(plugins)
+            self.database.report = analysis.report
+        finally:
+            rmtree(temp_path)
 
-    def _save_results(self):
+    def _save_results(self, node_cache):
         print "[HAROS] Saving analysis results..."
         if self.export_viz:
             viz.install(self.viz_dir, self.run_from_source)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
-        self.dataman.save_state(os.path.join(self.current_dir, "haros.db"))
-        self.anaman.save_state(self.analysis_db)
+        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
-        self._export_project_data()
-        expoman.export_projects(self.data_dir, [self.dataman.project],
-                                overwrite = False)
+        exporter = JsonExporter()
+        self._export_project_data(exporter)
+        exporter.export_projects(self.data_dir, (self.database.project,),
+                                 overwrite = False)
+        if self.parse_nodes and self.use_cache:
+            for node in self.database.nodes.itervalues():
+                node_cache[node.node_name] = node.to_JSON_object()
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "w") as f:
+                    json.dump(node_cache, f)
+            except IOError as e:
+                self.log.warning("Could not save parsing cache: %s", e)
 
 
 ###############################################################################
@@ -523,8 +645,9 @@ class HarosExportRunner(HarosCommonExporter):
         self.project = project
         self.project_data_list = []
         self.export_viz = export_viz
-        self.dataman = None
-        self.anaman = None
+        self.database = None
+        self.current_dir = None
+        self.haros_db = None
         if export_viz:
             self.viz_dir = data_dir
             self.data_dir = os.path.join(data_dir, "data")
@@ -536,15 +659,15 @@ class HarosExportRunner(HarosCommonExporter):
     def run(self):
         print "[HAROS] Exporting analysis results..."
         self._prepare_directory()
+        exporter = JsonExporter()
         for project in self._project_list():
             self.project = project
             self._prepare_project()
-            if self._load_databases():
-                self._save_databases()
-                self._export_project_data()
-        expoman.export_projects(self.data_dir, self.project_data_list)
-        self.dataman = None
-        self.anaman = None
+            if self._load_database():
+                self._save_database()
+                self._export_project_data(exporter)
+        exporter.export_projects(self.data_dir, self.project_data_list)
+        self.database = None
         self.project_data_list = []
         return True
 
@@ -560,28 +683,21 @@ class HarosExportRunner(HarosCommonExporter):
                     if os.path.isdir(os.path.join(self.project_dir, name))]
         return [self.project]
 
-    def _load_databases(self):
+    def _load_database(self):
         self.log.debug("Exporting data manager from file.")
         self.haros_db = os.path.join(self.project_dir, self.project,
                                      "haros.db")
-        self.analysis_db = os.path.join(self.project_dir, self.project,
-                                        "analysis.db")
-        if (not os.path.isfile(self.haros_db)
-                or not os.path.isfile(self.analysis_db)):
+        if not os.path.isfile(self.haros_db):
             self.log.error("There is no analysis data for " + self.project)
             return False
-        self.dataman = DataManager.load_state(self.haros_db)
-        self.anaman = AnalysisManager.load_state(self.analysis_db)
-        self.project_data_list.append(self.dataman.project)
+        self.database = HarosDatabase.load_state(self.haros_db)
+        self.project_data_list.append(self.database.project)
         return True
 
-    def _save_databases(self):
+    def _save_database(self):
         db_path = os.path.join(self.current_dir, "haros.db")
         self.log.debug("Copying %s to %s", self.haros_db, db_path)
         copyfile(self.haros_db, db_path)
-        db_path = os.path.join(self.current_dir, "analysis.db")
-        self.log.debug("Copying %s to %s", self.analysis_db, db_path)
-        copyfile(self.analysis_db, db_path)
 
 
 ###############################################################################

@@ -19,326 +19,224 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 
+###############################################################################
+# Imports
+###############################################################################
+
+from collections import Counter
 import json
 import logging
 import os
 
-_log = logging.getLogger(__name__)
+from .metamodel import (
+    Resource, TopicPrimitive, ServicePrimitive, ParameterPrimitive
+)
+
+
+###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
 
 
 ################################################################################
-# Public Functions
+# Export Manager
 ################################################################################
 
-def export_projects(datadir, projects, overwrite = True):
-    _log.info("Exporting project data.")
-    out = os.path.join(datadir, "projects.json")
-    
-    if not overwrite and os.path.isfile(out):
-        with open(out, "r") as f:
-            data = json.load(f)
-        for p in projects:
-            is_new = True
-            for i in xrange(len(data)):
-                if data[i]["id"] == p.id:
-                    is_new = False
-                    data[i] = p.to_JSON_object()
-                    break
-            if is_new:
-                data.append(p.to_JSON_object())
-    else:
-        data = [p.to_JSON_object() for p in projects]
-    with open(out, "w") as f:
-        _log.debug("Writing to %s", out)
-        json.dump(data, f)
-
-def export_packages(datadir, packages):
-    _log.info("Exporting package data.")
-    out = os.path.join(datadir, "packages.json")
-    s = "[" + ", ".join([_pkg_json(p) for _, p in packages.iteritems()]) + "]"
-    with open(out, "w") as f:
-        _log.debug("Writing to %s", out)
-        f.write(s)
-
-def export_rules(datadir, rules):
-    _log.info("Exporting analysis rules.")
-    out = os.path.join(datadir, "rules.json")
-    with open(out, "w") as f:
-        _log.debug("Writing to %s", out)
-        json.dump([rule.__dict__ for _, rule in rules.iteritems()], f)
-
-def export_metrics(datadir, metrics):
-    _log.info("Exporting analysis metrics.")
-    out = os.path.join(datadir, "metrics.json")
-    with open(out, "w") as f:
-        _log.debug("Writing to %s", out)
-        json.dump([metric.__dict__ for _, metric in metrics.iteritems()], f)
-
-def export_violations(datadir, packages):
-    _log.info("Exporting reported rule violations.")
-    for id, pkg in packages.iteritems():
-        out = os.path.join(datadir, id + ".json")
-        data = [_violation_json(d) for d in pkg._violations]
-        for f in pkg.source_files:
-            data.extend([_violation_json(d) for d in f._violations])
+class JsonExporter(LoggingObject):
+    def export_projects(self, datadir, projects, overwrite = True):
+        self.log.info("Exporting project data.")
+        out = os.path.join(datadir, "projects.json")
+        if not overwrite and os.path.isfile(out):
+            with open(out, "r") as f:
+                data = json.load(f)
+            for p in projects:
+                is_new = True
+                for i in xrange(len(data)):
+                    if data[i]["id"] == p.name:
+                        is_new = False
+                        data[i] = p.to_JSON_object()
+                        break
+                if is_new:
+                    data.append(p.to_JSON_object())
+        else:
+            data = [p.to_JSON_object() for p in projects]
         with open(out, "w") as f:
-            _log.debug("Writing to %s", out)
-            f.write("[" + ", ".join(data) + "]")
+            self.log.debug("Writing to %s", out)
+            json.dump(data, f)
 
-def export_measurements(datadir, packages):
-    _log.info("Exporting metrics measurements.")
-    for id, pkg in packages.iteritems():
-        out = os.path.join(datadir, id + ".json")
-        data = [_metric_json(d) for d in pkg._metrics]
-        for f in pkg.source_files:
-            data.extend([_metric_json(d) for d in f._metrics])
+    def export_packages(self, datadir, packages):
+        self.log.info("Exporting package data.")
+        out = os.path.join(datadir, "packages.json")
+        if isinstance(packages, dict):
+            packages = packages.viewvalues()
         with open(out, "w") as f:
-            _log.debug("Writing to %s", out)
-            f.write("[" + ", ".join(data) + "]")
+            self.log.debug("Writing to %s", out)
+            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f)
 
-def export_configurations(datadir, packages):
-    _log.info("Exporting launch configurations.")
-    for id, pkg in packages.iteritems():
-        out = os.path.join(datadir, id + ".json")
-        data = [_config_json(d) for d in pkg._configs]
-        with open(out, "w") as f:
-            _log.debug("Writing to %s", out)
-            f.write("[" + ", ".join(data) + "]")
+    def export_rules(self, datadir, rules):
+        self.log.info("Exporting analysis rules.")
+        self._export_collection(datadir, rules, "rules.json")
 
-def export_summary(datadir, analysis):
-    _log.info("Exporting analysis summary.")
-    out = os.path.join(datadir, "summary.json")
-    data = analysis.last_summary.to_JSON_object()
-    past = analysis.summaries
-    data["history"] = {
-        "timestamps":       [s.timestamp for s in past],
-        "lines_of_code":    [s.statistics.lines_of_code for s in past],
-        "comments":         [s.statistics.comment_lines for s in past],
-        "issues":           [s.statistics.issue_count for s in past],
-        "standards":        [s.statistics.standard_issue_count for s in past],
-        "metrics":          [s.statistics.metrics_issue_count for s in past],
-        "complexity":       [s.statistics.avg_complexity for s in past],
-        "function_length":  [s.statistics.avg_function_length for s in past]
-    }
-    with open(out, "w") as f:
-        _log.debug("Writing to %s", out)
-        json.dump(data, f)
-        # json.dump({
-            # "source":           _summary_source(data.packages, data.files),
-            # "issues":           _summary_issues(data.repositories,
-            #                                     data.packages, data.files),
-            # "components":       _summary_components(data.files, data.packages),
-            # "communications":   _summary_communications(data.packages)
-        # }, f)
-    
+    def export_metrics(self, datadir, metrics):
+        self.log.info("Exporting analysis metrics.")
+        self._export_collection(datadir, metrics, "metrics.json")
 
+    def export_source_violations(self, datadir, pkg_reports):
+        self.log.info("Exporting reported source rule violations.")
+        if isinstance(pkg_reports, dict):
+            pkg_reports = pkg_reports.viewvalues()
+        for report in pkg_reports:
+            out = os.path.join(datadir, report.package.name + ".json")
+            data = [v.to_JSON_object() for v in report.violations]
+            for fa in report.file_analysis:
+                data.extend(v.to_JSON_object() for v in fa.violations)
+            with open(out, "w") as f:
+                self.log.debug("Writing to %s", out)
+                json.dump(data, f)
 
-################################################################################
-# Helper Functions
-################################################################################
+    def export_runtime_violations(self, datadir, config_reports):
+        self.log.info("Exporting reported runtime rule violations.")
+        if isinstance(config_reports, dict):
+            config_reports = config_reports.viewvalues()
+        for report in config_reports:
+            self._export_collection(datadir, report.violations,
+                                    report.configuration.name + ".json")
 
-def _summary_source(packages, files):
-    langs = {}
-    source_size = 0
-    scripts = 0
-    for _, f in files.iteritems():
-        langs[f.language] = langs.get(f.language, 0) + f.size
-        source_size += f.size
-        if f.path.startswith("scripts" + os.path.sep):
-            scripts += 1
-    source_size = float(source_size)
-    for lang, value in langs.iteritems():
-        langs[lang] = value / source_size
-    return {
-        "packages": len(packages),
-        "files":    len(files),
-        "scripts":  scripts,
-        "languages": langs
-    }
+    def export_other_violations(self, datadir, violations):
+        self.log.info("Exporting reported rule violations.")
+        self._export_collection(datadir, violations, "unknown.json")
 
-def _summary_issues(repositories, packages, files):
-    issues = 0
-    coding = 0
-    metrics = 0
-    other = 0
-    lines = 0
-    for _, r in repositories.iteritems():
-        for v in r._violations:
-            any = False
-            issues += 1
-            if "code-standards" in v.rule.tags:
-                any = True
-                coding += 1
-            if "metrics" in v.rule.tags:
-                any = True
-                metrics += 1
-            if not any:
-                other += 1
-    for _, p in packages.iteritems():
-        for v in p._violations:
-            any = False
-            issues += 1
-            if "code-standards" in v.rule.tags:
-                any = True
-                coding += 1
-            if "metrics" in v.rule.tags:
-                any = True
-                metrics += 1
-            if not any:
-                other += 1
-    for _, f in files.iteritems():
-        lines += f.lines
-        for v in f._violations:
-            any = False
-            issues += 1
-            if "code-standards" in v.rule.tags:
-                any = True
-                coding += 1
-            if "metrics" in v.rule.tags:
-                any = True
-                metrics += 1
-            if not any:
-                other += 1
-    return {
-        "total":    issues,
-        "coding":   coding,
-        "metrics":  metrics,
-        "other":    other,
-        "ratio":    "{0:.2f}".format(float(issues) / lines)
-    }
+    def export_measurements(self, datadir, pkg_reports):
+        self.log.info("Exporting metrics measurements.")
+        if isinstance(pkg_reports, dict):
+            pkg_reports = pkg_reports.viewvalues()
+        for report in pkg_reports:
+            out = os.path.join(datadir, report.package.name + ".json")
+            data = [m.to_JSON_object() for m in report.metrics]
+            for fa in report.file_analysis:
+                data.extend(m.to_JSON_object() for m in fa.metrics)
+            with open(out, "w") as f:
+                self.log.debug("Writing to %s", out)
+                json.dump(data, f)
 
-def _summary_components(files, packages):
-    nodes = 0
-    nodelets = 0
-    configs = 0
-    for p in packages.itervalues():
-        for c in p._configs:
-            configs += 1
-            for n in c.nodes():
-                if n.nodelet:
-                    nodelets += 1
+    def export_configurations(self, datadir, config_reports):
+        self.log.info("Exporting launch configurations.")
+        if isinstance(config_reports, dict):
+            config_reports = config_reports.viewvalues()
+        configs = []
+        for report in config_reports:
+            data = report.configuration.to_JSON_object()
+            queries = {}
+            for datum in report.violations:
+                if not datum.affected:
+                    continue
+                objects = []
+                for obj in datum.affected:
+                    obj_json = self._query_object_JSON(obj, report.configuration)
+                    if not obj_json is None:
+                        objects.append(obj_json)
+                if not objects:
+                    continue
+                if datum.rule.id in queries:
+                    queries[datum.rule.id]["objects"].extend(objects)
                 else:
-                    nodes += 1
-    return {
-        "launchFiles":      len([f for _, f in files.iteritems()
-                                 if f.language == "launch"]),
-        "nodes":            nodes,
-        "nodelets":         nodelets,
-        "parameterFiles":   None,
-        "configurations":   configs
-    }
+                    queries[datum.rule.id] = {
+                        "rule": datum.rule.id,
+                        "name": datum.rule.name,
+                        "objects": objects
+                    }
+            data["queries"] = list(queries.itervalues())
+            configs.append(data)
+        out = os.path.join(datadir, "configurations.json")
+        with open(out, "w") as f:
+            self.log.debug("Writing to %s", out)
+            json.dump([config for config in configs], f)
 
-def _summary_communications(packages):
-    topics = 0
-    remappings = 0
-    for p in packages.itervalues():
-        for c in p._configs:
-            remaps = dict(c.resources.remaps)
-            for n in c.nodes():
-                remaps.update(n.remaps)
-            remappings += len(remaps)
-            topics += len(c.resources.get_topics())
-            topics += len(c.resources.get_services())
-    return {
-        "topics":       topics,
-        "remappings":   remappings,
-        "messages":     None,
-        "services":     None,
-        "actions":      None
-    }
+    def export_summary(self, datadir, report, past):
+        self.log.info("Exporting analysis summary.")
+        out = os.path.join(datadir, "summary.json")
+        data = report.to_JSON_object()
+        data["history"] = {
+            "timestamps": [r.timestamp for r in past],
+            "lines_of_code": [r.statistics.lines_of_code for r in past],
+            "comments": [r.statistics.comment_lines for r in past],
+            "issues": [r.statistics.issue_count for r in past],
+            "standards": [r.statistics.standard_issue_count for r in past],
+            "metrics": [r.statistics.metrics_issue_count for r in past],
+            "complexity": [r.statistics.avg_complexity for r in past],
+            "function_length": [r.statistics.avg_function_length for r in past]
+        }
+        stats = report.statistics
+        data["history"]["timestamps"].append(report.timestamp)
+        data["history"]["lines_of_code"].append(stats.lines_of_code)
+        data["history"]["comments"].append(stats.comment_lines)
+        data["history"]["issues"].append(stats.issue_count)
+        data["history"]["standards"].append(stats.standard_issue_count)
+        data["history"]["metrics"].append(stats.metrics_issue_count)
+        data["history"]["complexity"].append(stats.avg_complexity)
+        data["history"]["function_length"].append(stats.avg_function_length)
+        with open(out, "w") as f:
+            self.log.debug("Writing to %s", out)
+            json.dump(data, f)
 
-def _project_json(project):
-    s = '{"id": "' + project.id + '", '
-    s += '"packages": '
-    s += json.dumps([p.id for p in project.packages])
-    s += '}'
-    return s
+    def _export_collection(self, datadir, items, filename):
+        out = os.path.join(datadir, filename)
+        if isinstance(items, dict):
+            items = items.viewvalues()
+        with open(out, "w") as f:
+            self.log.debug("Writing to %s", out)
+            json.dump([item.to_JSON_object() for item in items], f)
 
-def _pkg_json(pkg):
-    s = '{"id": "' + pkg.id + '", '
-    s += '"metapackage": ' + json.dumps(pkg.isMetapackage)
-    s += ', "description": "' + _escaped(pkg.description)
-    s += '", "wiki": ' + json.dumps(pkg.website)
-    s += ', "repository": ' + json.dumps(pkg.vcs_url)
-    s += ', "bugTracker": ' + json.dumps(pkg.bug_url)
-    s += ', "authors": ' + json.dumps([p.name for p in pkg.authors])
-    s += ', "maintainers": ' + json.dumps([p.name for p in pkg.maintainers])
-    s += ', "dependencies": ' + json.dumps(list(pkg.dependencies))
-    s += ', "size": ' + "{0:.2f}".format(pkg.size / 1000.0)
-    s += ', "lines": ' + str(pkg.lines)
-    analysis = {}
-    violations = {}
-    metrics = {}
-    for datum in pkg._violations:
-        violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
-    for f in pkg.source_files:
-        for datum in f._violations:
-            violations[datum.rule.id] = violations.get(datum.rule.id, 0) + 1
-    for datum in pkg._metrics:
-        metrics[datum.metric.id] = datum.value
-    analysis["violations"] = violations
-    analysis["metrics"] = metrics
-    s += ', "analysis": ' + json.dumps(analysis) + "}"
-    return s
+    def _query_object_JSON(self, obj, config):
+        if isinstance(obj, Resource) and obj.configuration == config:
+             return {
+                "name": obj.id,
+                "resourceType": obj.resource_type
+            }
+        elif isinstance(obj, TopicPrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "topic": obj.topic.id,
+                "resourceType": "link"
+            }
+        elif isinstance(obj, ServicePrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "service": obj.service.id,
+                "resourceType": "link"
+            }
+        elif isinstance(obj, ParameterPrimitive) and obj.configuration == config:
+            return {
+                "node": obj.node.id,
+                "param": obj.parameter.id,
+                "resourceType": "link"
+            }
+        return None
 
-
-def _violation_json(datum):
-    s = '{"rule": "' + datum.rule.id + '", '
-    if datum.rule.scope == "file" \
-            or datum.rule.scope == "function" \
-            or datum.rule.scope == "class":
-        s += '"file": "' + datum.scope.name + '", '
-        try:
-            s += '"line": ' + json.dumps(datum.line) + ", "
-            s += '"function": ' + json.dumps(datum.function) + ", "
-            s += '"class": ' + json.dumps(datum.class_) + ", "
-        except AttributeError as e:
-            _log.debug("_violation_json %s", e)
-    s += '"comment": "' + _escaped(datum.details or "") + '"}'
-    return s
-
-def _metric_json(datum):
-    s = '{"metric": "' + datum.metric.id + '", '
-    if datum.metric.scope == "file" \
-            or datum.metric.scope == "function" \
-            or datum.metric.scope == "class":
-        s += '"file": "' + datum.scope.name + '", '
-        try:
-            s += '"line": ' + json.dumps(datum.line) + ", "
-            s += '"function": ' + json.dumps(datum.function) + ", "
-            s += '"class": ' + json.dumps(datum.class_) + ", "
-        except AttributeError as e:
-            _log.debug("_metric_json %s", e)
-    s += '"value": ' + str(datum.value) + "}"
-    return s
-
-def _config_json(config):
-    i = config.name + "-" + str(hash(config.package + config.name) % 10000000)
-    r = dict(config.resources.remaps)
-    for n in config.nodes():
-        r.update(n.remaps)
-    s = ('{"id": "' + i + '", "name": "' + config.name + '", "collisions": '
-         + str(config.resources.n_collisions) + ', "remaps": '
-         + str(len(r)) + ', "dependencies": '
-         + json.dumps(list(config.pkg_depends)) + ', "environment": '
-         + json.dumps(list(config.env_depends)) + ', "nodes": '
-         + json.dumps(map(_node_json, config.nodes())) + "}")
-    return s
-
-def _node_json(node):
-    name = lambda t: t[0].full_name
-    return {
-        "name":         node.full_name,
-        "type":         node.reference,
-        "args":         node.argv,
-        "publishers":   map(name, node.publishers),
-        "subscribers":  map(name, node.subscribers),
-        "servers":      map(name, node.servers),
-        "clients":      map(name, node.clients)
-    }
-
-
-def _escaped(s):
-    return s.replace('"', '\\"').replace("\n", " ").replace("<", "&lt;")\
-            .replace(">", "&gt;").replace("&", "&amp;").replace("\t", " ")\
-            .replace("\\012", " ")
+    def _pkg_analysis_JSON(self, pkg_analysis):
+        pkg = pkg_analysis.package
+        data = {
+            "id": pkg.name,
+            "metapackage": pkg.is_metapackage,
+            "description": pkg.description,
+            "wiki": pkg.website,
+            "repository": pkg.vcs_url,
+            "bugTracker": pkg.bug_url,
+            "authors": [person.name for person in pkg.authors],
+            "maintainers": [person.name for person in pkg.maintainers],
+            "dependencies": [name for name in pkg.dependencies.packages],
+            "size": "{0:.2f}".format(pkg.size / 1000.0),
+            "lines": pkg.lines,
+            "sloc": pkg.sloc
+        }
+        violations = Counter(v.rule.id for v in pkg_analysis.violations)
+        violations.update(v.rule.id for fa in pkg_analysis.file_analysis
+                          for v in fa.violations)
+        data["analysis"] = {
+            "violations": violations,
+            "metrics": {m.metric.id: m.value for m in pkg_analysis.metrics}
+        }
+        return data

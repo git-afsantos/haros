@@ -21,7 +21,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is still being developed, as of October 2017, even though it may be evolving at a relatively slow pace.
+HAROS is still being developed, as of March 2018.
 
 Installation
 ------------
@@ -99,8 +99,30 @@ After initialisation, you still need to install some analysis tools that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
 
 ```bash
-sudo apt-get install cppcheck
+[sudo] apt-get install cppcheck
+pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 ```
+
+If you want to use the model extraction features of HAROS, you must install
+additional *$dependencies$*.
+These features are only available for C++ code as of now.
+
+```bash
+[sudo] pip install clang
+[sudo] apt-get install libclang-3.8-dev
+```
+
+Optional step: set up the `LD_LIBRARY_PATH` environment variable to point to
+the `libclang.so` shared library. Example:
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
+```
+
+If you do not perform this step and your library is installed in a different path,
+you will need to specify it in the configuration file located in
+`~/.haros/index.yaml`. This file becomes available after running the
+`init` command of HAROS (details below).
 
 HAROS is now installed and ready to use.
 
@@ -110,25 +132,23 @@ Usage
 Here is a basic example to help you get started with HAROS.
 Additional examples should be added in a future update.
 
-HAROS works with the concept of **index files**.
+HAROS works with the concept of **project files**.
 These files are more or less an equivalent to a project description,
-and they tell HAROS which packages you want to analyse.
+and they tell HAROS which packages and applications you want to analyse.
 For this basic example, you should have the packages installed,
 and with available source code.
 If you run `rospack find my_package` and it returns the location
 of your package's source code, you're good to go.
 
-HAROS will only use one index file at a time, but you can create as
-many as you want (*e.g.* one for each of your robots). The default
-index file (empty) lies in `~/.haros/index.yaml`, but feel free to
-create your own, like so.
+HAROS will only use one project file at a time, but you can create as
+many as you want (*e.g.* one for each of your robots).
 
 ```bash
-touch my_index.yaml
-nano my_index.yaml
+touch my_robot.yaml
+nano my_robot.yaml
 ```
 
-And `my_index.yaml`'s contents:
+And `my_robot.yaml`'s contents:
 
 ```yaml
 %YAML 1.1
@@ -142,13 +162,13 @@ packages:
 Now, you are ready to run analysis and visualisation on the given list of packages.
 
 ```bash
-haros full -p my_index.yaml
+haros full -p my_robot.yaml
 ```
 
 The `full` command tells HAROS to run analysis and then visualisation. If you just
 want to run analysis, use the `analyse` command instead.
 
-The `-p` option lets you specify an index file of your own, instead of using the default one.
+The `-p` option lets you specify a project file of your own.
 
 When the analysis finishes, HAROS should start a visualisation server and your web browser
 on the appropriate page. To exit, just close your browser and press `Enter` on the terminal.
@@ -170,13 +190,13 @@ analysis found for that package.
 
 ![Packages screenshot](/docs/screenshots/packages.png?raw=true "Package Graph")
 
-Finally, you can view the list of issues, filtering by package or by a number of
+You can view the list of issues, filtering by package or by a number of
 tags that each rule provides.
 
 ![Issues screenshot](/docs/screenshots/issues.png?raw=true "Issues List")
 
 If you want to analyse several projects, or groups of packages, it is
-recommended to create an index file for each project, and define a project
+recommended to create a project file for each project, and define a project
 name as well. This way, HAROS will store analysis results separately.
 Example:
 
@@ -189,6 +209,9 @@ packages:
     - package2
 ```
 
+*An empty list of packages results in the analysis of all packages found under the
+current working directory.*
+
 Below you can find the basic commands that HAROS provides.
 
 ### haros init
@@ -197,16 +220,16 @@ This command runs initialisation and setup operations. This command needs to be 
 
 ### haros analyse
 
-This command runs analysis on a given list of packages.
+This command runs analysis and model extraction on a given list of packages.
 
 #### haros analyse (no options)
 
-Runs analysis with the list of packages found within the default index file
+Runs analysis with the list of packages found within the default project file
 (`~/.haros/index.yaml`). You are free to edit this file.
 
-#### haros analyse -p INDEX_FILE
+#### haros analyse -p PROJECT_FILE
 
-Uses the given index file to run the analysis, instead of the default one.
+Uses the given project file to run the analysis, instead of the default one.
 
 #### haros analyse -r
 
@@ -214,7 +237,7 @@ Uses repository information when available. If HAROS cannot find one of the
 packages you specified, it will look for it in the official ROS distribution and
 download it.
 
-If your package is not in the official distribution, you can modify your index
+If your package is not in the official distribution, you can modify your project
 file to tell HAROS in which repository to look for the source (e.g. you can
 specify private repositories this way). Here is an example:
 
@@ -256,6 +279,27 @@ database.
 
 ***Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within `DATA_DIR`.*
+
+#### haros analyse -n
+
+Parse the source code of ROS nodes when possible, so as to extract a model from it.
+This options produces a result similar to `rqt_graph`, but without executing code.
+
+**Note:** this option requires that you have the appropriate parsing libraries
+installed (e.g. `libclang` for C++).
+
+#### haros analyse --no-cache
+
+Do not use cached data. This is useful, for instance, if you want to force nodes
+to be parsed again, despite any cached data.
+
+Caches are currently invalidated by source files modified more recently than the
+last analysed versions. Use this option, for instance, if you replace a file with
+another with a previous modification date.
+
+#### haros analyse --env
+
+Use a full copy of your environment variables for the analysis.
 
 
 ### haros export
@@ -307,3 +351,79 @@ Start the viz server without launching a web browser.
 
 Runs analysis and visualisation. This command accepts the same options as
 `haros analyse` and `haros viz`.
+
+
+Settings File
+-------------
+
+HAROS uses a configuration file (located at `~/.haros/configs.yaml`) with
+some default settings. These can be changed to meet your needs, and,
+in some cases, must be modified for the tool to function properly.
+Future versions may expose more settings in this file.
+When applicable, command-line arguments will override the settings in this file.
+
+Here follows the current file structure.
+
+```yaml
+%YAML 1.1
+---
+workspace: "/path/to/catkin_ws"
+environment: null
+plugin_blacklist: []
+cpp:
+    parser_lib: "/usr/lib/llvm-3.8/lib"
+    std_includes: "/usr/lib/llvm-3.8/lib/clang/3.8.0/include"
+    compile_db: "/path/to/catkin_ws/build"
+```
+
+### workspace
+
+Specifies a path to your ROS catkin workspace. This setting can be omitted or
+set to `null`, in which case HAROS will attempt to find your default workspace,
+using the same behaviour as the `roscd` tool.
+
+### environment
+
+Specifies a mapping of variables (string keys and string values) to act as the
+environment variables used during analysis. This can be used to specify variables
+and values your system needs, making analyses yield the same results
+independently of the machine you run HAROS on.
+
+This value can be omitted or set to `null`, in which case a *mostly* empty
+environment will be used for analysis.
+
+Alternatively, instead of a variable mapping, you can use the special value
+`copy`, which is a shortcut to use a copy of your local environment.
+
+### plugin_blacklist
+
+Specifies a list of plugins to be blacklisted by default.
+
+### cpp
+
+Under this mapping there are settings related to parsing C++ files.
+
+#### parser_lib
+
+Specifies the path to the directory containing your installation of `libclang`.
+By default, this is under `/usr/lib/llvm-3.8/lib`.
+
+**Note:** this is a required setting by the clang compiler.
+
+#### std_includes
+
+Specifies the path to the directory containing the C++ standard includes
+provided by `libclang`.
+By default, this is under `/usr/lib/llvm-3.8/lib/clang/3.8.0/include`.
+
+#### compile_db
+
+Specifies the path to the directory containing a compilation database
+(a `compile_commands.json` file). By default, this is under the `build` directory
+within your catkin workspace.
+
+This setting can be set to `null`, in which case HAROS will try to use the
+default location.
+
+Alternatively, this setting can be set to `false`, in which case HAROS will not
+use a compilation database to parse C++ files.

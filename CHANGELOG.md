@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+N/A
+
+## [3.0.0] - 2018-03-08
+### Added
+- Parsers for CMake and Launch files.
+- Extractor for nodes within packages (which files compile a node).
+- Configuration builder: define your ROS applications (Configurations) to be automatically extracted (C++ only with `clang` parser).
+- Query engine to operate on extracted models.
+- Graph visualiser for extracted models (in HAROSviz).
+- Plugin entry point to analyse extracted Configurations.
+- User settings file in default `.haros` directory.
+
+### Changed
+- HAROS uses a new metamodel to represent its data.
+- The source code indexing and analysis process was changed, although most (if not all) of these changes should not be noticeable by end users.
+- Command line options for `analyse` and `full` have changed.
+- Changed project files (package index files), so that they now allow the definition of custom Configurations and custom queries.
+- Exported JSON formats have changed as a result of the new metamodel.
 
 ## [2.1.2] - 2017-11-27
 ### Changed

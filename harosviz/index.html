@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
 <!--
 Copyright (c) 2016 Andre Santos
 
@@ -22,7 +23,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-    <meta charset="utf-8" />
     <title>HAROS Visualizer</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,7 @@ THE SOFTWARE.
     <script src="js/views/dashboard.js"></script>
     <script src="js/views/packages.js"></script>
     <script src="js/views/issues.js"></script>
-    <script src="js/views/components.js"></script>
+    <script src="js/views/ros.js"></script>
     <script src="js/views/help.js"></script>
     <script src="js/routes.js"></script>
 </head>
@@ -62,7 +62,7 @@ THE SOFTWARE.
             <a id="navigation-dashboard" href="#dashboard"><i class="fa fa-line-chart"></i> <span class="show-inline-lg">Dashboard</span></a>
             <a id="navigation-packages" href="#packages"><i class="fa fa-folder"></i> <span class="show-inline-lg">Packages</span></a>
             <a id="navigation-issues" href="#issues"><i class="fa fa-bug"></i> <span class="show-inline-lg">Issues</span></a>
-            <a id="navigation-ros" href="#components"><i class="fa fa-cogs"></i> <span class="show-inline-lg">Components</span></a>
+            <a id="navigation-ros" href="#models"><i class="fa fa-cogs"></i> <span class="show-inline-lg">Models</span></a>
             <a id="navigation-help" href="#help"><i class="fa fa-question-circle"></i> <span class="show-inline-lg">Help</span></a>
         </div>
         <h1 class="title">HAROSviz</h1>
@@ -176,11 +176,15 @@ THE SOFTWARE.
         <section id="issue-board">
             <div class="header-menu">
                 <div class="menu-item margin-bottom">
-                    <label for="issue-package-select">
-                        <i class="fa fa-folder"></i>
-                        <strong class="show-inline-sm">Package</strong>
-                    </label>
+                    <select id="issue-type-select" class="flexible margin-h">
+                        <option value="source">Source Issues</option>
+                        <option value="runtime">Runtime Issues</option>
+                        <option value="other">Other Issues</option>
+                    </select>
+                </div>
+                <div class="menu-item margin-bottom">
                     <select id="issue-package-select" class="flexible margin-h"></select>
+                    <select id="issue-config-select" class="flexible margin-h"></select>
                 </div>
                 <div class="menu-item margin-bottom">
 <!--
@@ -229,25 +233,43 @@ THE SOFTWARE.
         <section id="ros-board">
             <div class="header-menu">
                 <div class="menu-item margin-bottom">
-                    <label for="ros-package-select">
-                        <i class="fa fa-folder"></i>
-                        <strong class="show-inline-sm">Package</strong>
-                    </label>
-                    <select id="ros-package-select" class="flexible margin-h">
-                    <option>kobuki_safety_controller</option>
-                    <option>kobuki_random_walker</option>
-                    </select>
+                    <select id="ros-config-select" class="flexible margin-h"></select>
                 </div>
                 <div class="menu-item margin-bottom">
-                    <label for="ros-launch-select">
-                        <i class="fa fa-gears"></i>
-                        <strong class="show-inline-sm">Launch</strong>
-                    </label>
-                    <select id="ros-launch-select" class="flexible margin-h"></select>
+                    <button type="button" id="ros-config-issues" class="margin-h"><i class="fa fa-bug"></i> Issues</button>
                 </div>
             </div>
-            <div id="config-details" class="panel"></div>
-            <div id="node-listing" class="panel"></div>
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                    <div class="header-menu">
+                        <select id="ros-query-select" class="flexible"></select>
+                    </div>
+                    <div id="config-details" class="panel"></div>
+                </div>
+                <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-2-3 pure-u-lg-3-4">
+                    <div id="config-graph" class="margin-h">
+                        <div id="config-graph-action-bar" class="action-bar">
+                            <button type="button" id="config-btn-viewport" title="Reset Zoom"><i class="fa fa-sitemap"></i></button><!--
+                            --><button type="button" id="config-btn-drag" title="Enable/Disable Dragging"><i class="fa fa-hand-rock-o"></i></button><!--
+                            --><button type="button" id="config-btn-names" title="Show/Hide Names"><i class="fa fa-font"></i></button><!--
+                            --><button type="button" id="config-btn-param" title="Show/Hide Parameters"><i class="fa fa-server"></i></button>
+                        </div>
+
+                        <div id="config-node-action-bar" class="action-bar">
+                            <button type="button" id="config-btn-focus" title="Set/Clear Focus"><i class="fa fa-search"></i></button><!--
+                            --><button type="button" id="config-btn-info" title="Details"><i class="fa fa-info"></i></button>
+                        </div>
+
+                        <div id="config-info-modal" class="modal">
+                            <div class="modal-content">
+                                <div class="button-close margin-top"><i class="fa fa-close"></i></div>
+                                <div class="template-wrapper"></div>
+                                <div class="button-close margin-bottom">Close</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="help-board">
@@ -472,10 +494,13 @@ THE SOFTWARE.
         <div class="issue">
             <h4>Issue #<%= data.id %>
                 <span class="show-inline-md">- Rule <%= data.rule %></span>
-                <small><% if (data.file){ print("on " + data.file); if (data.line) print(", line " + data.line);} %></small>
+                <small><% if (data.location != null && data.location.file) {
+                    print("in " + data.location.file);
+                    if (data.location.line) print(", line " + data.location.line);
+                } %></small>
             </h4>
             <p><strong><%= data.description %></strong></p>
-            <p><%= data.comment || "<i>No additional comment.</i>" %></p>
+            <p><%= (data.comment || "").replace("\n", "<br/>") || "<i>No additional comment.</i>" %></p>
             <ul class="taglist">
                 <% for (var i = 0; i < data.tags.length; ++i)
                     print('<li class="tag" data-tag="' + data.tags[i] + '">' + data.tags[i] + "</li>\n");
@@ -485,30 +510,55 @@ THE SOFTWARE.
     </script>
 
     <script type="text/template" id="ros-board-config-summary">
-        <p><strong>Package Dependencies:</strong> <%= data.dependencies.join(", ") || "none" %></p>
-        <p><strong>Environment Dependencies:</strong> <%= data.environment.join(", ") || "none" %></p>
+        <p><strong>Package Dependencies:</strong> <%= data.dependencies.join(", ") || "(none)" %></p>
+        <p><strong>Environment Dependencies:</strong> <%= data.environment.join(", ") || "(none)" %></p>
         <p><strong>Name Collisions:</strong> <%= data.collisions %></p>
         <p><strong>Name Remappings:</strong> <%= data.remaps %></p>
         <p><strong>Launched Nodes:</strong> <%= data.nodes.length %></p>
     </script>
 
-    <script type="text/template" id="ros-board-node-details">
-        <div class="node">
-            <h4><%= data.name %></h4>
-            <p class="node-type">[<%= data.type %>]</p>
-            <% for (var i = 0; i < data.publishers.length; ++i)
-                print('<p class="topic"><strong>pub</strong> ' + data.publishers[i] + "</p>\n");
+    <script type="text/template" id="ros-board-info-modal">
+        <h4 class="title"><%= data.name %> <span class="info"><%= data.resourceType %></span></h4>
+        <span class="info"><%= data.type %></span>
+        <hr>
+        <p>
+            <i class="fa fa-terminal bullet-icon"></i>
+            <strong>Arguments:</strong>
+            <%= data.args || "(none)" %>
+        </p>
+        <p>
+            <i class="fa fa-file-text bullet-icon"></i>
+            <strong>Source Code Locations:</strong>
+            <% if (!data.traceability.length) print("(unknown)");
+            for (var j = 0; j < data.traceability.length; ++j)
+                print("<br/><small>in package <i>"
+                      + data.traceability[j].package
+                      + "</i>"
+                      + (data.traceability[j].file
+                         ? ", file <i>" + data.traceability[j].file + "</i>"
+                         : "")
+                      + (data.traceability[j].file && data.traceability[j].line
+                         ? ", line " + data.traceability[j].line
+                         : "")
+                      + "</small>\n");
             %>
-            <% for (var i = 0; i < data.subscribers.length; ++i)
-                print('<p class="topic"><strong>sub</strong> ' + data.subscribers[i] + "</p>\n");
+        </p>
+        <p>
+            <i class="fa fa-asterisk bullet-icon"></i>
+            <strong>Conditions:</strong>
+            <% if (!data.conditions.length) print("(none)");
+            for (var i = 0; i < data.conditions.length; ++i)
+                print('<br/><span class="code">' + data.conditions[i].condition
+                      + "</span> in <i>"
+                      + data.conditions[i].location.package
+                      + (data.conditions[i].location.file
+                         ? "/" + data.conditions[i].location.file : "")
+                      + "</i>"
+                      + (data.conditions[i].location.line
+                         ? ", line " + data.conditions[i].location.line : "")
+                      + "\n");
             %>
-            <% for (var i = 0; i < data.servers.length; ++i)
-                print('<p class="topic"><strong>srv</strong> ' + data.servers[i] + "</p>\n");
-            %>
-            <% for (var i = 0; i < data.clients.length; ++i)
-                print('<p class="topic"><strong>cli</strong> ' + data.clients[i] + "</p>\n");
-            %>
-        </div>
+        </p>
     </script>
 </body>
 </html>
