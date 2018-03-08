@@ -89,6 +89,7 @@
 ###############################################################################
 
 from argparse import ArgumentParser
+import json
 import logging
 import os
 import subprocess
@@ -172,7 +173,7 @@ class HarosLauncher(object):
                                      use_repos = args.use_repos,
                                      parse_nodes = args.parse_nodes,
                                      copy_env = args.env,
-                                     cache_parsing = args.cache_parsing)
+                                     use_cache = not args.no_cache)
         return analyse.run()
 
     def command_export(self, args):
@@ -252,8 +253,8 @@ class HarosLauncher(object):
                             help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
-        parser.add_argument("--cache-parsing", action = "store_true",
-                            help = "undocumented feature")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -349,6 +350,7 @@ class HarosInitRunner(HarosRunner):
 
     DIR_STRUCTURE = {
         "index.yaml": "%YAML 1.1\n---\npackages: []\n",
+        "parse_cache.json": "{}",
         "plugins": {},
         "repositories": {},
         "export": {},
@@ -431,13 +433,13 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False,
-                 parse_nodes = False, copy_env = False, cache_parsing = False):
+                 parse_nodes = False, copy_env = False, use_cache = True):
         HarosRunner.__init__(self, haros_dir, log, run_from_source)
         self.project_file = project_file
         self.use_repos = use_repos
         self.parse_nodes = parse_nodes
         self.copy_env = copy_env
-        self.cache_parsing = cache_parsing
+        self.use_cache = use_cache
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.project = None
@@ -464,19 +466,23 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def run(self):
         self.database = HarosDatabase()
         plugins = self._load_definitions_and_plugins()
-        if self.cache_parsing:
-            configs, env = self._extract_metamodel()
-            self._load_database()
-            self._extract_configurations(self.database.project, configs, env)
-        else:
-            self._extract_metamodel()
-            self._load_database()
+        node_cache = {}
+        if self.use_cache:
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "r") as f:
+                    node_cache = json.load(f)
+            except IOError as e:
+                self.log.warning("Could not read parsing cache: %s", e)
+        configs, env = self._extract_metamodel(node_cache)
+        self._load_database()
+        self._extract_configurations(self.database.project, configs, env)
         self._analyse(plugins)
-        self._save_results()
+        self._save_results(node_cache)
         self.database = None
         return True
 
-    def _extract_metamodel(self):
+    def _extract_metamodel(self, node_cache):
         print "[HAROS] Reading project and indexing source code..."
         self.log.debug("Project file %s", self.project_file)
         if self.copy_env:
@@ -491,8 +497,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      repo_path = self.repo_dir,
                                      distro_url = distro,
                                      require_repos = True,
-                                     parse_nodes = (self.parse_nodes
-                                                    and not self.cache_parsing))
+                                     node_cache = node_cache,
+                                     parse_nodes = self.parse_nodes)
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
         extractor.index_source()
@@ -501,10 +507,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
         self.database.register_rules(extractor.rules, prefix = "user:")
-        if self.cache_parsing:
-            return extractor.configurations, env
-        self._extract_configurations(extractor.project,
-                                     extractor.configurations, env)
+        return extractor.configurations, env
 
     def _extract_configurations(self, project, configs, environment):
         for name, data in configs.iteritems():
@@ -548,8 +551,6 @@ class HarosAnalyseRunner(HarosCommonExporter):
             # This is why I added "compact" to the database.
             self.database.history = haros_db.history
             self.database.history.append(haros_db.report)
-            if self.cache_parsing:
-                self.database._cached_nodes(haros_db.nodes)
 
     def _load_definitions_and_plugins(self):
         print "[HAROS] Loading common definitions..."
@@ -580,7 +581,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         finally:
             rmtree(temp_path)
 
-    def _save_results(self):
+    def _save_results(self, node_cache):
         print "[HAROS] Saving analysis results..."
         if self.export_viz:
             viz.install(self.viz_dir, self.run_from_source)
@@ -593,6 +594,15 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, (self.database.project,),
                                  overwrite = False)
+        if self.parse_nodes and self.use_cache:
+            for node in self.database.nodes.itervalues():
+                node_cache[node.node_name] = node.to_JSON_object()
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "w") as f:
+                    json.dump(node_cache, f)
+            except IOError as e:
+                self.log.warning("Could not save parsing cache: %s", e)
 
 
 ###############################################################################
