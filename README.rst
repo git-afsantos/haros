@@ -95,6 +95,7 @@ with the following commands.
 .. code:: bash
 
     [sudo] apt-get install cppcheck
+    pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 
 If you want to use the model extraction features of HAROS, you must install
 additional *:math:`dependencies`*.
