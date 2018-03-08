@@ -208,8 +208,7 @@ class ProjectExtractor(LoggingObject):
     def _find_nodes(self, settings):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
         ws = settings.workspace if settings else None
-        extractor = NodeExtractor(pkgs, self.environment,
-                                  workspace = ws,
+        extractor = NodeExtractor(pkgs, self.environment, ws = ws,
                                   node_cache = self.node_cache,
                                   parse_nodes = self.parse_nodes)
         if self.parse_nodes and not CppAstParser is None:
@@ -256,9 +255,9 @@ class ProjectExtractor(LoggingObject):
                 node.service.append(self._srv_from_JSON(p))
             for p in datum["client"]:
                 node.client.append(self._client_from_JSON(p))
-            for p in datum["read_param"]:
+            for p in datum["readParam"]:
                 node.read_param.append(self._read_from_JSON(p))
-            for p in datum["write_param"]:
+            for p in datum["writeParam"]:
                 node.write_param.append(self._write_from_JSON(p))
             self.node_cache[node.node_name] = node
 
@@ -667,12 +666,13 @@ class PackageParser(LoggingObject):
 ###############################################################################
 
 class NodeExtractor(LoggingObject):
-    def __init__(self, pkgs, env, ws = None, cache = None, parse_nodes = False):
+    def __init__(self, pkgs, env, ws = None, node_cache = None,
+                 parse_nodes = False):
         self.package = None
         self.packages = pkgs
         self.environment = env
         self.workspace = ws or self._find_workspace()
-        self.node_cache = cache
+        self.node_cache = node_cache
         self.parse_nodes = parse_nodes
         self.nodes = []
 

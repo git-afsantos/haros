@@ -140,7 +140,10 @@ class HarosLauncher(object):
             if not os.path.isdir(self.HAROS_DIR):
                 print "[HAROS] It seems this is a first run."
                 self.command_init(args)
-            settings = HarosSettings.parse_from(self.USER_SETINGS)
+            try:
+                settings = HarosSettings.parse_from(self.USER_SETINGS)
+            except IOError:
+                settings = HarosSettings()
             if args.cwd:
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
@@ -570,7 +573,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         blacklist = self.blacklist or self.settings.plugin_blacklist
         plugins = Plugin.load_plugins(self.plugin_dir,
                                       whitelist = self.whitelist,
-                                      blacklist = self.blacklist,
+                                      blacklist = blacklist,
                                       common_rules = self.database.rules,
                                       common_metrics = self.database.metrics)
         if not plugins:
