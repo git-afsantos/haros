@@ -236,8 +236,8 @@ class HarosLauncher(object):
                             help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
-        parser.add_argument("--cache-parsing", action = "store_true",
-                            help = "undocumented feature")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
