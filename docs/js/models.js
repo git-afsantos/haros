@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 (function () {
     "use strict";
+    /* globals window:false, Backbone:false, _:false */
     var Models = window.App.Models;
 
     /*
@@ -67,7 +68,9 @@ THE SOFTWARE.
     Models.PackageCollection = Backbone.Collection.extend({
         model: Models.Package,
 
-        url: "data/packages.json"
+        url: function () {
+            return "data/" + this.projectId + "/packages.json";
+        }
     });
 
 
@@ -75,9 +78,33 @@ THE SOFTWARE.
 
     /*
         id,
+        packages: []
+    */
+    Models.Project = Backbone.Model.extend({
+        defaults: function () {
+            return {
+                id:         "default",
+                packages:   []
+            }
+        }
+    });
+
+    Models.ProjectCollection = Backbone.Collection.extend({
+        model: Models.Project,
+
+        url: "data/projects.json"
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /*
+        id,
+        name,
         scope,
         description,
-        tags: []
+        tags: [],
+        query
     */
     Models.Rule = Backbone.Model.extend({
         defaults: function () {
@@ -102,7 +129,9 @@ THE SOFTWARE.
     Models.RuleCollection = Backbone.Collection.extend({
         model: Models.Rule,
 
-        url: "data/rules.json",
+        url: function () {
+            return "data/" + this.projectId + "/rules.json";
+        },
 
         filterByTags: function (tags) {
             if (tags.length === 0)
@@ -118,11 +147,14 @@ THE SOFTWARE.
 
     /*
         rule,
-        *file,
-        *line,
-        *function,
-        *class,
-        comment
+        comment,
+        location: {
+            package,
+            file,
+            line,
+            function,
+            class
+        }
     */
     Models.Violation = Backbone.Model.extend({
         defaults: function () {
@@ -139,14 +171,23 @@ THE SOFTWARE.
     Models.ViolationCollection = Backbone.Collection.extend({
         model: Models.Violation,
 
+        projectId: null,
+        packageId: null,
+        configId: null,
+
         url: function () {
-            return "data/compliance/" + this.packageId + ".json";
+            var prefix = "data/" + this.projectId + "/compliance/";
+            if (this.packageId != null)
+                return prefix + "source/" + this.packageId + ".json";
+            if (this.configId != null)
+                return prefix + "runtime/" + this.configId + ".json";
+            return prefix + "unknown.json";
         },
 
         filterByRules: function (rules, ignore) {
             if (rules.length === 0)
                 return this.toArray();
-            return this[!!ignore ? "reject" : "filter"](function (model) {
+            return this[ignore ? "reject" : "filter"](function (model) {
                 return _.contains(rules, model.get("rule"));
             });
         }
@@ -157,7 +198,6 @@ THE SOFTWARE.
 
     /*
         id,
-        name,
         dependencies: [],
         environment: [],
         collisions,
@@ -165,24 +205,137 @@ THE SOFTWARE.
         nodes: [{
             name,
             type,
-            args: [],
-            *error,
+            args,
+            conditions: [{
+                condition,
+                location: {}
+            }],
             publishers: [],
             subscribers: [],
             servers: [],
+            clients: [],
+            reads: [],
+            writes: []
+        }],
+        topics: [{
+            name,
+            type,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            publishers: [],
+            subscribers: []
+        }],
+        services: [{
+            name,
+            type,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            servers: [],
             clients: []
+        }],
+        parameters: [{
+            name,
+            type,
+            value,
+            conditions: [{
+                condition,
+                location: {}
+            }],
+            reads: [],
+            writes: []
+        }],
+        links: {
+            publishers: [{
+                node,
+                topic,
+                type,
+                queue,
+                name,
+                location: {},
+                conditions": [{}]
+            }],
+            subscribers: [{
+                node,
+                topic,
+                type,
+                queue,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            servers: [{
+                node,
+                service,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            clients: [{
+                node,
+                service,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            reads: [{
+                node,
+                param,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }],
+            writes: [{
+                node,
+                param,
+                type,
+                name,
+                location: {},
+                conditions: [{}]
+            }]
+        },
+        queries: [{
+            rule,
+            name,
+            objects: [{
+                name,
+                resourceType
+            }]
         }]
     */
     Models.Configuration = Backbone.Model.extend({
         defaults: function () {
             return {
-                name: "?",
                 collisions: 0,
                 remaps: 0,
                 nodes: [],
+                topics: [],
+                services: [],
+                parameters: [],
                 dependencies: [],
-                environment: []
+                environment: [],
+                links: {
+                    publishers: [],
+                    subscribers: [],
+                    servers: [],
+                    clients: [],
+                    reads: [],
+                    writes: []
+                }
             };
+        },
+
+        hasResources: function () {
+            return this.get("nodes").length > 0
+                    || this.get("topics").length > 0
+                    || this.get("services").length > 0
+                    || this.get("parameters").length > 0;
         }
     });
 
@@ -190,7 +343,7 @@ THE SOFTWARE.
         model: Models.Configuration,
 
         url: function () {
-            return "data/models/" + this.packageId + ".json";
+            return "data/" + this.projectId + "/configurations.json";
         }
     });
 
@@ -224,9 +377,21 @@ THE SOFTWARE.
             messages,
             services,
             actions
+        },
+        history: {
+            [timestamps],
+            [lines_of_code],
+            [comments],
+            [issues],
+            [standards],
+            [metrics],
+            [complexity],
+            [function_length]
         }
     */
     Models.Summary = Backbone.Model.extend({
-        url: "data/summary.json"
+        url: function () {
+            return "data/" + this.projectId + "/summary.json";
+        }
     });
 })();

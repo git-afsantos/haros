@@ -28,11 +28,16 @@ THE SOFTWARE.
     views.Dashboard = views.BaseView.extend({
         id: "dashboard",
 
-        events: {},
+        events: {
+            "change #dashboard-project-select": "onProjectSelect"
+        },
 
         initialize: function (options) {
-            this.firstTime = true;
+            this.projectId = null;
+            this.projects = options.projects;
+            this.$projectSelect = this.$("#dashboard-project-select");
             this.listenTo(this.model, "change", this.render);
+            this.listenTo(this.projects, "sync", this.onProjectSync);
             this.panels = [
                 new views.DashboardSourcePanel({
                     el: $("#dashboard-panel-source"),
@@ -55,6 +60,10 @@ THE SOFTWARE.
                     templateId: "#dashboard-panel-communications-template",
                     model: this.model,
                     data: "communications"
+                }),
+                new views.DashboardChartPanel({
+                    el: $("#dashboard-panel-progress"),
+                    model: this.model
                 })
             ];
         },
@@ -68,74 +77,37 @@ THE SOFTWARE.
             return this;
         },
 
-        build: function () {
-            if (this.firstTime) {
+        build: function (project) {
+            if (project != null && this.projectId != project.id) {
                 // this.model.fetch();
                 //this.dashboardDiagram();
+                this.projectId = project.id;
                 this.render();
-                this.firstTime = false;
             }
             return this;
         },
 
+        onProjectSync: function (collection, response, options) {
+            var project = this.projectId;
+            this.$projectSelect.html(collection.map(this.optionTemplate).join("\n"));
+            if (collection.length > 0) {
+                if (project == null || collection.get(project) == null)
+                    project = collection.first().id;
+                this.$projectSelect.val(project);
+            }
+            this.onProjectSelect();
+        },
 
-        dashboardDiagram: function () {
-            // set the dimensions and margins of the graph
-            var margin = {top: 20, right: 20, bottom: 30, left: 40},
-                width = 960 - margin.left - margin.right,
-                height = 350 - margin.top - margin.bottom;
+        onProjectSelect: function () {
+            this.projectId = this.$projectSelect.val();
+            this.trigger("change:project", this.projectId);
+        },
 
-            // set the ranges
-            var x = d3.scaleBand()
-                      .range([0, width])
-                      .padding(0.1);
-            var y = d3.scaleLinear()
-                      .range([height, 0]);
+        onResize: function () {
+            return this.panels[4].onResize();
+        },
 
-            // append the svg object to the body of the page
-            // append a 'group' element to 'svg'
-            // moves the 'group' element to the top left margin
-            var svg = d3.select("#dashboard-panel-progress .diagram").append("svg")
-                .attr("width", "100%")
-                .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-                .attr("transform", 
-                      "translate(" + margin.left + "," + margin.top + ")");
-
-            // get the data
-            d3.csv("assets/data.csv", function(error, data) {
-              if (error) throw error;
-
-              // format the data
-              data.forEach(function(d) {
-                d.sales = +d.sales;
-              });
-
-              // Scale the range of the data in the domains
-              x.domain(data.map(function(d) { return d.salesperson; }));
-              y.domain([0, d3.max(data, function(d) { return d.sales; })]);
-
-              // append the rectangles for the bar chart
-              svg.selectAll(".bar")
-                  .data(data)
-                .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("x", function(d) { return x(d.salesperson); })
-                  .attr("width", x.bandwidth())
-                  .attr("y", function(d) { return y(d.sales); })
-                  .attr("height", function(d) { return height - y(d.sales); });
-
-              // add the x Axis
-              svg.append("g")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(d3.axisBottom(x));
-
-              // add the y Axis
-              svg.append("g")
-                  .call(d3.axisLeft(y));
-
-            });
-        }
+        optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
     });
 
 
@@ -183,5 +155,82 @@ THE SOFTWARE.
             }
             return this;
         }
+    });
+
+
+    views.DashboardChartPanel = Backbone.View.extend({
+        className: "panel",
+
+        margin: {top: 10, right: 20, bottom: 30, left: 30},
+
+        parseTime: d3.timeParse("%Y-%m-%d-%H-%M"),
+
+        events: {
+            "change #dashboard-metric-select": "render"
+        },
+
+        initialize: function (options) {
+            this.data = [];
+            this.$chart = this.$(".chart");
+            this.$select = this.$("#dashboard-metric-select");
+            this.d3svg = d3.select(this.$chart[0]).append("svg");
+            this.d3g = this.d3svg.append("g")
+                .attr("transform", "translate(" + this.margin.left
+                                                + "," + this.margin.top + ")");
+            this.d3path = null; // this.d3g.append("path");
+            this.d3x = null;    // this.d3g.append("g");
+            this.d3y = null;    // this.d3g.append("g");
+        },
+
+        render: function () {
+            var history, timestamps, values, i = 0, len = 0,
+                metric = this.$select.val();
+            history = this.model.get("history");
+            if (history == null)
+                return this;
+            timestamps = history["timestamps"];
+            values = history[metric];
+            len = timestamps.length;
+            this.data = [];
+            for (; i < len; ++i) {
+                this.data.push([this.parseTime(timestamps[i]), values[i]]);
+            }
+            this.onResize();
+            return this;
+        },
+
+        onResize: function () {
+            var width = this.$chart.width() - this.margin.left - this.margin.right,
+                height = Math.max(this.$el.height() - 70 - this.margin.top
+                                  - this.margin.bottom, 150),
+                valueline = d3.line(),
+                x = d3.scaleTime(),
+                y = d3.scaleLinear(),
+                ticks = width > 500 ? 15 : 7;
+            this.$chart.height(height + this.margin.bottom);
+            x.range([0, width])
+                .domain(d3.extent(this.data, this._fst));
+            y.range([height, 0])
+                .domain([0, d3.max(this.data, this._snd)]);
+            valueline.x(function(d) { return x(d[0]); })
+                .y(function(d) { return y(d[1]); });
+            this.d3g.remove();
+            this.d3g = this.d3svg.append("g")
+                .attr("transform", "translate(" + this.margin.left
+                                            + "," + this.margin.top + ")");
+            this.d3path = this.d3g.append("path")
+                .data([this.data])
+                .attr("class", "line")
+                .attr("d", valueline);
+            this.d3x = this.d3g.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x).ticks(ticks));
+            this.d3y = this.d3g.append("g")
+                .call(d3.axisLeft(y).ticks(8, d3.format("s")));
+        },
+
+        _fst: function (d) { return d[0]; },
+
+        _snd: function (d) { return d[1]; }
     });
 })();

@@ -295,6 +295,14 @@ html, body {
 
 
 
+#dashboard-project-select {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-weight: bold;
+    color: steelblue;
+}
+
 #dashboard .panel {
     position: relative;
     border-radius: 4px;
@@ -320,6 +328,33 @@ html, body {
         height: 24.75em;
     }
 }
+
+
+#dashboard-panel-progress .chart .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+#dashboard-metric-select {
+    font-weight: bold;
+}
+
+/*#dashboard-panel-progress .chart {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+#dashboard-panel-progress .chart .responsive-svg {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}*/
 
 
 
@@ -349,14 +384,16 @@ html, body {
 }
 
 
-#package-graph {
+#package-graph,
+#config-graph {
     position: relative;
     flex: 1;
     height: 15em;
     border: 1px solid lightgrey;
 }
 
-#package-graph > .action-bar {
+#package-graph > .action-bar,
+#config-graph > .action-bar {
     position: absolute;
     top: auto;
     bottom: 1em;
@@ -365,12 +402,14 @@ html, body {
     font-size: 1.25em;
 }
 
-#package-graph > #pkg-graph-action-bar {
+#package-graph > #pkg-graph-action-bar,
+#config-graph > #config-graph-action-bar {
     left: 1em;
     right: auto;
 }
 
-#package-graph > #pkg-node-action-bar {
+#package-graph > #pkg-node-action-bar,
+#config-graph > #config-node-action-bar {
     left: auto;
     right: 1em;
 }
@@ -399,14 +438,16 @@ html, body {
 }
 
 @media (min-width: 40em) {
-    #package-graph > #pkg-graph-action-bar {
+    #package-graph > #pkg-graph-action-bar,
+    #config-graph > #config-graph-action-bar {
         top: 1em;
         bottom: auto;
         left: auto;
         right: 1em;
     }
 
-    #package-graph > #pkg-node-action-bar {
+    #package-graph > #pkg-node-action-bar,
+    #config-graph > #config-node-action-bar {
         top: 3em;
         bottom: auto;
     }
@@ -424,79 +465,134 @@ svg {
     height: 100%;
 }
 
-#package-graph .node circle {
-    /* fill: #FFF2CC; */
+#package-graph .node circle,
+#config-graph .node circle {
     stroke-width: 2px;
-    /* stroke: #A16D00; */
     stroke: #8A6D3B;
 }
 
+#config-graph .graph .node.ros-node {
+	fill: white;
+}
+
+#config-graph .graph .node.ros-topic {
+	fill: lightgreen;
+}
+
+#config-graph .graph .node.ros-service {
+	fill: lightblue;
+}
+
+#config-graph .graph .node.ros-param {
+	fill: plum;
+}
+
+#config-graph .graph .node.candidate {
+	fill: orange !important;
+}
+
+#config-graph .graph .node.query-object {
+    animation: pulse 2s infinite alternate;
+    -webkit-animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    to { fill: crimson; }
+}
+
 #package-graph .node.focus {
-	stroke-width: 8px;
-	/*stroke: #104227;*/
+	stroke-width: 4px;
+}
+
+#package-graph .conditional,
+#config-graph .conditional {
+	stroke-dasharray: 5;
+}
+
+#package-graph .graph.hovering .node.selected circle,
+#config-graph .graph.hovering .node.selected circle {
+	stroke: #007AFF;
 }
 
 #package-graph .graph.hovering .node.selected circle {
-	stroke-width: 8px;
-	/*stroke: #0F4BFF;*/
-	/* stroke: #386AFF; */
-	stroke: #007AFF;
-	/*-webkit-animation: stroke-pulse 2s infinite;
-	-moz-animation: stroke-pulse 2s infinite;
-	-o-animation: stroke-pulse 2s infinite;
-	animation: stroke-pulse 2s infinite;*/
-	/*fill: #B3ECFF;*/
+	stroke-width: 4px;
 }
 
 #package-graph .graph .node.focus circle {
-	stroke-width: 8px;
-	/*stroke: #104227;*/
+	stroke-width: 4px;
 }
 
-#package-graph .edge {
+#package-graph .edge,
+#config-graph .edge {
 	fill: none;
 	stroke-width: 2px;
 	stroke: #D19D00;
 	stroke-linejoin: round;
-/*	marker-end: url(#markerDot);*/
+}
+
+#config-graph .graph .edge.query-object {
+    animation: pulseStroke 2s infinite alternate;
+    -webkit-animation: pulseStroke 2s infinite alternate;
+}
+
+@keyframes pulseStroke {
+    to { stroke-width: 4px; stroke: crimson; }
 }
 
 
-#package-graph .graph.hovering .edge.selected {
-	stroke-width: 6px;
-	/* stroke: #386AFF; */
+#package-graph .graph.hovering .edge.selected,
+#config-graph .graph.hovering .edge.selected {
 	stroke: #007AFF;
 }
 
-#package-graph .graph.hovering .node {
+#package-graph .graph.hovering .edge.selected {
+	stroke-width: 4px;
+}
+
+#package-graph .graph.hovering .node,
+#config-graph .graph.hovering .node {
 	opacity: 0.2;
 }
 
-#package-graph .graph.hovering .edge {
+#package-graph .graph.hovering .edge,
+#config-graph .graph.hovering .edge {
 	opacity: 0;
 }
 
 #package-graph .graph.hovering .node.selected,
-#package-graph .graph.hovering .edge.selected {
+#config-graph .graph.hovering .node.selected,
+#package-graph .graph.hovering .edge.selected,
+#config-graph .graph.hovering .edge.selected {
 	opacity: 1;
 }
 
-#package-graph .graph.hovering .node.highlight circle {
-	stroke-width: 8px;
-	/* stroke: #A4011B; */
+#package-graph .graph.hovering .node.highlight circle,
+#config-graph .graph.hovering .node.highlight circle {
 	stroke: #3C763D;
-	/*fill: #FFE0E5;*/
 }
 
-#package-graph .graph.hovering .node.highlight {
+#package-graph .graph.hovering .node.highlight circle {
+	stroke-width: 4px;
+}
+
+#package-graph .graph.hovering .node.highlight,
+#config-graph .graph.hovering .node.highlight {
+    opacity: 1;
+}
+
+#package-graph .graph.hovering .edge.highlight,
+#config-graph .graph.hovering .edge.highlight {
+	stroke: #3C763D;
     opacity: 1;
 }
 
 #package-graph .graph.hovering .edge.highlight {
-	/* stroke: #A4011B; */
-	stroke: #3C763D;
 	stroke-width: 4px;
-    opacity: 1;
+}
+
+#package-graph .graph .node.dragging circle,
+#config-graph .graph .node.dragging circle {
+	stroke: #007AFF !important;
 }
 
 
@@ -505,7 +601,23 @@ svg {
     cursor: default;
 }
 
-#package-graph .graph.zoomed-out .node text {
+#config-graph .graph .node text {
+    fill: black;
+	font-size: 0.75em;
+    cursor: default;
+}
+
+#config-graph .graph.hide-text .node text {
+    display: none;
+}
+
+#config-graph .graph .node.selected text,
+#config-graph .graph .node.hovering text {
+	display: inline !important;
+}
+
+#package-graph .graph.zoomed-out .node text,
+#config-graph .graph.zoomed-out .node text {
 	opacity: 0;
 }
 
@@ -556,7 +668,8 @@ svg {
     font-weight: normal;
 }
 
-#issue-board button {
+#issue-board button,
+#ros-board .menu-item button {
     background: none;
     border: 1px solid grey;
     font-size: 1em;
@@ -589,6 +702,10 @@ svg {
 
 #ros-board .panel > .node > p.topic {
     margin-left: 0.5em;
+}
+
+#ros-query-select {
+    max-width: 100%;
 }
 
 
@@ -714,6 +831,20 @@ hr {
 .text-button {
     cursor: pointer;
     font-weight: bold;
+}
+
+
+.code {
+    display: inline-block;
+    padding: 0 0.5em;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    color: #333;
+    background-color: whitesmoke;
+    font-family: monospace;
+    white-space: pre;
+    unicode-bidi: embed;
 }
 
 

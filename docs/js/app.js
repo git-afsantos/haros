@@ -38,35 +38,33 @@ This script creates the views with the document nodes, and the models from data.
     var App = window.App = {
         Views: {},
         Models: {},
+        project: null, // current project
         board: null, // current view
         rules: null,
+        projects: null,
         packages: null,
         summary: null,
-        violations: null
+        violations: null,
+        configurations: null
     };
 
     $(document).ready(function () {
         delete window.App;
 
         App.rules = new App.Models.RuleCollection();
+        App.projects = new App.Models.ProjectCollection();
         App.packages = new App.Models.PackageCollection();
         App.summary = new App.Models.Summary();
         App.violations = new App.Models.ViolationCollection();
+        App.configurations = new App.Models.ConfigurationCollection();
 
         $(window).resize(_.debounce(onResize, 100));
 
         bootstrapViews();
         Backbone.history.start();
-        preloadData();
+        App.projects.fetch();
     });
 
-
-
-    function preloadData() {
-        App.rules.fetch();
-        App.packages.fetch();
-        App.summary.fetch();
-    }
 
 
     function bootstrapViews() {
@@ -76,14 +74,18 @@ This script creates the views with the document nodes, and the models from data.
         App.preloader = new App.Views.Preloader({
             el: $("#preloader"),
             model: App.summary,
+            projects: App.projects,
             packages: App.packages,
             rules: App.rules,
-            violations: App.violations
+            violations: App.violations,
+            configurations: App.configurations
         });
         App.dashboard = new App.Views.Dashboard({
             el: $("#dashboard"),
-            model: App.summary
+            model: App.summary,
+            projects: App.projects
         });
+        App.dashboard.on("change:project", onProjectSelect);
         App.packageBoard = new App.Views.PackageBoard({
             el: $("#package-board"),
             collection: App.packages,
@@ -92,15 +94,15 @@ This script creates the views with the document nodes, and the models from data.
         });
         App.issueBoard = new App.Views.IssueBoard({
             el: $("#issue-board"),
-            collection: new App.Models.ViolationCollection(),
+            collection: App.violations,
             packages: App.packages,
+            configurations: App.configurations,
             rules: App.rules,
             router: App.router
         });
         App.rosBoard = new App.Views.RosBoard({
             el: $("#ros-board"),
-            collection: new App.Models.ConfigurationCollection(),
-            packages: App.packages,
+            collection: App.configurations,
             router: App.router
         });
         App.helpBoard = new App.Views.HelpBoard({
@@ -114,6 +116,20 @@ This script creates the views with the document nodes, and the models from data.
         App.issueBoard.hide();
         App.rosBoard.hide();
         App.helpBoard.hide();
+    }
+
+
+    function onProjectSelect(projectId) {
+        App.project = App.projects.get(projectId);
+        App.rules.projectId = projectId;
+        App.rules.fetch();
+        App.packages.projectId = projectId;
+        App.packages.fetch();
+        App.summary.projectId = projectId;
+        App.summary.fetch();
+        App.violations.projectId = projectId;
+        App.configurations.projectId = projectId;
+        App.configurations.fetch();
     }
 
 

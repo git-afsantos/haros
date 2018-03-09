@@ -25,15 +25,16 @@ THE SOFTWARE.
     var App = window.App,
         Router = Backbone.Router.extend({
             routes: {
-                "":                         "home",
-                "dashboard":                "dashboard",
-                "help":                     "help",
-                "packages":                 "packages",
-                "issues":                   "issues",       // #issues
-                "issues/:pkg":              "issues",       // #issues/kobuki
-                "issues/:pkg/p:page":       "issues",       // #issues/kobuki/p2
-                "components":               "components",   // #components
-                "components/:pkg":          "components"    // #components/kobuki_node
+                "":                     "home",
+                "dashboard":            "dashboard",
+                "help":                 "help",
+                "packages":             "packages",
+                "issues":                   "issues",   // #issues
+                "issues/:type":             "issues",   // #issues/source
+                "issues/:type/:item":       "issues",   // #issues/source/kobuki
+                "issues/:type/:item/p:n":   "issues",   // #issues/source/kobuki/p2
+                "models":               "models",   // #models
+                "models/:config":       "models"    // #models/minimal
             },
 
             home: function() {
@@ -43,7 +44,7 @@ THE SOFTWARE.
             dashboard: function() {
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("dashboard");
-                App.dashboard.show().build();
+                App.dashboard.show().build(App.project);
                 App.board = App.dashboard;
             },
 
@@ -55,25 +56,41 @@ THE SOFTWARE.
             },
 
             packages: function() {
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("packages");
-                App.packageBoard.show().build();
+                App.packageBoard.show().build(App.project);
                 App.board = App.packageBoard;
             },
 
-            issues: function(pkg, page) {
-                // ? query is category/filter (standards, metrics...) ?
-                // maybe keep "resolved" issues from last run?
+            issues: function(type, item, n) {
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
+                if (type == null) {
+                    type = "source";
+                    App.router.navigate("issues/source", {
+                        trigger: false, replace: true
+                    });
+                } else if (type === "other") {
+                    item = null;
+                    n = null;
+                    App.router.navigate("issues/other", {
+                        trigger: false, replace: true
+                    });
+                }
                 App.navigation.goTo("issues");
-                App.issueBoard.show().build(pkg, page);
+                App.issueBoard.show().build(App.project, type, item, n);
                 App.board = App.issueBoard;
             },
 
-            components: function(pkg) {
+            models: function(config) {
+                if (App.project == null)
+                    return App.router.navigate("dashboard", { trigger: true });
                 if (App.board != null) App.board.hide();
                 App.navigation.goTo("ros");
-                App.rosBoard.show().build(pkg);
+                App.rosBoard.show().build(App.project, config);
                 App.board = App.rosBoard;
             }
         });

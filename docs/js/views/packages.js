@@ -40,7 +40,7 @@ THE SOFTWARE.
 
         initialize: function (options) {
             _.bindAll(this, "onEmptyClick");
-            this.firstTime = true;
+            this.projectId = null;
             this.rules = options.rules;
             this.router = options.router;
             this.publicVars = {};
@@ -51,13 +51,15 @@ THE SOFTWARE.
             this.focus = null;
             this.selection = null;
             this.onZoom = _.bind(this.onZoom, this);
-            this.zoom = d3.zoom().scaleExtent([0.125, 8]).on("zoom", this.onZoom);
+            this.zoom = d3.zoom().scaleExtent([0.125, 4]).on("zoom", this.onZoom);
             this.d3svg = d3.select(this.$graph[0]).append("svg").call(this.zoom);
             this.d3g = this.d3svg.append("g").attr("class", "graph");
             this.d3svg.on("click", this.onEmptyClick);
+            this._genArrowhead();
 
-            this.listenTo(this.collection, "add", this.onAdd);
-            this.listenTo(this.collection, "update", this.onUpdate);
+            this.listenTo(this.collection, "sync", this.onSync);
+            // this.listenTo(this.collection, "add", this.onAdd);
+            // this.listenTo(this.collection, "update", this.onUpdate);
 
 
             this.$graphActionBar = this.$graph.children("#pkg-graph-action-bar");
@@ -88,16 +90,29 @@ THE SOFTWARE.
             return this;
         },
 
-        build: function () {
-            if (this.firstTime) {
+        build: function (project) {
+            if (this.projectId != project.id) {
+                this.projectId = project.id;
                 this.render();
-                this.firstTime = false;
             } else {
                 this.onResize();
             }
             return this;
         },
 
+
+        onSync: function (collection, response, options) {
+            var i, nodes = this.graph.nodes();
+            for (i = nodes.length; i--;)
+                this.stopListening(this.graph.node(nodes[i]));
+            this.graph = new dagre.graphlib.Graph();
+            this.graph.setGraph({nodesep: this.spacing, ranksep: this.spacing});
+            this.d3g.remove();
+            this.d3g = this.d3svg.append("g").attr("class", "graph");
+            collection.each(this.onAdd, this);
+            collection.each(this._addEdges, this);
+            this.render();
+        },
 
         // add is triggered first, so the view can be created here
         onAdd: function (model) {
@@ -116,7 +131,9 @@ THE SOFTWARE.
         _addEdges: function (model) {
             var el, ds = model.get("dependencies"), i = ds.length;
             while (i--) if (this.graph.hasNode(ds[i])) {
-                el = this.d3g.insert("path", ":first-child").classed("edge hidden", true);
+                el = this.d3g.insert("path", ":first-child")
+                             .classed("edge hidden", true)
+                             .attr("marker-end", "url(#pkg-arrowhead)");
                 this.graph.setEdge(model.id, ds[i], {
                     d3path: el,
                     visible: false,
@@ -161,12 +178,17 @@ THE SOFTWARE.
         },
 
         renderEdge: function () {
-            var path;
+            var path, diffX, diffY, pathLength, offsetX, offsetY;
             this.d3path.classed("hidden", !this.visible);
             if (this.visible) {
+                diffX = this.target.x - this.source.x;
+                diffY = this.target.y - this.source.y;
+                pathLength = Math.sqrt((diffX * diffX) + (diffY * diffY));
+                offsetX = (diffX * this.target.radius) / pathLength;
+                offsetY = (diffY * this.target.radius) / pathLength;
                 path = d3.path();
                 path.moveTo(this.source.x, this.source.y);
-                path.lineTo(this.target.x, this.target.y);
+                path.lineTo(this.target.x - offsetX, this.target.y - offsetY);
                 this.d3path.attr("d", path);
             }
             return this;
@@ -178,7 +200,7 @@ THE SOFTWARE.
                 bbox = this.d3g.node().getBBox(),   // size needed by the graph
                 gw = Math.max(bbox.width | 0, this.spacing * 2),
                 gh = Math.max(bbox.height | 0, this.spacing * 2),
-                scale = Math.max(Math.min(ow/gw, oh/gh), 0.125),
+                scale = Math.min(Math.max(Math.min(ow/gw, oh/gh), 0.125), 4),
                 w = gw * scale | 0,
                 h = gh * scale | 0,
                 tx = (ow - w) / 2 + this.spacing,
@@ -283,13 +305,28 @@ THE SOFTWARE.
                 this.publicVars.issues.tags = this.filterView.tags;
                 this.publicVars.issues.ignore = !!this.filterView.ignoring;
             }
-            this.router.navigate("issues/" + this.selection.model.id, {trigger: true});
+            this.router.navigate("issues/source/" + this.selection.model.id, {trigger: true});
         },
 
 
         onResize: function () {
             this.$graph.height(Math.min($(window).height() - 80, 800));
             this.resetViewport();
+        },
+
+        _genArrowhead: function () {
+            var defs = this.d3svg.append("defs"),
+                marker = defs.append("marker"),
+                path = marker.append("path");
+            marker.attr("id", "pkg-arrowhead");
+            marker.attr("viewBox", "0 -5 10 10");
+            marker.attr("refX", 10);
+            marker.attr("refY", 0);
+            marker.attr("markerUnits", "userSpaceOnUse");
+            marker.attr("markerWidth", 16);
+            marker.attr("markerHeight", 16);
+            marker.attr("orient", "auto");
+            path.attr("d", "M0,-5 L10,0 L0,5");
         }
     });
 
@@ -310,7 +347,8 @@ THE SOFTWARE.
             this.d3node = this.d3g.append("circle");
             this.d3text = this.d3g.append("text").attr("text-anchor", "middle").text(this.model.id);
 
-            this.height = Math.min(320, 32 + this.model.get("size") | 0);
+            s = +(this.model.get("size") || 1)
+            this.height = Math.min(320, 32 + s | 0);
             this.width = Math.max(this.height, this.model.id.length * 16);
             this.radius = this.height / 2;
 //            if (this.model.get("metapackage")) {

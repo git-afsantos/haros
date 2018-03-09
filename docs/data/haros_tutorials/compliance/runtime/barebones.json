@@ -1,0 +1,1 @@
+[{"comment": "Query found: NodeInstance barebones:/talker\nReported in configuration barebones", "resources": [{"resourceType": "node", "name": "/talker"}], "location": {"configuration": "barebones"}, "rule": "user:whatever"}]
