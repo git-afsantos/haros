@@ -187,7 +187,7 @@ class ProjectExtractor(LoggingObject):
                     next_pending.append(pkg)
                 else:
                     pkg.topological_tier = tier
-                    next_emitted.append(pkg.id)
+                    next_emitted.append(pkg.name)
             if not next_emitted:
                 # cyclic dependencies detected
                 self.log.warning("Cyclic dependencies: %s", next_pending)
