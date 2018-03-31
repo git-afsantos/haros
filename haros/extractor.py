@@ -220,8 +220,9 @@ class ProjectExtractor(LoggingObject):
             else:
                 CppAstParser.set_library_path(settings.cpp_parser_lib)
                 CppAstParser.set_standard_includes(settings.cpp_includes)
-                if os.path.isfile(os.path.join(settings.cpp_compile_db,
-                                               "compile_commands.json")):
+                db_dir = settings.cpp_compile_db
+                if (db_dir and os.path.isfile(os.path.join(db_dir,
+                                              "compile_commands.json"))):
                     CppAstParser.set_database(settings.cpp_compile_db)
         for pkg in self.project.packages:
             if not pkg.name in self.package_cache:

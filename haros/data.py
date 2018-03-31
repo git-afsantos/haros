@@ -458,7 +458,7 @@ class HarosSettings(object):
         self.cpp_compile_db = cpp_compile_db
         if cpp_compile_db is None:
             db = os.path.join(self.workspace, "build")
-            if os.path.isfile(db):
+            if os.path.isfile(os.path.join(db, "compile_commands.json")):
                 self.cpp_compile_db = db
         elif cpp_compile_db is False:
             self.cpp_compile_db = None
