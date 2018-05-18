@@ -23,6 +23,11 @@ Current Status
 
 HAROS is still being developed, as of March 2018.
 
+There is a demo page available on [GitHub](https://git-afsantos.github.io/haros).
+
+Please use the issue tracker on this repository for issues or feature requests directly related with HAROS.
+For issues related to plugins, use the [plugin repository](https://github.com/git-afsantos/haros_plugins) instead.
+
 Installation
 ------------
 
