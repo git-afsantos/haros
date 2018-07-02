@@ -621,6 +621,126 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
 
 ###############################################################################
+#   HAROS Command Runner (make-tests)
+###############################################################################
+
+class HarosMakeTestsRunner(HarosRunner):
+    def __init__(self, haros_dir, project_file, data_dir,
+                 log = None, run_from_source = False, use_repos = False,
+                 copy_env = False, use_cache = True, settings = None):
+        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        self.project_file = project_file
+        self.use_repos = use_repos
+        self.copy_env = copy_env
+        self.use_cache = use_cache
+        self.settings = settings
+        self.project = None
+        self.current_dir = None
+        if data_dir:
+            self.io_tests_dir = os.path.join(data_dir, "tests")
+        else:
+            self.io_tests_dir = os.path.join(haros_dir, "tests")
+
+    def run(self):
+        self.database = HarosDatabase()
+        node_cache = {}
+        if self.use_cache:
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "r") as f:
+                    node_cache = json.load(f)
+            except IOError as e:
+                self.log.warning("Could not read parsing cache: %s", e)
+        configs, env = self._extract_metamodel(node_cache)
+        self._extract_configurations(self.database.project, configs, env)
+        # TODO from this point onwards
+        self._analyse(plugins)
+        self._save_results(node_cache)
+        self.database = None
+        return True
+
+    def _extract_metamodel(self, node_cache):
+        print "[HAROS] Reading project and indexing source code..."
+        self.log.debug("Project file %s", self.project_file)
+        env = dict(os.environ) if self.copy_env else self.settings.environment
+        distro = self.distro_url if self.use_repos else None
+        extractor = ProjectExtractor(self.project_file, env = env,
+                                     repo_path = self.repo_dir,
+                                     distro_url = distro,
+                                     require_repos = True,
+                                     node_cache = node_cache,
+                                     parse_nodes = True)
+        print "  > Parsing nodes might take some time."
+        extractor.index_source(settings = self.settings)
+        self.project = extractor.project.name
+        if not extractor.project.packages:
+            raise RuntimeError("There are no packages to analyse.")
+        self.database.register_project(extractor.project)
+        return extractor.configurations, env
+
+    def _extract_configurations(self, project, configs, environment):
+        for name, data in configs.iteritems():
+            if isinstance(data, list):
+                continue
+            if not "tests" in data:
+                continue
+            builder = ConfigurationBuilder(name, environment, self.database,
+                                           hints = data.get("hints"))
+            launch_files = data["launch"]
+            for launch_file in launch_files:
+                parts = launch_file.split(os.sep, 1)
+                if not len(parts) == 2:
+                    raise ValueError("invalid launch file: " + launch_file)
+                pkg = self.database.packages.get("package:" + parts[0])
+                if not pkg:
+                    raise ValueError("unknown package: " + parts[0])
+                path = os.path.join(pkg.path, parts[1])
+                launch = self.database.get_file(path)
+                if not launch:
+                    raise ValueError("unknown launch file: " + launch_file)
+                builder.add_launch(launch)
+            for msg in builder.errors:
+                self.log.warning("Configuration %s: %s",
+                                 builder.configuration.name, msg)
+            project.configurations.append(builder.configuration)
+            self.database.configurations.append(builder.configuration)
+
+    def _analyse(self, plugins):
+        print "[HAROS] Running analysis..."
+        self._empty_dir(self.export_dir)
+        temp_path = tempfile.mkdtemp()
+        analysis = AnalysisManager(self.database, temp_path, self.export_dir)
+        try:
+            analysis.run(plugins)
+            self.database.report = analysis.report
+        finally:
+            rmtree(temp_path)
+
+    def _save_results(self, node_cache):
+        print "[HAROS] Saving analysis results..."
+        if self.export_viz:
+            viz.install(self.viz_dir, self.run_from_source)
+        self._ensure_dir(self.data_dir)
+        self._ensure_dir(self.current_dir)
+        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
+        self.log.debug("Exporting on-memory data manager.")
+        self._prepare_project()
+        exporter = JsonExporter()
+        self._export_project_data(exporter)
+        exporter.export_projects(self.data_dir, (self.database.project,),
+                                 overwrite = False)
+        if self.parse_nodes and self.use_cache:
+            for node in self.database.nodes.itervalues():
+                node_cache[node.node_name] = node.to_JSON_object()
+            parse_cache = os.path.join(self.root, "parse_cache.json")
+            try:
+                with open(parse_cache, "w") as f:
+                    json.dump(node_cache, f)
+            except IOError as e:
+                self.log.warning("Could not save parsing cache: %s", e)
+
+
+###############################################################################
 #   HAROS Command Runner (export)
 ###############################################################################
 
