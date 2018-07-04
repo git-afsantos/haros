@@ -105,6 +105,7 @@ from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
 from .export_manager import JsonExporter
 from . import visualiser as viz
+from .gen_tests import make_test_script
 
 
 ###############################################################################
@@ -639,7 +640,7 @@ class HarosMakeTestsRunner(HarosRunner):
         if data_dir:
             self.io_tests_dir = os.path.join(data_dir, "tests")
         else:
-            self.io_tests_dir = os.path.join(haros_dir, "tests")
+            self.io_tests_dir = os.path.join(self.export_dir, "tests")
 
     def run(self):
         self.database = HarosDatabase()
@@ -679,6 +680,7 @@ class HarosMakeTestsRunner(HarosRunner):
         return extractor.configurations, env
 
     def _extract_configurations(self, project, configs, environment):
+        configs_to_test = []
         for name, data in configs.iteritems():
             if isinstance(data, list):
                 continue
@@ -704,6 +706,19 @@ class HarosMakeTestsRunner(HarosRunner):
                                  builder.configuration.name, msg)
             project.configurations.append(builder.configuration)
             self.database.configurations.append(builder.configuration)
+            configs_to_test.append((builder.configuration, data["tests"]))
+        return configs_to_test
+
+    def _gen_tests(self, configs_to_test):
+        if not configs_to_test:
+            raise RuntimeError("There are no tests to generate.")
+        print "[HAROS] Generating tests..."
+        self.log.debug("Creating test output directory: " + self.io_tests_dir)
+        self._ensure_dir(self.io_tests_dir)
+        self._empty_dir(self.io_tests_dir)
+        for config, test_data in configs_to_test:
+            self.log.debug("Generating tests for configuration " + config.name)
+            make_test_script(config, test_data, self.io_tests_dir)
 
     def _analyse(self, plugins):
         print "[HAROS] Running analysis..."
