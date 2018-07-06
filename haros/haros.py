@@ -675,18 +675,25 @@ class HarosMakeTestsRunner(HarosRunner):
     def run(self):
         self.database = HarosDatabase()
         node_cache = {}
+        parse_cache = os.path.join(self.root, "parse_cache.json")
         if self.use_cache:
-            parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
                 with open(parse_cache, "r") as f:
                     node_cache = json.load(f)
             except IOError as e:
                 self.log.warning("Could not read parsing cache: %s", e)
         configs, env = self._extract_metamodel(node_cache)
-        self._extract_configurations(self.database.project, configs, env)
-        # TODO from this point onwards
-        self._analyse(plugins)
-        self._save_results(node_cache)
+        configs_to_test = self._extract_configurations(self.database.project,
+                                                       configs, env)
+        self._gen_tests(configs_to_test)
+        if self.use_cache:
+            for node in self.database.nodes.itervalues():
+                node_cache[node.node_name] = node.to_JSON_object()
+            try:
+                with open(parse_cache, "w") as f:
+                    json.dump(node_cache, f)
+            except IOError as e:
+                self.log.warning("Could not save parsing cache: %s", e)
         self.database = None
         return True
 
@@ -749,40 +756,6 @@ class HarosMakeTestsRunner(HarosRunner):
         for config, test_data in configs_to_test:
             self.log.debug("Generating tests for configuration " + config.name)
             make_test_script(config, test_data, self.io_tests_dir)
-
-    def _analyse(self, plugins):
-        print "[HAROS] Running analysis..."
-        self._empty_dir(self.export_dir)
-        temp_path = tempfile.mkdtemp()
-        analysis = AnalysisManager(self.database, temp_path, self.export_dir)
-        try:
-            analysis.run(plugins)
-            self.database.report = analysis.report
-        finally:
-            rmtree(temp_path)
-
-    def _save_results(self, node_cache):
-        print "[HAROS] Saving analysis results..."
-        if self.export_viz:
-            viz.install(self.viz_dir, self.run_from_source)
-        self._ensure_dir(self.data_dir)
-        self._ensure_dir(self.current_dir)
-        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
-        self.log.debug("Exporting on-memory data manager.")
-        self._prepare_project()
-        exporter = JsonExporter()
-        self._export_project_data(exporter)
-        exporter.export_projects(self.data_dir, (self.database.project,),
-                                 overwrite = False)
-        if self.parse_nodes and self.use_cache:
-            for node in self.database.nodes.itervalues():
-                node_cache[node.node_name] = node.to_JSON_object()
-            parse_cache = os.path.join(self.root, "parse_cache.json")
-            try:
-                with open(parse_cache, "w") as f:
-                    json.dump(node_cache, f)
-            except IOError as e:
-                self.log.warning("Could not save parsing cache: %s", e)
 
 
 ###############################################################################
