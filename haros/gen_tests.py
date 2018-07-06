@@ -213,7 +213,10 @@ class PropertySyntaxError(Exception):
 
 
 class MsgProperties(object):
-    PROP_LINE = re.compile("^#!(\w+):(.+)$")
+    PROP_LINE = re.compile(r"^#!(\w+):(.+)$")
+    VALUE_SEP = re.compile(r",\s*")
+    INT_VALUE = re.compile(r"^\d+$")
+    CONSTANT = re.compile(r"^[A-Z][A-Z_]*$")
 
     def __init__(self, msg_type):
         self._type = msg_type
@@ -223,7 +226,15 @@ class MsgProperties(object):
     def make_enum(self, field, values):
         if not field in self._fields:
             self._fields[field] = []
-        self._fields[field] = MsgProperties.EnumInvariant(values)
+        self._fields[field].append(MsgProperties.EnumInvariant(values))
+
+    def parse(self, field, property):
+        if not field in self._fields:
+            self._fields[field] = []
+        r = self._parse_enum(property)
+        if r is None:
+            raise ValueError("unknown property: " + property)
+        self._fields[field].append(r)
 
     def parse_invariants(self, msg_class):
         for line in msg_class._full_text.splitlines():
@@ -232,15 +243,38 @@ class MsgProperties(object):
                 field = match.group(1)
                 prop = match.group(2).strip()
 
-    def _parse_enum(self, text):
-        if not text.startswith("enum{"):
+    def strategy(self, field, msg_class):
+        enums = [p for p in self._fields[field]
+                   if isinstance(p, MsgProperties.EnumInvariant)]
+        if not enums:
             return None
-        if text[-1] != "}":
-            raise PropertySyntaxError("enum must end with '}'")
-        values_text = text[5:-1]
-        # values separated by comma
+        if len(enums) > 1:
+            raise ValueError("cannot declare multiple enums for the same field.")
+        return enums[0].strategy(msg_class)
+
+    def _parse_enum(self, text):
+        if not text.startswith("enum("):
+            return None
+        if text[-1] != ")":
+            raise PropertySyntaxError("enum must end with ')'")
+        values = re.split(self.VALUE_SEP, text[5:-1])
         # values must match the field type
         # values can be either ints, strings or constants of one such type
+        for i in xrange(len(values)):
+            value = self._parse_value(values[i])
+            if value is None:
+                raise ValueError("invalid value: " + values[i])
+            values[i] = value
+        return MsgProperties.EnumInvariant(values)
+
+    def _parse_value(self, text):
+        if self.CONSTANT.match(text):
+            return MsgProperties.ConstantReference(text)
+        try: 
+            return int(text)
+        except ValueError:
+            pass
+        return None
 
     class FieldReference(object):
         def __init__(self, field):
@@ -253,12 +287,24 @@ class MsgProperties(object):
         def __init__(self, constant):
             self.constant = constant
 
+        def strategy(self, msg_class):
+            return getattr(msg_class, self.constant)
+
         def __str__(self):
             return self.constant
 
     class EnumInvariant(object):
         def __init__(self, values):
             self.values = values
+
+        def strategy(self, msg_class):
+            values = []
+            for value in self.values:
+                if hasattr(value, "strategy"):
+                    values.append(value.strategy(msg_class))
+                else:
+                    values.append(value)
+            return "strategies.sampled_from({})".format(values)
 
         def __str__(self):
             return "strategies.sampled_from({})".format(self.values)
@@ -331,9 +377,7 @@ class MsgStrategyGenerator(LoggingObject):
         return msg_class
 
     def _gen_from_class(self, msg_class, type_name):
-        invariants = {}
-        if type_name in self.invariants:
-            invariants = self.invariants[type_name]._fields
+        invariants = self.invariants.get(type_name, MsgProperties(type_name))
         function_name = self._make_strategy_name(type_name)
         text = ("@strategies.composite\ndef " + function_name
                 + "(draw):\n    msg = "
@@ -347,12 +391,14 @@ class MsgStrategyGenerator(LoggingObject):
                         self._make_strategy_name(base_type))
             if is_array:
                 if base_type == "uint8":
-                    text += "draw(ros_uint8_array(length=" + str(length) + "))\n"
+                    text += "draw(ros_uint8_array(length=" + str(length)
+                    text += "))\n"
                 else:
                     text += ("draw(ros_array(" + strategy
                              + ", length=" + str(length) + "))\n")
-            elif field_name in invariants:
-                text += "draw(" + str(invariants[field_name]) + ")\n"
+            elif field_name in invariants._fields:
+                text += "draw(" + invariants.strategy(field_name, msg_class)
+                text += ")\n"
             else:
                 text += "draw(" + strategy + "())\n"
             if not base_type in self.strategy_names:
@@ -380,11 +426,12 @@ class TestScriptGenerator(LoggingObject):
     def set_invariants(self, invariants):
         for msg_type, invs in invariants.iteritems():
             msg_properties = MsgProperties(msg_type)
-            if isinstance(invs, list):
-                for inv in invs:
-                    msg_properties.parse(inv)
-            else:
-                msg_properties.parse(invs)
+            for field_name, props in invs.iteritems():
+                if isinstance(props, list):
+                    for prop in props:
+                        msg_properties.parse(field_name, prop)
+                else:
+                    msg_properties.parse(field_name, props)
             self.msg_gen.set_invariants(msg_properties)
 
     def gen(self):
