@@ -27,6 +27,7 @@
 from collections import deque
 import importlib
 import logging
+import os
 import re
 
 from genmsg.msgs import parse_type
@@ -138,10 +139,10 @@ SETTINGS_TEMPLATE = """
 def define_settings(state):
     s = TestSettings()
     s.expected_rate = 10 # hz
-    {launches}
-    {nodes}
-    {pubs}
-    {subs}
+{launches}
+{nodes}
+{pubs}
+{subs}
     s.on_setup = state.on_setup
     return s
 
@@ -420,7 +421,7 @@ class MsgStrategyGenerator(LoggingObject):
 
 class TestScriptGenerator(LoggingObject):
     def __init__(self, configuration):
-        self.config = configuration
+        self.configuration = configuration
         self.msg_gen = MsgStrategyGenerator()
 
     def set_invariants(self, invariants):
@@ -441,20 +442,22 @@ class TestScriptGenerator(LoggingObject):
         if not pubbed_topics and not subbed_topics:
             raise RuntimeError("There are no topics to test.")
         for topic in pubbed_topics:
-            msg_gen.add_import(topic.type)
+            self.msg_gen.add_import(topic.type)
         for topic in subbed_topics:
-            msg_gen.gen(topic.type)
+            self.msg_gen.gen(topic.type)
         text = BASIC_IMPORTS
-        text += "\n".join(msg_gen.get_imports())
+        text += "\n".join(self.msg_gen.get_imports())
         text += "\n\n" + BASIC_TYPES
-        text += "\n".join(msg_gen.get_strategies())
+        text += "\n".join(self.msg_gen.get_strategies())
         text += "\n" + SETTINGS_TEMPLATE.format(
             launches=self._get_launch_entries(),
             nodes=self._get_node_entries(),
             pubs=self._get_publisher_entries(pubbed_topics),
             subs=self._get_subscriber_entries(subbed_topics)
         )
-        text += "\n\n" + STATE_TEMPLATE.format(self._get_msg_callbacks())
+        text += "\n\n" + STATE_TEMPLATE.format(
+                    self._get_msg_callbacks(pubbed_topics, subbed_topics)
+                )
         text += MAIN_PROGRAM_TEXT
         return text
 
@@ -491,7 +494,7 @@ class TestScriptGenerator(LoggingObject):
         return "\n".join(SUB_ENTRY.format(
                             topic=t.rosname.full,
                             msg_class=self.msg_gen._msg_class_name(t.type),
-                            strategy=self.msg_gen.strategy_names[t.type]
+                            strategy=self.msg_gen.strategy_names[t.type],
                             cb=self._callback_name(t.rosname.full))
                          for t in topics)
 
