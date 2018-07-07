@@ -520,8 +520,12 @@ def make_test_script(configuration, test_data, outdir):
         gen.set_invariants(data.get("invariants", {}))
         # include = data.get("include", {})
         # exclude = data.get("exclude", {})
-        with open(os.path.join(outdir, test_name), "w") as f:
+        path = os.path.join(outdir, test_name)
+        with open(path, "w") as f:
             f.write(gen.gen())
+        mode = os.stat(path).st_mode
+        mode |= (mode & 0o444) >> 2
+        os.chmod(path, mode)
         with open(os.path.join(outdir, test_name + ".launch"), "w") as f:
             f.write(LAUNCH_FILE_TEMPLATE.format(pkg=data.get("package", ""),
                                                 script=test_name))
