@@ -222,6 +222,10 @@ class HarosLauncher(object):
             raise ValueError("Not a directory: " + args.data_dir)
         if not os.path.isfile(args.project_file):
             raise ValueError("Not a file: " + args.package_index)
+        if args.ws:
+            if not os.path.isdir(args.ws):
+                raise ValueError("Not a directory: " + args.ws)
+            settings.workspace = args.ws
         parse = HarosParseRunner(self.HAROS_DIR, args.project_file,
                                  args.data_dir, log = self.log,
                                  run_from_source = self.run_from_source,
@@ -345,6 +349,7 @@ class HarosLauncher(object):
                             help = "use a copy of current environment")
         parser.add_argument("-d", "--data-dir",
                             help = "load/export using the given directory")
+        parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
         parser.set_defaults(command = self.command_parse)
