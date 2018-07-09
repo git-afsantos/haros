@@ -217,6 +217,20 @@ class HarosLauncher(object):
                                    settings = settings)
         return gen.run()
 
+    def command_parse(self, args, settings):
+        if args.data_dir and not os.path.isdir(args.data_dir):
+            raise ValueError("Not a directory: " + args.data_dir)
+        if not os.path.isfile(args.project_file):
+            raise ValueError("Not a file: " + args.package_index)
+        parse = HarosParseRunner(self.HAROS_DIR, args.project_file,
+                                 args.data_dir, log = self.log,
+                                 run_from_source = self.run_from_source,
+                                 use_repos = args.use_repos,
+                                 copy_env = args.env,
+                                 use_cache = not args.no_cache,
+                                 settings = settings)
+        return analyse.run()
+
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
                                 description = "ROS quality assurance.")
@@ -231,6 +245,7 @@ class HarosLauncher(object):
         self._export_parser(subparsers.add_parser("export"))
         self._viz_parser(subparsers.add_parser("viz"))
         self._make_tests_parser(subparsers.add_parser("make_tests"))
+        self._parse_parser(subparsers.add_parser("parse"))
         return parser.parse_args(argv)
 
     def _init_parser(self, parser):
@@ -318,6 +333,21 @@ class HarosLauncher(object):
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
         parser.set_defaults(command = self.command_make_tests)
+
+    def _parse_parser(self, parser):
+        parser.add_argument("-r", "--use-repos", action = "store_true",
+                            help = "use repository information")
+        parser.add_argument("-p", "--project-file",
+                            default = self.DEFAULT_INDEX,
+                            help = ("package index file (default: "
+                                    "packages below current dir)"))
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
+        parser.add_argument("-d", "--data-dir",
+                            help = "load/export using the given directory")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
+        parser.set_defaults(command = self.command_parse)
 
 
 ###############################################################################
@@ -652,7 +682,26 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
 
 ###############################################################################
-#   HAROS Command Runner (make-tests)
+#   HAROS Command Runner (parse)
+###############################################################################
+
+class HarosParseRunner(HarosAnalyseRunner):
+    def __init__(self, haros_dir, project_file, data_dir, log = None,
+                 run_from_source = False, use_repos = False,
+                 copy_env = False, use_cache = True, settings = None):
+        HarosAnalyseRunner.__init__(
+            self, haros_dir, project_file, data_dir, [], [], parse_nodes = True,
+            copy_env = copy_env, use_cache = use_cache, settings = settings
+        )
+
+    def _load_definitions_and_plugins(self):
+        print "[HAROS] Loading common definitions..."
+        self.database.load_definitions(self.definitions_file)
+        return ()
+
+
+###############################################################################
+#   HAROS Command Runner (make_tests)
 ###############################################################################
 
 class HarosMakeTestsRunner(HarosRunner):
