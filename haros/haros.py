@@ -233,7 +233,7 @@ class HarosLauncher(object):
                                  copy_env = args.env,
                                  use_cache = not args.no_cache,
                                  settings = settings)
-        return analyse.run()
+        return parse.run()
 
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
