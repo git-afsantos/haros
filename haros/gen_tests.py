@@ -463,16 +463,24 @@ class TestScriptGenerator(LoggingObject):
 
     def _get_published_topics(self):
         topics = []
-        for topic in self.configuration.topics:
+        for topic in self.configuration.topics.enabled:
             if topic.publishers and not topic.subscribers:
-                topics.append(topic)
+                if topic.unresolved:
+                    self.log.warning("Skipping unresolved topic %s (%s).",
+                                     topic.rosname.full, self.configuration.name)
+                else:
+                    topics.append(topic)
         return topics
 
     def _get_subscribed_topics(self):
         topics = []
-        for topic in self.configuration.topics:
+        for topic in self.configuration.topics.enabled:
             if topic.subscribers and not topic.publishers:
-                topics.append(topic)
+                if topic.unresolved:
+                    self.log.warning("Skipping unresolved topic %s (%s).",
+                                     topic.rosname.full, self.configuration.name)
+                else:
+                    topics.append(topic)
         return topics
 
     def _get_launch_entries(self):
