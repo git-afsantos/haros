@@ -681,7 +681,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
                 with open(parse_cache, "w") as f:
-                    json.dump(node_cache, f)
+                    json.dump(node_cache, f, indent=2, separators=(",", ":"))
             except IOError as e:
                 self.log.warning("Could not save parsing cache: %s", e)
 
@@ -745,7 +745,7 @@ class HarosMakeTestsRunner(HarosRunner):
                 node_cache[node.node_name] = node.to_JSON_object()
             try:
                 with open(parse_cache, "w") as f:
-                    json.dump(node_cache, f)
+                    json.dump(node_cache, f, indent=2, separators=(",", ":"))
             except IOError as e:
                 self.log.warning("Could not save parsing cache: %s", e)
         self.database = None
