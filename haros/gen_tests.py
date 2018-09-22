@@ -172,7 +172,6 @@ class InternalState(object):
 
     def on_setup(self):
         pass
-
 {}
 
 """
@@ -495,7 +494,7 @@ class TestScriptGenerator(LoggingObject):
         return "\n".join(PUB_ENTRY.format(
                             topic=t.rosname.full,
                             msg_class=self.msg_gen._msg_class_name(t.type),
-                            cb=self._callback_name(t.rosname.full))
+                            cb=self._callback_name(t.rosname.full, "sub"))
                          for t in topics)
 
     def _get_subscriber_entries(self, topics):
@@ -503,23 +502,23 @@ class TestScriptGenerator(LoggingObject):
                             topic=t.rosname.full,
                             msg_class=self.msg_gen._msg_class_name(t.type),
                             strategy=self.msg_gen.strategy_names[t.type],
-                            cb=self._callback_name(t.rosname.full))
+                            cb=self._callback_name(t.rosname.full, "pub"))
                          for t in topics)
 
     def _get_msg_callbacks(self, pubbed_topics, subbed_topics):
         callbacks = []
         for topic in pubbed_topics:
             callbacks.append(STATE_CALLBACK.format(
-                self._callback_name(topic.rosname.full)
+                self._callback_name(topic.rosname.full, "sub")
             ))
         for topic in subbed_topics:
             callbacks.append(STATE_CALLBACK.format(
-                self._callback_name(topic.rosname.full)
+                self._callback_name(topic.rosname.full, "pub")
             ))
         return "\n".join(callbacks)
 
-    def _callback_name(self, topic):
-        return "on" + topic.replace("/", "_")
+    def _callback_name(self, topic, comm_type):
+        return "on_" + comm_type + "_" + topic.replace("/", "_")
 
 
 def make_test_script(configuration, test_data, outdir):
