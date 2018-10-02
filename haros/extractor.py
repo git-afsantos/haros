@@ -208,6 +208,8 @@ class ProjectExtractor(LoggingObject):
     def _find_nodes(self, settings):
         pkgs = {pkg.name: pkg for pkg in self.project.packages}
         ws = settings.workspace if settings else None
+        if CppAstParser is None:
+            self.log.warning("C++ AST parser not found.")
         extractor = NodeExtractor(pkgs, self.environment, ws = ws,
                                   node_cache = self.node_cache,
                                   parse_nodes = self.parse_nodes)
@@ -761,6 +763,7 @@ class NodeExtractor(LoggingObject):
             node = self.package.nodes[i]
             self.log.debug("Extracting primitives for node %s", node.id)
             if not node.source_tree is None:
+                self.log.debug("Node already has a source tree. Skipped.")
                 continue
             if node.node_name in self.node_cache:
                 self.log.debug("Using Node %s from cache.", node.node_name)
@@ -779,6 +782,8 @@ class NodeExtractor(LoggingObject):
                 self.log.warning("no source files for node " + node.id)
             if node.language == "cpp" and not CppAstParser is None:
                 self._roscpp_analysis(node)
+            elif node.language != "cpp":
+                self.log.debug("Node written in %s.", node.language)
 
     def _roscpp_analysis(self, node):
         self.log.debug("Parsing C++ files for node %s", node.id)
