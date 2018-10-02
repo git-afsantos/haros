@@ -140,7 +140,7 @@ class HarosLauncher(object):
         try:
             if not os.path.isdir(self.HAROS_DIR):
                 print "[HAROS] It seems this is a first run."
-                self.command_init(args)
+                self.command_init(args, HarosSettings())
             try:
                 settings = HarosSettings.parse_from(self.USER_SETINGS)
             except IOError:
