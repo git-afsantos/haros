@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.0.4] - 2018-03-08
+### Changed
+- Fixed a bug crashing first-time runs.
+
 ## [3.0.2] - 2018-03-08
 ### Changed
 - Fixed a bug preventing the `full` command from working.
