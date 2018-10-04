@@ -627,6 +627,9 @@ class PackageParser(LoggingObject):
             elif value == "bugtracker":
                 if el.text:
                     package.bug_url = el.text.strip()
+        el = xml.find("version")
+        if not el is None:
+            package.version = el.text.strip()
 
     @staticmethod
     def _parse_export(xml, package):

@@ -391,6 +391,7 @@ class Package(SourceObject):
         self.maintainers        = set()
         self.is_metapackage     = False
         self.description        = ""
+        self.version            = "0.0.0"
         self.licenses           = set()
         self.website            = None
         self.vcs_url            = None
@@ -435,6 +436,7 @@ class Package(SourceObject):
             "name": self.name,
             "metapackage": self.is_metapackage,
             "description": self.description,
+            "version": self.version,
             "wiki": self.website,
             "repository": self.vcs_url,
             "bugTracker": self.bug_url,
