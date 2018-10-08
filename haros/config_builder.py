@@ -44,6 +44,7 @@ import yaml
 
 rosparam = None # lazy import
 
+from .extractor import HardcodedNodeParser
 from .launch_parser import SubstitutionError, SubstitutionParser
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
@@ -851,7 +852,10 @@ class ConfigurationBuilder(LoggingObject):
         node = self.sources.nodes.get("node:" + pkg + "/" + exe)
         package = self.sources.packages.get("package:" + pkg)
         if not package:
-            raise ConfigurationError("cannot find package: " + pkg)
+            assert not node
+            node = HardcodedNodeParser.get(pkg, exe)
+            if not node:
+                raise ConfigurationError("cannot find package: " + pkg)
         if not node:
             node = Node(exe, package, rosname = RosName("?"), nodelet = exe)
         return node

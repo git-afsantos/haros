@@ -20,6 +20,7 @@ def package_files(directory):
 
 extra_files = package_files("harosviz")
 extra_files.append("*.yaml")
+extra_files.append("models/*.yaml")
 
 
 setup(

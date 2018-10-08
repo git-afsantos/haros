@@ -511,6 +511,7 @@ class PackageExtractor(LoggingObject):
         else:
             self.altpack = RosPack.get_instance(alt_paths)
             self.altstack = RosStack.get_instance(alt_paths)
+        self._pkg_cache = {}
 
     # Note: this method messes with private variables of the RosPack
     # class. This is needed because, at some point, we download new
@@ -522,6 +523,21 @@ class PackageExtractor(LoggingObject):
         self.altpack._location_cache = None
         self.rosstack._location_cache = None
         self.altstack._location_cache = None
+
+    # To use with LaunchParser.
+    def get(self, pkg_id):
+        if pkg_id in self._pkg_cache:
+            return self._pkg_cache[pkg_id]
+        for pkg in self.packages:
+            if pkg.id == pkg_id:
+                self._pkg_cache[pkg_id] = pkg
+                return pkg
+        try:
+            assert pkg_id.startswith("package:")
+            pkg = self._find(pkg_id[8:], None)
+        except (IOError, ET.ParseError, ResourceNotFound):
+            return None
+        return pkg
 
     def find_package(self, name, project = None):
         try:
@@ -561,8 +577,8 @@ class PackageExtractor(LoggingObject):
             self.log.debug("Package %s has no path", pkg.name)
             return
         self.log.info("Indexing source files for package %s", pkg.name)
-        pkgs = {pkg.id: pkg for pkg in self.packages}
-        launch_parser = LaunchParser(pkgs = pkgs)
+        #pkgs = {pkg.id: pkg for pkg in self.packages}
+        launch_parser = LaunchParser(pkgs = self)
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown = True):
             subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]
@@ -665,6 +681,95 @@ class PackageParser(LoggingObject):
                 name = el.text.strip()
                 if name:
                     package.dependencies.packages.add(name)
+
+
+###############################################################################
+# Hard-coded Node Parser
+###############################################################################
+
+class HardcodedNodeParser(LoggingObject):
+    model_dir = None
+    distro = None
+    _cache = {}
+
+    @classmethod
+    def get(cls, pkg, node_type):
+        cls.log.debug("Fetching hard-coded node: (%s, %s, %s)",
+                      pkg, node_type, cls.distro)
+        node_id = "node:" + pkg + "/" + node_type
+        if node_id in cls._cache:
+            cls.log.debug("Node already in cache.")
+            return cls._cache[node_id]
+        filename = os.path.join(cls.model_dir, pkg + ".yaml")
+        try:
+            with open(filename) as handle:
+                data = yaml.load(handle)
+        except IOError as e:
+            cls.log.debug("YAML file not found: %s", filename)
+            return None
+        if not cls.distro in data:
+            cls.log.debug("Package has no data for ROS %s.", cls.distro)
+            return None
+        if not node_type in data[cls.distro]:
+            cls.log.debug("Node does not exist for ROS %s.", cls.distro)
+            return None
+        cls.log.debug("Building node from YAML data.")
+        node = cls._build_node(node_type, cls.distro, Package(pkg), data)
+        cls._cache[node_id] = node
+        return node
+
+    @classmethod
+    def _build_node(cls, node_type, distro, pkg, data):
+        node_data = data[distro][node_type]
+        base = node_data.get("base")
+        if base:
+            node = cls._build_node(node_type, base, pkg, data)
+        else:
+            node = Node(node_type, pkg, rosname = node_data.get("rosname"),
+                        nodelet = node_type if node_data["nodelet"] else None)
+        for datum in node_data.get("advertise", ()):
+            pub = Publication(datum["name"], datum["namespace"],
+                              datum["type"], datum["queue"],
+                              control_depth = datum["depth"],
+                              repeats = datum["repeats"],
+                              conditions = datum["conditions"])
+            node.advertise.append(pub)
+        for datum in node_data.get("subscribe", ()):
+            sub = Subscription(datum["name"], datum["namespace"],
+                              datum["type"], datum["queue"],
+                              control_depth = datum["depth"],
+                              repeats = datum["repeats"],
+                              conditions = datum["conditions"])
+            node.subscribe.append(sub)
+        for datum in node_data.get("service", ()):
+            srv = ServiceServerCall(datum["name"], datum["namespace"],
+                                    datum["type"],
+                                    control_depth = datum["depth"],
+                                    repeats = datum["repeats"],
+                                    conditions = datum["conditions"])
+            node.service.append(srv)
+        for datum in node_data.get("client", ()):
+            cli = ServiceClientCall(datum["name"], datum["namespace"],
+                                    datum["type"],
+                                    control_depth = datum["depth"],
+                                    repeats = datum["repeats"],
+                                    conditions = datum["conditions"])
+            node.client.append(cli)
+        for datum in node_data.get("readParam", ()):
+            par = ReadParameterCall(datum["name"], datum["namespace"],
+                                    datum["type"],
+                                    control_depth = datum["depth"],
+                                    repeats = datum["repeats"],
+                                    conditions = datum["conditions"])
+            node.read_param.append(par)
+        for datum in node_data.get("writeParam", ()):
+            par = WriteParameterCall(datum["name"], datum["namespace"],
+                                    datum["type"],
+                                    control_depth = datum["depth"],
+                                    repeats = datum["repeats"],
+                                    conditions = datum["conditions"])
+            node.write_param.append(par)
+        return node
 
 
 ###############################################################################
