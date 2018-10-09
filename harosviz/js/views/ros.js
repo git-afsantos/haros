@@ -587,8 +587,8 @@ THE SOFTWARE.
         onDrag: function (node) {
             if (this.allowDrag) {
                 var i, edges = this.graph.nodeEdges(node.model.id);
-                node.x = node.dragx;
-                node.y = node.dragy;
+                node.x = Math.ceil(node.dragx / 16.0) * 16;
+                node.y = Math.ceil(node.dragy / 16.0) * 16;
                 node.render();
                 for (i = edges.length; i--;)
                     this.graph.edge(edges[i]).render();
