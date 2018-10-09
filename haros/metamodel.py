@@ -834,6 +834,7 @@ class NodeInstance(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.node.node_name,
             "args": self.argv,
@@ -891,6 +892,7 @@ class Topic(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "conditions": [c.to_JSON_object() for c in self.conditions],
@@ -956,6 +958,7 @@ class Service(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "conditions": [c.to_JSON_object() for c in self.conditions],
@@ -1031,6 +1034,7 @@ class Parameter(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "value": self.value,
@@ -1070,6 +1074,14 @@ class ResourceCollection(object):
                 if conditional or not resource.conditions:
                     return resource
         return None
+
+    def get_all(self, name, conditional = True):
+        resources = []
+        for resource in self.all:
+            if resource.id == name:
+                if conditional or not resource.conditions:
+                    resources.append(resource)
+        return resources
 
     def get_collisions(self):
         return len(self.all) - len(self.counter)
@@ -1186,6 +1198,7 @@ class RosPrimitive(MetamodelObject):
     def to_JSON_object(self):
         return {
             "node": self.node.rosname.full,
+            "node_uid": str(id(self.node)),
             "name": self.rosname.full,
             "location": (self.source_location.to_JSON_object()
                          if self.source_location else None),
@@ -1209,6 +1222,7 @@ class TopicPrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["topic"] = self.topic_name
+        data["topic_uid"] = str(id(self.topic))
         data["type"] = self.type
         data["queue"] = self.queue_size
         return data
@@ -1264,6 +1278,7 @@ class ServicePrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["service"] = self.topic_name
+        data["service_uid"] = str(id(self.service))
         data["type"] = self.type
         return data
 
@@ -1318,6 +1333,7 @@ class ParameterPrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["param"] = self.param_name
+        data["param_uid"] = str(id(self.parameter))
         data["type"] = self.type
         return data
 

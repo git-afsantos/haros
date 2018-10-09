@@ -292,6 +292,13 @@ class LaunchScope(LoggingObject):
                 links.append(TopicPrimitive(self.node, new, rtype, call_name,
                                             queue, conditions = conditions,
                                             location = source_location))
+        elif rosname.is_unresolved:
+            for topic in collection.get_all(rosname.full):
+                if topic.type == rtype:
+                    links.append(TopicPrimitive(self.node, topic, rtype,
+                            call_name, queue, conditions = conditions,
+                            location = source_location))
+                    break
         else:
             topic = collection.get(rosname.full)
             if not topic is None:
@@ -329,6 +336,13 @@ class LaunchScope(LoggingObject):
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
                                               conditions = conditions,
                                               location = source_location))
+        elif rosname.is_unresolved:
+            for srv in collection.get_all(rosname.full):
+                if srv.type == rtype:
+                    links.append(ServicePrimitive(self.node, srv, rtype,
+                            call_name, conditions = conditions,
+                            location = source_location))
+                    break
         else:
             srv = collection.get(rosname.full)
             if not srv is None:
