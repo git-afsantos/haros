@@ -22,7 +22,94 @@
 indigo:
     state_publisher:
         nodelet: false
-        advertise: []
+        advertise:
+            -
+                name: "/tf_static"
+                type: tf2_msgs/TFMessage
+                namespace: ""
+                queue: 100
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "/tf"
+                type: tf2_msgs/TFMessage
+                namespace: ""
+                queue: 100
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        subscribe:
+            -
+                name: "joint_states"
+                type: sensor_msgs/JointState
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        service: []
+        client: []
+        readParam:
+            -
+                name: "robot_description"
+                type: string
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "tf_prefix"
+                type: string
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "publish_frequency"
+                type: double
+                default: 50
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "use_tf_static"
+                type: bool
+                default: false
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        writeParam: []
+    robot_state_publisher:
+        nodelet: false
+        advertise:
+            -
+                name: "/tf_static"
+                type: tf2_msgs/TFMessage
+                namespace: ""
+                queue: 100
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "/tf"
+                type: tf2_msgs/TFMessage
+                namespace: ""
+                queue: 100
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
         subscribe:
             -
                 name: "joint_states"
@@ -93,9 +180,34 @@ kinetic:
                 location: null
                 repeats: false
                 conditions: []
+    robot_state_publisher:
+        base: indigo
+        readParam:
+            -
+                name: "use_tf_static"
+                type: bool
+                default: true
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "ignore_timestamp"
+                type: bool
+                default: false
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
 lunar:
     state_publisher:
         base: kinetic
+    robot_state_publisher:
+        base: kinetic
 melodic:
     state_publisher:
+        base: kinetic
+    robot_state_publisher:
         base: kinetic
