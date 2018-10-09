@@ -729,45 +729,47 @@ class HardcodedNodeParser(LoggingObject):
                         nodelet = node_type if node_data["nodelet"] else None)
         for datum in node_data.get("advertise", ()):
             pub = Publication(datum["name"], datum["namespace"],
-                              datum["type"], datum["queue"],
-                              control_depth = datum["depth"],
-                              repeats = datum["repeats"],
-                              conditions = datum["conditions"])
+                    datum["type"], datum["queue"],
+                    control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.advertise.append(pub)
         for datum in node_data.get("subscribe", ()):
             sub = Subscription(datum["name"], datum["namespace"],
-                              datum["type"], datum["queue"],
-                              control_depth = datum["depth"],
-                              repeats = datum["repeats"],
-                              conditions = datum["conditions"])
+                    datum["type"], datum["queue"],
+                    control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.subscribe.append(sub)
         for datum in node_data.get("service", ()):
             srv = ServiceServerCall(datum["name"], datum["namespace"],
-                                    datum["type"],
-                                    control_depth = datum["depth"],
-                                    repeats = datum["repeats"],
-                                    conditions = datum["conditions"])
+                    datum["type"], control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.service.append(srv)
         for datum in node_data.get("client", ()):
             cli = ServiceClientCall(datum["name"], datum["namespace"],
-                                    datum["type"],
-                                    control_depth = datum["depth"],
-                                    repeats = datum["repeats"],
-                                    conditions = datum["conditions"])
+                    datum["type"], control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.client.append(cli)
         for datum in node_data.get("readParam", ()):
             par = ReadParameterCall(datum["name"], datum["namespace"],
-                                    datum["type"],
-                                    control_depth = datum["depth"],
-                                    repeats = datum["repeats"],
-                                    conditions = datum["conditions"])
+                    datum["type"], control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.read_param.append(par)
         for datum in node_data.get("writeParam", ()):
             par = WriteParameterCall(datum["name"], datum["namespace"],
-                                    datum["type"],
-                                    control_depth = datum["depth"],
-                                    repeats = datum["repeats"],
-                                    conditions = datum["conditions"])
+                    datum["type"], control_depth = datum["depth"],
+                    repeats = datum["repeats"],
+                    conditions = [SourceCondition(c)
+                                  for c in datum["conditions"]])
             node.write_param.append(par)
         return node
 
