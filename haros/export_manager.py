@@ -74,8 +74,8 @@ class JsonExporter(LoggingObject):
             packages = packages.viewvalues()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f,
-                      indent=2, separators=(",", ":"))
+            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages],
+                      f, indent=2, separators=(",", ":"))
 
     def export_rules(self, datadir, rules):
         self.log.info("Exporting analysis rules.")

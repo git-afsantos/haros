@@ -98,7 +98,7 @@ class ProjectExtractor(LoggingObject):
         self._topological_sort()
         for name in self.missing:
             self.log.warning("Could not find package " + name)
-        self._populate_packages()
+        self._populate_packages_and_dependencies()
         self._update_node_cache()
         self._find_nodes(settings)
 
@@ -175,7 +175,7 @@ class ProjectExtractor(LoggingObject):
             pkg.topological_tier = -1
             dependencies[pkg.id] = set(p for p in pkg.dependencies.packages
                                        if p in self.packages)
-        tier = 0
+        tier = 1
         emitted = []
         while pending:
             next_pending = []
@@ -199,14 +199,27 @@ class ProjectExtractor(LoggingObject):
             tier += 1
         self.project.packages.sort(key = attrgetter("topological_tier", "id"))
 
-    def _populate_packages(self):
+    def _populate_packages_and_dependencies(self):
+        found = set()
         extractor = PackageExtractor()
         extractor.packages = self.project.packages
         for pkg in self.project.packages:
+            found.add(pkg.name)
             extractor._populate_package(pkg)
+        deps = extractor._extra
+        extractor._extra = []
+        while deps:
+            pkg = deps.pop()
+            assert not pkg.name in found
+            pkg._analyse = False
+            found.add(pkg.name)
+            self.project.packages.append(pkg)
+            extractor._populate_package(pkg)
+            deps.extend(extractor._extra)
+            extractor._extra = []
 
     def _find_nodes(self, settings):
-        pkgs = {pkg.name: pkg for pkg in self.project.packages}
+        pkgs = {pkg.name: pkg for pkg in self.project.packages if pkg._analyse}
         ws = settings.workspace if settings else None
         if CppAstParser is None:
             self.log.warning("C++ AST parser not found.")
@@ -227,7 +240,7 @@ class ProjectExtractor(LoggingObject):
                                               "compile_commands.json"))):
                     CppAstParser.set_database(settings.cpp_compile_db)
         for pkg in self.project.packages:
-            if not pkg.name in self.package_cache:
+            if pkg._analyse and not pkg.name in self.package_cache:
                 extractor.find_nodes(pkg)
 
     def _update_node_cache(self):
@@ -512,6 +525,7 @@ class PackageExtractor(LoggingObject):
             self.altpack = RosPack.get_instance(alt_paths)
             self.altstack = RosStack.get_instance(alt_paths)
         self._pkg_cache = {}
+        self._extra = []
 
     # Note: this method messes with private variables of the RosPack
     # class. This is needed because, at some point, we download new
@@ -535,13 +549,16 @@ class PackageExtractor(LoggingObject):
         try:
             assert pkg_id.startswith("package:")
             pkg = self._find(pkg_id[8:], None)
+            self._pkg_cache[pkg_id] = pkg
+            self._extra.append(pkg)
         except (IOError, ET.ParseError, ResourceNotFound):
             return None
         return pkg
 
-    def find_package(self, name, project = None):
+    def find_package(self, name, project = None, analyse = True):
         try:
             pkg = self._find(name, project)
+            pkg._analyse = analyse
             self.packages.append(pkg)
             if project:
                 project.packages.append(pkg)
@@ -587,7 +604,7 @@ class PackageExtractor(LoggingObject):
                 self.log.debug("Found file %s at %s", filename, path)
                 source = SourceFile(filename, path, pkg)
                 source.set_file_stats()
-                if source.language == "launch":
+                if pkg._analyse and source.language == "launch":
                     self.log.info("Parsing launch file: " + source.path)
                     try:
                         source.tree = launch_parser.parse(source.path)

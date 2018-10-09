@@ -45,7 +45,9 @@ import yaml
 rosparam = None # lazy import
 
 from .extractor import HardcodedNodeParser
-from .launch_parser import SubstitutionError, SubstitutionParser
+from .launch_parser import (
+    LaunchParser, LaunchParserError, SubstitutionError, SubstitutionParser
+)
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
     SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive
@@ -751,7 +753,9 @@ class ConfigurationBuilder(LoggingObject):
         if launch_file is None:
             raise ConfigurationError("cannot find launch file: " + filepath)
         if not launch_file.tree:
-            raise ConfigurationError("missing parse tree: " + launch_file.id)
+            self._parse_launch_on_the_fly(launch_file)
+            if not launch_file.tree:
+                raise ConfigurationError("cannot parse: " + launch_file.id)
         args = dict(scope.arguments) if pass_all_args else {}
         new_scope = scope.child(ns, condition, launch = launch_file,
                                 args = args)
@@ -847,7 +851,7 @@ class ConfigurationBuilder(LoggingObject):
         if value is None:
             # not sure if tag is part of the configuration
             return SourceCondition(condition[1], # UnresolvedValue
-                                   location = config.roslaunch[-1].location)
+                    location = self.configuration.roslaunch[-1].location)
         if value is condition[0]:
             # tag is part of the configuration
             return True
@@ -873,3 +877,14 @@ class ConfigurationBuilder(LoggingObject):
         if not node:
             node = Node(exe, package, rosname = RosName("?"), nodelet = exe)
         return node
+
+    def _parse_launch_on_the_fly(self, launch_file):
+        assert not launch_file.tree
+        assert launch_file.language == "launch"
+        launch_parser = LaunchParser(pkgs = self.sources.packages)
+        self.log.debug("Parsing launch file: " + launch_file.path)
+        try:
+            launch_file.tree = launch_parser.parse(launch_file.path)
+        except LaunchParserError as e:
+            self.log.warning("Parsing error in %s:\n%s",
+                             launch_file.path, str(e))

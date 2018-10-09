@@ -249,6 +249,7 @@ class SourceObject(MetamodelObject):
         self.id = id
         self.name = name
         self.dependencies = DependencySet()
+        self._analyse = True
 
     @property
     def location(self):
