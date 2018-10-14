@@ -21,11 +21,11 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is still being developed, as of March 2018.
+HAROS is still being developed, as of October 2018.
 
-There is a demo page available on [GitHub](https://git-afsantos.github.io/haros).
+There is a demo page available on [GitHub](https://git-afsantos.github.io/haros) and a demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
 
-Please use the issue tracker on this repository for issues or feature requests directly related with HAROS.
+Please use the issue tracker on this repository for issues or feature requests directly related to HAROS.
 For issues related to plugins, use the [plugin repository](https://github.com/git-afsantos/haros_plugins) instead.
 
 Installation
