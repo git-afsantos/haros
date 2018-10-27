@@ -99,7 +99,7 @@ from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase, HarosSettings
-from .extractor import ProjectExtractor
+from .extractor import ProjectExtractor, HardcodedNodeParser
 from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
@@ -413,6 +413,17 @@ class HarosRunner(object):
         elif empty:
             self._empty_dir(dir_path)
 
+    def _setup_lazy_node_parser(self):
+        if self.run_from_source:
+            HardcodedNodeParser.model_dir = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "models")
+            )
+        else:
+            HardcodedNodeParser.model_dir = resource_filename(
+                Requirement.parse("haros"), "haros/models"
+            )
+        HardcodedNodeParser.distro = os.environ.get("ROS_DISTRO", "kinetic")
+
 
 ###############################################################################
 #   HAROS Command Runner (init)
@@ -551,6 +562,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def run(self):
         self.database = HarosDatabase()
+        self._setup_lazy_node_parser()
         plugins = self._load_definitions_and_plugins()
         node_cache = {}
         if self.parse_nodes and self.use_cache:
@@ -695,8 +707,10 @@ class HarosParseRunner(HarosAnalyseRunner):
                  run_from_source = False, use_repos = False,
                  copy_env = False, use_cache = True, settings = None):
         HarosAnalyseRunner.__init__(
-            self, haros_dir, project_file, data_dir, [], [], parse_nodes = True,
-            copy_env = copy_env, use_cache = use_cache, settings = settings
+            self, haros_dir, project_file, data_dir, [], [], log = log,
+            run_from_source = run_from_source, use_repos = use_repos,
+            parse_nodes = True, copy_env = copy_env,
+            use_cache = use_cache, settings = settings
         )
 
     def _load_definitions_and_plugins(self):
@@ -728,6 +742,7 @@ class HarosMakeTestsRunner(HarosRunner):
 
     def run(self):
         self.database = HarosDatabase()
+        self._setup_lazy_node_parser()
         node_cache = {}
         parse_cache = os.path.join(self.root, "parse_cache.json")
         if self.use_cache:

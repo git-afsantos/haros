@@ -74,8 +74,8 @@ class JsonExporter(LoggingObject):
             packages = packages.viewvalues()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f,
-                      indent=2, separators=(",", ":"))
+            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages],
+                      f, indent=2, separators=(",", ":"))
 
     def export_rules(self, datadir, rules):
         self.log.info("Exporting analysis rules.")
@@ -197,24 +197,31 @@ class JsonExporter(LoggingObject):
         if isinstance(obj, Resource) and obj.configuration == config:
              return {
                 "name": obj.id,
+                "uid": str(id(obj)),
                 "resourceType": obj.resource_type
             }
         elif isinstance(obj, TopicPrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "topic": obj.topic.id,
+                "topic_uid": str(id(obj.topic)),
                 "resourceType": "link"
             }
         elif isinstance(obj, ServicePrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "service": obj.service.id,
+                "service_uid": str(id(obj.service)),
                 "resourceType": "link"
             }
         elif isinstance(obj, ParameterPrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "param": obj.parameter.id,
+                "param_uid": str(id(obj.parameter)),
                 "resourceType": "link"
             }
         return None
@@ -224,6 +231,7 @@ class JsonExporter(LoggingObject):
         data = {
             "id": pkg.name,
             "metapackage": pkg.is_metapackage,
+            "version": pkg.version,
             "description": pkg.description,
             "wiki": pkg.website,
             "repository": pkg.vcs_url,
