@@ -441,6 +441,7 @@ class HarosSettings(object):
         "cpp": {
             "parser": "clang",
             "parser_lib": "/usr/lib/llvm-3.8/lib",
+            "parser_lib_file": None,
             "std_includes": "/usr/lib/llvm-3.8/lib/clang/3.8.0/include",
             "compile_db": None  # path to file, None (default path) or False
         }
@@ -448,12 +449,13 @@ class HarosSettings(object):
 
     def __init__(self, env = None, blacklist = None, workspace = None,
                  cpp_parser = None, cpp_includes = None, cpp_parser_lib = None,
-                 cpp_compile_db = None):
+                 cpp_parser_lib_file = None, cpp_compile_db = None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
         self.workspace = workspace or self.find_workspace()
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
+        self.cpp_parser_lib_file = cpp_parser_lib_file or self.DEFAULTS["cpp"]["parser_lib_file"]
         self.cpp_includes = cpp_includes or self.DEFAULTS["cpp"]["std_includes"]
         self.cpp_compile_db = cpp_compile_db
         if cpp_compile_db is None:
@@ -479,10 +481,12 @@ class HarosSettings(object):
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
+        cpp_parser_lib_file = cpp.get("parser_lib_file")
         cpp_includes = cpp.get("std_includes")
         cpp_compile_db = cpp.get("compile_db")
         return cls(env = env, blacklist = blacklist, workspace = workspace,
                    cpp_parser = cpp_parser, cpp_parser_lib = cpp_parser_lib,
+                   cpp_parser_lib_file = cpp_parser_lib_file,
                    cpp_includes = cpp_includes, cpp_compile_db = cpp_compile_db)
 
     def find_workspace(self):
