@@ -711,6 +711,13 @@ class NodeExtractor(LoggingObject):
                     return os.path.abspath(os.path.join(path, os.pardir))
         raise KeyError("ROS_WORKSPACE")
 
+    def _catkin_includes(self):
+    # TODO: get them from ad-hoc catkin invocation
+        opt_ros_distro = next(iter([p for p in self._CMAKE_PREFIX_PATHs() if p.find("/opt/ros") != -1]), None)
+        return [os.path.join(self.workspace, "devel/include")] + \
+            ([os.path.join(opt_ros_distro, "include"), os.path.join(opt_ros_distro, "include/xmlrpcpp")] if opt_ros_distro else []) + \
+            ["/usr/include"]
+
     def _default_variables(self):
     # TODO: clean up these hardcoded values
         v = {}
@@ -788,7 +795,7 @@ class NodeExtractor(LoggingObject):
 
     def _roscpp_analysis(self, node):
         self.log.debug("Parsing C++ files for node %s", node.id)
-        parser = CppAstParser(workspace = self.workspace)
+        parser = CppAstParser(workspace = self.workspace, user_includes = self._catkin_includes())
         for sf in node.source_files:
             self.log.debug("Parsing C++ file %s", sf.path)
             if parser.parse(sf.path) is None:
