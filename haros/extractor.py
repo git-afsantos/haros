@@ -696,13 +696,15 @@ class NodeExtractor(LoggingObject):
         if self.parse_nodes:
             self._extract_primitives()
 
+    def _CMAKE_PREFIX_PATHs(self):
+        return self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+
     def _find_workspace(self):
         """This replicates the behaviour of `roscd`."""
         ws = self.environment.get("ROS_WORKSPACE")
         if ws:
             return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
-        for path in paths:
+        for path in self._CMAKE_PREFIX_PATHs():
             if os.path.exists(os.path.join(path, ".catkin")):
                 if (path.endswith(os.sep + "devel")
                         or path.endswith(os.sep + "install")):
