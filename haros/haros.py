@@ -365,6 +365,7 @@ class HarosInitRunner(HarosRunner):
             " # cpp:\n"
             # " #    parser: clang,\n"
             " #    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            " #    parser_lib_file: '/usr/lib/llvm-3.8/lib/libclang.so'\n"
             " #    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
             " #    compile_db: '/path/to/ws/build'\n"
         ),
