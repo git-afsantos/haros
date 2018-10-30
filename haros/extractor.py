@@ -218,7 +218,11 @@ class ProjectExtractor(LoggingObject):
                 if os.path.isfile(os.path.join(db_dir, "compile_commands.json")):
                     CppAstParser.set_database(db_dir)
             else:
-                CppAstParser.set_library_path(settings.cpp_parser_lib)
+                #library file if given explicitly, otherwise path
+                if settings.cpp_parser_lib_file:
+                    CppAstParser.set_library_file(settings.cpp_parser_lib_file)
+                else:
+                    CppAstParser.set_library_path(settings.cpp_parser_lib)
                 CppAstParser.set_standard_includes(settings.cpp_includes)
                 db_dir = settings.cpp_compile_db
                 if (db_dir and os.path.isfile(os.path.join(db_dir,
