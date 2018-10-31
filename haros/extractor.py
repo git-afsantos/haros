@@ -769,13 +769,13 @@ class NodeExtractor(LoggingObject):
             self.nodes.append(node)
             self.package.nodes.append(node)
 
-    def _extract_primitives(self):
+    def _extract_primitives(self, force_when_cached=False):
         for i in xrange(len(self.package.nodes)):
             node = self.package.nodes[i]
             self.log.debug("Extracting primitives for node %s", node.id)
             if not node.source_tree is None:
                 continue
-            if node.node_name in self.node_cache:
+            if (node.node_name in self.node_cache) and not force_when_cached:
                 self.log.debug("Using Node %s from cache.", node.node_name)
                 node = self.node_cache[node.node_name]
                 assert node.package is self.package
