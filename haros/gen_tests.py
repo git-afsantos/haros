@@ -419,9 +419,10 @@ class MsgStrategyGenerator(LoggingObject):
 ###############################################################################
 
 class TestScriptGenerator(LoggingObject):
-    def __init__(self, configuration):
+    def __init__(self, configuration, obs=False):
         self.configuration = configuration
         self.msg_gen = MsgStrategyGenerator()
+        self.observers = obs
 
     def set_invariants(self, invariants):
         for msg_type, invs in invariants.iteritems():
@@ -463,11 +464,14 @@ class TestScriptGenerator(LoggingObject):
     def _get_published_topics(self):
         topics = []
         for topic in self.configuration.topics.enabled:
-            if topic.publishers and not topic.subscribers:
-                if topic.unresolved:
-                    self.log.warning("Skipping unresolved topic %s (%s).",
-                                     topic.rosname.full, self.configuration.name)
-                else:
+            if topic.unresolved:
+                self.log.warning("Skipping unresolved topic %s (%s).",
+                                 topic.rosname.full, self.configuration.name)
+                continue
+            if topic.publishers:
+                if self.observers:
+                    topics.append(topic)
+                elif not topic.subscribers:
                     topics.append(topic)
         return topics
 
@@ -523,7 +527,8 @@ class TestScriptGenerator(LoggingObject):
 
 def make_test_script(configuration, test_data, outdir):
     for test_name, data in test_data.iteritems():
-        gen = TestScriptGenerator(configuration)
+        gen = TestScriptGenerator(configuration,
+                                  obs=data.get("observers", False))
         gen.set_invariants(data.get("invariants", {}))
         # include = data.get("include", {})
         # exclude = data.get("exclude", {})
