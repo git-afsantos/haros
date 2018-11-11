@@ -45,7 +45,7 @@ indigo:
         subscribe:
             -
                 name: "set_pose"
-                type: geometry_msgs::PoseWithCovarianceStamped
+                type: geometry_msgs/PoseWithCovarianceStamped
                 namespace: ""
                 queue: 1
                 depth: 0
