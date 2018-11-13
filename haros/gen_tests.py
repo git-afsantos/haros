@@ -108,7 +108,8 @@ def ros_uint8_array(length=None):
 
 @strategies.composite
 def ros_time(draw):
-    return rospy.Time(draw(ros_uint32()), draw(ros_uint32()))
+    s = strategies.integers(min_value=0, max_value=4294967295)
+    return rospy.Time(draw(s), draw(s))
 
 @strategies.composite
 def ros_duration(draw):
@@ -123,8 +124,8 @@ def ros_array(data_type, length=None):
 @strategies.composite
 def std_msgs_Header(draw):
     msg = Header()
-    msg.stamp = ros_time()
-    msg.frame_id = ros_string()
+    msg.stamp = draw(ros_time())
+    msg.frame_id = str(ros_string())
     # replace the previous line with the following for deterministic frame_id
     # msg.frame_id = strategies.sampled_from(("frame1", "frame2"))
     return msg
