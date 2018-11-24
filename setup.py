@@ -24,7 +24,7 @@ extra_files.append("*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.0.4",
+    version         = "3.0.5",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
@@ -36,12 +36,12 @@ setup(
     entry_points    = {"console_scripts": ["haros = haros.haros:main"]},
     package_data    = {"haros": extra_files},
     install_requires = [
-            "pyyaml",
-            "lizard",
-            "radon",
-            "rospkg",
-            "pylint",
-            "bonsai-code"
-      ],
+        "pyyaml",
+        "lizard",
+        "radon",
+        "rospkg",
+        "pylint",
+        "bonsai-code"
+    ],
     zip_safe        = True
 )

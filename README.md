@@ -105,6 +105,7 @@ uses behind the curtains. Install these *$dependencies$* with the following comm
 
 ```bash
 [sudo] apt-get install cppcheck
+[sudo] apt-get install cccc
 pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 ```
 
