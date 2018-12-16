@@ -39,6 +39,7 @@ setup(
     install_requires = [
         "pyyaml",
         "rospkg",
+        'python-magic',
         "bonsai-code>=0.4.10,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0"
     ],
