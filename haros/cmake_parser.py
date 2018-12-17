@@ -70,7 +70,9 @@ class CMakeGrammar(object):
     _reArgs = r"(?x) (?P<Args> (\S ((\s)*\S)*))"
 
     _reArg = r"""(?x) (?:
-                 (?:\\.|[^"'\s])+|
+                 \(|
+                 \)|
+                 (?:\\.|[^"'\s\(\)])+|
                  "(?:\\.|[^"\\])*"|
                  '(?:\\.|[^'\\])*')
              """
@@ -135,7 +137,7 @@ class CMakeGrammar(object):
             return (None, None, None)
         m = CMakeGrammar.reFullLine.match(line)
         if m is None:
-            raise IncompleteStatementError()
+            raise IncompleteStatementError(line)
         FuncName, Args, Comment = m.group("FuncName", "Args", "Comment")
         if Args is not None and re.search(r"\n", Args) is not None:
             units = re.findall(CMakeGrammar._reMLChunk, Args)
@@ -227,14 +229,8 @@ class ParseInput():
         if len(self._data) <= ln + 2:
             # we want 2 - one more text line, and the EOF sentinel
             raise InputExhaustedError()
-        newdata = self._data[:ln] + [self._data[ln] + "\n" + self._data[ln+1]]
-        newdata.extend(self._data[ln+2:])
-        # Make sure we didn't change anything - leave off end of file sentinel
-        old = "\n".join(self._data[:-1])
-        thenew = "\n".join(newdata[:-1])
-        assert old == thenew
-
-        self._data = newdata
+        next_line = self._data.pop(ln + 1)
+        self._data[ln] = self._data[ln] + "\n" + next_line
         return self._data[ln]
 
 
@@ -264,15 +260,15 @@ class CMakeParser():
             while True:
                 try:
                     func, args, comment = CMakeGrammar.parse_line(line)
-                except IncompleteStatementError:
+                except IncompleteStatementError as e:
                     try:
                         line = self.input.merge()
-                    except InputExhaustedError:
-                        raise IncompleteStatementError()
+                    except InputExhaustedError as iee:
+                        raise IncompleteStatementError(line)
                 else:
                     break
 
-            if startTag == None and isEnder(func):
+            if startTag is None and isEnder(func):
                 return block
             elif (func is not None and isEnder(func)
                     and not self.input.alreadyseen):
@@ -301,6 +297,7 @@ class CMakeParser():
             i += 1
         return (text[start+1:i-1], i)
 
+    # FIXME this may be useless now
     def split_paren_args(self, text):
         i = text.find("(")
         if i < 0:
@@ -398,7 +395,7 @@ class RosCMakeParser(object):
         self.parser.parse(cmakelists)
         for stmt in self.parser.parsetree:
             command = stmt[0].lower()
-            args = self.parser.split_paren_args(stmt[1]) if stmt[1] else []
+            args = CMakeGrammar.split_args(stmt[1]) if stmt[1] else []
             children = stmt[3]
             if command in self._CONTROL_FLOW and children:
                 self._analyse_control_flow(command, args, children)
@@ -424,7 +421,7 @@ class RosCMakeParser(object):
         if condition:
             for stmt in children:
                 child_command = stmt[0].lower()
-                child_args = self.parser.split_paren_args(stmt[1]) if stmt[1] else []
+                child_args = CMakeGrammar.split_args(stmt[1]) if stmt[1] else []
                 child_children = stmt[3]
                 if child_command in self._CONTROL_FLOW and child_children:
                     self._analyse_control_flow(child_command, child_args, child_children)
