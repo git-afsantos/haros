@@ -866,8 +866,7 @@ class HardcodedNodeParser(LoggingObject):
 ###############################################################################
 
 class NodeExtractor(LoggingObject):
-    def __init__(self, pkgs, env, ws = None, node_cache = None,
-                 parse_nodes = False):
+    def __init__(self, pkgs, env, ws=None, node_cache=None, parse_nodes=False):
         self.package = None
         self.packages = pkgs
         self.environment = env
@@ -1270,12 +1269,14 @@ class RoscppExtractor(LoggingObject):
         self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
 
     def _call_location(self, call):
-        source_file = None
-        if call.file:
-            for sf in self.package.source_files:
-                if sf.path == call.file:
-                    source_file = sf
-                    break
+        try:
+            source_file = next(
+                sf
+                for sf in self.package.source_files
+                if sf.path == call.file)
+        except StopIteration:
+            souce_file = None
+
         function = call.function
         if function:
             function = function.name
@@ -1345,6 +1346,103 @@ class RoscppExtractor(LoggingObject):
 
 
 class RospyExtractor(LoggingObject):
+    queue_size_pos = {
+        'publisher': 6,
+        'subsriber': 4,
+    }
+
+    @staticmethod
+    def get_arg(call, pos, name):
+        try:
+            return next(
+                keyword.value
+                for keyword in call.named_args
+                if keyword.name == name)
+        except StopIteration:
+            return call.arguments[pos]
+
+    @staticmethod
+    def invalid_call(call):
+        return (len(call.arguments) + len(call.named_args)
+                + bool(call.star_args) + bool(call.kw_args)) <= 1
+
+    @staticmethod
+    def split_ns_name(full_name):
+        ns, _, name = full_name.rpartition('/')
+        return ns, name
+
+    def _call_location(self, call):
+        try:
+            source_file = next(
+                sf
+                for sf in self.package.source_files
+                if sf.path == call.file)
+        except StopIteration:
+            souce_file = None
+
+        function = call.function
+        if function:
+            function = function.name
+        return Location(self.package, file=source_file, line=call.line,
+                        fun=function)
+
+    def _extract_queue_size(self, call):
+        pos = self.queue_size_pos[call.name.lower()]
+        return self.get_arg(call, pos, 'queue_size')
+
+    def _extract_message_type(self, call):
+        return self.get_arg(call, 1, 'data_class')
+
+    def _extract_topic(self, call):
+        name = resolve_expression(self.get_arg(call, 0, 'name'))
+        if not isinstance(name, basestring):
+            name = '?'
+        return self.split_ns_name(name)
+
+    def _on_publication(self, node, call):
+        if self.invalid_call(call):
+            return
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        pub = Publication(name, ns, msg_type, queue_size, location=location,
+                          control_depth=depth, conditions=conditions,
+                          repeats=is_under_loop(call, recursive=True))
+        node.advertise.append(pub)
+        self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
+
+    def _on_subscription(self, node, call):
+        if self.invalid_call(call):
+            return
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        sub = Subscription(name, ns, msg_type, queue_size, location=location,
+                           control_depth=depth, conditions=conditions,
+                           repeats=is_under_loop(call, recursive=True))
+        node.subscribe.append(sub)
+        self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
+
+    def _query_comm_primitives(self, node, gs):
+        for call in CodeQuery(gs).all_calls.where_name('Publisher').get():
+            self._on_publication(node, call)
+        for call in CodeQuery(gs).all_calls.where_name('Subscriber').get():
+            self._on_subscription(node, call)
+        # for call in (CodeQuery(gs).all_calls.where_name("advertiseService")
+        #              .where_result("ros::ServiceServer").get()):
+        #     self._on_service(node, self._resolve_node_handle(call), call)
+        # for call in (CodeQuery(gs).all_calls.where_name("serviceClient")
+        #              .where_result("ros::ServiceClient").get()):
+        #     self._on_client(node, self._resolve_node_handle(call), call)
+
     def __init__(self, package):
         self.package = package
 
