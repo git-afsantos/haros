@@ -527,7 +527,7 @@ class RosCMakeParser(object):
             i += 2
 
     def _process_link_libraries(self, args):
-        assert len(args) >= 2
+        assert len(args) >= 1
         t = args[0]
         t = self.libraries.get(t, self.executables.get(t))
         if not t:
