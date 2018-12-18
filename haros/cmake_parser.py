@@ -37,6 +37,7 @@
 from distutils.version import LooseVersion
 import glob
 import logging
+import itertools
 import os
 import re
 
@@ -343,28 +344,32 @@ class BuildTarget(object):
     def output_name(self):
         return self.prefix + self.base_name + self.suffix
 
+    @staticmethod
+    def replace_file(file):
+        if os.path.isfile(file):
+            return file
+
+        replacement = None
+        parent = os.path.dirname(file)
+        if os.path.isdir(parent):
+            _, _, prefix = file.rpartition(os.sep)
+            for sibling in os.listdir(parent):
+                sibling_path = os.path.join(parent, sibling)
+                if sibling.startswith(prefix) and os.path.isfile(sibling_path):
+                    return sibling
+
     @classmethod
     def new_target(cls, name, files, directory, is_executable):
-        files = [os.path.join(directory, f) for fs in files \
-                                            for f in fs.split(";") if f]
-        i = 0
-        while i < len(files):
-            if not os.path.isfile(files[i]):
-                replacement = None
-                parent = os.path.dirname(files[i])
-                prefix = files[i].rsplit(os.sep, 1)[-1]
-                if os.path.isdir(parent):
-                    for f in os.listdir(parent):
-                        joined = os.path.join(parent, f)
-                        if f.startswith(prefix) and os.path.isfile(joined):
-                            replacement = joined
-                            break
-                if replacement:
-                    files[i] = replacement
-                else:
-                    del files[i]
-                    i -= 1
-            i += 1
+        if isinstance(files, basestring):
+            files = [files]
+
+        files = (
+            os.path.join(directory, f)
+            for fs in files
+            for f in fs.split(";")
+            if f
+        )
+        files = filter(bool, map(cls.replace_file, files))
         return cls(name, files, is_executable)
 
     def apply_property(self, prop, value):
@@ -464,6 +469,8 @@ class RosCMakeParser(LoggingObject):
             self._process_set_target_properties(args)
         elif command == "target_link_libraries":
             self._process_link_libraries(args)
+        elif command == 'catkin_install_python':
+            self._process_catkin_install_python(args)
 
     def _process_include_directories(self, args):
         n = len(args)
@@ -484,6 +491,21 @@ class RosCMakeParser(LoggingObject):
                 arg = os.path.join(self.directory, arg)
                 self.include_dirs.append(arg)
             i += 1
+
+    def _process_catkin_install_python(self, args):
+        n = len(args)
+        assert n > 1
+
+        files = list(itertools.chain.from_iterable(
+            self.variables.get(arg, arg).split()
+            for arg in args[1:-2]
+        ))
+        names = map(os.path.basename, files)
+        targets = {
+            name: BuildTarget.new_target(name, [file], self.directory, True)
+            for name, file in zip(names, files)
+        }
+        self.executables.update(targets)
 
     def _process_library(self, args):
         n = len(args)

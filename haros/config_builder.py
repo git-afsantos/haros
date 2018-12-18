@@ -984,6 +984,7 @@ class ConfigurationBuilder(LoggingObject):
                 if len(args) < 3:
                     raise ConfigurationError("nodelet load: too few arguments")
                 pkg, exe = args[1].split("/")
+
         node = self.sources.nodes.get("node:" + pkg + "/" + exe)
         package = self.sources.packages.get("package:" + pkg)
         if not package:
