@@ -40,6 +40,12 @@ from .ros_types import (
 class StrategyMap(object):
     __slots__ = ("defaults", "custom")
 
+    @classmethod
+    def from_msg_data(cls, msg_data):
+        new = cls()
+        new.make_defaults(msg_data)
+        return new
+
     def __init__(self):
         self.defaults = {} # {ros_type -> TopLevelStrategy}
         self.custom = {} # {msg_type -> [MsgStrategy]}
@@ -54,6 +60,14 @@ class StrategyMap(object):
         strategy = MsgStrategy(msg_type, name=name)
         custom.append(strategy)
         return strategy
+
+    def complete_custom_strategies(self):
+        for msg_type, strategies in self.custom.iteritems():
+            default = self.defaults[msg_type]
+            for strategy in strategies:
+                for field_name, field_strategy in default.fields.iteritems():
+                    if not field_name in strategy.fields:
+                        strategy.fields[field_name] = field_strategy
 
     def make_defaults(self, msg_data):
         # msg_data :: {msg_type -> {field_name -> type_token}}
