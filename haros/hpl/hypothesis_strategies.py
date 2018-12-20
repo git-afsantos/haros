@@ -72,7 +72,7 @@ class StrategyMap(object):
     def _default(self, type_token):
         if type_token.ros_type == "uint8" and type_token.is_array:
             return ByteArrays(length=type_token.length)
-        strategy = Reuse.from_ros_type(type_token.ros_type)
+        strategy = StrategyReference.from_ros_type(type_token.ros_type)
         if type_token.is_array:
             return Arrays(strategy, length=type_token.length)
         return strategy
@@ -330,7 +330,7 @@ class HeaderStrategy(RosBuiltinStrategy):
 
 
 ###############################################################################
-# Constants
+# Message Field Strategy
 ###############################################################################
 
 class FieldStrategy(object):
@@ -357,11 +357,17 @@ class FieldStrategy(object):
 
 
 ###############################################################################
-# Constants
+# Strategy Modifiers
 ###############################################################################
 
+class Modifier(object):
+    def to_python(self, field_name, var_name="msg",
+                  module="strategies", indent=0, tab_size=4):
+        raise NotImplementedError("subclasses must override this method")
+
+
 # base field modifier
-class FixedValueModifier(object):
+class FixedValueModifier(Modifier):
     TMP = "{indent}{var}.{field} = {value}"
 
     __slots__ = ("value",)
@@ -374,8 +380,9 @@ class FixedValueModifier(object):
         return self.TMP.format(indent=(" " * indent), var=var_name,
                                field=field_name, value=self.value)
 
+
 # base field modifier
-class StrategyModifier(object):
+class StrategyModifier(Modifier):
     TMP = "{indent}{var}.{field} = draw({strategy})"
 
     __slots__ = ("strategy",)
@@ -388,8 +395,9 @@ class StrategyModifier(object):
         return self.TMP.format(indent=(" " * indent), var=var_name,
             field=field_name, strategy=self.strategy.to_python(module=module))
 
+
 # base field modifier
-class ExclusionModifier(object):
+class ExclusionModifier(Modifier):
     TMP = "{indent}assume({var}.{field} != {value})"
 
     __slots__ = ("value",)
@@ -402,8 +410,9 @@ class ExclusionModifier(object):
         return self.TMP.format(indent=(" " * indent), var=var_name,
                                field=field_name, value=self.value)
 
+
 #composite field modifier
-class FixedIndexModifier(object):
+class FixedIndexModifier(Modifier):
     __slots__ = ("index", "modifier")
 
     def __init__(self, index, modifier):
@@ -416,8 +425,9 @@ class FixedIndexModifier(object):
         return self.modifier.to_python(field, var_name=var_name,
             module=module, indent=indent, tab_size=tab_size)
 
+
 # composite field modifier
-class RandomIndexModifier(object):
+class RandomIndexModifier(Modifier):
     # TODO edge case of var_name == "i"
     IDX = ("{indent}i = draw({module}.integers(min_value=0, "
            "max_value=len({var}.{field})))")
@@ -438,10 +448,15 @@ class RandomIndexModifier(object):
 
 
 ###############################################################################
-# Constants
+# Strategies
 ###############################################################################
 
-class Reuse(object):
+class BaseStrategy(object):
+    def to_python(self, module="strategies"):
+        raise NotImplementedError("subclasses must override this method")
+
+
+class StrategyReference(BaseStrategy):
     @classmethod
     def from_strategy(cls, strategy):
         if not isinstance(strategy, TopLevelStrategy):
@@ -467,10 +482,13 @@ class Reuse(object):
         return self.strategy_name + "()"
 
 
-class Arrays(object):
+class Arrays(BaseStrategy):
     __slots__ = ("base_strategy", "length")
 
     def __init__(self, base_strategy, length=None):
+        if not isinstance(base_strategy, BaseStrategy):
+            raise TypeError("expected BaseStrategy, received "
+                            + repr(base_strategy))
         self.base_strategy = base_strategy
         self.length = length
 
@@ -483,7 +501,7 @@ class Arrays(object):
             module, self.base_strategy.to_python(module=module), self.length)
 
 
-class ByteArrays(object):
+class ByteArrays(BaseStrategy):
     __slots__ = ("length",)
 
     def __init__(self, length=None):
@@ -493,83 +511,6 @@ class ByteArrays(object):
         n = 256 if self.length is None else self.length
         assert n >= 0
         return "{}.binary(min_size=0, max_size={})".format(module, n)
-
-
-class Integers(object):
-    __slots__ = ("min_value", "max_value")
-
-    def __init__(self, min_value=None, max_value=None):
-        self.min_value = min_value
-        self.max_value = max_value
-
-    @classmethod
-    def int8(cls):
-        return cls(min_value=INT8_MIN_VALUE, max_value=INT8_MAX_VALUE)
-
-    @classmethod
-    def uint8(cls):
-        return cls(min_value=0, max_value=UINT8_MAX_VALUE)
-
-    @classmethod
-    def int16(cls):
-        return cls(min_value=INT16_MIN_VALUE, max_value=INT16_MAX_VALUE)
-
-    @classmethod
-    def uint16(cls):
-        return cls(min_value=0, max_value=UINT16_MAX_VALUE)
-
-    @classmethod
-    def int32(cls):
-        return cls(min_value=INT32_MIN_VALUE, max_value=INT32_MAX_VALUE)
-
-    @classmethod
-    def uint32(cls):
-        return cls(min_value=0, max_value=UINT32_MAX_VALUE)
-
-    @classmethod
-    def int64(cls):
-        return cls(min_value=INT64_MIN_VALUE, max_value=INT64_MAX_VALUE)
-
-    @classmethod
-    def uint64(cls):
-        return cls(min_value=0, max_value=UINT64_MAX_VALUE)
-
-    def to_python(self, module="strategies"):
-        return "{}.integers(min_value={}, max_value={})".format(
-            module, self.min_value, self.max_value)
-
-
-class Floats(object):
-    __slots__ = ("min_value", "max_value", "width")
-
-    def __init__(self, min_value=None, max_value=None, width=64):
-        self.min_value = min_value
-        self.max_value = max_value
-        self.width = width
-
-    @classmethod
-    def float32(cls):
-        return cls(min_value=FLOAT32_MIN_VALUE,
-                   max_value=FLOAT32_MAX_VALUE, width=32)
-
-    @classmethod
-    def float64(cls):
-        return cls(min_value=FLOAT64_MIN_VALUE,
-                   max_value=FLOAT64_MAX_VALUE, width=64)
-
-    def to_python(self, module="strategies"):
-        tmp = "{}.floats(min_value={}, max_value={}, width={})"
-        return tmp.format(module, self.min_value, self.max_value, self.width)
-
-
-class Booleans(object):
-    def to_python(self, module="strategies"):
-        return module + ".booleans()"
-
-
-class Strings(object):
-    def to_python(self, module="strategies"):
-        return module + ".binary(min_size=0, max_size=256)"
 
 
 ###############################################################################
