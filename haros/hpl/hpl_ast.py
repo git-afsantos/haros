@@ -77,9 +77,11 @@ class HplFieldReference(object):
 
     __slots__ = ("token", "name", "field_type", "msg_type", "index", "value")
 
-    def __init__(self, token, field_type, msg_type):
+    def __init__(self, token, field_type, msg_type, value=None):
         self.token = token
         if "[" in token:
+            if not field_type is None and not field_type.is_array:
+                raise ValueError("unexpected array token")
             i = token.index("[")
             self.name = token[:i]
             index = token[i+1:-1]
@@ -90,11 +92,22 @@ class HplFieldReference(object):
                     raise ValueError("invalid array index: '{}'".format(index))
                 self.index = index
         else:
+            if not field_type is None and field_type.is_array:
+                raise ValueError("unexpected array type")
             self.name = token
             self.index = None
+        # TypeToken | ArrayTypeToken
         self.field_type = field_type
         self.msg_type = msg_type
-        self.value = None
+        self.value = value
+
+    @property
+    def ros_type(self):
+        return self.field_type.ros_type
+
+    @property
+    def ros_types(self):
+        return (self.field_type.ros_type,)
 
     @property
     def is_loop(self):

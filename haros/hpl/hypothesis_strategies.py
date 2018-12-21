@@ -47,8 +47,10 @@ class StrategyMap(object):
         return new
 
     def __init__(self):
-        self.defaults = {} # {ros_type -> TopLevelStrategy}
-        self.custom = {} # {msg_type -> [MsgStrategy]}
+        # {str(ros_type): TopLevelStrategy}
+        self.defaults = {}
+        # {str(msg_type): [MsgStrategy]}
+        self.custom = {}
         self._make_builtins()
 
     def make_custom(self, msg_type):
@@ -70,11 +72,11 @@ class StrategyMap(object):
                         strategy.fields[field_name] = field_strategy
 
     def make_defaults(self, msg_data):
-        # msg_data :: {msg_type -> {field_name -> type_token}}
+        # msg_data :: {str(msg_type): {str(field_name): TypeToken}}
         # assume msg_data contains all dependencies
         if (not isinstance(msg_data, dict)
                 or not all(isinstance(v, dict) for v in msg_data.itervalues())):
-            raise TypeError("expected dict: {msg -> {field -> type}}")
+            raise TypeError("expected dict: {msg: {field: type}}")
         for msg_type, data in msg_data.iteritems():
             strategy = MsgStrategy(msg_type)
             self.defaults[msg_type] = strategy
@@ -149,10 +151,6 @@ class MsgStrategy(TopLevelStrategy):
     @property
     def name(self):
         return self._name
-
-    def fill_defaults(self, field_data):
-        # field_data :: {field_name -> field_type}
-        return () # TODO
 
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
