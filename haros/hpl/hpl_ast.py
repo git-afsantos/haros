@@ -357,6 +357,10 @@ class HplMsgFilter(object):
     def __init__(self, field_conditions):
         self.field_conditions = field_conditions
 
+    def normalise(self):
+        return HplMsgFilter([c.normalise_quantifiers()
+                             for c in self.field_conditions])
+
     def __eq__(self, other):
         if not isinstance(other, HplMsgFilter):
             return False
