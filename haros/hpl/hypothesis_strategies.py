@@ -81,17 +81,8 @@ class StrategyMap(object):
             strategy = MsgStrategy(msg_type)
             self.defaults[msg_type] = strategy
             for field_name, type_token in data.iteritems():
-                field = FieldStrategy(field_name,
-                                      strategy=self._default(type_token))
-                strategy.fields[field_name] = field
-
-    def _default(self, type_token):
-        if type_token.ros_type == "uint8" and type_token.is_array:
-            return ByteArrays(length=type_token.length)
-        strategy = StrategyReference.from_ros_type(type_token.ros_type)
-        if type_token.is_array:
-            return Arrays(strategy, length=type_token.length)
-        return strategy
+                strategy.fields[field_name] = FieldStrategy.make_default(
+                    field_name, type_token)
 
     def _make_builtins(self):
         self.defaults["bool"] = RosBoolStrategy()
@@ -355,6 +346,16 @@ class FieldStrategy(object):
         self.strategy = strategy
         self.modifiers = []
 
+    @classmethod
+    def make_default(cls, field_name, type_token):
+        if type_token.ros_type == "uint8" and type_token.is_array:
+            strategy = ByteArrays(length=type_token.length)
+        else:
+            strategy = StrategyReference.from_ros_type(type_token.ros_type)
+            if type_token.is_array:
+                strategy = Arrays(strategy, length=type_token.length)
+        return cls(field_name, strategy=strategy)
+
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
         assert not self.strategy is None
@@ -574,3 +575,19 @@ if __name__ == "__main__":
     sm.make_defaults(TEST_DATA)
     strategies = [s.to_python() for s in sm.defaults.itervalues()]
     print "\n\n".join(strategies)
+    print ""
+
+    custom = sm.make_custom("pkg/Nested2")
+    field = FieldStrategy.make_default("int", TypeToken("int32"))
+    field.modifiers.append(ExclusionModifier(0))
+    custom.fields["int"] = field
+
+    strat = StrategyReference.from_strategy(custom)
+    custom = sm.make_custom("pkg/Nested")
+    field = FieldStrategy.make_default("nested_array",
+                                       ArrayTypeToken("pkg/Nested2", length=3))
+    field.modifiers.append(RandomIndexModifier(StrategyModifier(strat)))
+    custom.fields["nested_array"] = field
+
+    sm.complete_custom_strategies()
+    print "\n\n".join(s.to_python() for ss in sm.custom.itervalues() for s in ss)
