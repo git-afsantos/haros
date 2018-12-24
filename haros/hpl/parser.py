@@ -193,6 +193,7 @@ class NullTypeChecker(object):
             raise ValueError("'{}' is already defined".format(var_name))
         self.user_msgs[var_name] = None
         self._last_var = var_name
+        return None
 
     def build_own_field_ref(self, token):
         assert not self._last_var is None
@@ -247,6 +248,7 @@ class HplTypeChecker(object):
             raise TypeError("unknown message type '{}'".format(msg_type))
         self.user_msgs[var_name] = msg_type
         self._last_var = var_name
+        return msg_type
 
     def build_own_field_ref(self, full_token):
         assert not self._last_var is None
@@ -338,17 +340,18 @@ class PropertyTransformer(Transformer):
 
     def receive(self, children):
         assert len(children) >= 1
-        var_name, ros_name = children[0]
+        var_name, ros_name, msg_type = children[0]
         if len(children) == 2:
             assert isinstance(children[1], HplMsgFilter)
             msg_filter = children[1]
         else:
             msg_filter = None
-        return HplReceiveStatement(var_name, ros_name, msg_filter=msg_filter)
+        return HplReceiveStatement(var_name, ros_name, msg_filter=msg_filter,
+                                   msg_type=msg_type)
 
     def publish(self, children):
         assert len(children) >= 1
-        var_name, ros_name = children[0]
+        var_name, ros_name, msg_type = children[0]
         time_bound = None
         msg_filter = None
         for i in xrange(1, len(children)):
@@ -358,7 +361,8 @@ class PropertyTransformer(Transformer):
                 assert isinstance(children[i], HplMsgFilter)
                 msg_filter = children[i]
         return HplPublishStatement(var_name, ros_name, time_bound=time_bound,
-                                   msg_filter=msg_filter, mult=None)
+                                   msg_filter=msg_filter, mult=None,
+                                   msg_type=msg_type)
 
     def mult_publish(self, children):
         assert len(children) >= 2
@@ -464,8 +468,8 @@ class PropertyTransformer(Transformer):
         return HplLiteral(s, str, ROS_STRING_TYPES)
 
     def msg_topic_pair(self, (var_name, ros_name)):
-        self.type_checker.set_variable(var_name, ros_name)
-        return (var_name, ros_name)
+        msg_type = self.type_checker.set_variable(var_name, ros_name)
+        return (var_name, ros_name, msg_type)
 
     def ros_name(self, (n,)):
         return n

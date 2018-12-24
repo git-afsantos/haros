@@ -459,15 +459,16 @@ class HplMultiplicity(object):
 
 class HplPublishStatement(object):
     __slots__ = ("variable", "ros_name", "time_bound",
-                 "msg_filter", "multiplicity")
+                 "msg_filter", "multiplicity", "msg_type")
 
-    def __init__(self, var_name, topic,
-                 time_bound=None, msg_filter=None, mult=None):
+    def __init__(self, var_name, topic, time_bound=None,
+                 msg_filter=None, mult=None, msg_type=None):
         self.variable = var_name
         self.ros_name = topic
         self.time_bound = time_bound
         self.msg_filter = msg_filter
         self.multiplicity = mult
+        self.msg_type = msg_type
 
     def __eq__(self, other):
         if not isinstance(other, HplPublishStatement):
@@ -503,12 +504,13 @@ class HplPublishStatement(object):
 
 
 class HplReceiveStatement(object):
-    __slots__ = ("variable", "ros_name", "msg_filter")
+    __slots__ = ("variable", "ros_name", "msg_filter", "msg_type")
 
-    def __init__(self, var_name, topic, msg_filter=None):
+    def __init__(self, var_name, topic, msg_filter=None, msg_type=None):
         self.variable = var_name
         self.ros_name = topic
         self.msg_filter = msg_filter
+        self.msg_type = msg_type
 
     def __eq__(self, other):
         if not isinstance(other, HplReceiveStatement):
