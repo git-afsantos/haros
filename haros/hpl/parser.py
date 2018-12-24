@@ -179,20 +179,50 @@ VALUE_EXCLUSION: "(exc)"
 ###############################################################################
 
 class NullTypeChecker(object):
+    __slots__ = ("user_msgs", "_last_var")
+
+    def __init__(self):
+        self.reset()
+
     def reset(self):
-        pass
+        self.user_msgs = {}
+        self._last_var = None
 
     def set_variable(self, var_name, topic):
-        pass
+        if var_name in self.user_msgs:
+            raise ValueError("'{}' is already defined".format(var_name))
+        self.user_msgs[var_name] = None
+        self._last_var = var_name
 
     def build_own_field_ref(self, token):
-        pass
+        assert not self._last_var is None
+        tokens = full_token.split(".")
+        var_name = self._last_var
+        if tokens[0] == self._last_var:
+            tokens.pop(0)
+        return self._build_field_expr(full_token, tokens, var_name)
 
     def build_field_ref(self, token):
-        pass
+        assert not self._last_var is None
+        tokens = full_token.split(".")
+        if tokens[0] in self.user_msgs:
+            var_name = tokens.pop(0)
+        else:
+            var_name = self._last_var
+        return self._build_field_expr(full_token, tokens, var_name)
+
+    def _build_field_expr(self, token, fields, var_name):
+        assert var_name in self.user_msgs
+        if not fields:
+            raise SyntaxError("expected a field, found '{}'".format(var_name))
+        for i in xrange(len(fields)):
+            fields[i] = HplFieldReference(fields[i], None, None)
+        return HplFieldExpression(token, tuple(fields), var_name, None)
 
 
 class HplTypeChecker(object):
+    __slots__ = ("user_msgs", "topics", "fields", "constants", "_last_var")
+
     def __init__(self, topic_types, msg_fields, msg_constants):
         self.user_msgs = {}
         # {str(topic): str(msg_type)}
