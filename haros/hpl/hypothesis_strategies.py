@@ -29,7 +29,7 @@ from .ros_types import (
     INT32_MIN_VALUE, INT32_MAX_VALUE, INT64_MIN_VALUE, INT64_MAX_VALUE,
     UINT8_MAX_VALUE, UINT16_MAX_VALUE, UINT32_MAX_VALUE, UINT64_MAX_VALUE,
     FLOAT32_MIN_VALUE, FLOAT32_MAX_VALUE, FLOAT64_MIN_VALUE, FLOAT64_MAX_VALUE,
-    TypeToken, ArrayTypeToken
+    TypeToken, ArrayTypeToken, ROS_BUILTIN_TYPES
 )
 
 
@@ -38,51 +38,54 @@ from .ros_types import (
 ###############################################################################
 
 class StrategyMap(object):
-    __slots__ = ("defaults", "custom")
+    __slots__ = ("msg_data", "defaults", "custom")
 
-    @classmethod
-    def from_msg_data(cls, msg_data):
-        new = cls()
-        new.make_defaults(msg_data)
-        return new
-
-    def __init__(self):
-        # {str(ros_type): TopLevelStrategy}
-        self.defaults = {}
-        # {str(msg_type): [MsgStrategy]}
-        self.custom = {}
-        self._make_builtins()
-
-    def make_custom(self, msg_type):
-        custom = self.custom.get(msg_type)
-        if not custom:
-            custom = []
-            self.custom[msg_type] = custom
-        name = "{}_v{}".format(msg_type.replace("/", "_"), len(custom) + 1)
-        strategy = MsgStrategy(msg_type, name=name)
-        custom.append(strategy)
-        return strategy
-
-    def complete_custom_strategies(self):
-        for msg_type, strategies in self.custom.iteritems():
-            default = self.defaults[msg_type]
-            for strategy in strategies:
-                for field_name, field_strategy in default.fields.iteritems():
-                    if not field_name in strategy.fields:
-                        strategy.fields[field_name] = field_strategy
-
-    def make_defaults(self, msg_data):
+    def __init__(self, msg_data):
         # msg_data :: {str(msg_type): {str(field_name): TypeToken}}
         # assume msg_data contains all dependencies
         if (not isinstance(msg_data, dict)
                 or not all(isinstance(v, dict) for v in msg_data.itervalues())):
             raise TypeError("expected dict: {msg: {field: type}}")
-        for msg_type, data in msg_data.iteritems():
-            strategy = MsgStrategy(msg_type)
-            self.defaults[msg_type] = strategy
-            for field_name, type_token in data.iteritems():
-                strategy.fields[field_name] = FieldStrategy.make_default(
-                    field_name, type_token)
+        self.msg_data = msg_data
+        # defaults :: {str(ros_type): TopLevelStrategy}
+        self.defaults = {}
+        # custom :: {str(group): {str(msg_type): MsgStrategy}}
+        self.custom = {}
+        self._make_builtins()
+        self._make_defaults()
+
+    def get_custom(self, group, msg_type):
+        return self.custom[group][msg_type]
+
+    def make_custom(self, group, msg_type):
+        custom = self.custom.get(group)
+        if not custom:
+            custom = {}
+            self.custom[group] = custom
+        queue = [msg_type]
+        while queue:
+            current_type = queue.pop(0)
+            if not current_type in self.msg_data:
+                raise ValueError("'{}' is not defined".format(current_type))
+            type_data = self.msg_data[current_type]
+            if current_type in custom:
+                raise ValueError("'{}' is already defined in '{}'".format(
+                    current_type, group))
+            name = "{}_{}".format(group, current_type.replace("/", "_"))
+            strategy = MsgStrategy(current_type, name=name)
+            custom[current_type] = strategy
+            for type_token in type_data.itervalues():
+                if not type_token.ros_type in ROS_BUILTIN_TYPES:
+                    queue.append(type_token.ros_type)
+        return custom[msg_type]
+
+    def complete_custom_strategies(self):
+        for strategies in self.custom.itervalues():
+            for msg_type, strategy in strategies.iteritems():
+                default = self.defaults[msg_type]
+                for field_name, field_strategy in default.fields.iteritems():
+                    if not field_name in strategy.fields:
+                        strategy.fields[field_name] = field_strategy
 
     def _make_builtins(self):
         self.defaults["bool"] = RosBoolStrategy()
@@ -94,6 +97,14 @@ class StrategyMap(object):
             self.defaults[ros_type] = RosIntStrategy(ros_type)
         for ros_type in RosFloatStrategy.TYPES:
             self.defaults[ros_type] = RosFloatStrategy(ros_type)
+
+    def _make_defaults(self):
+        for msg_type, data in self.msg_data.iteritems():
+            strategy = MsgStrategy(msg_type)
+            self.defaults[msg_type] = strategy
+            for field_name, type_token in data.iteritems():
+                strategy.fields[field_name] = FieldStrategy.make_default(
+                    field_name, type_token)
 
 
 ###############################################################################
@@ -571,23 +582,31 @@ if __name__ == "__main__":
         }
     }
 
-    sm = StrategyMap()
-    sm.make_defaults(TEST_DATA)
+    sm = StrategyMap(TEST_DATA)
     strategies = [s.to_python() for s in sm.defaults.itervalues()]
     print "\n\n".join(strategies)
     print ""
 
-    custom = sm.make_custom("pkg/Nested2")
-    field = FieldStrategy.make_default("int", TypeToken("int32"))
-    field.modifiers.append(ExclusionModifier(0))
-    custom.fields["int"] = field
+    nested = sm.make_custom("m", "pkg/Nested")
+    assert "m" in sm.custom
+    assert "pkg/Nested" in sm.custom["m"]
+    assert "pkg/Nested2" in sm.custom["m"]
+    nested2 = sm.get_custom("m", "pkg/Nested2")
 
-    strat = StrategyReference.from_strategy(custom)
-    custom = sm.make_custom("pkg/Nested")
-    field = FieldStrategy.make_default("nested_array",
-                                       ArrayTypeToken("pkg/Nested2", length=3))
+    field_name = "int"
+    field = FieldStrategy.make_default(field_name,
+        TEST_DATA["pkg/Nested2"][field_name])
+    field.modifiers.append(ExclusionModifier(0))
+    nested2.fields[field_name] = field
+
+    strat = StrategyReference.from_strategy(nested2)
+    field_name = "nested_array"
+    field = FieldStrategy.make_default(field_name,
+        TEST_DATA["pkg/Nested"][field_name])
     field.modifiers.append(RandomIndexModifier(StrategyModifier(strat)))
-    custom.fields["nested_array"] = field
+    nested.fields[field_name] = field
 
     sm.complete_custom_strategies()
-    print "\n\n".join(s.to_python() for ss in sm.custom.itervalues() for s in ss)
+    print "\n\n".join(strategy.to_python()
+                      for group in sm.custom.itervalues()
+                      for strategy in group.itervalues())
