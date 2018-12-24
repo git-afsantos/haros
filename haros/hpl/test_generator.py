@@ -330,3 +330,27 @@ class StrategyTransformer(object):
 ################################################################################
 # Test Code
 ################################################################################
+
+TEST_DATA = {}
+
+def property_to_test(hpl_property):
+    sm = StrategyMap(TEST_DATA)
+    if not hpl_property.receive is None:
+        receive_to_strategies(hpl_property.receive, sm)
+    sm.complete_custom_strategies()
+    # handle publish statement
+
+def receive_to_strategies(hpl_receive, strategy_map):
+    assert not hpl_receive.variable is None
+    assert not hpl_receive.msg_type is None
+    if not hpl_receive.msg_filter is None:
+        strategy_map.make_custom(hpl_receive.variable, hpl_receive.msg_type)
+        group = strategy_map.custom[hpl_receive.variable]
+        conditions_to_strategies(msg_filter, group)
+    # set msg as required
+    # set default/custom strategy
+
+def conditions_to_strategies(msg_filter, custom_strategies):
+    for condition in msg_filter.field_conditions:
+        # handle operator
+        # propagate changes to parent custom strategies
