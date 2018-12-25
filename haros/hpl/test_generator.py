@@ -26,7 +26,11 @@
 
 from collections import namedtuple
 
-from .hypothesis_strategies import (StrategyMap,)
+from .hpl_ast import (
+    ALL_INDICES, SOME_INDEX, NO_INDEX, OPERATOR_EQ, OPERATOR_NEQ, OPERATOR_LT,
+    OPERATOR_LTE, OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN
+)
+from .hypothesis_strategies import (StrategyMap, FieldStrategy)
 
 
 ################################################################################
@@ -222,20 +226,84 @@ class ConditionTransformer(object):
 # Condition to Strategy Compiler
 ################################################################################
 
-class StrategyTransformer(object):
-    def __init__(self):
-        self._var_prefix = "msg."
-        self.target_msg_type = None
-        self.target_field = None
-        self.target_type = None
-        self.strategies = StrategyMap()
-        self.assumptions = []
+class ReceiveToStrategyTransformer(object):
+    def __init__(self, strategy_map):
+        self.strategy_map = strategy_map
 
-    def gen(self, condition):
-        strategy = "draw({})"
-        self._reset()
-        self._process(condition)
-        return repr(self.strategies)
+    def gen(self, hpl_receive):
+        assert not hpl_receive.variable is None
+        assert not hpl_receive.msg_type is None
+        if not hpl_receive.msg_filter is None:
+            msg_filter = hpl_receive.msg_filter.normalise()
+            self.strategy_map.make_custom(hpl_receive.variable,
+                                          hpl_receive.msg_type)
+            group = self.strategy_map.custom[hpl_receive.variable]
+            self._filter_to_strategies(msg_filter, group)
+        # set msg as required
+        # set default/custom strategy
+        return ""
+
+    def _filter_to_strategies(self, msg_filter, group):
+        for condition in msg_filter.field_conditions:
+            field_expr = condition.field
+            last_field = field_expr.fields[-1]
+            value = condition.value
+            # TODO detect dependencies between fields
+            field_strategy = self._operator_strategy(last_field,
+                condition.operator, value)
+            msg_strategy = group[last_field.msg_type]
+            msg_strategy.fields[last_field.name] = field_strategy
+            # TODO propagate changes to parent custom strategies
+
+    def _operator_strategy(self, field, operator, value):
+        assert field.index != NO_INDEX
+        if operator == OPERATOR_EQ:
+            return self._operator_eq(field, value)
+        if operator == OPERATOR_NEQ:
+            return self._operator_neq(field, value)
+        if operator == OPERATOR_LT:
+            return self._operator_lt(field, value)
+        if operator == OPERATOR_LTE:
+            return self._operator_lte(field, value)
+        if operator == OPERATOR_GT:
+            return self._operator_gt(field, value)
+        if operator == OPERATOR_GTE:
+            return self._operator_gte(field, value)
+        if operator == OPERATOR_IN:
+            return self._operator_in(field, value)
+        if operator == OPERATOR_NIN:
+            return self._operator_nin(field, value)
+        raise ValueError("unknown operator: " + str(operator))
+
+    def _operator_eq(self, field, value):
+        if field.index is None:
+            pass
+        if field.index == ALL_INDICES:
+            pass
+        if field.index == SOME_INDEX:
+            pass
+        return field_strategy
+
+    def _operator_neq(self, field, value):
+        return field_strategy
+
+    def _operator_lt(self, field, value):
+        return field_strategy
+
+    def _operator_lte(self, field, value):
+        return field_strategy
+
+    def _operator_gt(self, field, value):
+        return field_strategy
+
+    def _operator_gte(self, field, value):
+        return field_strategy
+
+    def _operator_in(self, field, value):
+        return field_strategy
+
+    def _operator_nin(self, field, value):
+        return field_strategy
 
     def _reset(self):
         self.target_msg_type = None
@@ -330,27 +398,3 @@ class StrategyTransformer(object):
 ################################################################################
 # Test Code
 ################################################################################
-
-TEST_DATA = {}
-
-def property_to_test(hpl_property):
-    sm = StrategyMap(TEST_DATA)
-    if not hpl_property.receive is None:
-        receive_to_strategies(hpl_property.receive, sm)
-    sm.complete_custom_strategies()
-    # handle publish statement
-
-def receive_to_strategies(hpl_receive, strategy_map):
-    assert not hpl_receive.variable is None
-    assert not hpl_receive.msg_type is None
-    if not hpl_receive.msg_filter is None:
-        strategy_map.make_custom(hpl_receive.variable, hpl_receive.msg_type)
-        group = strategy_map.custom[hpl_receive.variable]
-        conditions_to_strategies(msg_filter, group)
-    # set msg as required
-    # set default/custom strategy
-
-def conditions_to_strategies(msg_filter, custom_strategies):
-    for condition in msg_filter.field_conditions:
-        # handle operator
-        # propagate changes to parent custom strategies
