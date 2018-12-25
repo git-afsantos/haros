@@ -37,6 +37,22 @@ SOME_INDEX = "some"
 
 NO_INDEX = "none"
 
+OPERATOR_EQ = "="
+
+OPERATOR_NEQ = "!="
+
+OPERATOR_LT = "<"
+
+OPERATOR_LTE = "<="
+
+OPERATOR_GT = ">"
+
+OPERATOR_GTE = ">="
+
+OPERATOR_IN = "in"
+
+OPERATOR_NIN = "not in"
+
 
 ###############################################################################
 # Basic Values
@@ -297,8 +313,16 @@ class HplRange(object):
 class HplMsgFieldCondition(object):
     __slots__ = ("field", "operator", "value")
 
-    _NOT = {"=": "!=", "!=": "=", "<": ">=", ">": "<=", "<=": ">", ">=": "<",
-            "in": "not in", "not in": "in"}
+    _NOT = {
+        OPERATOR_EQ: OPERATOR_NEQ,
+        OPERATOR_NEQ: OPERATOR_EQ,
+        OPERATOR_LT: OPERATOR_GTE,
+        OPERATOR_GT: OPERATOR_LTE,
+        OPERATOR_LTE: OPERATOR_GT,
+        OPERATOR_GTE: OPERATOR_LT,
+        OPERATOR_IN: OPERATOR_NIN,
+        OPERATOR_NIN: OPERATOR_IN
+    }
 
     def __init__(self, field_expr, operator, value):
         self.field = field_expr
@@ -307,16 +331,16 @@ class HplMsgFieldCondition(object):
 
     @property
     def is_equality_test(self):
-        return self.operator == "=" or self.operator == "!="
+        return self.operator == OPERATOR_EQ or self.operator == OPERATOR_NEQ
 
     @property
     def is_comparison_test(self):
-        return (self.operator == "<" or self.operator == "<="
-                or self.operator == ">" or self.operator == ">=")
+        return (self.operator == OPERATOR_LT or self.operator == OPERATOR_LTE
+            or self.operator == OPERATOR_GT or self.operator == OPERATOR_GTE)
 
     @property
     def is_inclusion_test(self):
-        return self.operator == "in" or self.operator == "not in"
+        return self.operator == OPERATOR_IN or self.operator == OPERATOR_NIN
 
     def normalise_quantifiers(self):
         negate = False
