@@ -188,6 +188,18 @@ class HplFieldExpression(object):
             i -= 1
         return ".".join(f.token for f in self.fields[i+1:])
 
+    def key(self, end=None):
+        # e.g.: "msg.a.b[0].c[all]" -> "msg.a.b.c"
+        key = self.variable
+        if end is None:
+            end = len(self.fields)
+        elif end < 0:
+            end = len(self.fields) - end
+        for i in xrange(end):
+            field = field_expr.fields[i]
+            key += "." + field.name
+        return key
+
     def get_loops(self): # [[HplFieldReference]]
         # e.g.: "msg.a.b[all].c[some].d.e[none].f"
         #       -> [[a, b], [c], [d, e]]

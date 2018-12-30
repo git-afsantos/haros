@@ -20,22 +20,24 @@
 #THE SOFTWARE.
 
 
-###############################################################################
+################################################################################
 # Imports
-###############################################################################
+################################################################################
 
 from .ros_types import (
     INT8_MIN_VALUE, INT8_MAX_VALUE, INT16_MIN_VALUE, INT16_MAX_VALUE,
     INT32_MIN_VALUE, INT32_MAX_VALUE, INT64_MIN_VALUE, INT64_MAX_VALUE,
     UINT8_MAX_VALUE, UINT16_MAX_VALUE, UINT32_MAX_VALUE, UINT64_MAX_VALUE,
     FLOAT32_MIN_VALUE, FLOAT32_MAX_VALUE, FLOAT64_MIN_VALUE, FLOAT64_MAX_VALUE,
-    TypeToken, ArrayTypeToken, ROS_BUILTIN_TYPES
+    TypeToken, ArrayTypeToken, ROS_BUILTIN_TYPES, ROS_INT_TYPES,
+    ROS_FLOAT_TYPES, ROS_BOOLEAN_TYPES, ROS_STRING_TYPES, ROS_NUMBER_TYPES,
+    ROS_PRIMITIVE_TYPES
 )
 
 
-###############################################################################
+################################################################################
 # Strategy Map
-###############################################################################
+################################################################################
 
 class StrategyMap(object):
     __slots__ = ("msg_data", "defaults", "custom")
@@ -58,6 +60,22 @@ class StrategyMap(object):
         return self.custom[group][msg_type]
 
     def make_custom(self, group, msg_type):
+        custom = self.custom.get(group)
+        if not custom:
+            custom = {}
+            self.custom[group] = custom
+        if not msg_type in self.msg_data:
+            raise ValueError("'{}' is not defined".format(msg_type))
+        type_data = self.msg_data[msg_type]
+        if msg_type in custom:
+            raise ValueError("'{}' is already defined in '{}'".format(
+                msg_type, group))
+        name = "{}_{}".format(group, msg_type.replace("/", "_"))
+        strategy = MsgStrategy(msg_type, name=name)
+        custom[msg_type] = strategy
+        return strategy
+
+    def make_custom_tree(self, group, msg_type):
         custom = self.custom.get(group)
         if not custom:
             custom = {}
@@ -107,9 +125,9 @@ class StrategyMap(object):
                     field_name, type_token)
 
 
-###############################################################################
+################################################################################
 # Top-level Strategies
-###############################################################################
+################################################################################
 
 class TopLevelStrategy(object):
     @property
@@ -133,7 +151,44 @@ class RosBuiltinStrategy(TopLevelStrategy):
 
     @property
     def name(self):
-        return "ros_" + self.ros_type # $2
+        return "ros_" + self.ros_type
+
+
+class DefaultMsgStrategy(TopLevelStrategy):
+    TMP = ("{indent}@{module}.composite\n"
+           "{indent}def {name}(draw):\n"
+           "{indent}{tab}{var} = {pkg}.{msg}()\n"
+           "{definition}\n"
+           "{indent}{tab}return {var}")
+
+    __slots__ = ("msg_type", "fields")
+
+    def __init__(self, msg_type, msg_data):
+        # msg_data :: {str(field): TypeToken}
+        self.msg_type = msg_type
+        self.fields = {
+            field_name: FieldStrategy.make_default(field_name, type_token)
+            for field_name, type_token in msg_data.iteritems()
+        }
+
+    @property
+    def name(self):
+        return ros_type_to_name(self.msg_type)
+
+    def to_python(self, var_name="msg", module="strategies",
+                  indent=0, tab_size=4):
+        assert "/" in self.msg_type
+        pkg, msg = self.msg_type.split("/")
+        ws = " " * indent
+        mws = " " * tab_size
+        body = "\n".join(f.to_python(var_name=var_name,
+                                     module=module,
+                                     indent=(indent + tab_size),
+                                     tab_size=tab_size)
+                         for f in self.fields.itervalues())
+        return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
+                               name=self._name, var=var_name,
+                               definition=body, module=module)
 
 
 class MsgStrategy(TopLevelStrategy):
@@ -154,6 +209,16 @@ class MsgStrategy(TopLevelStrategy):
     def name(self):
         return self._name
 
+    # build sub field tree based on msg_data
+    # add conditions to fields as needed
+    # traverse field tree to build a list of lines of code
+    # mark each sub field as completely generated or not
+    # generate defaults and literals on first iteration
+    # references that cannot be resolved throw an exception
+    # main loop catches exception and enqueues field for next iteration
+    # whenever queue stays the same size from one iteration to another,
+    # a cyclic dependency has been detected
+
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
         assert "/" in self.msg_type
@@ -170,9 +235,9 @@ class MsgStrategy(TopLevelStrategy):
                                definition=body, module=module)
 
 
-###############################################################################
+################################################################################
 # Built-in Strategies
-###############################################################################
+################################################################################
 
 class RosBoolStrategy(RosBuiltinStrategy):
     TYPES = ("bool",)
@@ -182,6 +247,18 @@ class RosBoolStrategy(RosBuiltinStrategy):
 
     def __init__(self):
         RosBuiltinStrategy.__init__(self, "bool")
+
+    @classmethod
+    def accepts(cls, ros_type, value):
+        if ros_type in cls.TYPES:
+            raise ValueError("invalid ROS type: " + repr(ros_type))
+        if isinstance(value, Selector):
+            return value.ros_type == ros_type
+        if isinstance(value, int):
+            return value == 0 or value == 1
+        if not isinstance(value, bool):
+            raise TypeError("expected a bool value: " + repr(value))
+        return True
 
     def to_python(self, var_name="v", module="strategies",
                   indent=0, tab_size=4):
@@ -218,6 +295,17 @@ class RosIntStrategy(RosBuiltinStrategy):
            "min_value=max(min_value, {min_value}), "
            "max_value=min(max_value, {max_value}))")
 
+    @classmethod
+    def accepts(cls, ros_type, value):
+        if ros_type in cls.TYPES:
+            raise ValueError("invalid ROS type: " + repr(ros_type))
+        if isinstance(value, Selector):
+            return value.ros_type == ros_type
+        if not isinstance(value, (int, long)):
+            raise TypeError("expected an int value: " + repr(value))
+        min_value, max_value = cls.TYPES[ros_type]
+        return value >= min_value and value <= max_value
+
     def to_python(self, var_name="v", module="strategies",
                   indent=0, tab_size=4):
         ws = " " * indent
@@ -248,6 +336,17 @@ class RosFloatStrategy(RosBuiltinStrategy):
            "max_value=min(max_value, {max_value}), "
            "width={width})")
 
+    @classmethod
+    def accepts(cls, ros_type, value):
+        if ros_type in cls.TYPES:
+            raise ValueError("invalid ROS type: " + repr(ros_type))
+        if isinstance(value, Selector):
+            return value.ros_type == ros_type
+        if not isinstance(value, float):
+            raise TypeError("expected a float value: " + repr(value))
+        min_value, max_value, width = cls.TYPES[ros_type]
+        return value >= min_value and value <= max_value
+
     def to_python(self, var_name="v", module="strategies",
                   indent=0, tab_size=4):
         ws = " " * indent
@@ -266,6 +365,16 @@ class RosStringStrategy(RosBuiltinStrategy):
 
     def __init__(self):
         RosBuiltinStrategy.__init__(self, "string")
+
+    @classmethod
+    def accepts(cls, ros_type, value):
+        if ros_type in cls.TYPES:
+            raise ValueError("invalid ROS type: " + repr(ros_type))
+        if isinstance(value, Selector):
+            return value.ros_type == ros_type
+        if not isinstance(value, basestring):
+            raise TypeError("expected a string value: " + repr(value))
+        return True
 
     def to_python(self, var_name="v", module="strategies",
                   indent=0, tab_size=4):
@@ -343,11 +452,278 @@ class HeaderStrategy(RosBuiltinStrategy):
         return self.TMP.format(indent=ws, tab=mws, module=module)
 
 
-###############################################################################
-# Message Field Strategy
-###############################################################################
+################################################################################
+# Message Field Generators
+################################################################################
 
-class FieldStrategy(object):
+class Selector(object):
+    # selects field from root message for references
+    def __init__(self, ros_type):
+        self.ros_type = ros_type
+        self.fields = ()
+
+    def to_python(self):
+        pass
+
+
+VALUE_TYPES = (bool, int, long, float, basestring, Selector)
+
+
+class FieldGenerator(object):
+    __slots__ = ("field_name", "ros_type", "strategy", "condition")
+
+    def __init__(self, field_name, ros_type):
+        self.field_name = field_name
+        self.ros_type = ros_type
+        self.strategy = self._default_strategy(ros_type)
+        self.condition = None
+
+    def eq(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def neq(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def lt(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def lte(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def gt(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def gte(self, value):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def in_set(self, values):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def not_in(self, values):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def _default_strategy(self, ros_type):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def _type_check_value(self, value):
+        if not isinstance(value, VALUE_TYPES):
+            raise TypeError("invalid value: " + repr(value))
+        if (self.ros_type in ROS_INT_TYPES
+                and not RosIntStrategy.accepts(self.ros_type, value)):
+            raise ValueError("invalid int value: " + repr(value))
+        if (self.ros_type in ROS_FLOAT_TYPES
+                and not RosFloatStrategy.accepts(self.ros_type, value)):
+            raise ValueError("invalid float value: " + repr(value))
+        if (self.ros_type in ROS_BOOLEAN_TYPES
+                and not RosBoolStrategy.accepts(self.ros_type, value)):
+            raise ValueError("invalid bool value: " + repr(value))
+        if (self.ros_type in ROS_STRING_TYPES
+                and not RosStringStrategy.accepts(self.ros_type, value)):
+            raise ValueError("invalid string value: " + repr(value))
+
+    def _set_condition(self, condition):
+        if self.condition is None:
+            self.condition = condition
+        else:
+            self.condition = self.condition.merge(condition)
+
+
+class SimpleFieldGenerator(FieldGenerator):
+    def eq(self, value):
+        self._type_check_value(value)
+        self._set_condition(EqualsCondition(value, is_generator=True))
+
+    def neq(self, value):
+        self._type_check_value(value)
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def lt(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.max_value = value
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def lte(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.max_value = value
+
+    def gt(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.min_value = value
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def gte(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.min_value = value
+
+    def in_set(self, values):
+        if not isinstance(values, tuple) or isinstance(values, list):
+            raise TypeError("expected collection of values: " + repr(values))
+        for value in values:
+            self._type_check_value(value)
+        self._set_condition(InCondition(values, is_generator=True))
+
+    def not_in(self, values):
+        if not isinstance(values, tuple) or isinstance(values, list):
+            raise TypeError("expected collection of values: " + repr(values))
+        for value in values:
+            self._type_check_value(value)
+        self._set_condition(NotInCondition(values, is_generator=False))
+
+    def _default_strategy(self, ros_type):
+        if ros_type in ROS_NUMBER_TYPES:
+            return Numbers(ros_type)
+        if ros_type in ROS_STRING_TYPES:
+            return Strings()
+        if ros_type in ROS_BOOLEAN_TYPES:
+            return Booleans()
+        if ros_type == "time":
+            return Times()
+        if ros_type == "duration":
+            return Durations()
+        if ros_type == "Header" or ros_type == "std_msgs/Header":
+            return Headers()
+        raise ValueError("unexpected ROS type: " + repr(ros_type))
+
+
+class ArrayFieldGenerator(FieldGenerator):
+    # conditions on this are applied to all indices
+
+    __slots__ = ("field_name", "ros_type", "strategy", "condition",
+                 "length", "elements", "some")
+
+    def __init__(self, field_name, ros_type, length=None):
+        self.length = length
+        FieldGenerator.__init__(self, field_name, ros_type)
+        self.elements = {}
+        self.some = SimpleFieldStrategy(field_name + "[i]", ros_type)
+
+    def get(self, i):
+        if i < 0 or (not self.length is None and i >= self.length):
+            raise IndexError(repr(i))
+        if not i in self.elements:
+            el = SimpleFieldStrategy("{}[{}]".format(self.field_name, i),
+                                     self.ros_type)
+            self.elements[i] = el
+            return el
+        return self.elements[i]
+
+    def eq(self, value):
+        self._type_check_value(value)
+        self.strategy.elements = JustValue(value)
+
+    def neq(self, value):
+        self._type_check_value(value)
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def lt(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.elements.max_value = value
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def lte(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.elements.max_value = value
+
+    def gt(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.elements.min_value = value
+        self._set_condition(NotEqualsCondition(value, is_generator=False))
+
+    def gte(self, value):
+        if not self.ros_type in ROS_NUMBER_TYPES:
+            raise TypeError("non-numeric fields are not comparable")
+        self._type_check_value(value)
+        self.strategy.elements.min_value = value
+
+    def in_set(self, values):
+        if not isinstance(values, tuple) or isinstance(values, list):
+            raise TypeError("expected collection of values: " + repr(values))
+        for value in values:
+            self._type_check_value(value)
+        self._set_condition(InCondition(values, is_generator=True))
+
+    def not_in(self, values):
+        if not isinstance(values, tuple) or isinstance(values, list):
+            raise TypeError("expected collection of values: " + repr(values))
+        for value in values:
+            self._type_check_value(value)
+        self._set_condition(NotInCondition(values, is_generator=False))
+
+    def _default_strategy(self, ros_type):
+        if ros_type == "uint8":
+            return ByteArrays(length=self.length)
+        if ros_type in ROS_NUMBER_TYPES:
+            strategy = Numbers(ros_type)
+        elif ros_type in ROS_STRING_TYPES:
+            strategy = Strings()
+        elif ros_type in ROS_BOOLEAN_TYPES:
+            strategy = Booleans()
+        elif ros_type == "time":
+            strategy = Times()
+        elif ros_type == "duration":
+            strategy = Durations()
+        elif ros_type == "Header" or ros_type == "std_msgs/Header":
+            strategy = Headers()
+        else:
+            raise ValueError("unexpected ROS type: " + repr(ros_type))
+        return Arrays(strategy, length=self.length)
+
+
+class CompositeFieldGenerator(FieldGenerator):
+    __slots__ = ("field_name", "ros_type", "strategy", "condition",
+                 "subfields")
+
+    def __init__(self, field_name, ros_type):
+        FieldGenerator.__init__(self, field_name, ros_type)
+        self.subfields = {}
+
+    def _default_strategy(self, ros_type):
+        return CustomTypes.from_ros_type(ros_type)
+
+
+class CompositeArrayFieldGenerator(FieldGenerator):
+    __slots__ = ("field_name", "ros_type", "strategy", "condition",
+                 "length", "elements", "some")
+
+    def __init__(self, field_name, ros_type, length=None):
+        self.length = length
+        FieldGenerator.__init__(self, field_name, ros_type)
+        self.elements = {}
+        self.some = CompositeFieldStrategy(field_name + "[i]", ros_type)
+
+    def get(self, i):
+        if i < 0 or (not self.length is None and i >= self.length):
+            raise IndexError(repr(i))
+        if not i in self.elements:
+            el = CompositeFieldStrategy("{}[{}]".format(self.field_name, i),
+                                        self.ros_type)
+            self.elements[i] = el
+            return el
+        return self.elements[i]
+
+    def _default_strategy(self, ros_type):
+        return Arrays(CustomTypes.from_ros_type(ros_type), length=self.length)
+
+
+# TODO DELETE
+class OldFieldStrategy(object):
     TMP = "{indent}{var}.{field} = draw({strategy})"
 
     __slots__ = ("field_name", "strategy", "modifiers")
@@ -380,9 +756,74 @@ class FieldStrategy(object):
         return "\n".join(lines)
 
 
-###############################################################################
+################################################################################
+# Field Conditions
+################################################################################
+
+class Condition(object):
+    __slots__ = ("value", "is_generator")
+
+    def __init__(self, value, is_generator=False):
+        self.value = value
+        self.is_generator = is_generator
+
+    def merge(self, other):
+        raise NotImplementedError("cannot merge conditions on the same field")
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        raise NotImplementedError("subclasses must implement this method")
+
+
+class EqualsCondition(Condition):
+    TMP = "{indent}{field} = {value}"
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        return self.TMP.format(indent=ws, field=field_name,
+                               value=value_to_python(self.value))
+
+
+class NotEqualsCondition(Condition):
+    TMP = "{indent}assume({field} != {value})"
+
+    def merge(self, other):
+        if isinstance(other, NotEqualsCondition):
+            values = (self.value, other.value)
+            is_generator = self.is_generator or other.is_generator
+            return NotInCondition(values, is_generator=is_generator)
+        raise NotImplementedError("cannot merge conditions on the same field")
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        return self.TMP.format(indent=ws, field=field_name,
+                               value=value_to_python(self.value))
+
+
+class InCondition(Condition):
+    TMP = "{indent}{field} = draw({module}.sampled_from({value}))"
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        assert isinstance(self.value, tuple) or isinstance(self.value, list)
+        ws = " " * indent
+        return self.TMP.format(indent=ws, field=field_name, module=module,
+                               value=value_to_python(self.value))
+
+
+class NotInCondition(Condition):
+    TMP = "{indent}assume({excluded})"
+    INNER = "{field} != {value}"
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        assert isinstance(self.value, tuple) or isinstance(self.value, list)
+        ws = " " * indent
+        inner = " and ".join(self.INNER.format(field=field_name,
+            value=value_to_python(v)) for v in self.value)
+        return self.TMP.format(indent=ws, excluded=inner)
+
+
+################################################################################
 # Strategy Modifiers
-###############################################################################
+################################################################################
 
 class Modifier(object):
     def to_python(self, field_name, var_name="msg",
@@ -471,31 +912,19 @@ class RandomIndexModifier(Modifier):
         return index + "\n" + modifier
 
 
-###############################################################################
+################################################################################
 # Strategies
-###############################################################################
+################################################################################
 
 class BaseStrategy(object):
     def to_python(self, module="strategies"):
         raise NotImplementedError("subclasses must override this method")
 
 
-class StrategyReference(BaseStrategy):
+class CustomTypes(BaseStrategy):
     @classmethod
-    def from_strategy(cls, strategy):
-        if not isinstance(strategy, TopLevelStrategy):
-            raise TypeError("expected TopLevelStrategy, received: "
-                            + repr(strategy))
-        return cls(strategy.name)
-
-    @classmethod
-    def from_ros_type(cls, ros_type): # depends on $1, $2
-        if "/" in ros_type:
-            return cls(ros_type.replace("/", "_"))
-        elif ros_type == "Header":
-            return cls("std_msgs_Header")
-        else:
-            return cls("ros_" + ros_type)
+    def from_ros_type(cls, ros_type):
+        return cls(ros_type_to_name(ros_type))
 
     __slots__ = ("strategy_name",)
 
@@ -506,14 +935,69 @@ class StrategyReference(BaseStrategy):
         return self.strategy_name + "()"
 
 
+class JustValue(BaseStrategy):
+    __slots__ = ("value",)
+
+    def __init__(self, value):
+        self.value = value
+
+    def to_python(self, module="strategies"):
+        return "{}.just({})".format(module, value_to_python(self.value))
+
+
+class Numbers(BaseStrategy):
+    __slots__ = ("ros_type", "min_value", "max_value")
+
+    def __init__(self, ros_type):
+        if not ros_type in ROS_NUMBER_TYPES:
+            raise ValueError("unexpected ROS type: " + repr(ros_type))
+        self.ros_type = ros_type
+        self.min_value = None
+        self.max_value = None
+
+    def to_python(self, module="strategies"):
+        args = []
+        if not self.min_value is None:
+            args.append("min_value=" + value_to_python(self.min_value))
+        if not self.max_value is None:
+            args.append("max_value=" + value_to_python(self.max_value))
+        args = ", ".join(args)
+        return "{}({})".format(ros_type_to_name(self.ros_type), args)
+
+
+class Strings(BaseStrategy):
+    def to_python(self, module="strategies"):
+        return "ros_string()"
+
+
+class Booleans(BaseStrategy):
+    def to_python(self, module="strategies"):
+        return "ros_bool()"
+
+
+class Times(BaseStrategy):
+    def to_python(self, module="strategies"):
+        return "ros_time()"
+
+
+class Durations(BaseStrategy):
+    def to_python(self, module="strategies"):
+        return "ros_duration()"
+
+
+class Headers(BaseStrategy):
+    def to_python(self, module="strategies"):
+        return "std_msgs_Header()"
+
+
 class Arrays(BaseStrategy):
-    __slots__ = ("base_strategy", "length")
+    __slots__ = ("elements", "length")
 
     def __init__(self, base_strategy, length=None):
         if not isinstance(base_strategy, BaseStrategy):
             raise TypeError("expected BaseStrategy, received "
                             + repr(base_strategy))
-        self.base_strategy = base_strategy
+        self.elements = base_strategy
         self.length = length
 
     def to_python(self, module="strategies"):
@@ -537,9 +1021,29 @@ class ByteArrays(BaseStrategy):
         return "{}.binary(min_size=0, max_size={})".format(module, n)
 
 
-###############################################################################
+################################################################################
+# Helper Functions
+################################################################################
+
+def ros_type_to_name(ros_type):
+    if "/" in ros_type:
+        return ros_type.replace("/", "_")
+    elif ros_type == "Header":
+        return "std_msgs_Header"
+    else:
+        return "ros_" + ros_type
+
+def value_to_python(value):
+    if isinstance(value, tuple) or isinstance(value, list):
+        return "({})".format(", ".join(value_to_python(v) for v in value))
+    if isinstance(value, Selector):
+        return value.to_python()
+    return repr(value)
+
+
+################################################################################
 # Test Code
-###############################################################################
+################################################################################
 
 if __name__ == "__main__":
     TEST_DATA = {

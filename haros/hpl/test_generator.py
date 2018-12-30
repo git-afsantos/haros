@@ -28,9 +28,12 @@ from collections import namedtuple
 
 from .hpl_ast import (
     ALL_INDICES, SOME_INDEX, NO_INDEX, OPERATOR_EQ, OPERATOR_NEQ, OPERATOR_LT,
-    OPERATOR_LTE, OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN
+    OPERATOR_LTE, OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN,
+    HplLiteral, HplFieldExpression, HplSet, HplRange
 )
-from .hypothesis_strategies import (StrategyMap, FieldStrategy)
+from .hypothesis_strategies import (
+    StrategyMap, FieldStrategy, StrategyReference
+)
 
 
 ################################################################################
@@ -229,14 +232,16 @@ class ConditionTransformer(object):
 class ReceiveToStrategyTransformer(object):
     def __init__(self, strategy_map):
         self.strategy_map = strategy_map
+        self._deps = {}
+        self._msg_strategy = None
 
     def gen(self, hpl_receive):
         assert not hpl_receive.variable is None
         assert not hpl_receive.msg_type is None
         if not hpl_receive.msg_filter is None:
             msg_filter = hpl_receive.msg_filter.normalise()
-            self.strategy_map.make_custom(hpl_receive.variable,
-                                          hpl_receive.msg_type)
+            self._msg_strategy = self.strategy_map.make_custom(
+                hpl_receive.variable, hpl_receive.msg_type)
             group = self.strategy_map.custom[hpl_receive.variable]
             self._filter_to_strategies(msg_filter, group)
         # set msg as required
@@ -245,8 +250,11 @@ class ReceiveToStrategyTransformer(object):
 
     def _filter_to_strategies(self, msg_filter, group):
         for condition in msg_filter.field_conditions:
+            self._prepare_strategies(condition.field)
+        for condition in msg_filter.field_conditions:
             field_expr = condition.field
             last_field = field_expr.fields[-1]
+            value = self._process_value(field_expr, condition.value)
             value = condition.value
             # TODO detect dependencies between fields
             field_strategy = self._operator_strategy(last_field,
@@ -254,6 +262,39 @@ class ReceiveToStrategyTransformer(object):
             msg_strategy = group[last_field.msg_type]
             msg_strategy.fields[last_field.name] = field_strategy
             # TODO propagate changes to parent custom strategies
+
+    def _prepare_strategies(self, field_expr):
+        key = field_expr.variable
+        msg_strategy = self._msg_strategy
+        for i in xrange(len(field_expr.fields) - 1):
+            field = field_expr.fields[i]
+            key += "." + field.name
+            new_strategy = self.strategy_map.make_custom(key, field.ros_type)
+            msg_strategy.fields[field.name] = FieldStrategy(field.name,
+                strategy=StrategyReference(new_strategy.name))
+            msg_strategy = new_strategy
+
+    def _process_value(self, field_expr, value):
+        if isinstance(value, HplLiteral):
+            return repr(value.value)
+        if isinstance(value, HplFieldExpression):
+            assert field_expr.variable == value.variable
+            left_key = field_expr.variable
+            right_key = value.variable
+            for i in xrange(len(field_expr.fields) - 1):
+                msg_strategy = self.strategy_map.custom[left_key]
+                left_field = field_expr.fields[i]
+                right_field = value.fields[i]
+                left_key += "." + left_field.name
+                right_key += "." + right_field.name
+                if left_field.name != right_field.name:
+                    # msg_strategy.order[left_field.name] = right_field.name
+                    # msg_strategy.inject_dependency(left_field.name, )
+                    msg_strategy = self.strategy_map.custom[left_key]
+                    # a[all].b.c != a[all].b.d
+        if isinstance(value, HplSet):
+        if isinstance(value, HplRange):
+        raise TypeError("unexpected value type: " + type(value).__name__)
 
     def _operator_strategy(self, field, operator, value):
         assert field.index != NO_INDEX
