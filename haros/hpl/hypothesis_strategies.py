@@ -532,9 +532,11 @@ class FieldGenerator(object):
 
 
 class SimpleFieldGenerator(FieldGenerator):
+    TMP = "{indent}{field} = {strategy}"
+
     def eq(self, value):
         self._type_check_value(value)
-        self._set_condition(EqualsCondition(value, is_generator=True))
+        self.strategy = ConstantValue(value)
 
     def neq(self, value):
         self._type_check_value(value)
@@ -544,33 +546,46 @@ class SimpleFieldGenerator(FieldGenerator):
         if not self.ros_type in ROS_NUMBER_TYPES:
             raise TypeError("non-numeric fields are not comparable")
         self._type_check_value(value)
-        self.strategy.max_value = value
-        self._set_condition(NotEqualsCondition(value, is_generator=False))
+        if isinstance(self.strategy, Numbers):
+            self.strategy.max_value = value
+            self._set_condition(NotEqualsCondition(value, is_generator=False))
+        else:
+            self._set_condition(LessThanCondition(value, strict=True))
 
     def lte(self, value):
         if not self.ros_type in ROS_NUMBER_TYPES:
             raise TypeError("non-numeric fields are not comparable")
         self._type_check_value(value)
-        self.strategy.max_value = value
+        if isinstance(self.strategy, Numbers):
+            self.strategy.max_value = value
+        else:
+            self._set_condition(LessThanCondition(value, strict=False))
 
     def gt(self, value):
         if not self.ros_type in ROS_NUMBER_TYPES:
             raise TypeError("non-numeric fields are not comparable")
         self._type_check_value(value)
-        self.strategy.min_value = value
-        self._set_condition(NotEqualsCondition(value, is_generator=False))
+        if isinstance(self.strategy, Numbers):
+            self.strategy.min_value = value
+            self._set_condition(NotEqualsCondition(value, is_generator=False))
+        else:
+            self._set_condition(GreaterThanCondition(value, strict=True))
 
     def gte(self, value):
         if not self.ros_type in ROS_NUMBER_TYPES:
             raise TypeError("non-numeric fields are not comparable")
         self._type_check_value(value)
-        self.strategy.min_value = value
+        if isinstance(self.strategy, Numbers):
+            self.strategy.min_value = value
+        else:
+            self._set_condition(GreaterThanCondition(value, strict=False))
 
     def in_set(self, values):
         if not isinstance(values, tuple) or isinstance(values, list):
             raise TypeError("expected collection of values: " + repr(values))
         for value in values:
             self._type_check_value(value)
+        
         self._set_condition(InCondition(values, is_generator=True))
 
     def not_in(self, values):
@@ -579,6 +594,21 @@ class SimpleFieldGenerator(FieldGenerator):
         for value in values:
             self._type_check_value(value)
         self._set_condition(NotInCondition(values, is_generator=False))
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        if not self.condition is None and self.condition.is_generator:
+            return self.condition.to_python(self.field_name,
+                module=module, indent=indent, tab_size=tab_size)
+        ws = " " * indent
+        strategy = self.strategy.to_python(module=module)
+        strategy = self.TMP.format(indent=ws, field=self.field_name,
+                                   strategy=strategy)
+        if self.condition is None:
+            return strategy
+        else:
+            condition = self.condition.to_python(self.field_name,
+                module=module, indent=indent, tab_size=tab_size)
+            return strategy + "\n" + condition
 
     def _default_strategy(self, ros_type):
         if ros_type in ROS_NUMBER_TYPES:
@@ -598,6 +628,10 @@ class SimpleFieldGenerator(FieldGenerator):
 
 class ArrayFieldGenerator(FieldGenerator):
     # conditions on this are applied to all indices
+
+    TMP = "{indent}{field} = draw({strategy})"
+
+    COND = "{indent}for i in xrange(len({field})):\n{condition}"
 
     __slots__ = ("field_name", "ros_type", "strategy", "condition",
                  "length", "elements", "some")
@@ -665,6 +699,21 @@ class ArrayFieldGenerator(FieldGenerator):
         for value in values:
             self._type_check_value(value)
         self._set_condition(NotInCondition(values, is_generator=False))
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        if not self.condition is None and self.condition.is_generator:
+            return self.condition.to_python(self.field_name,
+                module=module, indent=indent, tab_size=tab_size)
+        ws = " " * indent
+        strategy = self.strategy.to_python(module=module)
+        strategy = self.TMP.format(indent=ws, field=self.field_name,
+                                   strategy=strategy)
+        if self.condition is None:
+            return strategy
+        else:
+            condition = self.condition.to_python(self.field_name,
+                module=module, indent=indent, tab_size=tab_size)
+            return strategy + "\n" + condition
 
     def _default_strategy(self, ros_type):
         if ros_type == "uint8":
@@ -917,43 +966,100 @@ class RandomIndexModifier(Modifier):
 ################################################################################
 
 class BaseStrategy(object):
+    __slots__ = ("modified",)
+
+    def __init__(self):
+        self.modified = False
+
+    @property
+    def is_constant(self):
+        raise NotImplementedError("subclasses must override this property")
+
     def to_python(self, module="strategies"):
         raise NotImplementedError("subclasses must override this method")
 
 
 class CustomTypes(BaseStrategy):
+    __slots__ = ("strategy_name", "modified")
+
+    def __init__(self, strategy_name):
+        BaseStrategy.__init__(self)
+        self.strategy_name = strategy_name
+
     @classmethod
     def from_ros_type(cls, ros_type):
         return cls(ros_type_to_name(ros_type))
 
-    __slots__ = ("strategy_name",)
-
-    def __init__(self, strategy_name):
-        self.strategy_name = strategy_name
+    @property
+    def is_constant(self):
+        return False
 
     def to_python(self, module="strategies"):
-        return self.strategy_name + "()"
+        return "draw({}())".format(self.strategy_name)
+
+
+class ConstantValue(BaseStrategy):
+    __slots__ = ("value", "modified")
+
+    def __init__(self, value):
+        BaseStrategy.__init__(self)
+        self.value = value
+
+    @property
+    def is_constant(self):
+        return True
+
+    def to_python(self, module="strategies"):
+        return value_to_python(self.value)
 
 
 class JustValue(BaseStrategy):
-    __slots__ = ("value",)
+    __slots__ = ("value", "modified")
 
     def __init__(self, value):
+        BaseStrategy.__init__(self)
         self.value = value
 
+    @property
+    def is_constant(self):
+        return True
+
     def to_python(self, module="strategies"):
-        return "{}.just({})".format(module, value_to_python(self.value))
+        return "draw({}.just({}))".format(module, value_to_python(self.value))
+
+
+class SampleValues(BaseStrategy):
+    __slots__ = ("values", "modified")
+
+    def __init__(self, values):
+        if not isinstance(values, tuple) or isinstance(values, list):
+            raise TypeError("expected collection: " + repr(values))
+        BaseStrategy.__init__(self)
+        self.values = values
+
+    @property
+    def is_constant(self):
+        return False
+
+    def to_python(self, module="strategies"):
+        return "draw({}.sampled_from({}))".format(
+            module, value_to_python(self.values))
 
 
 class Numbers(BaseStrategy):
-    __slots__ = ("ros_type", "min_value", "max_value")
+    __slots__ = ("ros_type", "min_value", "max_value", "modified")
 
     def __init__(self, ros_type):
         if not ros_type in ROS_NUMBER_TYPES:
             raise ValueError("unexpected ROS type: " + repr(ros_type))
+        BaseStrategy.__init__(self)
         self.ros_type = ros_type
         self.min_value = None
         self.max_value = None
+
+    @property
+    def is_constant(self):
+        return False
 
     def to_python(self, module="strategies"):
         args = []
@@ -962,63 +1068,93 @@ class Numbers(BaseStrategy):
         if not self.max_value is None:
             args.append("max_value=" + value_to_python(self.max_value))
         args = ", ".join(args)
-        return "{}({})".format(ros_type_to_name(self.ros_type), args)
+        return "draw({}({}))".format(ros_type_to_name(self.ros_type), args)
 
 
 class Strings(BaseStrategy):
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
-        return "ros_string()"
+        return "draw(ros_string())"
 
 
 class Booleans(BaseStrategy):
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
-        return "ros_bool()"
+        return "draw(ros_bool())"
 
 
 class Times(BaseStrategy):
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
-        return "ros_time()"
+        return "draw(ros_time())"
 
 
 class Durations(BaseStrategy):
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
-        return "ros_duration()"
+        return "draw(ros_duration())"
 
 
 class Headers(BaseStrategy):
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
-        return "std_msgs_Header()"
+        return "draw(std_msgs_Header())"
 
 
 class Arrays(BaseStrategy):
-    __slots__ = ("elements", "length")
+    __slots__ = ("elements", "length", "modified")
 
     def __init__(self, base_strategy, length=None):
         if not isinstance(base_strategy, BaseStrategy):
             raise TypeError("expected BaseStrategy, received "
                             + repr(base_strategy))
+        BaseStrategy.__init__(self)
         self.elements = base_strategy
         self.length = length
 
+    @property
+    def is_constant(self):
+        return False
+
     def to_python(self, module="strategies"):
         if self.length is None:
-            tmp = "{}.lists(elements={}, min_size=0, max_size=256)"
+            tmp = "draw({}.lists(elements={}, min_size=0, max_size=256))"
             return tmp.format(module, self.base_strategy.to_python())
         assert self.length >= 0
-        return "{}.tuples(*[{} for i in xrange({})])".format(
+        return "draw({}.tuples(*[{} for i in xrange({})]))".format(
             module, self.base_strategy.to_python(module=module), self.length)
 
 
 class ByteArrays(BaseStrategy):
-    __slots__ = ("length",)
+    __slots__ = ("length", "modified")
 
     def __init__(self, length=None):
+        BaseStrategy.__init__(self)
         self.length = length
+
+    @property
+    def is_constant(self):
+        return False
 
     def to_python(self, module="strategies"):
         n = 256 if self.length is None else self.length
         assert n >= 0
-        return "{}.binary(min_size=0, max_size={})".format(module, n)
+        return "draw({}.binary(min_size=0, max_size={}))".format(module, n)
 
 
 ################################################################################
