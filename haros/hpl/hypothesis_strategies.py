@@ -198,12 +198,13 @@ class MsgStrategy(TopLevelStrategy):
            "{definition}\n"
            "{indent}{tab}return {var}")
 
-    __slots__ = ("msg_type", "fields", "_name")
+    __slots__ = ("msg_type", "fields", "_name", "_done")
 
     def __init__(self, msg_type, name=None):
         self.msg_type = msg_type
         self.fields = {}
-        self._name = name if name else msg_type.replace("/", "_") # $1
+        self._name = name if name else ros_type_to_name(msg_type)
+        self._done = None
 
     @property
     def name(self):
@@ -219,20 +220,57 @@ class MsgStrategy(TopLevelStrategy):
     # whenever queue stays the same size from one iteration to another,
     # a cyclic dependency has been detected
 
+
+    # def strategy(draw):
+    #   msg = Msg()
+    #   select = Selector(msg) ?
+    #   ---------------------- build the skeleton
+    #   msg.a = draw(default_composite())
+    #   msg.b = Composite()
+    #   msg.b.a = 1
+    #   ---------------------- start with array of None
+    #   msg.c = draw(lists(min_size=3, max_size=3))     # [None, None, None]
+    #   reserved = (1,)
+    #   ---------------------- build 'some' fields avoiding fixed indices
+    #   assume(len(msg.c) - len(reserved) >= #some)
+    #   msg.c[0] = 1    # msg.c[some] = 1
+    #   ---------------------- build default fields to fill up array
+    #   for i in xrange(#some, len(msg.c)):
+    #       if not i in reserved:
+    #           msg.c[i] = draw(default_value())
+    #   
+
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
         assert "/" in self.msg_type
         pkg, msg = self.msg_type.split("/")
         ws = " " * indent
         mws = " " * tab_size
-        body = "\n".join(f.to_python(var_name=var_name,
-                                     module=module,
-                                     indent=(indent + tab_size),
-                                     tab_size=tab_size)
-                         for f in self.fields.itervalues())
+        self._done = []
+        queue = list(self.fields.itervalues())
+        body = []
+        while queue:
+            n = len(self._done)
+            new_queue = []
+            for field in queue:
+                try:
+                    body.append(field.to_python(module=module,
+                        indent=(indent + tab_size), tab_size=tab_size))
+                    self._done.append(field)
+                    new_queue.extend(field.children())
+                except ResolutionError as e:
+                    new_queue.append(field)
+            queue = new_queue
+            if n == len(self._done):
+                raise CyclicDependencyError(repr(queue))
+        body = "\n".join(body)
         return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
                                name=self._name, var=var_name,
                                definition=body, module=module)
+
+
+class CyclicDependencyError(Exception):
+    pass
 
 
 ################################################################################
@@ -456,11 +494,16 @@ class HeaderStrategy(RosBuiltinStrategy):
 # Message Field Generators
 ################################################################################
 
+class ResolutionError(Exception):
+    pass
+
+
 class Selector(object):
     # selects field from root message for references
-    def __init__(self, ros_type):
+    def __init__(self, root, fields, ros_type):
+        self.root = root
+        self.fields = fields
         self.ros_type = ros_type
-        self.fields = ()
 
     def to_python(self):
         pass
@@ -473,6 +516,15 @@ class InconsistencyError(Exception):
     pass
 
 
+class UnsupportedOperationError(Exception):
+    pass
+
+
+# TODO add flag and method to query whether the field is fully generated
+# TODO add method to generate just the init ?
+# TODO add method to generate the post init assume ?
+# TODO add assume on list length when a selector for fixed index is created
+
 class FieldGenerator(object):
     __slots__ = ("field_name", "ros_type", "strategy", "condition")
 
@@ -481,6 +533,17 @@ class FieldGenerator(object):
         self.ros_type = ros_type
         self.strategy = self._default_strategy(ros_type)
         self.condition = None
+
+    @property
+    def is_default(self):
+        return self.condition is None and self.strategy.is_default
+
+    @property
+    def has_custom_generator(self):
+        raise NotImplementedError("subclasses must implement this property")
+
+    def children(self):
+        raise NotImplementedError("subclasses must implement this method")
 
     def eq(self, value):
         raise NotImplementedError("subclasses must implement this method")
@@ -548,6 +611,14 @@ class SimpleFieldGenerator(FieldGenerator):
     @property
     def has_custom_generator(self):
         return not self.constant is None or not self.pool is None
+
+    @property
+    def is_default(self):
+        return (self.constant is None and self.pool is None
+                and self.condition is None and self.strategy.is_default)
+
+    def children(self):
+        return ()
 
     def eq(self, value):
         self._type_check_value(value)
@@ -661,16 +732,27 @@ class ArrayFieldGenerator(FieldGenerator):
            "max_value=len({field})))\n"
            "{indent}assume(not i in ({indices}))")
 
-    __slots__ = FieldGenerator.__slots__ + ("length", "elements", "_some",
+    __slots__ = FieldGenerator.__slots__ + ("length", "fields", "_some",
                                             "constant", "pool")
 
     def __init__(self, field_name, ros_type, length=None):
         self.length = length
         FieldGenerator.__init__(self, field_name, ros_type)
-        self.elements = {}
+        self.fields = {}
         self._some = None
         self.constant = None
         self.pool = None
+
+    @property
+    def is_default(self):
+        return (self.constant is None and self.pool is None
+                and self.condition is None and self.strategy.is_default
+                and self._some is None and not self.fields)
+
+    @property
+    def has_custom_generator(self):
+        return (not self.constant is None or not self.pool is None
+                or not self._some is None or self.fields)
 
     @property
     def some(self):
@@ -680,14 +762,18 @@ class ArrayFieldGenerator(FieldGenerator):
         return self._some
 
     def get(self, i):
-        if i < 0 or (not self.length is None and i >= self.length):
+        # No fixed index access for variable-length arrays
+        if self.length is None or i < 0 or i >= self.length:
             raise IndexError(repr(i))
-        if not i in self.elements:
+        if not i in self.fields:
             el = SimpleFieldStrategy("{}[{}]".format(self.field_name, i),
                                      self.ros_type)
-            self.elements[i] = el
+            self.fields[i] = el
             return el
-        return self.elements[i]
+        return self.fields[i]
+
+    def children(self):
+        return ()
 
     def eq(self, value):
         self._type_check_value(value)
@@ -761,6 +847,8 @@ class ArrayFieldGenerator(FieldGenerator):
             strategy = Arrays(JustValue(self.constant), length=self.length)
         elif not self.pool is None:
             strategy = Arrays(SampleValues(self.pool), length=self.length)
+        elif self.ros_type == "uint8" and self.strategy.is_default:
+            strategy = ByteArrays(length=self.length)
         else:
             strategy = self.strategy
         strategy = strategy.to_python(module=module)
@@ -770,11 +858,11 @@ class ArrayFieldGenerator(FieldGenerator):
         if not self.condition is None:
             lines.append(self.condition.to_python(self.field_name,
                 module=module, indent=indent, tab_size=tab_size))
-        for field in self.elements.itervalues():
+        for field in self.fields.itervalues():
             lines.append(field.to_python(
                 module=module, indent=indent, tab_size=tab_size))
         if not self._some is None:
-            indices = ", ".join(i for i in self.elements)
+            indices = ", ".join(i for i in self.fields)
             lines.append(self.IDX.format(indent=ws, module=module,
                 field=self.field_name, indices=indices))
             lines.append(self._some.to_python(
@@ -782,8 +870,6 @@ class ArrayFieldGenerator(FieldGenerator):
         return "\n".join(lines)
 
     def _default_strategy(self, ros_type):
-        if ros_type == "uint8":
-            return ByteArrays(length=self.length)
         if ros_type in ROS_NUMBER_TYPES:
             strategy = Numbers(ros_type)
         elif ros_type in ROS_STRING_TYPES:
@@ -802,73 +888,271 @@ class ArrayFieldGenerator(FieldGenerator):
 
 
 class CompositeFieldGenerator(FieldGenerator):
-    __slots__ = ("field_name", "ros_type", "strategy", "condition",
-                 "subfields")
+    TMP = "{indent}{field} = {strategy}"
+
+    __slots__ = FieldGenerator.__slots__ + ("fields",)
 
     def __init__(self, field_name, ros_type):
         FieldGenerator.__init__(self, field_name, ros_type)
-        self.subfields = {}
+        self.fields = {}
+
+    @property
+    def is_default(self):
+        if not self.condition is None or not self.strategy.is_default:
+            return False
+        for field in self.fields.itervalues():
+            if not field.is_default:
+                return False
+        return True
+
+    @property
+    def has_custom_generator(self):
+        for field in self.fields.itervalues():
+            if field.has_custom_generator:
+                return True
+        return False
+
+    def children(self):
+        return list(self.fields.itervalues())
+
+    def eq(self, value):
+        raise UnsupportedOperationError()
+
+    def neq(self, value):
+        raise UnsupportedOperationError()
+
+    def lt(self, value):
+        raise UnsupportedOperationError()
+
+    def lte(self, value):
+        raise UnsupportedOperationError()
+
+    def gt(self, value):
+        raise UnsupportedOperationError()
+
+    def gte(self, value):
+        raise UnsupportedOperationError()
+
+    def in_set(self, values):
+        raise UnsupportedOperationError()
+
+    def not_in(self, values):
+        raise UnsupportedOperationError()
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        if self.is_default:
+            strategy = self.strategy.to_python(module=module)
+        else:
+            strategy = self.ros_type + "()"
+        return self.TMP.format(indent=(" " * indent),
+            field=self.field_name, strategy=strategy)
 
     def _default_strategy(self, ros_type):
         return CustomTypes.from_ros_type(ros_type)
 
 
 class CompositeArrayFieldGenerator(FieldGenerator):
-    __slots__ = ("field_name", "ros_type", "strategy", "condition",
-                 "length", "elements", "some")
+    TMP = "{indent}{field} = {strategy}"
+
+    IDX = ("{indent}i = draw({module}.integers(min_value=0, "
+           "max_value=len({field})))\n"
+           "{indent}assume(not i in ({indices}))")
+
+    __slots__ = FieldGenerator.__slots__ + ("length", "fields", "_some")
 
     def __init__(self, field_name, ros_type, length=None):
         self.length = length
         FieldGenerator.__init__(self, field_name, ros_type)
-        self.elements = {}
-        self.some = CompositeFieldStrategy(field_name + "[i]", ros_type)
+        self.fields = {}
+        self._some = None
+
+    @property
+    def is_default(self):
+        return (self.constant is None and self.pool is None
+                and self.condition is None and self.strategy.is_default
+                and self._some is None and not self.fields)
+
+    @property
+    def has_custom_generator(self):
+        return not self._some is None or self.fields
+
+    @property
+    def some(self):
+        if self._some is None:
+            self._some = CompositeFieldStrategy(
+                self.field_name + "[i]", self.ros_type)
+        return self._some
 
     def get(self, i):
         if i < 0 or (not self.length is None and i >= self.length):
             raise IndexError(repr(i))
-        if not i in self.elements:
+        if not i in self.fields:
             el = CompositeFieldStrategy("{}[{}]".format(self.field_name, i),
                                         self.ros_type)
-            self.elements[i] = el
+            self.fields[i] = el
             return el
-        return self.elements[i]
+        return self.fields[i]
+
+    def children(self):
+        return ()
+
+    def eq(self, value):
+        raise UnsupportedOperationError()
+
+    def neq(self, value):
+        raise UnsupportedOperationError()
+
+    def lt(self, value):
+        raise UnsupportedOperationError()
+
+    def lte(self, value):
+        raise UnsupportedOperationError()
+
+    def gt(self, value):
+        raise UnsupportedOperationError()
+
+    def gte(self, value):
+        raise UnsupportedOperationError()
+
+    def in_set(self, values):
+        raise UnsupportedOperationError()
+
+    def not_in(self, values):
+        raise UnsupportedOperationError()
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        strategy = self.strategy.to_python(module=module)
+        ws = " " * indent
+        lines = [self.TMP.format(indent=ws, field=self.field_name,
+                                 strategy=strategy)]
+        for field in self.fields.itervalues():
+            lines.append(field.to_python(
+                module=module, indent=indent, tab_size=tab_size))
+        if not self._some is None:
+            indices = ", ".join(i for i in self.fields)
+            lines.append(self.IDX.format(indent=ws, module=module,
+                field=self.field_name, indices=indices))
+            lines.append(self._some.to_python(
+                module=module, indent=indent, tab_size=tab_size))
+        return "\n".join(lines)
 
     def _default_strategy(self, ros_type):
         return Arrays(CustomTypes.from_ros_type(ros_type), length=self.length)
 
 
-# TODO DELETE
-class OldFieldStrategy(object):
-    TMP = "{indent}{var}.{field} = draw({strategy})"
 
-    __slots__ = ("field_name", "strategy", "modifiers")
 
-    def __init__(self, field_name, strategy=None):
-        self.field_name = field_name
-        self.strategy = strategy
-        self.modifiers = []
 
-    @classmethod
-    def make_default(cls, field_name, type_token):
-        if type_token.ros_type == "uint8" and type_token.is_array:
-            strategy = ByteArrays(length=type_token.length)
-        else:
-            strategy = StrategyReference.from_ros_type(type_token.ros_type)
-            if type_token.is_array:
-                strategy = Arrays(strategy, length=type_token.length)
-        return cls(field_name, strategy=strategy)
+class FixedLengthArrayGenerator(FieldGenerator):
+    __slots__ = FieldGenerator.__slots__ + ("length", "fields")
 
-    def to_python(self, var_name="msg", module="strategies",
-                  indent=0, tab_size=4):
-        assert not self.strategy is None
-        strategy = self.strategy.to_python(module=module)
-        lines = [self.TMP.format(indent=(" " * indent), var=var_name,
-            field=self.field_name, strategy=strategy)]
-        lines.extend(m.to_python(self.field_name, var_name=var_name,
-                                 module=module, indent=indent,
-                                 tab_size=tab_size)
-                     for m in self.modifiers)
-        return "\n".join(lines)
+    TMP = ("{indent}{field} = draw({module}.lists("
+           "min_size={length}, max_size={length}))")
+
+    def __init__(self, field_name, ros_type, length, default_field):
+        FieldGenerator.__init__(self, field_name, ros_type)
+        self.length = length
+        self.fields = [default_field.copy("{}[{}]".format(field_name, i))
+                       for i in xrange(length)]
+
+    @property
+    def is_default(self):
+        return all(f.is_default for f in self.fields)
+
+    @property
+    def some(self):
+        return None
+
+    def children(self):
+        return self.fields
+
+    def eq(self, value):
+        for field in self.fields:
+            field.eq(value)
+
+    def neq(self, value):
+        for field in self.fields:
+            field.neq(value)
+
+    def lt(self, value):
+        for field in self.fields:
+            field.lt(value)
+
+    def lte(self, value):
+        for field in self.fields:
+            field.lte(value)
+
+    def gt(self, value):
+        for field in self.fields:
+            field.gt(value)
+
+    def gte(self, value):
+        for field in self.fields:
+            field.gte(value)
+
+    def in_set(self, values):
+        for field in self.fields:
+            field.in_set(values)
+
+    def not_in(self, values):
+        for field in self.fields:
+            field.not_in(values)
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        return self.TMP.format(indent=ws, field=self.field_name,
+            module=module, length=self.length)
+
+
+class VariableLengthArrayGenerator(FieldGenerator):
+    __slots__ = FieldGenerator.__slots__ + ("_all", "fields")
+
+    TMP = "{indent}{field} = draw({module}.lists(min_size=0, max_size=256))"
+
+    def __init__(self, field_name, ros_type, default_field):
+        FieldGenerator.__init__(self, field_name, ros_type)
+        self._all = default_field
+        self.fields = () # meant to produce an IndexError
+
+    @property
+    def is_default(self):
+        return self._all.is_default
+
+    @property
+    def some(self):
+        return None
+
+    def children(self):
+        return (self._all,)
+
+    def eq(self, value):
+        self._all.eq(value)
+
+    def neq(self, value):
+        self._all.neq(value)
+
+    def lt(self, value):
+        self._all.lt(value)
+
+    def lte(self, value):
+        self._all.lte(value)
+
+    def gt(self, value):
+        self._all.gt(value)
+
+    def gte(self, value):
+        self._all.gte(value)
+
+    def in_set(self, values):
+        self._all.in_set(values)
+
+    def not_in(self, values):
+        self._all.not_in(values)
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        return self.TMP.format(indent=ws, field=self.field_name, module=module)
+
 
 
 ################################################################################
@@ -876,11 +1160,10 @@ class OldFieldStrategy(object):
 ################################################################################
 
 class Condition(object):
-    __slots__ = ("value", "is_generator")
+    __slots__ = ("value",)
 
-    def __init__(self, value, is_generator=False):
+    def __init__(self, value):
         self.value = value
-        self.is_generator = is_generator
 
     def merge(self, other):
         raise NotImplementedError("cannot merge conditions on the same field")
@@ -890,7 +1173,7 @@ class Condition(object):
 
 
 class EqualsCondition(Condition):
-    TMP = "{indent}{field} = {value}"
+    TMP = "{indent}assume({field} == {value})"
 
     def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
         ws = " " * indent
@@ -904,8 +1187,7 @@ class NotEqualsCondition(Condition):
     def merge(self, other):
         if isinstance(other, NotEqualsCondition):
             values = (self.value, other.value)
-            is_generator = self.is_generator or other.is_generator
-            return NotInCondition(values, is_generator=is_generator)
+            return NotInCondition(values)
         raise NotImplementedError("cannot merge conditions on the same field")
 
     def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
@@ -914,14 +1196,53 @@ class NotEqualsCondition(Condition):
                                value=value_to_python(self.value))
 
 
+class LessThanCondition(Condition):
+    __slots__ = Condition.__slots__ + ("strict",)
+
+    LT = "{indent}assume({field} < {value})"
+    LTE = "{indent}assume({field} <= {value})"
+
+    def __init__(self, value, strict=False):
+        Condition.__init__(self, value)
+        self.strict = strict
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        if self.strict:
+            return self.LT.format(indent=ws, field=field_name,
+                                  value=value_to_python(self.value))
+        else:
+            return self.LTE.format(indent=ws, field=field_name,
+                                   value=value_to_python(self.value))
+
+
+class GreaterThanCondition(Condition):
+    __slots__ = Condition.__slots__ + ("strict",)
+
+    GT = "{indent}assume({field} > {value})"
+    GTE = "{indent}assume({field} >= {value})"
+
+    def __init__(self, value, strict=False):
+        Condition.__init__(self, value)
+        self.strict = strict
+
+    def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
+        ws = " " * indent
+        if self.strict:
+            return self.GT.format(indent=ws, field=field_name,
+                                  value=value_to_python(self.value))
+        else:
+            return self.GTE.format(indent=ws, field=field_name,
+                                   value=value_to_python(self.value))
+
 class InCondition(Condition):
-    TMP = "{indent}{field} = draw({module}.sampled_from({value}))"
+    TMP = "{indent}assume({field} in {values})"
 
     def to_python(self, field_name, module="strategies", indent=0, tab_size=4):
         assert isinstance(self.value, tuple) or isinstance(self.value, list)
         ws = " " * indent
         return self.TMP.format(indent=ws, field=field_name, module=module,
-                               value=value_to_python(self.value))
+                               values=value_to_python(self.value))
 
 
 class NotInCondition(Condition):
@@ -1032,79 +1353,52 @@ class RandomIndexModifier(Modifier):
 ################################################################################
 
 class BaseStrategy(object):
-    __slots__ = ("modified",)
-
-    def __init__(self):
-        self.modified = False
-
     @property
-    def is_constant(self):
-        raise NotImplementedError("subclasses must override this property")
+    def is_default(self):
+        return True
 
     def to_python(self, module="strategies"):
         raise NotImplementedError("subclasses must override this method")
 
 
 class CustomTypes(BaseStrategy):
-    __slots__ = ("strategy_name", "modified")
+    __slots__ = ("strategy_name",)
 
     def __init__(self, strategy_name):
-        BaseStrategy.__init__(self)
         self.strategy_name = strategy_name
 
     @classmethod
     def from_ros_type(cls, ros_type):
         return cls(ros_type_to_name(ros_type))
 
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw({}())".format(self.strategy_name)
 
 
-class ConstantValue(BaseStrategy):
-    __slots__ = ("value", "modified")
-
-    def __init__(self, value):
-        BaseStrategy.__init__(self)
-        self.value = value
-
-    @property
-    def is_constant(self):
-        return True
-
-    def to_python(self, module="strategies"):
-        return value_to_python(self.value)
-
-
 class JustValue(BaseStrategy):
-    __slots__ = ("value", "modified")
+    __slots__ = ("value",)
 
     def __init__(self, value):
-        BaseStrategy.__init__(self)
         self.value = value
 
     @property
-    def is_constant(self):
-        return True
+    def is_default(self):
+        return False
 
     def to_python(self, module="strategies"):
         return "draw({}.just({}))".format(module, value_to_python(self.value))
 
 
 class SampleValues(BaseStrategy):
-    __slots__ = ("values", "modified")
+    __slots__ = ("values",)
 
     def __init__(self, values):
         if not isinstance(values, tuple) or isinstance(values, list):
             raise TypeError("expected collection: " + repr(values))
-        BaseStrategy.__init__(self)
         self.values = values
 
     @property
-    def is_constant(self):
+    def is_default(self):
         return False
 
     def to_python(self, module="strategies"):
@@ -1113,19 +1407,18 @@ class SampleValues(BaseStrategy):
 
 
 class Numbers(BaseStrategy):
-    __slots__ = ("ros_type", "min_value", "max_value", "modified")
+    __slots__ = ("ros_type", "min_value", "max_value")
 
     def __init__(self, ros_type):
         if not ros_type in ROS_NUMBER_TYPES:
             raise ValueError("unexpected ROS type: " + repr(ros_type))
-        BaseStrategy.__init__(self)
         self.ros_type = ros_type
         self.min_value = None
         self.max_value = None
 
     @property
-    def is_constant(self):
-        return False
+    def is_default(self):
+        return self.min_value is None and self.max_value is None
 
     def to_python(self, module="strategies"):
         args = []
@@ -1138,64 +1431,43 @@ class Numbers(BaseStrategy):
 
 
 class Strings(BaseStrategy):
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw(ros_string())"
 
 
 class Booleans(BaseStrategy):
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw(ros_bool())"
 
 
 class Times(BaseStrategy):
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw(ros_time())"
 
 
 class Durations(BaseStrategy):
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw(ros_duration())"
 
 
 class Headers(BaseStrategy):
-    @property
-    def is_constant(self):
-        return False
-
     def to_python(self, module="strategies"):
         return "draw(std_msgs_Header())"
 
 
 class Arrays(BaseStrategy):
-    __slots__ = ("elements", "length", "modified")
+    __slots__ = ("elements", "length")
 
     def __init__(self, base_strategy, length=None):
         if not isinstance(base_strategy, BaseStrategy):
             raise TypeError("expected BaseStrategy, received "
                             + repr(base_strategy))
-        BaseStrategy.__init__(self)
         self.elements = base_strategy
         self.length = length
 
     @property
-    def is_constant(self):
-        return False
+    def is_default(self):
+        return self.elements.is_default
 
     def to_python(self, module="strategies"):
         if self.length is None:
@@ -1207,15 +1479,11 @@ class Arrays(BaseStrategy):
 
 
 class ByteArrays(BaseStrategy):
-    __slots__ = ("length", "modified")
+    __slots__ = ("length",)
 
     def __init__(self, length=None):
         BaseStrategy.__init__(self)
         self.length = length
-
-    @property
-    def is_constant(self):
-        return False
 
     def to_python(self, module="strategies"):
         n = 256 if self.length is None else self.length
