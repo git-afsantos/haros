@@ -33,9 +33,9 @@ from .ros_types import (ROS_NUMBER_TYPES, ROS_STRING_TYPES)
 
 ALL_INDICES = "all"
 
-SOME_INDEX = "some"
+# SOME_INDEX = "some"
 
-NO_INDEX = "none"
+# NO_INDEX = "none"
 
 OPERATOR_EQ = "="
 
@@ -89,7 +89,8 @@ class HplLiteral(object):
 
 
 class HplFieldReference(object):
-    LOOP_INDICES = (ALL_INDICES, SOME_INDEX, NO_INDEX)
+    # LOOP_INDICES = (ALL_INDICES, SOME_INDEX, NO_INDEX)
+    LOOP_INDICES = (ALL_INDICES,)
 
     __slots__ = ("token", "name", "field_type", "msg_type", "index", "value")
 
@@ -355,6 +356,10 @@ class HplMsgFieldCondition(object):
         return self.operator == OPERATOR_IN or self.operator == OPERATOR_NIN
 
     def normalise_quantifiers(self):
+        expr = self.field.clone()
+        return HplMsgFieldCondition(expr, self.operator, self.value)
+
+    def __normalise_quantifiers(self):
         negate = False
         expr = self.field.clone()
         for field in expr.fields:

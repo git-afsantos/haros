@@ -212,6 +212,10 @@ class MsgStrategy(TopLevelStrategy):
     def name(self):
         return self._name
 
+    @property
+    def full_name(self):
+        return "msg"
+
     # build sub field tree based on msg_data
     # add conditions to fields as needed
     # traverse field tree to build a list of lines of code
@@ -240,7 +244,7 @@ class MsgStrategy(TopLevelStrategy):
     #   for i in xrange(#some, len(msg.c)):
     #       if not i in reserved:
     #           msg.c[i] = draw(default_value())
-    #   
+
 
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
@@ -250,7 +254,7 @@ class MsgStrategy(TopLevelStrategy):
         mws = " " * tab_size
         self._done = []
         body = []
-        self._init_fields(body, indent, tab_size)
+        self._init_fields(body, module, indent, tab_size)
         self._field_assumptions(body, indent, tab_size)
         body = "\n".join(body)
         self._done = None
@@ -258,7 +262,7 @@ class MsgStrategy(TopLevelStrategy):
                                name=self._name, var=var_name,
                                definition=body, module=module)
 
-    def _init_fields(self, body, indent, tab_size):
+    def _init_fields(self, body, module, indent, tab_size):
         assert not self._done is None
         queue = list(self.fields.itervalues())
         while queue:
@@ -279,18 +283,22 @@ class MsgStrategy(TopLevelStrategy):
     def _field_assumptions(self, body, indent, tab_size):
         assert not self._done is None
         queue = list(self.fields.itervalues())
+        n = 0
         while queue:
-            n = len(self._done)
+            m = n
             new_queue = []
             for field in queue:
                 try:
-                    body.append(field.assumptions(
-                        indent=(indent + tab_size), tab_size=tab_size))
+                    assumptions = field.assumptions(
+                        indent=(indent + tab_size), tab_size=tab_size)
+                    if assumptions:
+                        body.append(assumptions)
+                    n += 1
                     new_queue.extend(field.children())
                 except ResolutionError as e:
                     new_queue.append(field)
             queue = new_queue
-            if n == len(self._done):
+            if n == m:
                 raise CyclicDependencyError(repr(queue))
 
 
@@ -525,7 +533,6 @@ class ResolutionError(Exception):
 
 class Selector(object):
     ALL = object()  # pill
-    SOME = object() # pill
 
     # selects field from root message for references
     def __init__(self, root, fields, ros_type):
@@ -541,8 +548,6 @@ class Selector(object):
             if name is self.ALL:
                 as_list = True
                 field = self.MultiField(field.all())
-            elif name is self.SOME:
-                field = field.some()
             else:
                 field = field.fields[name]
             if not field.generated:
@@ -550,9 +555,10 @@ class Selector(object):
         assert not isinstance(field, ArrayGenerator)
         if as_list:
             assert isinstance(field, self.MultiField)
-            for f in field._fields:
-                if not 
-        if not isinstance(field, SimpleFieldGenerator)
+            return str([f.full_name for f in field._fields])
+        else:
+            assert isinstance(field, FieldGenerator)
+            return field.full_name
 
 
     class MultiField(object):
@@ -575,10 +581,6 @@ class Selector(object):
             assert all(isinstance(f, ArrayGenerator) for f in self._fields)
             return tuple(itertools.chain.from_iterable(
                 f.fields for f in self._fields))
-
-        def some(self):
-            assert all(isinstance(f, ArrayGenerator) for f in self._fields)
-            return tuple(f.some() for f in self._fields)
 
         def __getitem__(self, key):
             return Selector.MultiField(
@@ -654,6 +656,9 @@ class BaseGenerator(object):
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
         raise NotImplementedError("subclasses must implement this method")
 
+    def copy(self, parent, field_name, deep=False):
+        raise NotImplementedError("subclasses must implement this method")
+
 
 class FieldGenerator(BaseGenerator):
     __slots__ = BaseGenerator.__slots__ + ("index",)
@@ -671,9 +676,6 @@ class FieldGenerator(BaseGenerator):
         if not self.index is None:
             return "{}[{}]".format(self.field_name, self.index)
         return self.field_name
-
-    def copy(self, parent, field_name, deep=False):
-        raise NotImplementedError("subclasses must implement this method")
 
 
 class SimpleFieldGenerator(FieldGenerator):
@@ -881,6 +883,8 @@ class CompositeFieldGenerator(FieldGenerator):
         return True
 
     def children(self):
+        if self.is_default:
+            return ()
         return list(self.fields.itervalues())
 
     def eq(self, value):
@@ -941,15 +945,12 @@ class CompositeFieldGenerator(FieldGenerator):
 
 
 class ArrayGenerator(BaseGenerator):
-    def some(self):
-        raise NotImplementedError("subclasses must implement this property")
-
     def all(self):
         raise NotImplementedError("subclasses must implement this method")
 
 
 class FixedLengthArrayGenerator(ArrayGenerator):
-    __slots__ = ArrayGenerator.__slots__ + ("length", "fields", "_some")
+    __slots__ = ArrayGenerator.__slots__ + ("length", "fields")
 
     TMP = ("{indent}{field} = draw({module}.lists("
            "min_size={length}, max_size={length}))")
@@ -961,21 +962,10 @@ class FixedLengthArrayGenerator(ArrayGenerator):
         self.length = length
         self.fields = [default_field.copy(parent, field_name, index=i)
                        for i in xrange(length)]
-        self._some = None
 
     @property
     def is_default(self):
         return all(f.is_default for f in self.fields)
-
-    def some(self):
-        if not self.length:
-            raise UnsupportedOperationError()
-        if self._some is None:
-            i = "random_index(draw, {})".format(self.full_name)
-            new = self.fields[0].copy(self.parent, self.field_name,
-                                      index=i)
-            self._some = new
-        return self._some
 
     def all(self):
         return self.fields
@@ -1019,7 +1009,6 @@ class FixedLengthArrayGenerator(ArrayGenerator):
     def to_python(self, module="strategies", indent=0, tab_size=4):
         assert not self.generated
         ws = " " * indent
-        self._assign_some()
         self.generated = True
         return self.TMP.format(indent=ws, field=self.full_name,
             module=module, length=self.length)
@@ -1036,14 +1025,14 @@ class FixedLengthArrayGenerator(ArrayGenerator):
         self.generated = True
         return "\n".join(code)
 
-    def _assign_some(self):
-        available = tuple(i for i in xrange(len(self.fields))
-                          if self.fields[i].is_default)
-        if not available:
-            raise InconsistencyError()
-        self._some.index = available[0]
-        self.fields[available[0]] = self._some
-        self._some = None
+    def copy(self, parent, field_name, deep=False):
+        new = FixedLengthArrayGenerator(parent, field_name, self.ros_type,
+                                        self.length, self.fields[0])
+        if deep:
+            for i in xrange(self.length):
+                new.fields[i] = self.fields[i].copy(
+                    parent, field_name, deep=True)
+        return new
 
 
 class VariableLengthArrayGenerator(ArrayGenerator):
@@ -1064,9 +1053,6 @@ class VariableLengthArrayGenerator(ArrayGenerator):
     @property
     def is_default(self):
         return self._all.is_default
-
-    def some(self):
-        raise UnsupportedOperationError()
 
     def all(self):
         return (self._all,)
@@ -1117,6 +1103,14 @@ class VariableLengthArrayGenerator(ArrayGenerator):
         assert not self.generated
         self.generated = True
         return self.to_python(module=module, indent=indent, tab_size=tab_size)
+
+    def copy(self, parent, field_name, deep=False):
+        new = VariableLengthArrayGenerator(parent, field_name,
+                                           self.ros_type, self._all)
+        if deep:
+            for i in xrange(self.length):
+                new._all = self._all.copy(parent, field_name, deep=True)
+        return new
 
 
 
@@ -1430,31 +1424,22 @@ if __name__ == "__main__":
         }
     }
 
-    sm = StrategyMap(TEST_DATA)
-    strategies = [s.to_python() for s in sm.defaults.itervalues()]
-    print "\n\n".join(strategies)
-    print ""
+    # sm = StrategyMap(TEST_DATA)
+    # strategies = [s.to_python() for s in sm.defaults.itervalues()]
+    # print "\n\n".join(strategies)
+    # print ""
 
-    nested = sm.make_custom("m", "pkg/Nested")
-    assert "m" in sm.custom
-    assert "pkg/Nested" in sm.custom["m"]
-    assert "pkg/Nested2" in sm.custom["m"]
-    nested2 = sm.get_custom("m", "pkg/Nested2")
+    nested = MsgStrategy("pkg/Nested", name="my_strategy")
+    nested.fields["int"] = NumericFieldGenerator(nested, "int", "int32")
+    int_field = NumericFieldGenerator(nested, "a_name", "int32")
+    array = FixedLengthArrayGenerator(nested, "int_array", "int32", 3, int_field)
+    nested.fields["int_array"] = array
+    composite = CompositeFieldGenerator(nested, "a_name", "pkg/Nested2")
+    composite.fields["int"] = NumericFieldGenerator(nested, "int", "int32")
+    int_field = NumericFieldGenerator(nested, "a_name", "int32")
+    array = FixedLengthArrayGenerator(nested, "int_array", "int32", 3, int_field)
+    composite.fields["int_array"] = array
+    array = FixedLengthArrayGenerator(nested, "nested_array", "pkg/Nested2", 3, composite)
+    nested.fields["nested_array"] = array
 
-    field_name = "int"
-    field = FieldStrategy.make_default(field_name,
-        TEST_DATA["pkg/Nested2"][field_name])
-    field.modifiers.append(ExclusionModifier(0))
-    nested2.fields[field_name] = field
-
-    strat = StrategyReference.from_strategy(nested2)
-    field_name = "nested_array"
-    field = FieldStrategy.make_default(field_name,
-        TEST_DATA["pkg/Nested"][field_name])
-    field.modifiers.append(RandomIndexModifier(StrategyModifier(strat)))
-    nested.fields[field_name] = field
-
-    sm.complete_custom_strategies()
-    print "\n\n".join(strategy.to_python()
-                      for group in sm.custom.itervalues()
-                      for strategy in group.itervalues())
+    print nested.to_python()

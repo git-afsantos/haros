@@ -122,7 +122,8 @@ MSG_FIELD: CNAME ("[" (INT | ARRAY_OPERATOR) "]")?
 
 SIMPLE_MSG_FIELD: CNAME
 
-ARRAY_OPERATOR: "all" | "some" | "none"
+// ARRAY_OPERATOR: "all" | "some" | "none"
+ARRAY_OPERATOR: "all"
 
 MULT_ONE:       "one"
 MULT_SOME:      "some"
@@ -563,7 +564,16 @@ if __name__ == "__main__":
         'publish(m, topic) {int = "42"}',
 
         # cannot compare numbers to strings
-        'publish(m, topic) {int_array[all] = "42"}'
+        'publish(m, topic) {int_array[all] = "42"}',
+
+        # 'none' is not implemented yet
+        "publish(m, topic) {int_array[all] = m.int_array[none]}",
+
+        # 'some' is not implemented yet
+        "publish(m, topic) {string_array[all] = string_list[some]}",,
+
+        # 'some' is not implemented yet
+        "publish(m, topic) {nested_array[1].nested_array[all].int_array[some] > 1}"
     ]
 
     PASSING_TESTS = [
@@ -590,13 +600,7 @@ if __name__ == "__main__":
 
         "publish(m, topic) {float_list[all] > float_array[all]}",
 
-        "publish(m, topic) {int_array[all] = m.int_array[none]}",
-
-        "publish(m, topic) {string_array[all] = string_list[some]}",
-
-        "publish(m, topic) {twist_array[all].linear.x >= 0.0}",
-
-        "publish(m, topic) {nested_array[1].nested_array[all].int_array[some] > 1}"
+        "publish(m, topic) {twist_array[all].linear.x >= 0.0}"
     ]
 
     logging.basicConfig(level=logging.DEBUG)
