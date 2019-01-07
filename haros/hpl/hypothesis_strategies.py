@@ -24,6 +24,8 @@
 # Imports
 ################################################################################
 
+import itertools
+
 from .ros_types import (
     INT8_MIN_VALUE, INT8_MAX_VALUE, INT16_MIN_VALUE, INT16_MAX_VALUE,
     INT32_MIN_VALUE, INT32_MAX_VALUE, INT64_MIN_VALUE, INT64_MAX_VALUE,
@@ -538,10 +540,49 @@ class Selector(object):
         for name in self.fields:
             if name is self.ALL:
                 as_list = True
+                field = self.MultiField(field.all())
             elif name is self.SOME:
-                pass
+                field = field.some()
             else:
                 field = field.fields[name]
+            if not field.generated:
+                raise ResolutionError(field.full_name)
+        assert not isinstance(field, ArrayGenerator)
+        if as_list:
+            assert isinstance(field, self.MultiField)
+            for f in field._fields:
+                if not 
+        if not isinstance(field, SimpleFieldGenerator)
+
+
+    class MultiField(object):
+        def __init__(self, fields):
+            self._fields = fields
+
+        @property
+        def full_name(self):
+            return repr(tuple(f.full_name for f in self._fields))
+
+        @property
+        def fields(self):
+            return self
+
+        @property
+        def generated(self):
+            return all(f.generated for f in self._fields)
+
+        def all(self):
+            assert all(isinstance(f, ArrayGenerator) for f in self._fields)
+            return tuple(itertools.chain.from_iterable(
+                f.fields for f in self._fields))
+
+        def some(self):
+            assert all(isinstance(f, ArrayGenerator) for f in self._fields)
+            return tuple(f.some() for f in self._fields)
+
+        def __getitem__(self, key):
+            return Selector.MultiField(
+                tuple(f.fields[key] for f in self._fields))
 
 
 VALUE_TYPES = (bool, int, long, float, basestring, Selector)
@@ -555,18 +596,23 @@ class UnsupportedOperationError(Exception):
     pass
 
 
-# TODO add flag and method to query whether the field is fully generated
 # TODO add assume on list length when a selector for fixed index is created
 
 
 class BaseGenerator(object):
-    __slots__ = ("field_name", "ros_type")
+    __slots__ = ("parent", "field_name", "ros_type", "generated")
 
     TMP = "{indent}{field} = {strategy}"
 
-    def __init__(self, field_name, ros_type):
+    def __init__(self, parent, field_name, ros_type):
+        self.parent = parent
         self.field_name = field_name
         self.ros_type = ros_type
+        self.generated = False
+
+    @property
+    def full_name(self):
+        return self.parent.full_name + "." + self.field_name
 
     @property
     def is_default(self):
@@ -610,7 +656,23 @@ class BaseGenerator(object):
 
 
 class FieldGenerator(BaseGenerator):
-    def copy(self, field_name, deep=False):
+    __slots__ = BaseGenerator.__slots__ + ("index",)
+
+    def __init__(self, parent, field_name, ros_type, index=None):
+        BaseGenerator.__init__(self, parent, field_name, ros_type)
+        self.index = index
+
+    @property
+    def full_name(self):
+        return self.parent.full_name + "." + self.indexed_name
+
+    @property
+    def indexed_name(self):
+        if not self.index is None:
+            return "{}[{}]".format(self.field_name, self.index)
+        return self.field_name
+
+    def copy(self, parent, field_name, deep=False):
         raise NotImplementedError("subclasses must implement this method")
 
 
@@ -621,8 +683,8 @@ class SimpleFieldGenerator(FieldGenerator):
 
     DEFAULT = "draw({strategy}())"
 
-    def __init__(self, field_name, ros_type):
-        FieldGenerator.__init__(self, field_name, ros_type)
+    def __init__(self, parent, field_name, ros_type, index=None):
+        FieldGenerator.__init__(self, parent, field_name, ros_type, index=index)
         self.condition = None
         self.constant = None
         self.pool = None
@@ -676,6 +738,7 @@ class SimpleFieldGenerator(FieldGenerator):
         self._set_condition(NotInCondition(values))
 
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         if not self.constant is None:
             strategy = value_to_python(self.constant)
         elif not self.pool is None:
@@ -685,24 +748,28 @@ class SimpleFieldGenerator(FieldGenerator):
             strategy = self.DEFAULT.format(
                 strategy=ros_type_to_name(self.ros_type))
         ws = " " * indent
-        return self.TMP.format(indent=ws, field=self.field_name,
+        self.generated = True
+        return self.TMP.format(indent=ws, field=self.full_name,
                                strategy=strategy)
 
     def assumptions(self, indent=0, tab_size=4):
         if self.condition is None:
             return None
         return self.condition.to_python(
-            self.field_name, indent=indent, tab_size=tab_size)
+            self.full_name, indent=indent, tab_size=tab_size)
 
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         init = self.to_python(module=module, indent=indent, tab_size=tab_size)
         assumptions = self.assumptions(indent=indent, tab_size=tab_size)
+        self.generated = True
         if assumptions:
             return init + "\n" + assumptions
         return init
 
-    def copy(self, field_name, deep=False):
-        new = SimpleFieldGenerator(field_name, self.ros_type)
+    def copy(self, parent, field_name, index=None, deep=False):
+        new = SimpleFieldGenerator(parent, field_name,
+                                   self.ros_type, index=index)
         if deep:
             new.condition = self.condition
             new.constant = self.constant
@@ -735,9 +802,10 @@ class NumericFieldGenerator(SimpleFieldGenerator):
 
     DEFAULT = "draw({strategy}({args}))"
 
-    def __init__(self, field_name, ros_type):
+    def __init__(self, parent, field_name, ros_type, index=None):
         assert ros_type in ROS_NUMBER_TYPES
-        SimpleFieldGenerator.__init__(self, field_name, ros_type)
+        SimpleFieldGenerator.__init__(self, parent, field_name,
+                                      ros_type, index=index)
         self.min_value = None
         self.max_value = None
 
@@ -762,6 +830,7 @@ class NumericFieldGenerator(SimpleFieldGenerator):
         self._set_condition(GreaterThanCondition(value, strict=False))
 
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         if not self.constant is None:
             strategy = value_to_python(self.constant)
         elif not self.pool is None:
@@ -777,11 +846,13 @@ class NumericFieldGenerator(SimpleFieldGenerator):
             strategy = "draw({}({}))".format(
                 ros_type_to_name(self.ros_type), args)
         ws = " " * indent
-        return self.TMP.format(indent=ws, field=self.field_name,
+        self.generated = True
+        return self.TMP.format(indent=ws, field=self.full_name,
                                strategy=strategy)
 
-    def copy(self, field_name, deep=False):
-        new = NumericFieldGenerator(field_name, self.ros_type)
+    def copy(self, parent, field_name, index=None, deep=False):
+        new = NumericFieldGenerator(parent, field_name,
+                                    self.ros_type, index=index)
         if deep:
             new.condition = self.condition
             new.constant = self.constant
@@ -798,8 +869,8 @@ class CompositeFieldGenerator(FieldGenerator):
 
     CUSTOM = "{pkg}.{msg}()"
 
-    def __init__(self, field_name, ros_type):
-        FieldGenerator.__init__(self, field_name, ros_type)
+    def __init__(self, parent, field_name, ros_type, index=None):
+        FieldGenerator.__init__(self, parent, field_name, ros_type, index=index)
         self.fields = {}
 
     @property
@@ -837,6 +908,7 @@ class CompositeFieldGenerator(FieldGenerator):
         raise UnsupportedOperationError()
 
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         if self.is_default:
             strategy = self.DEFAULT.format(
                 strategy=ros_type_to_name(self.ros_type))
@@ -844,47 +916,69 @@ class CompositeFieldGenerator(FieldGenerator):
             pkg, msg = self.ros_type.split("/")
             strategy = self.CUSTOM.format(pkg=pkg, msg=msg)
         ws = " " * indent
+        self.generated = True
         return self.TMP.format(
-            indent=ws, field=self.field_name, strategy=strategy)
+            indent=ws, field=self.full_name, strategy=strategy)
 
     def assumptions(self, indent=0, tab_size=4):
         return None
 
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         code = [self.to_python(module=module, indent=indent, tab_size=tab_size)]
         for field in self.fields.itervalues():
             code.append(field.tree_to_python(
                 module=module, indent=indent, tab_size=tab_size))
+        self.generated = True
         return "\n".join(code)
 
-    def copy(self, field_name, deep=False):
-        new = CompositeFieldGenerator(field_name, self.ros_type)
+    def copy(self, parent, field_name, index=None, deep=False):
+        new = CompositeFieldGenerator(parent, field_name,
+                                      self.ros_type, index=index)
         for name, field in self.fields.iteritems():
-            new.fields[name] = field.copy(field_name + "." + name, deep=deep)
+            new.fields[name] = field.copy(new, name, deep=deep)
         return new
 
 
-class FixedLengthArrayGenerator(BaseGenerator):
-    __slots__ = BaseGenerator.__slots__ + ("length", "fields")
+class ArrayGenerator(BaseGenerator):
+    def some(self):
+        raise NotImplementedError("subclasses must implement this property")
+
+    def all(self):
+        raise NotImplementedError("subclasses must implement this method")
+
+
+class FixedLengthArrayGenerator(ArrayGenerator):
+    __slots__ = ArrayGenerator.__slots__ + ("length", "fields", "_some")
 
     TMP = ("{indent}{field} = draw({module}.lists("
            "min_size={length}, max_size={length}))")
 
-    def __init__(self, field_name, ros_type, length, default_field):
+    def __init__(self, parent, field_name, ros_type, length, default_field):
         if not isinstance(default_field, FieldGenerator):
             raise TypeError("unexpected field: " + repr(default_field))
-        BaseGenerator.__init__(self, field_name, ros_type)
+        ArrayGenerator.__init__(self, parent, field_name, ros_type)
         self.length = length
-        self.fields = tuple(default_field.copy("{}[{}]".format(field_name, i))
-                            for i in xrange(length))
+        self.fields = [default_field.copy(parent, field_name, index=i)
+                       for i in xrange(length)]
+        self._some = None
 
     @property
     def is_default(self):
         return all(f.is_default for f in self.fields)
 
-    @property
     def some(self):
-        return None
+        if not self.length:
+            raise UnsupportedOperationError()
+        if self._some is None:
+            i = "random_index(draw, {})".format(self.full_name)
+            new = self.fields[0].copy(self.parent, self.field_name,
+                                      index=i)
+            self._some = new
+        return self._some
+
+    def all(self):
+        return self.fields
 
     def children(self):
         return self.fields
@@ -921,45 +1015,61 @@ class FixedLengthArrayGenerator(BaseGenerator):
         for field in self.fields:
             field.not_in(values)
 
+    # TODO byte arrays
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         ws = " " * indent
-        return self.TMP.format(indent=ws, field=self.field_name,
+        self._assign_some()
+        self.generated = True
+        return self.TMP.format(indent=ws, field=self.full_name,
             module=module, length=self.length)
 
     def assumptions(self, indent=0, tab_size=4):
         return None
 
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         code = [self.to_python(module=module, indent=indent, tab_size=tab_size)]
         for field in self.fields:
             code.append(field.tree_to_python(
                 module=module, indent=indent, tab_size=tab_size))
+        self.generated = True
         return "\n".join(code)
 
+    def _assign_some(self):
+        available = tuple(i for i in xrange(len(self.fields))
+                          if self.fields[i].is_default)
+        if not available:
+            raise InconsistencyError()
+        self._some.index = available[0]
+        self.fields[available[0]] = self._some
+        self._some = None
 
-class VariableLengthArrayGenerator(BaseGenerator):
-    __slots__ = BaseGenerator.__slots__ + ("_all", "fields")
+
+class VariableLengthArrayGenerator(ArrayGenerator):
+    __slots__ = ArrayGenerator.__slots__ + ("_all", "fields")
 
     TMP = ("{indent}{field} = draw({module}.lists(min_size=0, max_size=256))\n"
            "{indent}for i in xrange(len({field})):\n{strategy}")
 
     ASSUMES = "{indent}for i in xrange(len({field})):\n{condition}"
 
-    def __init__(self, field_name, ros_type, default_field):
+    def __init__(self, parent, field_name, ros_type, default_field):
         if not isinstance(default_field, FieldGenerator):
             raise TypeError("unexpected field: " + repr(default_field))
-        BaseGenerator.__init__(self, field_name, ros_type)
-        self._all = default_field
-        self._all.field_name = field_name + "[i]"
+        ArrayGenerator.__init__(self, parent, field_name, ros_type)
+        self._all = default_field.copy(parent, field_name, index="i")
         self.fields = () # meant to produce an IndexError
 
     @property
     def is_default(self):
         return self._all.is_default
 
-    @property
     def some(self):
-        return None
+        raise UnsupportedOperationError()
+
+    def all(self):
+        return (self._all,)
 
     def children(self):
         return ()
@@ -988,19 +1098,24 @@ class VariableLengthArrayGenerator(BaseGenerator):
     def not_in(self, values):
         self._all.not_in(values)
 
+    # TODO byte arrays
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
         # generate the whole sub tree here because of dynamic length,
         # as this requires indexing and iteration for all sub-sub-fields
         ws = " " * indent
         strategy = self._all.tree_to_python(
-            module=module, indent=indent, tab_size=tab_size)
-        return self.TMP.format(indent=ws, field=self.field_name, module=module,
+            module=module, indent=(indent + tab_size), tab_size=tab_size)
+        self.generated = True
+        return self.TMP.format(indent=ws, field=self.full_name, module=module,
                                strategy=strategy)
 
     def assumptions(self, indent=0, tab_size=4):
         return None
 
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        assert not self.generated
+        self.generated = True
         return self.to_python(module=module, indent=indent, tab_size=tab_size)
 
 
@@ -1105,97 +1220,6 @@ class NotInCondition(Condition):
         inner = " and ".join(self.INNER.format(field=field_name,
             value=value_to_python(v)) for v in self.value)
         return self.TMP.format(indent=ws, excluded=inner)
-
-
-################################################################################
-# Strategy Modifiers
-################################################################################
-
-class Modifier(object):
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        raise NotImplementedError("subclasses must override this method")
-
-
-# base field modifier
-class FixedValueModifier(Modifier):
-    TMP = "{indent}{var}.{field} = {value}"
-
-    __slots__ = ("value",)
-
-    def __init__(self, value):
-        self.value = value
-
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        return self.TMP.format(indent=(" " * indent), var=var_name,
-                               field=field_name, value=self.value)
-
-
-# base field modifier
-class StrategyModifier(Modifier):
-    TMP = "{indent}{var}.{field} = draw({strategy})"
-
-    __slots__ = ("strategy",)
-
-    def __init__(self, strategy):
-        self.strategy = strategy
-
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        return self.TMP.format(indent=(" " * indent), var=var_name,
-            field=field_name, strategy=self.strategy.to_python(module=module))
-
-
-# base field modifier
-class ExclusionModifier(Modifier):
-    TMP = "{indent}assume({var}.{field} != {value})"
-
-    __slots__ = ("value",)
-
-    def __init__(self, value):
-        self.value = value
-
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        return self.TMP.format(indent=(" " * indent), var=var_name,
-                               field=field_name, value=self.value)
-
-
-#composite field modifier
-class FixedIndexModifier(Modifier):
-    __slots__ = ("index", "modifier")
-
-    def __init__(self, index, modifier):
-        self.index = index
-        self.modifier = modifier
-
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        field = "{}[{}]".format(field_name, self.index)
-        return self.modifier.to_python(field, var_name=var_name,
-            module=module, indent=indent, tab_size=tab_size)
-
-
-# composite field modifier
-class RandomIndexModifier(Modifier):
-    # TODO edge case of var_name == "i"
-    IDX = ("{indent}i = draw({module}.integers(min_value=0, "
-           "max_value=len({var}.{field})))")
-
-    __slots__ = ("modifier",)
-
-    def __init__(self, modifier):
-        self.modifier = modifier
-
-    def to_python(self, field_name, var_name="msg",
-                  module="strategies", indent=0, tab_size=4):
-        index = self.IDX.format(indent=(" " * indent), module=module,
-                                var=var_name, field=field_name)
-        field = field_name + "[i]"
-        modifier = self.modifier.to_python(field, var_name=var_name,
-            module=module, indent=indent, tab_size=tab_size)
-        return index + "\n" + modifier
 
 
 ################################################################################
