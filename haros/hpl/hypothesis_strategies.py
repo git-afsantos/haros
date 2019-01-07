@@ -247,8 +247,18 @@ class MsgStrategy(TopLevelStrategy):
         ws = " " * indent
         mws = " " * tab_size
         self._done = []
-        queue = list(self.fields.itervalues())
         body = []
+        self._init_fields(body, indent, tab_size)
+        self._field_assumptions(body, indent, tab_size)
+        body = "\n".join(body)
+        self._done = None
+        return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
+                               name=self._name, var=var_name,
+                               definition=body, module=module)
+
+    def _init_fields(self, body, indent, tab_size):
+        assert not self._done is None
+        queue = list(self.fields.itervalues())
         while queue:
             n = len(self._done)
             new_queue = []
@@ -263,10 +273,23 @@ class MsgStrategy(TopLevelStrategy):
             queue = new_queue
             if n == len(self._done):
                 raise CyclicDependencyError(repr(queue))
-        body = "\n".join(body)
-        return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
-                               name=self._name, var=var_name,
-                               definition=body, module=module)
+
+    def _field_assumptions(self, body, indent, tab_size):
+        assert not self._done is None
+        queue = list(self.fields.itervalues())
+        while queue:
+            n = len(self._done)
+            new_queue = []
+            for field in queue:
+                try:
+                    body.append(field.assumptions(
+                        indent=(indent + tab_size), tab_size=tab_size))
+                    new_queue.extend(field.children())
+                except ResolutionError as e:
+                    new_queue.append(field)
+            queue = new_queue
+            if n == len(self._done):
+                raise CyclicDependencyError(repr(queue))
 
 
 class CyclicDependencyError(Exception):
@@ -499,6 +522,9 @@ class ResolutionError(Exception):
 
 
 class Selector(object):
+    ALL = object()  # pill
+    SOME = object() # pill
+
     # selects field from root message for references
     def __init__(self, root, fields, ros_type):
         self.root = root
@@ -506,7 +532,16 @@ class Selector(object):
         self.ros_type = ros_type
 
     def to_python(self):
-        pass
+        values = []
+        as_list = False
+        field = self.root
+        for name in self.fields:
+            if name is self.ALL:
+                as_list = True
+            elif name is self.SOME:
+                pass
+            else:
+                field = field.fields[name]
 
 
 VALUE_TYPES = (bool, int, long, float, basestring, Selector)
@@ -568,6 +603,9 @@ class BaseGenerator(object):
         raise NotImplementedError("subclasses must implement this method")
 
     def assumptions(self, indent=0, tab_size=4):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
         raise NotImplementedError("subclasses must implement this method")
 
 
@@ -655,6 +693,13 @@ class SimpleFieldGenerator(FieldGenerator):
             return None
         return self.condition.to_python(
             self.field_name, indent=indent, tab_size=tab_size)
+
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        init = self.to_python(module=module, indent=indent, tab_size=tab_size)
+        assumptions = self.assumptions(indent=indent, tab_size=tab_size)
+        if assumptions:
+            return init + "\n" + assumptions
+        return init
 
     def copy(self, field_name, deep=False):
         new = SimpleFieldGenerator(field_name, self.ros_type)
@@ -805,6 +850,13 @@ class CompositeFieldGenerator(FieldGenerator):
     def assumptions(self, indent=0, tab_size=4):
         return None
 
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        code = [self.to_python(module=module, indent=indent, tab_size=tab_size)]
+        for field in self.fields.itervalues():
+            code.append(field.tree_to_python(
+                module=module, indent=indent, tab_size=tab_size))
+        return "\n".join(code)
+
     def copy(self, field_name, deep=False):
         new = CompositeFieldGenerator(field_name, self.ros_type)
         for name, field in self.fields.iteritems():
@@ -823,8 +875,8 @@ class FixedLengthArrayGenerator(BaseGenerator):
             raise TypeError("unexpected field: " + repr(default_field))
         BaseGenerator.__init__(self, field_name, ros_type)
         self.length = length
-        self.fields = [default_field.copy("{}[{}]".format(field_name, i))
-                       for i in xrange(length)]
+        self.fields = tuple(default_field.copy("{}[{}]".format(field_name, i))
+                            for i in xrange(length))
 
     @property
     def is_default(self):
@@ -876,6 +928,13 @@ class FixedLengthArrayGenerator(BaseGenerator):
 
     def assumptions(self, indent=0, tab_size=4):
         return None
+
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        code = [self.to_python(module=module, indent=indent, tab_size=tab_size)]
+        for field in self.fields:
+            code.append(field.tree_to_python(
+                module=module, indent=indent, tab_size=tab_size))
+        return "\n".join(code)
 
 
 class VariableLengthArrayGenerator(BaseGenerator):
@@ -930,13 +989,19 @@ class VariableLengthArrayGenerator(BaseGenerator):
         self._all.not_in(values)
 
     def to_python(self, module="strategies", indent=0, tab_size=4):
+        # generate the whole sub tree here because of dynamic length,
+        # as this requires indexing and iteration for all sub-sub-fields
         ws = " " * indent
-        strategy = self._all.to_python()
-        # TODO must generate the whole sub tree
-        return self.TMP.format(indent=ws, field=self.field_name, module=module)
+        strategy = self._all.tree_to_python(
+            module=module, indent=indent, tab_size=tab_size)
+        return self.TMP.format(indent=ws, field=self.field_name, module=module,
+                               strategy=strategy)
 
     def assumptions(self, indent=0, tab_size=4):
-        return 
+        return None
+
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        return self.to_python(module=module, indent=indent, tab_size=tab_size)
 
 
 
