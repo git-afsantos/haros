@@ -53,61 +53,39 @@ class StrategyMap(object):
         self.msg_data = msg_data
         # defaults :: {str(ros_type): TopLevelStrategy}
         self.defaults = {}
-        # custom :: {str(group): {str(msg_type): MsgStrategy}}
+        # custom :: {str(group): MsgStrategy}
         self.custom = {}
-        self._make_builtins()
         self._make_defaults()
 
-    def get_custom(self, group, msg_type):
-        return self.custom[group][msg_type]
-
     def make_custom(self, group, msg_type):
-        custom = self.custom.get(group)
-        if not custom:
-            custom = {}
-            self.custom[group] = custom
-        if not msg_type in self.msg_data:
-            raise ValueError("'{}' is not defined".format(msg_type))
-        type_data = self.msg_data[msg_type]
-        if msg_type in custom:
-            raise ValueError("'{}' is already defined in '{}'".format(
-                msg_type, group))
-        name = "{}_{}".format(group, msg_type.replace("/", "_"))
+        name = "{}_{}".format(group, ros_type_to_name(msg_type))
         strategy = MsgStrategy(msg_type, name=name)
-        custom[msg_type] = strategy
+        for field_name, type_token in self.msg_data[msg_type].iteritems():
+            field = self._make_tree(strategy, field_name, type_token)
+            strategy.fields[field_name] = field
+        self.custom[group] = strategy
         return strategy
 
-    def make_custom_tree(self, group, msg_type):
-        custom = self.custom.get(group)
-        if not custom:
-            custom = {}
-            self.custom[group] = custom
-        queue = [msg_type]
-        while queue:
-            current_type = queue.pop(0)
-            if not current_type in self.msg_data:
-                raise ValueError("'{}' is not defined".format(current_type))
-            type_data = self.msg_data[current_type]
-            if current_type in custom:
-                raise ValueError("'{}' is already defined in '{}'".format(
-                    current_type, group))
-            name = "{}_{}".format(group, current_type.replace("/", "_"))
-            strategy = MsgStrategy(current_type, name=name)
-            custom[current_type] = strategy
-            for type_token in type_data.itervalues():
-                if not type_token.ros_type in ROS_BUILTIN_TYPES:
-                    queue.append(type_token.ros_type)
-        return custom[msg_type]
+    def _make_tree(self, parent, field_name, type_token):
+        ros_type = type_token.ros_type
+        if not ros_type in ROS_BUILTIN_TYPES:
+            field = CompositeFieldGenerator(parent, field_name, ros_type)
+            for name, token in self.msg_data[ros_type].iteritems():
+                field.fields[name] = self._make_tree(field, name, token)
+        elif ros_type in ROS_NUMBER_TYPES:
+            field = NumericFieldGenerator(parent, field_name, ros_type)
+        else:
+            field = SimpleFieldGenerator(parent, field_name, ros_type)    
+        if type_token.is_array:
+            if type_token.length is None:
+                field = VariableLengthArrayGenerator(
+                    parent, field_name, ros_type, field)
+            else:
+                field = FixedLengthArrayGenerator(
+                    parent, field_name, ros_type, type_token.length, field)
+        return field
 
-    def complete_custom_strategies(self):
-        for strategies in self.custom.itervalues():
-            for msg_type, strategy in strategies.iteritems():
-                default = self.defaults[msg_type]
-                for field_name, field_strategy in default.fields.iteritems():
-                    if not field_name in strategy.fields:
-                        strategy.fields[field_name] = field_strategy
-
-    def _make_builtins(self):
+    def _make_defaults(self):
         self.defaults["bool"] = RosBoolStrategy()
         self.defaults["string"] = RosStringStrategy()
         self.defaults["time"] = RosTimeStrategy()
@@ -117,14 +95,8 @@ class StrategyMap(object):
             self.defaults[ros_type] = RosIntStrategy(ros_type)
         for ros_type in RosFloatStrategy.TYPES:
             self.defaults[ros_type] = RosFloatStrategy(ros_type)
-
-    def _make_defaults(self):
         for msg_type, data in self.msg_data.iteritems():
-            strategy = MsgStrategy(msg_type)
-            self.defaults[msg_type] = strategy
-            for field_name, type_token in data.iteritems():
-                strategy.fields[field_name] = FieldStrategy.make_default(
-                    field_name, type_token)
+            self.defaults[msg_type] = DefaultMsgStrategy(msg_type, data)
 
 
 ################################################################################
@@ -163,15 +135,15 @@ class DefaultMsgStrategy(TopLevelStrategy):
            "{definition}\n"
            "{indent}{tab}return {var}")
 
+    FIELD = "{indent}{tab}{var}.{field} = draw({strategy}())"
+
     __slots__ = ("msg_type", "fields")
 
     def __init__(self, msg_type, msg_data):
         # msg_data :: {str(field): TypeToken}
         self.msg_type = msg_type
-        self.fields = {
-            field_name: FieldStrategy.make_default(field_name, type_token)
-            for field_name, type_token in msg_data.iteritems()
-        }
+        self.fields = {field_name: ros_type_to_name(type_token.ros_type)
+                       for field_name, type_token in msg_data.iteritems()}
 
     @property
     def name(self):
@@ -183,11 +155,11 @@ class DefaultMsgStrategy(TopLevelStrategy):
         pkg, msg = self.msg_type.split("/")
         ws = " " * indent
         mws = " " * tab_size
-        body = "\n".join(f.to_python(var_name=var_name,
-                                     module=module,
-                                     indent=(indent + tab_size),
-                                     tab_size=tab_size)
-                         for f in self.fields.itervalues())
+        body = []
+        for field_name, strategy in self.fields.iteritems():
+            body.append(self.FIELD.format(indent=ws, tab=mws, var=var_name,
+                field=field_name, strategy=strategy))
+        body = "\n".join(body)
         return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
                                name=self._name, var=var_name,
                                definition=body, module=module)
@@ -200,13 +172,12 @@ class MsgStrategy(TopLevelStrategy):
            "{definition}\n"
            "{indent}{tab}return {var}")
 
-    __slots__ = ("msg_type", "fields", "_name", "_done")
+    __slots__ = ("msg_type", "fields", "_name")
 
     def __init__(self, msg_type, name=None):
         self.msg_type = msg_type
         self.fields = {}
         self._name = name if name else ros_type_to_name(msg_type)
-        self._done = None
 
     @property
     def name(self):
@@ -216,72 +187,39 @@ class MsgStrategy(TopLevelStrategy):
     def full_name(self):
         return "msg"
 
-    # build sub field tree based on msg_data
-    # add conditions to fields as needed
-    # traverse field tree to build a list of lines of code
-    # mark each sub field as completely generated or not
-    # generate defaults and literals on first iteration
-    # references that cannot be resolved throw an exception
-    # main loop catches exception and enqueues field for next iteration
-    # whenever queue stays the same size from one iteration to another,
-    # a cyclic dependency has been detected
-
-
-    # def strategy(draw):
-    #   msg = Msg()
-    #   select = Selector(msg) ?
-    #   ---------------------- build the skeleton
-    #   msg.a = draw(default_composite())
-    #   msg.b = Composite()
-    #   msg.b.a = 1
-    #   ---------------------- start with array of None
-    #   msg.c = draw(lists(min_size=3, max_size=3))     # [None, None, None]
-    #   reserved = (1,)
-    #   ---------------------- build 'some' fields avoiding fixed indices
-    #   assume(len(msg.c) - len(reserved) >= #some)
-    #   msg.c[0] = 1    # msg.c[some] = 1
-    #   ---------------------- build default fields to fill up array
-    #   for i in xrange(#some, len(msg.c)):
-    #       if not i in reserved:
-    #           msg.c[i] = draw(default_value())
-
-
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
         assert "/" in self.msg_type
         pkg, msg = self.msg_type.split("/")
         ws = " " * indent
         mws = " " * tab_size
-        self._done = []
         body = []
         self._init_fields(body, module, indent, tab_size)
         self._field_assumptions(body, indent, tab_size)
         body = "\n".join(body)
-        self._done = None
         return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
                                name=self._name, var=var_name,
                                definition=body, module=module)
 
     def _init_fields(self, body, module, indent, tab_size):
-        assert not self._done is None
         queue = list(self.fields.itervalues())
+        n = 0
         while queue:
-            n = len(self._done)
+            m = n
             new_queue = []
             for field in queue:
                 try:
                     body.append(field.to_python(module=module,
                         indent=(indent + tab_size), tab_size=tab_size))
-                    self._done.append(field)
+                    n += 1
                     new_queue.extend(field.children())
                 except ResolutionError as e:
                     new_queue.append(field)
             queue = new_queue
-            if n == len(self._done):
+            if n == m:
                 raise CyclicDependencyError(repr(queue))
 
     def _field_assumptions(self, body, indent, tab_size):
-        assert not self._done is None
         queue = list(self.fields.itervalues())
         n = 0
         while queue:
@@ -321,7 +259,7 @@ class RosBoolStrategy(RosBuiltinStrategy):
 
     @classmethod
     def accepts(cls, ros_type, value):
-        if ros_type in cls.TYPES:
+        if not ros_type in cls.TYPES:
             raise ValueError("invalid ROS type: " + repr(ros_type))
         if isinstance(value, Selector):
             return value.ros_type == ros_type
@@ -368,7 +306,7 @@ class RosIntStrategy(RosBuiltinStrategy):
 
     @classmethod
     def accepts(cls, ros_type, value):
-        if ros_type in cls.TYPES:
+        if not ros_type in cls.TYPES:
             raise ValueError("invalid ROS type: " + repr(ros_type))
         if isinstance(value, Selector):
             return value.ros_type == ros_type
@@ -409,7 +347,7 @@ class RosFloatStrategy(RosBuiltinStrategy):
 
     @classmethod
     def accepts(cls, ros_type, value):
-        if ros_type in cls.TYPES:
+        if not ros_type in cls.TYPES:
             raise ValueError("invalid ROS type: " + repr(ros_type))
         if isinstance(value, Selector):
             return value.ros_type == ros_type
@@ -439,7 +377,7 @@ class RosStringStrategy(RosBuiltinStrategy):
 
     @classmethod
     def accepts(cls, ros_type, value):
-        if ros_type in cls.TYPES:
+        if not ros_type in cls.TYPES:
             raise ValueError("invalid ROS type: " + repr(ros_type))
         if isinstance(value, Selector):
             return value.ros_type == ros_type
@@ -1214,149 +1152,6 @@ class NotInCondition(Condition):
         inner = " and ".join(self.INNER.format(field=field_name,
             value=value_to_python(v)) for v in self.value)
         return self.TMP.format(indent=ws, excluded=inner)
-
-
-################################################################################
-# Strategies
-################################################################################
-
-class BaseStrategy(object):
-    @property
-    def is_default(self):
-        return True
-
-    def to_python(self, module="strategies"):
-        raise NotImplementedError("subclasses must override this method")
-
-
-class CustomTypes(BaseStrategy):
-    __slots__ = ("strategy_name",)
-
-    def __init__(self, strategy_name):
-        self.strategy_name = strategy_name
-
-    @classmethod
-    def from_ros_type(cls, ros_type):
-        return cls(ros_type_to_name(ros_type))
-
-    def to_python(self, module="strategies"):
-        return "draw({}())".format(self.strategy_name)
-
-
-class JustValue(BaseStrategy):
-    __slots__ = ("value",)
-
-    def __init__(self, value):
-        self.value = value
-
-    @property
-    def is_default(self):
-        return False
-
-    def to_python(self, module="strategies"):
-        return "draw({}.just({}))".format(module, value_to_python(self.value))
-
-
-class SampleValues(BaseStrategy):
-    __slots__ = ("values",)
-
-    def __init__(self, values):
-        if not isinstance(values, tuple) or isinstance(values, list):
-            raise TypeError("expected collection: " + repr(values))
-        self.values = values
-
-    @property
-    def is_default(self):
-        return False
-
-    def to_python(self, module="strategies"):
-        return "draw({}.sampled_from({}))".format(
-            module, value_to_python(self.values))
-
-
-class Numbers(BaseStrategy):
-    __slots__ = ("ros_type", "min_value", "max_value")
-
-    def __init__(self, ros_type):
-        if not ros_type in ROS_NUMBER_TYPES:
-            raise ValueError("unexpected ROS type: " + repr(ros_type))
-        self.ros_type = ros_type
-        self.min_value = None
-        self.max_value = None
-
-    @property
-    def is_default(self):
-        return self.min_value is None and self.max_value is None
-
-    def to_python(self, module="strategies"):
-        args = []
-        if not self.min_value is None:
-            args.append("min_value=" + value_to_python(self.min_value))
-        if not self.max_value is None:
-            args.append("max_value=" + value_to_python(self.max_value))
-        args = ", ".join(args)
-        return "draw({}({}))".format(ros_type_to_name(self.ros_type), args)
-
-
-class Strings(BaseStrategy):
-    def to_python(self, module="strategies"):
-        return "draw(ros_string())"
-
-
-class Booleans(BaseStrategy):
-    def to_python(self, module="strategies"):
-        return "draw(ros_bool())"
-
-
-class Times(BaseStrategy):
-    def to_python(self, module="strategies"):
-        return "draw(ros_time())"
-
-
-class Durations(BaseStrategy):
-    def to_python(self, module="strategies"):
-        return "draw(ros_duration())"
-
-
-class Headers(BaseStrategy):
-    def to_python(self, module="strategies"):
-        return "draw(std_msgs_Header())"
-
-
-class Arrays(BaseStrategy):
-    __slots__ = ("elements", "length")
-
-    def __init__(self, base_strategy, length=None):
-        if not isinstance(base_strategy, BaseStrategy):
-            raise TypeError("expected BaseStrategy, received "
-                            + repr(base_strategy))
-        self.elements = base_strategy
-        self.length = length
-
-    @property
-    def is_default(self):
-        return self.elements.is_default
-
-    def to_python(self, module="strategies"):
-        if self.length is None:
-            tmp = "draw({}.lists(elements={}, min_size=0, max_size=256))"
-            return tmp.format(module, self.base_strategy.to_python())
-        assert self.length >= 0
-        return "draw({}.tuples(*[{} for i in xrange({})]))".format(
-            module, self.base_strategy.to_python(module=module), self.length)
-
-
-class ByteArrays(BaseStrategy):
-    __slots__ = ("length",)
-
-    def __init__(self, length=None):
-        BaseStrategy.__init__(self)
-        self.length = length
-
-    def to_python(self, module="strategies"):
-        n = 256 if self.length is None else self.length
-        assert n >= 0
-        return "draw({}.binary(min_size=0, max_size={}))".format(module, n)
 
 
 ################################################################################
