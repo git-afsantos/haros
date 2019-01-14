@@ -61,8 +61,8 @@ class StrategyMap(object):
         name = "{}_{}".format(group, ros_type_to_name(msg_type))
         strategy = MsgStrategy(msg_type, name=name)
         for field_name, type_token in self.msg_data[msg_type].iteritems():
-            field = self._make_tree(strategy, field_name, type_token)
-            strategy.fields[field_name] = field
+            field = self._make_tree(strategy.root, field_name, type_token)
+            strategy.root.fields[field_name] = field
         self.custom[group] = strategy
         return strategy
 
@@ -137,13 +137,25 @@ class DefaultMsgStrategy(TopLevelStrategy):
 
     FIELD = "{indent}{tab}{var}.{field} = draw({strategy}())"
 
+    LIST = ("{{module}}.lists(elements={elements}(), "
+            "min_size={min_size}, max_size={max_size})")
+
     __slots__ = ("msg_type", "fields")
 
     def __init__(self, msg_type, msg_data):
         # msg_data :: {str(field): TypeToken}
         self.msg_type = msg_type
-        self.fields = {field_name: ros_type_to_name(type_token.ros_type)
-                       for field_name, type_token in msg_data.iteritems()}
+        self.fields = {}
+        for field_name, type_token in msg_data.iteritems():
+            strategy = ros_type_to_name(type_token.ros_type)
+            if type_token.is_array:
+                if type_token.length is None:
+                    strategy = self.LIST.format(elements=strategy,
+                        min_size=0, max_size=256)
+                else:
+                    strategy = self.LIST.format(elements=strategy,
+                        min_size=type_token.length, max_size=type_token.length)
+            self.fields[field_name] = strategy
 
     @property
     def name(self):
@@ -158,10 +170,10 @@ class DefaultMsgStrategy(TopLevelStrategy):
         body = []
         for field_name, strategy in self.fields.iteritems():
             body.append(self.FIELD.format(indent=ws, tab=mws, var=var_name,
-                field=field_name, strategy=strategy))
+                field=field_name, strategy=strategy.format(module=module)))
         body = "\n".join(body)
         return self.TMP.format(indent=ws, tab=mws, pkg=pkg, msg=msg,
-                               name=self._name, var=var_name,
+                               name=self.name, var=var_name,
                                definition=body, module=module)
 
 
@@ -172,20 +184,16 @@ class MsgStrategy(TopLevelStrategy):
            "{definition}\n"
            "{indent}{tab}return {var}")
 
-    __slots__ = ("msg_type", "fields", "_name")
+    __slots__ = ("msg_type", "root", "_name")
 
     def __init__(self, msg_type, name=None):
         self.msg_type = msg_type
-        self.fields = {}
+        self.root = RootFieldGenerator("msg", msg_type)
         self._name = name if name else ros_type_to_name(msg_type)
 
     @property
     def name(self):
         return self._name
-
-    @property
-    def full_name(self):
-        return "msg"
 
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
@@ -193,6 +201,7 @@ class MsgStrategy(TopLevelStrategy):
         pkg, msg = self.msg_type.split("/")
         ws = " " * indent
         mws = " " * tab_size
+        self.root.field_name = var_name
         body = []
         self._init_fields(body, module, indent, tab_size)
         self._field_assumptions(body, indent, tab_size)
@@ -202,7 +211,7 @@ class MsgStrategy(TopLevelStrategy):
                                definition=body, module=module)
 
     def _init_fields(self, body, module, indent, tab_size):
-        queue = list(self.fields.itervalues())
+        queue = list(self.root.fields.itervalues())
         n = 0
         while queue:
             m = n
@@ -220,7 +229,7 @@ class MsgStrategy(TopLevelStrategy):
                 raise CyclicDependencyError(repr(queue))
 
     def _field_assumptions(self, body, indent, tab_size):
-        queue = list(self.fields.itervalues())
+        queue = list(self.root.fields.itervalues())
         n = 0
         while queue:
             m = n
@@ -820,6 +829,9 @@ class CompositeFieldGenerator(FieldGenerator):
                 return False
         return True
 
+    def __getitem__(self, key):
+        return self.fields[key]
+
     def children(self):
         if self.is_default:
             return ()
@@ -882,8 +894,20 @@ class CompositeFieldGenerator(FieldGenerator):
         return new
 
 
+class RootFieldGenerator(CompositeFieldGenerator):
+    def __init__(self, field_name, ros_type):
+        CompositeFieldGenerator.__init__(self, None, field_name, ros_type)
+
+    @property
+    def full_name(self):
+        return self.field_name
+
+
 class ArrayGenerator(BaseGenerator):
     def all(self):
+        raise NotImplementedError("subclasses must implement this method")
+
+    def __getitem__(self, index):
         raise NotImplementedError("subclasses must implement this method")
 
 
@@ -907,6 +931,9 @@ class FixedLengthArrayGenerator(ArrayGenerator):
 
     def all(self):
         return self.fields
+
+    def __getitem__(self, index):
+        return self.fields[index]
 
     def children(self):
         return self.fields
@@ -994,6 +1021,9 @@ class VariableLengthArrayGenerator(ArrayGenerator):
 
     def all(self):
         return (self._all,)
+
+    def __getitem__(self, index):
+        return self.fields[index]
 
     def children(self):
         return ()
@@ -1219,22 +1249,13 @@ if __name__ == "__main__":
         }
     }
 
-    # sm = StrategyMap(TEST_DATA)
-    # strategies = [s.to_python() for s in sm.defaults.itervalues()]
-    # print "\n\n".join(strategies)
-    # print ""
+    sm = StrategyMap(TEST_DATA)
+    strategies = [s.to_python() for s in sm.defaults.itervalues()]
+    print "\n\n".join(strategies)
+    print ""
 
-    nested = MsgStrategy("pkg/Nested", name="my_strategy")
-    nested.fields["int"] = NumericFieldGenerator(nested, "int", "int32")
-    int_field = NumericFieldGenerator(nested, "a_name", "int32")
-    array = FixedLengthArrayGenerator(nested, "int_array", "int32", 3, int_field)
-    nested.fields["int_array"] = array
-    composite = CompositeFieldGenerator(nested, "a_name", "pkg/Nested2")
-    composite.fields["int"] = NumericFieldGenerator(nested, "int", "int32")
-    int_field = NumericFieldGenerator(nested, "a_name", "int32")
-    array = FixedLengthArrayGenerator(nested, "int_array", "int32", 3, int_field)
-    composite.fields["int_array"] = array
-    array = FixedLengthArrayGenerator(nested, "nested_array", "pkg/Nested2", 3, composite)
-    nested.fields["nested_array"] = array
-
+    nested = sm.make_custom("m", "pkg/Nested")
+    nested.root["nested_array"][0]["int"].eq(1)
+    nested.root["nested_array"][1]["int"].neq(1)
+    nested.root["nested_array"][2]["int"].eq(Selector(nested.root, ("int",), "int32"))
     print nested.to_python()
