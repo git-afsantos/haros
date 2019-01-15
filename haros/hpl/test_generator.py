@@ -27,13 +27,12 @@
 from collections import namedtuple
 
 from .hpl_ast import (
-    ALL_INDICES, SOME_INDEX, NO_INDEX, OPERATOR_EQ, OPERATOR_NEQ, OPERATOR_LT,
-    OPERATOR_LTE, OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN,
+    ALL_INDICES,
+    OPERATOR_EQ, OPERATOR_NEQ, OPERATOR_LT, OPERATOR_LTE,
+    OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN,
     HplLiteral, HplFieldExpression, HplSet, HplRange
 )
-from .hypothesis_strategies import (
-    StrategyMap, FieldStrategy, StrategyReference
-)
+from .hypothesis_strategies import StrategyMap, ArrayGenerator, Selector
 
 
 ################################################################################
@@ -232,210 +231,161 @@ class ConditionTransformer(object):
 class ReceiveToStrategyTransformer(object):
     def __init__(self, strategy_map):
         self.strategy_map = strategy_map
-        self._deps = {}
         self._msg_strategy = None
+        self._variable = None
 
     def gen(self, hpl_receive):
         assert not hpl_receive.variable is None
         assert not hpl_receive.msg_type is None
         if not hpl_receive.msg_filter is None:
             msg_filter = hpl_receive.msg_filter.normalise()
+            self._variable = hpl_receive.variable
             self._msg_strategy = self.strategy_map.make_custom(
                 hpl_receive.variable, hpl_receive.msg_type)
-            group = self.strategy_map.custom[hpl_receive.variable]
-            self._filter_to_strategies(msg_filter, group)
+            self._filter_to_strategies(msg_filter)
         # set msg as required
         # set default/custom strategy
-        return ""
+        return self._msg_strategy.to_python()
 
-    def _filter_to_strategies(self, msg_filter, group):
+    def _filter_to_strategies(self, msg_filter):
         for condition in msg_filter.field_conditions:
-            self._prepare_strategies(condition.field)
-        for condition in msg_filter.field_conditions:
-            field_expr = condition.field
-            last_field = field_expr.fields[-1]
-            value = self._process_value(field_expr, condition.value)
+            field_gen = self._select(condition.field)
             value = condition.value
-            # TODO detect dependencies between fields
-            field_strategy = self._operator_strategy(last_field,
-                condition.operator, value)
-            msg_strategy = group[last_field.msg_type]
-            msg_strategy.fields[last_field.name] = field_strategy
-            # TODO propagate changes to parent custom strategies
-
-    def _prepare_strategies(self, field_expr):
-        key = field_expr.variable
-        msg_strategy = self._msg_strategy
-        for i in xrange(len(field_expr.fields) - 1):
-            field = field_expr.fields[i]
-            key += "." + field.name
-            new_strategy = self.strategy_map.make_custom(key, field.ros_type)
-            msg_strategy.fields[field.name] = FieldStrategy(field.name,
-                strategy=StrategyReference(new_strategy.name))
-            msg_strategy = new_strategy
-
-    def _process_value(self, field_expr, value):
-        if isinstance(value, HplLiteral):
-            return repr(value.value)
-        if isinstance(value, HplFieldExpression):
-            assert field_expr.variable == value.variable
-            left_key = field_expr.variable
-            right_key = value.variable
-            for i in xrange(len(field_expr.fields) - 1):
-                msg_strategy = self.strategy_map.custom[left_key]
-                left_field = field_expr.fields[i]
-                right_field = value.fields[i]
-                left_key += "." + left_field.name
-                right_key += "." + right_field.name
-                if left_field.name != right_field.name:
-                    # msg_strategy.order[left_field.name] = right_field.name
-                    # msg_strategy.inject_dependency(left_field.name, )
-                    msg_strategy = self.strategy_map.custom[left_key]
-                    # a[all].b.c != a[all].b.d
-        if isinstance(value, HplSet):
-        if isinstance(value, HplRange):
-        raise TypeError("unexpected value type: " + type(value).__name__)
-
-    def _operator_strategy(self, field, operator, value):
-        assert field.index != NO_INDEX
-        if operator == OPERATOR_EQ:
-            return self._operator_eq(field, value)
-        if operator == OPERATOR_NEQ:
-            return self._operator_neq(field, value)
-        if operator == OPERATOR_LT:
-            return self._operator_lt(field, value)
-        if operator == OPERATOR_LTE:
-            return self._operator_lte(field, value)
-        if operator == OPERATOR_GT:
-            return self._operator_gt(field, value)
-        if operator == OPERATOR_GTE:
-            return self._operator_gte(field, value)
-        if operator == OPERATOR_IN:
-            return self._operator_in(field, value)
-        if operator == OPERATOR_NIN:
-            return self._operator_nin(field, value)
-        raise ValueError("unknown operator: " + str(operator))
-
-    def _operator_eq(self, field, value):
-        if field.index is None:
-            pass
-        if field.index == ALL_INDICES:
-            pass
-        if field.index == SOME_INDEX:
-            pass
-        return field_strategy
-
-    def _operator_neq(self, field, value):
-        return field_strategy
-
-    def _operator_lt(self, field, value):
-        return field_strategy
-
-    def _operator_lte(self, field, value):
-        return field_strategy
-
-    def _operator_gt(self, field, value):
-        return field_strategy
-
-    def _operator_gte(self, field, value):
-        return field_strategy
-
-    def _operator_in(self, field, value):
-        return field_strategy
-
-    def _operator_nin(self, field, value):
-        return field_strategy
-
-    def _reset(self):
-        self.target_msg_type = None
-        self.target_field = None
-        self.target_type = None
-        self.strategies = {}
-        self.assumptions = []
-
-    def _process(self, msg_filter):
-        # "none" has to be converted into a proper negation
-        msg_filter = msg_filter.normalise()
-        for condition in msg_filter.field_conditions:
-            pass
-        
-        self._process_left_field(condition.field)
-        """
-        if condition.is_equality_test:
-            self._equality_test(condition)
-        elif condition.is_comparison_test:
-            self._comparison_test(condition)
-        else:
-            assert condition.is_inclusion_test
-            self._inclusion_test(condition)
-        """
-
-    def _process_left_field(self, expr):
-        # each message type only appears once, messages are not recursive
-        # traverse from right to left to propagate custom strategies
-        custom_strategies = []
-        field = expr.fields[-1]
-        msg_strat = self.strategies.make_custom(field.msg_type)
-        field_strat = FieldStrategy.make_default("int", TypeToken("int32"))
-        if not field.index is None:
-            assert isinstance(field.field_type, ArrayFieldTypeToken)
-            if field.is_loop:
-                pass
-            else:
-                pass
-        else:
-            pass
-        for i in xrange(len(expr.fields) - 1, -1, -1):
-            field = expr.fields[i]
-            msg_strat = self.strategies.make_custom(field.msg_type)
-            self.strategies[field.msg_type] = self.MsgStrategy(
-                field.msg_type, custom=True)
-            if not field.index is None:
-                assert isinstance(field.field_type, ArrayFieldTypeToken)
-                if field.is_loop:
-                    pass # self.Array(...)
+            operator = condition.operator
+            if operator == OPERATOR_EQ:
+                field_gen.eq(self._value(value))
+            elif operator == OPERATOR_NEQ:
+                field_gen.neq(self._value(value))
+            elif operator == OPERATOR_LT:
+                field_gen.lt(self._value(value))
+            elif operator == OPERATOR_LTE:
+                field_gen.lte(self._value(value))
+            elif operator == OPERATOR_GT:
+                field_gen.gt(self._value(value))
+            elif operator == OPERATOR_GTE:
+                field_gen.gte(self._value(value))
+            elif operator == OPERATOR_IN:
+                if isinstance(value, HplRange):
+                    if value.exclude_lower:
+                        field_gen.gt(self._value(value.lower_bound))
+                    else:
+                        field_gen.gte(self._value(value.lower_bound))
+                    if value.exclude_upper:
+                        field_gen.lt(self._value(value.upper_bound))
+                    else:
+                        field_gen.lte(self._value(value.upper_bound))
                 else:
-                    pass # self.Array(...)
+                    assert isinstance(value, HplSet)
+                    values = map(self._value, value.values)
+                    field_gen.in_set(values)
+            elif operator == OPERATOR_NIN:
+                assert isinstance(value, HplSet)
+                values = map(self._value, value.values)
+                field_gen.not_in(values)
             else:
-                pass
+                raise ValueError("unknown operator: " + str(operator))
 
-    def _equality_test(self, condition):
-        if condition.operator == "=":
-            op = "=="
-            self._eq_operator = True
-        else:
-            op = condition.operator
-        if isinstance(condition.value, HplLiteral):
-            value = condition.value
-        else:
-            assert isinstance(condition.value, HplFieldExpression)
-            value = self._field_expression(condition.value)
-        self.right_operands.append((op, value))
+    def _value(self, value):
+        if isinstance(value, HplFieldExpression):
+            return self._reference(value)
+        return value
 
-    def _comparison_test(self, condition):
-        if isinstance(condition.value, HplLiteral):
-            value = condition.value
-        else:
-            assert isinstance(condition.value, HplFieldExpression)
-            value = self._field_expression(condition.value)
-        self.right_operands.append((condition.operator, value))
+    def _select(self, field_expr):
+        fields = []
+        for field in field_expr.fields:
+            if field.index is None:
+                fields.append(field.name)
+            else:
+                i = Selector.ALL if field.index == ALL_INDICES else field.index
+                fields.append((field.name, i))
+        return self._msg_strategy.select(fields)
 
-    def _inclusion_test(self, condition):
-        if isinstance(condition.value, HplSet):
-            self.right_operands.append(
-                (condition.operator, self._set_literal(condition.value))
-            )
-        else:
-            assert isinstance(condition.value, HplRange)
-            lo, hi = self._range_literal(condition.value)
-            self.right_operands.append(
-                (">" if condition.value.exclude_lower else ">=", lo)
-            )
-            self.right_operands.append(
-                ("<" if condition.value.exclude_upper else "<=", hi)
-            )
+    def _reference(self, field_expr):
+        assert field_expr.variable == self._variable
+        root = self._msg_strategy.root
+        ros_type = field_expr.field_type.ros_type
+        fields = []
+        for field in field_expr.fields:
+            fields.append(field.name)
+            if not field.index is None:
+                if field.index == ALL_INDICES:
+                    fields.append(Selector.ALL)
+                else:
+                    fields.append(field.index)
+        return Selector(root, fields, ros_type)
 
 
 ################################################################################
 # Test Code
 ################################################################################
+
+if __name__ == "__main__":
+    from .hpl_ast import (HplReceiveStatement, HplMsgFilter,
+        HplMsgFieldCondition, HplFieldReference)
+    from .ros_types import (TypeToken, ArrayTypeToken)
+
+    TEST_DATA = {
+        "geometry_msgs/Twist": {
+            "linear": TypeToken("geometry_msgs/Vector3"),
+            "angular": TypeToken("geometry_msgs/Vector3")
+        },
+        "geometry_msgs/Vector3": {
+            "x": TypeToken("float64"),
+            "y": TypeToken("float64"),
+            "z": TypeToken("float64")
+        },
+        "kobuki_msgs/BumperEvent": {
+            "bumper": TypeToken("uint8"),
+            "state": TypeToken("uint8")
+        },
+        "pkg/Msg": {
+            "int": TypeToken("int32"),
+            "float": TypeToken("float64"),
+            "string": TypeToken("string"),
+            "twist": TypeToken("geometry_msgs/Twist"),
+            "int_list": ArrayTypeToken("int32"),
+            "int_array": ArrayTypeToken("int32", length=3),
+            "float_list": ArrayTypeToken("float64"),
+            "float_array": ArrayTypeToken("float64", length=3),
+            "string_list": ArrayTypeToken("string"),
+            "string_array": ArrayTypeToken("string", length=3),
+            "twist_list": ArrayTypeToken("geometry_msgs/Twist"),
+            "twist_array": ArrayTypeToken("geometry_msgs/Twist", length=3),
+            "nested_array": ArrayTypeToken("pkg/Nested", length=3)
+        },
+        "pkg/Nested": {
+            "int": TypeToken("int32"),
+            "int_array": ArrayTypeToken("int32", length=3),
+            "nested_array": ArrayTypeToken("pkg/Nested2", length=3)
+        },
+        "pkg/Nested2": {
+            "int": TypeToken("int32"),
+            "int_array": ArrayTypeToken("int32", length=3)
+        }
+    }
+
+    sm = StrategyMap(TEST_DATA)
+
+    fields = (
+        HplFieldReference("nested_array[all]",
+            TEST_DATA["pkg/Nested"]["nested_array"], "pkg/Nested"),
+        HplFieldReference("int", TEST_DATA["pkg/Nested2"]["int"], "pkg/Nested2")
+    )
+    left = HplFieldExpression("nested_array[0].int", fields, "m", "pkg/Nested")
+
+    fields = (
+        HplFieldReference("int", TEST_DATA["pkg/Nested"]["int"], "pkg/Nested"),
+    )
+    right = HplFieldExpression("int", fields, "m", "pkg/Nested")
+
+    cond1 = HplMsgFieldCondition(left, OPERATOR_EQ, right)
+    msg_filter = HplMsgFilter((cond1,))
+
+    hpl_receive = HplReceiveStatement("m", "/topic",
+        msg_filter=msg_filter, msg_type="pkg/Nested")
+
+    transformer = ReceiveToStrategyTransformer(sm)
+
+    print str(hpl_receive)
+    print ""
+    print transformer.gen(hpl_receive)

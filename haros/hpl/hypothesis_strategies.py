@@ -195,6 +195,27 @@ class MsgStrategy(TopLevelStrategy):
     def name(self):
         return self._name
 
+    def select(self, fields):
+        # fields :: field_name | (field_name, index)
+        as_list = False
+        field = self.root
+        for name in fields:
+            index = None
+            if isinstance(name, tuple):
+                name, index = name
+            field = field[name]
+            if index is Selector.ALL:
+                as_list = True
+                field = MultiField(field, field.field_name,
+                                   field.ros_type, field.all())
+            elif not index is None:
+                field = field.fields[index]
+        if as_list:
+            assert isinstance(field, MultiField)
+        else:
+            assert isinstance(field, FieldGenerator)
+        return field
+
     def to_python(self, var_name="msg", module="strategies",
                   indent=0, tab_size=4):
         assert "/" in self.msg_type
@@ -494,44 +515,19 @@ class Selector(object):
         for name in self.fields:
             if name is self.ALL:
                 as_list = True
-                field = self.MultiField(field.all())
+                field = MultiField(field, field.field_name,
+                                   field.ros_type, field.all())
             else:
                 field = field.fields[name]
             if not field.generated:
                 raise ResolutionError(field.full_name)
         assert not isinstance(field, ArrayGenerator)
         if as_list:
-            assert isinstance(field, self.MultiField)
+            assert isinstance(field, MultiField)
             return str([f.full_name for f in field._fields])
         else:
             assert isinstance(field, FieldGenerator)
             return field.full_name
-
-
-    class MultiField(object):
-        def __init__(self, fields):
-            self._fields = fields
-
-        @property
-        def full_name(self):
-            return repr(tuple(f.full_name for f in self._fields))
-
-        @property
-        def fields(self):
-            return self
-
-        @property
-        def generated(self):
-            return all(f.generated for f in self._fields)
-
-        def all(self):
-            assert all(isinstance(f, ArrayGenerator) for f in self._fields)
-            return tuple(itertools.chain.from_iterable(
-                f.fields for f in self._fields))
-
-        def __getitem__(self, key):
-            return Selector.MultiField(
-                tuple(f.fields[key] for f in self._fields))
 
 
 VALUE_TYPES = (bool, int, long, float, basestring, Selector)
@@ -1079,6 +1075,81 @@ class VariableLengthArrayGenerator(ArrayGenerator):
             for i in xrange(self.length):
                 new._all = self._all.copy(parent, field_name, deep=True)
         return new
+
+
+class MultiField(BaseGenerator):
+    __slots__ = BaseGenerator.__slots__ + ("fields",)
+
+    TMP = "{indent}{field} = {strategy}"
+
+    def __init__(self, parent, field_name, ros_type, fields):
+        BaseGenerator.__init__(self, parent, field_name, ros_type)
+        self.fields = fields
+
+    @property
+    def full_name(self):
+        return self.parent.full_name + "." + self.field_name
+
+    @property
+    def is_default(self):
+        raise NotImplementedError("subclasses must implement this property")
+
+    def all(self):
+        assert all(isinstance(f, ArrayGenerator) for f in self.fields)
+        return tuple(itertools.chain.from_iterable(
+            f.fields for f in self.fields))
+
+    def __getitem__(self, key):
+        fields = tuple(f.fields[key] for f in self.fields)
+        ros_type = fields[0].ros_type
+        return MultiField(self, key, ros_type, fields)
+
+    def children(self):
+        raise UnsupportedOperationError()
+
+    def eq(self, value):
+        for field in self.fields:
+            field.eq(value)
+
+    def neq(self, value):
+        for field in self.fields:
+            field.neq(value)
+
+    def lt(self, value):
+        for field in self.fields:
+            field.lt(value)
+
+    def lte(self, value):
+        for field in self.fields:
+            field.lte(value)
+
+    def gt(self, value):
+        for field in self.fields:
+            field.gt(value)
+
+    def gte(self, value):
+        for field in self.fields:
+            field.gte(value)
+
+    def in_set(self, values):
+        for field in self.fields:
+            field.in_set(values)
+
+    def not_in(self, values):
+        for field in self.fields:
+            field.not_in(values)
+
+    def to_python(self, module="strategies", indent=0, tab_size=4):
+        raise UnsupportedOperationError()
+
+    def assumptions(self, indent=0, tab_size=4):
+        raise UnsupportedOperationError()
+
+    def tree_to_python(self, module="strategies", indent=0, tab_size=4):
+        raise UnsupportedOperationError()
+
+    def copy(self, parent, field_name, deep=False):
+        raise UnsupportedOperationError()
 
 
 

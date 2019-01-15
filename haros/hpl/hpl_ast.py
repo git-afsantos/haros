@@ -213,7 +213,7 @@ class HplFieldExpression(object):
         return loops
 
     def clone(self):
-        fields = [f.clone() for f in self.fields]
+        fields = tuple(f.clone() for f in self.fields)
         return HplFieldExpression(self.token, fields, self.variable,
                                   self.msg_type, ros_types=self.ros_types)
 
