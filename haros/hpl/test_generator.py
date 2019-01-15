@@ -367,7 +367,7 @@ if __name__ == "__main__":
     sm = StrategyMap(TEST_DATA)
 
     fields = (
-        HplFieldReference("nested_array[all]",
+        HplFieldReference("nested_array[0]",
             TEST_DATA["pkg/Nested"]["nested_array"], "pkg/Nested"),
         HplFieldReference("int", TEST_DATA["pkg/Nested2"]["int"], "pkg/Nested2")
     )
@@ -378,7 +378,7 @@ if __name__ == "__main__":
     )
     right = HplFieldExpression("int", fields, "m", "pkg/Nested")
 
-    cond1 = HplMsgFieldCondition(left, OPERATOR_EQ, right)
+    cond1 = HplMsgFieldCondition(right, OPERATOR_EQ, left)
     msg_filter = HplMsgFilter((cond1,))
 
     hpl_receive = HplReceiveStatement("m", "/topic",

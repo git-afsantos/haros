@@ -602,6 +602,9 @@ class BaseGenerator(object):
     def copy(self, parent, field_name, deep=False):
         raise NotImplementedError("subclasses must implement this method")
 
+    def flag_generated(self):
+        raise NotImplementedError("subclasses must implement this method")
+
 
 class FieldGenerator(BaseGenerator):
     __slots__ = BaseGenerator.__slots__ + ("index",)
@@ -711,6 +714,10 @@ class SimpleFieldGenerator(FieldGenerator):
         if assumptions:
             return init + "\n" + assumptions
         return init
+
+    def flag_generated(self):
+        assert not self.generated
+        self.generated = True
 
     def copy(self, parent, field_name, index=None, deep=False):
         new = SimpleFieldGenerator(parent, field_name,
@@ -862,11 +869,12 @@ class CompositeFieldGenerator(FieldGenerator):
         if self.is_default:
             strategy = self.DEFAULT.format(
                 strategy=ros_type_to_name(self.ros_type))
+            self.flag_generated()
         else:
             pkg, msg = self.ros_type.split("/")
             strategy = self.CUSTOM.format(pkg=pkg, msg=msg)
+            self.generated = True
         ws = " " * indent
-        self.generated = True
         return self.TMP.format(
             indent=ws, field=self.full_name, strategy=strategy)
 
@@ -881,6 +889,12 @@ class CompositeFieldGenerator(FieldGenerator):
                 module=module, indent=indent, tab_size=tab_size))
         self.generated = True
         return "\n".join(code)
+
+    def flag_generated(self):
+        assert not self.generated
+        for field in self.fields.itervalues():
+            field.flag_generated()
+        self.generated = True
 
     def copy(self, parent, field_name, index=None, deep=False):
         new = CompositeFieldGenerator(parent, field_name,
@@ -995,6 +1009,12 @@ class FixedLengthArrayGenerator(ArrayGenerator):
                     parent, field_name, deep=True)
         return new
 
+    def flag_generated(self):
+        assert not self.generated
+        for field in self.fields:
+            field.flag_generated()
+        self.generated = True
+
 
 class VariableLengthArrayGenerator(ArrayGenerator):
     __slots__ = ArrayGenerator.__slots__ + ("_all", "fields")
@@ -1076,6 +1096,11 @@ class VariableLengthArrayGenerator(ArrayGenerator):
                 new._all = self._all.copy(parent, field_name, deep=True)
         return new
 
+    def flag_generated(self):
+        assert not self.generated
+        self._all.flag_generated()
+        self.generated = True
+
 
 class MultiField(BaseGenerator):
     __slots__ = BaseGenerator.__slots__ + ("fields",)
@@ -1149,6 +1174,9 @@ class MultiField(BaseGenerator):
         raise UnsupportedOperationError()
 
     def copy(self, parent, field_name, deep=False):
+        raise UnsupportedOperationError()
+
+    def flag_generated(self):
         raise UnsupportedOperationError()
 
 
