@@ -79,6 +79,27 @@ PUBLISH_RELEVANT_TEMPLATE = """
 """
 
 
+PUBLISH_REQUIRED_TEMPLATE = """
+    def publish_required_msgs(self):
+        for req in self.required_msgs.itervalues():
+            if req is None:
+                return False
+            msg, topic = req
+            self.ros.pub[topic].publish(msg)
+            # hypothesis print
+        self.required_msgs_sent = True
+"""
+
+TEARDOWN_TEMPLATE = """
+    def teardown(self):
+        self.publish_required_msgs()
+        if not self.required_msgs_sent:
+            return False
+        spinner = self.spin_cls()
+        assert spinner.spin()
+"""
+
+
 ################################################################################
 # HPL Condition to Python Condition Compiler
 ################################################################################
@@ -133,7 +154,7 @@ class ConditionTransformer(object):
         if isinstance(condition.value, HplLiteral):
             value = condition.value
         else:
-            assert isinstance(condition.value, HplFieldExpression2)
+            assert isinstance(condition.value, HplFieldExpression)
             value = self._field_expression(condition.value)
         self.right_operands.append((op, value))
 
@@ -141,7 +162,7 @@ class ConditionTransformer(object):
         if isinstance(condition.value, HplLiteral):
             value = condition.value
         else:
-            assert isinstance(condition.value, HplFieldExpression2)
+            assert isinstance(condition.value, HplFieldExpression)
             value = self._field_expression(condition.value)
         self.right_operands.append((condition.operator, value))
 
@@ -201,7 +222,7 @@ class ConditionTransformer(object):
             return repr(value.value)
         if isinstance(value, tuple):
             return "({})".format(", ".join(self._python(v) for v in value))
-        assert isinstance(value, HplFieldExpression2), "found: " + repr(value)
+        assert isinstance(value, HplFieldExpression), "found: " + repr(value)
         return self._var_prefix + value.full_name
 
     Reference = namedtuple("Reference", ["expr", "root"])
@@ -287,6 +308,8 @@ class ReceiveToStrategyTransformer(object):
 
     def _value(self, value):
         if isinstance(value, HplFieldExpression):
+            if not value.value is None:
+                return value.value
             return self._reference(value)
         return value
 
@@ -313,6 +336,82 @@ class ReceiveToStrategyTransformer(object):
                 else:
                     fields.append(field.index)
         return Selector(root, fields, ros_type)
+
+
+################################################################################
+# HPL to Python Script Compiler
+################################################################################
+
+class HplTestGenerator(object):
+    def __init__(self):
+        self.spin_vars = {}
+        self.self_vars = {}
+        # self.pub_msg_filter
+
+    def gen(self, property):
+        self._process_receive_stmt(property.receive)
+        self._process_publish_stmt(property.publish)
+        # return SPIN_TEMPLATE.format(**self.spin_vars)
+        if property.publish.msg_filter is None:
+            return "assert True"
+        #cp = ConditionProcessor()
+        cp = Condition2Strategy()
+        return "\n".join(cp.gen(c) for c in property.publish.msg_filter.field_conditions)
+
+    def _process_receive_stmt(self, receive):
+        self.self_vars["required_msgs"] = {}
+        if receive is None:
+            return
+        else:
+            self.self_vars["required_msgs"][receive.variable] = None
+
+    def _process_publish_stmt(self, publish):
+        self._process_pub_multiplicity(publish.multiplicity)
+        self._process_pub_time_bound(publish.time_bound)
+        self._process_pub_msg_filter(publish.msg_filter)
+
+    def _process_pub_multiplicity(self, multiplicity):
+        if multiplicity is None:
+            self.spin_vars["timeout_action"] = "return False"
+            self.spin_vars["accept_msg_action"] = "return True"
+            self.spin_vars["reject_msg_action"] = "pass"
+            self.self_vars["expected_messages"] = 1
+        else:
+            self.self_vars["expected_messages"] = multiplicity.value
+            if multiplicity.exact or multiplicity.exclusive:
+                self.spin_vars["timeout_action"] = "break"
+            else:
+                self.spin_vars["timeout_action"] = "return False"
+            if multiplicity.exact:
+                if multiplicity.value == 0:
+                    self.spin_vars["accept_msg_action"] = "return False"
+                else:
+                    self.spin_vars["accept_msg_action"] = "valid_messages += 1"
+            else:
+                if multiplicity.exclusive:
+                    self.spin_vars["accept_msg_action"] = "pass"
+                else:
+                    self.spin_vars["accept_msg_action"] = "return True"
+            if multiplicity.exclusive:
+                self.spin_vars["reject_msg_action"] = "return False"
+            else:
+                self.spin_vars["reject_msg_action"] = "pass"
+
+    def _process_pub_time_bound(self, time_bound):
+        if time_bound is None:
+            self.self_vars["timeout"] = 60.0
+            self.self_vars["time_tolerance_threshold"] = 60.0
+        else:
+            s = time_bound.seconds
+            if time_bound.is_frequency:
+                self.self_vars["timeout"] = 2 * s
+                self.self_vars["time_tolerance_threshold"] = s
+            else:
+                self.self_vars["timeout"] = s
+                self.self_vars["time_tolerance_threshold"] = s
+
+    def _process_pub_msg_filter(self, msg_filter):
+        pass
 
 
 ################################################################################
@@ -367,18 +466,18 @@ if __name__ == "__main__":
     sm = StrategyMap(TEST_DATA)
 
     fields = (
-        HplFieldReference("nested_array[0]",
+        HplFieldReference("nested_array[all]",
             TEST_DATA["pkg/Nested"]["nested_array"], "pkg/Nested"),
         HplFieldReference("int", TEST_DATA["pkg/Nested2"]["int"], "pkg/Nested2")
     )
-    left = HplFieldExpression("nested_array[0].int", fields, "m", "pkg/Nested")
+    left = HplFieldExpression("nested_array[all].int", fields, "m", "pkg/Nested")
 
     fields = (
         HplFieldReference("int", TEST_DATA["pkg/Nested"]["int"], "pkg/Nested"),
     )
     right = HplFieldExpression("int", fields, "m", "pkg/Nested")
 
-    cond1 = HplMsgFieldCondition(right, OPERATOR_EQ, left)
+    cond1 = HplMsgFieldCondition(left, OPERATOR_EQ, right)
     msg_filter = HplMsgFilter((cond1,))
 
     hpl_receive = HplReceiveStatement("m", "/topic",
@@ -389,3 +488,8 @@ if __name__ == "__main__":
     print str(hpl_receive)
     print ""
     print transformer.gen(hpl_receive)
+
+
+    condtr = ConditionTransformer()
+    print ""
+    print condtr.gen(cond1)

@@ -197,7 +197,7 @@ class MsgStrategy(TopLevelStrategy):
 
     def select(self, fields):
         # fields :: field_name | (field_name, index)
-        as_list = False
+        is_list = False
         field = self.root
         for name in fields:
             index = None
@@ -205,12 +205,12 @@ class MsgStrategy(TopLevelStrategy):
                 name, index = name
             field = field[name]
             if index is Selector.ALL:
-                as_list = True
+                is_list = True
                 field = MultiField(field, field.field_name,
                                    field.ros_type, field.all())
             elif not index is None:
                 field = field.fields[index]
-        if as_list:
+        if is_list:
             assert isinstance(field, MultiField)
         else:
             assert isinstance(field, FieldGenerator)
@@ -508,8 +508,11 @@ class Selector(object):
         self.fields = fields
         self.ros_type = ros_type
 
+    @property
+    def is_list(self):
+        return self.ALL in self.fields
+
     def to_python(self):
-        values = []
         as_list = False
         field = self.root
         for name in self.fields:
@@ -741,6 +744,8 @@ class SimpleFieldGenerator(FieldGenerator):
         if (self.ros_type in ROS_STRING_TYPES
                 and not RosStringStrategy.accepts(self.ros_type, value)):
             raise ValueError("invalid string value: " + repr(value))
+        if isinstance(value, Selector) and value.is_list:
+            raise ValueError("cannot accept list values: " + repr(value))
 
     def _set_condition(self, condition):
         if self.condition is None:
