@@ -150,7 +150,7 @@ class ConditionTransformer(object):
             self._inclusion_test(condition)
 
     def _equality_test(self, condition):
-        op = "==" if condition.operator == "=" else condition.operator
+        op = "==" if condition.operator == OPERATOR_EQ else condition.operator
         if isinstance(condition.value, HplLiteral):
             value = condition.value
         else:
