@@ -52,7 +52,8 @@ SPIN_TEMPLATE = """
             time_left = self.timeout - (rospy.get_rostime() - t0)
             for msg in msgs:
                 # assume we are subscribing only expected topics
-                if self.pub_msg_filter.accepts(msg):
+                topic = msg._connection_header["topic"]
+                if self.pub_msg_filters[topic](msg):
                     {accept_msg_action}
                 elif time_left < self.time_tolerance_threshold:
                     {reject_msg_action}
@@ -60,14 +61,14 @@ SPIN_TEMPLATE = """
 """
 
 INITIALIZE_TEMPLATE = """
-    @initialize(msg={strategy})
-    def gen_msg_{var}(self, msg):
+    @initialize(msg={strategy}())
+    def gen_{var}(self, msg):
         self.required_msgs["{var}"] = (msg, "{topic}")
-        # self._user_{var} = (msg, "{topic}")
+        self._user_{var} = msg
 """
 
 PUBLISH_IRRELEVANT_TEMPLATE = """
-    @rule(msg={strategy})
+    @rule(msg={strategy}())
     def pub_{name}(self, msg):
         self.ros.pub["{topic}"].publish(msg)
 """
@@ -87,16 +88,42 @@ PUBLISH_REQUIRED_TEMPLATE = """
             msg, topic = req
             self.ros.pub[topic].publish(msg)
             # hypothesis print
-        self.required_msgs_sent = True
+        return True
 """
 
 TEARDOWN_TEMPLATE = """
     def teardown(self):
-        self.publish_required_msgs()
-        if not self.required_msgs_sent:
-            return False
-        spinner = self.spin_cls()
-        assert spinner.spin()
+        if self.publish_required_msgs():
+            assert self.spin(inbox)
+"""
+
+PUB_MSG_FILTER_TEMPLATE = """
+    def _accepts_{topic}(self, msg):
+        self._user_{var} = msg
+        return {condition}
+"""
+
+STATE_MACHINE_TEMPLATE = """
+class HarosPropertyTester(RuleBasedStateMachine):
+    def __init__(self):
+        RuleBasedStateMachine.__init__(self)
+        {self_vars}
+{init_defs}
+{rule_defs}
+{msg_filters}
+{spin}
+    def teardown(self):
+        if self.publish_required_msgs():
+            assert self.spin(inbox)
+
+    def publish_required_msgs(self):
+        for req in self.required_msgs.itervalues():
+            if req is None:
+                return False
+            msg, topic = req
+            self.ros.pub[topic].publish(msg)
+            # hypothesis print
+        return True
 """
 
 
@@ -105,12 +132,12 @@ TEARDOWN_TEMPLATE = """
 ################################################################################
 
 class ConditionTransformer(object):
-    def __init__(self):
+    def __init__(self, var_prefix=""):
         self.loops = []
         self.left_operand = None
         self.right_operands = []
         self._var = 0
-        self._var_prefix = "self._user_"
+        self._var_prefix = var_prefix
 
     def gen(self, condition):
         self._reset()
@@ -131,7 +158,7 @@ class ConditionTransformer(object):
             "{} {} {}".format(left, op, self._python(value))
             for op, value in self.right_operands)
         expr = expr.format(inner)
-        return "assert " + expr
+        return expr
 
     def _reset(self):
         self.loops = []
@@ -258,15 +285,15 @@ class ReceiveToStrategyTransformer(object):
     def gen(self, hpl_receive):
         assert not hpl_receive.variable is None
         assert not hpl_receive.msg_type is None
-        if not hpl_receive.msg_filter is None:
-            msg_filter = hpl_receive.msg_filter.normalise()
-            self._variable = hpl_receive.variable
-            self._msg_strategy = self.strategy_map.make_custom(
-                hpl_receive.variable, hpl_receive.msg_type)
-            self._filter_to_strategies(msg_filter)
-        # set msg as required
-        # set default/custom strategy
-        return self._msg_strategy.to_python()
+        self._variable = hpl_receive.variable
+        self._msg_strategy = None
+        if hpl_receive.msg_filter is None:
+            return self.strategy_map.defaults[hpl_receive.msg_type]
+        msg_filter = hpl_receive.msg_filter.normalise()
+        self._msg_strategy = self.strategy_map.make_custom(
+            hpl_receive.variable, hpl_receive.msg_type)
+        self._filter_to_strategies(msg_filter)
+        return self._msg_strategy
 
     def _filter_to_strategies(self, msg_filter):
         for condition in msg_filter.field_conditions:
@@ -343,32 +370,43 @@ class ReceiveToStrategyTransformer(object):
 ################################################################################
 
 class HplTestGenerator(object):
-    def __init__(self):
+    def __init__(self, msg_data):
         self.spin_vars = {}
         self.self_vars = {}
-        # self.pub_msg_filter
+        self.pub_msg_filters = []
+        self.init_defs = []
+        self.rule_defs = []
+        self.receive_transformer = ReceiveToStrategyTransformer(
+            StrategyMap(msg_data))
 
-    def gen(self, property):
-        self._process_receive_stmt(property.receive)
-        self._process_publish_stmt(property.publish)
-        # return SPIN_TEMPLATE.format(**self.spin_vars)
-        if property.publish.msg_filter is None:
-            return "assert True"
-        #cp = ConditionProcessor()
-        cp = Condition2Strategy()
-        return "\n".join(cp.gen(c) for c in property.publish.msg_filter.field_conditions)
+    def gen(self, hpl_property):
+        self.self_vars["required_msgs"] = {}
+        self.self_vars["pub_msg_filters"] = {}
+        self._process_receive_stmt(hpl_property.receive)
+        self._process_publish_stmt(hpl_property.publish)
+        
+        return STATE_MACHINE_TEMPLATE.format(
+            self_vars=self._self_vars_to_python(),
+            init_defs="\n".join(self.init_defs),
+            rule_defs="\n".join(self.rule_defs),
+            msg_filters="\n".join(self.pub_msg_filters),
+            spin=SPIN_TEMPLATE.format(**self.spin_vars))
 
     def _process_receive_stmt(self, receive):
-        self.self_vars["required_msgs"] = {}
         if receive is None:
             return
         else:
             self.self_vars["required_msgs"][receive.variable] = None
+            msg_strategy = self.receive_transformer.gen(receive)
+            self.init_defs.append(INITIALIZE_TEMPLATE.format(
+                strategy=msg_strategy.name, var=receive.variable,
+                topic=receive.ros_name.replace("/", "_")))
 
     def _process_publish_stmt(self, publish):
         self._process_pub_multiplicity(publish.multiplicity)
         self._process_pub_time_bound(publish.time_bound)
-        self._process_pub_msg_filter(publish.msg_filter)
+        self._process_pub_msg_filter(publish.variable, publish.ros_name,
+                                     publish.msg_filter)
 
     def _process_pub_multiplicity(self, multiplicity):
         if multiplicity is None:
@@ -410,8 +448,23 @@ class HplTestGenerator(object):
                 self.self_vars["timeout"] = s
                 self.self_vars["time_tolerance_threshold"] = s
 
-    def _process_pub_msg_filter(self, msg_filter):
-        pass
+    def _process_pub_msg_filter(self, var_name, ros_name, msg_filter):
+        # TODO edge case where var_name == "self"
+        topic = ros_name.replace("/", "_")
+        if msg_filter is None:
+            condition = "True"
+        else:
+            transformer = ConditionTransformer(var_prefix="self._user_")
+            condition = " and ".join(
+                transformer.gen(c) for c in msg_filter.field_conditions)
+        self.pub_msg_filters.append(PUB_MSG_FILTER_TEMPLATE.format(
+            topic=topic, var=var_name, condition=condition))
+        self.self_vars["pub_msg_filters"][ros_name] = ("self._accepts_" + topic)
+
+    def _self_vars_to_python(self):
+        tmp = "self.{} = {}"
+        return "\n        ".join(tmp.format(key, value)
+                                 for key, value in self.self_vars.iteritems())
 
 
 ################################################################################
@@ -419,8 +472,8 @@ class HplTestGenerator(object):
 ################################################################################
 
 if __name__ == "__main__":
-    from .hpl_ast import (HplReceiveStatement, HplMsgFilter,
-        HplMsgFieldCondition, HplFieldReference)
+    from .hpl_ast import (HplReceiveStatement, HplMsgFilter, HplProperty,
+        HplMsgFieldCondition, HplFieldReference, HplPublishStatement)
     from .ros_types import (TypeToken, ArrayTypeToken)
 
     TEST_DATA = {
@@ -463,8 +516,6 @@ if __name__ == "__main__":
         }
     }
 
-    sm = StrategyMap(TEST_DATA)
-
     fields = (
         HplFieldReference("nested_array[all]",
             TEST_DATA["pkg/Nested"]["nested_array"], "pkg/Nested"),
@@ -483,13 +534,10 @@ if __name__ == "__main__":
     hpl_receive = HplReceiveStatement("m", "/topic",
         msg_filter=msg_filter, msg_type="pkg/Nested")
 
-    transformer = ReceiveToStrategyTransformer(sm)
+    hpl_publish = HplPublishStatement("out", "/topic2", time_bound=None,
+        msg_filter=None, mult=None, msg_type="pkg/Nested")
 
-    print str(hpl_receive)
-    print ""
-    print transformer.gen(hpl_receive)
+    hpl_property = HplProperty(hpl_publish, receive_stmt=hpl_receive)
 
-
-    condtr = ConditionTransformer()
-    print ""
-    print condtr.gen(cond1)
+    test_gen = HplTestGenerator(TEST_DATA)
+    print test_gen.gen(hpl_property)
