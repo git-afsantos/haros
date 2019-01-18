@@ -63,7 +63,6 @@ SPIN_TEMPLATE = """
 INITIALIZE_TEMPLATE = """
     @initialize(msg={strategy}())
     def gen_{var}(self, msg):
-        self.required_msgs["{var}"] = (msg, "{topic}")
         self._user_{var} = msg
 """
 
@@ -80,16 +79,15 @@ PUBLISH_RELEVANT_TEMPLATE = """
 """
 
 
-PUBLISH_REQUIRED_TEMPLATE = """
+PUBLISH_ALL_REQUIRED_TEMPLATE = """
     def publish_required_msgs(self):
-        for req in self.required_msgs.itervalues():
-            if req is None:
-                return False
-            msg, topic = req
-            self.ros.pub[topic].publish(msg)
-            # hypothesis print
-        return True
+{required_msgs}
 """
+
+PUBLISH_REQUIRED_MSG_TEMPLATE = (
+"""        self.ros.pub["{topic}"].publish(self._user_{var})
+        reporting.report(u"state.v_pub_{var}({{}})".format(self._user_{var}))"""
+)
 
 TEARDOWN_TEMPLATE = """
     def teardown(self):
@@ -108,22 +106,10 @@ class HarosPropertyTester(RuleBasedStateMachine):
     def __init__(self):
         RuleBasedStateMachine.__init__(self)
         {self_vars}
-{init_defs}
-{rule_defs}
-{msg_filters}
-{spin}
+{init_defs}{rule_defs}{msg_filters}{spin}{pub_required}
     def teardown(self):
-        if self.publish_required_msgs():
-            assert self.spin(inbox)
-
-    def publish_required_msgs(self):
-        for req in self.required_msgs.itervalues():
-            if req is None:
-                return False
-            msg, topic = req
-            self.ros.pub[topic].publish(msg)
-            # hypothesis print
-        return True
+        self.publish_required_msgs()
+        assert self.spin(inbox)
 """
 
 
@@ -366,6 +352,197 @@ class ReceiveToStrategyTransformer(object):
 
 
 ################################################################################
+# ROS Interface Generator
+################################################################################
+
+class RosInterfaceGenerator(object):
+    TMP = """
+class RosInterface(object):
+    {slots}
+
+    instance = None
+{init}
+{reset}
+{generator}
+{pub_methods}
+{callbacks}
+
+    def get_msg_counts(self):
+        with self.lock:
+            elapsed = rospy.get_rostime() - self._start
+            timed_out = elapsed > self.timeout
+            if not timed_out:
+                timed_out = self.inbox_flag.wait(self.timeout - elapsed)
+            return (self._accepts, self._rejects, timed_out)
+
+    def shutdown(self):
+        for ps in self.all_pubs_subs():
+            ps.unregister()
+        with self.lock:
+            self.inbox_flag.clear()
+
+    def check_status(self):
+        for ps in self.all_pubs_subs():
+            if ps.get_num_connections() < 1:
+                return ps.resolved_name
+        return None
+
+    def wait_for_interfaces(self, timeout=10.0):
+        now = rospy.get_rostime()
+        to = rospy.Duration.from_sec(timeout)
+        end = now + to
+        rate = rospy.Rate(5)
+        while now < end:
+            failed = None
+            for ps in self.all_pubs_subs():
+                if ps.get_num_connections() == 0:
+                    failed = ps.resolved_name
+                    rate.sleep()
+                    break
+            else:
+                break
+            now = rospy.get_rostime()
+        else:
+            raise LookupError("Failed to connect to topic: " + str(failed))
+"""
+
+    SLOTS = ('__slots__ = ("lock", "inbox_flag", "timeout", "tolerance", '
+             '"_accepts", "_rejects", "_start", {slots})')
+
+    PUB = "self._p{esc_topic}"
+    SUB = "self._s{esc_topic}"
+    MSG = "self._msg_{var}"
+
+    INIT = """
+    def __init__(self, timeout, tolerance):
+        self.lock = Lock()
+        self.inbox_flag = Event()
+        self.timeout = timeout
+        self.tolerance = tolerance
+        self._accepts = 0
+        self._rejects = 0
+        self._start = rospy.get_rostime()
+        {inits}"""
+
+    INIT_PUB = ('{pub} = rospy.Publisher("{topic}", '
+                "{msg_class}, queue_size=10)")
+
+    INIT_SUB = ('{sub} = rospy.Subscriber("{topic}", '
+                "{msg_class}, self._on{esc_topic})")
+
+    INIT_VAR = "{var} = None"
+
+    RESET = """
+    def reset(self):
+        with self.lock:
+            self._start = rospy.get_rostime()
+            self._accepts = 0
+            self._rejects = 0
+            {resets}"""
+
+    YIELDS = """
+    def all_pubs_subs(self):
+        {yields}
+    """
+
+    YIELD_PUB_SUB = "yield {pub_sub}"
+
+    PUBLISH_M = """
+    def pub_{var}(self, msg):
+        with self.lock:
+            self._msg_{var} = msg
+        self._p{esc_topic}.publish(msg)
+    """
+
+    PUBLISH = """
+    def pub{esc_topic}(self, msg):
+        self._p{esc_topic}.publish(msg)
+    """
+
+    CALLBACK = """
+    def _on{esc_topic}(self, msg):
+        with self.lock:
+            elapsed = rospy.get_rostime() - self._start
+            if elapsed > self.timeout:
+                self._rejects += 1
+            elif {condition}:
+                self._accepts += 1
+            elif elapsed >= self.tolerance:
+                self._rejects += 1
+            self.inbox_flag.set()"""
+
+    def __init__(self):
+        self._slots = []
+        self._inits = []
+        self._resets = []
+        self._yields = []
+        self._callbacks = []
+        self._pub_methods = []
+
+    def add_publisher(self, topic, msg_type):
+        esc_topic = topic.replace("/", "_")
+        msg_class = msg_type.replace("/", ".")
+        pub = self.PUB.format(esc_topic=esc_topic)
+        self._slots.append(pub[5:])
+        self._inits.append(self.INIT_PUB.format(
+            pub=pub, topic=topic, msg_class=msg_class))
+        self._resets.append(self.INIT_VAR.format(var=pub))
+        self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
+        self._pub_methods.append(self.PUBLISH.format(esc_topic=esc_topic))
+
+    def add_subscriber(self, topic, msg_type, condition):
+        esc_topic = topic.replace("/", "_")
+        msg_class = msg_type.replace("/", ".")
+        sub = self.SUB.format(esc_topic=esc_topic)
+        self._slots.append(sub[5:])
+        self._inits.append(self.INIT_SUB.format(
+            sub=sub, topic=topic, msg_class=msg_class, esc_topic=esc_topic))
+        self._resets.append(self.INIT_VAR.format(var=sub))
+        self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
+        self._callbacks.append(self.CALLBACK.format(
+            esc_topic=esc_topic, condition=condition))
+
+    def add_msg_variable(self, var_name, topic):
+        esc_topic = topic.replace("/", "_")
+        msg = self.MSG.format(var=var_name)
+        self._slots.append(msg[5:])
+        init = self.INIT_VAR.format(var=msg)
+        self._inits.append(init)
+        self._resets.append(init)
+        self._pub_methods.append(self.PUBLISH_M.format(
+            var=var_name, esc_topic=esc_topic))
+
+    def gen(self):
+        return self.TMP.format(
+            slots=self._gen_slots(),
+            init=self._gen_init(),
+            reset=self._gen_reset(),
+            generator=self._gen_generator(),
+            pub_methods=self._gen_pub_methods(),
+            callbacks=self._gen_callbacks())
+
+    def _gen_slots(self):
+        slots = ", ".join(self._slots)
+        return self.SLOTS.format(slots=slots)
+
+    def _gen_init(self):
+        inits = "\n        ".join(self._inits)
+        return self.INIT.format(inits=inits)
+
+    def _gen_reset(self):
+        return
+
+    def _gen_generator(self):
+        return
+
+    def _gen_pub_methods(self):
+        return
+
+    def _gen_callbacks(self):
+        return
+
+
+################################################################################
 # HPL to Python Script Compiler
 ################################################################################
 
@@ -376,11 +553,11 @@ class HplTestGenerator(object):
         self.pub_msg_filters = []
         self.init_defs = []
         self.rule_defs = []
+        self.required_msgs = {}
         self.receive_transformer = ReceiveToStrategyTransformer(
             StrategyMap(msg_data))
 
     def gen(self, hpl_property):
-        self.self_vars["required_msgs"] = {}
         self.self_vars["pub_msg_filters"] = {}
         self._process_receive_stmt(hpl_property.receive)
         self._process_publish_stmt(hpl_property.publish)
@@ -390,17 +567,17 @@ class HplTestGenerator(object):
             init_defs="\n".join(self.init_defs),
             rule_defs="\n".join(self.rule_defs),
             msg_filters="\n".join(self.pub_msg_filters),
-            spin=SPIN_TEMPLATE.format(**self.spin_vars))
+            spin=SPIN_TEMPLATE.format(**self.spin_vars),
+            pub_required=self._pub_required_msgs())
 
     def _process_receive_stmt(self, receive):
         if receive is None:
             return
         else:
-            self.self_vars["required_msgs"][receive.variable] = None
+            self.required_msgs[receive.variable] = receive.ros_name
             msg_strategy = self.receive_transformer.gen(receive)
             self.init_defs.append(INITIALIZE_TEMPLATE.format(
-                strategy=msg_strategy.name, var=receive.variable,
-                topic=receive.ros_name.replace("/", "_")))
+                strategy=msg_strategy.name, var=receive.variable))
 
     def _process_publish_stmt(self, publish):
         self._process_pub_multiplicity(publish.multiplicity)
@@ -465,6 +642,12 @@ class HplTestGenerator(object):
         tmp = "self.{} = {}"
         return "\n        ".join(tmp.format(key, value)
                                  for key, value in self.self_vars.iteritems())
+
+    def _pub_required_msgs(self):
+        body = "\n".join(
+            PUBLISH_REQUIRED_MSG_TEMPLATE.format(topic=value, var=key)
+            for key, value in self.required_msgs.iteritems())
+        return PUBLISH_ALL_REQUIRED_TEMPLATE.format(required_msgs=body)
 
 
 ################################################################################
