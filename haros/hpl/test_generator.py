@@ -442,8 +442,7 @@ class RosInterface(object):
 
     YIELDS = """
     def all_pubs_subs(self):
-        {yields}
-    """
+        {yields}"""
 
     YIELD_PUB_SUB = "yield {pub_sub}"
 
@@ -451,17 +450,16 @@ class RosInterface(object):
     def pub_{var}(self, msg):
         with self.lock:
             self._msg_{var} = msg
-        self._p{esc_topic}.publish(msg)
-    """
+        self._p{esc_topic}.publish(msg)"""
 
     PUBLISH = """
     def pub{esc_topic}(self, msg):
-        self._p{esc_topic}.publish(msg)
-    """
+        self._p{esc_topic}.publish(msg)"""
 
     CALLBACK = """
     def _on{esc_topic}(self, msg):
         with self.lock:
+            self._msg_{var} = msg
             elapsed = rospy.get_rostime() - self._start
             if elapsed > self.timeout:
                 self._rejects += 1
@@ -471,13 +469,16 @@ class RosInterface(object):
                 self._rejects += 1
             self.inbox_flag.set()"""
 
+    __slots__ = ("_slots", "_inits", "_resets", "_yields",
+                 "_pub_methods", "_callbacks")
+
     def __init__(self):
         self._slots = []
         self._inits = []
         self._resets = []
         self._yields = []
-        self._callbacks = []
         self._pub_methods = []
+        self._callbacks = []
 
     def add_publisher(self, topic, msg_type):
         esc_topic = topic.replace("/", "_")
@@ -486,23 +487,21 @@ class RosInterface(object):
         self._slots.append(pub[5:])
         self._inits.append(self.INIT_PUB.format(
             pub=pub, topic=topic, msg_class=msg_class))
-        self._resets.append(self.INIT_VAR.format(var=pub))
+        # self._resets.append(self.INIT_VAR.format(var=pub))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
         self._pub_methods.append(self.PUBLISH.format(esc_topic=esc_topic))
 
-    def add_subscriber(self, topic, msg_type, condition):
+    def add_subscriber(self, topic, msg_type):
         esc_topic = topic.replace("/", "_")
         msg_class = msg_type.replace("/", ".")
         sub = self.SUB.format(esc_topic=esc_topic)
         self._slots.append(sub[5:])
         self._inits.append(self.INIT_SUB.format(
             sub=sub, topic=topic, msg_class=msg_class, esc_topic=esc_topic))
-        self._resets.append(self.INIT_VAR.format(var=sub))
+        # self._resets.append(self.INIT_VAR.format(var=sub))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
-        self._callbacks.append(self.CALLBACK.format(
-            esc_topic=esc_topic, condition=condition))
 
-    def add_msg_variable(self, var_name, topic):
+    def add_publisher_msg(self, var_name, topic):
         esc_topic = topic.replace("/", "_")
         msg = self.MSG.format(var=var_name)
         self._slots.append(msg[5:])
@@ -511,6 +510,16 @@ class RosInterface(object):
         self._resets.append(init)
         self._pub_methods.append(self.PUBLISH_M.format(
             var=var_name, esc_topic=esc_topic))
+
+    def add_subscriber_msg(self, var_name, topic, condition):
+        esc_topic = topic.replace("/", "_")
+        msg = self.MSG.format(var=var_name)
+        self._slots.append(msg[5:])
+        init = self.INIT_VAR.format(var=msg)
+        self._inits.append(init)
+        self._resets.append(init)
+        self._callbacks.append(self.CALLBACK.format(
+            esc_topic=esc_topic, var=var_name, condition=condition))
 
     def gen(self):
         return self.TMP.format(
@@ -530,16 +539,18 @@ class RosInterface(object):
         return self.INIT.format(inits=inits)
 
     def _gen_reset(self):
-        return
+        resets = "\n            ".join(self._resets)
+        return self.RESET.format(resets=resets)
 
     def _gen_generator(self):
-        return
+        yields = "\n        ".join(self._yields)
+        return self.YIELDS.format(yields=yields)
 
     def _gen_pub_methods(self):
-        return
+        return "\n".join(self._pub_methods)
 
     def _gen_callbacks(self):
-        return
+        return "\n".join(self._callbacks)
 
 
 ################################################################################
@@ -724,3 +735,12 @@ if __name__ == "__main__":
 
     test_gen = HplTestGenerator(TEST_DATA)
     print test_gen.gen(hpl_property)
+
+
+    rosint = RosInterfaceGenerator()
+    rosint.add_publisher("/events/bumper", "kobuki_msgs/BumperEvent")
+    rosint.add_publisher_msg("bumper", "/events/bumper")
+    rosint.add_subscriber("/cmd_vel", "geometry_msgs/Twist")
+    rosint.add_subscriber_msg("cmd", "/cmd_vel", "True")
+    print ""
+    print rosint.gen()
