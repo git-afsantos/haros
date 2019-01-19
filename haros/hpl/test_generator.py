@@ -453,7 +453,7 @@ class RosInterface(object):
         self._p{esc_topic}.publish(msg)"""
 
     PUBLISH = """
-    def pub{esc_topic}(self, msg):
+    def random_pub{esc_topic}(self, msg):
         self._p{esc_topic}.publish(msg)"""
 
     CALLBACK = """
@@ -480,44 +480,45 @@ class RosInterface(object):
         self._pub_methods = []
         self._callbacks = []
 
-    def add_publisher(self, topic, msg_type):
+    def add_anon_publisher(self, topic, msg_type):
         esc_topic = topic.replace("/", "_")
         msg_class = msg_type.replace("/", ".")
         pub = self.PUB.format(esc_topic=esc_topic)
         self._slots.append(pub[5:])
         self._inits.append(self.INIT_PUB.format(
             pub=pub, topic=topic, msg_class=msg_class))
-        # self._resets.append(self.INIT_VAR.format(var=pub))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
         self._pub_methods.append(self.PUBLISH.format(esc_topic=esc_topic))
 
-    def add_subscriber(self, topic, msg_type):
+    def add_publisher(self, topic, msg_type, var_name):
         esc_topic = topic.replace("/", "_")
         msg_class = msg_type.replace("/", ".")
-        sub = self.SUB.format(esc_topic=esc_topic)
-        self._slots.append(sub[5:])
-        self._inits.append(self.INIT_SUB.format(
-            sub=sub, topic=topic, msg_class=msg_class, esc_topic=esc_topic))
-        # self._resets.append(self.INIT_VAR.format(var=sub))
-        self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
-
-    def add_publisher_msg(self, var_name, topic):
-        esc_topic = topic.replace("/", "_")
+        pub = self.PUB.format(esc_topic=esc_topic)
         msg = self.MSG.format(var=var_name)
+        self._slots.append(pub[5:])
         self._slots.append(msg[5:])
+        self._inits.append(self.INIT_PUB.format(
+            pub=pub, topic=topic, msg_class=msg_class))
         init = self.INIT_VAR.format(var=msg)
         self._inits.append(init)
         self._resets.append(init)
         self._pub_methods.append(self.PUBLISH_M.format(
             var=var_name, esc_topic=esc_topic))
+        self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
 
-    def add_subscriber_msg(self, var_name, topic, condition):
+    def add_subscriber(self, topic, msg_type, var_name, condition):
         esc_topic = topic.replace("/", "_")
+        msg_class = msg_type.replace("/", ".")
+        sub = self.SUB.format(esc_topic=esc_topic)
         msg = self.MSG.format(var=var_name)
+        self._slots.append(sub[5:])
         self._slots.append(msg[5:])
+        self._inits.append(self.INIT_SUB.format(
+            sub=sub, topic=topic, msg_class=msg_class, esc_topic=esc_topic))
         init = self.INIT_VAR.format(var=msg)
         self._inits.append(init)
         self._resets.append(init)
+        self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
         self._callbacks.append(self.CALLBACK.format(
             esc_topic=esc_topic, var=var_name, condition=condition))
 
@@ -531,7 +532,7 @@ class RosInterface(object):
             callbacks=self._gen_callbacks())
 
     def _gen_slots(self):
-        slots = ", ".join(self._slots)
+        slots = ", ".join('"' + s + '"' for s in self._slots)
         return self.SLOTS.format(slots=slots)
 
     def _gen_init(self):
@@ -738,9 +739,8 @@ if __name__ == "__main__":
 
 
     rosint = RosInterfaceGenerator()
-    rosint.add_publisher("/events/bumper", "kobuki_msgs/BumperEvent")
-    rosint.add_publisher_msg("bumper", "/events/bumper")
-    rosint.add_subscriber("/cmd_vel", "geometry_msgs/Twist")
-    rosint.add_subscriber_msg("cmd", "/cmd_vel", "True")
+    rosint.add_publisher("/events/bumper", "kobuki_msgs/BumperEvent", "bumper")
+    rosint.add_anon_publisher("/events/wheel_drop", "kobuki_msgs/WheelDropEvent")
+    rosint.add_subscriber("/cmd_vel", "geometry_msgs/Twist", "cmd", "True")
     print ""
     print rosint.gen()
