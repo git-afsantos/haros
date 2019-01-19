@@ -431,11 +431,11 @@ class RosInterface(object):
     MSG = "self._msg_{var}"
 
     INIT = """
-    def __init__(self, timeout, tolerance):
+    def __init__(self):
         self.lock = Lock()
         self.inbox_flag = Event()
-        self.timeout = timeout
-        self.tolerance = tolerance
+        self.timeout = {timeout}
+        self.tolerance = {tolerance}
         self._accepts = 0
         self._rejects = 0
         self._start = rospy.get_rostime()
@@ -486,10 +486,15 @@ class RosInterface(object):
                 self._rejects += 1
             self.inbox_flag.set()"""
 
-    __slots__ = ("_slots", "_inits", "_resets", "_yields",
-                 "_pub_methods", "_callbacks")
+    DEFAULT_TIMEOUT = 60.0
+    DEFAULT_TOLERANCE = 0.0
+
+    __slots__ = ("timeout", "tolerance", "_slots", "_inits", "_resets",
+                 "_yields", "_pub_methods", "_callbacks")
 
     def __init__(self):
+        self.timeout = self.DEFAULT_TIMEOUT
+        self.tolerance = self.DEFAULT_TOLERANCE
         self._slots = []
         self._inits = []
         self._resets = []
@@ -554,7 +559,8 @@ class RosInterface(object):
 
     def _gen_init(self):
         inits = "\n        ".join(self._inits)
-        return self.INIT.format(inits=inits)
+        return self.INIT.format(
+            timeout=self.timeout, tolerance=self.tolerance, inits=inits)
 
     def _gen_reset(self):
         resets = "\n            ".join(self._resets)
@@ -569,6 +575,39 @@ class RosInterface(object):
 
     def _gen_callbacks(self):
         return "\n".join(self._callbacks)
+
+
+################################################################################
+# Hypothesis State Machine Generator
+################################################################################
+
+class StateMachineGenerator(object):
+    TMP = """
+class HarosPropertyTester(RuleBasedStateMachine):
+    _time_spent_on_testing = 0.0
+    _time_spent_sleeping = 0.0
+    _time_spent_setting_up = 0.0
+
+    def __init__(self):
+        RuleBasedStateMachine.__init__(self)
+        t = rospy.get_rostime()
+        self.expected_messages = {expected_messages}
+        self.launches = self._start_launch_files(self.cfg.launch_files)
+        self.ros = RosInterface()
+        self._wait_for_nodes()
+        self.ros.wait_for_interfaces()
+        self._start_time = rospy.get_rostime()
+        t = self._start_time - t
+        RosRandomTester._time_spent_setting_up += t.to_sec()
+
+    def __init__(self):
+        RuleBasedStateMachine.__init__(self)
+        {self_vars}
+{init_defs}{rule_defs}{msg_filters}{spin}{pub_required}
+    def teardown(self):
+        self.publish_required_msgs()
+        self.spin()
+"""
 
 
 ################################################################################
