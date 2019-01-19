@@ -40,6 +40,23 @@ from .hypothesis_strategies import StrategyMap, ArrayGenerator, Selector
 ################################################################################
 
 SPIN_TEMPLATE = """
+    def spin(self):
+        valid_messages = 0
+        invalid_messages = 0
+        timed_out = False
+        while not timed_out:
+            accepts, rejects, timed_out = self.ros.get_msg_counts()
+            if timed_out and accepts == 0 and rejects == 0:
+                {timeout_action}
+            for i in xrange(accepts - valid_messages):
+                {accept_msg_action}
+            for i in xrange(rejects - invalid_messages):
+                {reject_msg_action}
+            invalid_messages = rejects
+        assert valid_messages == self.expected_messages
+"""
+
+OLD_SPIN_TEMPLATE = """
     def spin(self, inbox):
         valid_messages = 0
         t0 = rospy.get_rostime()
@@ -109,7 +126,7 @@ class HarosPropertyTester(RuleBasedStateMachine):
 {init_defs}{rule_defs}{msg_filters}{spin}{pub_required}
     def teardown(self):
         self.publish_required_msgs()
-        assert self.spin(inbox)
+        self.spin()
 """
 
 
@@ -599,8 +616,8 @@ class HplTestGenerator(object):
 
     def _process_pub_multiplicity(self, multiplicity):
         if multiplicity is None:
-            self.spin_vars["timeout_action"] = "return False"
-            self.spin_vars["accept_msg_action"] = "return True"
+            self.spin_vars["timeout_action"] = "assert False"
+            self.spin_vars["accept_msg_action"] = "return"
             self.spin_vars["reject_msg_action"] = "pass"
             self.self_vars["expected_messages"] = 1
         else:
@@ -608,19 +625,19 @@ class HplTestGenerator(object):
             if multiplicity.exact or multiplicity.exclusive:
                 self.spin_vars["timeout_action"] = "break"
             else:
-                self.spin_vars["timeout_action"] = "return False"
+                self.spin_vars["timeout_action"] = "assert False"
             if multiplicity.exact:
                 if multiplicity.value == 0:
-                    self.spin_vars["accept_msg_action"] = "return False"
+                    self.spin_vars["accept_msg_action"] = "assert False"
                 else:
                     self.spin_vars["accept_msg_action"] = "valid_messages += 1"
             else:
                 if multiplicity.exclusive:
                     self.spin_vars["accept_msg_action"] = "pass"
                 else:
-                    self.spin_vars["accept_msg_action"] = "return True"
+                    self.spin_vars["accept_msg_action"] = "return"
             if multiplicity.exclusive:
-                self.spin_vars["reject_msg_action"] = "return False"
+                self.spin_vars["reject_msg_action"] = "assert False"
             else:
                 self.spin_vars["reject_msg_action"] = "pass"
 
