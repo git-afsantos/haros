@@ -402,9 +402,8 @@ class RosInterface(object):
 
     def check_status(self):
         for ps in self.all_pubs_subs():
-            if ps.get_num_connections() < 1:
-                return ps.resolved_name
-        return None
+            assert ps.get_num_connections() >= 1, ("Failed to find "
+                                                   + ps.resolved_name)
 
     def wait_for_interfaces(self, timeout=10.0):
         now = rospy.get_rostime()
@@ -588,6 +587,72 @@ class RosInterface(object):
 
 
 ################################################################################
+# Infrastructure Manager Generator
+################################################################################
+
+class InfrastructureGenerator(object):
+    TMP = """
+class SystemUnderTest(object):
+    NODES = ({nodes})
+    LAUNCH = ({launches})
+
+    def __init__(self):
+        self.launches = []
+        for launch_path in self.LAUNCH:
+            uuid = roslaunch.rlutil.get_or_generate_uuid(None, True)
+            roslaunch.configure_logging(uuid)
+            launch = roslaunch.parent.ROSLaunchParent(uuid, [launch_path],
+                        is_core=False, verbose=False)
+            launch.start(auto_terminate=False)
+            self.launches.append(launch)
+
+    def shutdown(self):
+        for launch in self.launches:
+            launch.shutdown()
+        self.wait_for_nodes(online=False)
+
+    def check_status(self):
+        for node_name in self.NODES:
+            assert rosnode_ping(node_name, max_count=1), ("Failed to find "
+                                                          + node_name)
+
+    def wait_for_nodes(self, timeout=60.0, online=True):
+        now = rospy.get_rostime()
+        to = rospy.Duration.from_sec(timeout)
+        end = now + to
+        rate = rospy.Rate(5)
+        pending = list(self.NODES)
+        while now < end and pending:
+            node_name = pending.pop()
+            if not rosnode_ping(node_name, max_count=1) is online:
+                pending.append(node_name)
+                rate.sleep()
+            now = rospy.get_rostime()
+        if pending and online:
+            raise LookupError("Failed to find nodes " + str(pending))
+"""
+
+    def __init__(self):
+        self._nodes = []
+        self._launch = []
+
+    def add_launch(self, launch_path):
+        self._launch.append(launch_path)
+
+    def add_node(self, node_name):
+        self._nodes.append(node_name)
+
+    def gen(self):
+        if not self._nodes:
+            raise RuntimeError("must register nodes under test")
+        if not self._launch:
+            raise RuntimeError("must register launch files")
+        nodes = ", ".join(self._nodes)
+        launches = ", ".join(self._launch)
+        return self.TMP.format(nodes=nodes, launches=launches)
+
+
+################################################################################
 # Hypothesis State Machine Generator
 ################################################################################
 
@@ -595,7 +660,6 @@ class StateMachineGenerator(object):
     TMP = """
 class HarosPropertyTester(RuleBasedStateMachine):
     _time_spent_on_testing = 0.0
-    _time_spent_sleeping = 0.0
     _time_spent_setting_up = 0.0
 {init}
 {init_defs}
@@ -604,8 +668,21 @@ class HarosPropertyTester(RuleBasedStateMachine):
 {pub_required}
 
     def teardown(self):
-        self.publish_required_msgs()
-        self.spin()
+        try:
+            self.publish_required_msgs()
+            self.sut.check_status()
+            self.ros.check_status()
+            self.spin()
+        finally:
+            t0 = rospy.get_rostime()
+            t = t0 - self._start_time
+            HarosPropertyTester._time_spent_on_testing += t.to_sec()
+            self.sut.shutdown()
+            self.ros.shutdown()
+            t = rospy.get_rostime() - t0
+            HarosPropertyTester._time_spent_setting_up += t.to_sec()
+
+PropertyTest = HarosPropertyTester.TestCase
 """
 
     INIT = """
@@ -613,9 +690,9 @@ class HarosPropertyTester(RuleBasedStateMachine):
         RuleBasedStateMachine.__init__(self)
         t = rospy.get_rostime()
         {msgs}
-        self.launches = self._start_launch_files(self.cfg.launch_files)
         self.ros = RosInterface()
-        self._wait_for_nodes()
+        self.sut = SystemUnderTest()
+        self.sut.wait_for_nodes()
         self.ros.wait_for_interfaces()
         self._start_time = rospy.get_rostime()
         t = self._start_time - t
@@ -660,6 +737,9 @@ class HarosPropertyTester(RuleBasedStateMachine):
 
     PUBS = """        self.ros.pub_{var}(self._msg_{var})
         reporting.report(u"state.v_pub_{var}({{}})".format(self._msg_{var}))"""
+
+    __slots__ = ("_msgs", "_init_kwargs", "_init_args", "_assigns", "_pubs",
+                 "_required", "_spin")
 
     def __init__(self):
         self._msgs = []
