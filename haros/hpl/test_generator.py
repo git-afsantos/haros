@@ -682,6 +682,11 @@ class HarosPropertyTester(RuleBasedStateMachine):
             t = rospy.get_rostime() - t0
             HarosPropertyTester._time_spent_setting_up += t.to_sec()
 
+    @classmethod
+    def print_times(cls):
+        print "Time spent on testing (s):", cls._time_spent_on_testing
+        print "Time spent setting up (s):", cls._time_spent_setting_up
+
 PropertyTest = HarosPropertyTester.TestCase
 """
 
