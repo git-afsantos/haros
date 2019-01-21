@@ -32,7 +32,9 @@ from .hpl_ast import (
     OPERATOR_GT, OPERATOR_GTE, OPERATOR_IN, OPERATOR_NIN,
     HplLiteral, HplFieldExpression, HplSet, HplRange
 )
-from .hypothesis_strategies import StrategyMap, ArrayGenerator, Selector
+from .hypothesis_strategies import (
+    StrategyMap, ArrayGenerator, Selector, ros_type_to_name
+)
 
 
 ################################################################################
@@ -477,6 +479,8 @@ class RosInterface(object):
     def _on{esc_topic}(self, msg):
         with self.lock:
             self._msg_{var} = msg
+            if {deps}:
+                return
             elapsed = rospy.get_rostime() - self._start
             if elapsed > self.timeout:
                 self._rejects += 1
@@ -485,6 +489,8 @@ class RosInterface(object):
             elif elapsed >= self.tolerance:
                 self._rejects += 1
             self.inbox_flag.set()"""
+
+    CB_DEP = "self._msg_{var} is None"
 
     DEFAULT_TIMEOUT = 60.0
     DEFAULT_TOLERANCE = 0.0
@@ -528,7 +534,7 @@ class RosInterface(object):
             var=var_name, esc_topic=esc_topic))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
 
-    def add_subscriber(self, topic, msg_type, var_name, condition):
+    def add_subscriber(self, topic, msg_type, var_name, condition, deps):
         esc_topic = topic.replace("/", "_")
         msg_class = msg_type.replace("/", ".")
         sub = self.SUB.format(esc_topic=esc_topic)
@@ -541,8 +547,12 @@ class RosInterface(object):
         self._inits.append(init)
         self._resets.append(init)
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
-        self._callbacks.append(self.CALLBACK.format(
-            esc_topic=esc_topic, var=var_name, condition=condition))
+        if not deps:
+            cb_deps = "False"
+        else:
+            cb_deps = " or ".join(self.CB_DEP.format(var=v) for v in deps)
+        self._callbacks.append(self.CALLBACK.format(esc_topic=esc_topic,
+            var=var_name, condition=condition, deps=cb_deps))
 
     def gen(self):
         return self.TMP.format(
@@ -587,27 +597,135 @@ class HarosPropertyTester(RuleBasedStateMachine):
     _time_spent_on_testing = 0.0
     _time_spent_sleeping = 0.0
     _time_spent_setting_up = 0.0
+{init}
+{init_defs}
+{rule_defs}
+{spin}
+{pub_required}
 
+    def teardown(self):
+        self.publish_required_msgs()
+        self.spin()
+"""
+
+    INIT = """
     def __init__(self):
         RuleBasedStateMachine.__init__(self)
         t = rospy.get_rostime()
-        self.expected_messages = {expected_messages}
+        {msgs}
         self.launches = self._start_launch_files(self.cfg.launch_files)
         self.ros = RosInterface()
         self._wait_for_nodes()
         self.ros.wait_for_interfaces()
         self._start_time = rospy.get_rostime()
         t = self._start_time - t
-        RosRandomTester._time_spent_setting_up += t.to_sec()
+        HarosPropertyTester._time_spent_setting_up += t.to_sec()"""
+
+    INIT_MSG = "self._msg_{var} = None"
+
+    INITIALIZE = """
+    @initialize({kwargs})
+    def gen_msgs(self, {args}):
+        {assigns}"""
+
+    KWARG = "{arg}={strategy}()"
+
+    MSG_ASSIGN = "self._msg_{var} = {arg}"
+
+    PUB_RANDOM = """
+    @rule(msg={strategy}())
+    def pub_{esc_topic}(self, msg):
+        self.ros.random_pub{esc_topic}(msg)"""
+
+    SPIN = """
+    def spin(self):
+        reporting.report(u"state.spin()")
+        valid_msgs = 0
+        invalid_msgs = 0
+        timed_out = False
+        while not timed_out:
+            accepts, rejects, timed_out = self.ros.get_msg_counts()
+            if timed_out and accepts == 0 and rejects == 0:
+                {timeout_action}
+            for i in xrange(accepts - valid_msgs):
+                {accept_msg_action}
+            for i in xrange(rejects - invalid_msgs):
+                {reject_msg_action}
+            invalid_msgs = rejects
+        assert valid_msgs == {expected_messages}"""
+
+    PUB_REQUIRED = """
+    def publish_required_msgs(self):
+{required_msgs}"""
+
+    PUBS = """        self.ros.pub_{var}(self._msg_{var})
+        reporting.report(u"state.v_pub_{var}({{}})".format(self._msg_{var}))"""
 
     def __init__(self):
-        RuleBasedStateMachine.__init__(self)
-        {self_vars}
-{init_defs}{rule_defs}{msg_filters}{spin}{pub_required}
-    def teardown(self):
-        self.publish_required_msgs()
-        self.spin()
-"""
+        self._msgs = []
+        self._init_kwargs = []
+        self._init_args = []
+        self._assigns = []
+        self._pubs = []
+        self._required = []
+        self._spin = self.SPIN.format(timeout_action="assert False",
+            accept_msg_action="return", reject_msg_action="pass",
+            expected_messages=1)
+
+    def add_anon_publisher(self, topic, msg_type):
+        esc_topic = topic.replace("/", "_")
+        strategy = ros_type_to_name(msg_type)
+        self._pubs.append(self.PUB_RANDOM.format(
+            strategy=strategy, esc_topic=esc_topic))
+
+    def add_publisher(self, var_name, strategy):
+        self._msgs.append(self.INIT_MSG.format(var=var_name))
+        msg = "msg" + str(len(self._msgs))
+        self._init_kwargs.append(self.KWARG.format(arg=msg, strategy=strategy))
+        self._init_args.append(msg)
+        self._assigns.append(self.MSG_ASSIGN.format(var=var_name, arg=msg))
+        self._required.append(self.PUBS.format(var=var_name))
+
+    def set_expected(self, n, exact, exclusive):
+        timeout_action = "break" if exact or exclusive else "assert False"
+        if exact:
+            accept = "assert False" if n == 0 else "valid_msgs += 1"
+        else:
+            accept = "pass" if exclusive else "return"
+        reject = "assert False" if exclusive else "pass"
+        self._spin = self.SPIN.format(timeout_action=timeout_action,
+            accept_msg_action=accept, reject_msg_action=reject,
+            expected_messages=n)
+
+    def gen(self):
+        return self.TMP.format(
+            init=self._gen_init(),
+            init_defs=self._gen_initialize(),
+            rule_defs=self._gen_rules(),
+            spin=self._spin,
+            pub_required=self._gen_pub_required())
+
+    def _gen_init(self):
+        msgs = "\n        ".join(self._msgs)
+        return self.INIT.format(msgs=msgs)
+
+    def _gen_initialize(self):
+        if not self._msgs:
+            assert not self._init_kwargs
+            assert not self._init_args
+            assert not self._assigns
+            return ""
+        kwargs = ", ".join(self._init_kwargs)
+        args = ", ".join(self._init_args)
+        assigns = "\n        ".join(self._assigns)
+        return self.INITIALIZE.format(kwargs=kwargs, args=args, assigns=assigns)
+
+    def _gen_rules(self):
+        return "\n\n".join(self._pubs)
+
+    def _gen_pub_required(self):
+        required_msgs = "\n".join(self._required)
+        return self.PUB_REQUIRED.format(required_msgs=required_msgs)
 
 
 ################################################################################
@@ -797,6 +915,6 @@ if __name__ == "__main__":
     rosint = RosInterfaceGenerator()
     rosint.add_publisher("/events/bumper", "kobuki_msgs/BumperEvent", "bumper")
     rosint.add_anon_publisher("/events/wheel_drop", "kobuki_msgs/WheelDropEvent")
-    rosint.add_subscriber("/cmd_vel", "geometry_msgs/Twist", "cmd", "True")
+    rosint.add_subscriber("/cmd_vel", "geometry_msgs/Twist", "cmd", "True", ())
     print ""
     print rosint.gen()
