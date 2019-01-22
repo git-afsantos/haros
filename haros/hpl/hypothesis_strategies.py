@@ -57,6 +57,17 @@ class StrategyMap(object):
         self.custom = {}
         self._make_defaults()
 
+    def get_imports(self):
+        imports = set()
+        for strategy in self.defaults.itervalues():
+            if isinstance(strategy, DefaultMsgStrategy):
+                imports.add(strategy.msg_type.split("/")[0])
+        for strategy in self.custom.itervalues():
+            assert isinstance(strategy, MsgStrategy)
+            imports.add(strategy.msg_type.split("/")[0])
+        tmp = "import {pkg}.msg as {pkg}"
+        return "\n".join(tmp.format(pkg=module) for module in imports)
+
     def make_custom(self, group, msg_type):
         name = "{}_{}".format(group, ros_type_to_name(msg_type))
         strategy = MsgStrategy(msg_type, name=name)

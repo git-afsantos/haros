@@ -38,101 +38,6 @@ from .hypothesis_strategies import (
 
 
 ################################################################################
-# Templates
-################################################################################
-
-SPIN_TEMPLATE = """
-    def spin(self):
-        valid_messages = 0
-        invalid_messages = 0
-        timed_out = False
-        while not timed_out:
-            accepts, rejects, timed_out = self.ros.get_msg_counts()
-            if timed_out and accepts == 0 and rejects == 0:
-                {timeout_action}
-            for i in xrange(accepts - valid_messages):
-                {accept_msg_action}
-            for i in xrange(rejects - invalid_messages):
-                {reject_msg_action}
-            invalid_messages = rejects
-        assert valid_messages == self.expected_messages
-"""
-
-OLD_SPIN_TEMPLATE = """
-    def spin(self, inbox):
-        valid_messages = 0
-        t0 = rospy.get_rostime()
-        time_left = self.timeout
-        while time_left >= 0.0:
-            # time_left = self.timeout - (rospy.get_rostime() - t0)
-            msgs, timed_out = inbox.wait_for_messages(timeout=time_left)
-            if timed_out:
-                {timeout_action}
-            time_left = self.timeout - (rospy.get_rostime() - t0)
-            for msg in msgs:
-                # assume we are subscribing only expected topics
-                topic = msg._connection_header["topic"]
-                if self.pub_msg_filters[topic](msg):
-                    {accept_msg_action}
-                elif time_left < self.time_tolerance_threshold:
-                    {reject_msg_action}
-        return valid_messages == self.expected_messages
-"""
-
-INITIALIZE_TEMPLATE = """
-    @initialize(msg={strategy}())
-    def gen_{var}(self, msg):
-        self._user_{var} = msg
-"""
-
-PUBLISH_IRRELEVANT_TEMPLATE = """
-    @rule(msg={strategy}())
-    def pub_{name}(self, msg):
-        self.ros.pub["{topic}"].publish(msg)
-"""
-
-PUBLISH_RELEVANT_TEMPLATE = """
-    @rule()
-    def pub_{var}(self):
-        self.ros.pub["{topic}"].publish(self._user_{var})
-"""
-
-
-PUBLISH_ALL_REQUIRED_TEMPLATE = """
-    def publish_required_msgs(self):
-{required_msgs}
-"""
-
-PUBLISH_REQUIRED_MSG_TEMPLATE = (
-"""        self.ros.pub["{topic}"].publish(self._user_{var})
-        reporting.report(u"state.v_pub_{var}({{}})".format(self._user_{var}))"""
-)
-
-TEARDOWN_TEMPLATE = """
-    def teardown(self):
-        if self.publish_required_msgs():
-            assert self.spin(inbox)
-"""
-
-PUB_MSG_FILTER_TEMPLATE = """
-    def _accepts_{topic}(self, msg):
-        self._user_{var} = msg
-        return {condition}
-"""
-
-STATE_MACHINE_TEMPLATE = """
-class HarosPropertyTester(RuleBasedStateMachine):
-    def __init__(self):
-        RuleBasedStateMachine.__init__(self)
-        {self_vars}
-{init_defs}{rule_defs}{msg_filters}{spin}{pub_required}
-    def teardown(self):
-        self.publish_required_msgs()
-        self.spin()
-"""
-
-
-################################################################################
 # HPL Condition to Python Condition Compiler
 ################################################################################
 
@@ -596,6 +501,8 @@ class SystemUnderTest(object):
     NODES = ({nodes})
     LAUNCH = ({launches})
 
+    __slots__ = ("launches",)
+
     def __init__(self):
         self.launches = []
         for launch_path in self.LAUNCH:
@@ -631,6 +538,8 @@ class SystemUnderTest(object):
         if pending and online:
             raise LookupError("Failed to find nodes " + str(pending))
 """
+
+    __slots__ = ("_nodes", "_launch")
 
     def __init__(self):
         self._nodes = []
@@ -816,6 +725,119 @@ PropertyTest = HarosPropertyTester.TestCase
 ################################################################################
 # HPL to Python Script Compiler
 ################################################################################
+
+class HplTestGenerator(object):
+    TMP = """#!/usr/bin/env python
+
+################################################################################
+# Imports
+################################################################################
+
+import os
+import sys
+from threading import Event, Lock
+import unittest
+
+import hypothesis
+import hypothesis.reporting as reporting
+from hypothesis.stateful import (
+    RuleBasedStateMachine, rule, initialize
+)
+import hypothesis.strategies as strategies
+import rospy
+import roslaunch
+from rosnode import rosnode_ping
+
+{imports}
+
+
+################################################################################
+# Data Strategies
+################################################################################
+
+{strategies}
+
+
+###############################################################################
+# Utility
+###############################################################################
+
+class HiddenPrints(object):
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        self._original_stderr = sys.stderr
+        self._devnull = open(os.devnull, "w")
+        sys.stdout = self._devnull
+        sys.stderr = self._devnull
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout = self._original_stdout
+        sys.stderr = self._original_stderr
+        self._devnull.close()
+
+
+class OutputCollector(object):
+    def __init__(self):
+        self.output = []
+
+    def report(self, value):
+        self.output.append(value)
+
+    def print_output(self):
+        if not self.output:
+            return
+        print ("==================================="
+               "===================================")
+        print "Falsifying example"
+        print ("-----------------------------------"
+               "-----------------------------------")
+        for line in self.output:
+            print line
+        print ("-----------------------------------"
+               "-----------------------------------")
+
+
+################################################################################
+# ROS Interface
+################################################################################
+
+{ros}
+
+
+################################################################################
+# System Under Test
+################################################################################
+
+{sut}
+
+
+################################################################################
+# Hypothesis State Machine
+################################################################################
+
+{state_machine}
+
+
+################################################################################
+# Entry Point
+################################################################################
+
+def main():
+    rospy.init_node("property_tester")
+    HarosPropertyTester.settings = hypothesis.settings(
+        max_examples=1000, stateful_step_count=100, buffer_size=16384,
+        timeout=hypothesis.unlimited)
+    collector = OutputCollector()
+    reporting.reporter.value = collector.report
+    with HiddenPrints():
+        unittest.main(module=__name__, argv=[__name__], exit=False)
+    collector.print_output()
+    HarosPropertyTester.print_times()
+
+if __name__ == "__main__":
+    main()
+"""
+
 
 class HplTestGenerator(object):
     def __init__(self, msg_data):
