@@ -923,7 +923,8 @@ if __name__ == "__main__":
 
 if __name__ == "__main__":
     from .hpl_ast import (HplReceiveStatement, HplMsgFilter, HplProperty,
-        HplMsgFieldCondition, HplFieldReference, HplPublishStatement)
+        HplMsgFieldCondition, HplFieldReference, HplPublishStatement,
+        HplTimeBound, HplLiteral)
     from .ros_types import (TypeToken, ArrayTypeToken)
 
     TEST_DATA = {
@@ -984,7 +985,8 @@ if __name__ == "__main__":
     hpl_receive = HplReceiveStatement("m", "/topic",
         msg_filter=msg_filter, msg_type="pkg/Nested")
 
-    hpl_publish = HplPublishStatement("out", "/topic2", time_bound=None,
+    hpl_publish = HplPublishStatement("out", "/topic2",
+        time_bound=HplTimeBound("<", HplLiteral("100", int, ()), "ms"),
         msg_filter=None, mult=None, msg_type="pkg/Nested")
 
     hpl_property = HplProperty(hpl_publish, receive_stmt=hpl_receive)
