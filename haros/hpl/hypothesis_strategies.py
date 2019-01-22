@@ -146,7 +146,7 @@ class DefaultMsgStrategy(TopLevelStrategy):
            "{definition}\n"
            "{indent}{tab}return {var}")
 
-    FIELD = "{indent}{tab}{var}.{field} = draw({strategy}())"
+    FIELD = "{indent}{tab}{var}.{field} = draw({strategy})"
 
     LIST = ("{{module}}.lists(elements={elements}(), "
             "min_size={min_size}, max_size={max_size})")
@@ -158,7 +158,7 @@ class DefaultMsgStrategy(TopLevelStrategy):
         self.msg_type = msg_type
         self.fields = {}
         for field_name, type_token in msg_data.iteritems():
-            strategy = ros_type_to_name(type_token.ros_type)
+            strategy = ros_type_to_name(type_token.ros_type) + "()"
             if type_token.is_array:
                 if type_token.length is None:
                     strategy = self.LIST.format(elements=strategy,

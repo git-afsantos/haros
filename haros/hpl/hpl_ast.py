@@ -511,6 +511,16 @@ class HplPublishStatement(object):
         self.multiplicity = mult
         self.msg_type = msg_type
 
+    def references(self):
+        if not self.msg_filter:
+            return ()
+        deps = set()
+        for condition in self.msg_filter.field_conditions:
+            value = condition.value
+            if isinstance(value, HplFieldExpression):
+                deps.add(value.variable)
+        return tuple(deps)
+
     def __eq__(self, other):
         if not isinstance(other, HplPublishStatement):
             return False
