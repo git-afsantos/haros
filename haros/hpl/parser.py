@@ -468,6 +468,28 @@ class PropertyTransformer(Transformer):
 
 
 ###############################################################################
+# HPL Parser
+###############################################################################
+
+class HplParser(object):
+    __slots__ = ("_parser", "_type_checker")
+
+    def __init__(self, topic_data, field_data, constant_data):
+        # topic_data :: {str(topic): str(msg_type)}
+        # field_data :: {str(msg_type): {str(field): TypeToken}}
+        # constant_data :: {str(msg_type): {str(constant): (value, TypeToken)}}
+        self._type_checker = HplTypeChecker(
+            topic_data, field_data, constant_data)
+        transformer = PropertyTransformer(type_checker=self._type_checker)
+        self._parser = Lark(PROPERTY_GRAMMAR, parser="lalr", start="property",
+            transformer=transformer)
+
+    def parse(self, text):
+        self._type_checker.reset()
+        return parser.parse(text)
+
+
+###############################################################################
 # Test Code
 ###############################################################################
 

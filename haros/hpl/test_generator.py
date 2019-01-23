@@ -799,6 +799,7 @@ class OutputCollector(object):
     def print_output(self):
         if not self.output:
             return
+        print "{hpl_property}"
         print ("==================================="
                "===================================")
         print "Falsifying example"
@@ -870,6 +871,7 @@ if __name__ == "__main__":
         return self.TMP.format(
             imports=strategies.get_imports(),
             strategies=self._gen_strategies(strategies),
+            hpl_property=str(hpl_property),
             ros=ros.gen(),
             sut=self.sut.gen(),
             state_machine=state_machine.gen())
