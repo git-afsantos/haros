@@ -105,7 +105,7 @@ from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
 from .export_manager import JsonExporter
 from . import visualiser as viz
-from .gen_tests import make_test_script
+from .gen_tests import TestScriptGenerator
 
 
 ###############################################################################
@@ -824,7 +824,10 @@ class HarosMakeTestsRunner(HarosRunner):
         self._empty_dir(self.io_tests_dir)
         for config, test_data in configs_to_test:
             self.log.debug("Generating tests for configuration " + config.name)
-            make_test_script(config, test_data, self.io_tests_dir)
+            gen = TestScriptGenerator(config)
+            properties = test_data["properties"]
+            gen.make_tests(properties, self.io_tests_dir,
+                           pkg=test_data.get("package"))
 
 
 ###############################################################################

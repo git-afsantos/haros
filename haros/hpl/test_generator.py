@@ -135,25 +135,6 @@ class ConditionTransformer(object):
         # hpl_range.exclude_upper :: bool
         return (hpl_range.lower_bound, hpl_range.upper_bound)
 
-    def _get_field_type(self, name, msg_type):
-        # TODO
-        for i in xrange(len(msg_type.__slots__)):
-            if name == msg_type.__slots__[i]:
-                field_type = msg_type._slot_types[i]
-        else:
-            pattern = re.compile(r"^\s*([a-z][a-z0-9]+)\s+(\w+)\s+=.+$")
-            lines = msg_type._full_text.splitlines()
-            matches = [pattern.match(line) for line in lines]
-            for match in matches:
-                if not match is None:
-                    print (match.group(1), match.group(2))
-
-        
-        
-            constants = {key: type(value) for key, value in msg_type.__dict__.iteritems() if not key.startswith('__') and not callable(key)}
-            if name in constants:
-                field_type = constants[name]
-
     def _new_var(self):
         var_name = "x" + str(self._var)
         self._var += 1
