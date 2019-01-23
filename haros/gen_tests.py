@@ -32,6 +32,9 @@ import re
 
 from genmsg.msgs import parse_type
 
+from .hpl.parser import HplParser
+from .hpl.test_generator import HplTestGenerator
+
 
 ###############################################################################
 # Utility
@@ -422,119 +425,24 @@ class MsgStrategyGenerator(LoggingObject):
 ###############################################################################
 
 class TestScriptGenerator(LoggingObject):
+    __slots__ = ()
+
     def __init__(self, configuration, obs=False):
-        self.configuration = configuration
-        self.msg_gen = MsgStrategyGenerator()
+        launches = [lf.path for lf in self.configuration.roslaunch]
+        nodes = [n.rosname.full for n in self.configuration.nodes]
+        pubs = self._get_published_topics(configuration)
+        subs = self._get_subscribed_topics(configuration)
+        topics = dict(pubs)
+        topics.update(subs)
+        fields, constants = self._get_msg_data(topics.viewvalues())
+
+        self.test_gen = HplTestGenerator(launches, nodes, pubs, subs, fields)
+        self.parser = HplParser(topics, fields, constants)
         self.observers = obs
 
-    def set_invariants(self, invariants):
-        for msg_type, invs in invariants.iteritems():
-            msg_properties = MsgProperties(msg_type)
-            for field_name, props in invs.iteritems():
-                if isinstance(props, list):
-                    for prop in props:
-                        msg_properties.parse(field_name, prop)
-                else:
-                    msg_properties.parse(field_name, props)
-            self.msg_gen.set_invariants(msg_properties)
-
-    def gen(self):
-        node_list = [n.rosname.full for n in self.configuration.nodes]
-        pubbed_topics = self._get_published_topics()
-        subbed_topics = self._get_subscribed_topics()
-        if not pubbed_topics and not subbed_topics:
-            raise RuntimeError("There are no topics to test.")
-        for topic in pubbed_topics:
-            self.msg_gen.add_import(topic.type)
-        for topic in subbed_topics:
-            self.msg_gen.gen(topic.type)
-        text = BASIC_IMPORTS
-        text += "\n".join(self.msg_gen.get_imports())
-        text += "\n\n" + BASIC_TYPES
-        text += "\n".join(self.msg_gen.get_strategies())
-        text += "\n" + SETTINGS_TEMPLATE.format(
-            launches=self._get_launch_entries(),
-            nodes=self._get_node_entries(),
-            pubs=self._get_publisher_entries(pubbed_topics),
-            subs=self._get_subscriber_entries(subbed_topics)
-        )
-        text += "\n\n" + STATE_TEMPLATE.format(
-                    self._get_msg_callbacks(pubbed_topics, subbed_topics)
-                )
-        text += MAIN_PROGRAM_TEXT
-        return text
-
-    def _get_published_topics(self):
-        topics = []
-        for topic in self.configuration.topics.enabled:
-            if topic.unresolved:
-                self.log.warning("Skipping unresolved topic %s (%s).",
-                                 topic.rosname.full, self.configuration.name)
-                continue
-            if topic.publishers:
-                if self.observers:
-                    topics.append(topic)
-                elif not topic.subscribers:
-                    topics.append(topic)
-        return topics
-
-    def _get_subscribed_topics(self):
-        topics = []
-        for topic in self.configuration.topics.enabled:
-            if topic.subscribers and not topic.publishers:
-                if topic.unresolved:
-                    self.log.warning("Skipping unresolved topic %s (%s).",
-                                     topic.rosname.full, self.configuration.name)
-                else:
-                    topics.append(topic)
-        return topics
-
-    def _get_launch_entries(self):
-        return "\n".join(LAUNCH_ENTRY.format(lf.path)
-                         for lf in self.configuration.roslaunch)
-
-    def _get_node_entries(self):
-        return "\n".join(NODE_ENTRY.format(n.rosname.full)
-                         for n in self.configuration.nodes)
-
-    def _get_publisher_entries(self, topics):
-        return "\n".join(PUB_ENTRY.format(
-                            topic=t.rosname.full,
-                            msg_class=self.msg_gen._msg_class_name(t.type),
-                            cb=self._callback_name(t.rosname.full, "sub"))
-                         for t in topics)
-
-    def _get_subscriber_entries(self, topics):
-        return "\n".join(SUB_ENTRY.format(
-                            topic=t.rosname.full,
-                            msg_class=self.msg_gen._msg_class_name(t.type),
-                            strategy=self.msg_gen.strategy_names[t.type],
-                            cb=self._callback_name(t.rosname.full, "pub"))
-                         for t in topics)
-
-    def _get_msg_callbacks(self, pubbed_topics, subbed_topics):
-        callbacks = []
-        for topic in pubbed_topics:
-            callbacks.append(STATE_CALLBACK.format(
-                self._callback_name(topic.rosname.full, "sub")
-            ))
-        for topic in subbed_topics:
-            callbacks.append(STATE_CALLBACK.format(
-                self._callback_name(topic.rosname.full, "pub")
-            ))
-        return "\n".join(callbacks)
-
-    def _callback_name(self, topic, comm_type):
-        return "on_" + comm_type + "_" + topic.replace("/", "_")
-
-
-def make_test_script(configuration, test_data, outdir):
-    for test_name, data in test_data.iteritems():
-        gen = TestScriptGenerator(configuration,
-                                  obs=data.get("observers", False))
-        gen.set_invariants(data.get("invariants", {}))
-        # include = data.get("include", {})
-        # exclude = data.get("exclude", {})
+    def gen(self, hpl_tests, outdir):
+        for text in hpl_tests:
+            return text
         path = os.path.join(outdir, test_name)
         with open(path, "w") as f:
             f.write(gen.gen())
@@ -544,3 +452,31 @@ def make_test_script(configuration, test_data, outdir):
         with open(os.path.join(outdir, test_name + ".launch"), "w") as f:
             f.write(LAUNCH_FILE_TEMPLATE.format(pkg=data.get("package", ""),
                                                 script=test_name))
+
+    def _get_published_topics(self, configuration):
+        topics = {}
+        for topic in configuration.topics.enabled:
+            if topic.unresolved:
+                self.log.warning("Skipping unresolved topic %s (%s).",
+                                 topic.rosname.full, configuration.name)
+                continue
+            if topic.publishers:
+                if self.observers:
+                    topics[topic.rosname.full] = topic.type
+                elif not topic.subscribers:
+                    topics[topic.rosname.full] = topic.type
+        return topics
+
+    def _get_subscribed_topics(self, configuration):
+        topics = {}
+        for topic in configuration.topics.enabled:
+            if topic.subscribers and not topic.publishers:
+                if topic.unresolved:
+                    self.log.warning("Skipping unresolved topic %s (%s).",
+                                     topic.rosname.full, configuration.name)
+                else:
+                    topics[topic.rosname.full] = topic.type
+        return topics
+
+    def _get_msg_data(self, msg_types):
+        return
