@@ -28,6 +28,7 @@ import importlib
 import logging
 import os
 
+from genmsg.base import InvalidMsgSpec
 from genmsg.msgs import parse_type
 from genmsg.msg_loader import _load_constant_line, _strip_comments
 
@@ -58,8 +59,9 @@ class TestScriptGenerator(LoggingObject):
     __slots__ = ("test_gen", "parser", "observers")
 
     def __init__(self, configuration, obs=False):
-        launches = [lf.path for lf in self.configuration.roslaunch]
-        nodes = [n.rosname.full for n in self.configuration.nodes]
+        self.observers = obs
+        launches = [lf.path for lf in configuration.roslaunch]
+        nodes = [n.rosname.full for n in configuration.nodes]
         pubs = self._get_published_topics(configuration)
         subs = self._get_subscribed_topics(configuration)
         topics = dict(pubs)
@@ -67,7 +69,6 @@ class TestScriptGenerator(LoggingObject):
         fields, constants = self._get_msg_data(topics.viewvalues())
         self.test_gen = HplTestGenerator(launches, nodes, pubs, subs, fields)
         self.parser = HplParser(topics, fields, constants)
-        self.observers = obs
 
     def make_tests(self, hpl_tests, outdir, pkg=None):
         i = 0
@@ -131,10 +132,8 @@ class TestScriptGenerator(LoggingObject):
             if msg_type in fields or msg_type in constants:
                 continue
             msg_class = self._load_msg_class(msg_type, modules)
-            fields[msg_type] = self._get_class_fields(msg_class)
+            fields[msg_type] = self._get_class_fields(msg_class, msg_queue)
             constants[msg_type] = self._get_class_constants(msg_class)
-            if "/" in base_type and base_type != "std_msgs/Header":
-                msg_queue.append(base_type)
         return fields, constants
 
     def _load_msg_class(self, msg_type, modules):
@@ -147,7 +146,7 @@ class TestScriptGenerator(LoggingObject):
         msg_class = getattr(module, msg)
         return msg_class
 
-    def _get_class_fields(self, msg_class):
+    def _get_class_fields(self, msg_class, msg_queue):
         self.log.debug("extracting msg fields")
         fields = {}
         for i in xrange(len(msg_class.__slots__)):
@@ -159,6 +158,8 @@ class TestScriptGenerator(LoggingObject):
             else:
                 type_token = TypeToken(base_type)
             fields[field_name] = type_token
+            if "/" in base_type and base_type != "std_msgs/Header":
+                msg_queue.append(base_type)
         return fields
 
     def _get_class_constants(self, msg_class):
@@ -169,6 +170,10 @@ class TestScriptGenerator(LoggingObject):
             clean_line = _strip_comments(line)
             if not clean_line or not "=" in clean_line:
                 continue # ignore empty/field lines
-            constant = _load_constant_line(line)
-            constants[constant.name] = (constant.val, TypeToken(constant.type))
+            try:
+                constant = _load_constant_line(line)
+                constants[constant.name] = (constant.val,
+                                            TypeToken(constant.type))
+            except InvalidMsgSpec as e:
+                pass
         return constants

@@ -333,10 +333,10 @@ class RosIntStrategy(RosBuiltinStrategy):
 
     TMP = ("{indent}def ros_{ros_type}(min_value={min_value}, "
            "max_value={max_value}):\n"
-           "{indent}{tab}if min_value <= {min_value} "
-           "or min_value >= {max_value} "
-           "or max_value <= {min_value} "
-           "or max_value >= {max_value} "
+           "{indent}{tab}if min_value < {min_value} "
+           "or min_value > {max_value} "
+           "or max_value < {min_value} "
+           "or max_value > {max_value} "
            "or min_value > max_value:\n"
            "{indent}{tab}{tab}"
            "raise ValueError('values out of bounds: {{}}, {{}}'"
@@ -373,10 +373,10 @@ class RosFloatStrategy(RosBuiltinStrategy):
 
     TMP = ("{indent}def ros_{ros_type}(min_value={min_value}, "
            "max_value={max_value}):\n"
-           "{indent}{tab}if min_value <= {min_value} "
-           "or min_value >= {max_value} "
-           "or max_value <= {min_value} "
-           "or max_value >= {max_value} "
+           "{indent}{tab}if min_value < {min_value} "
+           "or min_value > {max_value} "
+           "or max_value < {min_value} "
+           "or max_value > {max_value} "
            "or min_value > max_value:\n"
            "{indent}{tab}{tab}"
            "raise ValueError('values out of bounds: {{}}, {{}}'"
@@ -392,7 +392,7 @@ class RosFloatStrategy(RosBuiltinStrategy):
             raise ValueError("invalid ROS type: " + repr(ros_type))
         if isinstance(value, Selector):
             return value.ros_type == ros_type
-        if not isinstance(value, float):
+        if not isinstance(value, (int, long, float)):
             raise TypeError("expected a float value: " + repr(value))
         min_value, max_value, width = cls.TYPES[ros_type]
         return value >= min_value and value <= max_value
@@ -941,6 +941,7 @@ class FixedLengthArrayGenerator(ArrayGenerator):
     __slots__ = ArrayGenerator.__slots__ + ("length", "fields")
 
     TMP = ("{indent}{field} = draw({module}.lists("
+           "elements={module}.none(), "
            "min_size={length}, max_size={length}))")
 
     def __init__(self, parent, field_name, ros_type, length, default_field):
@@ -1035,7 +1036,8 @@ class FixedLengthArrayGenerator(ArrayGenerator):
 class VariableLengthArrayGenerator(ArrayGenerator):
     __slots__ = ArrayGenerator.__slots__ + ("_all", "fields")
 
-    TMP = ("{indent}{field} = draw({module}.lists(min_size=0, max_size=256))\n"
+    TMP = ("{indent}{field} = draw({module}.lists(elements={module}.none(), "
+           "min_size=0, max_size=256))\n"
            "{indent}for i in xrange(len({field})):\n{strategy}")
 
     ASSUMES = "{indent}for i in xrange(len({field})):\n{condition}"

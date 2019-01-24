@@ -238,7 +238,8 @@ class ReceiveToStrategyTransformer(object):
             if not value.value is None:
                 return value.value
             return self._reference(value)
-        return value
+        assert isinstance(value, HplLiteral)
+        return value.value
 
     def _select(self, field_expr):
         fields = []
@@ -284,6 +285,7 @@ class RosInterface(object):
     def get_msg_counts(self):
         with self.lock:
             elapsed = rospy.get_rostime() - self._start
+            elapsed = elapsed.to_sec()
             timed_out = elapsed > self.timeout
             if not timed_out:
                 timed_out = self.inbox_flag.wait(self.timeout - elapsed)
@@ -376,6 +378,7 @@ class RosInterface(object):
             if {deps}:
                 return
             elapsed = rospy.get_rostime() - self._start
+            elapsed = elapsed.to_sec()
             if elapsed > self.timeout:
                 self._rejects += 1
             elif {condition}:
@@ -572,10 +575,11 @@ class HarosPropertyTester(RuleBasedStateMachine):
 
     def teardown(self):
         try:
-            self.publish_required_msgs()
-            self.sut.check_status()
-            self.ros.check_status()
-            self.spin()
+            if self._has_required_msgs and self._initialized:
+                self.publish_required_msgs()
+                self.sut.check_status()
+                self.ros.check_status()
+                self.spin()
         finally:
             t0 = rospy.get_rostime()
             t = t0 - self._start_time
@@ -597,6 +601,8 @@ PropertyTest = HarosPropertyTester.TestCase
     def __init__(self):
         RuleBasedStateMachine.__init__(self)
         t = rospy.get_rostime()
+        self._initialized = False
+        self._has_required_msgs = {has_required}
         {msgs}
         self.ros = RosInterface()
         self.sut = SystemUnderTest()
@@ -611,6 +617,7 @@ PropertyTest = HarosPropertyTester.TestCase
     INITIALIZE = """
     @initialize({kwargs})
     def gen_msgs(self, {args}):
+        self._initialized = True
         {assigns}"""
 
     KWARG = "{arg}={strategy}()"
@@ -695,7 +702,8 @@ PropertyTest = HarosPropertyTester.TestCase
 
     def _gen_init(self):
         msgs = "\n        ".join(self._msgs)
-        return self.INIT.format(msgs=msgs)
+        has_required = len(self._required) > 0
+        return self.INIT.format(msgs=msgs, has_required=has_required)
 
     def _gen_initialize(self):
         if not self._msgs:
@@ -733,6 +741,7 @@ from threading import Event, Lock
 import unittest
 
 import hypothesis
+from hypothesis import assume
 import hypothesis.reporting as reporting
 from hypothesis.stateful import (
     RuleBasedStateMachine, rule, initialize

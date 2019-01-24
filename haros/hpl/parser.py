@@ -106,7 +106,7 @@ range_limit: signed_number VALUE_EXCLUSION?
 
 number: NUMBER
 
-signed_number: NUMBER
+signed_number: SIGNED_NUMBER
 
 string: ESCAPED_STRING
 
@@ -486,7 +486,7 @@ class HplParser(object):
 
     def parse(self, text):
         self._type_checker.reset()
-        return parser.parse(text)
+        return self._parser.parse(text)
 
 
 ###############################################################################
@@ -592,7 +592,7 @@ if __name__ == "__main__":
         "publish(m, topic) {int_array[all] = m.int_array[none]}",
 
         # 'some' is not implemented yet
-        "publish(m, topic) {string_array[all] = string_list[some]}",,
+        "publish(m, topic) {string_array[all] = string_list[some]}",
 
         # 'some' is not implemented yet
         "publish(m, topic) {nested_array[1].nested_array[all].int_array[some] > 1}"
