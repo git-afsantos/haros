@@ -858,15 +858,15 @@ if __name__ == "__main__":
             state_machine=state_machine.gen())
 
     def _process_receive(self, hpl_receive, ros, state_machine, strategies):
-        if hpl_receive is None:
-            return
-        topic = hpl_receive.ros_name
-        if not topic in self.subs:
-            raise ValueError("unknown topic: " + topic)
-        transformer = ReceiveToStrategyTransformer(strategies)
-        strategy = transformer.gen(hpl_receive)
-        ros.add_publisher(topic, hpl_receive.msg_type, hpl_receive.variable)
-        state_machine.add_publisher(hpl_receive.variable, strategy.name)
+        topic = None
+        if not hpl_receive is None:
+            topic = hpl_receive.ros_name
+            if not topic in self.subs:
+                raise ValueError("unknown topic: " + topic)
+            transformer = ReceiveToStrategyTransformer(strategies)
+            strategy = transformer.gen(hpl_receive)
+            ros.add_publisher(topic, hpl_receive.msg_type, hpl_receive.variable)
+            state_machine.add_publisher(hpl_receive.variable, strategy.name)
         for ros_name, msg_type in self.subs.iteritems():
             if ros_name != topic:
                 ros.add_anon_publisher(ros_name, msg_type)
