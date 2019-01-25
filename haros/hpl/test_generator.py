@@ -282,20 +282,22 @@ class RosInterface(object):
 {pub_methods}
 {callbacks}
 
+    def set_start(self):
+        self._start = rospy.get_rostime()
+
     def get_msg_counts(self):
+        elapsed = rospy.get_rostime() - self._start
+        elapsed = elapsed.to_sec()
+        timed_out = elapsed > self.timeout
+        if not timed_out:
+            timed_out = not self.inbox_flag.wait(self.timeout - elapsed)
         with self.lock:
-            elapsed = rospy.get_rostime() - self._start
-            elapsed = elapsed.to_sec()
-            timed_out = elapsed > self.timeout
-            if not timed_out:
-                timed_out = self.inbox_flag.wait(self.timeout - elapsed)
             return (self._accepts, self._rejects, timed_out)
 
     def shutdown(self):
         for ps in self.all_pubs_subs():
             ps.unregister()
-        with self.lock:
-            self.inbox_flag.clear()
+        self.inbox_flag.clear()
 
     def check_status(self):
         for ps in self.all_pubs_subs():
@@ -336,7 +338,7 @@ class RosInterface(object):
         self.tolerance = {tolerance}
         self._accepts = 0
         self._rejects = 0
-        self._start = rospy.get_rostime()
+        self._start = None
         {inits}"""
 
     INIT_PUB = ('{pub} = rospy.Publisher("{topic}", '
@@ -385,7 +387,7 @@ class RosInterface(object):
                 self._accepts += 1
             elif elapsed >= self.tolerance:
                 self._rejects += 1
-            self.inbox_flag.set()"""
+        self.inbox_flag.set()"""
 
     CB_DEP = "self._msg_{var} is None"
 
@@ -579,6 +581,7 @@ class HarosPropertyTester(RuleBasedStateMachine):
                 self.publish_required_msgs()
                 self.sut.check_status()
                 self.ros.check_status()
+                self.ros.set_start()
                 self.spin()
         finally:
             t0 = rospy.get_rostime()
@@ -588,6 +591,12 @@ class HarosPropertyTester(RuleBasedStateMachine):
             self.ros.shutdown()
             t = rospy.get_rostime() - t0
             HarosPropertyTester._time_spent_setting_up += t.to_sec()
+{print_end}
+
+    def print_step(self, step):
+        rule, data = step
+        if rule.function.__name__ != "gen_msgs":
+            RuleBasedStateMachine.print_step(step)
 
     @classmethod
     def print_times(cls):
@@ -631,7 +640,6 @@ PropertyTest = HarosPropertyTester.TestCase
 
     SPIN = """
     def spin(self):
-        reporting.report(u"state.spin()")
         valid_msgs = 0
         invalid_msgs = 0
         timed_out = False
@@ -648,13 +656,21 @@ PropertyTest = HarosPropertyTester.TestCase
 
     PUB_REQUIRED = """
     def publish_required_msgs(self):
-{required_msgs}"""
+        {required_msgs}"""
 
-    PUBS = """        self.ros.pub_{var}(self._msg_{var})
-        reporting.report(u"state.v_pub_{var}({{}})".format(self._msg_{var}))"""
+    PUB_VAR = "self.ros.pub_{var}(self._msg_{var})"
+
+    PRINTS = """
+    def print_end(self):
+        {req_pubs}
+        reporting.report(u"state.spin()")
+        RuleBasedStateMachine.print_end(self)"""
+
+    PRINT_PUB = ('reporting.report(u"state.v_pub_{var}({{}})"'
+                 '.format(self._msg_{var}))')
 
     __slots__ = ("_msgs", "_init_kwargs", "_init_args", "_assigns", "_pubs",
-                 "_required", "_spin")
+                 "_required", "_spin", "_prints")
 
     def __init__(self):
         self._msgs = []
@@ -663,7 +679,8 @@ PropertyTest = HarosPropertyTester.TestCase
         self._assigns = []
         self._pubs = []
         self._required = []
-        self._spin = self.SPIN.format(timeout_action="assert False",
+        self._prints = []
+        self._spin = self.SPIN.format(timeout_action="raise TestTimeoutError()",
             accept_msg_action="return", reject_msg_action="pass",
             expected_messages=1)
 
@@ -679,15 +696,23 @@ PropertyTest = HarosPropertyTester.TestCase
         self._init_kwargs.append(self.KWARG.format(arg=msg, strategy=strategy))
         self._init_args.append(msg)
         self._assigns.append(self.MSG_ASSIGN.format(var=var_name, arg=msg))
-        self._required.append(self.PUBS.format(var=var_name))
+        self._required.append(self.PUB_VAR.format(var=var_name))
+        self._prints.append(self.PRINT_PUB.format(var=var_name))
 
     def set_expected(self, n, exact, exclusive):
-        timeout_action = "break" if exact or exclusive else "assert False"
+        if exact or exclusive:
+            timeout_action = "break" 
+        else:
+            timeout_action = "raise TestTimeoutError()"
         if exact:
-            accept = "assert False" if n == 0 else "valid_msgs += 1"
+            if n == 0:
+                accept = ('raise InvalidMessageError("received a message '
+                          'when not supposed to")')
+            else:
+                accept = "valid_msgs += 1"
         else:
             accept = "pass" if exclusive else "return"
-        reject = "assert False" if exclusive else "pass"
+        reject = "raise InvalidMessageError()" if exclusive else "pass"
         self._spin = self.SPIN.format(timeout_action=timeout_action,
             accept_msg_action=accept, reject_msg_action=reject,
             expected_messages=n)
@@ -698,7 +723,8 @@ PropertyTest = HarosPropertyTester.TestCase
             init_defs=self._gen_initialize(),
             rule_defs=self._gen_rules(),
             spin=self._spin,
-            pub_required=self._gen_pub_required())
+            pub_required=self._gen_pub_required(),
+            print_end=self._gen_prints())
 
     def _gen_init(self):
         msgs = "\n        ".join(self._msgs)
@@ -720,8 +746,12 @@ PropertyTest = HarosPropertyTester.TestCase
         return "\n\n".join(self._pubs)
 
     def _gen_pub_required(self):
-        required_msgs = "\n".join(self._required)
+        required_msgs = "\n        ".join(self._required)
         return self.PUB_REQUIRED.format(required_msgs=required_msgs)
+
+    def _gen_prints(self):
+        prints = "\n        ".join(self._prints)
+        return self.PRINTS.format(req_pubs=prints)
 
 
 ################################################################################
@@ -800,6 +830,12 @@ class OutputCollector(object):
         print ("-----------------------------------"
                "-----------------------------------")
 
+class TestTimeoutError(Exception):
+    pass
+
+class InvalidMessageError(Exception):
+    pass
+
 
 ################################################################################
 # ROS Interface
@@ -822,9 +858,9 @@ class OutputCollector(object):
 
 def main():
     rospy.init_node("property_tester")
-    HarosPropertyTester.settings = hypothesis.settings(
+    PropertyTest.settings = hypothesis.settings(
         max_examples=1000, stateful_step_count=100, buffer_size=16384,
-        timeout=hypothesis.unlimited)
+        deadline=None)
     collector = OutputCollector()
     reporting.reporter.value = collector.report
     with HiddenPrints():
