@@ -27,6 +27,7 @@
 import importlib
 import logging
 import os
+import string
 
 from genmsg.base import InvalidMsgSpec
 from genmsg.msgs import parse_type
@@ -56,10 +57,11 @@ class TestScriptGenerator(LoggingObject):
 </launch>
 """
 
-    __slots__ = ("test_gen", "parser", "observers")
+    __slots__ = ("test_gen", "parser", "observers", "filename")
 
     def __init__(self, configuration, obs=False):
         self.observers = obs
+        self.filename = self._format_filename(configuration.name)
         launches = [lf.path for lf in configuration.roslaunch]
         nodes = [n.rosname.full for n in configuration.nodes]
         pubs = self._get_published_topics(configuration)
@@ -79,7 +81,7 @@ class TestScriptGenerator(LoggingObject):
             hpl_property = self.parser.parse(prop_text)
             self.log.debug("generating script from HPL AST")
             script_text = self.test_gen.gen(hpl_property)
-            test_name = "hpl_test" + str(i)
+            test_name = self.filename + str(i)
             path = os.path.join(outdir, test_name)
             self.log.info("Writing Python file " + path)
             with open(path, "w") as f:
@@ -177,3 +179,10 @@ class TestScriptGenerator(LoggingObject):
             except InvalidMsgSpec as e:
                 pass
         return constants
+
+    def _format_filename(self, s):
+        # adapted from https://gist.github.com/seanh/93666
+        valid_chars = "-_() %s%s" % (string.ascii_letters, string.digits)
+        filename = "".join(c for c in s if c in valid_chars)
+        filename = filename.replace(" ","_")
+        return filename + "_test"

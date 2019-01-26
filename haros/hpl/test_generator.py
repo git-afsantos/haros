@@ -274,30 +274,15 @@ class RosInterfaceGenerator(object):
     TMP = """
 class RosInterface(object):
     {slots}
-
-    instance = None
 {init}
-{reset}
 {generator}
 {pub_methods}
 {callbacks}
-
-    def set_start(self):
-        self._start = rospy.get_rostime()
-
-    def get_msg_counts(self):
-        elapsed = rospy.get_rostime() - self._start
-        elapsed = elapsed.to_sec()
-        timed_out = elapsed > self.timeout
-        if not timed_out:
-            timed_out = not self.inbox_flag.wait(self.timeout - elapsed)
-        with self.lock:
-            return (self._accepts, self._rejects, timed_out)
+{spin}
 
     def shutdown(self):
         for ps in self.all_pubs_subs():
             ps.unregister()
-        self.inbox_flag.clear()
 
     def check_status(self):
         for ps in self.all_pubs_subs():
@@ -305,10 +290,12 @@ class RosInterface(object):
                                                    + ps.resolved_name)
 
     def wait_for_interfaces(self, timeout=10.0):
-        now = rospy.get_rostime()
-        to = rospy.Duration.from_sec(timeout)
-        end = now + to
+        now = rospy.get_time()
         rate = rospy.Rate(5)
+        while now == 0.0:
+            rate.sleep()
+            now = rospy.get_time()
+        end = now + timeout
         while now < end:
             failed = None
             for ps in self.all_pubs_subs():
@@ -318,13 +305,13 @@ class RosInterface(object):
                     break
             else:
                 break
-            now = rospy.get_rostime()
+            now = rospy.get_time()
         else:
             raise LookupError("Failed to connect to topic: " + str(failed))
 """
 
-    SLOTS = ('__slots__ = ("lock", "inbox_flag", "timeout", "tolerance", '
-             '"_accepts", "_rejects", "_start", {slots})')
+    SLOTS = ('__slots__ = ("msg_feed", "timeout", "tolerance", '
+             '"_req_remaining", "_accepts", "_rejects", "_start", {slots})')
 
     PUB = "self._p{esc_topic}"
     SUB = "self._s{esc_topic}"
@@ -332,13 +319,13 @@ class RosInterface(object):
 
     INIT = """
     def __init__(self):
-        self.lock = Lock()
-        self.inbox_flag = Event()
+        self.msg_feed = Condition()
         self.timeout = {timeout}
         self.tolerance = {tolerance}
         self._accepts = 0
         self._rejects = 0
-        self._start = None
+        self._start = 0.0
+        self._req_remaining = {req_count}
         {inits}"""
 
     INIT_PUB = ('{pub} = rospy.Publisher("{topic}", '
@@ -349,14 +336,6 @@ class RosInterface(object):
 
     INIT_VAR = "{var} = None"
 
-    RESET = """
-    def reset(self):
-        with self.lock:
-            self._start = rospy.get_rostime()
-            self._accepts = 0
-            self._rejects = 0
-            {resets}"""
-
     YIELDS = """
     def all_pubs_subs(self):
         {yields}"""
@@ -365,9 +344,13 @@ class RosInterface(object):
 
     PUBLISH_M = """
     def pub_{var}(self, msg):
-        with self.lock:
+        with self.msg_feed:
+            assert self._msg_{var} is None
             self._msg_{var} = msg
-        self._p{esc_topic}.publish(msg)"""
+            self._p{esc_topic}.publish(msg)
+            self._req_remaining -= 1
+            if self._req_remaining == 0:
+                self._start = rospy.get_time()"""
 
     PUBLISH = """
     def random_pub{esc_topic}(self, msg):
@@ -375,37 +358,117 @@ class RosInterface(object):
 
     CALLBACK = """
     def _on{esc_topic}(self, msg):
-        with self.lock:
+        with self.msg_feed:
+            if not self._req_remaining == 0:
+                return # ignore msgs while not ready
             self._msg_{var} = msg
             if {deps}:
                 return
-            elapsed = rospy.get_rostime() - self._start
-            elapsed = elapsed.to_sec()
+            elapsed = rospy.get_time() - self._start
             if elapsed > self.timeout:
                 self._rejects += 1
+                self.msg_feed.notify()
             elif {condition}:
                 self._accepts += 1
+                self.msg_feed.notify()
             elif elapsed >= self.tolerance:
                 self._rejects += 1
-        self.inbox_flag.set()"""
+                self.msg_feed.notify()"""
 
     CB_DEP = "self._msg_{var} is None"
+
+    SPIN_SOME = """
+    def spin(self):
+        with self.msg_feed:
+            if self._accepts > 0:
+                return True
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._accepts > 0:
+                    return True
+                elapsed = rospy.get_time() - self._start
+        raise TestTimeoutError("timed out waiting for expected messages")"""
+
+    SPIN_NONE = """
+    def spin(self):
+        with self.msg_feed:
+            if self._accepts > 0:
+                raise InvalidMessageError("received an unexpected message")
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._accepts > 0:
+                    raise InvalidMessageError("received an unexpected message")
+                elapsed = rospy.get_time() - self._start
+        return True"""
+
+    SPIN_EXACTLY_N = """
+    def spin(self):
+        with self.msg_feed:
+            if self._accepts > {n}:
+                raise InvalidMessageError("received too many messages")
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._accepts > {n}:
+                    raise InvalidMessageError("received too many messages")
+                elapsed = rospy.get_time() - self._start
+            if self._accepts < {n}:
+                raise TestTimeoutError("timed out waiting for expected messages")
+        return True"""
+
+    SPIN_JUST_SOME = """
+    def spin(self):
+        with self.msg_feed:
+            if self._rejects > 0:
+                raise InvalidMessageError("received an unexpected message")
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._rejects > 0:
+                    raise InvalidMessageError("received an unexpected message")
+                elapsed = rospy.get_time() - self._start
+            if self._accepts == 0:
+                raise TestTimeoutError(
+                    "timed out waiting for expected messages")
+        return True"""
+
+    SPIN_JUST_N = """
+    def spin(self):
+        with self.msg_feed:
+            if self._accepts > {n}:
+                raise InvalidMessageError("received too many messages")
+            if self._rejects > 0:
+                raise InvalidMessageError("received an unexpected message")
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._accepts > {n}:
+                    raise InvalidMessageError("received too many messages")
+                if self._rejects > 0:
+                    raise InvalidMessageError("received an unexpected message")
+                elapsed = rospy.get_time() - self._start
+            if self._accepts < {n}:
+                raise TestTimeoutError("timed out waiting for expected messages")
+        return True"""
 
     DEFAULT_TIMEOUT = 60.0
     DEFAULT_TOLERANCE = 0.0
 
-    __slots__ = ("timeout", "tolerance", "_slots", "_inits", "_resets",
-                 "_yields", "_pub_methods", "_callbacks")
+    __slots__ = ("timeout", "tolerance", "_slots", "_inits", "_spin",
+                 "_yields", "_pub_methods", "_callbacks", "_req_pubs")
 
     def __init__(self):
         self.timeout = self.DEFAULT_TIMEOUT
         self.tolerance = self.DEFAULT_TOLERANCE
         self._slots = []
         self._inits = []
-        self._resets = []
         self._yields = []
         self._pub_methods = []
         self._callbacks = []
+        self._spin = self.SPIN_SOME
+        self._req_pubs = 0
 
     def add_anon_publisher(self, topic, msg_type):
         esc_topic = topic.replace("/", "_")
@@ -426,12 +489,11 @@ class RosInterface(object):
         self._slots.append(msg[5:])
         self._inits.append(self.INIT_PUB.format(
             pub=pub, topic=topic, msg_class=msg_class))
-        init = self.INIT_VAR.format(var=msg)
-        self._inits.append(init)
-        self._resets.append(init)
+        self._inits.append(self.INIT_VAR.format(var=msg))
         self._pub_methods.append(self.PUBLISH_M.format(
             var=var_name, esc_topic=esc_topic))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
+        self._req_pubs += 1
 
     def add_subscriber(self, topic, msg_type, var_name, condition, deps):
         esc_topic = topic.replace("/", "_")
@@ -442,9 +504,7 @@ class RosInterface(object):
         self._slots.append(msg[5:])
         self._inits.append(self.INIT_SUB.format(
             sub=sub, topic=topic, msg_class=msg_class, esc_topic=esc_topic))
-        init = self.INIT_VAR.format(var=msg)
-        self._inits.append(init)
-        self._resets.append(init)
+        self._inits.append(self.INIT_VAR.format(var=msg))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=sub))
         if not deps:
             cb_deps = "False"
@@ -453,14 +513,28 @@ class RosInterface(object):
         self._callbacks.append(self.CALLBACK.format(esc_topic=esc_topic,
             var=var_name, condition=condition, deps=cb_deps))
 
+    def set_expected(self, n, exact, exclusive):
+        if exclusive:
+            if exact:
+                self._spin = self.SPIN_JUST_N.format(n=n)
+            else:
+                self._spin = self.SPIN_JUST_SOME
+        elif exact:
+            if n == 0:
+                self._spin = self.SPIN_NONE
+            else:
+                self._spin = self.SPIN_EXACTLY_N.format(n=n)
+        else:
+            self._spin = self.SPIN_SOME
+
     def gen(self):
         return self.TMP.format(
             slots=self._gen_slots(),
             init=self._gen_init(),
-            reset=self._gen_reset(),
             generator=self._gen_generator(),
             pub_methods=self._gen_pub_methods(),
-            callbacks=self._gen_callbacks())
+            callbacks=self._gen_callbacks(),
+            spin=self._spin)
 
     def _gen_slots(self):
         slots = ", ".join('"' + s + '"' for s in self._slots)
@@ -468,12 +542,8 @@ class RosInterface(object):
 
     def _gen_init(self):
         inits = "\n        ".join(self._inits)
-        return self.INIT.format(
-            timeout=self.timeout, tolerance=self.tolerance, inits=inits)
-
-    def _gen_reset(self):
-        resets = "\n            ".join(self._resets)
-        return self.RESET.format(resets=resets)
+        return self.INIT.format(timeout=self.timeout, tolerance=self.tolerance,
+                                inits=inits, req_count=self._req_pubs)
 
     def _gen_generator(self):
         yields = "\n        ".join(self._yields)
@@ -519,9 +589,8 @@ class SystemUnderTest(object):
                                                           + node_name)
 
     def wait_for_nodes(self, timeout=60.0, online=True):
-        now = rospy.get_rostime()
-        to = rospy.Duration.from_sec(timeout)
-        end = now + to
+        now = rospy.get_time()
+        end = now + timeout
         rate = rospy.Rate(5)
         pending = list(self.NODES)
         while now < end and pending:
@@ -529,7 +598,7 @@ class SystemUnderTest(object):
             if not rosnode_ping(node_name, max_count=1) is online:
                 pending.append(node_name)
                 rate.sleep()
-            now = rospy.get_rostime()
+            now = rospy.get_time()
         if pending and online:
             raise LookupError("Failed to find nodes " + str(pending))
 """
@@ -572,7 +641,6 @@ class HarosPropertyTester(RuleBasedStateMachine):
 {init}
 {init_defs}
 {rule_defs}
-{spin}
 {pub_required}
 
     def teardown(self):
@@ -581,22 +649,21 @@ class HarosPropertyTester(RuleBasedStateMachine):
                 self.publish_required_msgs()
                 self.sut.check_status()
                 self.ros.check_status()
-                self.ros.set_start()
-                self.spin()
+                self.ros.spin()
         finally:
-            t0 = rospy.get_rostime()
+            t0 = rospy.get_time()
             t = t0 - self._start_time
-            HarosPropertyTester._time_spent_on_testing += t.to_sec()
+            HarosPropertyTester._time_spent_on_testing += t
             self.sut.shutdown()
             self.ros.shutdown()
-            t = rospy.get_rostime() - t0
-            HarosPropertyTester._time_spent_setting_up += t.to_sec()
+            t = rospy.get_time() - t0
+            HarosPropertyTester._time_spent_setting_up += t
 {print_end}
 
     def print_step(self, step):
         rule, data = step
         if rule.function.__name__ != "gen_msgs":
-            RuleBasedStateMachine.print_step(step)
+            RuleBasedStateMachine.print_step(self, step)
 
     @classmethod
     def print_times(cls):
@@ -609,7 +676,7 @@ PropertyTest = HarosPropertyTester.TestCase
     INIT = """
     def __init__(self):
         RuleBasedStateMachine.__init__(self)
-        t = rospy.get_rostime()
+        t = rospy.get_time()
         self._initialized = False
         self._has_required_msgs = {has_required}
         {msgs}
@@ -617,9 +684,9 @@ PropertyTest = HarosPropertyTester.TestCase
         self.sut = SystemUnderTest()
         self.sut.wait_for_nodes()
         self.ros.wait_for_interfaces()
-        self._start_time = rospy.get_rostime()
+        self._start_time = rospy.get_time()
         t = self._start_time - t
-        HarosPropertyTester._time_spent_setting_up += t.to_sec()"""
+        HarosPropertyTester._time_spent_setting_up += t"""
 
     INIT_MSG = "self._msg_{var} = None"
 
@@ -638,22 +705,6 @@ PropertyTest = HarosPropertyTester.TestCase
     def pub_{esc_topic}(self, msg):
         self.ros.random_pub{esc_topic}(msg)"""
 
-    SPIN = """
-    def spin(self):
-        valid_msgs = 0
-        invalid_msgs = 0
-        timed_out = False
-        while not timed_out:
-            accepts, rejects, timed_out = self.ros.get_msg_counts()
-            if timed_out and accepts == 0 and rejects == 0:
-                {timeout_action}
-            for i in xrange(accepts - valid_msgs):
-                {accept_msg_action}
-            for i in xrange(rejects - invalid_msgs):
-                {reject_msg_action}
-            invalid_msgs = rejects
-        assert valid_msgs == {expected_messages}"""
-
     PUB_REQUIRED = """
     def publish_required_msgs(self):
         {required_msgs}"""
@@ -670,7 +721,7 @@ PropertyTest = HarosPropertyTester.TestCase
                  '.format(self._msg_{var}))')
 
     __slots__ = ("_msgs", "_init_kwargs", "_init_args", "_assigns", "_pubs",
-                 "_required", "_spin", "_prints")
+                 "_required", "_prints")
 
     def __init__(self):
         self._msgs = []
@@ -680,9 +731,6 @@ PropertyTest = HarosPropertyTester.TestCase
         self._pubs = []
         self._required = []
         self._prints = []
-        self._spin = self.SPIN.format(timeout_action="raise TestTimeoutError()",
-            accept_msg_action="return", reject_msg_action="pass",
-            expected_messages=1)
 
     def add_anon_publisher(self, topic, msg_type):
         esc_topic = topic.replace("/", "_")
@@ -699,30 +747,11 @@ PropertyTest = HarosPropertyTester.TestCase
         self._required.append(self.PUB_VAR.format(var=var_name))
         self._prints.append(self.PRINT_PUB.format(var=var_name))
 
-    def set_expected(self, n, exact, exclusive):
-        if exact or exclusive:
-            timeout_action = "break" 
-        else:
-            timeout_action = "raise TestTimeoutError()"
-        if exact:
-            if n == 0:
-                accept = ('raise InvalidMessageError("received a message '
-                          'when not supposed to")')
-            else:
-                accept = "valid_msgs += 1"
-        else:
-            accept = "pass" if exclusive else "return"
-        reject = "raise InvalidMessageError()" if exclusive else "pass"
-        self._spin = self.SPIN.format(timeout_action=timeout_action,
-            accept_msg_action=accept, reject_msg_action=reject,
-            expected_messages=n)
-
     def gen(self):
         return self.TMP.format(
             init=self._gen_init(),
             init_defs=self._gen_initialize(),
             rule_defs=self._gen_rules(),
-            spin=self._spin,
             pub_required=self._gen_pub_required(),
             print_end=self._gen_prints())
 
@@ -767,7 +796,7 @@ class HplTestGenerator(object):
 
 import os
 import sys
-from threading import Event, Lock
+from threading import Condition
 import unittest
 
 import hypothesis
@@ -920,7 +949,7 @@ if __name__ == "__main__":
     def _process_publish(self, hpl_publish, ros, state_machine):
         mult = hpl_publish.multiplicity
         if not mult is None:
-            state_machine.set_expected(mult.value, mult.exact, mult.exclusive)
+            ros.set_expected(mult.value, mult.exact, mult.exclusive)
         time_bound = hpl_publish.time_bound
         if not time_bound is None:
             # ros.tolerance = 0.0
