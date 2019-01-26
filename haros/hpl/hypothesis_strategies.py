@@ -683,7 +683,7 @@ class SimpleFieldGenerator(FieldGenerator):
         raise UnsupportedOperationError()
 
     def in_set(self, values):
-        if not isinstance(values, tuple) or isinstance(values, list):
+        if not isinstance(values, tuple) or not isinstance(values, list):
             raise TypeError("expected collection of values: " + repr(values))
         for value in values:
             self._type_check_value(value)
@@ -693,7 +693,7 @@ class SimpleFieldGenerator(FieldGenerator):
         self._set_condition(InCondition(values))
 
     def not_in(self, values):
-        if not isinstance(values, tuple) or isinstance(values, list):
+        if not isinstance(values, tuple) or not isinstance(values, list):
             raise TypeError("expected collection of values: " + repr(values))
         for value in values:
             self._type_check_value(value)
