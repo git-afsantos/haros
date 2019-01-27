@@ -290,6 +290,7 @@ class RosInterface(object):
                                                    + ps.resolved_name)
 
     def wait_for_interfaces(self, timeout=10.0):
+        rospy.logdebug("Waiting for publishers and subscribers")
         now = rospy.get_time()
         rate = rospy.Rate(5)
         while now == 0.0:
@@ -344,6 +345,7 @@ class RosInterface(object):
 
     PUBLISH_M = """
     def pub_{var}(self, msg):
+        rospy.logdebug('Publish user-defined variable "{var}"')
         with self.msg_feed:
             assert self._msg_{var} is None
             self._msg_{var} = msg
@@ -354,31 +356,38 @@ class RosInterface(object):
 
     PUBLISH = """
     def random_pub{esc_topic}(self, msg):
+        rospy.logdebug('Publish random message on "{topic}"')
         self._p{esc_topic}.publish(msg)"""
 
     CALLBACK = """
     def _on{esc_topic}(self, msg):
         with self.msg_feed:
             if not self._req_remaining == 0:
+                rospy.logdebug("Received a message: Discarded (too early)")
                 return # ignore msgs while not ready
             self._msg_{var} = msg
             if {deps}:
+                rospy.logdebug("Received a message: Discarded (too early)")
                 return
             elapsed = rospy.get_time() - self._start
             if elapsed > self.timeout:
                 self._rejects += 1
+                rospy.logdebug("Received a message: Rejected (too late)")
                 self.msg_feed.notify()
             elif {condition}:
                 self._accepts += 1
+                rospy.logdebug("Received a message: Accepted")
                 self.msg_feed.notify()
             elif elapsed >= self.tolerance:
                 self._rejects += 1
+                rospy.logdebug("Received a message: Rejected (invalid)")
                 self.msg_feed.notify()"""
 
     CB_DEP = "self._msg_{var} is None"
 
     SPIN_SOME = """
     def spin(self):
+        rospy.logdebug("Spinning")
         with self.msg_feed:
             if self._accepts > 0:
                 return True
@@ -388,10 +397,13 @@ class RosInterface(object):
                 if self._accepts > 0:
                     return True
                 elapsed = rospy.get_time() - self._start
+            r = self._rejects
+        assert r == 0, "the given property is False"
         raise TestTimeoutError("timed out waiting for expected messages")"""
 
     SPIN_NONE = """
     def spin(self):
+        rospy.logdebug("Spinning")
         with self.msg_feed:
             if self._accepts > 0:
                 raise InvalidMessageError("received an unexpected message")
@@ -405,6 +417,7 @@ class RosInterface(object):
 
     SPIN_EXACTLY_N = """
     def spin(self):
+        rospy.logdebug("Spinning")
         with self.msg_feed:
             if self._accepts > {n}:
                 raise InvalidMessageError("received too many messages")
@@ -420,6 +433,7 @@ class RosInterface(object):
 
     SPIN_JUST_SOME = """
     def spin(self):
+        rospy.logdebug("Spinning")
         with self.msg_feed:
             if self._rejects > 0:
                 raise InvalidMessageError("received an unexpected message")
@@ -430,12 +444,12 @@ class RosInterface(object):
                     raise InvalidMessageError("received an unexpected message")
                 elapsed = rospy.get_time() - self._start
             if self._accepts == 0:
-                raise TestTimeoutError(
-                    "timed out waiting for expected messages")
+                raise TestTimeoutError("timed out waiting for expected messages")
         return True"""
 
     SPIN_JUST_N = """
     def spin(self):
+        rospy.logdebug("Spinning")
         with self.msg_feed:
             if self._accepts > {n}:
                 raise InvalidMessageError("received too many messages")
@@ -478,7 +492,8 @@ class RosInterface(object):
         self._inits.append(self.INIT_PUB.format(
             pub=pub, topic=topic, msg_class=msg_class))
         self._yields.append(self.YIELD_PUB_SUB.format(pub_sub=pub))
-        self._pub_methods.append(self.PUBLISH.format(esc_topic=esc_topic))
+        self._pub_methods.append(self.PUBLISH.format(
+            esc_topic=esc_topic, topic=topic))
 
     def add_publisher(self, topic, msg_type, var_name):
         esc_topic = topic.replace("/", "_")
@@ -589,6 +604,7 @@ class SystemUnderTest(object):
                                                           + node_name)
 
     def wait_for_nodes(self, timeout=60.0, online=True):
+        rospy.logdebug("Waiting for the SUT to start")
         now = rospy.get_time()
         end = now + timeout
         rate = rospy.Rate(5)
@@ -638,10 +654,15 @@ class StateMachineGenerator(object):
 class HarosPropertyTester(RuleBasedStateMachine):
     _time_spent_on_testing = 0.0
     _time_spent_setting_up = 0.0
+    _test_number = 1
 {init}
 {init_defs}
 {rule_defs}
 {pub_required}
+
+    @invariant()
+    def not_shutdown(self):
+        assert not rospy.is_shutdown(), "rospy is shut down"
 
     def teardown(self):
         try:
@@ -650,12 +671,16 @@ class HarosPropertyTester(RuleBasedStateMachine):
                 self.sut.check_status()
                 self.ros.check_status()
                 self.ros.spin()
+            else:
+                rospy.logdebug("Invalid trial")
         finally:
             t0 = rospy.get_time()
             t = t0 - self._start_time
             HarosPropertyTester._time_spent_on_testing += t
-            self.sut.shutdown()
-            self.ros.shutdown()
+            rospy.logdebug("Shutting down the SUT")
+            with HiddenPrints():
+                self.sut.shutdown()
+                self.ros.shutdown()
             t = rospy.get_time() - t0
             HarosPropertyTester._time_spent_setting_up += t
 {print_end}
@@ -676,14 +701,17 @@ PropertyTest = HarosPropertyTester.TestCase
     INIT = """
     def __init__(self):
         RuleBasedStateMachine.__init__(self)
+        rospy.loginfo("Running trial #" + str(self._test_number))
+        HarosPropertyTester._test_number += 1
         t = rospy.get_time()
         self._initialized = False
         self._has_required_msgs = {has_required}
         {msgs}
         self.ros = RosInterface()
-        self.sut = SystemUnderTest()
-        self.sut.wait_for_nodes()
-        self.ros.wait_for_interfaces()
+        with HiddenPrints():
+            self.sut = SystemUnderTest()
+            self.sut.wait_for_nodes()
+            self.ros.wait_for_interfaces()
         self._start_time = rospy.get_time()
         t = self._start_time - t
         HarosPropertyTester._time_spent_setting_up += t"""
@@ -803,7 +831,7 @@ import hypothesis
 from hypothesis import assume
 import hypothesis.reporting as reporting
 from hypothesis.stateful import (
-    RuleBasedStateMachine, rule, initialize
+    RuleBasedStateMachine, rule, initialize, invariant
 )
 import hypothesis.strategies as strategies
 import rospy
@@ -886,14 +914,13 @@ class InvalidMessageError(Exception):
 ################################################################################
 
 def main():
-    rospy.init_node("property_tester")
+    rospy.init_node("property_tester", log_level=rospy.{log_level})
     PropertyTest.settings = hypothesis.settings(
         max_examples=1000, stateful_step_count=100, buffer_size=16384,
         deadline=None)
     collector = OutputCollector()
     reporting.reporter.value = collector.report
-    with HiddenPrints():
-        unittest.main(module=__name__, argv=[__name__], exit=False)
+    unittest.main(module=__name__, argv=[__name__], exit=False)
     collector.print_output()
     HarosPropertyTester.print_times()
 
@@ -901,7 +928,10 @@ if __name__ == "__main__":
     main()
 """
 
-    def __init__(self, launch_files, nodes, publishers, subscribers, msg_data):
+    __slots__ = ("sut", "pubs", "subs", "msg_data", "debug")
+
+    def __init__(self, launch_files, nodes, publishers, subscribers, msg_data,
+                 debug=False):
         # launch_files :: [str(path)]
         # nodes :: [str(name)]
         # publishers :: {str(topic): str(msg_type)}
@@ -915,6 +945,7 @@ if __name__ == "__main__":
         self.pubs = publishers
         self.subs = subscribers
         self.msg_data = msg_data
+        self.debug = debug
 
     def gen(self, hpl_property):
         strategies = StrategyMap(self.msg_data)
@@ -923,13 +954,15 @@ if __name__ == "__main__":
         self._process_receive(hpl_property.receive,
                               ros, state_machine, strategies)
         self._process_publish(hpl_property.publish, ros, state_machine)
+        log_level = "DEBUG" if self.debug else "INFO"
         return self.TMP.format(
             imports=strategies.get_imports(),
             strategies=self._gen_strategies(strategies),
             hpl_property=str(hpl_property),
             ros=ros.gen(),
             sut=self.sut.gen(),
-            state_machine=state_machine.gen())
+            state_machine=state_machine.gen(),
+            log_level=log_level)
 
     def _process_receive(self, hpl_receive, ros, state_machine, strategies):
         topic = None

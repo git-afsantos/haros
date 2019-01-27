@@ -59,7 +59,7 @@ class TestScriptGenerator(LoggingObject):
 
     __slots__ = ("test_gen", "parser", "observers", "filename")
 
-    def __init__(self, configuration, obs=False):
+    def __init__(self, configuration, obs=False, debug=False):
         self.observers = obs
         self.filename = self._format_filename(configuration.name)
         launches = [lf.path for lf in configuration.roslaunch]
@@ -69,7 +69,8 @@ class TestScriptGenerator(LoggingObject):
         topics = dict(pubs)
         topics.update(subs)
         fields, constants = self._get_msg_data(topics.viewvalues())
-        self.test_gen = HplTestGenerator(launches, nodes, pubs, subs, fields)
+        self.test_gen = HplTestGenerator(
+            launches, nodes, pubs, subs, fields, debug=debug)
         self.parser = HplParser(topics, fields, constants)
 
     def make_tests(self, hpl_tests, outdir, pkg=None):
