@@ -483,6 +483,9 @@ configurations:
                     commands/full_stop: std_msgs/EmptyMsg
 ```
 
+This feature may require some additional setup.
+Make sure you look into the provided [tips](MODEL_EXTRACTION.md).
+
 User-defined Queries
 --------------------
 
