@@ -114,7 +114,7 @@ additional *$dependencies$*.
 These features are only available for C++ code as of now.
 
 ```bash
-[sudo] pip install clang
+[sudo] pip install -Iv clang==3.8
 [sudo] apt-get install libclang-3.8-dev
 ```
 
