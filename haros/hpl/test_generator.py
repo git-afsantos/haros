@@ -803,7 +803,10 @@ PropertyTest = HarosPropertyTester.TestCase
         return "\n\n".join(self._pubs)
 
     def _gen_pub_required(self):
-        required_msgs = "\n        ".join(self._required)
+        if self._required:
+            required_msgs = "\n        ".join(self._required)
+        else:
+            required_msgs = "pass"
         return self.PUB_REQUIRED.format(required_msgs=required_msgs)
 
     def _gen_prints(self):
