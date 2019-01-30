@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.1.0] - 2019-01-30
+### Added
+- HAROS can now detect workspaces built with `catkin_make_isolated` and `catkin build`.
+
+## [3.0.7] - 2018-12-17
+### Changed
+- Fixed some bugs when parsing CMake files.
+
 ## [3.0.4] - 2018-03-08
 ### Changed
 - Fixed a bug crashing first-time runs.
