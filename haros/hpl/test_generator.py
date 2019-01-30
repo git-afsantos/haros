@@ -660,6 +660,10 @@ class HarosPropertyTester(RuleBasedStateMachine):
 {rule_defs}
 {pub_required}
 
+    @rule(ms=random_wait_time())
+    def sleep(self, ms):
+        rospy.sleep(rospy.Duration(0, ms * 1000000))
+
     @invariant()
     def not_shutdown(self):
         assert not rospy.is_shutdown(), "rospy is shut down"
@@ -847,6 +851,10 @@ from rosnode import rosnode_ping
 ################################################################################
 # Data Strategies
 ################################################################################
+
+def random_wait_time():
+    # wait between 10ms and 1s
+    return strategies.integers(min_value=10, max_value=1000)
 
 {strategies}
 
