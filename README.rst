@@ -95,6 +95,7 @@ with the following commands.
 .. code:: bash
 
     [sudo] apt-get install cppcheck
+    [sudo] apt-get install cccc
     pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 
 If you want to use the model extraction features of HAROS, you must install
@@ -103,7 +104,7 @@ These features are only available for C++ code as of now.
 
 .. code:: bash
 
-    [sudo] pip install clang
+    [sudo] pip install -Iv clang==3.8
     [sudo] apt-get install libclang-3.8-dev
 
 Optional step: set up the ``LD_LIBRARY_PATH`` environment variable to point to

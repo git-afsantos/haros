@@ -104,7 +104,8 @@ After initialisation, you still need to install some analysis tools that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
 
 ```bash
-[sudo] apt-get install cppcheck cccc
+[sudo] apt-get install cppcheck
+[sudo] apt-get install cccc
 pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 ```
 
@@ -113,7 +114,7 @@ additional *$dependencies$*.
 These features are only available for C++ code as of now.
 
 ```bash
-[sudo] pip install clang
+[sudo] pip install -Iv clang==3.8
 [sudo] apt-get install libclang-3.8-dev
 ```
 
@@ -483,6 +484,9 @@ configurations:
                 subscribe:
                     commands/full_stop: std_msgs/EmptyMsg
 ```
+
+This feature may require some additional setup.
+Make sure you look into the provided [tips](MODEL_EXTRACTION.md).
 
 User-defined Queries
 --------------------

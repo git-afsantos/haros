@@ -500,6 +500,11 @@ class HarosSettings(object):
                 if (path.endswith(os.sep + "devel")
                         or path.endswith(os.sep + "install")):
                     return os.path.abspath(os.path.join(path, os.pardir))
+                elif ("devel_isolated" in path
+                        or "install_isolated" in path):
+                    # CMAKE_PREFIX_PATH point at the devel_isolated/package path
+                    # in workspaces built with catkin_make_isolated.
+                    return os.path.abspath(os.path.join(path, os.pardir, os.pardir))
         raise KeyError("ROS_WORKSPACE")
 
 
