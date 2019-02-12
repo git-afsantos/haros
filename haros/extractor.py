@@ -33,7 +33,9 @@ import xml.etree.ElementTree as ET
 import yaml
 
 from bonsai.model import CodeGlobalScope, CodeReference, pretty_str
-from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
+from bonsai.cpp.model import (
+    CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
+)
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
     get_conditions, is_under_loop
@@ -1214,32 +1216,6 @@ class RoscppExtractor(LoggingObject):
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
-    @staticmethod
-    def _resolve_node_handle(call):
-        ns = "?"
-        value = resolve_reference(call.method_of) if call.method_of else None
-        if value is not None:
-            if isinstance(value, CppFunctionCall):
-                if value.name == "NodeHandle":
-                    if len(value.arguments) == 2:
-                        value = value.arguments[0]
-                        if isinstance(value, basestring):
-                            ns = value
-                        elif isinstance(value, CppDefaultArgument):
-                            ns = ""
-                    elif len(value.arguments) == 1:
-                        value = value.arguments[0]
-                        if isinstance(value, CppFunctionCall):
-                            if value.name == "getNodeHandle":
-                                ns = ""
-                            elif value.name == "getPrivateNodeHandle":
-                                ns = "~"
-                elif value.name == "getNodeHandle":
-                    ns = ""
-                elif value.name == "getPrivateNodeHandle":
-                    ns = "~"
-        return ns
-
     def _on_read_param(self, node, ns, call):
         if len(call.arguments) < 1:
             return
@@ -1289,6 +1265,54 @@ class RoscppExtractor(LoggingObject):
                 and value.name == "ImageTransport"):
             return self._resolve_node_handle(value.arguments[0])
         return "?"
+
+    def _resolve_node_handle(self, call):
+        ns = "?"
+        node_handle = getattr(call, 'method_of', None) or call
+        node_handle_def = (resolve_reference(node_handle)
+                           if isinstance(node_handle, CppReference)
+                           else None)
+
+        # A function needs to be called to create a NodeHandle (constructors
+        # are functions)
+        if isinstance(node_handle_def, CppFunctionCall):
+
+            # node_handle_def is a call to the constructor
+            if node_handle_def.name == 'NodeHandle':
+                args = node_handle_def.arguments
+
+                # Copy constructor
+                if len(args) == 1:
+                    parent = args[0]
+                    return self._resolve_node_handle(parent)
+
+                # All other constructor have at least two arguments. The third
+                # is never meaningful
+
+                # If a parent NodeHande is passed, it is the first argument
+                parent = None if isinstance(args[0], basestring) else args[0]
+                prefix = ('/' + self._resolve_node_handle(parent)
+                          if parent
+                          else '')
+
+                # If a namespace argument is passed, it is either first or
+                # second parameter. Only the first has an empty default value.
+                passed_ns = '?'
+                if isinstance(args[0], basestring):
+                    passed_ns = args[0]
+                elif isinstance(args[0], CppDefaultArgument):
+                    passed_ns = ''
+                elif isinstance(args[1], basestring):
+                    passed_ns = args[1]
+
+                ns = prefix + passed_ns
+
+            elif node_handle_def.name == 'getNodeHandle':
+                ns = ''
+            elif node_handle_def.name == 'getPrivateNodeHandle':
+                ns = '~'
+
+        return ns
 
     def _extract_topic(self, call, topic_pos=0):
         name = resolve_expression(call.arguments[topic_pos])
