@@ -1371,7 +1371,10 @@ class RospyExtractor(LoggingObject):
 
     @staticmethod
     def split_ns_name(full_name):
-        ns, _, name = full_name.rpartition('/')
+        if '/' in full_name:
+            ns, _, name = full_name.rpartition('/')
+        else:
+            ns, name = '', full_name
         return ns, name
 
     def _call_location(self, call):
