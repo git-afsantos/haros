@@ -376,7 +376,7 @@ class SourceFile(SourceObject):
         file_type = file_cmd.from_file(self.path).lower()
         if file_type.startswith(self.CPP):
             return 'cpp'
-        if file_type.startswith(self.PYTHON):
+        if self.PYTHON in file_type:
             return 'py'
         if self.name.endswith(self.LAUNCH):
             return 'launch'
