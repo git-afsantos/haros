@@ -383,6 +383,15 @@ class BuildTarget(object):
 
 
 class RosCMakeParser(LoggingObject):
+    @staticmethod
+    def _get_option_args(args, option):
+        try:
+            option_index = args.index(option)
+            return list(itertools.takewhile(lambda c: not c.isupper(),
+                                            args[option_index + 1:]))
+        except ValueError:
+            return []
+
     def __init__(self, srcdir, bindir, pkgs = None, env = None, vars = None):
         self.parser = CMakeParser()
         self.source_dir = srcdir
@@ -471,6 +480,8 @@ class RosCMakeParser(LoggingObject):
             self._process_link_libraries(args)
         elif command == 'catkin_install_python':
             self._process_catkin_install_python(args)
+        elif command == 'install':
+            self._process_install(args)
 
     def _process_include_directories(self, args):
         n = len(args)
@@ -504,6 +515,22 @@ class RosCMakeParser(LoggingObject):
         targets = {
             name: BuildTarget.new_target(name, [file], self.directory, True)
             for name, file in zip(names, files)
+        }
+        self.executables.update(targets)
+
+    def _process_install(self, args):
+        in_directories = [
+            os.path.join(dir, file)
+            for dir in self._get_option_args(args, 'DIRECTORY')
+            for file in os.listdir(os.path.join(self.directory, dir))
+        ]
+        sources = (in_directories
+                   + self._get_option_args(args, 'FILES')
+                   + self._get_option_args(args, 'PROGRAMS'))
+        names = map(os.path.basename, sources)
+        targets = {
+            name: BuildTarget.new_target(name, [file], self.directory, True)
+            for name, file in zip(names, sources)
         }
         self.executables.update(targets)
 
