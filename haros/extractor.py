@@ -1459,9 +1459,12 @@ class RospyExtractor(LoggingObject):
         #     self._on_client(node, self._resolve_node_handle(call), call)
 
     def _setup_path(self):
-        parser = PyAstParser(workspace=self.package.path)
-        setup = parser.parse(os.path.join(self.package.path, 'setup.py'))
+        setup_file = os.path.join(self.package.path, 'setup.py')
+        if not os.path.isfile(setup_file):
+            return []
 
+        parser = PyAstParser(workspace=self.package.path)
+        setup = parser.parse(setup_file)
         setup_call = (CodeQuery(setup).all_calls
                       .where_name(('setup', 'generate_distutils_setup'))
                       .get()[0])
