@@ -1268,7 +1268,10 @@ class RoscppExtractor(LoggingObject):
 
     def _resolve_node_handle(self, call):
         ns = "?"
+
         node_handle = getattr(call, 'method_of', None) or call
+        if getattr(node_handle, 'name', None) == 'operator->':
+            node_handle = node_handle.arguments[0]
         node_handle_def = (resolve_reference(node_handle)
                            if isinstance(node_handle, CppReference)
                            else None)
