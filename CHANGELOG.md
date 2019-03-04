@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.1.1] - 2019-03-04
+### Changed
+- Made the dependency on `pyflwor` optional (#38).
+- Updated README to reflect this (#40).
+
 ## [3.1.0] - 2019-01-30
 ### Added
 - HAROS can now detect workspaces built with `catkin_make_isolated` and `catkin build`.
