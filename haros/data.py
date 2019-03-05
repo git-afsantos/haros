@@ -466,7 +466,7 @@ class HarosSettings(object):
     @classmethod
     def parse_from(cls, path):
         with open(path, "r") as handle:
-            data = yaml.load(handle) or {}
+            data = yaml.safe_load(handle) or {}
         env = data.get("environment")
         if env == "copy" or env == "all" or env is True:
             env = dict(os.environ)
@@ -546,7 +546,7 @@ class HarosDatabase(LoggingObject):
     def load_definitions(self, data_file, prefix = ""):
         self.log.debug("HarosDatabase.load_definitions(%s)", data_file)
         with open(data_file, "r") as handle:
-            data = yaml.load(handle)
+            data = yaml.safe_load(handle)
         self.register_rules(data.get("rules", {}), prefix = prefix)
         self.register_metrics(data.get("metrics", {}), prefix = prefix)
 

@@ -105,7 +105,7 @@ class ProjectExtractor(LoggingObject):
     def _setup(self):
         try:
             with open(self.index_file, "r") as handle:
-                data = yaml.load(handle)
+                data = yaml.safe_load(handle)
         except IOError as e:
             data = {}
         self.project = Project(data.get("project", "default"))
@@ -153,7 +153,7 @@ class ProjectExtractor(LoggingObject):
     def _load_distro_repositories(self):
         self.log.info("Looking up repositories from official distribution.")
         try:
-            data = yaml.load(urlopen(self.distribution).read())["repositories"]
+            data = yaml.safe_load(urlopen(self.distribution).read())["repositories"]
         except URLError as e:
             self.log.warning("Could not download distribution data.")
             return

@@ -160,7 +160,7 @@ class LaunchScope(LoggingObject):
         if rosparam is None:
             import rosparam
         try:
-            value = yaml.load(value)
+            value = yaml.safe_load(value)
         except yaml.MarkedYAMLError as e:
             raise ConfigurationError(str(e))
     # ----- try to use given name, namespace or both
@@ -382,7 +382,7 @@ class LaunchScope(LoggingObject):
             raise ValueError("{} is not a '{}' type".format(value, ptype))
         elif ptype == "yaml":
             try:
-                return yaml.load(value)
+                return yaml.safe_load(value)
             except yaml.parser.ParserError as e:
                 raise ValueError(e)
         else:
