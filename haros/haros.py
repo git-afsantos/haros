@@ -148,6 +148,12 @@ class HarosLauncher(object):
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
             return args.command(args, settings)
+        except KeyError as err:
+            if str(err) == "ROS_WORKSPACE":
+                print "[HAROS] You must have a workspace set up."
+                print "  Make sure to source its `devel/setup.bash`."
+            self.log.error(str(err))
+            return False
         except RuntimeError as err:
             self.log.error(str(err))
             return False
