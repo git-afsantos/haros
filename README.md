@@ -42,6 +42,11 @@ and a **Web browser** (if you want to use the visualiser).
 install these dependencies first, then `Ctrl+F` *$dependencies$*.
 Otherwise, just keep reading.
 
+**NOTE** This tool assumes that the current terminal shell has a
+`source /opt/ros/<distro>/setup.bash` and a
+`source /path/to/workspace/devel/setup.bash`. In other words, you need a working
+ROS installation and a catkin workspace.
+
 ### Method 1: Running Without Installation
 
 Open a terminal, and move to a directory where you want to clone this
