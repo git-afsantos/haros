@@ -29,8 +29,6 @@ import os
 import shutil
 import traceback
 
-import pyflwor
-
 from .metamodel import MetamodelObject, Location, RuntimeLocation
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
@@ -381,6 +379,13 @@ class AnalysisManager(LoggingObject):
         return reports
 
     def _execute_queries(self, reports):
+        self.log.debug("import pyflwor")
+        try:
+            import pyflwor
+        except ImportError as e:
+            self.log.warning("Could not import pyflwor. "
+                             "Skipping query execution.")
+            return
         self.log.debug("Creating query engine.")
         query_engine = QueryEngine(self.database)
         query_engine.execute(self.database.rules.viewvalues(), reports)

@@ -89,24 +89,24 @@ from anywhere.
 
 ### Requirements
 
-Before you can actually run analyses with HAROS, you need to perform some
-initialisation operations. These operations include downloading a basic set of
-analysis plugins. Do so with:
-
-```bash
-haros init
-```
-
-**Note:** if you opted for running HAROS without installing it, replace `haros`
-with your preferred method.
-
-After initialisation, you still need to install some analysis tools that HAROS
+Before running any kind of analysis, you need to install some analysis tools that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
 
 ```bash
 [sudo] apt-get install cppcheck
 [sudo] apt-get install cccc
+```
+
+Optionally, install `pyflwor` to enable queries to run on extracted models later on.
+
+```bash
 pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
+```
+
+or, if you have a `virtualenv`
+
+```bash
+pip install pyflwor-ext
 ```
 
 If you want to use the model extraction features of HAROS, you must install
@@ -129,6 +129,17 @@ If you do not perform this step and your library is installed in a different pat
 you will need to specify it in the configuration file located in
 `~/.haros/index.yaml`. This file becomes available after running the
 `init` command of HAROS (details below).
+
+Finally, you need to perform some initialisation operations.
+These operations include downloading a basic set of analysis plugins.
+Do so with:
+
+```bash
+haros init
+```
+
+**Note:** if you opted for running HAROS without installing it, replace `haros`
+with your preferred method.
 
 HAROS is now installed and ready to use.
 
