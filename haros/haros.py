@@ -225,7 +225,7 @@ class HarosLauncher(object):
         if args.ws:
             if not os.path.isdir(args.ws):
                 raise ValueError("Not a directory: " + args.ws)
-            settings.workspace = args.ws
+            settings.set_workspace(args.ws)
         parse = HarosParseRunner(self.HAROS_DIR, args.project_file,
                                  args.data_dir, log = self.log,
                                  run_from_source = self.run_from_source,

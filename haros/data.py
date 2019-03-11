@@ -485,6 +485,12 @@ class HarosSettings(object):
                    cpp_parser = cpp_parser, cpp_parser_lib = cpp_parser_lib,
                    cpp_includes = cpp_includes, cpp_compile_db = cpp_compile_db)
 
+    def set_workspace(self, ws):
+        self.workspace = ws
+        db = os.path.join(self.workspace, "build")
+        if os.path.isfile(os.path.join(db, "compile_commands.json")):
+            self.cpp_compile_db = db
+
     def find_workspace(self):
         """This replicates the behaviour of `roscd`."""
         ws = self.environment.get("ROS_WORKSPACE")
