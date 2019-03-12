@@ -59,13 +59,17 @@ class TestScriptGenerator(LoggingObject):
 
     __slots__ = ("test_gen", "parser", "observers", "filename")
 
-    def __init__(self, configuration, obs=False, debug=False):
+    def __init__(self, configuration, obs=False, debug=False,
+                 ignore=None):
         self.observers = obs
         self.filename = self._format_filename(configuration.name)
         launches = [lf.path for lf in configuration.roslaunch]
         nodes = [n.rosname.full for n in configuration.nodes]
-        pubs = self._get_published_topics(configuration)
-        subs = self._get_subscribed_topics(configuration)
+        ignored_topics = () if ignore is None else ignore
+        if not isinstance(ignored_topics, (tuple, list)):
+            raise ValueError("tests:ignore must be a list of topic names")
+        pubs = self._get_published_topics(configuration, ignored_topics)
+        subs = self._get_subscribed_topics(configuration, ignored_topics)
         topics = dict(pubs)
         topics.update(subs)
         fields, constants = self._get_msg_data(topics.viewvalues())
@@ -96,7 +100,7 @@ class TestScriptGenerator(LoggingObject):
                 f.write(self.LAUNCH_FILE.format(
                     pkg=(pkg or ""), script=test_name))
 
-    def _get_published_topics(self, configuration):
+    def _get_published_topics(self, configuration, ignored):
         self.log.debug("extracting open publishers from configuration")
         topics = {}
         for topic in configuration.topics.enabled:
@@ -105,19 +109,25 @@ class TestScriptGenerator(LoggingObject):
                                  topic.rosname.full, configuration.name)
                 continue
             if topic.publishers:
+                if topic.rosname.full in ignored:
+                    self.log.warning("Skipping ignored topic %s (%s).",
+                                     topic.rosname.full, configuration.name)
                 if self.observers:
                     topics[topic.rosname.full] = topic.type
                 elif not topic.subscribers:
                     topics[topic.rosname.full] = topic.type
         return topics
 
-    def _get_subscribed_topics(self, configuration):
+    def _get_subscribed_topics(self, configuration, ignored):
         self.log.debug("extracting open subscribers from configuration")
         topics = {}
         for topic in configuration.topics.enabled:
             if topic.subscribers and not topic.publishers:
                 if topic.unresolved:
                     self.log.warning("Skipping unresolved topic %s (%s).",
+                                     topic.rosname.full, configuration.name)
+                elif topic.rosname.full in ignored:
+                    self.log.warning("Skipping ignored topic %s (%s).",
                                      topic.rosname.full, configuration.name)
                 else:
                     topics[topic.rosname.full] = topic.type

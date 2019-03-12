@@ -825,7 +825,8 @@ class HarosMakeTestsRunner(HarosRunner):
         for config, test_data in configs_to_test:
             self.log.debug("Generating tests for configuration " + config.name)
             gen = TestScriptGenerator(config,
-                debug=test_data.get("debug", False))
+                debug=test_data.get("debug", False),
+                ignore=test_data.get("ignore"))
             properties = test_data["properties"]
             gen.make_tests(properties, self.io_tests_dir,
                            pkg=test_data.get("package"))
