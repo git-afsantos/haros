@@ -1422,7 +1422,14 @@ class RospyExtractor(LoggingObject):
 
     def _extract_queue_size(self, call):
         pos = self.queue_size_pos[call.name.lower()]
-        return self.get_arg(call, pos, 'queue_size')
+        queue_size_arg = self.get_arg(call, pos, 'queue_size')
+
+        try:
+            queue_size = resolve_expression(queue_size_arg)
+            assert(isinstance(queue_size, (int, long, float)))
+            return queue_size
+        except AssertionError:
+            return None
 
     def _extract_message_type(self, call):
         msg_type = self.get_arg(call, 1, 'data_class')
