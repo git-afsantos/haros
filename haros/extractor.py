@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+import itertools
 import logging
 from operator import attrgetter
 import os
@@ -1492,23 +1493,27 @@ class RospyExtractor(LoggingObject):
 
         parser = PyAstParser(workspace=self.package.path)
         setup = parser.parse(setup_file)
+
         setup_call = (CodeQuery(setup).all_calls
-                      .where_name(('setup', 'generate_distutils_setup'))
-                      .get()[0])
-        packages = self.get_arg(setup_call, 0, 'packages').value
-        package_dir = {
-            keyword.name: keyword.value
-            for keyword in self.get_arg(setup_call, 0, 'package_dir').value
-        }
+                      .where_name('generate_distutils_setup')
+                      .get()
+                      or
+                      CodeQuery(setup).all_calls
+                      .where_name('setup')
+                      .get())[0]
 
-        pythonpath = (package_dir.get(pkg, pkg) for pkg in packages)
-        try:
-            root = package_dir['']
-            pythonpath = (os.path.join(root, path) for path in pythonpath)
-        except KeyError:
-            pass
+        package_dir = self.get_arg(setup_call, 0, 'package_dir')
+        if hasattr(package_dir, 'value'):
+            package_dir = {
+                keyword.name: keyword.value
+                for keyword in self.get_arg(setup_call, 0, 'package_dir').value
+            }
+        else:
+            src_path = os.path.join(self.package.path, 'src')
+            package_dir = {'': 'src'} if os.path.exists(src_path) else {}
 
-        return [os.path.join(self.package.path, path) for path in pythonpath]
+        root = package_dir.get('', '')
+        return [os.path.join(self.package.path, root)]
 
     def __init__(self, package, workspace):
         self.package = package
