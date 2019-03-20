@@ -1379,6 +1379,18 @@ class RospyExtractor(LoggingObject):
         'subscriber': 4,
     }
 
+    rospy_names = {
+        'publication': ('Publisher',),
+        'subscription': ('Subscriber',),
+        'service-def': ('Service',),
+        'service-call': ('ServiceProxy',),
+    }
+
+    @classmethod
+    def all_rospy_names(cls, type):
+        names = cls.rospy_names[type]
+        return tuple('rospy.' + name for name in names) + names
+
     @staticmethod
     def get_arg(call, pos, name):
         try:
@@ -1420,9 +1432,10 @@ class RospyExtractor(LoggingObject):
         return Location(self.package, file=source_file, line=call.line,
                         fun=function)
 
-    def _extract_queue_size(self, call):
-        pos = self.queue_size_pos[call.name.lower()]
-        queue_size_arg = self.get_arg(call, pos, 'queue_size')
+    @classmethod
+    def _extract_queue_size(cls, call):
+        pos = cls.queue_size_pos[call.name.lower()]
+        queue_size_arg = cls.get_arg(call, pos, 'queue_size')
 
         try:
             queue_size = resolve_expression(queue_size_arg)
@@ -1431,23 +1444,42 @@ class RospyExtractor(LoggingObject):
         except AssertionError:
             return None
 
-    def _extract_message_type(self, call):
-        msg_type = self.get_arg(call, 1, 'data_class')
+    @classmethod
+    def _extract_message_type(cls, call, arg_name, arg_pos=1):
+        msg_type = cls.get_arg(call, 1, arg_name)
         if isinstance(msg_type, CodeReference):
             msg_type = resolve_reference(msg_type)
         return msg_type
 
-    def _extract_topic(self, call):
-        name = resolve_expression(self.get_arg(call, 0, 'name'))
+    @classmethod
+    def _extract_topic(cls, call):
+        name = resolve_expression(cls.get_arg(call, 0, 'name'))
         if not isinstance(name, basestring):
             name = '?'
-        return self.split_ns_name(name)
+        return cls.split_ns_name(name)
+
+    def _on_client(self, node, call):
+        if self.invalid_call(call):
+            return
+
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'service_class')
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        cli = ServiceClientCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
+        node.client.append(cli)
+        self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
     def _on_publication(self, node, call):
         if self.invalid_call(call):
             return
+
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call)
+        msg_type = self._extract_message_type(call, 'data_class')
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -1459,11 +1491,26 @@ class RospyExtractor(LoggingObject):
         node.advertise.append(pub)
         self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
+    def _on_service(self, node, call):
+        if self.invalid_call(call):
+            return
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'service_class')
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        srv = ServiceServerCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
+        node.service.append(srv)
+        self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
+
     def _on_subscription(self, node, call):
         if self.invalid_call(call):
             return
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call)
+        msg_type = self._extract_message_type(call, 'data_class')
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -1476,6 +1523,10 @@ class RospyExtractor(LoggingObject):
         self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
 
     def _query_comm_primitives(self, node, gs):
+        ##################################
+        # Topics
+        ##################################
+
         publications = (CodeQuery(gs).all_calls
                         .where_name(('Publisher', 'rospy.Publisher'))
                         .get())
@@ -1486,12 +1537,22 @@ class RospyExtractor(LoggingObject):
             self._on_publication(node, call)
         for call in subscriptions:
             self._on_subscription(node, call)
-        # for call in (CodeQuery(gs).all_calls.where_name("advertiseService")
-        #              .where_result("ros::ServiceServer").get()):
-        #     self._on_service(node, self._resolve_node_handle(call), call)
-        # for call in (CodeQuery(gs).all_calls.where_name("serviceClient")
-        #              .where_result("ros::ServiceClient").get()):
-        #     self._on_client(node, self._resolve_node_handle(call), call)
+
+        ##################################
+        # Services
+        ##################################
+
+        service_defs = (CodeQuery(gs).all_calls
+                        .where_name(self.all_rospy_names('service-def'))
+                        .get())
+        service_calls = (CodeQuery(gs).all_calls
+                         .where_name(self.all_rospy_names('service-call'))
+                         .get())
+        for call in service_defs:
+            self._on_service(node, call)
+        for call in service_calls:
+            self._on_client(node, call)
+
 
     def _setup_path(self):
         setup_file = os.path.join(self.package.path, 'setup.py')
