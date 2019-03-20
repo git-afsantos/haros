@@ -148,7 +148,7 @@ class DefaultMsgStrategy(TopLevelStrategy):
 
     FIELD = "{indent}{tab}{var}.{field} = draw({strategy})"
 
-    LIST = ("{{module}}.lists(elements={elements}(), "
+    LIST = ("{{module}}.lists(elements={elements}, "
             "min_size={min_size}, max_size={max_size})")
 
     __slots__ = ("msg_type", "fields")
@@ -220,7 +220,8 @@ class MsgStrategy(TopLevelStrategy):
                 field = MultiField(field, field.field_name,
                                    field.ros_type, field.all())
             elif not index is None:
-                field = field.fields[index]
+                assert isinstance(field, ArrayGenerator)
+                field = field[index]
         if is_list:
             assert isinstance(field, MultiField)
         else:

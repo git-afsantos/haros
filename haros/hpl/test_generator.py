@@ -431,6 +431,21 @@ class RosInterface(object):
                 raise TestTimeoutError("timed out waiting for expected messages")
         return True"""
 
+    SPIN_JUST = """
+    def spin(self):
+        rospy.logdebug("Spinning")
+        with self.msg_feed:
+            if self._rejects > 0:
+                raise InvalidMessageError("received an unexpected message")
+            elapsed = 0.0
+            while elapsed < self.timeout:
+                self.msg_feed.wait(self.timeout - elapsed)
+                if self._rejects > 0:
+                    raise InvalidMessageError("received an unexpected message")
+                elapsed = rospy.get_time() - self._start
+        return True"""
+
+    # TODO
     SPIN_JUST_SOME = """
     def spin(self):
         rospy.logdebug("Spinning")
@@ -533,7 +548,8 @@ class RosInterface(object):
             if exact:
                 self._spin = self.SPIN_JUST_N.format(n=n)
             else:
-                self._spin = self.SPIN_JUST_SOME
+                # self._spin = self.SPIN_JUST_SOME
+                self._spin = self.SPIN_JUST
         elif exact:
             if n == 0:
                 self._spin = self.SPIN_NONE
