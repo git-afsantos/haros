@@ -943,7 +943,7 @@ class InvalidMessageError(Exception):
 def main():
     rospy.init_node("property_tester", log_level=rospy.{log_level})
     PropertyTest.settings = hypothesis.settings(
-        max_examples=1000, stateful_step_count=100, buffer_size=16384,
+        max_examples=150, stateful_step_count=100, buffer_size=16384,
         deadline=None)
     collector = OutputCollector()
     reporting.reporter.value = collector.report
