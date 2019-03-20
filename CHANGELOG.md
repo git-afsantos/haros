@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.1.2] - 2019-03-20
+### Added
+- `requirements.txt` file.
+
+### Changed
+- Replaced `yaml.load` with `yaml.safe_load`.
+- Added a monkey patch for `pyflwor`, so that it now works from a `pip install`.
+
 ## [3.1.1] - 2019-03-04
 ### Changed
 - Made the dependency on `pyflwor` optional (#38).
