@@ -27,6 +27,7 @@
 import logging
 import os
 import shutil
+import sys
 import traceback
 
 from .metamodel import MetamodelObject, Location, RuntimeLocation
@@ -200,7 +201,8 @@ class QueryEngine(LoggingObject):
         "round": round
     }
 
-    def __init__(self, database):
+    def __init__(self, database, pyflwor):
+        self.pyflwor = pyflwor
         self.data = dict(self.query_data)
         self.data["is_rosglobal"] = QueryEngine.is_rosglobal
         self.data["files"] = list(database.files.itervalues())
@@ -251,7 +253,7 @@ class QueryEngine(LoggingObject):
 
     def _execute(self, rule, data, reports, default_location):
         try:
-            result = pyflwor.execute(rule.query, data)
+            result = self.pyflwor(rule.query, data)
         except SyntaxError as e:
             self.log.error("SyntaxError on query %s: %s", rule.id, e)
         else:
@@ -333,11 +335,12 @@ class QueryEngine(LoggingObject):
 ###############################################################################
 
 class AnalysisManager(LoggingObject):
-    def __init__(self, data, out_dir, export_dir):
+    def __init__(self, data, out_dir, export_dir, pyflwor_dir=None):
         self.database = data
         self.report = None
         self.out_dir = out_dir
         self.export_dir = export_dir
+        self.pyflwor_dir = pyflwor_dir
 
     def run(self, plugins):
         self.log.info("Running plugins on collected data.")
@@ -379,15 +382,17 @@ class AnalysisManager(LoggingObject):
         return reports
 
     def _execute_queries(self, reports):
-        self.log.debug("import pyflwor")
         try:
-            import pyflwor
+            self.log.debug("Monkey-patching pyflwor.")
+            from .pyflwor_monkey_patch import make_parser
+            pyflwor = make_parser(self.pyflwor_dir)
+            self.log.debug("import pyflwor")
         except ImportError as e:
             self.log.warning("Could not import pyflwor. "
                              "Skipping query execution.")
             return
         self.log.debug("Creating query engine.")
-        query_engine = QueryEngine(self.database)
+        query_engine = QueryEngine(self.database, pyflwor)
         query_engine.execute(self.database.rules.viewvalues(), reports)
 
     def _analysis(self, iface, plugins):
@@ -474,3 +479,4 @@ class AnalysisManager(LoggingObject):
         # self.summaries.append(summary)
         # if len(self.summaries) > 30:
             # self.summaries.pop(0)
+

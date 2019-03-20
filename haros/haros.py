@@ -309,6 +309,7 @@ class HarosRunner(object):
         self.export_dir         = os.path.join(haros_dir, "export")
         self.project_dir        = os.path.join(haros_dir, "projects")
         self.viz_dir            = os.path.join(haros_dir, "viz")
+        self.pyflwor_dir        = os.path.join(haros_dir, "pyflwor")
         self.log                = log or logging.getLogger()
         self.run_from_source    = run_from_source
 
@@ -380,7 +381,8 @@ class HarosInitRunner(HarosRunner):
         "export": {},
         "projects": {
             "default": {}
-        }
+        },
+        "pyflwor": {}
         # viz is generated on viz.install
     }
 
@@ -595,7 +597,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         print "[HAROS] Running analysis..."
         self._empty_dir(self.export_dir)
         temp_path = tempfile.mkdtemp()
-        analysis = AnalysisManager(self.database, temp_path, self.export_dir)
+        analysis = AnalysisManager(self.database, temp_path, self.export_dir,
+                                   pyflwor_dir=self.pyflwor_dir)
         try:
             analysis.run(plugins)
             self.database.report = analysis.report
