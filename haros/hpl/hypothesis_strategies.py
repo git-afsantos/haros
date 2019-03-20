@@ -1037,8 +1037,9 @@ class VariableLengthArrayGenerator(ArrayGenerator):
     __slots__ = ArrayGenerator.__slots__ + ("_all", "fields")
 
     TMP = ("{indent}{field} = draw({module}.lists(elements={module}.none(), "
-           "min_size=0, max_size=256))\n"
-           "{indent}for i in xrange(len({field})):\n{strategy}")
+           "min_size={min_size}, max_size={max_size}))\n"
+           "{indent}for i in xrange(len({field})):\n"
+           "{indent}{tab}if not i in {keys}:\n{strategy}")
 
     ASSUMES = "{indent}for i in xrange(len({field})):\n{condition}"
 
@@ -1046,21 +1047,29 @@ class VariableLengthArrayGenerator(ArrayGenerator):
         if not isinstance(default_field, FieldGenerator):
             raise TypeError("unexpected field: " + repr(default_field))
         ArrayGenerator.__init__(self, parent, field_name, ros_type)
+        self._default = default_field
         self._all = default_field.copy(parent, field_name, index="i")
-        self.fields = () # meant to produce an IndexError
+        self.fields = {}
+        self._length = 0
 
     @property
     def is_default(self):
-        return self._all.is_default
+        return (self._all.is_default
+                and all(f.is_default for f in self.fields.itervalues()))
 
     def all(self):
         return (self._all,)
 
     def __getitem__(self, index):
+        if index >= self._length:
+            self._length = index + 1
+        if not index in self.fields:
+            self.fields[index] = self._default.copy(
+                    self.parent, self.field_name, index=index)
         return self.fields[index]
 
     def children(self):
-        return ()
+        return list(self.fields.itervalues())
 
     def eq(self, value):
         self._all.eq(value)
@@ -1089,34 +1098,46 @@ class VariableLengthArrayGenerator(ArrayGenerator):
     # TODO byte arrays
     def to_python(self, module="strategies", indent=0, tab_size=4):
         assert not self.generated
-        # generate the whole sub tree here because of dynamic length,
+        # generate most of the sub tree here because of dynamic length,
         # as this requires indexing and iteration for all sub-sub-fields
         ws = " " * indent
+        mws = " " * tab_size
+        min_size = self._length
+        max_size = 256 if 256 > self._length else self._length*2
         strategy = self._all.tree_to_python(
-            module=module, indent=(indent + tab_size), tab_size=tab_size)
+            module=module, indent=(indent + tab_size*2), tab_size=tab_size)
         self.generated = True
         return self.TMP.format(indent=ws, field=self.full_name, module=module,
-                               strategy=strategy)
+                               min_size=min_size, max_size=max_size, tab=mws,
+                               keys=tuple(self.fields), strategy=strategy)
 
     def assumptions(self, indent=0, tab_size=4):
         return None
 
     def tree_to_python(self, module="strategies", indent=0, tab_size=4):
         assert not self.generated
+        code = [self.to_python(module=module, indent=indent, tab_size=tab_size)]
+        for field in self.fields.itervalues():
+            code.append(field.tree_to_python(
+                module=module, indent=indent, tab_size=tab_size))
         self.generated = True
-        return self.to_python(module=module, indent=indent, tab_size=tab_size)
+        return "\n".join(code)
 
     def copy(self, parent, field_name, deep=False):
         new = VariableLengthArrayGenerator(parent, field_name,
-                                           self.ros_type, self._all)
+                                           self.ros_type, self._default)
         if deep:
-            for i in xrange(self.length):
-                new._all = self._all.copy(parent, field_name, deep=True)
+            new._all = self._all.copy(parent, field_name, deep=True)
+            new._length = self._length
+            for i, field in self.fields.iteritems():
+                new.fields[i] = field.copy(parent, field_name, deep=True)
         return new
 
     def flag_generated(self):
         assert not self.generated
         self._all.flag_generated()
+        for field in self.fields.itervalues():
+            field.flag_generated()
         self.generated = True
 
 
