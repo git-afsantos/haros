@@ -487,6 +487,8 @@ class HeaderStrategy(RosBuiltinStrategy):
            "{indent}{tab}msg = std_msgs.Header()\n"
            "{indent}{tab}msg.stamp = draw(ros_time())\n"
            "{indent}{tab}msg.frame_id = draw(ros_string())\n"
+           "{indent}{tab}assume(msg.stamp.secs <= 4294967295)\n"
+           "{indent}{tab}assume(msg.stamp.nsecs <= 4294967295)\n"
            "{indent}{tab}return msg")
 
     def __init__(self):
