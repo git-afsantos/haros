@@ -1332,7 +1332,9 @@ class RoscppExtractor(LoggingObject):
                 template = template[:std_alloc.start()]
             assert re.match(r"\w+::\w+$", template)
             return template.replace("::", "/")
-        if call.name != "subscribe" and call.name != "advertiseService":
+
+        if (call.name not in ("subscribe", "advertiseService")
+                and 'NodeHandle' not in call.full_name):
             return "?"
         callback = (call.arguments[2]
                     if call.name == "subscribe"
@@ -1340,7 +1342,10 @@ class RoscppExtractor(LoggingObject):
         while isinstance(callback, CppOperator):
             callback = callback.arguments[0]
         type_string = callback.result
-        type_string = type_string.split(None, 1)[1]
+        try:
+            type_string = type_string.split(None, 1)[1]
+        except IndexError:
+            type_string = type_string.strip()
         if type_string.startswith("(*)"):
             type_string = type_string[3:]
         if type_string[0] == "(" and type_string[-1] == ")":
