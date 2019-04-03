@@ -70,7 +70,7 @@ class AnalysisScopeError(Exception):
 class PluginInterface(LoggingObject):
     """Provides an interface for plugins to communicate with the framework."""
 
-    def __init__(self, data, reports):
+    def __init__(self, data, reports, allowed_rules, allowed_metrics):
         self.state = None
         self._data = data
         self._plugin = None
@@ -79,6 +79,8 @@ class PluginInterface(LoggingObject):
         self._exported = set()
         self._buffer_violations = None
         self._buffer_metrics = None
+        self._rules = allowed_rules
+        self._metrics = allowed_metrics
 
     def get_file(self, relative_path):
         return os.path.join(self._plugin.path, relative_path)
@@ -112,6 +114,9 @@ class PluginInterface(LoggingObject):
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
         rule = self._get_property(rule_id, self._data.rules)
+        if not rule.id in self._rules:
+            self.log.debug("ignored rule: " + rule.id)
+            return
         datum = Violation(rule, location, details = msg)
         datum.affected.append(scope)
         if not self._buffer_violations is None:
@@ -134,6 +139,9 @@ class PluginInterface(LoggingObject):
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
         metric = self._get_property(metric_id, self._data.metrics)
+        if not metric.id in self._metrics:
+            self.log.debug("ignored metric: " + metric.id)
+            return
         self._check_metric_value(metric, value)
         datum = Measurement(metric, location, value)
         if not self._buffer_metrics is None:
@@ -142,12 +150,12 @@ class PluginInterface(LoggingObject):
             report.metrics.append(datum)
 
     def _get_property(self, property_id, data):
-        id = property_id
+        ident = property_id
         if not property_id in data:
-            id = self._plugin.name + ":" + property_id
-            if not id in data:
+            ident = self._plugin.name + ":" + property_id
+            if not ident in data:
                 raise UndefinedPropertyError(property_id)
-        return data[id]
+        return data[ident]
 
     def _check_metric_value(self, metric, value):
         self.log.debug("_check_metric_value(%s, %s)", metric.id, str(value))
@@ -342,13 +350,18 @@ class AnalysisManager(LoggingObject):
         self.export_dir = export_dir
         self.pyflwor_dir = pyflwor_dir
 
-    def run(self, plugins):
+    def run(self, plugins, allowed_rules=None, allowed_metrics=None):
         self.log.info("Running plugins on collected data.")
+        if allowed_rules is None:
+            allowed_rules = set(self.database.rules)
+        if allowed_metrics is None:
+            allowed_metrics = set(self.database.metrics)
         self._prepare_directories(plugins)
         project = self.database.project
         reports = self._make_reports(project)
-        self._execute_queries(reports)
-        iface = PluginInterface(self.database, reports)
+        self._execute_queries(reports, allowed_rules)
+        iface = PluginInterface(self.database, reports,
+                                allowed_rules, allowed_metrics)
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
@@ -381,7 +394,7 @@ class AnalysisManager(LoggingObject):
         reports[None] = self.report
         return reports
 
-    def _execute_queries(self, reports):
+    def _execute_queries(self, reports, allowed_rules):
         try:
             self.log.debug("Monkey-patching pyflwor.")
             from .pyflwor_monkey_patch import make_parser
@@ -393,7 +406,9 @@ class AnalysisManager(LoggingObject):
             return
         self.log.debug("Creating query engine.")
         query_engine = QueryEngine(self.database, pyflwor)
-        query_engine.execute(self.database.rules.viewvalues(), reports)
+        rules = tuple(r for r in self.database.rules.viewvalues()
+                      if r.id in allowed_rules)
+        query_engine.execute(rules, reports)
 
     def _analysis(self, iface, plugins):
         for plugin in plugins:
