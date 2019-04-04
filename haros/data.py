@@ -445,10 +445,11 @@ class HarosSettings(object):
             "compile_db": None  # path to file, None (default path) or False
         },
         "analysis": {
-            "ignore":
+            "ignore": {
                 "tags": [],
                 "rules": [],
                 "metrics": []
+            }
         }
     }
 
@@ -578,29 +579,28 @@ class HarosDatabase(LoggingObject):
 
     def register_rules(self, rules, prefix="", ignored_rules=None,
                        ignored_tags=None):
-        added = []
+        allowed = []
         for ident, rule in rules.iteritems():
             rule_id = prefix + ident
             tags = rule["tags"]
-            if ((ignored_rules and rule_id in ignored_rules)
-                    or (ignored_tags and any(t in ignored_tags for t in tags))):
-                self.log.debug("Ignored rule: " + rule_id)
-                continue
             self.log.debug("HarosDatabase.register rule " + rule_id)
             self.rules[rule_id] = Rule(rule_id, rule["name"],
                                        rule.get("scope", "global"),
                                        rule["description"], tags,
                                        query=rule.get("query"))
-            added.append(rule_id)
-        return added
+            if ignored_rules and rule_id in ignored_rules:
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            if ignored_tags and any(t in ignored_tags for t in tags):
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            allowed.append(rule_id)
+        return allowed
 
     def register_metrics(self, metrics, prefix="", ignored_metrics=None):
-        added = []
+        allowed = []
         for ident, metric in metrics.iteritems():
             metric_id = prefix + ident
-            if ignored_metrics and metric_id in ignored_metrics:
-                self.log.debug("Ignored metric: " + metric_id)
-                continue
             minv = metric.get("min")
             minv = float(minv) if not minv is None else None
             maxv = metric.get("max")
@@ -610,8 +610,11 @@ class HarosDatabase(LoggingObject):
                                              metric.get("scope"),
                                              metric["description"],
                                              minv = minv, maxv = maxv)
-            added.append(metric_id)
-        return added
+            if ignored_metrics and metric_id in ignored_metrics:
+                self.log.debug("Ignored metric: " + metric_id)
+                continue
+            allowed.append(metric_id)
+        return allowed
 
     def save_state(self, file_path):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)

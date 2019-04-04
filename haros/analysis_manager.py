@@ -120,9 +120,9 @@ class PluginInterface(LoggingObject):
                                    self._reports.get(location.largest_scope.id))
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
-        rule = self._get_property(rule_id, self._data.rules)
-        if not rule.id in self._rules:
-            self.log.debug("ignored rule: " + rule.id)
+        rule = self._get_property(rule_id, self._data.rules, self._rules)
+        if not rule:
+            self.log.debug("ignored rule: " + rule_id)
             return
         datum = Violation(rule, location, details = msg)
         datum.affected.append(scope)
@@ -150,9 +150,9 @@ class PluginInterface(LoggingObject):
                                    self._reports.get(location.largest_scope.id))
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
-        metric = self._get_property(metric_id, self._data.metrics)
-        if not metric.id in self._metrics:
-            self.log.debug("ignored metric: " + metric.id)
+        metric = self._get_property(metric_id, self._data.metrics, self._metrics)
+        if not metric:
+            self.log.debug("ignored metric: " + metric_id)
             return
         self._check_metric_value(metric, value)
         datum = Measurement(metric, location, value)
@@ -161,13 +161,13 @@ class PluginInterface(LoggingObject):
         else:
             report.metrics.append(datum)
 
-    def _get_property(self, property_id, data):
+    def _get_property(self, property_id, data, allowed):
         ident = property_id
         if not property_id in data:
             ident = self._plugin.name + ":" + property_id
             if not ident in data:
                 raise UndefinedPropertyError(property_id)
-        return data[ident]
+        return data[ident] if ident in allowed else None
 
     def _check_metric_value(self, metric, value):
         self.log.debug("_check_metric_value(%s, %s)", metric.id, str(value))
