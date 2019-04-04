@@ -344,11 +344,20 @@ class SourceFile(SourceObject):
         self.timestamp = os.path.getmtime(self.path)
         self.lines = 0
         self.sloc = 0
+        ignore_all = []
+        to_ignore = {"*": ignore_all}
+        ilp, inlp = self._ignore_parsers()
         with open(self.path, "r") as handle:
             for line in handle:
                 self.lines += 1
-                if line.strip():
+                sline = line.strip()
+                if sline:
                     self.sloc += 1
+                    if ilp(sline):
+                        ignore_all.append(self.lines)
+                    elif inlp(sline):
+                        ignore_all.append(self.lines + 1)
+        return to_ignore
 
     def to_JSON_object(self):
         return {
@@ -378,6 +387,13 @@ class SourceFile(SourceObject):
 
     def __repr__(self):
         return self.id
+
+    def _ignore_parsers(self):
+        if self.language == "cpp":
+            return (_cpp_ignore_line, _cpp_ignore_next_line)
+        elif self.language == "py":
+            return (_py_ignore_line, _py_ignore_next_line)
+        return (_no_parser, _no_parser)
 
 
 class Package(SourceObject):
@@ -1354,6 +1370,25 @@ class WriteLink(ParameterPrimitive):
         return "Write({}, {}, {})".format(self.node.id, self.parameter.id,
                                           self.type)
 
+
+###############################################################################
+# Helper Functions
+###############################################################################
+
+def _cpp_ignore_line(line):
+    return "// haros:ignore-line" in line
+
+def _cpp_ignore_next_line(line):
+    return "// haros:ignore-next-line" in line
+
+def _py_ignore_line(line):
+    return "# haros:ignore-line" in line
+
+def _py_ignore_next_line(line):
+    return "# haros:ignore-next-line" in line
+
+def _no_parser(line):
+    return False
 
 
 

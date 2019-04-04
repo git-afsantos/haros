@@ -443,15 +443,30 @@ class HarosSettings(object):
             "parser_lib": "/usr/lib/llvm-3.8/lib",
             "std_includes": "/usr/lib/llvm-3.8/lib/clang/3.8.0/include",
             "compile_db": None  # path to file, None (default path) or False
+        },
+        "analysis": {
+            "ignore": {
+                "tags": [],
+                "rules": [],
+                "metrics": []
+            }
         }
     }
 
-    def __init__(self, env = None, blacklist = None, workspace = None,
-                 cpp_parser = None, cpp_includes = None, cpp_parser_lib = None,
-                 cpp_compile_db = None):
+    def __init__(self, env=None, blacklist=None, workspace=None,
+                 cpp_parser=None, cpp_includes=None, cpp_parser_lib=None,
+                 cpp_compile_db=None, ignored_tags=None, ignored_rules=None,
+                 ignored_metrics=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
         self.workspace = workspace or self.find_workspace()
+        self.ignored_tags = (ignored_tags
+                or list(self.DEFAULTS["analysis"]["ignore"]["tags"]))
+        self.ignored_rules = (ignored_rules
+                or list(self.DEFAULTS["analysis"]["ignore"]["rules"]))
+        self.ignored_metrics = (ignored_metrics
+                or list(self.DEFAULTS["analysis"]["ignore"]["metrics"]))
+        self.ignored_lines = {}
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
         self.cpp_includes = cpp_includes or self.DEFAULTS["cpp"]["std_includes"]
@@ -476,14 +491,21 @@ class HarosSettings(object):
             raise ValueError("invalid value for environment")
         blacklist = data.get("plugin_blacklist", [])
         workspace = data.get("workspace")
+        analysis = data.get("analysis", {})
+        analysis_ignored = analysis.get("ignore", {})
+        ignored_tags = analysis_ignored.get("tags")
+        ignored_rules = analysis_ignored.get("rules")
+        ignored_metrics = analysis_ignored.get("metrics")
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
         cpp_includes = cpp.get("std_includes")
         cpp_compile_db = cpp.get("compile_db")
-        return cls(env = env, blacklist = blacklist, workspace = workspace,
-                   cpp_parser = cpp_parser, cpp_parser_lib = cpp_parser_lib,
-                   cpp_includes = cpp_includes, cpp_compile_db = cpp_compile_db)
+        return cls(env=env, blacklist=blacklist, workspace=workspace,
+                   cpp_parser=cpp_parser, cpp_parser_lib=cpp_parser_lib,
+                   cpp_includes=cpp_includes, cpp_compile_db=cpp_compile_db,
+                   ignored_tags=ignored_tags, ignored_rules=ignored_rules,
+                   ignored_metrics=ignored_metrics)
 
     def find_workspace(self):
         """This replicates the behaviour of `roscd`."""
@@ -543,25 +565,42 @@ class HarosDatabase(LoggingObject):
         self.configurations.extend(project.configurations)
 
     # Used at startup to load the common rules and metrics
-    def load_definitions(self, data_file, prefix = ""):
+    def load_definitions(self, data_file, prefix="", ignored_tags=None,
+                         ignored_rules=None, ignored_metrics=None):
         self.log.debug("HarosDatabase.load_definitions(%s)", data_file)
         with open(data_file, "r") as handle:
             data = yaml.safe_load(handle)
-        self.register_rules(data.get("rules", {}), prefix = prefix)
-        self.register_metrics(data.get("metrics", {}), prefix = prefix)
+        rules = self.register_rules(data.get("rules", {}), prefix=prefix,
+                                    ignored_rules=ignored_rules,
+                                    ignored_tags=ignored_tags)
+        metrics = self.register_metrics(data.get("metrics", {}), prefix=prefix,
+                                        ignored_metrics=ignored_metrics)
+        return (rules, metrics)
 
-    def register_rules(self, rules, prefix = ""):
-        for id, rule in rules.iteritems():
-            rule_id = prefix + id
+    def register_rules(self, rules, prefix="", ignored_rules=None,
+                       ignored_tags=None):
+        allowed = []
+        for ident, rule in rules.iteritems():
+            rule_id = prefix + ident
+            tags = rule["tags"]
             self.log.debug("HarosDatabase.register rule " + rule_id)
             self.rules[rule_id] = Rule(rule_id, rule["name"],
                                        rule.get("scope", "global"),
-                                       rule["description"], rule["tags"],
-                                       query = rule.get("query"))
+                                       rule["description"], tags,
+                                       query=rule.get("query"))
+            if ignored_rules and rule_id in ignored_rules:
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            if ignored_tags and any(t in ignored_tags for t in tags):
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            allowed.append(rule_id)
+        return allowed
 
-    def register_metrics(self, metrics, prefix = ""):
-        for id, metric in metrics.iteritems():
-            metric_id = prefix + id
+    def register_metrics(self, metrics, prefix="", ignored_metrics=None):
+        allowed = []
+        for ident, metric in metrics.iteritems():
+            metric_id = prefix + ident
             minv = metric.get("min")
             minv = float(minv) if not minv is None else None
             maxv = metric.get("max")
@@ -571,6 +610,11 @@ class HarosDatabase(LoggingObject):
                                              metric.get("scope"),
                                              metric["description"],
                                              minv = minv, maxv = maxv)
+            if ignored_metrics and metric_id in ignored_metrics:
+                self.log.debug("Ignored metric: " + metric_id)
+                continue
+            allowed.append(metric_id)
+        return allowed
 
     def save_state(self, file_path):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)
