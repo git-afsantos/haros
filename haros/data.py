@@ -465,6 +465,7 @@ class HarosSettings(object):
                 or list(self.DEFAULTS["analysis"]["ignore"]["rules"]))
         self.ignored_metrics = (ignored_metrics
                 or list(self.DEFAULTS["analysis"]["ignore"]["metrics"]))
+        self.ignored_lines = {}
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
         self.cpp_includes = cpp_includes or self.DEFAULTS["cpp"]["std_includes"]

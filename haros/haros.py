@@ -524,6 +524,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
+        # NOTE: this updates settings with ignore-line comments
         extractor.index_source(settings = self.settings)
         self.project = extractor.project.name
         if not extractor.project.packages:
@@ -613,7 +614,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         analysis = AnalysisManager(self.database, temp_path, self.export_dir,
                                    pyflwor_dir=self.pyflwor_dir)
         try:
-            analysis.run(plugins, allowed_rules=rules, allowed_metrics=metrics)
+            analysis.run(plugins, allowed_rules=rules, allowed_metrics=metrics,
+                         ignored_lines=self.settings.ignored_lines)
             self.database.report = analysis.report
         finally:
             rmtree(temp_path)

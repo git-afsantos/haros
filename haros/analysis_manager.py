@@ -70,7 +70,8 @@ class AnalysisScopeError(Exception):
 class PluginInterface(LoggingObject):
     """Provides an interface for plugins to communicate with the framework."""
 
-    def __init__(self, data, reports, allowed_rules, allowed_metrics):
+    def __init__(self, data, reports, allowed_rules, allowed_metrics,
+                 ignored_lines):
         self.state = None
         self._data = data
         self._plugin = None
@@ -81,6 +82,7 @@ class PluginInterface(LoggingObject):
         self._buffer_metrics = None
         self._rules = allowed_rules
         self._metrics = allowed_metrics
+        self._lines = ignored_lines
 
     def get_file(self, relative_path):
         return os.path.join(self._plugin.path, relative_path)
@@ -105,6 +107,11 @@ class PluginInterface(LoggingObject):
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
+        if scope.id in self._lines:
+            ignored = self._lines[scope.id]
+            if line in ignored["*"]:
+                self.log.debug("ignored file/line (%s:%s)", scope.id, line)
+                return
         location = scope.location
         location.line = line
         location.function = function
@@ -130,6 +137,11 @@ class PluginInterface(LoggingObject):
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
+        if scope.id in self._lines:
+            ignored = self._lines[scope.id]
+            if line in ignored["*"]:
+                self.log.debug("ignored file/line (%s:%s)", scope.id, line)
+                return
         location = scope.location
         location.line = line
         location.function = function
@@ -350,7 +362,8 @@ class AnalysisManager(LoggingObject):
         self.export_dir = export_dir
         self.pyflwor_dir = pyflwor_dir
 
-    def run(self, plugins, allowed_rules=None, allowed_metrics=None):
+    def run(self, plugins, allowed_rules=None, allowed_metrics=None,
+            ignored_lines=None):
         self.log.info("Running plugins on collected data.")
         if allowed_rules is None:
             allowed_rules = set(self.database.rules)
@@ -361,7 +374,7 @@ class AnalysisManager(LoggingObject):
         reports = self._make_reports(project)
         self._execute_queries(reports, allowed_rules)
         iface = PluginInterface(self.database, reports,
-                                allowed_rules, allowed_metrics)
+                                allowed_rules, allowed_metrics, ignored_lines)
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
