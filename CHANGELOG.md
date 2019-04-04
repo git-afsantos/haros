@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.2.0] - 2019-04-04
+### Added
+- `~/.haros/configs.yaml` file can be used to ignore specific rules or tags.
+- C++ files can be annotated with `// haros:ignore-line` and `// haros:ignore-next-line` to exclude specific lines from analysis.
+- Python files can be annotated with `# haros:ignore-line` and `# haros:ignore-next-line` to exclude specific lines from analysis.
+
 ## [3.1.2] - 2019-03-20
 ### Added
 - `requirements.txt` file.
