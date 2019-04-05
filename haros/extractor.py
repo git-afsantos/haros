@@ -1025,6 +1025,23 @@ class NodeExtractor(LoggingObject):
             type_string = type_string[52:-25]
         return type_string.replace("::", "/")
 
+    def _extract_action(self, call):
+        if call.name == "SimpleActionServer" and len(call.arguments) >2:
+            arg = call.arguments[1]
+            if len(arg.pretty_str().split()) == 1 :
+                name = resolve_reference(arg)
+            else:
+                name = arg.pretty_str().split()[-1].replace("'", "")
+        elif call.name == "SimpleActionClient" and len(call.arguments) > 1:
+            name = call.arguments[0]
+        else: #FIXME
+            name = "?"
+        return name
+
+    def _extract_action_type(self, call):
+        type_string = call.template[0]
+        return type_string.replace("::", "/")
+
     def _extract_queue_size(self, call):
         queue_size = resolve_expression(call.arguments[1])
         if isinstance(queue_size, (int, long, float)):
