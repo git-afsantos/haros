@@ -367,14 +367,19 @@ class HarosInitRunner(HarosRunner):
         "index.yaml": "%YAML 1.1\n---\npackages: []\n",
         "configs.yaml": (
             "%YAML 1.1\n---\n"
-            " # workspace: '/path/to/ws'\n"
-            " # environment: null\n"
-            " # plugin_blacklist: []\n"
-            " # cpp:\n"
-            # " #    parser: clang,\n"
-            " #    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
-            " #    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
-            " #    compile_db: '/path/to/ws/build'\n"
+            "# workspace: '/path/to/ws'\n"
+            "# environment: null\n"
+            "# plugin_blacklist: []\n"
+            "# cpp:\n"
+            # "#    parser: clang,\n"
+            "#    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            "#    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
+            "#    compile_db: '/path/to/ws/build'\n"
+            "# analysis:\n"
+            "#    ignore:\n"
+            "#        tags: []\n"
+            "#        rules: []\n"
+            "#        metrics: []\n"
         ),
         "parse_cache.json": "{}",
         "plugins": {},

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.2.1] - 2019-04-12
+### Changed
+- Fixed the auto-generated `~/.haros/configs.yaml` to include the new sections to ignore rules and tags.
+
 ## [3.2.0] - 2019-04-04
 ### Added
 - `~/.haros/configs.yaml` file can be used to ignore specific rules or tags.
