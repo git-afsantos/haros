@@ -132,8 +132,31 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 
 If you do not perform this step and your library is installed in a different path,
 you will need to specify it in the configuration file located in
-`~/.haros/index.yaml`. This file becomes available after running the
+`~/.haros/configs.yaml`. This file becomes available after running the
 `init` command of HAROS (details below).
+
+The same applies if you want to use a version of `libclang.so` other than 3.8.
+Preliminary tests suggest that 3.9, 4.0, 5.0 and 6.0 also work (as long as
+the versions of `libclang-X.Y-dev` and Python's `clang` package match).
+
+**Example for version 4.0:**
+
+```bash
+[sudo] apt-get install libclang-4.0-dev
+[sudo] pip install -Iv clang==4.0
+```
+
+`~/.haros/configs.yaml`:
+
+```yaml
+%YAML 1.1
+---
+workspace: '/home/me/ros/ws'
+cpp:
+    parser_lib: '/usr/lib/llvm-4.0/lib'
+    std_includes: '/usr/lib/llvm-4.0/lib/clang/4.0.1/include'
+    compile_db: '/home/me/ros/ws/build'
+```
 
 Finally, you need to perform some initialisation operations.
 These operations include downloading a basic set of analysis plugins.
