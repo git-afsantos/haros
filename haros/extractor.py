@@ -965,6 +965,15 @@ class NodeExtractor(LoggingObject):
             n = call.arguments[0] if call.arguments else None
             self._on_subscription(node, self._resolve_node_handle(n),
                                   call, topic_pos = 1, queue_pos = 2)
+        self.log.debug("Looking for image_transport::Subscriber calls.")
+        for call in (CodeQuery(gs).all_calls.where_name("subscribe")
+                     .where_result("image_transport::Subscriber").get()):
+            self.log.debug("Found: %s", call.pretty_str())
+            self.log.debug("%s", type(call))
+            self.log.debug("%s", call.__dict__)
+            n = call.method_of if call.method_of else None
+            self._on_subscription(node, self._resolve_it_node_handle(n),
+                                  call, msg_type = "sensor_msgs/Image")
         self.log.debug("Looking for image_transport::Publisher.")
         for call in (CodeQuery(gs).all_calls.where_name("advertise")
                      .where_result("image_transport::Publisher").get()):
