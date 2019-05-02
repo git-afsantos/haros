@@ -1,5 +1,4 @@
-HAROS
-=====
+![HAROS](logo.png?raw=true "HAROS Logo")
 
 HAROS is a framework for static analysis of ROS-based code.
 It has been published in the IROS 2016 conference.
