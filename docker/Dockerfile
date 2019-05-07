@@ -40,7 +40,6 @@ RUN source /opt/ros/kinetic/setup.bash;\
  haros init
 
 COPY ./haros_call.sh /
-COPY ./index.yaml /root/.haros/index.yaml
 
 CMD []
 
