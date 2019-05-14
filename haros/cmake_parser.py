@@ -36,8 +36,17 @@
 
 from distutils.version import LooseVersion
 import glob
+import logging
 import os
 import re
+
+
+###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -368,7 +377,7 @@ class BuildTarget(object):
         # TODO elif prop == "<CONFIG>_OUTPUT_NAME":
 
 
-class RosCMakeParser(object):
+class RosCMakeParser(LoggingObject):
     def __init__(self, srcdir, bindir, pkgs = None, env = None, vars = None):
         self.parser = CMakeParser()
         self.source_dir = srcdir
@@ -458,7 +467,10 @@ class RosCMakeParser(object):
 
     def _process_include_directories(self, args):
         n = len(args)
-        assert n >= 1
+        if n == 0:
+            self.log.warning("Found 'include_directories' in CMake with "
+                             "no arguments, but expected at least one.")
+            return
         i = 0
         before = self.variables.get("CMAKE_INCLUDE_DIRECTORIES_BEFORE") == "ON"
         before = (before or args[0] == "BEFORE") and args[0] != "AFTER"
