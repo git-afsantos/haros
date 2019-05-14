@@ -26,9 +26,6 @@ RUN mkdir -p ~/catkin_ws/src
 # Set the working directory
 WORKDIR .
 
-# Copy the current directory contents into the container
-COPY . ~/catkin_ws
-
 ENV CMAKE_CXX_COMPILER /usr/lib/llvm-3.8/bin/clang++
 
 RUN source /opt/ros/kinetic/setup.bash;\
