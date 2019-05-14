@@ -39,5 +39,7 @@ RUN source /opt/ros/kinetic/setup.bash;\
 
 COPY ./haros_call.sh /
 
+EXPOSE 4000
+
 CMD []
 
