@@ -4,6 +4,7 @@ FROM ros:kinetic-ros-base
 RUN apt-get update && apt-get install -y \
     cppcheck \
     cccc \
+    clang-3.8 \
     libclang-3.8-dev \
     python-pip \
     llvm-3.8-dev \
