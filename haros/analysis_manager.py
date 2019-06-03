@@ -26,6 +26,7 @@
 
 import logging
 import os
+from pkg_resources import resource_filename
 import shutil
 import sys
 import traceback
@@ -85,7 +86,7 @@ class PluginInterface(LoggingObject):
         self._lines = ignored_lines
 
     def get_file(self, relative_path):
-        return os.path.join(self._plugin.path, relative_path)
+        return resource_filename(self._plugin.name, relative_path)
 
     def export_file(self, relative_path):
         # mark a file in the plugin's temporary directory as exportable

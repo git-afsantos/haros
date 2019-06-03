@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.3.0] - 2019-06-03
+### Changed
+- Plugins are no longer cloned and installed by HAROS. Instead they are distributed and installed as a `pip` requirement.
+- The plugin discovery mechanism had to change, in order to comply with the point above. Plugins are now discovered by naming convention (package names starting with `haros_plugin_`).
+
 ## [3.2.2] - 2019-05-14
 ### Changed
 - Fixed bug in CMake parser where `include_directories` expected at least one argument.

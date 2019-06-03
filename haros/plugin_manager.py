@@ -26,7 +26,8 @@
 import importlib
 import logging
 import os
-import sys
+import pkgutil
+from pkg_resources import resource_stream
 import yaml
 
 
@@ -170,10 +171,9 @@ class ExportInterface(LoggingObject):
 ###############################################################################
 
 class Plugin(LoggingObject):
-    def __init__(self, name, dir):
+    def __init__(self, name):
         self.name       = name
         self.version    = "0.1"
-        self.path       = dir
         self.rules      = None
         self.metrics    = None
         self.analysis   = None
@@ -183,9 +183,7 @@ class Plugin(LoggingObject):
 
     def load(self, common_rules = None, common_metrics = None):
         self.log.debug("Plugin.load")
-        manifest = os.path.join(self.path, "plugin.yaml")
-        self.log.debug("Plugin manifest at " + manifest)
-        with open(manifest, "r") as openfile:
+        with resource_stream(self.name, "plugin.yaml") as openfile:
             manifest = yaml.load(openfile)
         if (not "version" in manifest
                 or not "name" in manifest
@@ -207,7 +205,6 @@ class Plugin(LoggingObject):
                 self.log.warning("Plugin %s cannot override %s", self.name, id)
                 del self.metrics[id]
         self.log.info("Loading plugin script.")
-        self.log.debug("Plugin script at %s", self.path)
         module = importlib.import_module(self.name + ".plugin",
                                          package = self.name)
         languages = manifest.get("languages", [])
@@ -216,39 +213,33 @@ class Plugin(LoggingObject):
         self.export = ExportInterface()
 
     @classmethod
-    def load_plugins(cls, root, whitelist = None, blacklist = None,
+    def load_plugins(cls, whitelist = None, blacklist = None,
                      common_rules = None, common_metrics = None):
-        cls.log.debug("load_plugins(%s, %s, %s)", root, whitelist, blacklist)
+        cls.log.debug("load_plugins(%s, %s)", whitelist, blacklist)
         plugins = []
-        filter = []
+        pfilter = []
         mode = 0
         if whitelist:
-            filter = whitelist
+            pfilter = whitelist
             mode = 1
         elif blacklist:
-            filter = blacklist
+            pfilter = blacklist
             mode = -1
-        sys.path.insert(0, root)
-        for item in os.listdir(root):
-            if ((mode > 0 and not item in filter)
-                    or (mode < 0 and item in filter)
-                    or item.startswith(".")
-                    or item == "haros_util"):
+        for finder, name, ispkg in pkgutil.iter_modules():
+            if not name.startswith("haros_plugin_"):
                 continue
-            d = os.path.join(root, item)
-            cls.log.debug("Checking for plugins at %s", d)
-            if (os.path.isdir(d)
-                    and os.path.isfile(os.path.join(d, "plugin.yaml"))
-                    and os.path.isfile(os.path.join(d, "plugin.py"))):
-                plugin = cls(item, d)
-                try:
-                    plugin.load(common_rules = common_rules,
-                                common_metrics = common_metrics)
-                except MalformedManifestError as e:
-                    cls.log.warning(e.value)
-                except ImportError as e:
-                    cls.log.error("Failed to import %s; %s", item, e)
-                else:
-                    plugins.append(plugin)
-        sys.path.pop(0)
+            if mode > 0 and not name in pfilter:
+                continue
+            if mode < 0 and name in pfilter:
+                continue
+            plugin = cls(name)
+            try:
+                plugin.load(common_rules = common_rules,
+                            common_metrics = common_metrics)
+            except MalformedManifestError as e:
+                cls.log.warning(e.value)
+            except ImportError as e:
+                cls.log.error("Failed to import %s; %s", name, e)
+            else:
+                plugins.append(plugin)
         return plugins

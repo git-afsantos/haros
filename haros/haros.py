@@ -92,7 +92,6 @@ from argparse import ArgumentParser
 import json
 import logging
 import os
-import subprocess
 import tempfile
 
 from shutil import copyfile, rmtree
@@ -305,7 +304,6 @@ class HarosRunner(object):
 
     def __init__(self, haros_dir, log, run_from_source):
         self.root               = haros_dir
-        self.plugin_dir         = os.path.join(haros_dir, "plugins")
         self.repo_dir           = os.path.join(haros_dir, "repositories")
         self.export_dir         = os.path.join(haros_dir, "export")
         self.project_dir        = os.path.join(haros_dir, "projects")
@@ -361,8 +359,6 @@ class HarosRunner(object):
 ###############################################################################
 
 class HarosInitRunner(HarosRunner):
-    PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
-
     DIR_STRUCTURE = {
         "index.yaml": "%YAML 1.1\n---\npackages: []\n",
         "configs.yaml": (
@@ -382,7 +378,6 @@ class HarosInitRunner(HarosRunner):
             "#        metrics: []\n"
         ),
         "parse_cache.json": "{}",
-        "plugins": {},
         "repositories": {},
         "export": {},
         "projects": {
@@ -400,23 +395,8 @@ class HarosInitRunner(HarosRunner):
         if not os.path.exists(self.root):
             self.log.info("Creating %s", self.root)
             os.makedirs(self.root)
-        has_plugins = os.path.exists(self.plugin_dir)
         self._generate_dir(self.root, self.DIR_STRUCTURE)
         viz.install(self.viz_dir, self.run_from_source, force = True)
-        if has_plugins:
-            self.log.info("Updating plugin repository.")
-            wd = os.getcwd()
-            os.chdir(self.plugin_dir)
-            with open(os.devnull, "w") as devnull:
-                subprocess.check_call(["git", "rev-parse"], stdout = devnull,
-                                      stderr = subprocess.STDOUT)
-            self.log.debug("Executing git pull at %s.", self.plugin_dir)
-            subprocess.check_call(["git", "pull"])
-            os.chdir(wd)
-        else:
-            self.log.info("Cloning plugin repository.")
-            subprocess.check_call(["git", "clone",
-                                   self.PLUGIN_REPOSITORY, self.plugin_dir])
         return True
 
 
@@ -593,8 +573,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         metrics.update(ms)
         print "[HAROS] Loading plugins..."
         blacklist = self.blacklist or self.settings.plugin_blacklist
-        plugins = Plugin.load_plugins(self.plugin_dir,
-                                      whitelist=self.whitelist,
+        plugins = Plugin.load_plugins(whitelist=self.whitelist,
                                       blacklist=blacklist,
                                       common_rules=self.database.rules,
                                       common_metrics=self.database.metrics)
