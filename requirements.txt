@@ -1,6 +1,5 @@
 pyflwor_ext>=1.2
 rospkg>=1.1.4
-rosgraph
 bonsai_code>=0.4.5
 setuptools>=20.7.0
 PyYAML>=3.13,<4.0
