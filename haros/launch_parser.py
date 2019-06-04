@@ -27,8 +27,6 @@ import os
 import re
 import xml.etree.ElementTree as ET
 
-import rosgraph.names
-
 
 ###############################################################################
 # Notes to Self
@@ -236,7 +234,7 @@ class SubstitutionParser(object):
         name = parts[1]
         if name in self.anonymous:
             return self.anonymous[name]
-        value = rosgraph.names.anonymous_name(name)
+        value = self._anonymous_name(name)
         self.anonymous[name] = value
         return value
 
@@ -261,6 +259,19 @@ class SubstitutionParser(object):
 
     def _eval(self, parts):
         raise SubstitutionError("eval must appear at the start")
+
+    def _anonymous_name(self, name):
+        try:
+            from rosgraph.names import anonymous_name
+            return anonymous_name(name)
+        except ImportError:
+            import random, socket, sys, warnings
+            warnings.warn("Could not import the 'rosgraph' package; "
+                          "resorting to fallback behaviour.")
+            # Behaviour copied from rosgraph.names
+            name = "{}_{}_{}_{}".format(name, socket.gethostname(),
+                os.getpid(), random.randint(0, sys.maxsize))
+            return name.replace('.', '_').replace('-', '_').replace(':', '_')
 
 
 ###############################################################################
