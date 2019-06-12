@@ -676,7 +676,41 @@ class RosName(object):
 
     @property
     def pattern(self):
-        return self._name.replace("?", "(.+?)") + "$"
+        parts = []
+        prev = ""
+        n = len(self._name)
+        i = 0
+        if self._name == "?":
+            return ".+$"
+        if self._name[0] == "?":
+            parts.append("(.*?)")
+            i = 1
+            prev = "?"
+            assert self._name[1] != "?"
+        for j in xrange(i, n):
+            if self._name[j] == "?":
+                assert prev != "?"
+                if prev == "/":
+                    if j == n - 1: # self._name.endswith("/?")
+                        # end, whole part for sure
+                        parts.append(self._name[i:j])
+                        parts.append("(.+?)")
+                    elif self._name[j+1] == "/": # "/?/"
+                        # start and middle, whole parts
+                        parts.append(self._name[i:j-1])
+                        parts.append("(/.+?)?")
+                    else: # "/?a", optional part
+                        parts.append(self._name[i:j])
+                        parts.append("(.*?)")
+                else: # "a?/", "a?a", "/a?", optional part
+                    parts.append(self._name[i:j])
+                    parts.append("(.*?)")
+                i = j + 1
+            prev = self._name[j]
+        if i < n:
+            parts.append(self._name[i:])
+        parts.append("$")
+        return "".join(parts)
 
     @staticmethod
     def resolve(name, ns = "/", private_ns = ""):

@@ -345,8 +345,12 @@ class LaunchScope(LoggingObject):
     def _pattern_match(self, pattern, rtype, collection):
         candidates = []
         for resource in collection:
+            self.log.debug("[?] pattern_match: '%s' (%s), '%s' (%s)",
+                           pattern, rtype, resource.rosname.full,
+                           resource.type)
             if re.match(pattern, resource.rosname.full):
                 if resource.type == rtype:
+                    self.log.debug("[+] found a match")
                     candidates.append(resource)
         return candidates
 
@@ -583,12 +587,16 @@ class ConfigurationHints(LoggingObject):
 
     @classmethod
     def make_hints(cls, hints, scope):
-        cls.log.debug("making hints for node %s", scope.node.rosname.full)
+        node_name = scope.node.rosname.full
+        cls.log.debug("making hints for node %s", node_name)
         instance = cls()
         pns = scope.private_ns
         hints = hints or cls.defaults
+        no_hints = {}
         for key, rcls in cls.hint_types:
-            for name, type in hints.get(key, {}).iteritems():
+            for name, msg_type in hints.get(key, no_hints).iteritems():
+                if not instance._valid_msg_type(msg_type, node_name):
+                    continue
                 parts = name.rsplit("/", 1)
                 own_name = parts[-1]
                 ns = parts[0] if len(parts) > 1 else "/"
@@ -596,7 +604,7 @@ class ConfigurationHints(LoggingObject):
                 rosname = RosName(own_name, scope.resolve_ns(ns), pns)
                 cls.log.debug("%s hint: %s", key, rosname.full)
                 getattr(instance, key).append(rcls(scope.configuration, rosname,
-                                                   message_type = type))
+                                                   message_type=msg_type))
         return instance
 
     def make_missing_links(self, scope):
@@ -662,6 +670,20 @@ class ConfigurationHints(LoggingObject):
                     link.node.clients.append(link)
                     link.service.clients.append(link)
                     link.service.conditions.extend(link.node.conditions)
+
+    def _valid_msg_type(self, msg_type, node_name):
+        parts = msg_type.split("::")
+        if len(parts) > 1:
+            self.log.error("Invalid message type hint for node '%s': '%s'; "
+                           "do not use the 'pkg::Msg' format, "
+                           "use 'pkg/Msg' instead.", node_name, msg_type)
+            return False
+        parts = msg_type.split("/")
+        if not len(parts) == 2:
+            self.log.error("Invalid message type hint for node '%s': '%s'; "
+                           "use the 'pkg/Msg' format.", node_name, msg_type)
+            return False
+        return True
 
 
 class ConfigurationBuilder(LoggingObject):

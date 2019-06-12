@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.3.3] - 2019-06-12
+### Changed
+- Dependency on `rosgraph` is now optional.
+- Fixed a bug that prevented unresolved namespaces to match with valid extraction hints (e.g. `/?/topic` would not match with a `topic` hint).
+
 ## [3.3.0] - 2019-06-03
 ### Changed
 - Plugins are no longer cloned and installed by HAROS. Instead they are distributed and installed as a `pip` requirement.
