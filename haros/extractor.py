@@ -26,6 +26,7 @@
 import logging
 from operator import attrgetter
 import os
+import re
 import subprocess
 from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
@@ -800,18 +801,73 @@ class NodeExtractor(LoggingObject):
         self._query_param_primitives(node, parser.global_scope)
 
     def _query_comm_primitives(self, node, gs):
-        for call in (CodeQuery(gs).all_calls.where_name("advertise")
-                     .where_result("ros::Publisher").get()):
-            self._on_publication(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(gs).all_calls.where_name("subscribe")
-                     .where_result("ros::Subscriber").get()):
-            self._on_subscription(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(gs).all_calls.where_name("advertiseService")
-                     .where_result("ros::ServiceServer").get()):
-            self._on_service(node, self._resolve_node_handle(call), call)
-        for call in (CodeQuery(gs).all_calls.where_name("serviceClient")
-                     .where_result("ros::ServiceClient").get()):
-            self._on_client(node, self._resolve_node_handle(call), call)
+        for call in CodeQuery(gs).all_calls.where_name("advertise").get():
+            if call.canonical_type != "ros::Publisher":
+                continue
+            self._on_publication(node,
+                self._resolve_node_handle(call.method_of), call)
+        for call in CodeQuery(gs).all_calls.where_name("subscribe").get():
+            if call.canonical_type != "ros::Subscriber":
+                continue
+            self._on_subscription(node,
+                self._resolve_node_handle(call.method_of), call)
+        for call in CodeQuery(gs).all_calls.where_name("advertiseService").get():
+            if call.canonical_type != "ros::ServiceServer":
+                continue
+            self._on_service(node,
+                self._resolve_node_handle(call.method_of), call)
+        for call in CodeQuery(gs).all_calls.where_name("serviceClient").get():
+            if call.canonical_type != "ros::ServiceClient":
+                continue
+            self._on_client(node,
+                self._resolve_node_handle(call.method_of), call)
+        self.log.debug("Looking for image_transport::SubscriberFilter calls.")
+        for call in CodeQuery(gs).all_calls.where_name("SubscriberFilter").get():
+            self.log.debug("Found: %s", call.pretty_str())
+            self.log.debug("%s", type(call))
+            self.log.debug("%s", call.__dict__)
+            if isinstance(call.reference, str):
+                if not call.reference.startswith("c:@N@image_transport@S@SubscriberFilter"):
+                    continue
+            if not "image_transport::SubscriberFilter" in call.canonical_type:
+                continue
+            n = call.arguments[0] if call.arguments else None
+            self._on_subscription(node, self._resolve_it_node_handle(n),
+                                  call, topic_pos = 1, queue_pos = 2,
+                                  msg_type = "sensor_msgs/Image")
+        self.log.debug("Looking for message_filters::Subscriber calls.")
+        for call in CodeQuery(gs).all_calls.where_name("Subscriber").get():
+            self.log.debug("Found: %s", call.pretty_str())
+            self.log.debug("%s", type(call))
+            self.log.debug("%s", call.__dict__)
+            if isinstance(call.reference, str):
+                if not call.reference.startswith("c:@N@message_filters@S@Subscriber"):
+                    continue
+            if not "message_filters::Subscriber" in call.canonical_type:
+                continue
+            n = call.arguments[0] if call.arguments else None
+            self._on_subscription(node, self._resolve_node_handle(n),
+                                  call, topic_pos = 1, queue_pos = 2)
+        self.log.debug("Looking for image_transport::Subscriber calls.")
+        for call in CodeQuery(gs).all_calls.where_name("subscribe").get():
+            if call.canonical_type != "image_transport::Subscriber":
+                continue
+            self.log.debug("Found: %s", call.pretty_str())
+            self.log.debug("%s", type(call))
+            self.log.debug("%s", call.__dict__)
+            n = call.method_of if call.method_of else None
+            self._on_subscription(node, self._resolve_it_node_handle(n),
+                                  call, msg_type = "sensor_msgs/Image")
+        self.log.debug("Looking for image_transport::Publisher.")
+        for call in CodeQuery(gs).all_calls.where_name("advertise").get():
+            if call.canonical_type != "image_transport::Publisher":
+                continue
+            self.log.debug("Found: %s", call.pretty_str())
+            self.log.debug("%s", type(call))
+            self.log.debug("%s", call.__dict__)
+            n = call.method_of if call.method_of else None
+            self._on_publication(node, self._resolve_it_node_handle(n),
+                                 call, msg_type = "sensor_msgs/Image")
 
     def _query_nh_param_primitives(self, node, gs):
         nh_prefix = "c:@N@ros@S@NodeHandle@"
@@ -820,13 +876,15 @@ class NodeExtractor(LoggingObject):
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                self._on_read_param(node, self._resolve_node_handle(call), call)
+                self._on_read_param(node,
+                    self._resolve_node_handle(call.method_of), call)
         writes = ("setParam", "deleteParam")
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                self._on_write_param(node, self._resolve_node_handle(call), call)
+                self._on_write_param(node,
+                    self._resolve_node_handle(call.method_of), call)
 
     def _query_param_primitives(self, node, gs):
         ros_prefix = "c:@N@ros@N@param@"
@@ -855,12 +913,13 @@ class NodeExtractor(LoggingObject):
                         and call.reference.startswith(ros_prefix))):
                 self._on_write_param(node, "", call)
 
-    def _on_publication(self, node, ns, call):
+    def _on_publication(self, node, ns, call, topic_pos = 0, queue_pos = 1,
+                        msg_type = None):
         if len(call.arguments) <= 1:
             return
-        name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call)
-        queue_size = self._extract_queue_size(call)
+        name = self._extract_topic(call, topic_pos = topic_pos)
+        msg_type = msg_type or self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call, queue_pos = queue_pos)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location = location)
@@ -871,12 +930,13 @@ class NodeExtractor(LoggingObject):
         node.advertise.append(pub)
         self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
-    def _on_subscription(self, node, ns, call):
+    def _on_subscription(self, node, ns, call, topic_pos = 0, queue_pos = 1,
+                         msg_type = None):
         if len(call.arguments) <= 1:
             return
-        name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call)
-        queue_size = self._extract_queue_size(call)
+        name = self._extract_topic(call, topic_pos = topic_pos)
+        msg_type = msg_type or self._extract_message_type(call)
+        queue_size = self._extract_queue_size(call, queue_pos = queue_pos)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location = location)
@@ -958,9 +1018,9 @@ class NodeExtractor(LoggingObject):
         return Location(self.package, file = source_file,
                         line = call.line, fun = function)
 
-    def _resolve_node_handle(self, call):
+    def _resolve_node_handle(self, value):
         ns = "?"
-        value = resolve_reference(call.method_of) if call.method_of else None
+        value = resolve_reference(value) if value else None
         if not value is None:
             if isinstance(value, CppFunctionCall):
                 if value.name == "NodeHandle":
@@ -983,15 +1043,27 @@ class NodeExtractor(LoggingObject):
                     ns = "~"
         return ns
 
-    def _extract_topic(self, call):
-        name = resolve_expression(call.arguments[0])
+    def _resolve_it_node_handle(self, value):
+        value = resolve_expression(value)
+        if (isinstance(value, CppFunctionCall)
+                and value.name == "ImageTransport"):
+            return self._resolve_node_handle(value.arguments[0])
+        return "?"
+
+    def _extract_topic(self, call, topic_pos = 0):
+        name = resolve_expression(call.arguments[topic_pos])
         if not isinstance(name, basestring):
             name = "?"
-        return name
+        return name or "?"
 
     def _extract_message_type(self, call):
         if call.template:
-            return call.template[0].replace("::", "/")
+            template = call.template[0]
+            std_alloc = re.search("_<std::allocator<void>", template)
+            if std_alloc is not None:
+                template = template[:std_alloc.start()]
+            assert re.match(r"\w+::\w+$", template)
+            return template.replace("::", "/")
         if call.name != "subscribe" and call.name != "advertiseService":
             return "?"
         callback = call.arguments[2] if call.name == "subscribe" \
@@ -1025,8 +1097,8 @@ class NodeExtractor(LoggingObject):
             type_string = type_string[52:-25]
         return type_string.replace("::", "/")
 
-    def _extract_queue_size(self, call):
-        queue_size = resolve_expression(call.arguments[1])
+    def _extract_queue_size(self, call, queue_pos = 1):
+        queue_size = resolve_expression(call.arguments[queue_pos])
         if isinstance(queue_size, (int, long, float)):
             return queue_size
         return None
