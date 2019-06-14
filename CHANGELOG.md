@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.4.0] - 2019-06-14
+### Changed
+- The model extraction process should now be able to resolve `typedef`s.
+
+### Added
+- Support to extract `image_transport::SubscriberFilter` calls.
+- Support to extract `message_filters::Subscriber` calls.
+- Support to extract `image_transport::Subscriber` calls.
+- Support to extract `image_transport::Publisher` calls.
+
 ## [3.3.3] - 2019-06-12
 ### Changed
 - Dependency on `rosgraph` is now optional.
