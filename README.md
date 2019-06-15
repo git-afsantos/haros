@@ -96,11 +96,11 @@ from anywhere.
 Before running any kind of analysis, you need to install some analysis tools and plugins that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
 
-For each *req* in [requirements.txt](requirements.txt):
+Python [requirements](requirements.txt):
 *(Not necessary if you install HAROS from `pip`)*
 
 ```bash
-pip install req
+pip install -r requirements.txt
 ```
 
 Additional analysis tools:
