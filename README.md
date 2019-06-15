@@ -20,7 +20,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is still being developed, as of October 2018.
+HAROS is still being developed, as of June 2019.
 
 There is a demo page available on [GitHub](https://git-afsantos.github.io/haros) and a demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
 
@@ -32,7 +32,7 @@ Installation
 
 Here are some instructions to help you get HAROS running in your machine.
 This assumes that you already have a **working installation of ROS**.
-HAROS has been tested with *ROS Indigo* and *ROS Kinetic*, on
+HAROS has been tested with *ROS Indigo*, *ROS Kinetic* and *ROS Melodic*, on
 *Linux Mint* and *Linux Ubuntu*. These setups should provide you with
 most of the basic dependencies of HAROS, namely **Python 2.7**
 and a **Web browser** (if you want to use the visualiser).
@@ -81,7 +81,7 @@ it from source or from a wheel.
 [sudo] pip install haros
 ```
 
-The above command will install HAROS for you. Alternatively, download and extract its
+The command above will install HAROS for you. Alternatively, download and extract its
 source, move to the project's root directory, and then execute the following.
 
 ```bash
@@ -93,8 +93,17 @@ from anywhere.
 
 ### Requirements
 
-Before running any kind of analysis, you need to install some analysis tools that HAROS
+Before running any kind of analysis, you need to install some analysis tools and plugins that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
+
+For each *req* in [requirements.txt](requirements.txt):
+*(Not necessary if you install HAROS from `pip`)*
+
+```bash
+pip install req
+```
+
+Additional analysis tools:
 
 ```bash
 [sudo] apt-get install cppcheck
@@ -157,9 +166,7 @@ cpp:
     compile_db: '/home/me/ros/ws/build'
 ```
 
-Finally, you need to perform some initialisation operations.
-These operations include downloading a basic set of analysis plugins.
-Do so with:
+Finally, you need to perform some initialisation operations. Do so with:
 
 ```bash
 haros init
@@ -260,7 +267,7 @@ Below you can find the basic commands that HAROS provides.
 
 ### haros init
 
-This command runs initialisation and setup operations. This command needs to be run before the first analysis takes place. You can also run this command later on when you update HAROS.
+This command runs setup operations. This command will **create directories** and **overwrite some files** (if there are some already with the same name).
 
 ### haros analyse
 
