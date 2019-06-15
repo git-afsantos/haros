@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.5.0] - 2019-06-15
+### Added
+- Added the `--home` option to the base `haros` command. This option receives a directory as argument, to use in place of the default `$HOME/.haros` data directory. It is useful, for instance, to have multiple settings profiles.
+
+### Changed
+- All commands (`haros analyse`, `haros export`, etc.) perform the necessary setup operations formerly performed with `haros init`.
+- `haros init` is no longer required before the first run of HAROS, and it is now used just to reset the `~/.haros` directory (or any other given with `--home`) to a fresh state.
+
 ## [3.4.1] - 2019-06-15
 ### Changed
 - Improved extraction accuracy for a specific case in C++ where primitives are called within a constructor and the `NodeHandle` is a default-initialized class member.
