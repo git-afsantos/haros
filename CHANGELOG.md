@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.4.1] - 2019-06-15
+### Changed
+- Improved extraction accuracy for a specific case in C++ where primitives are called within a constructor and the `NodeHandle` is a default-initialized class member.
+
 ## [3.4.0] - 2019-06-14
 ### Changed
 - The model extraction process should now be able to resolve `typedef`s.

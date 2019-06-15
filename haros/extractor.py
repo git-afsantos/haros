@@ -1041,6 +1041,8 @@ class NodeExtractor(LoggingObject):
                     ns = ""
                 elif value.name == "getPrivateNodeHandle":
                     ns = "~"
+            elif isinstance(value, CppDefaultArgument):
+                ns = ""
         return ns
 
     def _resolve_it_node_handle(self, value):
