@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.5.1] - 2019-06-17
+### Changed
+- Fixed an issue where packages had to be included for analysis (with source available) for nodes belonging to such packages, appearing in a launch file, to appear in extracted models.
+
 ## [3.5.0] - 2019-06-15
 ### Added
 - Added the `--home` option to the base `haros` command. This option receives a directory as argument, to use in place of the default `$HOME/.haros` data directory. It is useful, for instance, to have multiple settings profiles.
