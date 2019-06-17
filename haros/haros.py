@@ -514,7 +514,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                     node_cache = json.load(f)
             except IOError as e:
                 self.log.warning("Could not read parsing cache: %s", e)
-        configs, env = self._extract_metamodel(node_cache)
+        configs, env = self._extract_metamodel(node_cache, rules)
         self._load_database()
         self._extract_configurations(self.database.project, configs, env)
         self._analyse(plugins, rules, metrics)
@@ -522,7 +522,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.database = None
         return True
 
-    def _extract_metamodel(self, node_cache):
+    def _extract_metamodel(self, node_cache, rules):
         print "[HAROS] Reading project and indexing source code..."
         self.log.debug("Project file %s", self.project_file)
         env = dict(os.environ) if self.copy_env else self.settings.environment
@@ -541,7 +541,10 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
-        self.database.register_rules(extractor.rules, prefix = "user:")
+        rs = self.database.register_rules(extractor.rules, prefix="user:",
+            ignored_rules=self.settings.ignored_rules,
+            ignored_tags=self.settings.ignored_tags)
+        rules.update(rs) # FIXME this is a hammer
         return extractor.configurations, env
 
     def _extract_configurations(self, project, configs, environment):

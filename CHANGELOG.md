@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 N/A
 
+## [3.5.2] - 2019-06-17
+### Changed
+- Fixed a bug where user-defined queries were being ignored.
+
 ## [3.5.1] - 2019-06-17
 ### Changed
 - Fixed an issue where packages had to be included for analysis (with source available) for nodes belonging to such packages, appearing in a launch file, to appear in extracted models.
