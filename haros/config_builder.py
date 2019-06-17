@@ -44,6 +44,7 @@ import yaml
 
 rosparam = None # lazy import
 
+from .extractor import PackageExtractor
 from .launch_parser import SubstitutionError, SubstitutionParser
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
@@ -693,6 +694,7 @@ class ConfigurationBuilder(LoggingObject):
         self.errors = []
         self.hints = hints if not hints is None else {}
         self._future = []
+        self._pkg_finder = PackageExtractor() # FIXME should this be given?
 
     def add_launch(self, launch_file):
         assert launch_file.language == "launch"
@@ -873,7 +875,18 @@ class ConfigurationBuilder(LoggingObject):
         node = self.sources.nodes.get("node:" + pkg + "/" + exe)
         package = self.sources.packages.get("package:" + pkg)
         if not package:
-            raise ConfigurationError("cannot find package: " + pkg)
+            assert not node
+            package = self._find_package(pkg)
         if not node:
             node = Node(exe, package, rosname = RosName("?"), nodelet = exe)
         return node
+
+    def _find_package(self, name):
+        # FIXME this is a hammer
+        for pkg in self._pkg_finder.packages:
+            if pkg.name == name:
+                return pkg
+        pkg = self._pkg_finder.find_package(name)
+        if pkg is None:
+            raise ConfigurationError("cannot find package: " + name)
+        return pkg
