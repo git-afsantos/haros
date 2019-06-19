@@ -514,9 +514,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
                     node_cache = json.load(f)
             except IOError as e:
                 self.log.warning("Could not read parsing cache: %s", e)
-        configs, env = self._extract_metamodel(node_cache, rules)
+        configs, nodes, env = self._extract_metamodel(node_cache, rules)
         self._load_database()
-        self._extract_configurations(self.database.project, configs, env)
+        self._extract_configurations(self.database.project, configs, nodes, env)
         self._analyse(plugins, rules, metrics)
         self._save_results(node_cache)
         self.database = None
@@ -545,16 +545,16 @@ class HarosAnalyseRunner(HarosCommonExporter):
             ignored_rules=self.settings.ignored_rules,
             ignored_tags=self.settings.ignored_tags)
         rules.update(rs) # FIXME this is a hammer
-        return extractor.configurations, env
+        return extractor.configurations, extractor.node_specs, env
 
-    def _extract_configurations(self, project, configs, environment):
+    def _extract_configurations(self, project, configs, nodes, environment):
         for name, data in configs.iteritems():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
                 launch_files = data if isinstance(data, list) else data["launch"]
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
-                                               hints = data.get("hints"))
+                    nodes=nodes, hints=data.get("hints"))
                 launch_files = data["launch"]
             for launch_file in launch_files:
                 parts = launch_file.split(os.sep, 1)

@@ -86,6 +86,7 @@ class ProjectExtractor(LoggingObject):
         self.missing = None
         self.repositories = None
         self.configurations = None
+        self.node_specs = None
         self.rules = None
 
     def index_source(self, settings=None):
@@ -115,6 +116,7 @@ class ProjectExtractor(LoggingObject):
                             or RosPack.get_instance(["."]).list())
         self.missing = set(self.packages)
         self.configurations = data.get("configurations", {})
+        self.node_specs = data.get("nodes", {})
         self.rules = data.get("rules", {})
 
     def _load_user_repositories(self):

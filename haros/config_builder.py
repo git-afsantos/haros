@@ -688,10 +688,12 @@ class ConfigurationHints(LoggingObject):
 
 
 class ConfigurationBuilder(LoggingObject):
-    def __init__(self, name, environment, source_finder, hints = None):
+    def __init__(self, name, environment, source_finder,
+                 nodes=None, hints=None):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
+        self.node_specs = nodes if nodes is not None else {}
         self.hints = hints if not hints is None else {}
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
@@ -703,11 +705,10 @@ class ConfigurationBuilder(LoggingObject):
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
-        sub = SubstitutionParser(env = config.environment,
-                                 pkgs = self.sources.packages,
-                                 dirname = launch_file.dir_path,
-                                 pkg_depends = config.dependencies.packages,
-                                 env_depends = config.dependencies.environment)
+        sub = SubstitutionParser(env=config.environment,
+            pkgs=self.sources.packages, dirname=launch_file.dir_path,
+            pkg_depends=config.dependencies.packages,
+            env_depends=config.dependencies.environment)
         scope = LaunchScope(None, self.configuration, launch_file,
                             args = sub.arguments)
         self._analyse_tree(launch_file.tree, scope, sub)
@@ -742,7 +743,7 @@ class ConfigurationBuilder(LoggingObject):
         ns = sub.resolve(tag.namespace, strict = True)
         new_scope = scope.make_node(node, name, ns, args, condition)
         self._analyse_tree(tag, new_scope, sub)
-        hints = self.hints.get(new_scope.node.rosname.full)
+        hints = self._merge_hints(node.node_name, new_scope.node.rosname.full)
         config_hints = ConfigurationHints.make_hints(hints, new_scope)
         new_scope.make_topics(advertise = config_hints.advertise,
                               subscribe = config_hints.subscribe)
@@ -890,3 +891,27 @@ class ConfigurationBuilder(LoggingObject):
         if pkg is None:
             raise ConfigurationError("cannot find package: " + name)
         return pkg
+
+    def _merge_hints(self, node_name, instance_name):
+        self.log.debug("merging hints for %s (%s)", instance_name, node_name)
+        node_hints = self.node_specs.get(node_name)
+        cfg_hints = self.hints.get(instance_name)
+        if node_hints is None:
+            self.log.debug("Using configuration hints: %s", cfg_hints)
+            return cfg_hints
+        if cfg_hints is None:
+            self.log.debug("Using node hints: %s", node_hints)
+            return node_hints
+        hints = {}
+        for key in ConfigurationHints.defaults:
+            result = {}
+            value = node_hints.get(key)
+            if value is not None:
+                result.update(value)
+            value = cfg_hints.get(key)
+            if value is not None:
+                result.update(value)
+            if result:
+                hints[key] = result
+        self.log.debug("Using mixed hints: %s", hints)
+        return hints
