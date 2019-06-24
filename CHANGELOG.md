@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.4] - 2019-06-24
+### Changed
+- Fixed a bug that caused the wrong default project file to be loaded when using the `--home` option.
+
 ## [3.5.3] - 2019-06-24
 ### Added
 - A new section in project files, `nodes`, where users can provide extraction hints for nodes outside of the scope of a particular configuration. This avoids duplication of hints across similar configurations.

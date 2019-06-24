@@ -174,9 +174,10 @@ class HarosLauncher(object):
     def command_analyse(self, args):
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        if not os.path.isfile(args.project_file):
-            raise ValueError("Not a file: " + args.project_file)
-        analyse = HarosAnalyseRunner(self.haros_dir, args.project_file,
+        project_file = args.project_file or self.index_path
+        if not os.path.isfile(project_file):
+            raise ValueError("Not a file: " + project_file)
+        analyse = HarosAnalyseRunner(self.haros_dir, project_file,
                                      args.data_dir, args.whitelist,
                                      args.blacklist, log = self.log,
                                      run_from_source = self.run_from_source,
@@ -233,7 +234,6 @@ class HarosLauncher(object):
                             help = ("visualisation host "
                                     "(default: \"localhost:8080\")"))
         parser.add_argument("-p", "--project-file",
-                            default = self.index_path,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
         parser.add_argument("-n", "--parse-nodes", action = "store_true",
@@ -257,7 +257,6 @@ class HarosLauncher(object):
         parser.add_argument("-r", "--use-repos", action = "store_true",
                             help = "use repository information")
         parser.add_argument("-p", "--project-file",
-                            default = self.index_path,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
         parser.add_argument("-n", "--parse-nodes", action = "store_true",
@@ -285,7 +284,7 @@ class HarosLauncher(object):
         parser.set_defaults(command = self.command_export)
 
     def _viz_parser(self, parser):
-        parser.add_argument("-d", "--data-dir", default = self.viz_dir,
+        parser.add_argument("-d", "--data-dir",
                             help = "served data directory")
         parser.add_argument("-s", "--server-host", default = "localhost:8080",
                             help = ("visualisation host "
