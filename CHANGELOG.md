@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.5.3] - 2019-06-24
 ### Added
 - A new section in project files, `nodes`, where users can provide extraction hints for nodes outside of the scope of a particular configuration. This avoids duplication of hints across similar configurations.
+
+### Changed
+- Fixed a minor bug during error handling that would cause the wrong error to be reported.
 
 ## [3.5.2] - 2019-06-17
 ### Changed
