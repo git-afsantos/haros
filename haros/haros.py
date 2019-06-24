@@ -175,7 +175,7 @@ class HarosLauncher(object):
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         if not os.path.isfile(args.project_file):
-            raise ValueError("Not a file: " + args.package_index)
+            raise ValueError("Not a file: " + args.project_file)
         analyse = HarosAnalyseRunner(self.haros_dir, args.project_file,
                                      args.data_dir, args.whitelist,
                                      args.blacklist, log = self.log,
