@@ -123,6 +123,34 @@ class HarosLauncher(object):
     LOG_PATH = os.path.join(HAROS_DIR, "log.txt")
     VIZ_DIR = os.path.join(HAROS_DIR, "viz")
 
+    DIR_STRUCTURE = {
+        "index.yaml": "%YAML 1.1\n---\npackages: []\n",
+        "configs.yaml": (
+            "%YAML 1.1\n---\n"
+            "# workspace: '/path/to/ws'\n"
+            "# environment: null\n"
+            "# plugin_blacklist: []\n"
+            "# cpp:\n"
+            # "#    parser: clang,\n"
+            "#    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            "#    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
+            "#    compile_db: '/path/to/ws/build'\n"
+            "# analysis:\n"
+            "#    ignore:\n"
+            "#        tags: []\n"
+            "#        rules: []\n"
+            "#        metrics: []\n"
+        ),
+        "parse_cache.json": "{}",
+        "repositories": {},
+        "export": {},
+        "projects": {
+            "default": {}
+        },
+        "pyflwor": {}
+        # viz is generated on viz.install
+    }
+
     def __init__(self, run_from_source=False):
         self.log = logging.getLogger()
         self.run_from_source = run_from_source
@@ -161,17 +189,16 @@ class HarosLauncher(object):
 
     def command_init(self, args):
         if not self.initialised:
-            init = HarosInitRunner(self.haros_dir, self.log,
-                                   self.run_from_source)
-            if not init.run():
-                return False
-            self.initialised = True
+            self.initialised = self._init_haros_dir(overwrite=True)
+            return self.initialised
         return True
 
     def command_full(self, args):
         return self.command_analyse(args) and self.command_viz(args)
 
     def command_analyse(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         project_file = args.project_file or self.index_path
@@ -188,6 +215,8 @@ class HarosLauncher(object):
         return analyse.run()
 
     def command_export(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
         export = HarosExportRunner(self.haros_dir, args.data_dir,
@@ -197,6 +226,8 @@ class HarosLauncher(object):
         return export.run()
 
     def command_viz(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
         data_dir = args.data_dir or self.viz_dir
         if not os.path.isdir(data_dir):
             raise ValueError("Not a directory: " + data_dir)
@@ -300,66 +331,17 @@ class HarosLauncher(object):
             self.log_path = os.path.join(self.haros_dir, "log.txt")
             self.viz_dir = os.path.join(self.haros_dir, "viz")
 
-
-###############################################################################
-#   Base Command Runner
-###############################################################################
-
-class HarosRunner(object):
-    """This is a base class for the specific commands that HAROS provides."""
-
-    DIR_STRUCTURE = {
-        "index.yaml": "%YAML 1.1\n---\npackages: []\n",
-        "configs.yaml": (
-            "%YAML 1.1\n---\n"
-            "# workspace: '/path/to/ws'\n"
-            "# environment: null\n"
-            "# plugin_blacklist: []\n"
-            "# cpp:\n"
-            # "#    parser: clang,\n"
-            "#    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
-            "#    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
-            "#    compile_db: '/path/to/ws/build'\n"
-            "# analysis:\n"
-            "#    ignore:\n"
-            "#        tags: []\n"
-            "#        rules: []\n"
-            "#        metrics: []\n"
-        ),
-        "parse_cache.json": "{}",
-        "repositories": {},
-        "export": {},
-        "projects": {
-            "default": {}
-        },
-        "pyflwor": {}
-        # viz is generated on viz.install
-    }
-
-    def __init__(self, haros_dir, log, run_from_source):
-        self.root               = haros_dir
-        self.repo_dir           = os.path.join(haros_dir, "repositories")
-        self.export_dir         = os.path.join(haros_dir, "export")
-        self.project_dir        = os.path.join(haros_dir, "projects")
-        self.viz_dir            = os.path.join(haros_dir, "viz")
-        self.pyflwor_dir        = os.path.join(haros_dir, "pyflwor")
-        self.log                = log or logging.getLogger()
-        self.run_from_source    = run_from_source
-        self.settings           = None
-
-    def run(self):
-        return True
-
     def _init_haros_dir(self, overwrite=False):
         print "[HAROS] Running setup operations..."
-        exists = os.path.exists(self.root)
-        if exists and not os.path.isdir(self.root):
-            raise RuntimeError(("Could not initialise; " + self.root
+        exists = os.path.exists(self.haros_dir)
+        if exists and not os.path.isdir(self.haros_dir):
+            raise RuntimeError(("Could not initialise; " + self.haros_dir
                                 + " already exists and is not a directory."))
         if not exists:
-            self.log.info("Creating %s", self.root)
-            os.makedirs(self.root)
-        self._generate_dir(self.root, self.DIR_STRUCTURE, overwrite=overwrite)
+            self.log.info("Creating %s", self.haros_dir)
+            os.makedirs(self.haros_dir)
+        self._generate_dir(self.haros_dir, self.DIR_STRUCTURE,
+                           overwrite=overwrite)
         if overwrite or not os.path.exists(self.viz_dir):
             viz.install(self.viz_dir, self.run_from_source, force=True)
         return True
@@ -384,6 +366,28 @@ class HarosRunner(object):
                     self.log.info("Creating %s", new_path)
                     os.mkdir(new_path)
                 self._generate_dir(new_path, contents, overwrite=overwrite)
+
+
+###############################################################################
+#   Base Command Runner
+###############################################################################
+
+class HarosRunner(object):
+    """This is a base class for the specific commands that HAROS provides."""
+
+    def __init__(self, haros_dir, log, run_from_source):
+        self.root               = haros_dir
+        self.repo_dir           = os.path.join(haros_dir, "repositories")
+        self.export_dir         = os.path.join(haros_dir, "export")
+        self.project_dir        = os.path.join(haros_dir, "projects")
+        self.viz_dir            = os.path.join(haros_dir, "viz")
+        self.pyflwor_dir        = os.path.join(haros_dir, "pyflwor")
+        self.log                = log or logging.getLogger()
+        self.run_from_source    = run_from_source
+        self.settings           = None
+
+    def run(self):
+        return True
 
     def _empty_dir(self, dir_path):
         """Deletes all files within a directory."""
@@ -410,16 +414,6 @@ class HarosRunner(object):
             self.settings = HarosSettings.parse_from(config_path)
         except IOError:
             self.settings = HarosSettings()
-
-
-###############################################################################
-#   HAROS Command Runner (init)
-###############################################################################
-
-class HarosInitRunner(HarosRunner):
-    def run(self):
-        self._init_haros_dir(overwrite=True)
-        return True
 
 
 ###############################################################################
@@ -500,7 +494,6 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                  "haros/definitions.yaml")
 
     def run(self):
-        self._init_haros_dir(overwrite=False)
         if self.settings is None:
             self._load_settings()
         self.database = HarosDatabase()
@@ -693,7 +686,6 @@ class HarosExportRunner(HarosCommonExporter):
             self.io_projects_dir = data_dir
 
     def run(self):
-        self._init_haros_dir(overwrite=False)
         print "[HAROS] Exporting analysis results..."
         self._prepare_directory()
         exporter = JsonExporter()
@@ -750,7 +742,6 @@ class HarosVizRunner(HarosRunner):
         self.headless = headless
 
     def run(self):
-        self._init_haros_dir(overwrite=False)
         return viz.serve(self.server_dir, self.host, headless = self.headless)
 
 

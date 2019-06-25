@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.5] - 2019-06-25
+### Changed
+- Fixed a bug that caused a crash when `analyse` was called on a new HAROS home directory, without calling `init` before, and using the default YAML project file.
+
 ## [3.5.4] - 2019-06-24
 ### Changed
 - Fixed a bug that caused the wrong default project file to be loaded when using the `--home` option.
