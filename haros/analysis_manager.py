@@ -31,7 +31,10 @@ import shutil
 import sys
 import traceback
 
-from .metamodel import MetamodelObject, Location, RuntimeLocation
+from .metamodel import (
+    Configuration, MetamodelObject, Location, Resource, RosPrimitive,
+    RuntimeLocation
+)
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
     ConfigurationAnalysis, Statistics, AnalysisReport
@@ -131,6 +134,31 @@ class PluginInterface(LoggingObject):
             self._buffer_violations.append(datum)
         else:
             report.violations.append(datum)
+
+    def report_runtime_violation(self, rule_id, msg, resources=None):
+        scope = self._report.scope
+        resources = resources or ()
+        self.log.debug("runtime violation(%s, %s, %s, %s)",
+            rule_id, msg, scope, resources)
+        if not isinstance(scope, Configuration):
+            raise AnalysisScopeError("must provide a Configuration scope")
+        for resource in resources:
+            if (not isinstance(resource, (Resource, RosPrimitive))
+                    or resource.configuration is not scope):
+                raise AnalysisScopeError("must point to resources within the "
+                                         "Configuration scope")
+        location = scope.location
+        rule = self._get_property(rule_id, self._data.rules, self._rules)
+        if not rule:
+            self.log.debug("ignored rule: " + rule_id)
+            return
+        datum = Violation(rule, location, details=msg)
+        datum.affected.append(scope)
+        datum.affected.extend(resources)
+        if self._buffer_violations is not None:
+            self._buffer_violations.append(datum)
+        else:
+            self._report.violations.append(datum)
 
     def report_metric(self, metric_id, value, scope = None,
                       line = None, function = None, class_ = None):
