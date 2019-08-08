@@ -74,11 +74,11 @@ python -m haros <args>
 
 ### Method 2: Installing HAROS on Your Machine
 
-HAROS is now available on [PyPi](https://pypi.python.org/pypi/haros). You can install
+HAROS is available on [PyPi](https://pypi.python.org/pypi/haros). You can install
 it from source or from a wheel.
 
 ```bash
-[sudo] pip install haros
+pip install haros
 ```
 
 The command above will install HAROS for you. Alternatively, download and extract its
@@ -88,8 +88,7 @@ source, move to the project's root directory, and then execute the following.
 python setup.py install
 ```
 
-After installation, you should be able to run the command `haros` in your terminal
-from anywhere.
+After installation, you should be able to run the command `haros` in your terminal.
 
 ### Requirements
 
@@ -140,8 +139,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 
 If you do not perform this step and your library is installed in a different path,
 you will need to specify it in the configuration file located in
-`~/.haros/configs.yaml`. This file becomes available after running the
-`init` command of HAROS (details below).
+`~/.haros/configs.yaml`. This file becomes available after running HAROS for the first time.
 
 The same applies if you want to use a version of `libclang.so` other than 3.8.
 Preliminary tests suggest that 3.9, 4.0, 5.0 and 6.0 also work (as long as
@@ -263,7 +261,12 @@ packages:
 *An empty list of packages results in the analysis of all packages found under the
 current working directory.*
 
-Below you can find the basic commands that HAROS provides.
+Below you can find the basic commands and options that HAROS provides.
+
+### haros --home HOME_DIR
+
+This top-level option sets HOME_DIR as the default HAROS home directory for the current run.
+By default, HAROS uses `~/.haros` as the HOME_DIR.
 
 ### haros init
 
@@ -328,7 +331,7 @@ If `DATA_DIR` contains a previous analysis database for the current project
 within its tree, it will be loaded and new results will be added to that
 database.
 
-***Note:** it is advised to use an empty/dedicated directory for this purpose.
+* **Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within `DATA_DIR`.*
 
 #### haros analyse -n
@@ -367,7 +370,7 @@ directories within the given directory.
 
 Export visualisation files along with analysis data.
 
-***Note:** it is advised to use an empty/dedicated directory for this purpose.
+* **Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within `DATA_DIR`.*
 
 #### haros export -p PROJECT_NAME
