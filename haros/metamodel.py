@@ -1265,8 +1265,8 @@ class TopicPrimitive(RosPrimitive):
         return self.__str__()
 
     def __str__(self):
-        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id,
-                                           self.type)
+        return "Link of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 class PublishLink(TopicPrimitive):
     @classmethod
@@ -1279,8 +1279,8 @@ class PublishLink(TopicPrimitive):
         return link
 
     def __str__(self):
-        return "Advertise({}, {}, {})".format(self.node.id, self.topic.id,
-                                              self.type)
+        return "Publication of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 class SubscribeLink(TopicPrimitive):
     @classmethod
@@ -1293,8 +1293,8 @@ class SubscribeLink(TopicPrimitive):
         return link
 
     def __str__(self):
-        return "Subscribe({}, {}, {})".format(self.node.id, self.topic.id,
-                                              self.type)
+        return "Subscription of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 
 class ServicePrimitive(RosPrimitive):

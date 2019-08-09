@@ -171,6 +171,8 @@ class ExportInterface(LoggingObject):
 ###############################################################################
 
 class Plugin(LoggingObject):
+    PREFIX = "haros_plugin_"
+
     def __init__(self, name):
         self.name       = name
         self.version    = "0.1"
@@ -217,21 +219,33 @@ class Plugin(LoggingObject):
                      common_rules = None, common_metrics = None):
         cls.log.debug("load_plugins(%s, %s)", whitelist, blacklist)
         plugins = []
-        pfilter = []
+        pfilter = set()
         mode = 0
+        str_mode = ""
         if whitelist:
-            pfilter = whitelist
+            for name in whitelist:
+                if name.startswith(cls.PREFIX):
+                    pfilter.add(name)
+                else:
+                    pfilter.add(cls.PREFIX + name)
             mode = 1
+            str_mode = "whitelisted"
         elif blacklist:
-            pfilter = blacklist
+            for name in blacklist:
+                if name.startswith(cls.PREFIX):
+                    pfilter.add(name)
+                else:
+                    pfilter.add(cls.PREFIX + name)
             mode = -1
+            str_mode = "blacklisted"
         for finder, name, ispkg in pkgutil.iter_modules():
-            if not name.startswith("haros_plugin_"):
+            if not name.startswith(cls.PREFIX):
                 continue
             if mode > 0 and not name in pfilter:
                 continue
             if mode < 0 and name in pfilter:
                 continue
+            pfilter.discard(name)
             plugin = cls(name)
             try:
                 plugin.load(common_rules = common_rules,
@@ -242,4 +256,6 @@ class Plugin(LoggingObject):
                 cls.log.error("Failed to import %s; %s", name, e)
             else:
                 plugins.append(plugin)
+        for name in pfilter:
+            cls.log.warning("Could not find %s plugin: %s", str_mode, name)
         return plugins

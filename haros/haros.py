@@ -599,7 +599,12 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                       common_rules=self.database.rules,
                                       common_metrics=self.database.metrics)
         if not plugins:
-            raise RuntimeError("There are no analysis plugins.")
+            if blacklist or self.whitelist:
+                msg = ("Could not find any analysis plugins "
+                       "for the provided names.")
+            else:
+                msg = "Could not find any analysis plugins."
+            raise RuntimeError(msg)
         for plugin in plugins:
             print "  > Loaded " + plugin.name
             prefix = plugin.name + ":"
