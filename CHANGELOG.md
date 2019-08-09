@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - A new issue reporting function for plugins, focusing on runtime (`Configuration`-related) issues.
 
+## [3.5.6] - 2019-08-09
+### Changed
+- Fixed a bug that required arguments for the `analyse -w PLUGIN` and `analyse -b PLUGIN` commands to start with the `haros_plugin_` prefix.
+- Improved error messages to distinguish between no plugins being found (at all) and finding no plugins that match user-provided names.
+
 ## [3.5.5] - 2019-06-25
 ### Changed
 - Fixed a bug that caused a crash when `analyse` was called on a new HAROS home directory, without calling `init` before, and using the default YAML project file.
