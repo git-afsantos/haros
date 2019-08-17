@@ -65,6 +65,8 @@
 #   --debug sets the logging level to debug
 #   -c changes the CWD before running
 #   --home sets the HAROS directory (default "~/.haros")
+#   --config sets the location of the YAML file containing the configuration
+#            (default "~/.haros/configs.yaml")
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
@@ -204,8 +206,8 @@ class HarosLauncher(object):
         project_file = args.project_file or self.index_path
         if not os.path.isfile(project_file):
             raise ValueError("Not a file: " + project_file)
-        analyse = HarosAnalyseRunner(self.haros_dir, project_file,
-                                     args.data_dir, args.whitelist,
+        analyse = HarosAnalyseRunner(self.haros_dir, self.config_path,
+                                     project_file, args.data_dir, args.whitelist,
                                      args.blacklist, log = self.log,
                                      run_from_source = self.run_from_source,
                                      use_repos = args.use_repos,
@@ -219,9 +221,9 @@ class HarosLauncher(object):
             self.initialised = self._init_haros_dir(overwrite=False)
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        export = HarosExportRunner(self.haros_dir, args.data_dir,
-                                   args.export_viz, args.project,
-                                   log = self.log,
+        export = HarosExportRunner(self.haros_dir, self.config_path,
+                                   args.data_dir, args.export_viz,
+                                   args.project, log = self.log,
                                    run_from_source = self.run_from_source)
         return export.run()
 
@@ -231,7 +233,7 @@ class HarosLauncher(object):
         data_dir = args.data_dir or self.viz_dir
         if not os.path.isdir(data_dir):
             raise ValueError("Not a directory: " + data_dir)
-        server = HarosVizRunner(self.haros_dir, data_dir,
+        server = HarosVizRunner(self.haros_dir, self.config_path, data_dir,
                                 args.server_host, args.headless,
                                 log = self.log,
                                 run_from_source = self.run_from_source)
@@ -243,6 +245,9 @@ class HarosLauncher(object):
         parser.add_argument("--home",
                             help=("HAROS data and config directory (default: "
                                   + self.haros_dir))
+        parser.add_argument("--config",
+                            help=("HAROS config location (default: "
+                                  + self.haros_dir + "configs.yaml"))
         parser.add_argument("--debug", action = "store_true",
                             help = "set debug logging")
         parser.add_argument("-c", "--cwd",
@@ -330,6 +335,10 @@ class HarosLauncher(object):
             self.index_path = os.path.join(self.haros_dir, "index.yaml")
             self.log_path = os.path.join(self.haros_dir, "log.txt")
             self.viz_dir = os.path.join(self.haros_dir, "viz")
+        if args.config:
+            self.config_path = args.config
+        else:
+            self.config_path = os.path.join(self.haros_dir, "configs.yaml")
 
     def _init_haros_dir(self, overwrite=False):
         print "[HAROS] Running setup operations..."
@@ -375,8 +384,9 @@ class HarosLauncher(object):
 class HarosRunner(object):
     """This is a base class for the specific commands that HAROS provides."""
 
-    def __init__(self, haros_dir, log, run_from_source):
+    def __init__(self, haros_dir, config_path, log, run_from_source):
         self.root               = haros_dir
+        self.config_path        = config_path
         self.repo_dir           = os.path.join(haros_dir, "repositories")
         self.export_dir         = os.path.join(haros_dir, "export")
         self.project_dir        = os.path.join(haros_dir, "projects")
@@ -409,9 +419,8 @@ class HarosRunner(object):
             self._empty_dir(dir_path)
 
     def _load_settings(self):
-        config_path = os.path.join(self.root, "configs.yaml")
         try:
-            self.settings = HarosSettings.parse_from(config_path)
+            self.settings = HarosSettings.parse_from(self.config_path)
         except IOError:
             self.settings = HarosSettings()
 
@@ -459,11 +468,11 @@ class HarosAnalyseRunner(HarosCommonExporter):
                   + os.environ.get("ROS_DISTRO", "kinetic")
                   + "/distribution.yaml")
 
-    def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
+    def __init__(self, haros_dir, config_path, project_file, data_dir, whitelist, blacklist,
                  log = None, run_from_source = False, use_repos = False,
                  parse_nodes = False, copy_env = False, use_cache = True,
                  settings = None):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        HarosRunner.__init__(self, haros_dir, config_path, log, run_from_source)
         self.project_file = project_file
         self.use_repos = use_repos
         self.parse_nodes = parse_nodes
@@ -673,9 +682,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
     # dir/data/<name>
 
 class HarosExportRunner(HarosCommonExporter):
-    def __init__(self, haros_dir, data_dir, export_viz, project,
+    def __init__(self, haros_dir, config_path, data_dir, export_viz, project,
                  log = None, run_from_source = False):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        HarosRunner.__init__(self, haros_dir, config_path, log, run_from_source)
         self.project = project
         self.project_data_list = []
         self.export_viz = export_viz
@@ -739,9 +748,9 @@ class HarosExportRunner(HarosCommonExporter):
 ###############################################################################
 
 class HarosVizRunner(HarosRunner):
-    def __init__(self, haros_dir, server_dir, host_str, headless, log = None,
+    def __init__(self, haros_dir, config_path, server_dir, host_str, headless, log = None,
                  run_from_source = False):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+        HarosRunner.__init__(self, haros_dir, config_path, log, run_from_source)
         self.server_dir = server_dir
         self.host = host_str
         self.headless = headless
