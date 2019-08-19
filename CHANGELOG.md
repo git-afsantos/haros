@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - A new issue reporting function for plugins, focusing on runtime (`Configuration`-related) issues.
 
+## [3.6.0] - 2019-08-19
+### Added
+- Top-level `--config` option to pass a path to a custom configuration YAML file.
+
 ## [3.5.6] - 2019-08-09
 ### Changed
 - Fixed a bug that required arguments for the `analyse -w PLUGIN` and `analyse -b PLUGIN` commands to start with the `haros_plugin_` prefix.
