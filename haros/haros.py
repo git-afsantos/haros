@@ -106,7 +106,7 @@ from .extractor import ProjectExtractor
 from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
-from .export_manager import JsonExporter
+from .export_manager import JsonExporter, JUnitExporter
 from . import visualiser as viz
 
 
@@ -652,6 +652,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, (self.database.project,),
                                  overwrite = False)
+        junit_exporter = JUnitExporter()
+        junit_exporter.export_report(self.data_dir, self.database)
         if self.parse_nodes and self.use_cache:
             for node in self.database.nodes.itervalues():
                 node_cache[node.node_name] = node.to_JSON_object()
@@ -710,6 +712,8 @@ class HarosExportRunner(HarosCommonExporter):
                 self._save_database()
                 self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, self.project_data_list)
+        junit_exporter = JUnitExporter()
+        junit_exporter.export_report(self.data_dir, self.database)
         self.database = None
         self.project_data_list = []
         return True

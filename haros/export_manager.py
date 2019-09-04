@@ -45,6 +45,80 @@ class LoggingObject(object):
 # Export Manager
 ################################################################################
 
+class JUnitExporter(LoggingObject):
+    """
+    Utility class for outputting analysis result data
+    in a JUnit XML format text file.
+    """
+    def export_report(self, datadir, database):
+        """
+        Output the analysis data in a JUnit XML format text file.
+        @param datadir:   [str] The folder / file system path where to store the output.
+        @param database:  [.data.HarosDatabase] Database with analysis result data.
+        """
+        self.log.info("Exporting JUnit XML format report data.")
+        if database.report == None:
+            return
+        report = database.report # .data.AnalysisReport
+        for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+            out = os.path.join(datadir, package_analysis.package.name + ".xml")
+            f = open(out, "w")
+            # count how many rules have been violated
+            violated_rules = {}
+            for violation in package_analysis.violations:
+                violated_rules[violation.rule.id] = violation.rule.name
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    violated_rules[violation.rule.id] = violation.rule.name
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            f.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+            f.write('<testsuites id="HAROS_%s_%s"' % (package_analysis.package.name, report.timestamp))
+            f.write(' name="HAROS analysis result for %s (%s)"' % (package_analysis.package.name, report.timestamp))
+            f.write(' tests="%i"' % len(database.rules))
+            f.write(' failures="%i"' % len(violated_rules))
+            f.write(' time="%f">\n' % report.analysis_time)
+            f.write('  <testsuite id="HAROS.AnalysisReport"')
+            f.write(' name="HAROS Analysis Report"')
+            f.write(' tests="%i"' % len(database.rules))
+            f.write(' failures="%i"' % len(violated_rules))
+            f.write(' time="%f">\n' % report.analysis_time)
+            # 
+            # Global violations
+            for violation in package_analysis.violations:
+                f.write('    <testcase id="%s"' % violation.rule.id)
+                f.write(' name="%s">\n' % violation.rule.name)
+                f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
+                f.write('%s\n' % violation.rule.description)
+                f.write('Category: %s\n' % violation.rule.id)
+                f.write('File: [GLOBAL]\n')
+                f.write('Line: 0\n')
+                f.write('      </failure>\n')
+                f.write('    </testcase>\n')
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    f.write('    <testcase id="%s"' % violation.rule.id)
+                    f.write(' name="%s">\n' % violation.rule.name)
+                    f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
+                    f.write('%s\n' % violation.rule.description)
+                    f.write('Category: %s\n' % violation.rule.id)
+                    f.write('File: %s\n' % violation.location.file.full_name)
+                    f.write('Line: %i\n' % violation.location.line)
+                    f.write('      </failure>\n')
+                    f.write('    </testcase>\n')
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            f.write('  </testsuite>\n')
+            f.write('</testsuites>\n')
+            f.close()
+        # ^ for package_analysis in report.by_package.viewvalues()
+    # ^ def export_report(self, datadir, report)
+# ^ class JUnitExporter
+
 class JsonExporter(LoggingObject):
     def export_projects(self, datadir, projects, overwrite = True):
         self.log.info("Exporting project data.")
