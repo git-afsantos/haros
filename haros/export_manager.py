@@ -106,8 +106,15 @@ class JUnitExporter(LoggingObject):
                     f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
                     f.write('%s\n' % violation.rule.description)
                     f.write('Category: %s\n' % violation.rule.id)
-                    f.write('File: %s\n' % violation.location.file.full_name)
-                    f.write('Line: %i\n' % violation.location.line)
+                    file = "[UNKNOWN]"
+                    line = 0
+                    if violation.location != None:
+                        if violation.location.file != None and violation.location.file.full_name != None:
+                            file = violation.location.file.full_name
+                        if violation.location.line != None:
+                            line = violation.location.line
+                    f.write('File: %s\n' % file)
+                    f.write('Line: %i\n' % line)
                     f.write('      </failure>\n')
                     f.write('    </testcase>\n')
                 # ^ for violation in file_analysis.violations
