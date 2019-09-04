@@ -67,7 +67,7 @@
 #   --home sets the HAROS directory (default "~/.haros")
 #   --config sets the location of the YAML file containing the configuration
 #            (default "~/.haros/configs.yaml")
-#   --xml causes HAROS to output JUnit XML format report files.
+#   --junit-xml-output causes HAROS to output JUnit XML format report files.
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
@@ -172,7 +172,7 @@ class HarosLauncher(object):
                                 level=logging.DEBUG)
         else:
             logging.basicConfig(level=logging.WARNING)
-        if args.xml:
+        if args.junit_xml_output:
             self.junit_xml_output = True
         self.log.debug("Running from home directory: %s", self.haros_dir)
         original_path = os.getcwd()
@@ -259,7 +259,9 @@ class HarosLauncher(object):
                             help = "set debug logging")
         parser.add_argument("-c", "--cwd",
                             help = "change current directory before running")
-        parser.add_argument("--xml", action='store_true',
+        parser.add_argument("--junit-xml-output",
+                            dest='junit_xml_output',
+                            action='store_true',
                             help = "output JUnit XML report file(s)")
         subparsers = parser.add_subparsers()
         self._init_parser(subparsers.add_parser("init"))
