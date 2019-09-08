@@ -1,0 +1,120 @@
+%YAML 1.1
+#Copyright (c) 2018 Andre Santos
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+
+#The above copyright notice and this permission notice shall be included in
+#all copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#THE SOFTWARE.
+---
+indigo:
+    teleop_node:
+        nodelet: false
+        advertise:
+            -
+                name: "cmd_vel"
+                type: geometry_msgs/Twist
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        subscribe:
+            -
+                name: "joy"
+                type: sensor_msgs/Joy
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        service: []
+        client: []
+        readParam:
+            -
+                name: "enable_button"
+                type: int
+                default: 0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "enable_turbo_button"
+                type: int
+                default: -1
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "axis_linear"
+                type: int
+                default: 1
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "scale_linear"
+                type: double
+                default: 0.5
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "scale_linear_turbo"
+                type: double
+                default: 1.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "axis_angular"
+                type: int
+                default: 0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "scale_angular"
+                type: double
+                default: 1.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        writeParam: []
+kinetic:
+    teleop_node:
+        base: indigo
+lunar:
+    teleop_node:
+        base: indogo
+melodic:
+    teleop_node:
+        base: indigo

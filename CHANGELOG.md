@@ -5,8 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.7.0] - 2019-09-08
 ### Added
+- Command `parse`, a convenience command to run model extraction without running plugin analysis.
+- A database of pre-parsed ROS nodes from select distribution packages.
 - A new issue reporting function for plugins, focusing on runtime (`Configuration`-related) issues.
+
+### Changed
+- Fixed and improved the way extraction hints are handled when merging possible candidates.
+- Exported JSON files now have proper indentation.
 
 ## [3.6.0] - 2019-08-19
 ### Added

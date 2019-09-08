@@ -422,6 +422,8 @@ class AnalysisManager(LoggingObject):
         reports = {}
         self.report = AnalysisReport(project)
         for pkg in project.packages:
+            if not pkg._analyse:
+                continue
             pkg_report = PackageAnalysis(pkg)
             self.report.by_package[pkg.id] = pkg_report
             reports[pkg.id] = pkg_report
@@ -461,10 +463,14 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.analysis.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.analysis.analyse_file(iface, scope)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.analysis.analyse_package(iface, scope)
                     for scope in self.report.project.configurations:
@@ -487,12 +493,16 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.process.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.process.process_file(iface, scope,
                                     iface._report.violations,
                                     iface._report.metrics)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.process.process_package(iface, scope,
                                 iface._report.violations,

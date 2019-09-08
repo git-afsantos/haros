@@ -102,7 +102,7 @@ from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase, HarosSettings
-from .extractor import ProjectExtractor
+from .extractor import ProjectExtractor, HardcodedNodeParser
 from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
@@ -239,6 +239,23 @@ class HarosLauncher(object):
                                 run_from_source = self.run_from_source)
         return server.run()
 
+    def command_parse(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
+        if args.data_dir and not os.path.isdir(args.data_dir):
+            raise ValueError("Not a directory: " + args.data_dir)
+        project_file = args.project_file or self.index_path
+        if not os.path.isfile(project_file):
+            raise ValueError("Not a file: " + project_file)
+        if args.ws:
+            if not os.path.isdir(args.ws):
+                raise ValueError("Not a directory: " + args.ws)
+        parse = HarosParseRunner(self.haros_dir, self.config_path,
+            project_file, args.data_dir, log=self.log,
+            run_from_source=self.run_from_source, use_repos=args.use_repos,
+            ws=args.ws, copy_env=args.env, use_cache=(not args.no_cache))
+        return parse.run()
+
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
                                 description = "ROS quality assurance.")
@@ -258,6 +275,7 @@ class HarosLauncher(object):
         self._analyse_parser(subparsers.add_parser("analyse"))
         self._export_parser(subparsers.add_parser("export"))
         self._viz_parser(subparsers.add_parser("viz"))
+        self._parse_parser(subparsers.add_parser("parse"))
         return parser.parse_args(argv)
 
     def _init_parser(self, parser):
@@ -328,6 +346,21 @@ class HarosLauncher(object):
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
         parser.set_defaults(command = self.command_viz)
+
+    def _parse_parser(self, parser):
+        parser.add_argument("-r", "--use-repos", action = "store_true",
+                            help = "use repository information")
+        parser.add_argument("-p", "--project-file",
+                            help = ("package index file (default: "
+                                    "packages below current dir)"))
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
+        parser.add_argument("-d", "--data-dir",
+                            help = "load/export using the given directory")
+        parser.add_argument("--ws", help = "set the catkin workspace directory")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
+        parser.set_defaults(command = self.command_parse)
 
     def _set_directories(self, args):
         if args.home:
@@ -424,6 +457,17 @@ class HarosRunner(object):
         except IOError:
             self.settings = HarosSettings()
 
+    def _setup_lazy_node_parser(self):
+        if self.run_from_source:
+            HardcodedNodeParser.model_dir = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "models")
+            )
+        else:
+            HardcodedNodeParser.model_dir = resource_filename(
+                Requirement.parse("haros"), "haros/models"
+            )
+        HardcodedNodeParser.distro = os.environ.get("ROS_DISTRO", "kinetic")
+
 
 ###############################################################################
 #   HAROS Command Runner (analyse)
@@ -506,6 +550,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if self.settings is None:
             self._load_settings()
         self.database = HarosDatabase()
+        self._setup_lazy_node_parser()
         plugins, rules, metrics = self._load_definitions_and_plugins()
         node_cache = {}
         if self.parse_nodes and self.use_cache:
@@ -658,9 +703,45 @@ class HarosAnalyseRunner(HarosCommonExporter):
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
                 with open(parse_cache, "w") as f:
-                    json.dump(node_cache, f)
+                    json.dump(node_cache, f, indent=2, separators=(",", ":"))
             except IOError as e:
                 self.log.warning("Could not save parsing cache: %s", e)
+
+
+###############################################################################
+#   HAROS Command Runner (parse)
+###############################################################################
+
+class HarosParseRunner(HarosAnalyseRunner):
+    def __init__(self, haros_dir, config_path, project_file, data_dir,
+                 log=None, run_from_source=False, use_repos=False, ws=None,
+                 copy_env=False, use_cache=True, settings=None):
+        HarosAnalyseRunner.__init__(
+            self, haros_dir, config_path, project_file, data_dir,
+            [], [], log=log, run_from_source=run_from_source,
+            use_repos=use_repos, parse_nodes=True, copy_env=copy_env,
+            use_cache=use_cache, settings=settings
+        )
+        self.workspace = ws
+
+    def _load_settings(self):
+        try:
+            self.settings = HarosSettings.parse_from(
+                self.config_path, ws=self.workspace)
+        except IOError:
+            self.settings = HarosSettings(workspace=self.workspace)
+
+    def _load_definitions_and_plugins(self):
+        rules = set()
+        metrics = set()
+        print "[HAROS] Loading common definitions..."
+        rs, ms = self.database.load_definitions(self.definitions_file,
+                ignored_rules=self.settings.ignored_rules,
+                ignored_tags=self.settings.ignored_tags,
+                ignored_metrics=self.settings.ignored_metrics)
+        rules.update(rs)
+        metrics.update(ms)
+        return (), rules, metrics
 
 
 ###############################################################################
