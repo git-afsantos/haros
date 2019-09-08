@@ -1,0 +1,300 @@
+%YAML 1.1
+#Copyright (c) 2018 Andre Santos
+#
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+
+#The above copyright notice and this permission notice shall be included in
+#all copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#THE SOFTWARE.
+---
+# TODO: incomplete
+indigo:
+    hector_mapping:
+        nodelet: false
+        advertise:
+            -
+                name: "map_metadata"
+                type: nav_msgs/MapMetaData
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map"
+                type: nav_msgs/OccupancyGrid
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "slam_out_pose"
+                type: geometry_msgs/PoseStamped
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "poseupdate"
+                type: geometry_msgs/PoseWithCovarianceStamped
+                namespace: ""
+                queue: 1
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        subscribe:
+            -
+                name: "scan"
+                type: sensor_msgs/LaserScan
+                namespace: ""
+                queue: null
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "syscommand"
+                type: std_msgs/String
+                namespace: ""
+                queue: 2
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        service:
+            -
+                name: "dynamic_map"
+                type: nav_msgs/GetMap
+                namespace: ""
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        client: []
+        readParam:
+            -
+                name: "base_frame"
+                type: string
+                default: "base_link"
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_frame"
+                type: string
+                default: "map_link"
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "odom_frame"
+                type: string
+                default: "odom"
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_resolution"
+                type: double
+                default: 0.025
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_size"
+                type: int
+                default: 1024
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_start_x"
+                type: double
+                default: 0.5
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_start_y"
+                type: double
+                default: 0.5
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_update_distance_thresh"
+                type: double
+                default: 0.4
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_update_angle_thresh"
+                type: double
+                default: 0.9
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_pub_period"
+                type: double
+                default: 2.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "map_multi_res_levels"
+                type: int
+                default: 3
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "update_factor_free"
+                type: double
+                default: 0.4
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "update_factor_occupied"
+                type: double
+                default: 0.9
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "laser_min_dist"
+                type: double
+                default: 0.4
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "laser_max_dist"
+                type: double
+                default: 30.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "laser_z_min_value"
+                type: double
+                default: -1.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "laser_z_max_value"
+                type: double
+                default: 1.0
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "pub_map_odom_transform"
+                type: bool
+                default: true
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "output_timing"
+                type: bool
+                default: false
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "scan_subscriber_queue_size"
+                type: int
+                default: 5
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "pub_map_scanmatch_transform"
+                type: bool
+                default: true
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+            -
+                name: "tf_map_scanmatch_transform_frame_name"
+                type: string
+                default: "scanmatcher_frame"
+                namespace: "~"
+                depth: 0
+                location: null
+                repeats: false
+                conditions: []
+        writeParam: []
+kinetic:
+    hector_mapping:
+        base: indigo
+lunar:
+    hector_mapping:
+        base: indigo
+melodic:
+    hector_mapping:
+        base: indigo
