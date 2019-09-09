@@ -375,6 +375,7 @@ class AnalysisReport(object):
     def __init__(self, project):
         self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+        self.analysis_time = 0.0
         self.by_package = {}
         self.by_config = {}
         self.statistics = None
