@@ -121,14 +121,14 @@ class JUnitExporter(LoggingObject):
                     f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
                     f.write('%s\n' % violation.rule.description)
                     f.write('Category: %s\n' % violation.rule.id)
-                    file = "[UNKNOWN]"
+                    filename = "[UNKNOWN]"
                     line = 0
                     if violation.location != None:
                         if violation.location.file != None and violation.location.file.full_name != None:
-                            file = violation.location.file.full_name
+                            filename = violation.location.file.full_name
                         if violation.location.line != None:
                             line = violation.location.line
-                    f.write('File: %s\n' % file)
+                    f.write('File: %s\n' % filename)
                     f.write('Line: %i\n' % line)
                     f.write('      </failure>\n')
                     f.write('    </testcase>\n')
@@ -136,7 +136,6 @@ class JUnitExporter(LoggingObject):
             # ^ for file_analysis in package_analysis.file_analysis
             f.write('  </testsuite>\n')
             f.write('</testsuites>\n')
-            f.close()
         # ^ with open(out, "w") as f
     # ^ _write_report_file(out, package_analysis, database)
 
