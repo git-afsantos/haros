@@ -512,7 +512,12 @@ class HarosSettings(object):
         ws = self.environment.get("ROS_WORKSPACE")
         if ws:
             return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        paths = self.environment.get("CMAKE_PREFIX_PATH", "")
+        # Previous call to os.environ.get("CMAKE_PREFIX_PATH") may have returned None
+        if paths == None:
+            paths = []
+        else:
+            paths = paths.split(os.pathsep)
         for path in paths:
             if os.path.exists(os.path.join(path, ".catkin")):
                 if (path.endswith(os.sep + "devel")
@@ -523,6 +528,14 @@ class HarosSettings(object):
                     # CMAKE_PREFIX_PATH point at the devel_isolated/package path
                     # in workspaces built with catkin_make_isolated.
                     return os.path.abspath(os.path.join(path, os.pardir, os.pardir))
+        # Fallback option: current working directory
+        path = os.getcwd()
+        if os.path.exists(os.path.join(path, "src")):
+            if ("devel_isolated" in path or "install_isolated" in path):
+                return os.path.abspath(os.path.join(path, os.pardir))
+            else:
+                return os.path.abspath(os.path.join(path))
+        # Failed to find the workspace
         raise KeyError("ROS_WORKSPACE")
 
 
