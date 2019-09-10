@@ -376,7 +376,7 @@ class SourceFile(SourceObject):
         if self.name.endswith(self.CPP):
             return "cpp"
         if self.name.endswith(self.PYTHON):
-            return "py"
+            return "python"
         if self.name.endswith(self.LAUNCH):
             return "launch"
         if self.name == self.PKG_XML:
@@ -392,7 +392,7 @@ class SourceFile(SourceObject):
     def _ignore_parsers(self):
         if self.language == "cpp":
             return (_cpp_ignore_line, _cpp_ignore_next_line)
-        elif self.language == "py":
+        elif self.language == "python":
             return (_py_ignore_line, _py_ignore_next_line)
         return (_no_parser, _no_parser)
 
