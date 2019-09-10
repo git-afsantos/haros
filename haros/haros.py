@@ -425,7 +425,7 @@ class HarosRunner(object):
     """This is a base class for the specific commands that HAROS provides."""
 
     def __init__(self, haros_dir, config_path, log, run_from_source,
-                 junit_xml_output):
+                 junit_xml_output = False):
         self.root               = haros_dir
         self.config_path        = config_path
         self.repo_dir           = os.path.join(haros_dir, "repositories")
