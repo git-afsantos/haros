@@ -81,7 +81,7 @@ class PluginInterface(LoggingObject):
         self._plugin = None
         self._reports = reports
         self._report = None
-        self._exported = set()
+        self._exported = {}
         self._buffer_violations = None
         self._buffer_metrics = None
         self._rules = allowed_rules
@@ -95,7 +95,11 @@ class PluginInterface(LoggingObject):
         # mark a file in the plugin's temporary directory as exportable
         target = os.path.join(self._plugin.tmp_path, relative_path)
         if os.path.isfile(target):
-            self._exported.add(target)
+            files = self._exported.get(self._plugin.name)
+            if not files:
+                files = []
+                self._exported[self._plugin.name] = files
+            files.append(target)
 
     def find_package(self, scope_id):
         pkgs = self._data.packages
@@ -519,23 +523,39 @@ class AnalysisManager(LoggingObject):
                     self.log.debug("%s", traceback.format_exc())
         iface._commit_buffers()
 
-    def _exports(self, files):
-        for f in files:
-            i = f.rfind(os.sep)
-            j = f.rfind(".")
-            name = f[i + 1:]
-            if i >= j:
-                name += ".data"
-            path = os.path.join(self.export_dir, name)
-            counter = 1
-            while os.path.isfile(path) and counter < 10000:
-                new_name = "d{:04d}{}".format(counter, name)
-                path = os.path.join(self.export_dir, new_name)
-                counter += 1
-            if counter >= 10000:
-                self.log.error("Cannot copy file " + f)
+    def _exports(self, exported):
+        for plugin_name, files in exported.iteritems():
+            dirpath = os.path.join(self.export_dir, plugin_name)
+            try:
+                os.makedirs(dirpath)
+            except OSError:
+                self.log.error("Cannot create directory: " + repr(dirpath))
                 continue
-            shutil.move(f, path)
+            for filepath in files:
+                i = filepath.rfind(os.sep)
+                j = filepath.rfind(".")
+                filename = filepath[i + 1:]
+                # try to keep the same name and extension
+                if i < j:
+                    name = filepath[(i+1):j]
+                    ext = filepath[j:]
+                else:
+                    name = filename
+                    ext = ""
+                path = os.path.join(dirpath, filename)
+                counter = 1
+                tries = 10000
+                while os.path.isfile(path) and counter < tries:
+                    filename = "{}_d{:04d}{}".format(name, counter, ext)
+                    path = os.path.join(dirpath, filename)
+                    counter += 1
+                if counter >= tries:
+                    self.log.error("Cannot copy file " + repr(filepath))
+                    continue
+                try:
+                    shutil.move(filepath, path)
+                except OSError:
+                    self.log.error("Cannot copy file " + repr(filepath))
 
     # def _update_statistics(self):
         # while len(self.summaries) > 30:
