@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- `--junit-xml-output` option to `full`, `analyse`, `export` and `parse` commands to output JUnit XML reports.
+
+## [3.7.0] - 2019-09-08
+### Added
+- Command `parse`, a convenience command to run model extraction without running plugin analysis.
+- A database of pre-parsed ROS nodes from select distribution packages.
 - A new issue reporting function for plugins, focusing on runtime (`Configuration`-related) issues.
+
+### Changed
+- Fixed and improved the way extraction hints are handled when merging possible candidates.
+- Exported JSON files now have proper indentation.
 
 ## [3.6.0] - 2019-08-19
 ### Added

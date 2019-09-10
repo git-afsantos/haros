@@ -30,6 +30,7 @@ from pkg_resources import resource_filename
 import shutil
 import sys
 import traceback
+import time
 
 from .metamodel import (
     Configuration, MetamodelObject, Location, Resource, RosPrimitive,
@@ -394,6 +395,7 @@ class AnalysisManager(LoggingObject):
     def run(self, plugins, allowed_rules=None, allowed_metrics=None,
             ignored_lines=None):
         self.log.info("Running plugins on collected data.")
+        start_time = time.time()
         if allowed_rules is None:
             allowed_rules = set(self.database.rules)
         if allowed_metrics is None:
@@ -410,6 +412,7 @@ class AnalysisManager(LoggingObject):
         self.report.calculate_statistics()
         stats = self.report.statistics
         stats.configuration_count = len(project.configurations)
+        self.report.analysis_time = time.time() - start_time
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:
@@ -422,6 +425,8 @@ class AnalysisManager(LoggingObject):
         reports = {}
         self.report = AnalysisReport(project)
         for pkg in project.packages:
+            if not pkg._analyse:
+                continue
             pkg_report = PackageAnalysis(pkg)
             self.report.by_package[pkg.id] = pkg_report
             reports[pkg.id] = pkg_report
@@ -461,10 +466,14 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.analysis.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.analysis.analyse_file(iface, scope)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.analysis.analyse_package(iface, scope)
                     for scope in self.report.project.configurations:
@@ -487,12 +496,16 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.process.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.process.process_file(iface, scope,
                                     iface._report.violations,
                                     iface._report.metrics)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.process.process_package(iface, scope,
                                 iface._report.violations,

@@ -20,11 +20,12 @@ def package_files(directory):
 
 extra_files = package_files("harosviz")
 extra_files.append("*.yaml")
+extra_files.append("models/*.yaml")
 
 
 setup(
     name            = "haros",
-    version         = "3.6.0",
+    version         = "3.7.0",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",

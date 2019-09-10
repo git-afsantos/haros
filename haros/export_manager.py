@@ -45,6 +45,102 @@ class LoggingObject(object):
 # Export Manager
 ################################################################################
 
+class JUnitExporter(LoggingObject):
+    """
+    Utility class for outputting analysis result data
+    in a JUnit XML format text file.
+    """
+    def export_report(self, datadir, database):
+        """
+        Output the analysis data in a JUnit XML format text file.
+        @param datadir:   [str] The folder / file system path where to store the output.
+        @param database:  [.data.HarosDatabase] Database with analysis result data.
+        """
+        self.log.info("Exporting JUnit XML format report data.")
+        if database.report == None:
+            return
+        report = database.report # .data.AnalysisReport
+        for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+            out = os.path.join(datadir, package_analysis.package.name + ".xml")
+            try:    
+                self._write_report_file(out, package_analysis, database)
+            except:
+                self.log.info("Failed to write JUnit XML report file: " + out)
+        # ^ for package_analysis in report.by_package.viewvalues()
+    # ^ def export_report(self, datadir, report)
+    
+    def _write_report_file(self, out, package_analysis, database):
+        """
+        Output the analysis data for one package in a JUnit XML format text file.
+        @param out:             [str] The file system path where to store the output.
+        @param package_analysis [.data.PackageAnalysis] Analysis data for this package.
+        @param database:        [.data.HarosDatabase] Database with analysis result data.
+        """
+        report = database.report # .data.AnalysisReport
+        with open(out, "w") as f:
+            # count how many rules have been violated
+            violated_rules = {}
+            for violation in package_analysis.violations:
+                violated_rules[violation.rule.id] = violation.rule.name
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    violated_rules[violation.rule.id] = violation.rule.name
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            f.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+            f.write('<testsuites id="HAROS_%s_%s"' % (package_analysis.package.name, report.timestamp))
+            f.write(' name="HAROS analysis result for %s (%s)"' % (package_analysis.package.name, report.timestamp))
+            f.write(' tests="%i"' % len(database.rules))
+            f.write(' failures="%i"' % len(violated_rules))
+            f.write(' time="%f">\n' % report.analysis_time)
+            f.write('  <testsuite id="HAROS.AnalysisReport"')
+            f.write(' name="HAROS Analysis Report"')
+            f.write(' tests="%i"' % len(database.rules))
+            f.write(' failures="%i"' % len(violated_rules))
+            f.write(' time="%f">\n' % report.analysis_time)
+            #
+            # Global violations
+            for violation in package_analysis.violations:
+                f.write('    <testcase id="%s"' % violation.rule.id)
+                f.write(' name="%s">\n' % violation.rule.name)
+                f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
+                f.write('%s\n' % violation.rule.description)
+                f.write('Category: %s\n' % violation.rule.id)
+                f.write('File: [GLOBAL]\n')
+                f.write('Line: 0\n')
+                f.write('      </failure>\n')
+                f.write('    </testcase>\n')
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    f.write('    <testcase id="%s"' % violation.rule.id)
+                    f.write(' name="%s">\n' % violation.rule.name)
+                    f.write('      <failure message="%s" type="FAILURE">\n' % violation.rule.description)
+                    f.write('%s\n' % violation.rule.description)
+                    f.write('Category: %s\n' % violation.rule.id)
+                    filename = "[UNKNOWN]"
+                    line = 0
+                    if violation.location != None:
+                        if violation.location.file != None and violation.location.file.full_name != None:
+                            filename = violation.location.file.full_name
+                        if violation.location.line != None:
+                            line = violation.location.line
+                    f.write('File: %s\n' % filename)
+                    f.write('Line: %i\n' % line)
+                    f.write('      </failure>\n')
+                    f.write('    </testcase>\n')
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            f.write('  </testsuite>\n')
+            f.write('</testsuites>\n')
+        # ^ with open(out, "w") as f
+    # ^ _write_report_file(out, package_analysis, database)
+
+# ^ class JUnitExporter
+
 class JsonExporter(LoggingObject):
     def export_projects(self, datadir, projects, overwrite = True):
         self.log.info("Exporting project data.")
@@ -65,7 +161,7 @@ class JsonExporter(LoggingObject):
             data = [p.to_JSON_object() for p in projects]
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump(data, f)
+            json.dump(data, f, indent=2, separators=(",", ":"))
 
     def export_packages(self, datadir, packages):
         self.log.info("Exporting package data.")
@@ -74,7 +170,8 @@ class JsonExporter(LoggingObject):
             packages = packages.viewvalues()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f)
+            json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f,
+                      indent=2, separators=(",", ":"))
 
     def export_rules(self, datadir, rules):
         self.log.info("Exporting analysis rules.")
@@ -95,7 +192,7 @@ class JsonExporter(LoggingObject):
                 data.extend(v.to_JSON_object() for v in fa.violations)
             with open(out, "w") as f:
                 self.log.debug("Writing to %s", out)
-                json.dump(data, f)
+                json.dump(data, f, indent=2, separators=(",", ":"))
 
     def export_runtime_violations(self, datadir, config_reports):
         self.log.info("Exporting reported runtime rule violations.")
@@ -120,7 +217,7 @@ class JsonExporter(LoggingObject):
                 data.extend(m.to_JSON_object() for m in fa.metrics)
             with open(out, "w") as f:
                 self.log.debug("Writing to %s", out)
-                json.dump(data, f)
+                json.dump(data, f, indent=2, separators=(",", ":"))
 
     def export_configurations(self, datadir, config_reports):
         self.log.info("Exporting launch configurations.")
@@ -153,7 +250,8 @@ class JsonExporter(LoggingObject):
         out = os.path.join(datadir, "configurations.json")
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([config for config in configs], f)
+            json.dump([config for config in configs], f,
+                      indent=2, separators=(",", ":"))
 
     def export_summary(self, datadir, report, past):
         self.log.info("Exporting analysis summary.")
@@ -180,7 +278,7 @@ class JsonExporter(LoggingObject):
         data["history"]["function_length"].append(stats.avg_function_length)
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump(data, f)
+            json.dump(data, f, indent=2, separators=(",", ":"))
 
     def _export_collection(self, datadir, items, filename):
         out = os.path.join(datadir, filename)
@@ -188,30 +286,38 @@ class JsonExporter(LoggingObject):
             items = items.viewvalues()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
-            json.dump([item.to_JSON_object() for item in items], f)
+            json.dump([item.to_JSON_object() for item in items], f,
+                      indent=2, separators=(",", ":"))
 
     def _query_object_JSON(self, obj, config):
         if isinstance(obj, Resource) and obj.configuration == config:
              return {
                 "name": obj.id,
+                "uid": str(id(obj)),
                 "resourceType": obj.resource_type
             }
         elif isinstance(obj, TopicPrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "topic": obj.topic.id,
+                "topic_uid": str(id(obj.topic)),
                 "resourceType": "link"
             }
         elif isinstance(obj, ServicePrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "service": obj.service.id,
+                "service_uid": str(id(obj.service)),
                 "resourceType": "link"
             }
         elif isinstance(obj, ParameterPrimitive) and obj.configuration == config:
             return {
                 "node": obj.node.id,
+                "node_uid": str(id(obj.node)),
                 "param": obj.parameter.id,
+                "param_uid": str(id(obj.parameter)),
                 "resourceType": "link"
             }
         return None
@@ -221,6 +327,7 @@ class JsonExporter(LoggingObject):
         data = {
             "id": pkg.name,
             "metapackage": pkg.is_metapackage,
+            "version": pkg.version,
             "description": pkg.description,
             "wiki": pkg.website,
             "repository": pkg.vcs_url,

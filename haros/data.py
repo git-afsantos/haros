@@ -375,6 +375,7 @@ class AnalysisReport(object):
     def __init__(self, project):
         self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+        self.analysis_time = 0.0
         self.by_package = {}
         self.by_config = {}
         self.statistics = None
@@ -479,7 +480,7 @@ class HarosSettings(object):
             self.cpp_compile_db = None
 
     @classmethod
-    def parse_from(cls, path):
+    def parse_from(cls, path, ws=None):
         with open(path, "r") as handle:
             data = yaml.safe_load(handle) or {}
         env = data.get("environment")
@@ -490,7 +491,7 @@ class HarosSettings(object):
         elif not env is None:
             raise ValueError("invalid value for environment")
         blacklist = data.get("plugin_blacklist", [])
-        workspace = data.get("workspace")
+        workspace = ws or data.get("workspace")
         analysis = data.get("analysis", {})
         analysis_ignored = analysis.get("ignore", {})
         ignored_tags = analysis_ignored.get("tags")
