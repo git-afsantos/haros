@@ -912,7 +912,7 @@ class NodeExtractor(LoggingObject):
         else:
             # It may be normal for pure Python project not to have a CMakeLists.txt
             for file in pkg.source_files:
-                if file.language == 'py':
+                if file.language == 'python':
                     sf = self._get_file(file.path)
                     if sf:
                         node = Node(file.full_name, pkg)
