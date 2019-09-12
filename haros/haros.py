@@ -563,6 +563,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         configs, nodes, env = self._extract_metamodel(node_cache, rules)
         self._load_database()
         self._extract_configurations(self.database.project, configs, nodes, env)
+        self._make_node_configurations(self.database.project, nodes, env)
+        self._parse_hpl_properties()
         self._analyse(plugins, rules, metrics)
         self._save_results(node_cache)
         self.database = None
@@ -594,14 +596,18 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return extractor.configurations, extractor.node_specs, env
 
     def _extract_configurations(self, project, configs, nodes, environment):
+        empty_dict = {}
+        empty_list = ()
         for name, data in configs.iteritems():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
-                launch_files = data if isinstance(data, list) else data["launch"]
+                launch_files = data
+                hpl = empty_dict
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
                     nodes=nodes, hints=data.get("hints"))
                 launch_files = data["launch"]
+                hpl = data.get("hpl", empty_dict)
             for launch_file in launch_files:
                 parts = launch_file.split(os.sep, 1)
                 if not len(parts) == 2:
@@ -617,8 +623,30 @@ class HarosAnalyseRunner(HarosCommonExporter):
             for msg in builder.errors:
                 self.log.warning("Configuration %s: %s",
                                  builder.configuration.name, msg)
+            for p in hpl.get("properties", empty_list):
+                builder.configuration.hpl_properties.append(p)
+            for a in hpl.get("assumptions", empty_list):
+                builder.configuration.hpl_assumptions.append(a)
             project.configurations.append(builder.configuration)
             self.database.configurations.append(builder.configuration)
+
+    def _make_node_configurations(self, project, nodes, environment):
+        for node_name, node_hints in nodes.iteritems():
+            try:
+                node = project.get_node(node_name)
+            except ValueError as e:
+                self.log.error(str(e))
+                continue
+            builder = ConfigurationBuilder(node_name, environment,
+                self.database, nodes=node_hints)
+            builder.add_rosrun(node)
+            cfg = builder.configuration
+            for msg in builder.errors:
+                self.log.warning("Configuration %s: %s", cfg.name, msg)
+            cfg.hpl_properties = list(node.hpl_properties)
+            cfg.hpl_assumptions = list(node.hpl_assumptions)
+            project.configurations.append(cfg)
+            self.database.configurations.append(cfg)
 
     def _load_database(self):
         self.current_dir = os.path.join(self.io_projects_dir, self.project)
@@ -670,6 +698,43 @@ class HarosAnalyseRunner(HarosCommonExporter):
             rules.update(rs)
             metrics.update(ms)
         return plugins, rules, metrics
+
+    def _parse_hpl_properties(self):
+        items = []
+        for config in self.project.configurations:
+            if config.hpl_properties or config.hpl_assumptions:
+                items.append(config)
+        skipped = []
+        for pkg in self.project.packages:
+            for node in pkg.nodes:
+                if node.hpl_properties or node.hpl_assumptions:
+                    if pkg._analyse:
+                        items.append(node)
+                    else:
+                        skipped.append(node.node_name)
+        if not items:
+            if skipped:
+                self.log.warning(("Found HPL specifications for nodes %s, "
+                    "but their packages are not marked for analysis."),
+                    skipped)
+            return
+        p_parser = None
+        a_parser = None
+        try:
+            # lazy import; this is an optional dependency
+            from .hpl import hpl_parser, hpl_assumption_parser
+            if skipped:
+                self.log.warning(("Found HPL specifications for nodes %s, "
+                    "but their packages are not marked for analysis."),
+                    skipped)
+            p_parser = hpl_parser()
+            a_parser = hpl_assumption_parser()
+            for item in items:
+                item.hpl_properties = map(p_parser.parse, item.hpl_properties)
+                item.hpl_assumptions = map(a_parser.parse, item.hpl_assumptions)
+        except ImportError:
+            self.log.warning(("Found HPL specifications, "
+                "but the HPL parser could not be found."))
 
     def _analyse(self, plugins, rules, metrics):
         print "[HAROS] Running analysis..."
