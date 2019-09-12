@@ -807,10 +807,30 @@ class ConfigurationBuilder(LoggingObject):
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
 
+    def add_rosrun(self, node):
+        config = self.configuration
+        self.log.debug("Adding rosrun command to configuration. Node: %s",
+                       node.node_name)
+        if node.is_nodelet:
+            raise ValueError("Cannot add a nodelet via 'rosrun' configuration.")
+            # ^ because in this case we do not have the args
+        name = node.name if not node.rosname else node.rosname.own
+        config.add_command("rosrun", [node.package.name, node.name, name])
+        scope = LaunchScope(None, config, None)
+        scope = scope.make_node(node, name, "/", (), True)
+        hints = self.node_specs.get(node.node_name)
+        config_hints = ConfigurationHints.make_hints(hints, scope)
+        scope.make_topics(advertise=config_hints.advertise,
+                          subscribe=config_hints.subscribe)
+        scope.make_services(service=config_hints.service,
+                            client=config_hints.client)
+        config_hints.make_missing_links(scope)
+
     def add_launch(self, launch_file):
         assert launch_file.language == "launch"
         config = self.configuration
         config.roslaunch.append(launch_file)
+        config.add_command("roslaunch", [launch_file])
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
