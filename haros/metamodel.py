@@ -23,7 +23,7 @@
 # Imports
 ###############################################################################
 
-from collections import Counter
+from collections import Counter, namedtuple
 import os
 
 
@@ -524,10 +524,28 @@ class Project(SourceObject):
         self.packages = []
         self.repositories = []
         self.configurations = []
+        self.node_specs = {}
 
     @property
     def scope(self):
         return "project"
+
+    def get_node(self, node_name):
+        parts = node_name.split("/")
+        if not len(parts) == 2:
+            raise ValueError("Expected '<pkg>/<node>' string, got {}.".format(
+                repr(node_name)))
+        for pkg in self.packages:
+            if pkg.name == parts[0]:
+                break
+        else:
+            raise ValueError("Package is not part of the project: " + parts[0])
+        for node in pkg.nodes:
+            if node.name == parts[1]:
+                break
+        else:
+            raise ValueError("Unknown node: " + node_name)
+        return node
 
     def bound_to(self, other):
         if other.scope == "package":
@@ -573,6 +591,8 @@ class Node(SourceObject):
         self.client = []
         self.read_param = []
         self.write_param = []
+        self.hpl_properties = [] # [string | HplAstObject]
+        self.hpl_assumptions = [] # [string | HplAstObject]
 
     @property
     def scope(self):
@@ -1156,6 +1176,8 @@ class Configuration(MetamodelObject):
         plus environment, parameters, etc.
     """
 
+    LaunchCommand = namedtuple("LaunchCommand", ("command", "args"))
+
     def __init__(self, name, env = None, nodes = None,
                  topics = None, services = None, parameters = None):
         self.id = "configuration:" + name
@@ -1167,6 +1189,9 @@ class Configuration(MetamodelObject):
         self.services = ResourceCollection(services)
         self.parameters = ResourceCollection(parameters)
         self.dependencies = DependencySet()
+        self.launch_commands = [] # [LaunchCommand]
+        self.hpl_properties = [] # [string | HplAstObject]
+        self.hpl_assumptions = [] # [string | HplAstObject]
 
     @property
     def location(self):
@@ -1185,6 +1210,9 @@ class Configuration(MetamodelObject):
         for node in self.nodes:
             unique.update(node.remaps.viewitems())
         return len(unique)
+
+    def add_command(self, cmd, args):
+        self.launch_commands.append(self.LaunchCommand(cmd, args))
 
     def to_JSON_object(self):
         publishers = []
