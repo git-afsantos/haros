@@ -88,6 +88,7 @@ class ProjectExtractor(LoggingObject):
         self.configurations = None
         self.node_specs = None
         self.rules = None
+        self._extra_packages = set()
 
     def index_source(self, settings=None):
         self.log.debug("ProjectExtractor.index_source()")
@@ -103,6 +104,7 @@ class ProjectExtractor(LoggingObject):
         self._populate_packages_and_dependencies(settings=settings)
         self._update_node_cache()
         self._find_nodes(settings)
+        self._update_nodes_from_specs()
 
     def _setup(self):
         try:
@@ -117,7 +119,14 @@ class ProjectExtractor(LoggingObject):
         self.missing = set(self.packages)
         self.configurations = data.get("configurations", {})
         self.node_specs = data.get("nodes", {})
+        self.project.node_specs = self.node_specs
         self.rules = data.get("rules", {})
+        for node_name in self.node_specs:
+            if not "/" in node_name:
+                raise ValueError("expected '<pkg>/<node>' in node specs")
+            pkg, exe = node_name.split("/")
+            self._extra_packages.add(pkg)
+        self.missing.update(self._extra_packages)
 
     def _load_user_repositories(self):
         self.log.info("Looking up user provided repositories.")
@@ -145,12 +154,17 @@ class ProjectExtractor(LoggingObject):
         extractor.refresh_package_cache()
         found = []
         for name in self.missing:
+            analyse = name in self.packages
             pkg = self.package_cache.get(name)
             if pkg:
                 self.project.packages.append(pkg)
                 found.append(name)
-            elif extractor.find_package(name, project = self.project):
-                found.append(name)
+                pkg._analyse = analyse
+            else:
+                pkg = extractor.find_package(name, project=self.project)
+                if pkg:
+                    found.append(name)
+                    pkg._analyse = analyse
         self.missing.difference_update(found)
 
     def _load_distro_repositories(self):
@@ -255,6 +269,8 @@ class ProjectExtractor(LoggingObject):
         self.log.debug("Importing cached Nodes.")
         data = [datum for datum in self.node_cache.itervalues()]
         self.node_cache = {}
+        empty_dict = {}
+        empty_list = ()
         for datum in data:
             try:
                 pkg = self._get_package(datum["package"])
@@ -283,7 +299,44 @@ class ProjectExtractor(LoggingObject):
                 node.read_param.append(self._read_from_JSON(p))
             for p in datum["writeParam"]:
                 node.write_param.append(self._write_from_JSON(p))
+            hpl = datum.get("hpl", empty_dict)
+            for p in hpl.get("properties", empty_list):
+                node.hpl_properties.append(p)
+            for a in hpl.get("assumptions", empty_list):
+                node.hpl_assumptions.append(a)
             self.node_cache[node.node_name] = node
+
+    def _update_nodes_from_specs(self):
+        self.log.debug("Loading Nodes from specs.")
+        empty_dict = {}
+        empty_list = ()
+        for node_name, datum in self.node_specs.iteritems():
+            if node_name in self.node_cache:
+                continue
+            pkg_name, exe = node_name.split("/")
+            try:
+                pkg = self._get_package(pkg_name)
+            except ValueError as e:
+                self.log.error(str(e))
+                self.log.debug("This should not happen.")
+                continue
+            for node in pkg.nodes:
+                if node.name == exe:
+                    break
+            else:
+                node = Node(exe, pkg)
+                pkg.nodes.append(node)
+            self._pub_from_specs(datum, node)
+            self._sub_from_specs(datum, node)
+            self._srv_from_specs(datum, node)
+            self._client_from_specs(datum, node)
+            self._read_from_specs(datum, node)
+            self._write_from_specs(datum, node)
+            hpl = datum.get("hpl", empty_dict)
+            for p in hpl.get("properties", empty_list):
+                node.hpl_properties.append(p)
+            for a in hpl.get("assumptions", empty_list):
+                node.hpl_assumptions.append(a)
 
     def _get_package(self, name):
         for pkg in self.project.packages:
@@ -361,6 +414,48 @@ class ProjectExtractor(LoggingObject):
                                   repeats = datum["repeats"],
                                   conditions = cs,
                                   location = l(datum["location"]))
+
+    def _pub_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("advertise"), node, "advertise",
+                               Publication, 4)
+
+    def _sub_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("subscribe"), node, "subscribe",
+                               Subscription, 4)
+
+    def _srv_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("service"), node, "service",
+                               ServiceServerCall, 3)
+
+    def _client_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("client"), node, "client",
+                               ServiceClientCall, 3)
+
+    def _read_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("readParam"), node, "read_param",
+                               ReadParameterCall, 3)
+
+    def _write_from_specs(self, datum, node):
+        self._calls_from_specs(datum.get("writeParam"), node, "write_param",
+                               WriteParameterCall, 3)
+
+    def _calls_from_specs(self, data, node, attr, data_cls, nargs):
+        if not data:
+            return
+        assert nargs == 3 or nargs == 4
+        calls = []
+        collection = getattr(node, attr)
+        for rosname, data_type in data.iteritems():
+            for call in collection:
+                if call.name == rosname:
+                    break
+            else:
+                if nargs == 3:
+                    call = data_cls(rosname, "/", data_type)
+                else:
+                    call = data_cls(rosname, "/", data_type, None)
+                calls.append(call)
+        collection.extend(calls)
 
     def _location_from_JSON(self, datum):
         try:
