@@ -42,10 +42,9 @@ try:
     from bonsai.cpp.clang_parser import CppAstParser
 except ImportError:
     CppAstParser = None
-# from rospkg import RosPack, RosStack, ResourceNotFound
-# ^ rospkg only supports ROS1 workspaces and produces misleading/
-# incorrect information when used in ROS2 workspaces.
+from rospkg import RosPack, RosStack, ResourceNotFound
 from xml.etree.cElementTree import ElementTree
+from distutils.spawn import find_executable
 
 from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
@@ -65,74 +64,53 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
-def get_ros_paths():
+def findRosPackages(paths = None, as_stack = False):
     """
-    Get list of ROS file system paths from environment.
-    :returns: [list] List of ROS paths as found in system environment (ENV)
-    """
-    paths = []
-    env = os.environ
-    ros_root = env.get("ROS_ROOT", None)
-    if ros_root:
-        ros_root = os.path.normpath(ros_root)
-        paths.append(ros_root)
-    ros_package_path = env.get("ROS_PACKAGE_PATH", None)
-    if ros_package_path:
-        paths.extend([x for x in ros_package_path.split(os.pathsep) if x.strip()])
-    return paths
-# ^ def get_ros_paths
-
-
-def findRosPackages(paths = get_ros_paths(), as_stack = False):
-    """
-    Find ROS packages inside a folder.
-    :param paths: [list] of [str] File system path to search.
+    Find ROS packages inside folders.
+    :param paths: [list] of [str] File system path to search, [None] to use the ROS default search paths.
     :param as_stack: [bool] Whether the paths point to stacks.
     :returns: [dict] Dictionary of [str]package_name -> [str]package_path.
     """
-    resources = {} # the packages
-    basename = os.path.basename
-    for path in reversed(paths):
-        for d, dirs, files in os.walk(path, topdown=True, followlinks=True):
-            if ('CATKIN_IGNORE' in files or
-                'COLCON_IGNORE' in files or
-                'AMENT_IGNORE' in files
-            ):
-                del dirs[:]
-                continue  # leaf
-            if 'package.xml' in files:
-                # parse package.xml and decide if it matches the search criteria
-                root = ElementTree(None, os.path.join(d, 'package.xml'))
-                is_metapackage = root.find('./export/metapackage') is not None
-                if (
-                    (as_stack and is_metapackage) or
-                    (not as_stack and not is_metapackage)
-                ):
-                    resource_name = root.findtext('name').strip(' \n\r\t')
-                    if resource_name not in resources:
-                        resources[resource_name] = d
-                    del dirs[:]
-                    continue  # leaf
-            if ((as_stack and 'stack.xml' in files) or
-                (not as_stack and 'manifest.xml' in files)):
-                # resource_name = basename(d)
-                # if resource_name not in resources:
-                #     resources[resource_name] = d
-                del dirs[:]
-                continue  # leaf
-            elif 'manifest.xml' in files or 'package.xml' in files:
-                # noop if manifest_name=='manifest.xml', but a good
-                # optimization for stacks.
-                del dirs[:]
-                continue  # leaf
-            elif 'rospack_nosubdirs' in files:
-                del dirs[:]
-                continue   # leaf
-            # remove hidden dirs (esp. .svn/.git)
-            [dirs.remove(di) for di in dirs if di[0] == '.']
-        # ^ for d, dirs, files in os.walk(path, topdown=True, followlinks=True)
-    # ^ for path in reversed(paths)
-    return resources
+    ros_version = os.environ.get("ROS_VERSION")
+    if ros_version != "1":
+        # try ROS2 crawling with colcon if possible
+        # (in ambiguous cases, we give preference to trying the ROS2 method first,
+        # because ROS1 rospkg only produces misleading/
+        # incorrect information when used in ROS2/mixed workspaces.
+        colcon = find_executable('colcon')
+        if colcon != None:
+            cmd = [colcon, 'list']
+            if paths != None:
+                cmd.extend(['--base-paths'])
+                cmd.extend(paths)
+            try:
+                pkglist = subprocess.check_output(cmd)
+                # format is <pkg_name>\t<pkg_path>\t<build_system>\n
+                pkglist = pkglist.split('\n')
+                pkgs = {}
+                for pkginfo in pkglist:
+                    pkginfo_parts = pkginfo.split('\t')
+                    if pkginfo_parts[0] in pkgs:
+                        continue
+                    pkgs[pkginfo_parts[0]] = pkginfo_parts[1]
+                return pkgs
+            except:
+                pass
+        # ^ if colcon != None
+    # ^ if ros_version != "1"
+    # else: try the ROS1 way
+    ros = None
+    if as_stack:
+        ros = RosStack.get_instance(paths)
+    else:
+        ros = RosPack.get_instance(paths)
+    pkg_names = ros.list()
+    pkgs = {}
+    for pkg_name in pkg_names:
+        if pkg_name in pkgs:
+            continue
+        pkgs[pkg_name] = ros.get_path(pkg_name)
+    return pkgs
 # ^ findRosPackages(paths)
 
 ###############################################################################
