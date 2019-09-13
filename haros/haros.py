@@ -722,12 +722,14 @@ class HarosAnalyseRunner(HarosCommonExporter):
         a_parser = None
         try:
             # lazy import; this is an optional dependency
-            from .hpl import hpl_parser, hpl_assumption_parser
+            from .hpl.hpl_parser import (
+                hpl_property_parser, hpl_assumption_parser
+            )
             if skipped:
                 self.log.warning(("Found HPL specifications for nodes %s, "
                     "but their packages are not marked for analysis."),
                     skipped)
-            p_parser = hpl_parser()
+            p_parser = hpl_property_parser()
             a_parser = hpl_assumption_parser()
             for item in items:
                 item.hpl_properties = map(p_parser.parse, item.hpl_properties)
