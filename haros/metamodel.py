@@ -888,7 +888,9 @@ class NodeInstance(Resource):
         return nodes
 
     def traceability(self):
-        return [self.launch.location]
+        if self.launch:
+            return [self.launch.location]
+        return []
 
     def remap(self, rosname):
         new = NodeInstance(self.configuration, rosname, self.node,
@@ -1170,13 +1172,14 @@ class ResourceCollection(object):
         return previous
 
 
+LaunchCommand = namedtuple("LaunchCommand", ("command", "args"))
+
+
 class Configuration(MetamodelObject):
     """A configuration is more or less equivalent to an application.
         It is the result of a set of launch files,
         plus environment, parameters, etc.
     """
-
-    LaunchCommand = namedtuple("LaunchCommand", ("command", "args"))
 
     def __init__(self, name, env = None, nodes = None,
                  topics = None, services = None, parameters = None):
@@ -1212,7 +1215,7 @@ class Configuration(MetamodelObject):
         return len(unique)
 
     def add_command(self, cmd, args):
-        self.launch_commands.append(self.LaunchCommand(cmd, args))
+        self.launch_commands.append(LaunchCommand(cmd, args))
 
     def to_JSON_object(self):
         publishers = []

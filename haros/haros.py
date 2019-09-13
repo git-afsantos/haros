@@ -631,14 +631,19 @@ class HarosAnalyseRunner(HarosCommonExporter):
             self.database.configurations.append(builder.configuration)
 
     def _make_node_configurations(self, project, nodes, environment):
+        self.log.debug("Creating Configurations for node specs.")
         for node_name, node_hints in nodes.iteritems():
             try:
                 node = project.get_node(node_name)
             except ValueError as e:
                 self.log.error(str(e))
                 continue
-            builder = ConfigurationBuilder(node_name, environment,
-                self.database, nodes=node_hints)
+            if not node.package._analyse:
+                self.log.debug("Skipping %s; package not marked for analysis",
+                               node_name)
+                continue
+            builder = ConfigurationBuilder(node_name.replace("/", "_"),
+                environment, self.database, nodes=node_hints)
             builder.add_rosrun(node)
             cfg = builder.configuration
             for msg in builder.errors:
@@ -701,11 +706,11 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def _parse_hpl_properties(self):
         items = []
-        for config in self.project.configurations:
+        for config in self.database.project.configurations:
             if config.hpl_properties or config.hpl_assumptions:
                 items.append(config)
         skipped = []
-        for pkg in self.project.packages:
+        for pkg in self.database.project.packages:
             for node in pkg.nodes:
                 if node.hpl_properties or node.hpl_assumptions:
                     if pkg._analyse:
