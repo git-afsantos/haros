@@ -529,8 +529,9 @@ class AnalysisManager(LoggingObject):
             try:
                 os.makedirs(dirpath)
             except OSError:
-                self.log.error("Cannot create directory: " + repr(dirpath))
-                continue
+                if not os.path.isdir(dirpath):
+                    self.log.error("Cannot create directory: " + repr(dirpath))
+                    continue
             for filepath in files:
                 i = filepath.rfind(os.sep)
                 j = filepath.rfind(".")

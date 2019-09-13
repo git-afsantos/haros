@@ -634,7 +634,11 @@ class Node(SourceObject):
             "client": [p.to_JSON_object() for p in self.client],
             "readParam": [p.to_JSON_object() for p in self.read_param],
             "writeParam": [p.to_JSON_object() for p in self.write_param],
-            "timestamp": self.timestamp
+            "timestamp": self.timestamp,
+            "hpl": {
+                "properties": map(str, self.hpl_properties),
+                "assumptions": map(str, self.hpl_assumptions)
+            }
         }
 
     def bound_to(self, other):
@@ -1248,6 +1252,10 @@ class Configuration(MetamodelObject):
                 "clients": clients,
                 "reads": reads,
                 "writes": writes
+            },
+            "hpl": {
+                "properties": map(str, self.hpl_properties),
+                "assumptions": map(str, self.hpl_assumptions)
             }
         }
 

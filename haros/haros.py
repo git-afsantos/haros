@@ -658,7 +658,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         haros_db = os.path.join(self.current_dir, "haros.db")
         try:
             haros_db = HarosDatabase.load_state(haros_db)
-        except IOError:
+        except IOError, EOFError:
             self.log.info("No previous analysis data for " + self.project)
         else:
             # NOTE: This has a tendency to grow in size.
