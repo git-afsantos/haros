@@ -109,6 +109,14 @@ class PluginInterface(LoggingObject):
         configs = self._data.configurations
         return configs.get(scope_id, configs.get("configuration:" + scope_id))
 
+    def log_warning(self, msg):
+        self.log.error("Plugin %s issued a warning:\n%s",
+            self._plugin.name, msg)
+
+    def log_error(self, msg):
+        self.log.error("Plugin %s reported an error:\n%s",
+            self._plugin.name, msg)
+
     def report_violation(self, rule_id, msg, scope = None,
                          line = None, function = None, class_ = None):
         self.log.debug("violation(%s, %s, %s)", rule_id, msg, scope)
