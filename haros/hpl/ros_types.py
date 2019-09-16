@@ -737,7 +737,8 @@ def get_type(type_name):
     try:
         return _cache[type_name]
     except KeyError as ke:
-        assert "/" in type_name
+        if "/" not in type_name:
+            raise ValueError("Invalid message type name: {}".format(type_name))
         try:
             msg_class = _load_msg_class(type_name)
             fields = _get_class_fields(msg_class)
@@ -746,7 +747,7 @@ def get_type(type_name):
             _cache[type_name] = type_token
             return type_token
         except ImportError as ie:
-            raise KeyError(type_name)
+            raise KeyError("Cannot import message {}".format(type_name))
 
 def _load_msg_class(type_name):
     pkg, msg = type_name.split("/")

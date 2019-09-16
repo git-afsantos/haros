@@ -311,27 +311,30 @@ class ProjectExtractor(LoggingObject):
         empty_dict = {}
         empty_list = ()
         for node_name, datum in self.node_specs.iteritems():
-            if node_name in self.node_cache:
-                continue
-            pkg_name, exe = node_name.split("/")
-            try:
-                pkg = self._get_package(pkg_name)
-            except ValueError as e:
-                self.log.error(str(e))
-                self.log.debug("This should not happen.")
-                continue
-            for node in pkg.nodes:
-                if node.name == exe:
-                    break
+            node = self.node_cache.get(node_name)
+            if node is None:
+                pkg_name, exe = node_name.split("/")
+                try:
+                    pkg = self._get_package(pkg_name)
+                except ValueError as e:
+                    self.log.error(str(e))
+                    self.log.debug("This should not happen.")
+                    continue
+                for node in pkg.nodes:
+                    if node.name == exe:
+                        break
+                else:
+                    node = Node(exe, pkg)
+                    pkg.nodes.append(node)
+                self._pub_from_specs(datum, node)
+                self._sub_from_specs(datum, node)
+                self._srv_from_specs(datum, node)
+                self._client_from_specs(datum, node)
+                self._read_from_specs(datum, node)
+                self._write_from_specs(datum, node)
             else:
-                node = Node(exe, pkg)
-                pkg.nodes.append(node)
-            self._pub_from_specs(datum, node)
-            self._sub_from_specs(datum, node)
-            self._srv_from_specs(datum, node)
-            self._client_from_specs(datum, node)
-            self._read_from_specs(datum, node)
-            self._write_from_specs(datum, node)
+                node.hpl_properties = []
+                node.hpl_assumptions = []
             hpl = datum.get("hpl", empty_dict)
             for p in hpl.get("properties", empty_list):
                 node.hpl_properties.append(p)

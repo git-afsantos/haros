@@ -110,7 +110,7 @@ class PluginInterface(LoggingObject):
         return configs.get(scope_id, configs.get("configuration:" + scope_id))
 
     def log_warning(self, msg):
-        self.log.error("Plugin %s issued a warning:\n%s",
+        self.log.warning("Plugin %s issued a warning:\n%s",
             self._plugin.name, msg)
 
     def log_error(self, msg):
