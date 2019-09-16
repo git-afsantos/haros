@@ -55,7 +55,11 @@ class HplLogicError(Exception):
 # Top-level Classes
 ###############################################################################
 
-class HplAssumption(object):
+HplAstObject(object):
+    pass
+
+
+class HplAssumption(HplAstObject):
     __slots__ = ("topic", "msg_filter")
 
     def __init__(self, topic, msg_filter):
@@ -79,7 +83,7 @@ class HplAssumption(object):
             repr(self.topic), repr(self.msg_filter))
 
 
-class HplProperty(object):
+class HplProperty(HplAstObject):
     __slots__ = ("scope", "observable")
 
     def __init__(self, scope, observable):
@@ -217,7 +221,7 @@ class HplProperty(object):
             repr(self.scope), repr(self.observable))
 
 
-class HplScope(object):
+class HplScope(HplAstObject):
     __slots__ = ("scope_type", "activator", "terminator", "timeout")
 
     GLOBAL = 1
@@ -305,7 +309,7 @@ class HplScope(object):
             repr(self.terminator), repr(self.timeout))
 
 
-class HplObservable(object):
+class HplObservable(HplAstObject):
     __slots__ = ("pattern", "behaviour", "trigger", "min_time", "max_time")
 
     EXISTENCE = 1
@@ -406,7 +410,7 @@ class HplObservable(object):
 # Events and Event Operators
 ###############################################################################
 
-class HplEvent(object):
+class HplEvent(HplAstObject):
     __slots__ = ("event_type", "msg_filter", "topic", "delay", "duration",
                  "alias")
 
@@ -488,7 +492,7 @@ class HplEvent(object):
             self.topic, self.delay, self.duration, self.alias)
 
 
-class HplEventChain(object):
+class HplEventChain(HplAstObject):
     __slots__ = ("events", "duration")
 
     def __init__(self, events, duration=INF):
@@ -562,7 +566,7 @@ class HplEventChain(object):
             repr(self.events), self.duration)
 
 
-class HplTopLevelEvent(object):
+class HplTopLevelEvent(HplAstObject):
     def roots(self):
         raise NotImplementedError()
 
@@ -664,7 +668,7 @@ class HplChainDisjunction(HplTopLevelEvent):
 # Message Filters and Field Conditions
 ###############################################################################
 
-class HplMessageFilter(object):
+class HplMessageFilter(HplAstObject):
     __slots__ = ("conditions",)
 
     def __init__(self, conditions):
@@ -695,7 +699,7 @@ class HplMessageFilter(object):
         return "{}({})".format(type(self).__name__, repr(self.conditions))
 
 
-class HplFieldCondition(object):
+class HplFieldCondition(HplAstObject):
     __slots__ = ("field", "operator", "value")
 
     OP_EQ = "="
@@ -841,7 +845,7 @@ class HplFieldCondition(object):
 # Values and Field References
 ###############################################################################
 
-class HplValue(object):
+class HplValue(HplAstObject):
     __slots__ = ()
 
     @property
