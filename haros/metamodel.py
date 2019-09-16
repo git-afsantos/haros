@@ -1199,6 +1199,7 @@ class Configuration(MetamodelObject):
         self.launch_commands = [] # [LaunchCommand]
         self.hpl_properties = [] # [string | HplAstObject]
         self.hpl_assumptions = [] # [string | HplAstObject]
+        self.user_attributes = {}
 
     @property
     def location(self):

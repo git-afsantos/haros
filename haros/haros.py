@@ -620,15 +620,16 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 if not launch:
                     raise ValueError("unknown launch file: " + launch_file)
                 builder.add_launch(launch)
+            cfg = builder.configuration
             for msg in builder.errors:
-                self.log.warning("Configuration %s: %s",
-                                 builder.configuration.name, msg)
+                self.log.warning("Configuration %s: %s", cfg.name, msg)
             for p in hpl.get("properties", empty_list):
-                builder.configuration.hpl_properties.append(p)
+                cfg.hpl_properties.append(p)
             for a in hpl.get("assumptions", empty_list):
-                builder.configuration.hpl_assumptions.append(a)
-            project.configurations.append(builder.configuration)
-            self.database.configurations.append(builder.configuration)
+                cfg.hpl_assumptions.append(a)
+            cfg.user_attributes = data.get("user_data", {})
+            project.configurations.append(cfg)
+            self.database.configurations.append(cfg)
 
     def _make_node_configurations(self, project, nodes, environment):
         self.log.debug("Creating Configurations for node specs.")
@@ -650,6 +651,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 self.log.warning("Configuration %s: %s", cfg.name, msg)
             cfg.hpl_properties = list(node.hpl_properties)
             cfg.hpl_assumptions = list(node.hpl_assumptions)
+            cfg.user_attributes = node_hints.get("user_data", {})
             project.configurations.append(cfg)
             self.database.configurations.append(cfg)
 
