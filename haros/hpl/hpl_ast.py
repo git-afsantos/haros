@@ -55,7 +55,7 @@ class HplLogicError(Exception):
 # Top-level Classes
 ###############################################################################
 
-HplAstObject(object):
+class HplAstObject(object):
     pass
 
 
