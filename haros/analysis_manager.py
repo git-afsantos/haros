@@ -537,7 +537,9 @@ class AnalysisManager(LoggingObject):
             try:
                 os.makedirs(dirpath)
             except OSError:
-                if not os.path.isdir(dirpath):
+                if os.path.isdir(dirpath):
+                    self._empty_dir(dirpath)
+                else:
                     self.log.error("Cannot create directory: " + repr(dirpath))
                     continue
             for filepath in files:
@@ -565,6 +567,17 @@ class AnalysisManager(LoggingObject):
                     shutil.move(filepath, path)
                 except OSError:
                     self.log.error("Cannot copy file " + repr(filepath))
+
+    def _empty_dir(self, dirpath):
+        self.log.debug("Emptying directory %s", dirpath)
+        for filename in os.listdir(dirpath):
+            path = os.path.join(dirpath, filename)
+            if os.path.isfile(path):
+                self.log.debug("Removing file %s", path)
+                try:
+                    os.unlink(path)
+                except OSError:
+                    self.log.debug("Unable to remove file.")
 
     # def _update_statistics(self):
         # while len(self.summaries) > 30:
