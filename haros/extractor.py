@@ -461,6 +461,8 @@ class ProjectExtractor(LoggingObject):
         collection.extend(calls)
 
     def _location_from_JSON(self, datum):
+        if datum is None:
+            return None
         try:
             pkg = self._get_package(datum["package"])
             sf = None
