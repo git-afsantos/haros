@@ -324,7 +324,7 @@ class ProjectExtractor(LoggingObject):
                     if node.name == exe:
                         break
                 else:
-                    node = Node(exe, pkg)
+                    node = Node(exe, pkg, rosname=datum.get("rosname"))
                     pkg.nodes.append(node)
                 self._pub_from_specs(datum, node)
                 self._sub_from_specs(datum, node)
