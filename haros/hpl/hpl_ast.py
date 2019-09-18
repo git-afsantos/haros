@@ -412,7 +412,7 @@ class HplObservable(HplAstObject):
 
 class HplEvent(HplAstObject):
     __slots__ = ("event_type", "msg_filter", "topic", "delay", "duration",
-                 "alias")
+                 "alias", "msg_type")
 
     PUBLISH = 1
 
@@ -426,6 +426,7 @@ class HplEvent(HplAstObject):
         self.delay = delay # float >= 0
         self.duration = duration # float >= 0
         self.alias = alias # string
+        self.msg_type = None # .ros_types.TypeToken
 
     @classmethod
     def publish(cls, topic, msg_filter=None, delay=0.0,
@@ -999,6 +1000,13 @@ class HplFieldReference(HplValue):
     @property
     def parts(self):
         return self._parts
+
+    @property
+    def ros_type(self):
+        if len(self.ros_types) != 1:
+            msg = "undetermined ROS type for field '{}'; possible types: {}"
+            raise TypeError(msg.format(self.token, self.ros_types))
+        return self.ros_types[0]
 
     @property
     def is_reference(self):
