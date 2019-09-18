@@ -343,10 +343,14 @@ class PropertyTransformer(Transformer):
         return HplFieldCondition(field, operator, value)
 
     def nin_operator(self, (not_token, in_token)):
-        return Token(not_token.type, "not in",
+        token = Token(not_token.type, "not in",
             pos_in_stream=not_token.pos_in_stream,
-            line=not_token.line, column=not_token.column,
-            end_line=in_token.end_line, end_column=in_token.end_column)
+            line=not_token.line, column=not_token.column)
+        # these are not passed to the constructor,
+        # so we can use lark-parser<0.6.6
+        token.end_line = in_token.end_line
+        token.end_column = in_token.end_column
+        return token
 
     def own_msg_field_expr(self, (token,)):
         return HplFieldReference(token)
