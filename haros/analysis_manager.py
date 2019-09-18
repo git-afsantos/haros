@@ -357,7 +357,8 @@ class QueryEngine(LoggingObject):
             details = "{" + ", ".join(parts) + "}"
         elif isinstance(match, MetamodelObject):
             location = match.location
-            locations[location.smallest_scope.id] = location
+            if location is not None:
+                locations[location.smallest_scope.id] = location
             details = str(match)
             affected.append(match)
         else:
