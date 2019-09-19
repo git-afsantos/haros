@@ -111,7 +111,7 @@ FIELD_REF: MSG_FIELD ("." MSG_FIELD)*
 
 MSG_FIELD: CNAME ["[" (INT | ARRAY_OPERATOR) "]"]
 
-ARRAY_OPERATOR: "*"
+ARRAY_OPERATOR: "*" ["\\" INT ("," INT)*]
 """
 
 
@@ -449,6 +449,10 @@ if __name__ == "__main__":
         # 'some' is not implemented yet
         "globally: some topic {array1[*] = array2[some]}",
 
+        # do not allow spaces within index operator
+        r"globally: some topic {int_array[* \ 1] > 0}",
+        r"globally: some topic {int_array[*\1, 2, 3] > 0}",
+
         # cannot specify time for the first event
         "globally: some [1s] topic {int > 0}",
 
@@ -463,11 +467,11 @@ if __name__ == "__main__":
 
         "globally: input causes output",
 
-        "globally: input causes [1s] output",
+        "globally: input causes within 1s output",
 
         "globally: output requires input",
 
-        "globally: output requires [100 ms] input",
+        "globally: output requires within 100 ms input",
 
         """after ~events/bumper {state = PRESSED}:
             some ~cmd_vel {linear.x < 0.0, angular.z = 0.0}""",
@@ -481,6 +485,10 @@ if __name__ == "__main__":
         "globally: some topic {float_array[0] < float_array[1]}",
 
         "globally: some topic {int_array[*] > 0}",
+
+        r"globally: some topic {int_array[*\1] > 0}",
+
+        r"globally: some topic {int_array[*\1,2,3] > 0}",
 
         "globally: some topic {twist_array[*].linear.x >= 0.0}",
 
