@@ -52,16 +52,26 @@ INF = float("inf")
 ###############################################################################
 
 MSG_FILTER_GRAMMAR = r"""
-msg_filter: "{" field_condition ("," field_condition)* "}"
+msg_filter: "{" _msg_condition ("," _msg_condition)* "}"
+
+_msg_condition: field_condition
+              | field_attr_condition
 
 field_condition: own_msg_field_expr _value_condition
 
+field_attr_condition: own_field_attr_expr _attr_value_condition
+
 own_msg_field_expr: FIELD_REF
+
+own_field_attr_expr: FIELD_ATTR
 
 _value_condition: EQ_OPERATOR _value
                 | COMP_OPERATOR _number_value
                 | IN_OPERATOR _set_value
                 | nin_operator _set_value
+
+_attr_value_condition: EQ_OPERATOR int_literal
+                     | COMP_OPERATOR int_literal
 
 nin_operator: NOT_OPERATOR IN_OPERATOR
 
@@ -91,6 +101,7 @@ msg_field_expr: FIELD_REF
 
 ros_name: ROS_NAME
 
+int_literal: INT
 string: ESCAPED_STRING
 number: NUMBER
 signed_number: SIGNED_NUMBER
@@ -107,11 +118,15 @@ ROS_NAME: /[\/~]?[a-zA-Z][0-9a-zA-Z_]*(\/[a-zA-Z][0-9a-zA-Z_]*)*/
 
 ALIAS_REF: "$" CNAME
 
+FIELD_ATTR: FIELD_REF "#" KNOWN_ATTR
+
 FIELD_REF: MSG_FIELD ("." MSG_FIELD)*
 
 MSG_FIELD: CNAME ["[" (INT | ARRAY_OPERATOR) "]"]
 
 ARRAY_OPERATOR: "*" ["\\" INT ("," INT)*]
+
+KNOWN_ATTR: "length"
 """
 
 
@@ -323,9 +338,16 @@ class PropertyTransformer(Transformer):
         return ("alias", token)
 
     def msg_filter(self, conditions):
-        for condition in conditions:
+        f_cond = []
+        len_cond = []
+        for condition, attr in conditions:
             assert isinstance(condition, HplFieldCondition)
-        return ("msg_filter", HplMessageFilter(conditions))
+            if attr is None:
+                f_cond.append(condition)
+            else:
+                assert attr == "length"
+                len_cond.append(condition)
+        return ("msg_filter", HplMessageFilter(f_cond, len_conditions=len_cond))
 
     _EQ_OPERATORS = ("=", "!=")
     _COMP_OPERATORS = ("<", "<=", ">", ">=")
@@ -340,7 +362,17 @@ class PropertyTransformer(Transformer):
                 and isinstance(value.value, self._COMP_VALUE_TYPES))
         elif operator in self._IN_OPERATORS:
             assert value.is_set or value.is_range
-        return HplFieldCondition(field, operator, value)
+        return HplFieldCondition(field, operator, value), None
+
+    def field_attr_condition(self, ((field, attr), operator, value)):
+        assert isinstance(field, HplFieldReference)
+        assert isinstance(value, HplValue)
+        if operator in self._COMP_OPERATORS:
+            assert value.is_reference or (value.is_literal
+                and isinstance(value.value, self._COMP_VALUE_TYPES))
+        elif operator in self._IN_OPERATORS:
+            assert value.is_set or value.is_range
+        return HplFieldCondition(field, operator, value), attr
 
     def nin_operator(self, (not_token, in_token)):
         token = Token(not_token.type, "not in",
@@ -354,6 +386,24 @@ class PropertyTransformer(Transformer):
 
     def own_msg_field_expr(self, (token,)):
         return HplFieldReference(token)
+
+    def own_field_attr_expr(self, (token,)):
+        assert "#" in token
+        field, attr = token.split("#")
+        field = Token(token.type, field, pos_in_stream=token.pos_in_stream,
+            line=token.line, column=token.column)
+        # these are not passed to the constructor,
+        # so we can use lark-parser<0.6.6
+        field.end_line = token.end_line
+        field.end_column = token.end_column - (len(attr) + 1)
+        attr = Token(token.type, attr, pos_in_stream=token.pos_in_stream,
+            line=token.line, column=(token.column + len(field) + 1))
+        # these are not passed to the constructor,
+        # so we can use lark-parser<0.6.6
+        attr.end_line = token.end_line
+        attr.end_column = token.end_column
+        field = HplFieldReference(field)
+        return field, attr
 
     def enum_literal(self, values):
         return HplSet(values)
@@ -404,6 +454,9 @@ class PropertyTransformer(Transformer):
             return HplLiteral(n, int(n))
         except ValueError as e:
             return HplLiteral(n, float(n))
+
+    def int_literal(self, (n,)):
+        return HplLiteral(n, int(n))
 
     def ros_name(self, (n,)):
         return n
@@ -491,6 +544,8 @@ if __name__ == "__main__":
         r"globally: some topic {int_array[*\1,2,3] > 0}",
 
         "globally: some topic {twist_array[*].linear.x >= 0.0}",
+
+        "globally: some topic {twist_array#length > 0}",
 
         "after input: some output",
 

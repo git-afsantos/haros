@@ -27,6 +27,7 @@
 
 from builtins import range # Python 2 and 3: forward-compatible
 from collections import namedtuple
+from itertools import chain as iterchain
 
 from .ros_types import (
     ROS_NUMBER_TYPES, ROS_PRIMITIVE_TYPES, possible_types
@@ -670,34 +671,45 @@ class HplChainDisjunction(HplTopLevelEvent):
 ###############################################################################
 
 class HplMessageFilter(HplAstObject):
-    __slots__ = ("conditions",)
+    __slots__ = ("conditions", "length_conditions")
 
-    def __init__(self, conditions):
+    def __init__(self, conditions, len_conditions=None):
         # conditions :: [HplFieldCondition]
         self.conditions = conditions
+        if len_conditions is None:
+            self.length_conditions = []
+        else:
+            self.length_conditions = len_conditions
 
     @property
     def is_empty(self):
-        return not self.conditions
+        return not self.conditions and not self.length_conditions
 
     def __eq__(self, other):
         if not isinstance(other, HplMessageFilter):
             return False
         return (len(self.conditions) == len(other.conditions)
-                and all(c in other.conditions for c in self.conditions))
+                and all(c in other.conditions for c in self.conditions)
+                and len(self.length_conditions) == len(other.length_conditions)
+                and all(c in other.length_conditions
+                        for c in self.length_conditions))
 
     def __hash__(self):
         h = 1
         for condition in self.conditions:
             h = 31 * h + hash(condition)
+        for condition in self.length_conditions:
+            h = 31 * h + hash(condition)
         return h
 
     def __str__(self):
-        conditions = ", ".join(str(c) for c in self.conditions)
+        conditions = ", ".join(str(c)
+            for c in iterchain(self.conditions, self.length_conditions))
         return "{{{}}}".format(conditions)
 
     def __repr__(self):
-        return "{}({})".format(type(self).__name__, repr(self.conditions))
+        return "{}({}, len_conditions={})".format(type(self).__name__,
+            repr(self.conditions), repr(self.length_conditions))
 
 
 class HplFieldCondition(HplAstObject):
@@ -734,7 +746,7 @@ class HplFieldCondition(HplAstObject):
 
     def __init__(self, field_ref, op_token, hpl_value):
         if not op_token in self._NOT:
-            raise ValueError(op_token)
+            raise ValueError("invalid operator token: " + str(op_token))
         self.field = field_ref # HplFieldReference
         self.operator = op_token # string
         self.value = hpl_value # HplValue
