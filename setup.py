@@ -44,6 +44,6 @@ setup(
     ],
     extras_require = {
         "hpl": ["future", "lark-parser<1.0.0"]
-    }
+    },
     zip_safe        = True
 )
