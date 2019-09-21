@@ -36,7 +36,7 @@ import logging
 from .hpl_ast import (
     HplProperty, HplScope, HplObservable, HplEvent, HplChainDisjunction,
     HplEventChain, HplMessageFilter, HplFieldCondition, HplValue, HplLiteral,
-    HplSet, HplRange, HplFieldReference, HplAssumption
+    HplSet, HplRange, HplFieldReference, HplAssumption, HplSanityError
 )
 
 
@@ -510,7 +510,10 @@ if __name__ == "__main__":
         "globally: some [1s] topic {int > 0}",
 
         # cannot specify time for the first event
-        "globally: some [1s] topic {int > 0}; topic"
+        "globally: some [1s] topic {int > 0}; topic",
+
+        # cannot duplicate aliases
+        "globally: input as M causes output1 as M; output2"
     ]
 
     PASSING_TESTS = [
@@ -568,17 +571,12 @@ if __name__ == "__main__":
     for test_str in FAILING_TESTS:
         try:
             tree = parser.parse(test_str)
-            #tree = transformer.transform(tree)
+            tree = transformer.transform(tree)
             print ""
             print test_str
             assert False, "expected failure"
-        except UnexpectedToken as e:
-            pass
-        except UnexpectedCharacters as e:
-            pass
-        except TypeError as e:
-            pass
-        except SyntaxError as e:
+        except (UnexpectedToken, UnexpectedCharacters, TypeError, SyntaxError,
+                HplSanityError):
             pass
 
     for test_str in PASSING_TESTS:

@@ -117,6 +117,7 @@ class HplProperty(HplAstObject):
         aliases = self._check_trigger(initial)
         aliases = self._check_behaviour(aliases)
         self._check_terminator(initial)
+        self._check_duplicate_aliases()
 
     def _check_activator(self):
         if self.scope.activator is not None:
@@ -204,6 +205,23 @@ class HplProperty(HplAstObject):
                 if not ref in available:
                     raise HplSanityError(
                         "reference to undefined event: " + repr(ref))
+
+    def _check_duplicate_aliases(self):
+        events = []
+        aliases = set()
+        if self.scope.activator is not None:
+            events.extend(self.scope.activator.events())
+        if self.observable.trigger is not None:
+            events.extend(self.observable.trigger.events())
+        events.extend(self.observable.behaviour.events())
+        if self.scope.terminator is not None:
+            events.extend(self.scope.terminator.events())
+        for event in events:
+            if not event.alias:
+                continue
+            if event.alias in aliases:
+                raise HplSanityError("duplicate alias: " + event.alias)
+            aliases.add(event.alias)
 
     def __eq__(self, other):
         if not isinstance(other, HplProperty):
