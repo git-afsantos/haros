@@ -888,15 +888,27 @@ class NodeExtractor(LoggingObject):
             self._update_nodelets(parser.libraries)
             self._register_nodes(parser.executables)
         else:
-            # It may be normal for pure Python project not to have a CMakeLists.txt
+            # It may be normal for pure Python projects not to have a CMakeLists.txt
+            # Instead, search for python files with "def main():"
+            pattern = re.compile('^def\s+main\s*\(.*\)\s*:')
             for file in pkg.source_files:
-                if file.language == 'python':
-                    sf = self._get_file(file.path)
-                    if sf:
-                        node = Node(file.full_name, pkg)
-                        node.source_files.append(sf)
-                        self.nodes.append(node)
-                        self.package.nodes.append(node)
+                if file.language != 'python':
+                    continue # continue with next file
+                entry_point_found = False
+                with open(file.path) as f:
+                    for line in f:
+                        match = pattern.match(line)
+                        if match is not None:
+                            entry_point_found = True
+                            break
+                if entry_point_found == False:
+                    continue # continue with next file
+                # else: this is a python file with a 'main' function,
+                # so we consider it a node.
+                node = Node(file.full_name, pkg)
+                node.source_files.append(file)
+                self.nodes.append(node)
+                self.package.nodes.append(node)
         if self.parse_nodes:
             self._extract_primitives()
 
