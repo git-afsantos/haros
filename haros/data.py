@@ -435,7 +435,9 @@ class HarosSettings(object):
     DEFAULTS = {
         "environment": {
             "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
-            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
+            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH"),
+            "ROS_VERSION": os.environ.get("ROS_VERSION"),
+            "COLCON_PREFIX_PATH": os.environ.get("COLCON_PREFIX_PATH")
         },
         "blacklist": [],
         "workspace": None,
@@ -460,7 +462,7 @@ class HarosSettings(object):
                  ignored_metrics=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
-        self.workspace = workspace or self.find_workspace()
+        self.workspace = workspace or self._find_ros_workspace()
         self.ignored_tags = (ignored_tags
                 or list(self.DEFAULTS["analysis"]["ignore"]["tags"]))
         self.ignored_rules = (ignored_rules
@@ -508,12 +510,22 @@ class HarosSettings(object):
                    ignored_tags=ignored_tags, ignored_rules=ignored_rules,
                    ignored_metrics=ignored_metrics)
 
-    def find_workspace(self):
+    def _find_ros_workspace(self):
         """This replicates the behaviour of `roscd`."""
+        # ROS2 
+        ros_version = self.environment.get("ROS_VERSION")
+        if ros_version == "2":
+            ws = self._find_ros2_workspace()
+            if ws:
+                return ws
         ws = self.environment.get("ROS_WORKSPACE")
         if ws:
             return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        paths = self.environment.get("CMAKE_PREFIX_PATH")
+        if paths == None:
+            paths = []
+        else:
+            paths = paths.split(os.pathsep)
         for path in paths:
             if os.path.exists(os.path.join(path, ".catkin")):
                 if (path.endswith(os.sep + "devel")
@@ -524,7 +536,37 @@ class HarosSettings(object):
                     # CMAKE_PREFIX_PATH point at the devel_isolated/package path
                     # in workspaces built with catkin_make_isolated.
                     return os.path.abspath(os.path.join(path, os.pardir, os.pardir))
+        # fallback option:
+        ws = self._find_ros2_workspace()
+        if ws:
+            return ws
         raise KeyError("ROS_WORKSPACE")
+    # ^ def _find_ros_workspace()
+
+    def _find_ros2_workspace(self):
+        """
+        Try to find the current ROS2 workspace root folder path.
+        :returns: [str or None] The path of the current ROS workspace root or None.
+        """
+        colcon_prefix_path = self.environment.get("COLCON_PREFIX_PATH")
+        if colcon_prefix_path:
+            # Takes the form of "<ROS2_WORKSPACE>/src/install"
+            if colcon_prefix_path.endswith(os.sep + 'src' + os.sep + 'install'):
+                path = os.path.abspath(colcon_prefix_path[:-11])
+                return os.path.abspath(path)
+        # Fallback option: current working directory or parent directory
+        path = os.getcwd()
+        if os.path.exists(os.path.join(path, "src")):
+            return os.path.abspath(path)
+        try:
+            path = path[0:path.rindex(os.sep + 'src' + os.sep)]
+            return os.path.abspath(path)
+        except ValueError:
+            pass
+        # Failed to find the workspace
+        return None
+    # ^ def _find_ros2_workspace()
+
 
 
 ###############################################################################

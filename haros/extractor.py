@@ -43,6 +43,8 @@ try:
 except ImportError:
     CppAstParser = None
 from rospkg import RosPack, RosStack, ResourceNotFound
+from xml.etree.cElementTree import ElementTree
+from distutils.spawn import find_executable
 
 from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
@@ -61,6 +63,55 @@ from .util import cwd
 class LoggingObject(object):
     log = logging.getLogger(__name__)
 
+
+def findRosPackages(paths = None, as_stack = False):
+    """
+    Find ROS packages inside folders.
+    :param paths: [list] of [str] File system path to search, [None] to use the ROS default search paths.
+    :param as_stack: [bool] Whether the paths point to stacks.
+    :returns: [dict] Dictionary of [str]package_name -> [str]package_path.
+    """
+    ros_version = os.environ.get("ROS_VERSION")
+    if ros_version != "1":
+        # try ROS2 crawling with colcon if possible
+        # (in ambiguous cases, we give preference to trying the ROS2 method first,
+        # because ROS1 rospkg only produces misleading/
+        # incorrect information when used in ROS2/mixed workspaces.
+        colcon = find_executable('colcon')
+        if colcon != None:
+            cmd = [colcon, 'list']
+            if paths != None:
+                cmd.extend(['--base-paths'])
+                cmd.extend(paths)
+            try:
+                pkglist = subprocess.check_output(cmd)
+                # format is <pkg_name>\t<pkg_path>\t<build_system>\n
+                pkglist = pkglist.split('\n')
+                pkgs = {}
+                for pkginfo in pkglist:
+                    pkginfo_parts = pkginfo.split('\t')
+                    if pkginfo_parts[0] in pkgs:
+                        continue
+                    pkgs[pkginfo_parts[0]] = pkginfo_parts[1]
+                return pkgs
+            except:
+                pass
+        # ^ if colcon != None
+    # ^ if ros_version != "1"
+    # else: try the ROS1 way
+    ros = None
+    if as_stack:
+        ros = RosStack.get_instance(paths)
+    else:
+        ros = RosPack.get_instance(paths)
+    pkg_names = ros.list()
+    pkgs = {}
+    for pkg_name in pkg_names:
+        if pkg_name in pkgs:
+            continue
+        pkgs[pkg_name] = ros.get_path(pkg_name)
+    return pkgs
+# ^ findRosPackages(paths)
 
 ###############################################################################
 # Source Extractor
@@ -113,7 +164,7 @@ class ProjectExtractor(LoggingObject):
         self.project = Project(data.get("project", "default"))
         self.repositories = data.get("repositories", {})
         self.packages = set(data.get("packages")
-                            or RosPack.get_instance(["."]).list())
+                             or list(findRosPackages(["."])))
         self.missing = set(self.packages)
         self.configurations = data.get("configurations", {})
         self.node_specs = data.get("nodes", {})
@@ -524,27 +575,19 @@ class RepositoryExtractor(LoggingObject):
 class PackageExtractor(LoggingObject):
     def __init__(self, alt_paths = None):
         self.packages = []
-        self.rospack = RosPack.get_instance()
-        self.rosstack = RosStack.get_instance()
-        if alt_paths is None:
-            self.altpack = self.rospack
-            self.altstack = self.rosstack
-        else:
-            self.altpack = RosPack.get_instance(alt_paths)
-            self.altstack = RosStack.get_instance(alt_paths)
+        self.rospack_pkgs = None
+        self.rosstack_pkgs = None
+        self.alt_paths = alt_paths
+        self.altpack_pkgs = None
+        self.altstack_pkgs = None
         self._pkg_cache = {}
         self._extra = []
 
-    # Note: this method messes with private variables of the RosPack
-    # class. This is needed because, at some point, we download new
-    # repositories and the package cache becomes outdated.
-    # RosPack provides no public method to refresh the cache, hence
-    # changing private variables directly.
     def refresh_package_cache(self):
-        self.rospack._location_cache = None
-        self.altpack._location_cache = None
-        self.rosstack._location_cache = None
-        self.altstack._location_cache = None
+        self.rospack_pkgs = None
+        self.rosstack_pkgs = None
+        self.altpack_pkgs = None
+        self.altstack_pkgs = None
 
     # To use with LaunchParser.
     def get(self, pkg_id):
@@ -576,25 +619,34 @@ class PackageExtractor(LoggingObject):
                         repo.packages.append(pkg)
                         break
             # self._populate_package(pkg)
-        except (IOError, ET.ParseError, ResourceNotFound):
+        except (IOError, ET.ParseError, KeyError):
             return None
         return pkg
 
     def _find(self, name, project):
-        try:
-            path = self.altpack.get_path(name)
-        except ResourceNotFound:
-            try:
-                path = self.altstack.get_path(name)
-            except ResourceNotFound:
-                try:
-                    path = self.rospack.get_path(name)
-                except ResourceNotFound:
-                    path = self.rosstack.get_path(name)
+        path = None
+        if self.alt_paths:
+            if self.altpack_pkgs == None:
+                self.altpack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=False)
+            path = self.altpack_pkgs.get(name, None)
+            if (path == None):
+                if self.altstack_pkgs == None:
+                    self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
+                path = self.altstack_pgks.get(name, None)
+        if path == None:
+            if self.rospack_pkgs == None:
+                self.rospack_pkgs = findRosPackages(as_stack=False)
+            path = self.rospack_pkgs.get(name, None)
+        if path == None:
+            if self.rosstack_pkgs == None:
+                self.rosstack_pkgs = findRosPackages(as_stack=True)
+            path = self.rosstack_pkgs.get(name, None)
+        if path == None:
+            raise KeyError(name)
         return PackageParser.parse(os.path.join(path, "package.xml"),
                                    project = project)
 
-    EXCLUDED = (".git", "doc", "bin", "cmake")
+    EXCLUDED = (".git", "doc", "bin", "cmake", ".eggs", "__pycache__")
 
     def _populate_package(self, pkg):
         self.log.debug("PackageExtractor.populate(%s)", pkg)
@@ -607,6 +659,9 @@ class PackageExtractor(LoggingObject):
         launch_parser = LaunchParser(pkgs=self)
         prefix = len(pkg.path) + len(os.path.sep)
         for root, subdirs, files in os.walk(pkg.path, topdown=True):
+            if 'COLCON_IGNORE' in files or 'AMENT_IGNORE' in files or 'CATKIN_IGNORE' in files:
+                del subdirs[:] # don't traverse into subdirectories
+                continue # skip
             subdirs[:] = [d for d in subdirs if d not in self.EXCLUDED]
             path = root[prefix:]
             for filename in files:
@@ -824,12 +879,36 @@ class NodeExtractor(LoggingObject):
         srcdir = self.package.path[len(self.workspace):]
         srcdir = os.path.join(self.workspace, srcdir.split(os.sep, 1)[0])
         bindir = os.path.join(self.workspace, "build")
-        parser = RosCMakeParser(srcdir, bindir, pkgs = self.packages,
-                                env = self.environment,
-                                vars = self._default_variables())
-        parser.parse(os.path.join(self.package.path, "CMakeLists.txt"))
-        self._update_nodelets(parser.libraries)
-        self._register_nodes(parser.executables)
+        cmake_path = os.path.join(self.package.path, "CMakeLists.txt")
+        if os.path.isfile(cmake_path):
+            parser = RosCMakeParser(srcdir, bindir, pkgs = self.packages,
+                                    env = self.environment,
+                                    vars = self._default_variables())
+            parser.parse(cmake_path)
+            self._update_nodelets(parser.libraries)
+            self._register_nodes(parser.executables)
+        else:
+            # It may be normal for pure Python projects not to have a CMakeLists.txt
+            # Instead, search for python files with "def main():"
+            pattern = re.compile('^def\s+main\s*\(.*\)\s*:')
+            for file in pkg.source_files:
+                if file.language != 'python':
+                    continue # continue with next file
+                entry_point_found = False
+                with open(file.path) as f:
+                    for line in f:
+                        match = pattern.match(line)
+                        if match is not None:
+                            entry_point_found = True
+                            break
+                if entry_point_found == False:
+                    continue # continue with next file
+                # else: this is a python file with a 'main' function,
+                # so we consider it a node.
+                node = Node(file.full_name, pkg)
+                node.source_files.append(file)
+                self.nodes.append(node)
+                self.package.nodes.append(node)
         if self.parse_nodes:
             self._extract_primitives()
 
