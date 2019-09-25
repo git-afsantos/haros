@@ -90,6 +90,8 @@ def findRosPackages(paths = None, as_stack = False):
                 pkgs = {}
                 for pkginfo in pkglist:
                     pkginfo_parts = pkginfo.split('\t')
+                    if len(pkginfo_parts) < 2:
+                        continue
                     if pkginfo_parts[0] in pkgs:
                         continue
                     pkgs[pkginfo_parts[0]] = pkginfo_parts[1]
@@ -787,7 +789,7 @@ class HardcodedNodeParser(LoggingObject):
         filename = os.path.join(cls.model_dir, pkg + ".yaml")
         try:
             with open(filename) as handle:
-                data = yaml.load(handle)
+                data = yaml.safe_load(handle)
         except IOError as e:
             cls.log.debug("YAML file not found: %s", filename)
             return None
