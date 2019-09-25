@@ -186,7 +186,7 @@ class Plugin(LoggingObject):
     def load(self, common_rules = None, common_metrics = None):
         self.log.debug("Plugin.load")
         with resource_stream(self.name, "plugin.yaml") as openfile:
-            manifest = yaml.load(openfile)
+            manifest = yaml.safe_load(openfile)
         if (not "version" in manifest
                 or not "name" in manifest
                 or manifest["name"] != self.name):
