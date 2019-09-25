@@ -968,7 +968,7 @@ class ConfigurationBuilder(LoggingObject):
         if value is None:
             # not sure if tag is part of the configuration
             return SourceCondition(condition[1], # UnresolvedValue
-                location = config.roslaunch[-1].location)
+                location = self.configuration.roslaunch[-1].location)
         if value is condition[0]:
             # tag is part of the configuration
             return True
