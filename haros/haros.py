@@ -571,7 +571,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
             except IOError as e:
                 self.log.warning("Could not read parsing cache: %s", e)
         configs, nodes, env = self._extract_metamodel(node_cache, rules)
-        self._load_database()
+        self.current_dir = os.path.join(self.io_projects_dir, self.project)
+        self._load_history()
         self._extract_configurations(self.database.project, configs, nodes, env)
         self._analyse(plugins, rules, metrics)
         self._save_results(node_cache)
@@ -630,20 +631,21 @@ class HarosAnalyseRunner(HarosCommonExporter):
             project.configurations.append(builder.configuration)
             self.database.configurations.append(builder.configuration)
 
-    def _load_database(self):
-        self.current_dir = os.path.join(self.io_projects_dir, self.project)
-        haros_db = os.path.join(self.current_dir, "haros.db")
+    def _load_history(self):
+        """
+        Load analyis history from database file
+        and add it to self.database.history, append the previously
+        'current' analysis report to history.
+        """
+        haros_db_path = os.path.join(self.current_dir, "haros.db")
         try:
-            haros_db = HarosDatabase.load_state(haros_db)
+            haros_db = HarosDatabase.load_state(haros_db_path)
         except IOError:
             self.log.info("No previous analysis data for " + self.project)
         else:
-            # NOTE: This has a tendency to grow in size.
-            # Old reports will have violations and metrics with references
-            # to old packages, files, etc. There will be multiple versions
-            # of the same projects over time, as long as the history exists.
-            # This is why I added "compact" to the database.
             self.database.history = haros_db.history
+            # Commit the previous report (the report generated during the
+            # last analysis) to history.
             self.database.history.append(haros_db.report)
 
     def _load_definitions_and_plugins(self):
@@ -700,6 +702,12 @@ class HarosAnalyseRunner(HarosCommonExporter):
             viz.install(self.viz_dir, self.run_from_source)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
+        # NOTE: The database has a tendency to grow in size.
+        # Old reports will have violations and metrics with references
+        # to old packages, files, etc. There will be multiple versions
+        # of the same projects over time, as long as the history exists.
+        # This is why I added "_compact()" to the database's save_state()
+        # function.
         self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
