@@ -580,6 +580,8 @@ class Node(SourceObject):
         id = "node:" + pkg.name + "/" + (nodelet or name)
         SourceObject.__init__(self, id, name)
         self.package = pkg
+        if isinstance(rosname, basestring):
+            rosname = RosName(rosname)
         self.rosname = rosname
         self.nodelet_class = nodelet
         self.source_files = []
