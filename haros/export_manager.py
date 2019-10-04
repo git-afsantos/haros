@@ -147,7 +147,7 @@ class JUnitExporter(LoggingObject):
             #
             # Global violations
             for violation in package_analysis.violations:
-                _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;', '&':'&amp;'})
+                _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;'})
                 prf.write('    <testcase id="%s"' % violation.rule.id)
                 srf.write('    <testcase id="%s"' % violation.rule.id)
                 prf.write(' name="%s">\n' % violation.rule.name)
@@ -179,7 +179,7 @@ class JUnitExporter(LoggingObject):
                             filename = violation.location.file.full_name
                         if violation.location.line != None:
                             line = violation.location.line
-                    _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;', '&':'&amp;'})
+                    _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;'})
                     prf.write('    <testcase id="%s"' % violation.rule.id)
                     srf.write('    <testcase id="%s"' % violation.rule.id)
                     prf.write(' name="%s">\n' % violation.rule.name)
