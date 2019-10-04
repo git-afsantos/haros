@@ -28,6 +28,7 @@ import json
 import logging
 import os
 import datetime
+from xml.sax.saxutils import escape
 
 from .metamodel import (
     Resource, TopicPrimitive, ServicePrimitive, ParameterPrimitive
@@ -98,7 +99,7 @@ class JUnitExporter(LoggingObject):
                                    "compliance",
                                    "source",
                                    package_analysis.package.name + ".xml")
-                try:    
+                try:
                     self._export_package_report(out, package_analysis, database, srf)
                 except:
                     self.log.error("Failed to write JUnit XML report file: " + out)
@@ -146,16 +147,17 @@ class JUnitExporter(LoggingObject):
             #
             # Global violations
             for violation in package_analysis.violations:
+                _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;', '&':'&amp;'})
                 prf.write('    <testcase id="%s"' % violation.rule.id)
                 srf.write('    <testcase id="%s"' % violation.rule.id)
                 prf.write(' name="%s">\n' % violation.rule.name)
                 srf.write(' name="%s">\n' % violation.rule.name)
-                prf.write('      <failure message="%s"' % violation.rule.description.replace('"',"'"))
-                srf.write('      <failure message="%s"' % violation.rule.description.replace('"',"'"))
+                prf.write('      <failure message="%s"' % _description)
+                srf.write('      <failure message="%s"' % _description)
                 prf.write(' type="%s">\n' % violation.rule.id)
                 srf.write(' type="%s">\n' % violation.rule.id)
-                prf.write('%s\n' % violation.rule.description)
-                srf.write('%s\n' % violation.rule.description)
+                prf.write('%s\n' % _description)
+                srf.write('%s\n' % _description)
                 prf.write('Category: %s\n' % violation.rule.id)
                 srf.write('Category: %s\n' % violation.rule.id)
                 prf.write('File: [GLOBAL]\n')
@@ -177,16 +179,17 @@ class JUnitExporter(LoggingObject):
                             filename = violation.location.file.full_name
                         if violation.location.line != None:
                             line = violation.location.line
+                    _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;', '&':'&amp;'})
                     prf.write('    <testcase id="%s"' % violation.rule.id)
                     srf.write('    <testcase id="%s"' % violation.rule.id)
                     prf.write(' name="%s">\n' % violation.rule.name)
                     srf.write(' name="%s">\n' % violation.rule.name)
-                    prf.write('      <failure message="%s"' % violation.rule.description.replace('"',"'"))
-                    srf.write('      <failure message="%s"' % violation.rule.description.replace('"',"'"))
+                    prf.write('      <failure message="%s"' % _description)
+                    srf.write('      <failure message="%s"' % _description)
                     prf.write(' type="%s">\n' % violation.rule.id)
                     srf.write(' type="%s">\n' % violation.rule.id)
-                    prf.write('%s\n' % violation.rule.description)
-                    srf.write('%s\n' % violation.rule.description)
+                    prf.write('%s\n' % _description)
+                    srf.write('%s\n' % _description)
                     prf.write('Category: %s\n' % violation.rule.id)
                     srf.write('Category: %s\n' % violation.rule.id)
                     prf.write('File: %s\n' % filename)

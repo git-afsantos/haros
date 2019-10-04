@@ -636,7 +636,7 @@ class PackageExtractor(LoggingObject):
             if (path == None):
                 if self.altstack_pkgs == None:
                     self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
-                path = self.altstack_pgks.get(name, None)
+                path = self.altstack_pkgs.get(name, None)
         if path == None:
             if self.rospack_pkgs == None:
                 self.rospack_pkgs = findRosPackages(as_stack=False)
