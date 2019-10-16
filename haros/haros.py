@@ -510,7 +510,10 @@ class HarosCommonExporter(HarosRunner):
     # ----- general data
         exporter.export_packages(self.json_dir, report.by_package)
         exporter.export_rules(self.json_dir, self.database.rules)
-        exporter.export_metrics(self.json_dir, self.database.metrics)
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            exporter.export_metrics(self.json_dir, self.database.metrics)
         exporter.export_summary(self.json_dir, report, self.database.history)
     # ----- extracted configurations
         exporter.export_configurations(self.json_dir, report.by_config)
@@ -524,10 +527,14 @@ class HarosCommonExporter(HarosRunner):
         out_dir = os.path.join(self.json_dir, "compliance", "runtime")
         self._ensure_dir(out_dir, empty = True)
         exporter.export_runtime_violations(out_dir, report.by_config)
-    # ----- metrics reports
-        out_dir = os.path.join(self.json_dir, "metrics")
-        self._ensure_dir(out_dir, empty = True)
-        exporter.export_measurements(out_dir, report.by_package)
+    # ----- individual metrics reports
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            out_dir = os.path.join(self.json_dir, "metrics")
+            self._ensure_dir(out_dir, empty = True)
+            exporter.export_measurements(out_dir, report.by_package)
+        #
 
 
 class HarosAnalyseRunner(HarosCommonExporter):
