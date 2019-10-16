@@ -355,6 +355,9 @@ another with a previous modification date.
 
 Use a full copy of your environment variables for the analysis.
 
+#### haros analyse --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros export
 
@@ -378,6 +381,9 @@ Previous versions deleted any existing files within `DATA_DIR`.*
 Export a specific project's data, instead of the default one.
 A special project name, `all`, can be used to export all available projects.
 
+#### haros export --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros viz
 
