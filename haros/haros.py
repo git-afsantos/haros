@@ -167,6 +167,7 @@ class HarosLauncher(object):
 
     def launch(self, argv=None):
         args = self.parse_arguments(argv)
+        self.minimal_output = args.minimal_output
         self._set_directories(args)
         if args.debug:
             logging.basicConfig(filename=self.log_path, filemode="w",
@@ -405,7 +406,7 @@ class HarosLauncher(object):
         self._generate_dir(self.haros_dir, self.DIR_STRUCTURE,
                            overwrite=overwrite)
         if overwrite or not os.path.exists(self.viz_dir):
-            viz.install(self.viz_dir, self.run_from_source, force=True)
+            viz.install(self.viz_dir, self.run_from_source, force=True, minimal_output=self.minimal_output)
         return True
 
     def _generate_dir(self, path, dir_dict, overwrite=True):
@@ -721,7 +722,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _save_results(self, node_cache):
         print "[HAROS] Saving analysis results..."
         if self.export_viz:
-            viz.install(self.viz_dir, self.run_from_source)
+            viz.install(self.viz_dir, self.run_from_source, minimal_output=self.minimal_output)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
         # NOTE: The database has a tendency to grow in size.
