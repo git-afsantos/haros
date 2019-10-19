@@ -33,7 +33,9 @@ from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
 import yaml
 
-from bonsai.model import CodeGlobalScope, CodeReference, pretty_str
+from bonsai.model import (
+    CodeGlobalScope, CodeReference, CodeFunctionCall, pretty_str
+)
 from bonsai.cpp.model import (
     CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
 )
@@ -638,7 +640,7 @@ class PackageExtractor(LoggingObject):
             if (path == None):
                 if self.altstack_pkgs == None:
                     self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
-                path = self.altstack_pgks.get(name, None)
+                path = self.altstack_pkgs.get(name, None)
         if path == None:
             if self.rospack_pkgs == None:
                 self.rospack_pkgs = findRosPackages(as_stack=False)
@@ -986,7 +988,7 @@ class NodeExtractor(LoggingObject):
 
     def _extract_primitives(self):
         self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
-        self.rospy_extractor = RospyExtractor(self.package)
+        self.rospy_extractor = RospyExtractor(self.package, self.workspace)
 
         for i in xrange(len(self.package.nodes)):
             node = self.package.nodes[i]
@@ -1452,9 +1454,15 @@ class RospyExtractor(LoggingObject):
     @classmethod
     def _extract_message_type(cls, call, arg_name, arg_pos=1):
         msg_type = cls.get_arg(call, 1, arg_name)
+
+        # Very common case of calling type() on a message class
+        if isinstance(msg_type, CodeFunctionCall) and msg_type.name == 'type':
+            msg_type = msg_type.arguments[0].name
+
         if isinstance(msg_type, CodeReference):
-            msg_type = resolve_reference(msg_type)
-        return msg_type
+            msg_type = resolve_reference(msg_type) or msg_type
+
+        return str(msg_type)
 
     @classmethod
     def _extract_topic(cls, call):
@@ -1604,5 +1612,4 @@ class RospyExtractor(LoggingObject):
         node.source_tree = parser.global_scope
         # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
-        self._query_nh_param_primitives(node, parser.global_scope)
-        self._query_param_primitives(node, parser.global_scope)
+        # self._query_param_primitives(node, parser.global_scope)
