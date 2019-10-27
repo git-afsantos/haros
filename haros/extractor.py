@@ -280,7 +280,9 @@ class ProjectExtractor(LoggingObject):
 
     def _find_nodes(self, settings):
         pkgs = {pkg.name: pkg for pkg in self.project.packages if pkg._analyse}
-        ws = settings.workspace if settings else None
+        ws = settings.workspace
+        if not ws:
+            ws = settings.find_ros_workspace()
         if CppAstParser is None:
             self.log.warning("C++ AST parser not found.")
         extractor = NodeExtractor(pkgs, self.environment, ws = ws,
@@ -634,7 +636,7 @@ class PackageExtractor(LoggingObject):
             if (path == None):
                 if self.altstack_pkgs == None:
                     self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
-                path = self.altstack_pgks.get(name, None)
+                path = self.altstack_pkgs.get(name, None)
         if path == None:
             if self.rospack_pkgs == None:
                 self.rospack_pkgs = findRosPackages(as_stack=False)
@@ -870,7 +872,7 @@ class NodeExtractor(LoggingObject):
         self.package = None
         self.packages = pkgs
         self.environment = env
-        self.workspace = ws or self._find_workspace()
+        self.workspace = ws
         self.node_cache = node_cache
         self.parse_nodes = parse_nodes
         self.nodes = []
@@ -913,19 +915,6 @@ class NodeExtractor(LoggingObject):
                 self.package.nodes.append(node)
         if self.parse_nodes:
             self._extract_primitives()
-
-    def _find_workspace(self):
-        """This replicates the behaviour of `roscd`."""
-        ws = self.environment.get("ROS_WORKSPACE")
-        if ws:
-            return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
-        for path in paths:
-            if os.path.exists(os.path.join(path, ".catkin")):
-                if (path.endswith(os.sep + "devel")
-                        or path.endswith(os.sep + "install")):
-                    return os.path.abspath(os.path.join(path, os.pardir))
-        raise KeyError("ROS_WORKSPACE")
 
     def _default_variables(self):
     # TODO: clean up these hardcoded values

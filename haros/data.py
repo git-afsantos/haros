@@ -462,7 +462,7 @@ class HarosSettings(object):
                  ignored_metrics=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
-        self.workspace = workspace or self._find_ros_workspace()
+        self.workspace = workspace or self.find_ros_workspace()
         self.ignored_tags = (ignored_tags
                 or list(self.DEFAULTS["analysis"]["ignore"]["tags"]))
         self.ignored_rules = (ignored_rules
@@ -510,7 +510,7 @@ class HarosSettings(object):
                    ignored_tags=ignored_tags, ignored_rules=ignored_rules,
                    ignored_metrics=ignored_metrics)
 
-    def _find_ros_workspace(self):
+    def find_ros_workspace(self):
         """This replicates the behaviour of `roscd`."""
         # ROS2 
         ros_version = self.environment.get("ROS_VERSION")
@@ -541,7 +541,7 @@ class HarosSettings(object):
         if ws:
             return ws
         raise KeyError("ROS_WORKSPACE")
-    # ^ def _find_ros_workspace()
+    # ^ def find_ros_workspace()
 
     def _find_ros2_workspace(self):
         """
