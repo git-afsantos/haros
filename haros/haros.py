@@ -68,6 +68,8 @@
 #   --config sets the location of the YAML file containing the configuration
 #            (default "~/.haros/configs.yaml")
 #   --junit-xml-output causes HAROS to output JUnit XML format report files.
+#   --minimal-output causes HAROS to output a size-optimized report,
+#             omitting files not required for the dashboard display.
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
@@ -165,6 +167,7 @@ class HarosLauncher(object):
 
     def launch(self, argv=None):
         args = self.parse_arguments(argv)
+        self.minimal_output = args.minimal_output
         self._set_directories(args)
         if args.debug:
             logging.basicConfig(filename=self.log_path, filemode="w",
@@ -212,7 +215,8 @@ class HarosLauncher(object):
             log=self.log, run_from_source=self.run_from_source,
             use_repos=args.use_repos, parse_nodes=args.parse_nodes,
             copy_env=args.env, use_cache=(not args.no_cache),
-            junit_xml_output=args.junit_xml_output)
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
         return analyse.run()
 
     def command_export(self, args):
@@ -223,7 +227,8 @@ class HarosLauncher(object):
         export = HarosExportRunner(self.haros_dir, self.config_path,
             args.data_dir, args.export_viz, args.project, log=self.log,
             run_from_source=self.run_from_source,
-            junit_xml_output=args.junit_xml_output)
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
         return export.run()
 
     def command_viz(self, args):
@@ -252,7 +257,8 @@ class HarosLauncher(object):
             project_file, args.data_dir, log=self.log,
             run_from_source=self.run_from_source, use_repos=args.use_repos,
             ws=args.ws, copy_env=args.env, use_cache=(not args.no_cache),
-            junit_xml_output=args.junit_xml_output)
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
         return parse.run()
 
     def parse_arguments(self, argv = None):
@@ -299,6 +305,8 @@ class HarosLauncher(object):
                             help = "do not use available caches")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -324,6 +332,8 @@ class HarosLauncher(object):
                             help = "do not use available caches")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -340,6 +350,8 @@ class HarosLauncher(object):
                             help = "where to export data")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_export)
 
     def _viz_parser(self, parser):
@@ -367,6 +379,8 @@ class HarosLauncher(object):
                             help = "do not use available caches")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_parse)
 
     def _set_directories(self, args):
@@ -392,7 +406,7 @@ class HarosLauncher(object):
         self._generate_dir(self.haros_dir, self.DIR_STRUCTURE,
                            overwrite=overwrite)
         if overwrite or not os.path.exists(self.viz_dir):
-            viz.install(self.viz_dir, self.run_from_source, force=True)
+            viz.install(self.viz_dir, self.run_from_source, force=True, minimal_output=self.minimal_output)
         return True
 
     def _generate_dir(self, path, dir_dict, overwrite=True):
@@ -425,7 +439,7 @@ class HarosRunner(object):
     """This is a base class for the specific commands that HAROS provides."""
 
     def __init__(self, haros_dir, config_path, log, run_from_source,
-                 junit_xml_output = False):
+                 junit_xml_output = False, minimal_output = False):
         self.root               = haros_dir
         self.config_path        = config_path
         self.repo_dir           = os.path.join(haros_dir, "repositories")
@@ -437,6 +451,7 @@ class HarosRunner(object):
         self.run_from_source    = run_from_source
         self.settings           = None
         self.junit_xml_output   = junit_xml_output
+        self.minimal_output     = minimal_output
 
     def run(self):
         return True
@@ -496,7 +511,10 @@ class HarosCommonExporter(HarosRunner):
     # ----- general data
         exporter.export_packages(self.json_dir, report.by_package)
         exporter.export_rules(self.json_dir, self.database.rules)
-        exporter.export_metrics(self.json_dir, self.database.metrics)
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            exporter.export_metrics(self.json_dir, self.database.metrics)
         exporter.export_summary(self.json_dir, report, self.database.history)
     # ----- extracted configurations
         exporter.export_configurations(self.json_dir, report.by_config)
@@ -510,10 +528,14 @@ class HarosCommonExporter(HarosRunner):
         out_dir = os.path.join(self.json_dir, "compliance", "runtime")
         self._ensure_dir(out_dir, empty = True)
         exporter.export_runtime_violations(out_dir, report.by_config)
-    # ----- metrics reports
-        out_dir = os.path.join(self.json_dir, "metrics")
-        self._ensure_dir(out_dir, empty = True)
-        exporter.export_measurements(out_dir, report.by_package)
+    # ----- individual metrics reports
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            out_dir = os.path.join(self.json_dir, "metrics")
+            self._ensure_dir(out_dir, empty = True)
+            exporter.export_measurements(out_dir, report.by_package)
+        #
 
 
 class HarosAnalyseRunner(HarosCommonExporter):
@@ -524,9 +546,10 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  whitelist, blacklist, log = None, run_from_source = False,
                  use_repos = False, parse_nodes = False, copy_env = False,
-                 use_cache = True, settings = None, junit_xml_output = False):
+                 use_cache = True, settings = None, junit_xml_output = False,
+                 minimal_output = False):
         HarosRunner.__init__(self, haros_dir, config_path, log,
-            run_from_source, junit_xml_output)
+            run_from_source, junit_xml_output, minimal_output)
         self.project_file = project_file
         self.use_repos = use_repos
         self.parse_nodes = parse_nodes
@@ -699,7 +722,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _save_results(self, node_cache):
         print "[HAROS] Saving analysis results..."
         if self.export_viz:
-            viz.install(self.viz_dir, self.run_from_source)
+            viz.install(self.viz_dir, self.run_from_source, minimal_output=self.minimal_output)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
         # NOTE: The database has a tendency to grow in size.
@@ -708,7 +731,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         # of the same projects over time, as long as the history exists.
         # This is why I added "_compact()" to the database's save_state()
         # function.
-        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
+        if not self.minimal_output:
+            self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
         exporter = JsonExporter()
@@ -737,13 +761,15 @@ class HarosParseRunner(HarosAnalyseRunner):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  log=None, run_from_source=False, use_repos=False, ws=None,
                  copy_env=False, use_cache=True, settings=None,
-                 junit_xml_output = False):
+                 junit_xml_output = False,
+                 minimal_output = False):
         HarosAnalyseRunner.__init__(
             self, haros_dir, config_path, project_file, data_dir,
             [], [], log=log, run_from_source=run_from_source,
             use_repos=use_repos, parse_nodes=True, copy_env=copy_env,
             use_cache=use_cache, settings=settings,
-            junit_xml_output=junit_xml_output
+            junit_xml_output=junit_xml_output,
+            minimal_output=minimal_output
         )
         self.workspace = ws
 
@@ -787,9 +813,10 @@ class HarosParseRunner(HarosAnalyseRunner):
 
 class HarosExportRunner(HarosCommonExporter):
     def __init__(self, haros_dir, config_path, data_dir, export_viz, project,
-                 log = None, run_from_source = False, junit_xml_output = False):
+                 log = None, run_from_source = False, junit_xml_output = False,
+                 minimal_output = False):
         HarosRunner.__init__(self, haros_dir, config_path, log,
-            run_from_source, junit_xml_output)
+            run_from_source, junit_xml_output, minimal_output)
         self.project = project
         self.project_data_list = []
         self.export_viz = export_viz
@@ -812,7 +839,8 @@ class HarosExportRunner(HarosCommonExporter):
             self.project = project
             self._prepare_project()
             if self._load_database():
-                self._save_database()
+                if not self.minimal_output:
+                    self._save_database()
                 self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, self.project_data_list)
         if self.junit_xml_output:
