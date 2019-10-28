@@ -1369,6 +1369,23 @@ class RoscppExtractor(LoggingObject):
             type_string = type_string[52:-25]
         return type_string.replace("::", "/")
 
+    def _extract_action(self, call):
+        name = "?"
+        if "SimpleActionServer" in call.canonical_type and len(call.arguments) > 2:
+            arg = call.arguments[1]
+            if not isinstance(arg, basestring):
+                arg = resolve_expression(arg)
+            if isinstance(arg, basestring):
+                name = arg.split()[-1].replace("'", "")
+        elif "SimpleActionClient" in call.canonical_type and len(call.arguments) > 1:
+            if isinstance(call.arguments[0], basestring):
+                name = call.arguments[0]
+        return name
+
+    def _extract_action_type(self, call):
+        type_string = call.template[0]
+        return type_string.replace("::", "/")
+
     def _extract_queue_size(self, call, queue_pos=1):
         queue_size = resolve_expression(call.arguments[queue_pos])
         if isinstance(queue_size, (int, long, float)):
