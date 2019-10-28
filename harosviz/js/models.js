@@ -203,6 +203,7 @@ THE SOFTWARE.
         collisions,
         remaps,
         nodes: [{
+            uid,
             name,
             type,
             args,
@@ -218,6 +219,7 @@ THE SOFTWARE.
             writes: []
         }],
         topics: [{
+            uid,
             name,
             type,
             conditions: [{
@@ -228,6 +230,7 @@ THE SOFTWARE.
             subscribers: []
         }],
         services: [{
+            uid,
             name,
             type,
             conditions: [{
@@ -238,6 +241,7 @@ THE SOFTWARE.
             clients: []
         }],
         parameters: [{
+            uid,
             name,
             type,
             value,
@@ -251,7 +255,9 @@ THE SOFTWARE.
         links: {
             publishers: [{
                 node,
+                node_uid,
                 topic,
+                topic_uid,
                 type,
                 queue,
                 name,
@@ -260,7 +266,9 @@ THE SOFTWARE.
             }],
             subscribers: [{
                 node,
+                node_uid,
                 topic,
+                topic_uid,
                 type,
                 queue,
                 name,
@@ -269,7 +277,9 @@ THE SOFTWARE.
             }],
             servers: [{
                 node,
+                node_uid,
                 service,
+                service_uid,
                 type,
                 name,
                 location: {},
@@ -277,7 +287,9 @@ THE SOFTWARE.
             }],
             clients: [{
                 node,
+                node_uid,
                 service,
+                service_uid,
                 type,
                 name,
                 location: {},
@@ -285,7 +297,9 @@ THE SOFTWARE.
             }],
             reads: [{
                 node,
+                node_uid,
                 param,
+                param_uid,
                 type,
                 name,
                 location: {},
@@ -293,7 +307,9 @@ THE SOFTWARE.
             }],
             writes: [{
                 node,
+                node_uid,
                 param,
+                param_uid,
                 type,
                 name,
                 location: {},
@@ -305,7 +321,12 @@ THE SOFTWARE.
             name,
             objects: [{
                 name,
-                resourceType
+                resourceType,
+                uid?,
+                node_uid?,
+                topic_uid?,
+                service_uid?,
+                param_uid?
             }]
         }]
     */

@@ -375,6 +375,7 @@ class AnalysisReport(object):
     def __init__(self, project):
         self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+        self.analysis_time = 0.0
         self.by_package = {}
         self.by_config = {}
         self.statistics = None
@@ -434,7 +435,9 @@ class HarosSettings(object):
     DEFAULTS = {
         "environment": {
             "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
-            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
+            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH"),
+            "ROS_VERSION": os.environ.get("ROS_VERSION"),
+            "COLCON_PREFIX_PATH": os.environ.get("COLCON_PREFIX_PATH")
         },
         "blacklist": [],
         "workspace": None,
@@ -444,15 +447,30 @@ class HarosSettings(object):
             "parser_lib_file": None,
             "std_includes": "/usr/lib/llvm-3.8/lib/clang/3.8.0/include",
             "compile_db": None  # path to file, None (default path) or False
+        },
+        "analysis": {
+            "ignore": {
+                "tags": [],
+                "rules": [],
+                "metrics": []
+            }
         }
     }
 
-    def __init__(self, env = None, blacklist = None, workspace = None,
-                 cpp_parser = None, cpp_includes = None, cpp_parser_lib = None,
-                 cpp_parser_lib_file = None, cpp_compile_db = None):
+    def __init__(self, env=None, blacklist=None, workspace=None,
+                 cpp_parser=None, cpp_includes=None, cpp_parser_lib=None,
+                 cpp_parser_lib_file=None, cpp_compile_db=None,
+                 ignored_tags=None, ignored_rules=None, ignored_metrics=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
-        self.workspace = workspace or self.find_workspace()
+        self.workspace = workspace or self.find_ros_workspace()
+        self.ignored_tags = (ignored_tags
+                or list(self.DEFAULTS["analysis"]["ignore"]["tags"]))
+        self.ignored_rules = (ignored_rules
+                or list(self.DEFAULTS["analysis"]["ignore"]["rules"]))
+        self.ignored_metrics = (ignored_metrics
+                or list(self.DEFAULTS["analysis"]["ignore"]["metrics"]))
+        self.ignored_lines = {}
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
         self.cpp_parser_lib_file = cpp_parser_lib_file or self.DEFAULTS["cpp"]["parser_lib_file"]
@@ -466,9 +484,9 @@ class HarosSettings(object):
             self.cpp_compile_db = None
 
     @classmethod
-    def parse_from(cls, path):
+    def parse_from(cls, path, ws=None):
         with open(path, "r") as handle:
-            data = yaml.load(handle) or {}
+            data = yaml.safe_load(handle) or {}
         env = data.get("environment")
         if env == "copy" or env == "all" or env is True:
             env = dict(os.environ)
@@ -477,24 +495,41 @@ class HarosSettings(object):
         elif not env is None:
             raise ValueError("invalid value for environment")
         blacklist = data.get("plugin_blacklist", [])
-        workspace = data.get("workspace")
+        workspace = ws or data.get("workspace")
+        analysis = data.get("analysis", {})
+        analysis_ignored = analysis.get("ignore", {})
+        ignored_tags = analysis_ignored.get("tags")
+        ignored_rules = analysis_ignored.get("rules")
+        ignored_metrics = analysis_ignored.get("metrics")
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
         cpp_parser_lib_file = cpp.get("parser_lib_file")
         cpp_includes = cpp.get("std_includes")
         cpp_compile_db = cpp.get("compile_db")
-        return cls(env = env, blacklist = blacklist, workspace = workspace,
-                   cpp_parser = cpp_parser, cpp_parser_lib = cpp_parser_lib,
-                   cpp_parser_lib_file = cpp_parser_lib_file,
-                   cpp_includes = cpp_includes, cpp_compile_db = cpp_compile_db)
+        return cls(env=env, blacklist=blacklist, workspace=workspace,
+                   cpp_parser=cpp_parser, cpp_parser_lib=cpp_parser_lib,
+                   cpp_parser_lib_file=cpp_parser_lib_file,
+                   cpp_includes=cpp_includes, cpp_compile_db=cpp_compile_db,
+                   ignored_tags=ignored_tags, ignored_rules=ignored_rules,
+                   ignored_metrics=ignored_metrics)
 
-    def find_workspace(self):
+    def find_ros_workspace(self):
         """This replicates the behaviour of `roscd`."""
+        # ROS2 
+        ros_version = self.environment.get("ROS_VERSION")
+        if ros_version == "2":
+            ws = self._find_ros2_workspace()
+            if ws:
+                return ws
         ws = self.environment.get("ROS_WORKSPACE")
         if ws:
             return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        paths = self.environment.get("CMAKE_PREFIX_PATH")
+        if paths == None:
+            paths = []
+        else:
+            paths = paths.split(os.pathsep)
         for path in paths:
             if os.path.exists(os.path.join(path, ".catkin")):
                 if (path.endswith(os.sep + "devel")
@@ -505,7 +540,37 @@ class HarosSettings(object):
                     # CMAKE_PREFIX_PATH point at the devel_isolated/package path
                     # in workspaces built with catkin_make_isolated.
                     return os.path.abspath(os.path.join(path, os.pardir, os.pardir))
+        # fallback option:
+        ws = self._find_ros2_workspace()
+        if ws:
+            return ws
         raise KeyError("ROS_WORKSPACE")
+    # ^ def find_ros_workspace()
+
+    def _find_ros2_workspace(self):
+        """
+        Try to find the current ROS2 workspace root folder path.
+        :returns: [str or None] The path of the current ROS workspace root or None.
+        """
+        colcon_prefix_path = self.environment.get("COLCON_PREFIX_PATH")
+        if colcon_prefix_path:
+            # Takes the form of "<ROS2_WORKSPACE>/src/install"
+            if colcon_prefix_path.endswith(os.sep + 'src' + os.sep + 'install'):
+                path = os.path.abspath(colcon_prefix_path[:-11])
+                return os.path.abspath(path)
+        # Fallback option: current working directory or parent directory
+        path = os.getcwd()
+        if os.path.exists(os.path.join(path, "src")):
+            return os.path.abspath(path)
+        try:
+            path = path[0:path.rindex(os.sep + 'src' + os.sep)]
+            return os.path.abspath(path)
+        except ValueError:
+            pass
+        # Failed to find the workspace
+        return None
+    # ^ def _find_ros2_workspace()
+
 
 
 ###############################################################################
@@ -547,25 +612,42 @@ class HarosDatabase(LoggingObject):
         self.configurations.extend(project.configurations)
 
     # Used at startup to load the common rules and metrics
-    def load_definitions(self, data_file, prefix = ""):
+    def load_definitions(self, data_file, prefix="", ignored_tags=None,
+                         ignored_rules=None, ignored_metrics=None):
         self.log.debug("HarosDatabase.load_definitions(%s)", data_file)
         with open(data_file, "r") as handle:
-            data = yaml.load(handle)
-        self.register_rules(data.get("rules", {}), prefix = prefix)
-        self.register_metrics(data.get("metrics", {}), prefix = prefix)
+            data = yaml.safe_load(handle)
+        rules = self.register_rules(data.get("rules", {}), prefix=prefix,
+                                    ignored_rules=ignored_rules,
+                                    ignored_tags=ignored_tags)
+        metrics = self.register_metrics(data.get("metrics", {}), prefix=prefix,
+                                        ignored_metrics=ignored_metrics)
+        return (rules, metrics)
 
-    def register_rules(self, rules, prefix = ""):
-        for id, rule in rules.iteritems():
-            rule_id = prefix + id
+    def register_rules(self, rules, prefix="", ignored_rules=None,
+                       ignored_tags=None):
+        allowed = []
+        for ident, rule in rules.iteritems():
+            rule_id = prefix + ident
+            tags = rule["tags"]
             self.log.debug("HarosDatabase.register rule " + rule_id)
             self.rules[rule_id] = Rule(rule_id, rule["name"],
                                        rule.get("scope", "global"),
-                                       rule["description"], rule["tags"],
-                                       query = rule.get("query"))
+                                       rule["description"], tags,
+                                       query=rule.get("query"))
+            if ignored_rules and rule_id in ignored_rules:
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            if ignored_tags and any(t in ignored_tags for t in tags):
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            allowed.append(rule_id)
+        return allowed
 
-    def register_metrics(self, metrics, prefix = ""):
-        for id, metric in metrics.iteritems():
-            metric_id = prefix + id
+    def register_metrics(self, metrics, prefix="", ignored_metrics=None):
+        allowed = []
+        for ident, metric in metrics.iteritems():
+            metric_id = prefix + ident
             minv = metric.get("min")
             minv = float(minv) if not minv is None else None
             maxv = metric.get("max")
@@ -575,6 +657,11 @@ class HarosDatabase(LoggingObject):
                                              metric.get("scope"),
                                              metric["description"],
                                              minv = minv, maxv = maxv)
+            if ignored_metrics and metric_id in ignored_metrics:
+                self.log.debug("Ignored metric: " + metric_id)
+                continue
+            allowed.append(metric_id)
+        return allowed
 
     def save_state(self, file_path):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)

@@ -36,8 +36,18 @@
 
 from distutils.version import LooseVersion
 import glob
+import logging
+import itertools
 import os
 import re
+
+
+###############################################################################
+# Utility
+###############################################################################
+
+class LoggingObject(object):
+    log = logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -334,28 +344,32 @@ class BuildTarget(object):
     def output_name(self):
         return self.prefix + self.base_name + self.suffix
 
+    @staticmethod
+    def replace_file(file):
+        if os.path.isfile(file):
+            return file
+
+        replacement = None
+        parent = os.path.dirname(file)
+        if os.path.isdir(parent):
+            _, _, prefix = file.rpartition(os.sep)
+            for sibling in os.listdir(parent):
+                sibling_path = os.path.join(parent, sibling)
+                if sibling.startswith(prefix) and os.path.isfile(sibling_path):
+                    return sibling
+
     @classmethod
     def new_target(cls, name, files, directory, is_executable):
-        files = [os.path.join(directory, f) for fs in files \
-                                            for f in fs.split(";") if f]
-        i = 0
-        while i < len(files):
-            if not os.path.isfile(files[i]):
-                replacement = None
-                parent = os.path.dirname(files[i])
-                prefix = files[i].rsplit(os.sep, 1)[-1]
-                if os.path.isdir(parent):
-                    for f in os.listdir(parent):
-                        joined = os.path.join(parent, f)
-                        if f.startswith(prefix) and os.path.isfile(joined):
-                            replacement = joined
-                            break
-                if replacement:
-                    files[i] = replacement
-                else:
-                    del files[i]
-                    i -= 1
-            i += 1
+        if isinstance(files, basestring):
+            files = [files]
+
+        files = (
+            os.path.join(directory, f)
+            for fs in files
+            for f in fs.split(";")
+            if f
+        )
+        files = filter(bool, map(cls.replace_file, files))
         return cls(name, files, is_executable)
 
     def apply_property(self, prop, value):
@@ -368,7 +382,16 @@ class BuildTarget(object):
         # TODO elif prop == "<CONFIG>_OUTPUT_NAME":
 
 
-class RosCMakeParser(object):
+class RosCMakeParser(LoggingObject):
+    @staticmethod
+    def _get_option_args(args, option):
+        try:
+            option_index = args.index(option)
+            return list(itertools.takewhile(lambda c: not c.isupper(),
+                                            args[option_index + 1:]))
+        except ValueError:
+            return []
+
     def __init__(self, srcdir, bindir, pkgs = None, env = None, vars = None):
         self.parser = CMakeParser()
         self.source_dir = srcdir
@@ -455,10 +478,17 @@ class RosCMakeParser(object):
             self._process_set_target_properties(args)
         elif command == "target_link_libraries":
             self._process_link_libraries(args)
+        elif command == 'catkin_install_python':
+            self._process_catkin_install_python(args)
+        elif command == 'install':
+            self._process_install(args)
 
     def _process_include_directories(self, args):
         n = len(args)
-        assert n >= 1
+        if n == 0:
+            self.log.warning("Found 'include_directories' in CMake with "
+                             "no arguments, but expected at least one.")
+            return
         i = 0
         before = self.variables.get("CMAKE_INCLUDE_DIRECTORIES_BEFORE") == "ON"
         before = (before or args[0] == "BEFORE") and args[0] != "AFTER"
@@ -472,6 +502,37 @@ class RosCMakeParser(object):
                 arg = os.path.join(self.directory, arg)
                 self.include_dirs.append(arg)
             i += 1
+
+    def _process_catkin_install_python(self, args):
+        n = len(args)
+        assert n > 1
+
+        files = list(itertools.chain.from_iterable(
+            self.variables.get(arg, arg).split()
+            for arg in args[1:-2]
+        ))
+        names = map(os.path.basename, files)
+        targets = {
+            name: BuildTarget.new_target(name, [file], self.directory, True)
+            for name, file in zip(names, files)
+        }
+        self.executables.update(targets)
+
+    def _process_install(self, args):
+        in_directories = [
+            os.path.join(dir, file)
+            for dir in self._get_option_args(args, 'DIRECTORY')
+            for file in os.listdir(os.path.join(self.directory, dir))
+        ]
+        sources = (in_directories
+                   + self._get_option_args(args, 'FILES')
+                   + self._get_option_args(args, 'PROGRAMS'))
+        names = map(os.path.basename, sources)
+        targets = {
+            name: BuildTarget.new_target(name, [file], self.directory, True)
+            for name, file in zip(names, sources)
+        }
+        self.executables.update(targets)
 
     def _process_library(self, args):
         n = len(args)

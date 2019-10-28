@@ -26,12 +26,16 @@
 
 import logging
 import os
+from pkg_resources import resource_filename
 import shutil
+import sys
 import traceback
+import time
 
-import pyflwor
-
-from .metamodel import MetamodelObject, Location, RuntimeLocation
+from .metamodel import (
+    Configuration, MetamodelObject, Location, Resource, RosPrimitive,
+    RuntimeLocation
+)
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
     ConfigurationAnalysis, Statistics, AnalysisReport
@@ -71,7 +75,8 @@ class AnalysisScopeError(Exception):
 class PluginInterface(LoggingObject):
     """Provides an interface for plugins to communicate with the framework."""
 
-    def __init__(self, data, reports):
+    def __init__(self, data, reports, allowed_rules, allowed_metrics,
+                 ignored_lines):
         self.state = None
         self._data = data
         self._plugin = None
@@ -80,9 +85,12 @@ class PluginInterface(LoggingObject):
         self._exported = set()
         self._buffer_violations = None
         self._buffer_metrics = None
+        self._rules = allowed_rules
+        self._metrics = allowed_metrics
+        self._lines = ignored_lines
 
     def get_file(self, relative_path):
-        return os.path.join(self._plugin.path, relative_path)
+        return resource_filename(self._plugin.name, relative_path)
 
     def export_file(self, relative_path):
         # mark a file in the plugin's temporary directory as exportable
@@ -104,6 +112,11 @@ class PluginInterface(LoggingObject):
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
+        if scope.id in self._lines:
+            ignored = self._lines[scope.id]
+            if line in ignored["*"]:
+                self.log.debug("ignored file/line (%s:%s)", scope.id, line)
+                return
         location = scope.location
         location.line = line
         location.function = function
@@ -112,7 +125,10 @@ class PluginInterface(LoggingObject):
                                    self._reports.get(location.largest_scope.id))
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
-        rule = self._get_property(rule_id, self._data.rules)
+        rule = self._get_property(rule_id, self._data.rules, self._rules)
+        if not rule:
+            self.log.debug("ignored rule: " + rule_id)
+            return
         datum = Violation(rule, location, details = msg)
         datum.affected.append(scope)
         if not self._buffer_violations is None:
@@ -120,12 +136,42 @@ class PluginInterface(LoggingObject):
         else:
             report.violations.append(datum)
 
+    def report_runtime_violation(self, rule_id, msg, resources=None):
+        scope = self._report.scope
+        resources = resources or ()
+        self.log.debug("runtime violation(%s, %s, %s, %s)",
+            rule_id, msg, scope, resources)
+        if not isinstance(scope, Configuration):
+            raise AnalysisScopeError("must provide a Configuration scope")
+        for resource in resources:
+            if (not isinstance(resource, (Resource, RosPrimitive))
+                    or resource.configuration is not scope):
+                raise AnalysisScopeError("must point to resources within the "
+                                         "Configuration scope")
+        location = scope.location
+        rule = self._get_property(rule_id, self._data.rules, self._rules)
+        if not rule:
+            self.log.debug("ignored rule: " + rule_id)
+            return
+        datum = Violation(rule, location, details=msg)
+        datum.affected.append(scope)
+        datum.affected.extend(resources)
+        if self._buffer_violations is not None:
+            self._buffer_violations.append(datum)
+        else:
+            self._report.violations.append(datum)
+
     def report_metric(self, metric_id, value, scope = None,
                       line = None, function = None, class_ = None):
         self.log.debug("metric(%s, %s, %s)", metric_id, value, scope)
         scope = scope or self._report.scope
         if scope is None:
             raise AnalysisScopeError("must provide a scope")
+        if scope.id in self._lines:
+            ignored = self._lines[scope.id]
+            if line in ignored["*"]:
+                self.log.debug("ignored file/line (%s:%s)", scope.id, line)
+                return
         location = scope.location
         location.line = line
         location.function = function
@@ -134,7 +180,10 @@ class PluginInterface(LoggingObject):
                                    self._reports.get(location.largest_scope.id))
         if report is None:
             raise AnalysisScopeError("invalid scope: " + scope.id)
-        metric = self._get_property(metric_id, self._data.metrics)
+        metric = self._get_property(metric_id, self._data.metrics, self._metrics)
+        if not metric:
+            self.log.debug("ignored metric: " + metric_id)
+            return
         self._check_metric_value(metric, value)
         datum = Measurement(metric, location, value)
         if not self._buffer_metrics is None:
@@ -142,13 +191,13 @@ class PluginInterface(LoggingObject):
         else:
             report.metrics.append(datum)
 
-    def _get_property(self, property_id, data):
-        id = property_id
+    def _get_property(self, property_id, data, allowed):
+        ident = property_id
         if not property_id in data:
-            id = self._plugin.name + ":" + property_id
-            if not id in data:
+            ident = self._plugin.name + ":" + property_id
+            if not ident in data:
                 raise UndefinedPropertyError(property_id)
-        return data[id]
+        return data[ident] if ident in allowed else None
 
     def _check_metric_value(self, metric, value):
         self.log.debug("_check_metric_value(%s, %s)", metric.id, str(value))
@@ -202,7 +251,8 @@ class QueryEngine(LoggingObject):
         "round": round
     }
 
-    def __init__(self, database):
+    def __init__(self, database, pyflwor):
+        self.pyflwor = pyflwor
         self.data = dict(self.query_data)
         self.data["is_rosglobal"] = QueryEngine.is_rosglobal
         self.data["files"] = list(database.files.itervalues())
@@ -253,7 +303,7 @@ class QueryEngine(LoggingObject):
 
     def _execute(self, rule, data, reports, default_location):
         try:
-            result = pyflwor.execute(rule.query, data)
+            result = self.pyflwor(rule.query, data)
         except SyntaxError as e:
             self.log.error("SyntaxError on query %s: %s", rule.id, e)
         else:
@@ -335,25 +385,34 @@ class QueryEngine(LoggingObject):
 ###############################################################################
 
 class AnalysisManager(LoggingObject):
-    def __init__(self, data, out_dir, export_dir):
+    def __init__(self, data, out_dir, export_dir, pyflwor_dir=None):
         self.database = data
         self.report = None
         self.out_dir = out_dir
         self.export_dir = export_dir
+        self.pyflwor_dir = pyflwor_dir
 
-    def run(self, plugins):
+    def run(self, plugins, allowed_rules=None, allowed_metrics=None,
+            ignored_lines=None):
         self.log.info("Running plugins on collected data.")
+        start_time = time.time()
+        if allowed_rules is None:
+            allowed_rules = set(self.database.rules)
+        if allowed_metrics is None:
+            allowed_metrics = set(self.database.metrics)
         self._prepare_directories(plugins)
         project = self.database.project
         reports = self._make_reports(project)
-        self._execute_queries(reports)
-        iface = PluginInterface(self.database, reports)
+        self._execute_queries(reports, allowed_rules)
+        iface = PluginInterface(self.database, reports,
+                                allowed_rules, allowed_metrics, ignored_lines)
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
         self.report.calculate_statistics()
         stats = self.report.statistics
         stats.configuration_count = len(project.configurations)
+        self.report.analysis_time = time.time() - start_time
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:
@@ -366,6 +425,8 @@ class AnalysisManager(LoggingObject):
         reports = {}
         self.report = AnalysisReport(project)
         for pkg in project.packages:
+            if not pkg._analyse:
+                continue
             pkg_report = PackageAnalysis(pkg)
             self.report.by_package[pkg.id] = pkg_report
             reports[pkg.id] = pkg_report
@@ -380,10 +441,21 @@ class AnalysisManager(LoggingObject):
         reports[None] = self.report
         return reports
 
-    def _execute_queries(self, reports):
+    def _execute_queries(self, reports, allowed_rules):
+        try:
+            self.log.debug("Monkey-patching pyflwor.")
+            from .pyflwor_monkey_patch import make_parser
+            pyflwor = make_parser(self.pyflwor_dir)
+            self.log.debug("import pyflwor")
+        except ImportError as e:
+            self.log.warning("Could not import pyflwor. "
+                             "Skipping query execution.")
+            return
         self.log.debug("Creating query engine.")
-        query_engine = QueryEngine(self.database)
-        query_engine.execute(self.database.rules.viewvalues(), reports)
+        query_engine = QueryEngine(self.database, pyflwor)
+        rules = tuple(r for r in self.database.rules.viewvalues()
+                      if r.id in allowed_rules)
+        query_engine.execute(rules, reports)
 
     def _analysis(self, iface, plugins):
         for plugin in plugins:
@@ -394,10 +466,14 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.analysis.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.analysis.analyse_file(iface, scope)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.analysis.analyse_package(iface, scope)
                     for scope in self.report.project.configurations:
@@ -420,12 +496,16 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.process.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.process.process_file(iface, scope,
                                     iface._report.violations,
                                     iface._report.metrics)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.process.process_package(iface, scope,
                                 iface._report.violations,
@@ -469,3 +549,4 @@ class AnalysisManager(LoggingObject):
         # self.summaries.append(summary)
         # if len(self.summaries) > 30:
             # self.summaries.pop(0)
+

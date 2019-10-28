@@ -1,0 +1,7 @@
+%YAML 1.1
+---
+
+project: roscpp_tutorials
+packages:
+    - roscpp_tutorials
+

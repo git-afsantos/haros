@@ -5,7 +5,109 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-N/A
+### Added
+- `--junit-xml-output` option to `full`, `analyse`, `export` and `parse` commands to output JUnit XML reports.
+
+## [3.7.0] - 2019-09-08
+### Added
+- Command `parse`, a convenience command to run model extraction without running plugin analysis.
+- A database of pre-parsed ROS nodes from select distribution packages.
+- A new issue reporting function for plugins, focusing on runtime (`Configuration`-related) issues.
+
+### Changed
+- Fixed and improved the way extraction hints are handled when merging possible candidates.
+- Exported JSON files now have proper indentation.
+
+## [3.6.0] - 2019-08-19
+### Added
+- Top-level `--config` option to pass a path to a custom configuration YAML file.
+
+## [3.5.6] - 2019-08-09
+### Changed
+- Fixed a bug that required arguments for the `analyse -w PLUGIN` and `analyse -b PLUGIN` commands to start with the `haros_plugin_` prefix.
+- Improved error messages to distinguish between no plugins being found (at all) and finding no plugins that match user-provided names.
+
+## [3.5.5] - 2019-06-25
+### Changed
+- Fixed a bug that caused a crash when `analyse` was called on a new HAROS home directory, without calling `init` before, and using the default YAML project file.
+
+## [3.5.4] - 2019-06-24
+### Changed
+- Fixed a bug that caused the wrong default project file to be loaded when using the `--home` option.
+
+## [3.5.3] - 2019-06-24
+### Added
+- A new section in project files, `nodes`, where users can provide extraction hints for nodes outside of the scope of a particular configuration. This avoids duplication of hints across similar configurations.
+
+### Changed
+- Fixed a minor bug during error handling that would cause the wrong error to be reported.
+
+## [3.5.2] - 2019-06-17
+### Changed
+- Fixed a bug where user-defined queries were being ignored.
+
+## [3.5.1] - 2019-06-17
+### Changed
+- Fixed an issue where packages had to be included for analysis (with source available) for nodes belonging to such packages, appearing in a launch file, to appear in extracted models.
+
+## [3.5.0] - 2019-06-15
+### Added
+- Added the `--home` option to the base `haros` command. This option receives a directory as argument, to use in place of the default `$HOME/.haros` data directory. It is useful, for instance, to have multiple settings profiles.
+
+### Changed
+- All commands (`haros analyse`, `haros export`, etc.) perform the necessary setup operations formerly performed with `haros init`.
+- `haros init` is no longer required before the first run of HAROS, and it is now used just to reset the `~/.haros` directory (or any other given with `--home`) to a fresh state.
+
+## [3.4.1] - 2019-06-15
+### Changed
+- Improved extraction accuracy for a specific case in C++ where primitives are called within a constructor and the `NodeHandle` is a default-initialized class member.
+
+## [3.4.0] - 2019-06-14
+### Changed
+- The model extraction process should now be able to resolve `typedef`s.
+
+### Added
+- Support to extract `image_transport::SubscriberFilter` calls.
+- Support to extract `message_filters::Subscriber` calls.
+- Support to extract `image_transport::Subscriber` calls.
+- Support to extract `image_transport::Publisher` calls.
+
+## [3.3.3] - 2019-06-12
+### Changed
+- Dependency on `rosgraph` is now optional.
+- Fixed a bug that prevented unresolved namespaces to match with valid extraction hints (e.g. `/?/topic` would not match with a `topic` hint).
+
+## [3.3.0] - 2019-06-03
+### Changed
+- Plugins are no longer cloned and installed by HAROS. Instead they are distributed and installed as a `pip` requirement.
+- The plugin discovery mechanism had to change, in order to comply with the point above. Plugins are now discovered by naming convention (package names starting with `haros_plugin_`).
+
+## [3.2.2] - 2019-05-14
+### Changed
+- Fixed bug in CMake parser where `include_directories` expected at least one argument.
+
+## [3.2.1] - 2019-04-12
+### Changed
+- Fixed the auto-generated `~/.haros/configs.yaml` to include the new sections to ignore rules and tags.
+
+## [3.2.0] - 2019-04-04
+### Added
+- `~/.haros/configs.yaml` file can be used to ignore specific rules or tags.
+- C++ files can be annotated with `// haros:ignore-line` and `// haros:ignore-next-line` to exclude specific lines from analysis.
+- Python files can be annotated with `# haros:ignore-line` and `# haros:ignore-next-line` to exclude specific lines from analysis.
+
+## [3.1.2] - 2019-03-20
+### Added
+- `requirements.txt` file.
+
+### Changed
+- Replaced `yaml.load` with `yaml.safe_load`.
+- Added a monkey patch for `pyflwor`, so that it now works from a `pip install`.
+
+## [3.1.1] - 2019-03-04
+### Changed
+- Made the dependency on `pyflwor` optional (#38).
+- Updated README to reflect this (#40).
 
 ## [3.1.0] - 2019-01-30
 ### Added
