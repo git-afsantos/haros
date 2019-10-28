@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+import itertools
 import logging
 from operator import attrgetter
 import os
@@ -32,8 +33,12 @@ from urllib2 import urlopen, URLError
 import xml.etree.ElementTree as ET
 import yaml
 
-from bonsai.model import CodeGlobalScope, pretty_str
-from bonsai.cpp.model import CppFunctionCall, CppDefaultArgument, CppOperator
+from bonsai.model import (
+    CodeGlobalScope, CodeReference, CodeFunctionCall, pretty_str
+)
+from bonsai.cpp.model import (
+    CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
+)
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
     get_conditions, is_under_loop
@@ -42,6 +47,7 @@ try:
     from bonsai.cpp.clang_parser import CppAstParser
 except ImportError:
     CppAstParser = None
+from bonsai.py.py_parser import PyAstParser
 from rospkg import RosPack, RosStack, ResourceNotFound
 from xml.etree.cElementTree import ElementTree
 from distutils.spawn import find_executable
@@ -650,7 +656,7 @@ class PackageExtractor(LoggingObject):
         return PackageParser.parse(os.path.join(path, "package.xml"),
                                    project = project)
 
-    EXCLUDED = (".git", "doc", "bin", "cmake", ".eggs", "__pycache__")
+    EXCLUDED = (".git", "doc", "cmake", ".eggs", "__pycache__")
 
     def _populate_package(self, pkg):
         self.log.debug("PackageExtractor.populate(%s)", pkg)
@@ -867,8 +873,7 @@ class HardcodedNodeParser(LoggingObject):
 ###############################################################################
 
 class NodeExtractor(LoggingObject):
-    def __init__(self, pkgs, env, ws = None, node_cache = None,
-                 parse_nodes = False):
+    def __init__(self, pkgs, env, ws=None, node_cache=None, parse_nodes=False):
         self.package = None
         self.packages = pkgs
         self.environment = env
@@ -876,6 +881,8 @@ class NodeExtractor(LoggingObject):
         self.node_cache = node_cache
         self.parse_nodes = parse_nodes
         self.nodes = []
+        self.roscpp_extractor = None
+        self.rospy_extractor = None
 
     def find_nodes(self, pkg):
         self.log.debug("NodeExtractor.find_nodes(%s)", pkg)
@@ -917,9 +924,10 @@ class NodeExtractor(LoggingObject):
             self._extract_primitives()
 
     def _default_variables(self):
-    # TODO: clean up these hardcoded values
+        # TODO: clean up these hardcoded values
         v = {}
-        v["catkin_INCLUDE_DIRS"] = os.path.join(self.workspace, "devel/include")
+        v["catkin_INCLUDE_DIRS"] = os.path.join(self.workspace,
+                                                "devel/include")
         v["Boost_INCLUDE_DIRS"] = "/usr/include/"
         v["Eigen_INCLUDE_DIRS"] = "/usr/include/eigen3"
         v["ImageMagick_INCLUDE_DIRS"] = "/usr/include/ImageMagick"
@@ -968,6 +976,9 @@ class NodeExtractor(LoggingObject):
             self.package.nodes.append(node)
 
     def _extract_primitives(self):
+        self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
+        self.rospy_extractor = RospyExtractor(self.package, self.workspace)
+
         for i in xrange(len(self.package.nodes)):
             node = self.package.nodes[i]
             self.log.debug("Extracting primitives for node %s", node.id)
@@ -989,20 +1000,31 @@ class NodeExtractor(LoggingObject):
             node.write_param = []
             if not node.source_files:
                 self.log.warning("no source files for node " + node.id)
+
             if node.language == "cpp" and CppAstParser is not None:
-                self._roscpp_analysis(node)
-            elif node.language != "cpp":
+                self.roscpp_extractor.extract(node)
+            elif node.language == 'py':
+                self.rospy_extractor.extract(node)
+            else:
                 self.log.debug("Node written in %s.", node.language)
 
-    def _roscpp_analysis(self, node):
+
+class RoscppExtractor(LoggingObject):
+    def __init__(self, package, workspace):
+        self.package = package
+        self.workspace = workspace
+
+    def extract(self, node):
         self.log.debug("Parsing C++ files for node %s", node.id)
-        parser = CppAstParser(workspace = self.workspace)
+        parser = CppAstParser(workspace=self.workspace, logger=__name__)
+
         for sf in node.source_files:
             self.log.debug("Parsing C++ file %s", sf.path)
             if parser.parse(sf.path) is None:
                 self.log.warning("no compile commands for " + sf.path)
+
         node.source_tree = parser.global_scope
-    # ----- queries after parsing, since global scope is reused ---------------
+        # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
         self._query_nh_param_primitives(node, parser.global_scope)
         self._query_param_primitives(node, parser.global_scope)
@@ -1078,20 +1100,22 @@ class NodeExtractor(LoggingObject):
 
     def _query_nh_param_primitives(self, node, gs):
         nh_prefix = "c:@N@ros@S@NodeHandle@"
-        reads = ("getParam", "getParamCached", "param", "hasParam", "searchParam")
+        reads = ("getParam", "getParamCached", "param", "hasParam",
+                 "searchParam")
         for call in CodeQuery(gs).all_calls.where_name(reads).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                self._on_read_param(node,
-                    self._resolve_node_handle(call.method_of), call)
+                self._on_read_param(node, self._resolve_node_handle(call),
+                                    call)
+
         writes = ("setParam", "deleteParam")
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                self._on_write_param(node,
-                    self._resolve_node_handle(call.method_of), call)
+                self._on_write_param(node, self._resolve_node_handle(call),
+                                     call)
 
     def _query_param_primitives(self, node, gs):
         ros_prefix = "c:@N@ros@N@param@"
@@ -1159,13 +1183,13 @@ class NodeExtractor(LoggingObject):
             return
         name = self._extract_topic(call)
         msg_type = self._extract_message_type(call)
-        depth = get_control_depth(call, recursive = True)
+        depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
-        srv = ServiceServerCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions,
-                                repeats = is_under_loop(call, recursive = True))
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        srv = ServiceServerCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
         node.service.append(srv)
         self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
 
@@ -1174,13 +1198,13 @@ class NodeExtractor(LoggingObject):
             return
         name = self._extract_topic(call)
         msg_type = self._extract_message_type(call)
-        depth = get_control_depth(call, recursive = True)
+        depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
-        cli = ServiceClientCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions,
-                                repeats = is_under_loop(call, recursive = True))
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        cli = ServiceClientCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
@@ -1202,55 +1226,30 @@ class NodeExtractor(LoggingObject):
         if len(call.arguments) < 1:
             return
         name = self._extract_topic(call)
-        depth = get_control_depth(call, recursive = True)
+        depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
-        wrt = WriteParameterCall(name, ns, None, location = location,
-                                 control_depth = depth, conditions = conditions,
-                                 repeats = is_under_loop(call, recursive = True))
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        wrt = WriteParameterCall(name, ns, None, location=location,
+                                 control_depth=depth, conditions=conditions,
+                                 repeats=is_under_loop(call, recursive=True))
         node.write_param.append(wrt)
         self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
 
     def _call_location(self, call):
-        source_file = None
-        if call.file:
-            for sf in self.package.source_files:
-                if sf.path == call.file:
-                    source_file = sf
-                    break
+        try:
+            source_file = next(
+                sf
+                for sf in self.package.source_files
+                if sf.path == call.file)
+        except StopIteration:
+            souce_file = None
+
         function = call.function
         if function:
             function = function.name
-        return Location(self.package, file = source_file,
-                        line = call.line, fun = function)
-
-    def _resolve_node_handle(self, value):
-        ns = "?"
-        value = resolve_reference(value) if value else None
-        if not value is None:
-            if isinstance(value, CppFunctionCall):
-                if value.name == "NodeHandle":
-                    if len(value.arguments) == 2:
-                        value = value.arguments[0]
-                        if isinstance(value, basestring):
-                            ns = value
-                        elif isinstance(value, CppDefaultArgument):
-                            ns = ""
-                    elif len(value.arguments) == 1:
-                        value = value.arguments[0]
-                        if isinstance(value, CppFunctionCall):
-                            if value.name == "getNodeHandle":
-                                ns = ""
-                            elif value.name == "getPrivateNodeHandle":
-                                ns = "~"
-                elif value.name == "getNodeHandle":
-                    ns = ""
-                elif value.name == "getPrivateNodeHandle":
-                    ns = "~"
-            elif isinstance(value, CppDefaultArgument):
-                ns = ""
-        return ns
+        return Location(self.package, file=source_file, line=call.line,
+                        fun=function)
 
     def _resolve_it_node_handle(self, value):
         value = resolve_expression(value)
@@ -1258,6 +1257,57 @@ class NodeExtractor(LoggingObject):
                 and value.name == "ImageTransport"):
             return self._resolve_node_handle(value.arguments[0])
         return "?"
+
+    def _resolve_node_handle(self, call):
+        ns = "?"
+
+        node_handle = getattr(call, 'method_of', None) or call
+        if getattr(node_handle, 'name', None) == 'operator->':
+            node_handle = node_handle.arguments[0]
+        node_handle_def = (resolve_reference(node_handle)
+                           if isinstance(node_handle, CppReference)
+                           else None)
+
+        # A function needs to be called to create a NodeHandle (constructors
+        # are functions)
+        if isinstance(node_handle_def, CppFunctionCall):
+
+            # node_handle_def is a call to the constructor
+            if node_handle_def.name == 'NodeHandle':
+                args = node_handle_def.arguments
+
+                # Copy constructor
+                if len(args) == 1:
+                    parent = args[0]
+                    return self._resolve_node_handle(parent)
+
+                # All other constructor have at least two arguments. The third
+                # is never meaningful
+
+                # If a parent NodeHande is passed, it is the first argument
+                parent = None if isinstance(args[0], basestring) else args[0]
+                prefix = ('/' + self._resolve_node_handle(parent)
+                          if parent
+                          else '')
+
+                # If a namespace argument is passed, it is either first or
+                # second parameter. Only the first has an empty default value.
+                passed_ns = '?'
+                if isinstance(args[0], basestring):
+                    passed_ns = args[0]
+                elif isinstance(args[0], CppDefaultArgument):
+                    passed_ns = ''
+                elif isinstance(args[1], basestring):
+                    passed_ns = args[1]
+
+                ns = prefix + passed_ns
+
+            elif node_handle_def.name == 'getNodeHandle':
+                ns = ''
+            elif node_handle_def.name == 'getPrivateNodeHandle':
+                ns = '~'
+
+        return ns
 
     def _extract_topic(self, call, topic_pos=0):
         name = resolve_expression(call.arguments[topic_pos])
@@ -1273,14 +1323,20 @@ class NodeExtractor(LoggingObject):
                 template = template[:std_alloc.start()]
             assert re.match(r"\w+::\w+$", template)
             return template.replace("::", "/")
-        if call.name != "subscribe" and call.name != "advertiseService":
+
+        if (call.name not in ("subscribe", "advertiseService")
+                and 'NodeHandle' not in call.full_name):
             return "?"
-        callback = call.arguments[2] if call.name == "subscribe" \
-                                     else call.arguments[1]
+        callback = (call.arguments[2]
+                    if call.name == "subscribe"
+                    else call.arguments[1])
         while isinstance(callback, CppOperator):
             callback = callback.arguments[0]
         type_string = callback.result
-        type_string = type_string.split(None, 1)[1]
+        try:
+            type_string = type_string.split(None, 1)[1]
+        except IndexError:
+            type_string = type_string.strip()
         if type_string.startswith("(*)"):
             type_string = type_string[3:]
         if type_string[0] == "(" and type_string[-1] == ")":
@@ -1311,3 +1367,238 @@ class NodeExtractor(LoggingObject):
         if isinstance(queue_size, (int, long, float)):
             return queue_size
         return None
+
+
+class RospyExtractor(LoggingObject):
+    queue_size_pos = {
+        'publisher': 6,
+        'subscriber': 4,
+    }
+
+    rospy_names = {
+        'publication': ('Publisher',),
+        'subscription': ('Subscriber',),
+        'service-def': ('Service',),
+        'service-call': ('ServiceProxy',),
+    }
+
+    @classmethod
+    def all_rospy_names(cls, type):
+        names = cls.rospy_names[type]
+        return tuple('rospy.' + name for name in names) + names
+
+    @staticmethod
+    def get_arg(call, pos, name):
+        try:
+            return next(
+                keyword.value
+                for keyword in call.named_args
+                if keyword.name == name)
+        except StopIteration:
+            try:
+                return call.arguments[pos]
+            except IndexError:
+                return None
+
+    @staticmethod
+    def invalid_call(call):
+        return (len(call.arguments) + len(call.named_args)
+                + bool(call.star_args) + bool(call.kw_args)) <= 1
+
+    @staticmethod
+    def split_ns_name(full_name):
+        if '/' in full_name:
+            ns, _, name = full_name.rpartition('/')
+        else:
+            ns, name = '', full_name
+        return ns, name
+
+    def _call_location(self, call):
+        try:
+            source_file = next(
+                sf
+                for sf in self.package.source_files
+                if sf.path == call.file)
+        except StopIteration:
+            souce_file = None
+
+        function = call.function
+        if function:
+            function = function.name
+        return Location(self.package, file=source_file, line=call.line,
+                        fun=function)
+
+    @classmethod
+    def _extract_queue_size(cls, call):
+        pos = cls.queue_size_pos[call.name.lower()]
+        queue_size_arg = cls.get_arg(call, pos, 'queue_size')
+
+        try:
+            queue_size = resolve_expression(queue_size_arg)
+            assert(isinstance(queue_size, (int, long, float)))
+            return queue_size
+        except AssertionError:
+            return None
+
+    @classmethod
+    def _extract_message_type(cls, call, arg_name, arg_pos=1):
+        msg_type = cls.get_arg(call, 1, arg_name)
+
+        # Very common case of calling type() on a message class
+        if isinstance(msg_type, CodeFunctionCall) and msg_type.name == 'type':
+            msg_type = msg_type.arguments[0].name
+
+        if isinstance(msg_type, CodeReference):
+            msg_type = resolve_reference(msg_type) or msg_type
+
+        return str(msg_type)
+
+    @classmethod
+    def _extract_topic(cls, call):
+        name = resolve_expression(cls.get_arg(call, 0, 'name'))
+        if not isinstance(name, basestring):
+            name = '?'
+        return cls.split_ns_name(name)
+
+    def _on_client(self, node, call):
+        if self.invalid_call(call):
+            return
+
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'service_class')
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        cli = ServiceClientCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
+        node.client.append(cli)
+        self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
+
+    def _on_publication(self, node, call):
+        if self.invalid_call(call):
+            return
+
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'data_class')
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        pub = Publication(name, ns, msg_type, queue_size, location=location,
+                          control_depth=depth, conditions=conditions,
+                          repeats=is_under_loop(call, recursive=True))
+        node.advertise.append(pub)
+        self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
+
+    def _on_service(self, node, call):
+        if self.invalid_call(call):
+            return
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'service_class')
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        srv = ServiceServerCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
+        node.service.append(srv)
+        self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
+
+    def _on_subscription(self, node, call):
+        if self.invalid_call(call):
+            return
+        ns, name = self._extract_topic(call)
+        msg_type = self._extract_message_type(call, 'data_class')
+        queue_size = self._extract_queue_size(call)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        sub = Subscription(name, ns, msg_type, queue_size, location=location,
+                           control_depth=depth, conditions=conditions,
+                           repeats=is_under_loop(call, recursive=True))
+        node.subscribe.append(sub)
+        self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
+
+    def _query_comm_primitives(self, node, gs):
+        ##################################
+        # Topics
+        ##################################
+
+        publications = (CodeQuery(gs).all_calls
+                        .where_name(('Publisher', 'rospy.Publisher'))
+                        .get())
+        subscriptions = (CodeQuery(gs).all_calls
+                         .where_name(('Subscriber', 'rospy.Subscriber'))
+                         .get())
+        for call in publications:
+            self._on_publication(node, call)
+        for call in subscriptions:
+            self._on_subscription(node, call)
+
+        ##################################
+        # Services
+        ##################################
+
+        service_defs = (CodeQuery(gs).all_calls
+                        .where_name(self.all_rospy_names('service-def'))
+                        .get())
+        service_calls = (CodeQuery(gs).all_calls
+                         .where_name(self.all_rospy_names('service-call'))
+                         .get())
+        for call in service_defs:
+            self._on_service(node, call)
+        for call in service_calls:
+            self._on_client(node, call)
+
+
+    def _setup_path(self):
+        setup_file = os.path.join(self.package.path, 'setup.py')
+        if not os.path.isfile(setup_file):
+            return []
+
+        parser = PyAstParser(workspace=self.package.path)
+        setup = parser.parse(setup_file)
+
+        setup_call = (CodeQuery(setup).all_calls
+                      .where_name('generate_distutils_setup')
+                      .get()
+                      or
+                      CodeQuery(setup).all_calls
+                      .where_name('setup')
+                      .get())[0]
+
+        package_dir = self.get_arg(setup_call, 0, 'package_dir')
+        if hasattr(package_dir, 'value'):
+            package_dir = {
+                keyword.name: keyword.value
+                for keyword in self.get_arg(setup_call, 0, 'package_dir').value
+            }
+        else:
+            src_path = os.path.join(self.package.path, 'src')
+            package_dir = {'': 'src'} if os.path.exists(src_path) else {}
+
+        root = package_dir.get('', '')
+        return [os.path.join(self.package.path, root)]
+
+    def __init__(self, package, workspace):
+        self.package = package
+        self.workspace = workspace
+        self.pythonpath = self._setup_path()
+
+    def extract(self, node):
+        self.log.debug("Parsing Python files for node %s", node.id)
+        parser = PyAstParser(pythonpath=self.pythonpath,
+                             workspace=self.workspace)
+        for sf in node.source_files:
+            self.log.debug("Parsing Python file %s", sf.path)
+            if parser.parse(sf.path) is None:
+                self.log.warning("no compile commands for " + sf.path)
+        node.source_tree = parser.global_scope
+        # ----- queries after parsing, since global scope is reused -----------
+        self._query_comm_primitives(node, parser.global_scope)
+        # self._query_param_primitives(node, parser.global_scope)

@@ -26,6 +26,7 @@
 from collections import Counter
 import os
 
+import magic as file_cmd
 
 ###############################################################################
 # Notes
@@ -298,11 +299,10 @@ class SourceObject(MetamodelObject):
 
 class SourceFile(SourceObject):
     """Represents a source code file."""
-    CPP = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in",
-           ".h.in", ".hpp.in", ".c.in", ".cc.in")
-    PYTHON = ".py"
-    PKG_XML = "package.xml"
-    LAUNCH = (".launch", ".launch.xml")
+    CPP = ('c source', 'c++ source')
+    PYTHON = 'python script'
+    PKG_XML = 'package.xml'
+    LAUNCH = ('.launch', '.launch.xml')
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
@@ -373,15 +373,16 @@ class SourceFile(SourceObject):
         }
 
     def _get_language(self):
-        if self.name.endswith(self.CPP):
-            return "cpp"
-        if self.name.endswith(self.PYTHON):
-            return "python"
+        file_type = file_cmd.from_file(self.path).lower()
+        if file_type.startswith(self.CPP):
+            return 'cpp'
+        if self.PYTHON in file_type:
+            return 'py'
         if self.name.endswith(self.LAUNCH):
-            return "launch"
+            return 'launch'
         if self.name == self.PKG_XML:
-            return "package"
-        return "unknown"
+            return 'package'
+        return 'unknown'
 
     def __str__(self):
         return self.__repr__()
