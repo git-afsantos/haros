@@ -137,6 +137,8 @@ the `libclang.so` shared library. Example:
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 ```
 
+NB: you might need to specify in ~/.haros/configs.yaml the library file and the includes in case you are using a non-zero minor release (e.g., libclang 3.8.1)
+
 If you do not perform this step and your library is installed in a different path,
 you will need to specify it in the configuration file located in
 `~/.haros/configs.yaml`. This file becomes available after running HAROS for the first time.

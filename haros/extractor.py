@@ -302,7 +302,11 @@ class ProjectExtractor(LoggingObject):
                         os.path.join(db_dir, "compile_commands.json")):
                     CppAstParser.set_database(db_dir)
             else:
-                CppAstParser.set_library_path(settings.cpp_parser_lib)
+                #library file if given explicitly, otherwise path
+                if settings.cpp_parser_lib_file:
+                    CppAstParser.set_library_file(settings.cpp_parser_lib_file)
+                else:
+                    CppAstParser.set_library_path(settings.cpp_parser_lib)
                 CppAstParser.set_standard_includes(settings.cpp_includes)
                 db_dir = settings.cpp_compile_db
                 if db_dir and os.path.isfile(
@@ -975,7 +979,7 @@ class NodeExtractor(LoggingObject):
             self.nodes.append(node)
             self.package.nodes.append(node)
 
-    def _extract_primitives(self):
+    def _extract_primitives(self, force_when_cached=False):
         self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
         self.rospy_extractor = RospyExtractor(self.package, self.workspace)
 
@@ -985,7 +989,7 @@ class NodeExtractor(LoggingObject):
             if node.source_tree is not None:
                 self.log.debug("Node already has a source tree. Skipped.")
                 continue
-            if node.node_name in self.node_cache:
+            if (node.node_name in self.node_cache) and not force_when_cached:
                 self.log.debug("Using Node %s from cache.", node.node_name)
                 node = self.node_cache[node.node_name]
                 assert node.package is self.package
