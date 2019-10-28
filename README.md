@@ -1,5 +1,4 @@
-HAROS
-=====
+![HAROS](logo.png?raw=true "HAROS Logo")
 
 HAROS is a framework for static analysis of ROS-based code.
 It has been published in the IROS 2016 conference.
@@ -21,7 +20,7 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is still being developed, as of October 2018.
+HAROS is still being developed, as of June 2019.
 
 There is a demo page available on [GitHub](https://git-afsantos.github.io/haros) and a demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
 
@@ -33,7 +32,7 @@ Installation
 
 Here are some instructions to help you get HAROS running in your machine.
 This assumes that you already have a **working installation of ROS**.
-HAROS has been tested with *ROS Indigo* and *ROS Kinetic*, on
+HAROS has been tested with *ROS Indigo*, *ROS Kinetic* and *ROS Melodic*, on
 *Linux Mint* and *Linux Ubuntu*. These setups should provide you with
 most of the basic dependencies of HAROS, namely **Python 2.7**
 and a **Web browser** (if you want to use the visualiser).
@@ -75,27 +74,35 @@ python -m haros <args>
 
 ### Method 2: Installing HAROS on Your Machine
 
-HAROS is now available on [PyPi](https://pypi.python.org/pypi/haros). You can install
+HAROS is available on [PyPi](https://pypi.python.org/pypi/haros). You can install
 it from source or from a wheel.
 
 ```bash
-[sudo] pip install haros
+pip install haros
 ```
 
-The above command will install HAROS for you. Alternatively, download and extract its
+The command above will install HAROS for you. Alternatively, download and extract its
 source, move to the project's root directory, and then execute the following.
 
 ```bash
 python setup.py install
 ```
 
-After installation, you should be able to run the command `haros` in your terminal
-from anywhere.
+After installation, you should be able to run the command `haros` in your terminal.
 
 ### Requirements
 
-Before running any kind of analysis, you need to install some analysis tools that HAROS
+Before running any kind of analysis, you need to install some analysis tools and plugins that HAROS
 uses behind the curtains. Install these *$dependencies$* with the following commands.
+
+Python [requirements](requirements.txt):
+*(Not necessary if you install HAROS from `pip`)*
+
+```bash
+pip install -r requirements.txt
+```
+
+Additional analysis tools:
 
 ```bash
 [sudo] apt-get install cppcheck
@@ -130,14 +137,36 @@ the `libclang.so` shared library. Example:
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 ```
 
+NB: you might need to specify in ~/.haros/configs.yaml the library file and the includes in case you are using a non-zero minor release (e.g., libclang 3.8.1)
+
 If you do not perform this step and your library is installed in a different path,
 you will need to specify it in the configuration file located in
-`~/.haros/index.yaml`. This file becomes available after running the
-`init` command of HAROS (details below).
+`~/.haros/configs.yaml`. This file becomes available after running HAROS for the first time.
 
-Finally, you need to perform some initialisation operations.
-These operations include downloading a basic set of analysis plugins.
-Do so with:
+The same applies if you want to use a version of `libclang.so` other than 3.8.
+Preliminary tests suggest that 3.9, 4.0, 5.0 and 6.0 also work (as long as
+the versions of `libclang-X.Y-dev` and Python's `clang` package match).
+
+**Example for version 4.0:**
+
+```bash
+[sudo] apt-get install libclang-4.0-dev
+[sudo] pip install -Iv clang==4.0
+```
+
+`~/.haros/configs.yaml`:
+
+```yaml
+%YAML 1.1
+---
+workspace: '/home/me/ros/ws'
+cpp:
+    parser_lib: '/usr/lib/llvm-4.0/lib'
+    std_includes: '/usr/lib/llvm-4.0/lib/clang/4.0.1/include'
+    compile_db: '/home/me/ros/ws/build'
+```
+
+Finally, you need to perform some initialisation operations. Do so with:
 
 ```bash
 haros init
@@ -234,11 +263,16 @@ packages:
 *An empty list of packages results in the analysis of all packages found under the
 current working directory.*
 
-Below you can find the basic commands that HAROS provides.
+Below you can find the basic commands and options that HAROS provides.
+
+### haros --home HOME_DIR
+
+This top-level option sets HOME_DIR as the default HAROS home directory for the current run.
+By default, HAROS uses `~/.haros` as the HOME_DIR.
 
 ### haros init
 
-This command runs initialisation and setup operations. This command needs to be run before the first analysis takes place. You can also run this command later on when you update HAROS.
+This command runs setup operations. This command will **create directories** and **overwrite some files** (if there are some already with the same name).
 
 ### haros analyse
 
@@ -299,7 +333,7 @@ If `DATA_DIR` contains a previous analysis database for the current project
 within its tree, it will be loaded and new results will be added to that
 database.
 
-***Note:** it is advised to use an empty/dedicated directory for this purpose.
+* **Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within `DATA_DIR`.*
 
 #### haros analyse -n
@@ -323,6 +357,9 @@ another with a previous modification date.
 
 Use a full copy of your environment variables for the analysis.
 
+#### haros analyse --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros export
 
@@ -338,7 +375,7 @@ directories within the given directory.
 
 Export visualisation files along with analysis data.
 
-***Note:** it is advised to use an empty/dedicated directory for this purpose.
+* **Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within `DATA_DIR`.*
 
 #### haros export -p PROJECT_NAME
@@ -346,6 +383,9 @@ Previous versions deleted any existing files within `DATA_DIR`.*
 Export a specific project's data, instead of the default one.
 A special project name, `all`, can be used to export all available projects.
 
+#### haros export --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros viz
 

@@ -20,11 +20,12 @@ def package_files(directory):
 
 extra_files = package_files("harosviz")
 extra_files.append("*.yaml")
+extra_files.append("models/*.yaml")
 
 
 setup(
     name            = "haros",
-    version         = "3.2.0",
+    version         = "3.7.0",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
@@ -37,11 +38,10 @@ setup(
     package_data    = {"haros": extra_files},
     install_requires = [
         "pyyaml",
-        "lizard",
-        "radon",
         "rospkg",
-        "pylint",
-        "bonsai-code"
+        'python-magic',
+        "bonsai-code>=0.4.10,<1.0.0",
+        "haros-plugins>=1.0.3,<2.0.0"
     ],
     zip_safe        = True
 )

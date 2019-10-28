@@ -331,45 +331,45 @@ THE SOFTWARE.
             this.listenTo(view, "selected", this.onSelection);
             this.listenTo(view, "drag", this.onDrag);
             this.graph.setNode(model.id, view);
-            mapping[resource.name] = model;
+            mapping[resource.uid] = model;
         },
 
         addPublisher: function (link) {
-            var topic = this.topics[link.topic];
+            var topic = this.topics[link.topic_uid];
             topic.get("types")[link.type] = true;
-            this._addEdge(this.nodes[link.node].id, topic.id, !!link.conditions.length);
+            this._addEdge(this.nodes[link.node_uid].id, topic.id, !!link.conditions.length);
         },
 
         addSubscriber: function (link) {
-            var topic = this.topics[link.topic];
+            var topic = this.topics[link.topic_uid];
             topic.get("types")[link.type] = true;
-            this._addEdge(topic.id, this.nodes[link.node].id, !!link.conditions.length);
+            this._addEdge(topic.id, this.nodes[link.node_uid].id, !!link.conditions.length);
         },
 
         addClient: function (link) {
-            var service = this.services[link.service];
+            var service = this.services[link.service_uid];
             service.get("types")[link.type] = true;
-            this._addEdge(this.nodes[link.node].id, service.id, !!link.conditions.length);
+            this._addEdge(this.nodes[link.node_uid].id, service.id, !!link.conditions.length);
         },
 
         addServer: function (link) {
-            var service = this.services[link.service];
+            var service = this.services[link.service_uid];
             service.get("types")[link.type] = true;
-            this._addEdge(service.id, this.nodes[link.node].id, !!link.conditions.length);
+            this._addEdge(service.id, this.nodes[link.node_uid].id, !!link.conditions.length);
         },
 
         addWrite: function (link) {
-            var param = this.params[link.param];
+            var param = this.params[link.param_uid];
             if (link.type != null)
                 param.get("types")[link.type] = true;
-            this._addEdge(this.nodes[link.node].id, param.id, !!link.conditions.length);
+            this._addEdge(this.nodes[link.node_uid].id, param.id, !!link.conditions.length);
         },
 
         addRead: function (link) {
-            var param = this.params[link.param];
+            var param = this.params[link.param_uid];
             if (link.type != null)
                 param.get("types")[link.type] = true;
-            this._addEdge(param.id, this.nodes[link.node].id, !!link.conditions.length);
+            this._addEdge(param.id, this.nodes[link.node_uid].id, !!link.conditions.length);
         },
 
         _addEdge: function (sourceCid, targetCid, conditional) {
@@ -472,22 +472,22 @@ THE SOFTWARE.
                 obj = objs[i];
                 switch (obj.resourceType) {
                     case "node":
-                        this.graph.node(this.nodes[obj.name].id).queries[query.rule] = true;
+                        this.graph.node(this.nodes[obj.uid].id).queries[query.rule] = true;
                         break;
                     case "topic":
-                        this.graph.node(this.topics[obj.name].id).queries[query.rule] = true;
+                        this.graph.node(this.topics[obj.uid].id).queries[query.rule] = true;
                         break;
                     case "service":
-                        this.graph.node(this.services[obj.name].id).queries[query.rule] = true;
+                        this.graph.node(this.services[obj.uid].id).queries[query.rule] = true;
                         break;
                     case "param":
-                        this.graph.node(this.params[obj.name].id).queries[query.rule] = true;
+                        this.graph.node(this.params[obj.uid].id).queries[query.rule] = true;
                         break;
                     case "link":
-                        n1 = this.nodes[obj.node].id;
-                        n2 = (this.topics[obj.topic]
-                              || this.services[obj.service]
-                              || this.params[obj.param]).id;
+                        n1 = this.nodes[obj.node_uid].id;
+                        n2 = (this.topics[obj.topic_uid]
+                              || this.services[obj.service_uid]
+                              || this.params[obj.param_uid]).id;
                         v = this.graph.edge(n1, n2) || this.graph.edge(n2, n1);
                         v.queries[query.rule] = true;
                         break;
@@ -587,8 +587,8 @@ THE SOFTWARE.
         onDrag: function (node) {
             if (this.allowDrag) {
                 var i, edges = this.graph.nodeEdges(node.model.id);
-                node.x = node.dragx;
-                node.y = node.dragy;
+                node.x = Math.ceil(node.dragx / 16.0) * 16;
+                node.y = Math.ceil(node.dragy / 16.0) * 16;
                 node.render();
                 for (i = edges.length; i--;)
                     this.graph.edge(edges[i]).render();

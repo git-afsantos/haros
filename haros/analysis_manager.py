@@ -26,11 +26,16 @@
 
 import logging
 import os
+from pkg_resources import resource_filename
 import shutil
 import sys
 import traceback
+import time
 
-from .metamodel import MetamodelObject, Location, RuntimeLocation
+from .metamodel import (
+    Configuration, MetamodelObject, Location, Resource, RosPrimitive,
+    RuntimeLocation
+)
 from .data import (
     Violation, Measurement, FileAnalysis, PackageAnalysis,
     ConfigurationAnalysis, Statistics, AnalysisReport
@@ -85,7 +90,7 @@ class PluginInterface(LoggingObject):
         self._lines = ignored_lines
 
     def get_file(self, relative_path):
-        return os.path.join(self._plugin.path, relative_path)
+        return resource_filename(self._plugin.name, relative_path)
 
     def export_file(self, relative_path):
         # mark a file in the plugin's temporary directory as exportable
@@ -130,6 +135,31 @@ class PluginInterface(LoggingObject):
             self._buffer_violations.append(datum)
         else:
             report.violations.append(datum)
+
+    def report_runtime_violation(self, rule_id, msg, resources=None):
+        scope = self._report.scope
+        resources = resources or ()
+        self.log.debug("runtime violation(%s, %s, %s, %s)",
+            rule_id, msg, scope, resources)
+        if not isinstance(scope, Configuration):
+            raise AnalysisScopeError("must provide a Configuration scope")
+        for resource in resources:
+            if (not isinstance(resource, (Resource, RosPrimitive))
+                    or resource.configuration is not scope):
+                raise AnalysisScopeError("must point to resources within the "
+                                         "Configuration scope")
+        location = scope.location
+        rule = self._get_property(rule_id, self._data.rules, self._rules)
+        if not rule:
+            self.log.debug("ignored rule: " + rule_id)
+            return
+        datum = Violation(rule, location, details=msg)
+        datum.affected.append(scope)
+        datum.affected.extend(resources)
+        if self._buffer_violations is not None:
+            self._buffer_violations.append(datum)
+        else:
+            self._report.violations.append(datum)
 
     def report_metric(self, metric_id, value, scope = None,
                       line = None, function = None, class_ = None):
@@ -365,6 +395,7 @@ class AnalysisManager(LoggingObject):
     def run(self, plugins, allowed_rules=None, allowed_metrics=None,
             ignored_lines=None):
         self.log.info("Running plugins on collected data.")
+        start_time = time.time()
         if allowed_rules is None:
             allowed_rules = set(self.database.rules)
         if allowed_metrics is None:
@@ -381,6 +412,7 @@ class AnalysisManager(LoggingObject):
         self.report.calculate_statistics()
         stats = self.report.statistics
         stats.configuration_count = len(project.configurations)
+        self.report.analysis_time = time.time() - start_time
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:
@@ -393,6 +425,8 @@ class AnalysisManager(LoggingObject):
         reports = {}
         self.report = AnalysisReport(project)
         for pkg in project.packages:
+            if not pkg._analyse:
+                continue
             pkg_report = PackageAnalysis(pkg)
             self.report.by_package[pkg.id] = pkg_report
             reports[pkg.id] = pkg_report
@@ -432,10 +466,14 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.analysis.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.analysis.analyse_file(iface, scope)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.analysis.analyse_package(iface, scope)
                     for scope in self.report.project.configurations:
@@ -458,12 +496,16 @@ class AnalysisManager(LoggingObject):
                     iface._plugin = plugin
                     iface.state = plugin.process.state
                     for pkg in self.report.project.packages:
+                        if not pkg._analyse:
+                            continue
                         for scope in pkg.source_files:
                             iface._report = iface._reports[scope.id]
                             plugin.process.process_file(iface, scope,
                                     iface._report.violations,
                                     iface._report.metrics)
                     for scope in self.report.project.packages:
+                        if not scope._analyse:
+                            continue
                         iface._report = iface._reports[scope.id]
                         plugin.process.process_package(iface, scope,
                                 iface._report.violations,

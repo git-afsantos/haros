@@ -24,8 +24,9 @@
 
 # + ~/.haros
 # |-- index.yaml
-# |-+ plugins
-#   |-+ ...
+# |-- configs.yaml
+# |-- parse_cache.json
+# |-- log.txt
 # |-+ repositories
 #   |-+ ...
 # |-+ viz
@@ -63,6 +64,12 @@
 # Options:
 #   --debug sets the logging level to debug
 #   -c changes the CWD before running
+#   --home sets the HAROS directory (default "~/.haros")
+#   --config sets the location of the YAML file containing the configuration
+#            (default "~/.haros/configs.yaml")
+#   --junit-xml-output causes HAROS to output JUnit XML format report files.
+#   --minimal-output causes HAROS to output a size-optimized report,
+#             omitting files not required for the dashboard display.
 #   haros init
 #       initialises the data directory
 #   haros analyse [args]
@@ -92,18 +99,17 @@ from argparse import ArgumentParser
 import json
 import logging
 import os
-import subprocess
 import tempfile
 
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
 
 from .data import HarosDatabase, HarosSettings
-from .extractor import ProjectExtractor
+from .extractor import ProjectExtractor, HardcodedNodeParser
 from .config_builder import ConfigurationBuilder
 from .plugin_manager import Plugin
 from .analysis_manager import AnalysisManager
-from .export_manager import JsonExporter
+from .export_manager import JsonExporter, JUnitExporter
 from . import visualiser as viz
 
 
@@ -117,37 +123,64 @@ class HarosLauncher(object):
         structures, as well as parsing program arguments.
     """
 
-    HAROS_DIR       = os.path.join(os.path.expanduser("~"), ".haros")
-    DEFAULT_INDEX   = os.path.join(HAROS_DIR, "index.yaml")
-    USER_SETINGS    = os.path.join(HAROS_DIR, "configs.yaml")
-    LOG_PATH        = os.path.join(HAROS_DIR, "log.txt")
-    VIZ_DIR         = os.path.join(HAROS_DIR, "viz")
+    HAROS_DIR = os.path.join(os.path.expanduser("~"), ".haros")
+    DEFAULT_INDEX = os.path.join(HAROS_DIR, "index.yaml")
+    LOG_PATH = os.path.join(HAROS_DIR, "log.txt")
+    VIZ_DIR = os.path.join(HAROS_DIR, "viz")
 
-    def __init__(self, run_from_source = False):
+    DIR_STRUCTURE = {
+        "index.yaml": "%YAML 1.1\n---\npackages: []\n",
+        "configs.yaml": (
+            "%YAML 1.1\n---\n"
+            "# workspace: '/path/to/ws'\n"
+            "# environment: null\n"
+            "# plugin_blacklist: []\n"
+            "# cpp:\n"
+            # "#    parser: clang,\n"
+            "#    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
+            "#    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
+            "#    compile_db: '/path/to/ws/build'\n"
+            "# analysis:\n"
+            "#    ignore:\n"
+            "#        tags: []\n"
+            "#        rules: []\n"
+            "#        metrics: []\n"
+        ),
+        "parse_cache.json": "{}",
+        "repositories": {},
+        "export": {},
+        "projects": {
+            "default": {}
+        },
+        "pyflwor": {}
+        # viz is generated on viz.install
+    }
+
+    def __init__(self, run_from_source=False):
         self.log = logging.getLogger()
         self.run_from_source = run_from_source
         self.initialised = False
+        self.haros_dir = self.HAROS_DIR
+        self.index_path = self.DEFAULT_INDEX
+        self.log_path = self.LOG_PATH
+        self.viz_dir = self.VIZ_DIR
 
-    def launch(self, argv = None):
+    def launch(self, argv=None):
         args = self.parse_arguments(argv)
+        self.minimal_output = args.minimal_output
+        self._set_directories(args)
         if args.debug:
-            logging.basicConfig(filename = self.LOG_PATH, filemode = "w",
-                                level = logging.DEBUG)
+            logging.basicConfig(filename=self.log_path, filemode="w",
+                                level=logging.DEBUG)
         else:
-            logging.basicConfig(level = logging.WARNING)
+            logging.basicConfig(level=logging.WARNING)
+        self.log.debug("Running from home directory: %s", self.haros_dir)
         original_path = os.getcwd()
         try:
-            if not os.path.isdir(self.HAROS_DIR):
-                print "[HAROS] It seems this is a first run."
-                self.command_init(args, HarosSettings())
-            try:
-                settings = HarosSettings.parse_from(self.USER_SETINGS)
-            except IOError:
-                settings = HarosSettings()
             if args.cwd:
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
-            return args.command(args, settings)
+            return args.command(args)
         except KeyError as err:
             if str(err) == "ROS_WORKSPACE":
                 print "[HAROS] You must have a workspace set up."
@@ -160,58 +193,83 @@ class HarosLauncher(object):
         finally:
             os.chdir(original_path)
 
-    def command_init(self, args, settings):
+    def command_init(self, args):
         if not self.initialised:
-            init = HarosInitRunner(self.HAROS_DIR, self.log,
-                                   self.run_from_source)
-            if not init.run():
-                return False
-            self.initialised = True
+            self.initialised = self._init_haros_dir(overwrite=True)
+            return self.initialised
         return True
 
-    def command_full(self, args, settings):
-        return (self.command_analyse(args, settings)
-                and self.command_viz(args, settings))
+    def command_full(self, args):
+        return self.command_analyse(args) and self.command_viz(args)
 
-    def command_analyse(self, args, settings):
+    def command_analyse(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
         if args.data_dir and not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        if not os.path.isfile(args.project_file):
-            raise ValueError("Not a file: " + args.package_index)
-        analyse = HarosAnalyseRunner(self.HAROS_DIR, args.project_file,
-                                     args.data_dir, args.whitelist,
-                                     args.blacklist, log = self.log,
-                                     run_from_source = self.run_from_source,
-                                     use_repos = args.use_repos,
-                                     parse_nodes = args.parse_nodes,
-                                     copy_env = args.env,
-                                     use_cache = not args.no_cache,
-                                     settings = settings)
+        project_file = args.project_file or self.index_path
+        if not os.path.isfile(project_file):
+            raise ValueError("Not a file: " + project_file)
+        analyse = HarosAnalyseRunner(self.haros_dir, self.config_path,
+            project_file, args.data_dir, args.whitelist, args.blacklist,
+            log=self.log, run_from_source=self.run_from_source,
+            use_repos=args.use_repos, parse_nodes=args.parse_nodes,
+            copy_env=args.env, use_cache=(not args.no_cache),
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
         return analyse.run()
 
-    def command_export(self, args, settings):
+    def command_export(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
         if not os.path.isdir(args.data_dir):
             raise ValueError("Not a directory: " + args.data_dir)
-        export = HarosExportRunner(self.HAROS_DIR, args.data_dir,
-                                   args.export_viz, args.project,
-                                   log = self.log,
-                                   run_from_source = self.run_from_source,
-                                   settings = settings)
+        export = HarosExportRunner(self.haros_dir, self.config_path,
+            args.data_dir, args.export_viz, args.project, log=self.log,
+            run_from_source=self.run_from_source,
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
         return export.run()
 
-    def command_viz(self, args, settings):
-        data_dir = args.data_dir or self.VIZ_DIR
+    def command_viz(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
+        data_dir = args.data_dir or self.viz_dir
         if not os.path.isdir(data_dir):
             raise ValueError("Not a directory: " + data_dir)
-        server = HarosVizRunner(self.HAROS_DIR, data_dir,
-                                args.server_host, args.headless,
-                                log = self.log,
-                                run_from_source = self.run_from_source)
+        server = HarosVizRunner(self.haros_dir, self.config_path, data_dir,
+            args.server_host, args.headless, log=self.log,
+            run_from_source=self.run_from_source)
         return server.run()
+
+    def command_parse(self, args):
+        if not self.initialised:
+            self.initialised = self._init_haros_dir(overwrite=False)
+        if args.data_dir and not os.path.isdir(args.data_dir):
+            raise ValueError("Not a directory: " + args.data_dir)
+        project_file = args.project_file or self.index_path
+        if not os.path.isfile(project_file):
+            raise ValueError("Not a file: " + project_file)
+        if args.ws:
+            if not os.path.isdir(args.ws):
+                raise ValueError("Not a directory: " + args.ws)
+        parse = HarosParseRunner(self.haros_dir, self.config_path,
+            project_file, args.data_dir, log=self.log,
+            run_from_source=self.run_from_source, use_repos=args.use_repos,
+            ws=args.ws, copy_env=args.env, use_cache=(not args.no_cache),
+            junit_xml_output=args.junit_xml_output,
+            minimal_output=args.minimal_output)
+        return parse.run()
 
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
                                 description = "ROS quality assurance.")
+        parser.add_argument("--home",
+                            help=("HAROS data and config directory (default: "
+                                  + self.haros_dir))
+        parser.add_argument("--config",
+                            help=("HAROS config location (default: "
+                                  + self.haros_dir + "configs.yaml"))
         parser.add_argument("--debug", action = "store_true",
                             help = "set debug logging")
         parser.add_argument("-c", "--cwd",
@@ -222,6 +280,7 @@ class HarosLauncher(object):
         self._analyse_parser(subparsers.add_parser("analyse"))
         self._export_parser(subparsers.add_parser("export"))
         self._viz_parser(subparsers.add_parser("viz"))
+        self._parse_parser(subparsers.add_parser("parse"))
         return parser.parse_args(argv)
 
     def _init_parser(self, parser):
@@ -234,7 +293,6 @@ class HarosLauncher(object):
                             help = ("visualisation host "
                                     "(default: \"localhost:8080\")"))
         parser.add_argument("-p", "--project-file",
-                            default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
         parser.add_argument("-n", "--parse-nodes", action = "store_true",
@@ -245,6 +303,10 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--junit-xml-output", action='store_true',
+                            help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -258,7 +320,6 @@ class HarosLauncher(object):
         parser.add_argument("-r", "--use-repos", action = "store_true",
                             help = "use repository information")
         parser.add_argument("-p", "--project-file",
-                            default = self.DEFAULT_INDEX,
                             help = ("package index file (default: "
                                     "packages below current dir)"))
         parser.add_argument("-n", "--parse-nodes", action = "store_true",
@@ -269,6 +330,10 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--junit-xml-output", action='store_true',
+                            help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         group = parser.add_mutually_exclusive_group()
         group.add_argument("-w", "--whitelist", nargs = "*",
                            help = "execute only these plugins")
@@ -283,10 +348,14 @@ class HarosLauncher(object):
                             help = "name of project to export")
         parser.add_argument("data_dir", metavar = "dir",
                             help = "where to export data")
+        parser.add_argument("--junit-xml-output", action='store_true',
+                            help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_export)
 
     def _viz_parser(self, parser):
-        parser.add_argument("-d", "--data-dir", default = self.VIZ_DIR,
+        parser.add_argument("-d", "--data-dir",
                             help = "served data directory")
         parser.add_argument("-s", "--server-host", default = "localhost:8080",
                             help = ("visualisation host "
@@ -294,6 +363,72 @@ class HarosLauncher(object):
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
         parser.set_defaults(command = self.command_viz)
+
+    def _parse_parser(self, parser):
+        parser.add_argument("-r", "--use-repos", action = "store_true",
+                            help = "use repository information")
+        parser.add_argument("-p", "--project-file",
+                            help = ("package index file (default: "
+                                    "packages below current dir)"))
+        parser.add_argument("--env", action = "store_true",
+                            help = "use a copy of current environment")
+        parser.add_argument("-d", "--data-dir",
+                            help = "load/export using the given directory")
+        parser.add_argument("--ws", help = "set the catkin workspace directory")
+        parser.add_argument("--no-cache", action = "store_true",
+                            help = "do not use available caches")
+        parser.add_argument("--junit-xml-output", action='store_true',
+                            help = "output JUnit XML report file(s)")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
+        parser.set_defaults(command = self.command_parse)
+
+    def _set_directories(self, args):
+        if args.home:
+            self.haros_dir = args.home
+            self.index_path = os.path.join(self.haros_dir, "index.yaml")
+            self.log_path = os.path.join(self.haros_dir, "log.txt")
+            self.viz_dir = os.path.join(self.haros_dir, "viz")
+        if args.config:
+            self.config_path = args.config
+        else:
+            self.config_path = os.path.join(self.haros_dir, "configs.yaml")
+
+    def _init_haros_dir(self, overwrite=False):
+        print "[HAROS] Running setup operations..."
+        exists = os.path.exists(self.haros_dir)
+        if exists and not os.path.isdir(self.haros_dir):
+            raise RuntimeError(("Could not initialise; " + self.haros_dir
+                                + " already exists and is not a directory."))
+        if not exists:
+            self.log.info("Creating %s", self.haros_dir)
+            os.makedirs(self.haros_dir)
+        self._generate_dir(self.haros_dir, self.DIR_STRUCTURE,
+                           overwrite=overwrite)
+        if overwrite or not os.path.exists(self.viz_dir):
+            viz.install(self.viz_dir, self.run_from_source, force=True, minimal_output=self.minimal_output)
+        return True
+
+    def _generate_dir(self, path, dir_dict, overwrite=True):
+        """Recursively create a given directory structure."""
+        self.log.debug("HarosRunner._generate_dir %s %s", path, str(dir_dict))
+        for name, contents in dir_dict.iteritems():
+            new_path = os.path.join(path, name)
+            exists = os.path.exists(new_path)
+            if isinstance(contents, basestring):
+                if exists and not os.path.isfile(new_path):
+                    raise RuntimeError("Could not create file: " + new_path)
+                if overwrite or not exists:
+                    self.log.info("Creating %s", new_path)
+                    with open(new_path, "w") as handle:
+                        handle.write(contents)
+            elif isinstance(contents, dict):
+                if exists and not os.path.isdir(new_path):
+                    raise RuntimeError("Could not create dir: " + new_path)
+                if not exists:
+                    self.log.info("Creating %s", new_path)
+                    os.mkdir(new_path)
+                self._generate_dir(new_path, contents, overwrite=overwrite)
 
 
 ###############################################################################
@@ -303,9 +438,10 @@ class HarosLauncher(object):
 class HarosRunner(object):
     """This is a base class for the specific commands that HAROS provides."""
 
-    def __init__(self, haros_dir, log, run_from_source):
+    def __init__(self, haros_dir, config_path, log, run_from_source,
+                 junit_xml_output = False, minimal_output = False):
         self.root               = haros_dir
-        self.plugin_dir         = os.path.join(haros_dir, "plugins")
+        self.config_path        = config_path
         self.repo_dir           = os.path.join(haros_dir, "repositories")
         self.export_dir         = os.path.join(haros_dir, "export")
         self.project_dir        = os.path.join(haros_dir, "projects")
@@ -313,28 +449,12 @@ class HarosRunner(object):
         self.pyflwor_dir        = os.path.join(haros_dir, "pyflwor")
         self.log                = log or logging.getLogger()
         self.run_from_source    = run_from_source
+        self.settings           = None
+        self.junit_xml_output   = junit_xml_output
+        self.minimal_output     = minimal_output
 
     def run(self):
         return True
-
-    def _generate_dir(self, path, dir_dict):
-        """Recursively create a given directory structure."""
-        self.log.debug("HarosRunner._generate_dir %s %s", path, str(dir_dict))
-        for name, contents in dir_dict.iteritems():
-            new_path = os.path.join(path, name)
-            if isinstance(contents, basestring):
-                if os.path.exists(new_path) and not os.path.isfile(new_path):
-                    raise RuntimeError("Could not create file: " + new_path)
-                self.log.info("Creating %s", new_path)
-                with open(new_path, "w") as handle:
-                    handle.write(contents)
-            elif isinstance(contents, dict):
-                if not os.path.isdir(new_path):
-                    if os.path.exists(new_path):
-                        raise RuntimeError("Could not create dir: " + new_path)
-                    self.log.info("Creating %s", new_path)
-                    os.mkdir(new_path)
-                self._generate_dir(new_path, contents)
 
     def _empty_dir(self, dir_path):
         """Deletes all files within a directory."""
@@ -355,64 +475,22 @@ class HarosRunner(object):
         elif empty:
             self._empty_dir(dir_path)
 
+    def _load_settings(self):
+        try:
+            self.settings = HarosSettings.parse_from(self.config_path)
+        except IOError:
+            self.settings = HarosSettings()
 
-###############################################################################
-#   HAROS Command Runner (init)
-###############################################################################
-
-class HarosInitRunner(HarosRunner):
-    PLUGIN_REPOSITORY = "https://github.com/git-afsantos/haros_plugins.git"
-
-    DIR_STRUCTURE = {
-        "index.yaml": "%YAML 1.1\n---\npackages: []\n",
-        "configs.yaml": (
-            "%YAML 1.1\n---\n"
-            " # workspace: '/path/to/ws'\n"
-            " # environment: null\n"
-            " # plugin_blacklist: []\n"
-            " # cpp:\n"
-            # " #    parser: clang,\n"
-            " #    parser_lib: '/usr/lib/llvm-3.8/lib'\n"
-            " #    std_includes: '/usr/lib/llvm-3.8/lib/clang/3.8.0/include'\n"
-            " #    compile_db: '/path/to/ws/build'\n"
-        ),
-        "parse_cache.json": "{}",
-        "plugins": {},
-        "repositories": {},
-        "export": {},
-        "projects": {
-            "default": {}
-        },
-        "pyflwor": {}
-        # viz is generated on viz.install
-    }
-
-    def run(self):
-        print "[HAROS] Running initial setup operations..."
-        if os.path.exists(self.root) and not os.path.isdir(self.root):
-            raise RuntimeError(("Could not init; " + self.root
-                                + " already exists and is not a directory."))
-        if not os.path.exists(self.root):
-            self.log.info("Creating %s", self.root)
-            os.makedirs(self.root)
-        has_plugins = os.path.exists(self.plugin_dir)
-        self._generate_dir(self.root, self.DIR_STRUCTURE)
-        viz.install(self.viz_dir, self.run_from_source, force = True)
-        if has_plugins:
-            self.log.info("Updating plugin repository.")
-            wd = os.getcwd()
-            os.chdir(self.plugin_dir)
-            with open(os.devnull, "w") as devnull:
-                subprocess.check_call(["git", "rev-parse"], stdout = devnull,
-                                      stderr = subprocess.STDOUT)
-            self.log.debug("Executing git pull at %s.", self.plugin_dir)
-            subprocess.check_call(["git", "pull"])
-            os.chdir(wd)
+    def _setup_lazy_node_parser(self):
+        if self.run_from_source:
+            HardcodedNodeParser.model_dir = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "models")
+            )
         else:
-            self.log.info("Cloning plugin repository.")
-            subprocess.check_call(["git", "clone",
-                                   self.PLUGIN_REPOSITORY, self.plugin_dir])
-        return True
+            HardcodedNodeParser.model_dir = resource_filename(
+                Requirement.parse("haros"), "haros/models"
+            )
+        HardcodedNodeParser.distro = os.environ.get("ROS_DISTRO", "kinetic")
 
 
 ###############################################################################
@@ -433,7 +511,10 @@ class HarosCommonExporter(HarosRunner):
     # ----- general data
         exporter.export_packages(self.json_dir, report.by_package)
         exporter.export_rules(self.json_dir, self.database.rules)
-        exporter.export_metrics(self.json_dir, self.database.metrics)
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            exporter.export_metrics(self.json_dir, self.database.metrics)
         exporter.export_summary(self.json_dir, report, self.database.history)
     # ----- extracted configurations
         exporter.export_configurations(self.json_dir, report.by_config)
@@ -447,10 +528,14 @@ class HarosCommonExporter(HarosRunner):
         out_dir = os.path.join(self.json_dir, "compliance", "runtime")
         self._ensure_dir(out_dir, empty = True)
         exporter.export_runtime_violations(out_dir, report.by_config)
-    # ----- metrics reports
-        out_dir = os.path.join(self.json_dir, "metrics")
-        self._ensure_dir(out_dir, empty = True)
-        exporter.export_measurements(out_dir, report.by_package)
+    # ----- individual metrics reports
+        if not self.minimal_output:
+            # Currently, exported metrics are not used by the dashboard,
+            # so exporting them is optional.
+            out_dir = os.path.join(self.json_dir, "metrics")
+            self._ensure_dir(out_dir, empty = True)
+            exporter.export_measurements(out_dir, report.by_package)
+        #
 
 
 class HarosAnalyseRunner(HarosCommonExporter):
@@ -458,11 +543,13 @@ class HarosAnalyseRunner(HarosCommonExporter):
                   + os.environ.get("ROS_DISTRO", "kinetic")
                   + "/distribution.yaml")
 
-    def __init__(self, haros_dir, project_file, data_dir, whitelist, blacklist,
-                 log = None, run_from_source = False, use_repos = False,
-                 parse_nodes = False, copy_env = False, use_cache = True,
-                 settings = None):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+    def __init__(self, haros_dir, config_path, project_file, data_dir,
+                 whitelist, blacklist, log = None, run_from_source = False,
+                 use_repos = False, parse_nodes = False, copy_env = False,
+                 use_cache = True, settings = None, junit_xml_output = False,
+                 minimal_output = False):
+        HarosRunner.__init__(self, haros_dir, config_path, log,
+            run_from_source, junit_xml_output, minimal_output)
         self.project_file = project_file
         self.use_repos = use_repos
         self.parse_nodes = parse_nodes
@@ -493,7 +580,10 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                  "haros/definitions.yaml")
 
     def run(self):
+        if self.settings is None:
+            self._load_settings()
         self.database = HarosDatabase()
+        self._setup_lazy_node_parser()
         plugins, rules, metrics = self._load_definitions_and_plugins()
         node_cache = {}
         if self.parse_nodes and self.use_cache:
@@ -503,15 +593,16 @@ class HarosAnalyseRunner(HarosCommonExporter):
                     node_cache = json.load(f)
             except IOError as e:
                 self.log.warning("Could not read parsing cache: %s", e)
-        configs, env = self._extract_metamodel(node_cache)
-        self._load_database()
-        self._extract_configurations(self.database.project, configs, env)
+        configs, nodes, env = self._extract_metamodel(node_cache, rules)
+        self.current_dir = os.path.join(self.io_projects_dir, self.project)
+        self._load_history()
+        self._extract_configurations(self.database.project, configs, nodes, env)
         self._analyse(plugins, rules, metrics)
         self._save_results(node_cache)
         self.database = None
         return True
 
-    def _extract_metamodel(self, node_cache):
+    def _extract_metamodel(self, node_cache, rules):
         print "[HAROS] Reading project and indexing source code..."
         self.log.debug("Project file %s", self.project_file)
         env = dict(os.environ) if self.copy_env else self.settings.environment
@@ -530,17 +621,20 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
-        self.database.register_rules(extractor.rules, prefix = "user:")
-        return extractor.configurations, env
+        rs = self.database.register_rules(extractor.rules, prefix="user:",
+            ignored_rules=self.settings.ignored_rules,
+            ignored_tags=self.settings.ignored_tags)
+        rules.update(rs) # FIXME this is a hammer
+        return extractor.configurations, extractor.node_specs, env
 
-    def _extract_configurations(self, project, configs, environment):
+    def _extract_configurations(self, project, configs, nodes, environment):
         for name, data in configs.iteritems():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
                 launch_files = data if isinstance(data, list) else data["launch"]
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
-                                               hints = data.get("hints"))
+                    nodes=nodes, hints=data.get("hints"))
                 launch_files = data["launch"]
             for launch_file in launch_files:
                 parts = launch_file.split(os.sep, 1)
@@ -560,20 +654,21 @@ class HarosAnalyseRunner(HarosCommonExporter):
             project.configurations.append(builder.configuration)
             self.database.configurations.append(builder.configuration)
 
-    def _load_database(self):
-        self.current_dir = os.path.join(self.io_projects_dir, self.project)
-        haros_db = os.path.join(self.current_dir, "haros.db")
+    def _load_history(self):
+        """
+        Load analyis history from database file
+        and add it to self.database.history, append the previously
+        'current' analysis report to history.
+        """
+        haros_db_path = os.path.join(self.current_dir, "haros.db")
         try:
-            haros_db = HarosDatabase.load_state(haros_db)
+            haros_db = HarosDatabase.load_state(haros_db_path)
         except IOError:
             self.log.info("No previous analysis data for " + self.project)
         else:
-            # NOTE: This has a tendency to grow in size.
-            # Old reports will have violations and metrics with references
-            # to old packages, files, etc. There will be multiple versions
-            # of the same projects over time, as long as the history exists.
-            # This is why I added "compact" to the database.
             self.database.history = haros_db.history
+            # Commit the previous report (the report generated during the
+            # last analysis) to history.
             self.database.history.append(haros_db.report)
 
     def _load_definitions_and_plugins(self):
@@ -588,13 +683,17 @@ class HarosAnalyseRunner(HarosCommonExporter):
         metrics.update(ms)
         print "[HAROS] Loading plugins..."
         blacklist = self.blacklist or self.settings.plugin_blacklist
-        plugins = Plugin.load_plugins(self.plugin_dir,
-                                      whitelist=self.whitelist,
+        plugins = Plugin.load_plugins(whitelist=self.whitelist,
                                       blacklist=blacklist,
                                       common_rules=self.database.rules,
                                       common_metrics=self.database.metrics)
         if not plugins:
-            raise RuntimeError("There are no analysis plugins.")
+            if blacklist or self.whitelist:
+                msg = ("Could not find any analysis plugins "
+                       "for the provided names.")
+            else:
+                msg = "Could not find any analysis plugins."
+            raise RuntimeError(msg)
         for plugin in plugins:
             print "  > Loaded " + plugin.name
             prefix = plugin.name + ":"
@@ -623,25 +722,75 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _save_results(self, node_cache):
         print "[HAROS] Saving analysis results..."
         if self.export_viz:
-            viz.install(self.viz_dir, self.run_from_source)
+            viz.install(self.viz_dir, self.run_from_source, minimal_output=self.minimal_output)
         self._ensure_dir(self.data_dir)
         self._ensure_dir(self.current_dir)
-        self.database.save_state(os.path.join(self.current_dir, "haros.db"))
+        # NOTE: The database has a tendency to grow in size.
+        # Old reports will have violations and metrics with references
+        # to old packages, files, etc. There will be multiple versions
+        # of the same projects over time, as long as the history exists.
+        # This is why I added "_compact()" to the database's save_state()
+        # function.
+        if not self.minimal_output:
+            self.database.save_state(os.path.join(self.current_dir, "haros.db"))
         self.log.debug("Exporting on-memory data manager.")
         self._prepare_project()
         exporter = JsonExporter()
         self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, (self.database.project,),
                                  overwrite = False)
+        if self.junit_xml_output:
+            junit_exporter = JUnitExporter()
+            junit_exporter.export_report(self.data_dir, self.database)
         if self.parse_nodes and self.use_cache:
             for node in self.database.nodes.itervalues():
                 node_cache[node.node_name] = node.to_JSON_object()
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
                 with open(parse_cache, "w") as f:
-                    json.dump(node_cache, f)
+                    json.dump(node_cache, f, indent=2, separators=(",", ":"))
             except IOError as e:
                 self.log.warning("Could not save parsing cache: %s", e)
+
+
+###############################################################################
+#   HAROS Command Runner (parse)
+###############################################################################
+
+class HarosParseRunner(HarosAnalyseRunner):
+    def __init__(self, haros_dir, config_path, project_file, data_dir,
+                 log=None, run_from_source=False, use_repos=False, ws=None,
+                 copy_env=False, use_cache=True, settings=None,
+                 junit_xml_output = False,
+                 minimal_output = False):
+        HarosAnalyseRunner.__init__(
+            self, haros_dir, config_path, project_file, data_dir,
+            [], [], log=log, run_from_source=run_from_source,
+            use_repos=use_repos, parse_nodes=True, copy_env=copy_env,
+            use_cache=use_cache, settings=settings,
+            junit_xml_output=junit_xml_output,
+            minimal_output=minimal_output
+        )
+        self.workspace = ws
+
+    def _load_settings(self):
+        try:
+            self.settings = HarosSettings.parse_from(
+                self.config_path, ws=self.workspace)
+        except IOError:
+            self.settings = HarosSettings(workspace=self.workspace)
+
+    def _load_definitions_and_plugins(self):
+        rules = set()
+        metrics = set()
+        print "[HAROS] Loading common definitions..."
+        rs, ms = self.database.load_definitions(self.definitions_file,
+                ignored_rules=self.settings.ignored_rules,
+                ignored_tags=self.settings.ignored_tags,
+                ignored_metrics=self.settings.ignored_metrics)
+        rules.update(rs)
+        metrics.update(ms)
+        return (), rules, metrics
 
 
 ###############################################################################
@@ -663,9 +812,11 @@ class HarosAnalyseRunner(HarosCommonExporter):
     # dir/data/<name>
 
 class HarosExportRunner(HarosCommonExporter):
-    def __init__(self, haros_dir, data_dir, export_viz, project,
-                 log = None, run_from_source = False):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+    def __init__(self, haros_dir, config_path, data_dir, export_viz, project,
+                 log = None, run_from_source = False, junit_xml_output = False,
+                 minimal_output = False):
+        HarosRunner.__init__(self, haros_dir, config_path, log,
+            run_from_source, junit_xml_output, minimal_output)
         self.project = project
         self.project_data_list = []
         self.export_viz = export_viz
@@ -688,9 +839,13 @@ class HarosExportRunner(HarosCommonExporter):
             self.project = project
             self._prepare_project()
             if self._load_database():
-                self._save_database()
+                if not self.minimal_output:
+                    self._save_database()
                 self._export_project_data(exporter)
         exporter.export_projects(self.data_dir, self.project_data_list)
+        if self.junit_xml_output:
+            junit_exporter = JUnitExporter()
+            junit_exporter.export_report(self.data_dir, self.database)
         self.database = None
         self.project_data_list = []
         return True
@@ -729,9 +884,9 @@ class HarosExportRunner(HarosCommonExporter):
 ###############################################################################
 
 class HarosVizRunner(HarosRunner):
-    def __init__(self, haros_dir, server_dir, host_str, headless, log = None,
-                 run_from_source = False):
-        HarosRunner.__init__(self, haros_dir, log, run_from_source)
+    def __init__(self, haros_dir, config_path, server_dir, host_str, headless,
+                 log = None, run_from_source = False):
+        HarosRunner.__init__(self, haros_dir, config_path, log, run_from_source)
         self.server_dir = server_dir
         self.host = host_str
         self.headless = headless

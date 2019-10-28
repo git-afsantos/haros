@@ -26,6 +26,7 @@
 from collections import Counter
 import os
 
+import magic as file_cmd
 
 ###############################################################################
 # Notes
@@ -249,6 +250,7 @@ class SourceObject(MetamodelObject):
         self.id = id
         self.name = name
         self.dependencies = DependencySet()
+        self._analyse = True
 
     @property
     def location(self):
@@ -297,11 +299,10 @@ class SourceObject(MetamodelObject):
 
 class SourceFile(SourceObject):
     """Represents a source code file."""
-    CPP = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in",
-           ".h.in", ".hpp.in", ".c.in", ".cc.in")
-    PYTHON = ".py"
-    PKG_XML = "package.xml"
-    LAUNCH = (".launch", ".launch.xml")
+    CPP = ('c source', 'c++ source')
+    PYTHON = 'python script'
+    PKG_XML = 'package.xml'
+    LAUNCH = ('.launch', '.launch.xml')
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
@@ -372,15 +373,16 @@ class SourceFile(SourceObject):
         }
 
     def _get_language(self):
-        if self.name.endswith(self.CPP):
-            return "cpp"
-        if self.name.endswith(self.PYTHON):
-            return "py"
+        file_type = file_cmd.from_file(self.path).lower()
+        if file_type.startswith(self.CPP):
+            return 'cpp'
+        if self.PYTHON in file_type:
+            return 'py'
         if self.name.endswith(self.LAUNCH):
-            return "launch"
+            return 'launch'
         if self.name == self.PKG_XML:
-            return "package"
-        return "unknown"
+            return 'package'
+        return 'unknown'
 
     def __str__(self):
         return self.__repr__()
@@ -391,7 +393,7 @@ class SourceFile(SourceObject):
     def _ignore_parsers(self):
         if self.language == "cpp":
             return (_cpp_ignore_line, _cpp_ignore_next_line)
-        elif self.language == "py":
+        elif self.language == "python":
             return (_py_ignore_line, _py_ignore_next_line)
         return (_no_parser, _no_parser)
 
@@ -407,6 +409,7 @@ class Package(SourceObject):
         self.maintainers        = set()
         self.is_metapackage     = False
         self.description        = ""
+        self.version            = "0.0.0"
         self.licenses           = set()
         self.website            = None
         self.vcs_url            = None
@@ -451,6 +454,7 @@ class Package(SourceObject):
             "name": self.name,
             "metapackage": self.is_metapackage,
             "description": self.description,
+            "version": self.version,
             "wiki": self.website,
             "repository": self.vcs_url,
             "bugTracker": self.bug_url,
@@ -676,7 +680,41 @@ class RosName(object):
 
     @property
     def pattern(self):
-        return self._name.replace("?", "(.+?)") + "$"
+        parts = []
+        prev = ""
+        n = len(self._name)
+        i = 0
+        if self._name == "?":
+            return ".+$"
+        if self._name[0] == "?":
+            parts.append("(.*?)")
+            i = 1
+            prev = "?"
+            assert self._name[1] != "?"
+        for j in xrange(i, n):
+            if self._name[j] == "?":
+                assert prev != "?"
+                if prev == "/":
+                    if j == n - 1: # self._name.endswith("/?")
+                        # end, whole part for sure
+                        parts.append(self._name[i:j])
+                        parts.append("(.+?)")
+                    elif self._name[j+1] == "/": # "/?/"
+                        # start and middle, whole parts
+                        parts.append(self._name[i:j-1])
+                        parts.append("(/.+?)?")
+                    else: # "/?a", optional part
+                        parts.append(self._name[i:j])
+                        parts.append("(.*?)")
+                else: # "a?/", "a?a", "/a?", optional part
+                    parts.append(self._name[i:j])
+                    parts.append("(.*?)")
+                i = j + 1
+            prev = self._name[j]
+        if i < n:
+            parts.append(self._name[i:])
+        parts.append("$")
+        return "".join(parts)
 
     @staticmethod
     def resolve(name, ns = "/", private_ns = ""):
@@ -848,6 +886,7 @@ class NodeInstance(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.node.node_name,
             "args": self.argv,
@@ -905,6 +944,7 @@ class Topic(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "conditions": [c.to_JSON_object() for c in self.conditions],
@@ -970,6 +1010,7 @@ class Service(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "conditions": [c.to_JSON_object() for c in self.conditions],
@@ -1045,6 +1086,7 @@ class Parameter(Resource):
 
     def to_JSON_object(self):
         return {
+            "uid": str(id(self)),
             "name": self.id,
             "type": self.type,
             "value": self.value,
@@ -1084,6 +1126,14 @@ class ResourceCollection(object):
                 if conditional or not resource.conditions:
                     return resource
         return None
+
+    def get_all(self, name, conditional = True):
+        resources = []
+        for resource in self.all:
+            if resource.id == name:
+                if conditional or not resource.conditions:
+                    resources.append(resource)
+        return resources
 
     def get_collisions(self):
         return len(self.all) - len(self.counter)
@@ -1200,6 +1250,7 @@ class RosPrimitive(MetamodelObject):
     def to_JSON_object(self):
         return {
             "node": self.node.rosname.full,
+            "node_uid": str(id(self.node)),
             "name": self.rosname.full,
             "location": (self.source_location.to_JSON_object()
                          if self.source_location else None),
@@ -1223,6 +1274,7 @@ class TopicPrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["topic"] = self.topic_name
+        data["topic_uid"] = str(id(self.topic))
         data["type"] = self.type
         data["queue"] = self.queue_size
         return data
@@ -1231,8 +1283,8 @@ class TopicPrimitive(RosPrimitive):
         return self.__str__()
 
     def __str__(self):
-        return "PubSub({}, {}, {})".format(self.node.id, self.topic.id,
-                                           self.type)
+        return "Link of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 class PublishLink(TopicPrimitive):
     @classmethod
@@ -1245,8 +1297,8 @@ class PublishLink(TopicPrimitive):
         return link
 
     def __str__(self):
-        return "Advertise({}, {}, {})".format(self.node.id, self.topic.id,
-                                              self.type)
+        return "Publication of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 class SubscribeLink(TopicPrimitive):
     @classmethod
@@ -1259,8 +1311,8 @@ class SubscribeLink(TopicPrimitive):
         return link
 
     def __str__(self):
-        return "Subscribe({}, {}, {})".format(self.node.id, self.topic.id,
-                                              self.type)
+        return "Subscription of node '{}' to topic '{}' of type '{}'".format(
+            self.node.id, self.topic.id, self.type)
 
 
 class ServicePrimitive(RosPrimitive):
@@ -1278,6 +1330,7 @@ class ServicePrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["service"] = self.topic_name
+        data["service_uid"] = str(id(self.service))
         data["type"] = self.type
         return data
 
@@ -1332,6 +1385,7 @@ class ParameterPrimitive(RosPrimitive):
     def to_JSON_object(self):
         data = RosPrimitive.to_JSON_object(self)
         data["param"] = self.param_name
+        data["param_uid"] = str(id(self.parameter))
         data["type"] = self.type
         return data
 

@@ -44,7 +44,10 @@ import yaml
 
 rosparam = None # lazy import
 
-from .launch_parser import SubstitutionError, SubstitutionParser
+from .extractor import HardcodedNodeParser, PackageExtractor
+from .launch_parser import (
+    LaunchParser, LaunchParserError, SubstitutionError, SubstitutionParser
+)
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
     SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive
@@ -108,6 +111,8 @@ class LaunchScope(LoggingObject):
         ns = self._namespace(ns)
         name = name or node.rosname.own
         rosname = RosName(name, ns, self.private_ns)
+        self.log.debug("Creating NodeInstance %s for Node %s.",
+                       rosname.full, node.name)
         instance = NodeInstance(self.configuration, rosname, node,
                                 launch = self.launch_file, argv = args,
                                 remaps = dict(self.remaps),
@@ -127,6 +132,7 @@ class LaunchScope(LoggingObject):
         for param in self._params:
             rosname = RosName(param.rosname.given, pns, pns)
             conditions = param.conditions + instance.conditions
+            self.log.debug("Creating new forward Parameter %s.", rosname.full)
             param = Parameter(self.configuration, rosname, param.type,
                               param.value, node_scope = param.node_scope,
                               launch = param.launch_file,
@@ -203,21 +209,25 @@ class LaunchScope(LoggingObject):
         pns = self.private_ns
         advertise = advertise or ()
         subscribe = subscribe or ()
+        self.log.debug("Iterating advertise calls for node %s.", self.node.id)
         for call in self.node.node.advertise:
             for link in self._make_topic_links(call.name, call.namespace, pns,
                                                call.type, call.queue_size,
                                                call.conditions, advertise,
                                                call.location):
+                self.log.debug("Linking %s to %s.", self.node.id, link.topic.id)
                 self.node.publishers.append(link)
                 link.topic.publishers.append(link)
                 self._update_topic_conditions(link.topic)
                 if not call.repeats:
                     break
+        self.log.debug("Iterating subscribe calls for node %s.", self.node.id)
         for call in self.node.node.subscribe:
             for link in self._make_topic_links(call.name, call.namespace, pns,
                                                call.type, call.queue_size,
                                                call.conditions, subscribe,
                                                call.location):
+                self.log.debug("Linking %s to %s.", self.node.id, link.topic.id)
                 self.node.subscribers.append(link)
                 link.topic.subscribers.append(link)
                 self._update_topic_conditions(link.topic)
@@ -229,21 +239,27 @@ class LaunchScope(LoggingObject):
         pns = self.private_ns
         service = service or ()
         client = client or ()
+        self.log.debug("Iterating Srv server calls for node %s.", self.node.id)
         for call in self.node.node.service:
             for link in self._make_service_links(call.name, call.namespace,
                                                  pns, call.type,
                                                  call.conditions, service,
                                                  call.location):
+                self.log.debug("Linking %s to %s.",
+                               self.node.id, link.service.id)
                 self.node.servers.append(link)
                 link.service.server = link
                 self._update_service_conditions(link.service)
                 if not call.repeats:
                     break
+        self.log.debug("Iterating Srv client calls for node %s.", self.node.id)
         for call in self.node.node.client:
             for link in self._make_service_links(call.name, call.namespace,
                                                  pns, call.type,
                                                  call.conditions, client,
                                                  call.location):
+                self.log.debug("Linking %s to %s.",
+                               self.node.id, link.service.id)
                 self.node.clients.append(link)
                 link.service.clients.append(link)
                 self._update_service_conditions(link.service)
@@ -273,31 +289,51 @@ class LaunchScope(LoggingObject):
         collection = self.configuration.topics
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
+        self.log.debug("Finding topic links for %s (%s).",
+                       call_name.full, rosname.full)
         links = []
         if rosname.is_unresolved and hints:
-            pattern = rosname.pattern
-            topics = self._pattern_match(pattern, rtype, collection)
+            # We should only try to unify unresolved names with
+            # names provided by hints. If there is a hint that matches
+            # the name pattern, message type and primitive type, merge.
+            self.log.debug("Processing unresolved name with hints.")
+            topics = self._pattern_match(rosname.pattern, rtype, hints)
             for topic in topics:
-                links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                            queue, conditions = conditions,
-                                            location = source_location))
-            topics = self._pattern_match(pattern, rtype, hints)
-            for topic in topics:
+                self.log.debug("Found link to %s from hints.", topic.id)
                 new = topic.remap(RosName(topic.rosname.full,
                                           remaps = self.node.remaps))
                 if new.id in collection:
-                    continue # already done in the step above
-                collection.add(new)
+                    self.log.debug("Reusing Topic from collection.")
+                    new = collection.get(new.rosname.full)
+                    assert new is not None
+                else:
+                    self.log.debug("Creating a new Topic from hints: %s",
+                                   new.rosname.full)
+                    collection.add(new)
                 links.append(TopicPrimitive(self.node, new, rtype, call_name,
                                             queue, conditions = conditions,
                                             location = source_location))
+        elif rosname.is_unresolved:
+            # This branch is needed to unify unresolved resources with
+            # the same message type.
+            self.log.debug("Processing unresolved name without hints.")
+            for topic in collection.get_all(rosname.full):
+                if topic.type == rtype:
+                    self.log.debug("Found link to %s.", topic.id)
+                    links.append(TopicPrimitive(self.node, topic, rtype,
+                        call_name, queue, conditions = conditions,
+                        location = source_location))
+                    break
         else:
+            self.log.debug("Processing resolved name.")
             topic = collection.get(rosname.full)
-            if not topic is None:
+            if topic is not None:
+                self.log.debug("Found topic %s within collection.", topic.id)
                 links.append(TopicPrimitive(self.node, topic, rtype, call_name,
                                             queue, conditions = conditions,
                                             location = source_location))
         if not links:
+            self.log.debug("No links were found. Creating new topic.")
             topic = Topic(self.configuration, rosname, message_type = rtype)
             collection.add(topic)
             links.append(TopicPrimitive(self.node, topic, rtype, call_name,
@@ -310,31 +346,49 @@ class LaunchScope(LoggingObject):
         collection = self.configuration.services
         call_name = RosName(name, ns or self.namespace, pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
+        self.log.debug("Finding service links for %s (%s).",
+                       call_name.full, rosname.full)
         links = []
         if rosname.is_unresolved and hints:
-            pattern = rosname.pattern
-            services = self._pattern_match(pattern, rtype, collection)
+            # We should only try to unify unresolved names with
+            # names provided by hints. If there is a hint that matches
+            # the name pattern, message type and primitive type, merge.
+            self.log.debug("Processing unresolved name with hints.")
+            services = self._pattern_match(rosname.pattern, rtype, hints)
             for srv in services:
-                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions,
-                                              location = source_location))
-            services = self._pattern_match(pattern, rtype, hints)
-            for srv in services:
+                self.log.debug("Found link to %s from hints.", srv.id)
                 new = srv.remap(RosName(srv.rosname.full,
                                         remaps = self.node.remaps))
                 if new.id in collection:
-                    continue # already done in the step above
-                collection.add(new)
+                    self.log.debug("Reusing Service from collection.")
+                    new = collection.get(new.rosname.full)
+                    assert new is not None
+                else:
+                    self.log.debug("Creating a new Service from hints: %s",
+                                   new.rosname.full)
+                    collection.add(new)
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
                                               conditions = conditions,
                                               location = source_location))
+        elif rosname.is_unresolved:
+            self.log.debug("Processing unresolved name without hints.")
+            for srv in collection.get_all(rosname.full):
+                if srv.type == rtype:
+                    self.log.debug("Found link to %s.", srv.id)
+                    links.append(ServicePrimitive(self.node, srv, rtype,
+                            call_name, conditions = conditions,
+                            location = source_location))
+                    break
         else:
+            self.log.debug("Processing resolved name.")
             srv = collection.get(rosname.full)
-            if not srv is None:
+            if srv is not None:
+                self.log.debug("Found service %s within collection.", srv.id)
                 links.append(ServicePrimitive(self.node, srv, rtype, call_name,
                                               conditions = conditions,
                                               location = source_location))
         if not links:
+            self.log.debug("No links were found. Creating new service.")
             srv = Service(self.configuration, rosname, message_type = rtype)
             collection.add(srv)
             links.append(ServicePrimitive(self.node, srv, rtype, call_name,
@@ -345,8 +399,12 @@ class LaunchScope(LoggingObject):
     def _pattern_match(self, pattern, rtype, collection):
         candidates = []
         for resource in collection:
+            self.log.debug("[?] pattern_match: '%s' (%s), '%s' (%s)",
+                           pattern, rtype, resource.rosname.full,
+                           resource.type)
             if re.match(pattern, resource.rosname.full):
                 if resource.type == rtype:
+                    self.log.debug("[+] found a match")
                     candidates.append(resource)
         return candidates
 
@@ -583,12 +641,16 @@ class ConfigurationHints(LoggingObject):
 
     @classmethod
     def make_hints(cls, hints, scope):
-        cls.log.debug("making hints for node %s", scope.node.rosname.full)
+        node_name = scope.node.rosname.full
+        cls.log.debug("making hints for node %s", node_name)
         instance = cls()
         pns = scope.private_ns
         hints = hints or cls.defaults
+        no_hints = {}
         for key, rcls in cls.hint_types:
-            for name, type in hints.get(key, {}).iteritems():
+            for name, msg_type in hints.get(key, no_hints).iteritems():
+                if not instance._valid_msg_type(msg_type, node_name):
+                    continue
                 parts = name.rsplit("/", 1)
                 own_name = parts[-1]
                 ns = parts[0] if len(parts) > 1 else "/"
@@ -596,7 +658,7 @@ class ConfigurationHints(LoggingObject):
                 rosname = RosName(own_name, scope.resolve_ns(ns), pns)
                 cls.log.debug("%s hint: %s", key, rosname.full)
                 getattr(instance, key).append(rcls(scope.configuration, rosname,
-                                                   message_type = type))
+                                                   message_type=msg_type))
         return instance
 
     def make_missing_links(self, scope):
@@ -604,11 +666,25 @@ class ConfigurationHints(LoggingObject):
         pns = scope.private_ns
         for topic in self.advertise:
             self.log.debug("hint topic %s", topic.rosname.full)
+            remap_name = scope.node.remaps.get(topic.rosname.full,
+                                               topic.rosname.full)
             for link in scope.node.publishers:
-                if link.topic == topic:
-                    self.log.debug("%s (%s) is already extracted",
-                                   link.topic.rosname.full, link.topic.type)
-                    break # TODO what about different types?
+                if link.topic.rosname.full == remap_name:
+                    if link.topic.type is None:
+                        self.log.debug("Refining %s with type %s.",
+                                       link.topic.rosname.full, topic.type)
+                        link.topic.type = topic.type
+                    elif link.topic.type != topic.type:
+                        self.log.warning(
+                            ("Extraction hint for node %s advertises topic %s "
+                             "(%s), but extractor found %s (%s)."),
+                            scope.node.id, topic.id, topic.type,
+                            link.topic.id, link.topic.type)
+                        break
+                    else:
+                        self.log.debug("%s (%s) is already extracted",
+                                       link.topic.rosname.full, link.topic.type)
+                        break
             else:
                 for link in scope._make_topic_links(topic.rosname.full,
                                                     scope.namespace, pns,
@@ -619,11 +695,25 @@ class ConfigurationHints(LoggingObject):
                     link.topic.conditions.extend(link.node.conditions)
         for topic in self.subscribe:
             self.log.debug("hint topic %s", topic.rosname.full)
+            remap_name = scope.node.remaps.get(topic.rosname.full,
+                                               topic.rosname.full)
             for link in scope.node.subscribers:
-                if link.topic == topic:
-                    self.log.debug("%s (%s) is already extracted",
-                                   link.topic.rosname.full, link.topic.type)
-                    break
+                if link.topic.rosname.full == remap_name:
+                    if link.topic.type is None:
+                        self.log.debug("Refining %s with type %s.",
+                                       link.topic.rosname.full, topic.type)
+                        link.topic.type = topic.type
+                    elif link.topic.type != topic.type:
+                        self.log.warning(
+                            ("Extraction hint for node %s subscribes topic %s "
+                             "(%s), but extractor found %s (%s)."),
+                            scope.node.id, topic.id, topic.type,
+                            link.topic.id, link.topic.type)
+                        break
+                    else:
+                        self.log.debug("%s (%s) is already extracted",
+                                       link.topic.rosname.full, link.topic.type)
+                        break
             else:
                 for link in scope._make_topic_links(topic.rosname.full,
                                                     scope.namespace, pns,
@@ -634,11 +724,25 @@ class ConfigurationHints(LoggingObject):
                     link.topic.conditions.extend(link.node.conditions)
         for service in self.service:
             self.log.debug("hint service %s", service.rosname.full)
+            remap_name = scope.node.remaps.get(service.rosname.full,
+                                               service.rosname.full)
             for link in scope.node.servers:
-                if link.service == service:
-                    self.log.debug("%s (%s) is already extracted",
-                                   link.service.rosname.full, link.service.type)
-                    break
+                if link.service.rosname.full == remap_name:
+                    if link.service.type is None:
+                        self.log.debug("Refining %s with type %s.",
+                                       link.service.rosname.full, service.type)
+                        link.service.type = service.type
+                    elif link.service.type != service.type:
+                        self.log.warning(
+                            ("Extraction hint for node %s advertises service "
+                             "%s (%s), but extractor found %s (%s)."),
+                            scope.node.id, service.id, service.type,
+                            link.service.id, link.service.type)
+                        break
+                    else:
+                        self.log.debug("%s (%s) is already extracted",
+                                       link.service.rosname.full, link.service.type)
+                        break
             else:
                 for link in scope._make_service_links(service.rosname.full,
                                                       scope.namespace, pns,
@@ -649,11 +753,25 @@ class ConfigurationHints(LoggingObject):
                     link.service.conditions.extend(link.node.conditions)
         for service in self.client:
             self.log.debug("hint service %s", service.rosname.full)
+            remap_name = scope.node.remaps.get(service.rosname.full,
+                                               service.rosname.full)
             for link in scope.node.clients:
-                if link.service == service:
-                    self.log.debug("%s (%s) is already extracted",
-                                   link.service.rosname.full, link.service.type)
-                    break
+                if link.service.rosname.full == remap_name:
+                    if link.service.type is None:
+                        self.log.debug("Refining %s with type %s.",
+                                       link.service.rosname.full, service.type)
+                        link.service.type = service.type
+                    elif link.service.type != service.type:
+                        self.log.warning(
+                            ("Extraction hint for node %s is client of service "
+                             "%s (%s), but extractor found %s (%s)."),
+                            scope.node.id, service.id, service.type,
+                            link.service.id, link.service.type)
+                        break
+                    else:
+                        self.log.debug("%s (%s) is already extracted",
+                                       link.service.rosname.full, link.service.type)
+                        break
             else:
                 for link in scope._make_service_links(service.rosname.full,
                                                       scope.namespace, pns,
@@ -663,14 +781,31 @@ class ConfigurationHints(LoggingObject):
                     link.service.clients.append(link)
                     link.service.conditions.extend(link.node.conditions)
 
+    def _valid_msg_type(self, msg_type, node_name):
+        parts = msg_type.split("::")
+        if len(parts) > 1:
+            self.log.error("Invalid message type hint for node '%s': '%s'; "
+                           "do not use the 'pkg::Msg' format, "
+                           "use 'pkg/Msg' instead.", node_name, msg_type)
+            return False
+        parts = msg_type.split("/")
+        if not len(parts) == 2:
+            self.log.error("Invalid message type hint for node '%s': '%s'; "
+                           "use the 'pkg/Msg' format.", node_name, msg_type)
+            return False
+        return True
+
 
 class ConfigurationBuilder(LoggingObject):
-    def __init__(self, name, environment, source_finder, hints = None):
+    def __init__(self, name, environment, source_finder,
+                 nodes=None, hints=None):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
+        self.node_specs = nodes if nodes is not None else {}
         self.hints = hints if not hints is None else {}
         self._future = []
+        self._pkg_finder = PackageExtractor() # FIXME should this be given?
 
     def add_launch(self, launch_file):
         assert launch_file.language == "launch"
@@ -679,11 +814,10 @@ class ConfigurationBuilder(LoggingObject):
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
-        sub = SubstitutionParser(env = config.environment,
-                                 pkgs = self.sources.packages,
-                                 dirname = launch_file.dir_path,
-                                 pkg_depends = config.dependencies.packages,
-                                 env_depends = config.dependencies.environment)
+        sub = SubstitutionParser(env=config.environment,
+            pkgs=self.sources.packages, dirname=launch_file.dir_path,
+            pkg_depends=config.dependencies.packages,
+            env_depends=config.dependencies.environment)
         scope = LaunchScope(None, self.configuration, launch_file,
                             args = sub.arguments)
         self._analyse_tree(launch_file.tree, scope, sub)
@@ -718,7 +852,7 @@ class ConfigurationBuilder(LoggingObject):
         ns = sub.resolve(tag.namespace, strict = True)
         new_scope = scope.make_node(node, name, ns, args, condition)
         self._analyse_tree(tag, new_scope, sub)
-        hints = self.hints.get(new_scope.node.rosname.full)
+        hints = self._merge_hints(node.node_name, new_scope.node.rosname.full)
         config_hints = ConfigurationHints.make_hints(hints, new_scope)
         new_scope.make_topics(advertise = config_hints.advertise,
                               subscribe = config_hints.subscribe)
@@ -736,7 +870,9 @@ class ConfigurationBuilder(LoggingObject):
         if launch_file is None:
             raise ConfigurationError("cannot find launch file: " + filepath)
         if not launch_file.tree:
-            raise ConfigurationError("missing parse tree: " + launch_file.id)
+            self._parse_launch_on_the_fly(launch_file)
+            if not launch_file.tree:
+                raise ConfigurationError("cannot parse: " + launch_file.id)
         args = dict(scope.arguments) if pass_all_args else {}
         new_scope = scope.child(ns, condition, launch = launch_file,
                                 args = args)
@@ -832,7 +968,7 @@ class ConfigurationBuilder(LoggingObject):
         if value is None:
             # not sure if tag is part of the configuration
             return SourceCondition(condition[1], # UnresolvedValue
-                                   location = config.roslaunch[-1].location)
+                location = self.configuration.roslaunch[-1].location)
         if value is condition[0]:
             # tag is part of the configuration
             return True
@@ -848,10 +984,59 @@ class ConfigurationBuilder(LoggingObject):
                 if len(args) < 3:
                     raise ConfigurationError("nodelet load: too few arguments")
                 pkg, exe = args[1].split("/")
+
         node = self.sources.nodes.get("node:" + pkg + "/" + exe)
         package = self.sources.packages.get("package:" + pkg)
         if not package:
-            raise ConfigurationError("cannot find package: " + pkg)
+            assert not node
+            node = HardcodedNodeParser.get(pkg, exe)
+            if not node:
+                package = self._find_package(pkg)
         if not node:
             node = Node(exe, package, rosname = RosName("?"), nodelet = exe)
         return node
+
+    def _find_package(self, name):
+        # FIXME this is a hammer
+        for pkg in self._pkg_finder.packages:
+            if pkg.name == name:
+                return pkg
+        pkg = self._pkg_finder.find_package(name)
+        if pkg is None:
+            raise ConfigurationError("cannot find package: " + name)
+        return pkg
+
+    def _merge_hints(self, node_name, instance_name):
+        self.log.debug("merging hints for %s (%s)", instance_name, node_name)
+        node_hints = self.node_specs.get(node_name)
+        cfg_hints = self.hints.get(instance_name)
+        if node_hints is None:
+            self.log.debug("Using configuration hints: %s", cfg_hints)
+            return cfg_hints
+        if cfg_hints is None:
+            self.log.debug("Using node hints: %s", node_hints)
+            return node_hints
+        hints = {}
+        for key in ConfigurationHints.defaults:
+            result = {}
+            value = node_hints.get(key)
+            if value is not None:
+                result.update(value)
+            value = cfg_hints.get(key)
+            if value is not None:
+                result.update(value)
+            if result:
+                hints[key] = result
+        self.log.debug("Using mixed hints: %s", hints)
+        return hints
+
+    def _parse_launch_on_the_fly(self, launch_file):
+        assert not launch_file.tree
+        assert launch_file.language == "launch"
+        launch_parser = LaunchParser(pkgs = self.sources.packages)
+        self.log.debug("Parsing launch file: " + launch_file.path)
+        try:
+            launch_file.tree = launch_parser.parse(launch_file.path)
+        except LaunchParserError as e:
+            self.log.warning("Parsing error in %s:\n%s",
+                             launch_file.path, str(e))
