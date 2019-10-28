@@ -1307,6 +1307,9 @@ class RoscppExtractor(LoggingObject):
             elif node_handle_def.name == 'getPrivateNodeHandle':
                 ns = '~'
 
+        elif isinstance(node_handle_def, CppDefaultArgument):
+            ns = ''
+
         return ns
 
     def _extract_topic(self, call, topic_pos=0):
