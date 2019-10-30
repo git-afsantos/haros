@@ -1465,9 +1465,11 @@ class RospyExtractor(LoggingObject):
             return None
 
     @classmethod
-    def _extract_message_type(cls, call, arg_name, arg_pos=1):
+    def _extract_message_type(cls, call, arg_name, msgs_imports, arg_pos=1):
         msg_type = cls.get_arg(call, 1, arg_name)
-
+        for msg in msgs_imports:
+            if str(msg_type).replace("#","") in msg[1]:
+                msg_type = msg[0]+"/"+str(msg_type).replace("#","")
         # Very common case of calling type() on a message class
         if isinstance(msg_type, CodeFunctionCall) and msg_type.name == 'type':
             msg_type = msg_type.arguments[0].name
@@ -1489,7 +1491,7 @@ class RospyExtractor(LoggingObject):
             return
 
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'service_class')
+        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
@@ -1505,7 +1507,7 @@ class RospyExtractor(LoggingObject):
             return
 
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'data_class')
+        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list)
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -1521,7 +1523,7 @@ class RospyExtractor(LoggingObject):
         if self.invalid_call(call):
             return
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'service_class')
+        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
@@ -1536,7 +1538,7 @@ class RospyExtractor(LoggingObject):
         if self.invalid_call(call):
             return
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'data_class')
+        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list)
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -1623,6 +1625,13 @@ class RospyExtractor(LoggingObject):
             if parser.parse(sf.path) is None:
                 self.log.warning("no compile commands for " + sf.path)
         node.source_tree = parser.global_scope
+
+        # In theory the imported names list should not be needed here, this is a fix to be able to locate the complete description of ros msgs types (i.e. PkgName/MsgName
+        self.msgs_list =[]
+        for i in parser.imported_names_list:
+            if "msg" in str(i) or "srv" in str(i):
+                self.msgs_list.append((i.split(".")[0],i.split(".")[2]))
+
         # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
         # self._query_param_primitives(node, parser.global_scope)
