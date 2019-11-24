@@ -667,7 +667,7 @@ class PackageExtractor(LoggingObject):
     _START_GLOB = (os.path.sep, '*', '?', '[')
 
     def _populate_package(self, pkg, ignored_globs=None):
-        self.log.debug("PackageExtractor.populate(%s, %s)", pkg, ignored)
+        self.log.debug("PackageExtractor.populate(%s, %s)", pkg, ignored_globs)
         if not pkg.path:
             self.log.debug("Package %s has no path", pkg.name)
             return
@@ -693,8 +693,11 @@ class PackageExtractor(LoggingObject):
             for filename in files:
                 self.log.debug("Found file %s at %s", filename, path)
                 source = SourceFile(filename, path, pkg)
-                if any(fnmatch(source.path, pattern)
+                sfn = os.path.join(pkg.name, source.full_name)
+                if any(fnmatch(sfn, pattern)
                        for pattern in ignored_globs):
+                    self.log.debug(
+                        "File %s was ignored due to glob pattern", sfn)
                     continue # skip this file
                 ignore = source.set_file_stats()
                 if any(v for v in ignore.itervalues()):
