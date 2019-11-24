@@ -40,7 +40,7 @@ setup(
         "pyyaml",
         "rospkg",
         'python-magic',
-        "bonsai-code>=0.4.10,<1.0.0",
+        "bonsai-code>=0.5.0,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0"
     ],
     zip_safe        = True
