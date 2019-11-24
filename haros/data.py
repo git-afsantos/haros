@@ -452,7 +452,8 @@ class HarosSettings(object):
             "ignore": {
                 "tags": [],
                 "rules": [],
-                "metrics": []
+                "metrics": [],
+                "files": []
             }
         }
     }
@@ -460,7 +461,8 @@ class HarosSettings(object):
     def __init__(self, env=None, blacklist=None, workspace=None,
                  cpp_parser=None, cpp_includes=None, cpp_parser_lib=None,
                  cpp_parser_lib_file=None, cpp_compile_db=None,
-                 ignored_tags=None, ignored_rules=None, ignored_metrics=None):
+                 ignored_tags=None, ignored_rules=None, ignored_metrics=None,
+                 ignored_globs=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
         self.workspace = workspace or self.find_ros_workspace()
@@ -470,6 +472,8 @@ class HarosSettings(object):
                 or list(self.DEFAULTS["analysis"]["ignore"]["rules"]))
         self.ignored_metrics = (ignored_metrics
                 or list(self.DEFAULTS["analysis"]["ignore"]["metrics"]))
+        self.ignored_globs = (ignored_globs
+                or list(self.DEFAULTS["analysis"]["ignore"]["files"]))
         self.ignored_lines = {}
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
@@ -501,6 +505,7 @@ class HarosSettings(object):
         ignored_tags = analysis_ignored.get("tags")
         ignored_rules = analysis_ignored.get("rules")
         ignored_metrics = analysis_ignored.get("metrics")
+        ignored_globs = analysis_ignored.get("files")
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
@@ -512,7 +517,7 @@ class HarosSettings(object):
                    cpp_parser_lib_file=cpp_parser_lib_file,
                    cpp_includes=cpp_includes, cpp_compile_db=cpp_compile_db,
                    ignored_tags=ignored_tags, ignored_rules=ignored_rules,
-                   ignored_metrics=ignored_metrics)
+                   ignored_metrics=ignored_metrics, ignored_globs=ignored_globs)
 
     def find_ros_workspace(self):
         """This replicates the behaviour of `roscd`."""

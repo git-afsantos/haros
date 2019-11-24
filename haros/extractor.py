@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+from fnmatch import fnmatch
 import itertools
 import logging
 from operator import attrgetter
@@ -267,7 +268,8 @@ class ProjectExtractor(LoggingObject):
         extractor.packages = self.project.packages
         for pkg in self.project.packages:
             found.add(pkg.name)
-            analysis_ignore = extractor._populate_package(pkg)
+            analysis_ignore = extractor._populate_package(
+                pkg, ignored_globs=settings.ignored_globs)
             if settings is not None:
                 settings.ignored_lines.update(analysis_ignore)
         deps = extractor._extra
@@ -278,7 +280,8 @@ class ProjectExtractor(LoggingObject):
             pkg._analyse = False
             found.add(pkg.name)
             self.project.packages.append(pkg)
-            analysis_ignore = extractor._populate_package(pkg)
+            analysis_ignore = extractor._populate_package(
+                pkg, ignored_globs=settings.ignored_globs)
             if settings is not None:
                 settings.ignored_lines.update(analysis_ignore)
             deps.extend(extractor._extra)
@@ -661,9 +664,10 @@ class PackageExtractor(LoggingObject):
                                    project = project)
 
     EXCLUDED = (".git", "doc", "cmake", ".eggs", "__pycache__")
+    _START_GLOB = (os.path.sep, '*', '?', '[')
 
-    def _populate_package(self, pkg):
-        self.log.debug("PackageExtractor.populate(%s)", pkg)
+    def _populate_package(self, pkg, ignored_globs=None):
+        self.log.debug("PackageExtractor.populate(%s, %s)", pkg, ignored)
         if not pkg.path:
             self.log.debug("Package %s has no path", pkg.name)
             return
@@ -672,6 +676,14 @@ class PackageExtractor(LoggingObject):
         #pkgs = {pkg.id: pkg for pkg in self.packages}
         launch_parser = LaunchParser(pkgs=self)
         prefix = len(pkg.path) + len(os.path.sep)
+        if ignored_globs is None:
+            ignored_globs = ()
+        else:
+            ignored_globs = list(ignored_globs)
+            for i in range(len(ignored_globs)):
+                c = ignored_globs[i][0]
+                if not c in self._START_GLOB:
+                    ignored_globs[i] = '*/' + ignored_globs[i]
         for root, subdirs, files in os.walk(pkg.path, topdown=True):
             if 'COLCON_IGNORE' in files or 'AMENT_IGNORE' in files or 'CATKIN_IGNORE' in files:
                 del subdirs[:] # don't traverse into subdirectories
@@ -681,6 +693,9 @@ class PackageExtractor(LoggingObject):
             for filename in files:
                 self.log.debug("Found file %s at %s", filename, path)
                 source = SourceFile(filename, path, pkg)
+                if any(fnmatch(source.path, pattern)
+                       for pattern in ignored_globs):
+                    continue # skip this file
                 ignore = source.set_file_stats()
                 if any(v for v in ignore.itervalues()):
                     analysis_ignore[source.id] = ignore
@@ -983,7 +998,7 @@ class NodeExtractor(LoggingObject):
         self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
         self.rospy_extractor = RospyExtractor(self.package, self.workspace)
 
-        for i in xrange(len(self.package.nodes)):
+        for i in range(len(self.package.nodes)):
             node = self.package.nodes[i]
             self.log.debug("Extracting primitives for node %s", node.id)
             if node.source_tree is not None:
