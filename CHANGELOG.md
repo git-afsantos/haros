@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.1] - 2019-11-25
+### Changed
+- Fixed a bug that caused the `init` and `viz` commands to crash.
+- Fixed a bug that caused the CMake parser to crash when trying to read directories that do not exist.
+
 ## [3.8.0] - 2019-11-24
 ### Added
 - `--junit-xml-output` option to `full`, `analyse`, `export` and `parse` commands to output JUnit XML reports.
