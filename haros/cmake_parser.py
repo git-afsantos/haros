@@ -519,18 +519,26 @@ class RosCMakeParser(LoggingObject):
         self.executables.update(targets)
 
     def _process_install(self, args):
-        in_directories = [
-            os.path.join(dir, file)
-            for dir in self._get_option_args(args, 'DIRECTORY')
-            for file in os.listdir(os.path.join(self.directory, dir))
-        ]
+        in_directories = []
+        for dirname in self._get_option_args(args, 'DIRECTORY'):
+            tdir = os.path.join(self.directory, dirname)
+            if not os.path.isdir(tdir):
+                self.log.warning(
+                    "CMake install() directory does not exist: %s", tdir)
+                continue
+            try:
+                for filename in os.listdir(tdir):
+                    in_directories.append(os.path.join(dirname, filename))
+            except OSError:
+                self.log.warning(
+                    "Could not read directory %s", tdir)
         sources = (in_directories
                    + self._get_option_args(args, 'FILES')
                    + self._get_option_args(args, 'PROGRAMS'))
         names = map(os.path.basename, sources)
         targets = {
-            name: BuildTarget.new_target(name, [file], self.directory, True)
-            for name, file in zip(names, sources)
+            name: BuildTarget.new_target(name, [filename], self.directory, True)
+            for name, filename in zip(names, sources)
         }
         self.executables.update(targets)
 
