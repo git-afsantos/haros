@@ -284,6 +284,8 @@ class HarosLauncher(object):
         return parser.parse_args(argv)
 
     def _init_parser(self, parser):
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_init)
 
     def _full_parser(self, parser):
@@ -362,6 +364,8 @@ class HarosLauncher(object):
                                     "(default: \"localhost:8080\")"))
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
+        parser.add_argument("--minimal-output", action='store_true',
+                            help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_viz)
 
     def _parse_parser(self, parser):
