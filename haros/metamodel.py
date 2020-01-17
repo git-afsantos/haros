@@ -377,7 +377,7 @@ class SourceFile(SourceObject):
         if file_type.startswith(self.CPP):
             return 'cpp'
         if self.PYTHON in file_type:
-            return 'py'
+            return 'python'
         if self.name.endswith(self.LAUNCH):
             return 'launch'
         if self.name == self.PKG_XML:
