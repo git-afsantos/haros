@@ -770,6 +770,9 @@ class RosName(object):
     def __hash__(self):
         return self._name.__hash__()
 
+    def __str__(self):
+        return self._name
+
 
 class RuntimeLocation(object):
     def __init__(self, configuration):
@@ -854,6 +857,13 @@ class Resource(MetamodelObject):
     def __hash__(self):
         return self.rosname.__hash__()
 
+    def __str__(self):
+        return "{}('{}', {})".format(self.__class__.__name__,
+            self.rosname.full, self.type)
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class NodeInstance(Resource):
     def __init__(self, config, rosname, node, launch = None, argv = None,
@@ -869,6 +879,10 @@ class NodeInstance(Resource):
         self.clients = []
         self.reads = []
         self.writes = []
+
+    @property
+    def type(self):
+        return self.node.node_name
 
     @property
     def resource_type(self):
@@ -929,10 +943,6 @@ class NodeInstance(Resource):
 
     def __repr__(self):
         return self.__str__()
-
-    def __str__(self):
-        return ("NodeInstance " + self.configuration.name
-                + ":" + self.rosname.full)
 
 
 class Topic(Resource):
