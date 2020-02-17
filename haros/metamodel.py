@@ -1213,7 +1213,7 @@ class Configuration(MetamodelObject):
             writes.extend(p.to_JSON_object() for p in node.writes)
         return {
             "id": self.name,
-            "launch": list(self.roslaunch),
+            "launch": [f.to_JSON_object() for f in self.roslaunch],
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),

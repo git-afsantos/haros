@@ -49,18 +49,6 @@ THE SOFTWARE.
                     model: this.model,
                     data: "issues"
                 }),
-                new views.DashboardPanel({
-                    el: $("#dashboard-panel-components"),
-                    templateId: "#dashboard-panel-components-template",
-                    model: this.model,
-                    data: "components"
-                }),
-                new views.DashboardPanel({
-                    el: $("#dashboard-panel-communications"),
-                    templateId: "#dashboard-panel-communications-template",
-                    model: this.model,
-                    data: "communications"
-                }),
                 new views.DashboardChartPanel({
                     el: $("#dashboard-panel-progress"),
                     model: this.model
@@ -130,29 +118,18 @@ THE SOFTWARE.
         className: "panel",
 
         initialize: function (options) {
-            var $diagram = this.$el.find(".progress");
-            this.$templatePart = this.$el.children(".template-holder");
-            this.$cppBar = $diagram.eq(0).css("left", "0").css("right", "100%");
-            this.$pythonBar = $diagram.eq(1).css("left", "100%").css("right", "0");
-            this.$diagramLabel = this.$el.children(".diagram").children("p.item");
             this.template = _.template($("#dashboard-panel-source-template").html(), {variable: "data"});
-            this.render();
         },
 
         render: function () {
-            var cpp, py, data = this.model.get("source") || {};
-            this.$templatePart.html(this.template(data));
-            if ("languages" in data) {
-                cpp = +(data.languages.cpp || 0) * 100 | 0;
-                py = +(data.languages.python || 0) * 100 | 0;
-                this.$cppBar.show().css("right", "" + (100 - cpp) + "%");
-                this.$pythonBar.show().css("left", "" + (100 - py) + "%");
-                this.$diagramLabel.text("" + cpp + "% - " + py + "%");
-            } else {
-                this.$cppBar.hide();
-                this.$pythonBar.hide();
-                this.$diagramLabel.text("n/a");
-            }
+            var data = this.model.get("source") || {},
+                cpp = (data.languages || {})["cpp"],
+                py = (data.languages || {})["python"];
+            data["cppRatio"] = +(cpp || 0) * 100 | 0;
+            data["pythonRatio"] = +(py || 0) * 100 | 0;
+            data = _.extend(data, this.model.get("components"));
+            data = _.extend(data, this.model.get("communications"));
+            this.$el.html(this.template(data));
             return this;
         }
     });

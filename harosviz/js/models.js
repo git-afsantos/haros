@@ -198,10 +198,13 @@ THE SOFTWARE.
 
     /*
         id,
+        launch: [],
         dependencies: [],
         environment: [],
         collisions,
         remaps,
+        unresolved,
+        conditional,
         nodes: [{
             uid,
             name,
