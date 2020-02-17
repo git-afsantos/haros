@@ -1286,9 +1286,11 @@ class RoscppExtractor(LoggingObject):
         node_handle = getattr(call, 'method_of', None) or call
         if getattr(node_handle, 'name', None) == 'operator->':
             node_handle = node_handle.arguments[0]
-        node_handle_def = (resolve_reference(node_handle)
-                           if isinstance(node_handle, CppReference)
-                           else None)
+        node_handle_def = None
+        if isinstance(node_handle, CppReference):
+            node_handle_def = resolve_reference(node_handle)
+        elif isinstance(node_handle, CppDefaultArgument):
+            return ''
 
         # A function needs to be called to create a NodeHandle (constructors
         # are functions)
