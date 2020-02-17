@@ -313,7 +313,8 @@ html, body {
     min-height: 2em;
 }
 
-#dashboard .panel .badge-empty {
+#dashboard .panel .badge-empty,
+#ros-board .panel .badge-empty {
     float: right;
 }
 

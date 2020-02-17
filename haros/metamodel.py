@@ -1187,6 +1187,16 @@ class Configuration(MetamodelObject):
             unique.update(node.remaps.viewitems())
         return len(unique)
 
+    def get_unresolved(self):
+        return (len(self.nodes.unresolved) + len(self.topics.unresolved)
+                + len(self.services.unresolved)
+                + len(self.parameters.unresolved))
+
+    def get_conditional(self):
+        return (len(self.nodes.conditional) + len(self.topics.conditional)
+                + len(self.services.conditional)
+                + len(self.parameters.conditional))
+
     def to_JSON_object(self):
         publishers = []
         subscribers = []
@@ -1203,6 +1213,7 @@ class Configuration(MetamodelObject):
             writes.extend(p.to_JSON_object() for p in node.writes)
         return {
             "id": self.name,
+            "launch": list(self.roslaunch),
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),

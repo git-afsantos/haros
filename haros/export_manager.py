@@ -294,6 +294,8 @@ class JsonExporter(LoggingObject):
         configs = []
         for report in config_reports:
             data = report.configuration.to_JSON_object()
+            data["unresolved"] = report.configuration.get_unresolved()
+            data["conditional"] = report.configuration.get_conditional()
             queries = {}
             for datum in report.violations:
                 if not datum.affected:

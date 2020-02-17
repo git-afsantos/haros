@@ -80,29 +80,12 @@ THE SOFTWARE.
             </div>
             <div class="pure-g">
                 <div class="pure-u-1 pure-u-sm-1-2 pure-u-lg-1-4">
-                    <div id="dashboard-panel-source" class="panel">
-                        <!-- http://mbostock.github.io/d3/talk/20111018/tree.html -->
-                        <div class="template-holder"></div>
-                        <div class="diagram diagram-progress">
-                            <div class="pure-g item">
-                                <div class="pure-u-1-4 bold">C++</div>
-                                <div class="pure-u-1-2">
-                                    <div class="progress-bar margin-right">
-                                        <div class="progress bg-blue"></div>
-                                        <div class="progress bg-yellow"></div>
-                                    </div>
-                                </div>
-                                <div class="pure-u-1-4 text-right bold">Python</div>
-                            </div>
-                            <p class="item text-center bold">n/a</p>
-                        </div>
-                    </div>
-                    <!-- https://www.jasondavies.com/coffee-wheel/ -->
-                    <div id="dashboard-panel-issues" class="panel"></div>
+                    <!-- http://mbostock.github.io/d3/talk/20111018/tree.html -->
+                    <div id="dashboard-panel-source" class="panel double-size"></div>
                 </div>
                 <div class="pure-u-1 pure-u-sm-1-2 pure-u-lg-1-4">
-                    <div id="dashboard-panel-components" class="panel"></div>
-                    <div id="dashboard-panel-communications" class="panel"></div>
+                    <!-- https://www.jasondavies.com/coffee-wheel/ -->
+                    <div id="dashboard-panel-issues" class="panel double-size"></div>
                 </div>
                 <div class="pure-u-1 pure-u-sm-1 pure-u-lg-1-2">
                     <div id="dashboard-panel-progress" class="panel double-size">
@@ -510,11 +493,47 @@ THE SOFTWARE.
     </script>
 
     <script type="text/template" id="ros-board-config-summary">
-        <p><strong>Package Dependencies:</strong> <%= data.dependencies.join(", ") || "(none)" %></p>
-        <p><strong>Environment Dependencies:</strong> <%= data.environment.join(", ") || "(none)" %></p>
-        <p><strong>Name Collisions:</strong> <%= data.collisions %></p>
-        <p><strong>Name Remappings:</strong> <%= data.remaps %></p>
-        <p><strong>Launched Nodes:</strong> <%= data.nodes.length %></p>
+        <h4 class="title"><i class="fa fa-gears"></i> Summary</h4>
+        <p class="item">
+            <span class="label" title="Number of top-level launch files">Launch files</span>
+            <span class="badge-empty"><%= data.launch != null ? data.launch.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of nodes">Nodes</span>
+            <span class="badge-empty"><%= data.nodes != null ? data.nodes.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of topics">Topics</span>
+            <span class="badge-empty"><%= data.topics != null ? data.topics.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of services">Services</span>
+            <span class="badge-empty"><%= data.services != null ? data.services.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of parameters">Parameters</span>
+            <span class="badge-empty"><%= data.parameters != null ? data.parameters.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of remappings">Remappings</span>
+            <span class="badge-empty"><%= data.remaps != null ? data.remaps : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Number of ROS resources with equal names">Name Collisions</span>
+            <span class="badge-empty"><%= data.collisions != null ? data.collisions : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Number of runtime issues for this configuration">Issues</span>
+            <span class="badge-empty"><%= data.queries != null ? data.queries.length : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="ROS names that could not be resolved automatically">Unresolved</span>
+            <span class="badge-empty"><%= data.unresolved != null ? data.unresolved : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="ROS resources under if statements or loops">Conditional</span>
+            <span class="badge-empty"><%= data.conditional != null ? data.conditional : "n/a" %></span>
+        </p>
     </script>
 
     <script type="text/template" id="ros-board-info-modal">
