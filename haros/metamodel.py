@@ -303,6 +303,11 @@ class SourceFile(SourceObject):
     PYTHON = 'python script'
     PKG_XML = 'package.xml'
     LAUNCH = ('.launch', '.launch.xml')
+    MSG = '.msg'
+    SRV = '.srv'
+    ACTION = '.action'
+    YAML = ('.yaml', '.yml')
+    CMAKELISTS = 'CMakeLists.txt'
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
@@ -382,6 +387,16 @@ class SourceFile(SourceObject):
             return 'launch'
         if self.name == self.PKG_XML:
             return 'package'
+        if self.name.endswith(self.MSG):
+            return 'msg'
+        if self.name.endswith(self.SRV):
+            return 'srv'
+        if self.name.endswith(self.ACTION):
+            return 'action'
+        if self.name.endswith(self.YAML):
+            return 'yaml'
+        if self.name == self.CMAKELISTS:
+            return 'cmake'
         return 'unknown'
 
     def __str__(self):
@@ -1193,9 +1208,13 @@ class Configuration(MetamodelObject):
                 + len(self.parameters.unresolved))
 
     def get_conditional(self):
-        return (len(self.nodes.conditional) + len(self.topics.conditional)
-                + len(self.services.conditional)
-                + len(self.parameters.conditional))
+        # FIXME len(self.topics.conditional) does not always work
+        n = 0
+        for c in (self.nodes, self.topics, self.services, self.parameters):
+            for r in c:
+                if r.conditions:
+                    n += 1
+        return n
 
     def to_JSON_object(self):
         publishers = []

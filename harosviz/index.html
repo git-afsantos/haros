@@ -347,15 +347,15 @@ THE SOFTWARE.
         </p>
         <p class="item">
             <span class="label" title="Number of .msg files">Message files</span>
-            <span class="badge-empty"><%= data.messages != null ? data.messages : "n/a" %></span>
+            <span class="badge-empty"><%= data.msgFiles != null ? data.msgFiles : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Number of .srv files">Service files</span>
-            <span class="badge-empty"><%= data.services != null ? data.services : "n/a" %></span>
+            <span class="badge-empty"><%= data.srvFiles != null ? data.srvFiles : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Number of .action files">Action files</span>
-            <span class="badge-empty"><%= data.actions != null ? data.actions : "n/a" %></span>
+            <span class="badge-empty"><%= data.actionFiles != null ? data.actionFiles : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Number of user-defined configurations">Configurations</span>
@@ -368,25 +368,41 @@ THE SOFTWARE.
     </script>
 
     <script type="text/template" id="dashboard-panel-issues-template">
-        <a href="#issues"><h4 class="title"><i class="fa fa-bug"></i> Issues</h4></a>
+        <a href="#issues"><h4 class="title"><i class="fa fa-bug"></i> Analysis Results</h4></a>
         <p class="item">
-            <span class="label">Total issues</span>
+            <span class="label" title="Number of plugins used for this report">Plugins</span>
+            <span class="badge-empty"><%= data.plugins != null ? data.plugins : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of registered rules">Total rules</span>
+            <span class="badge-empty"><%= data.rules != null ? data.rules : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Number of user-defined rules">User-defined rules</span>
+            <span class="badge-empty"><%= data.userRules != null ? data.userRules : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Number of unique violated rules">Violated rules</span>
+            <span class="badge-empty"><%= data.violatedRules != null ? data.violatedRules : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Total number of reported issues">Total issues</span>
             <span class="badge-empty"><%= data.total != null ? data.total : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label">Coding standards</span>
+            <span class="label" title="Issues related to coding style and standards">Coding issues</span>
             <span class="badge-empty"><%= data.coding != null ? data.coding : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label">Code metrics</span>
+            <span class="label" title="Issues related to metrics thresholds">Metrics issues</span>
             <span class="badge-empty"><%= data.metrics != null ? data.metrics : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label">Other issues</span>
+            <span class="label" title="Issues relating to other topics">Other issues</span>
             <span class="badge-empty"><%= data.other != null ? data.other : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label">Issues per line</span>
+            <span class="label" title="Ratio of issues per line of code (any language)">Issues per line</span>
             <span class="badge-empty"><%= data.ratio != null ? data.ratio : "n/a" %></span>
         </p>
     </script>

@@ -214,6 +214,9 @@ class Statistics(object):
         self.script_count           = 0
         self.launch_count           = 0
         self.param_file_count       = 0
+        self.msg_file_count         = 0
+        self.srv_file_count         = 0
+        self.action_file_count      = 0
     # -- Issues ---------------------------------
         self.issue_count            = 0
         self.standard_issue_count   = 0
@@ -261,6 +264,12 @@ class Statistics(object):
                              - avg([s.launch_count for s in previous]))
         self.param_file_count = (current.param_file_count
                                  - avg([s.param_file_count for s in previous]))
+        self.msg_file_count = (current.msg_file_count
+                               - avg([s.msg_file_count for s in previous]))
+        self.srv_file_count = (current.srv_file_count
+                               - avg([s.srv_file_count for s in previous]))
+        self.action_file_count = (current.action_file_count
+                                  - avg([s.action_file_count for s in previous]))
     # -- Issues ---------------------------------
         self.issue_count = (current.issue_count
                             - avg([s.issue_count for s in previous]))
@@ -345,6 +354,12 @@ class Statistics(object):
                 self.launch_count += 1
             elif sf.language == "yaml":
                 self.param_file_count += 1
+            elif sf.language == "msg":
+                self.msg_file_count += 1
+            elif sf.language == "srv":
+                self.srv_file_count += 1
+            elif sf.language == "action":
+                self.action_file_count += 1
             self.issue_count += len(report.violations)
             for issue in report.violations:
                 other = True
@@ -380,6 +395,8 @@ class AnalysisReport(object):
         self.by_config = {}
         self.statistics = None
         self.violations = []    # unknown location
+        self.plugins = []
+        self.rules = []
 
     @property
     def package_count(self):
@@ -401,7 +418,10 @@ class AnalysisReport(object):
                 "languages": {
                     "cpp": self.statistics.cpp_ratio,
                     "python": self.statistics.python_ratio
-                }
+                },
+                "msgFiles": self.statistics.msg_file_count,
+                "srvFiles": self.statistics.srv_file_count,
+                "actionFiles": self.statistics.action_file_count
             },
             "issues": {
                 "total":    self.statistics.issue_count,
@@ -423,6 +443,12 @@ class AnalysisReport(object):
                 "messages":     None,
                 "services":     None,
                 "actions":      None
+            },
+            "analysis": {
+                "plugins":          None,
+                "rules":            None,
+                "userRules":        None,
+                "violatedRules":    None
             }
         }
 

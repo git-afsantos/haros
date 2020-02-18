@@ -379,7 +379,10 @@ THE SOFTWARE.
             packages,
             files,
             scripts,
-            languages {}
+            languages {},
+            msgFiles,
+            srvFiles,
+            actionFiles
         },
         issues: {
             total,
