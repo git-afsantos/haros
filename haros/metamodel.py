@@ -303,6 +303,11 @@ class SourceFile(SourceObject):
     PYTHON = 'python script'
     PKG_XML = 'package.xml'
     LAUNCH = ('.launch', '.launch.xml')
+    MSG = '.msg'
+    SRV = '.srv'
+    ACTION = '.action'
+    YAML = ('.yaml', '.yml')
+    CMAKELISTS = 'CMakeLists.txt'
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
@@ -382,6 +387,16 @@ class SourceFile(SourceObject):
             return 'launch'
         if self.name == self.PKG_XML:
             return 'package'
+        if self.name.endswith(self.MSG):
+            return 'msg'
+        if self.name.endswith(self.SRV):
+            return 'srv'
+        if self.name.endswith(self.ACTION):
+            return 'action'
+        if self.name.endswith(self.YAML):
+            return 'yaml'
+        if self.name == self.CMAKELISTS:
+            return 'cmake'
         return 'unknown'
 
     def __str__(self):
@@ -1187,6 +1202,20 @@ class Configuration(MetamodelObject):
             unique.update(node.remaps.viewitems())
         return len(unique)
 
+    def get_unresolved(self):
+        return (len(self.nodes.unresolved) + len(self.topics.unresolved)
+                + len(self.services.unresolved)
+                + len(self.parameters.unresolved))
+
+    def get_conditional(self):
+        # FIXME len(self.topics.conditional) does not always work
+        n = 0
+        for c in (self.nodes, self.topics, self.services, self.parameters):
+            for r in c:
+                if r.conditions:
+                    n += 1
+        return n
+
     def to_JSON_object(self):
         publishers = []
         subscribers = []
@@ -1203,6 +1232,7 @@ class Configuration(MetamodelObject):
             writes.extend(p.to_JSON_object() for p in node.writes)
         return {
             "id": self.name,
+            "launch": [f.to_JSON_object() for f in self.roslaunch],
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),

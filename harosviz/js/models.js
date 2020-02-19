@@ -198,10 +198,13 @@ THE SOFTWARE.
 
     /*
         id,
+        launch: [],
         dependencies: [],
         environment: [],
         collisions,
         remaps,
+        unresolved,
+        conditional,
         nodes: [{
             uid,
             name,
@@ -376,7 +379,10 @@ THE SOFTWARE.
             packages,
             files,
             scripts,
-            languages {}
+            languages {},
+            msgFiles,
+            srvFiles,
+            actionFiles
         },
         issues: {
             total,
