@@ -123,10 +123,13 @@ THE SOFTWARE.
 
         render: function () {
             var data = this.model.get("source") || {},
-                cpp = (data.languages || {})["cpp"],
-                py = (data.languages || {})["python"];
+                lang = data.languages || {},
+                cpp = lang.cpp,
+                py = lang.python;
             data["cppRatio"] = +(cpp || 0) * 100 | 0;
             data["pythonRatio"] = +(py || 0) * 100 | 0;
+            data["cppLOC"] = +(lang.cppLOC || 0) | 0;
+            data["pythonLOC"] = +(lang.pythonLOC || 0) | 0;
             data = _.extend(data, this.model.get("components"));
             data = _.extend(data, this.model.get("communications"));
             this.$el.html(this.template(data));

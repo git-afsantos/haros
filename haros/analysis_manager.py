@@ -409,6 +409,8 @@ class AnalysisManager(LoggingObject):
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
+        self.report.plugins = [p.name for p in plugins]
+        self.report.rules = list(allowed_rules)
         self.report.calculate_statistics()
         stats = self.report.statistics
         stats.configuration_count = len(project.configurations)

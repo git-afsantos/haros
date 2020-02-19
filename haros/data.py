@@ -222,6 +222,7 @@ class Statistics(object):
         self.standard_issue_count   = 0
         self.metrics_issue_count    = 0
         self.other_issue_count      = 0
+        self.violated_rule_count    = 0
     # -- ROS Configuration Objects --------------
         self.configuration_count    = 0
         self.node_count             = 0
@@ -279,6 +280,8 @@ class Statistics(object):
                                 - avg([s.metrics_issue_count for s in previous]))
         self.other_issue_count = (current.other_issue_count
                                   - avg([s.other_issue_count for s in previous]))
+        self.violated_rule_count = (current.violated_rule_count
+                            - avg([s.violated_rule_count for s in previous]))
     # -- ROS Configuration Objects --------------
         self.configuration_count = (current.configuration_count
                                 - avg([s.configuration_count for s in previous]))
@@ -310,17 +313,21 @@ class Statistics(object):
 
     @classmethod
     def from_reports(cls, reports):
+        violated_rules = set()
         stats = cls()
-        stats._pkg_statistics(reports)
+        stats._pkg_statistics(reports, violated_rules=violated_rules)
         file_analysis = [r for p in reports for r in p.file_analysis]
-        stats._file_statistics(file_analysis)
+        stats._file_statistics(file_analysis, violated_rules=violated_rules)
+        stats.violated_rule_count = len(violated_rules)
         return stats
 
-    def _pkg_statistics(self, reports):
+    def _pkg_statistics(self, reports, violated_rules=None):
+        assert violated_rules is not None
         for report in reports:
             self.file_count += report.package.file_count
             self.issue_count += len(report.violations)
             for issue in report.violations:
+                violated_rules.add(issue.rule.id)
                 other = True
                 if "code-standards" in issue.rule.tags:
                     other = False
@@ -336,7 +343,8 @@ class Statistics(object):
                 if node.is_nodelet:
                     self.nodelet_count += 1
 
-    def _file_statistics(self, reports):
+    def _file_statistics(self, reports, violated_rules=None):
+        assert violated_rules is not None
         complexities = []
         fun_lines = []
         file_lines = []
@@ -362,6 +370,7 @@ class Statistics(object):
                 self.action_file_count += 1
             self.issue_count += len(report.violations)
             for issue in report.violations:
+                violated_rules.add(issue.rule.id)
                 other = True
                 if "code-standards" in issue.rule.tags:
                     other = False
@@ -417,11 +426,10 @@ class AnalysisReport(object):
                 "scripts":  self.statistics.script_count,
                 "languages": {
                     "cpp": self.statistics.cpp_ratio,
-                    "python": self.statistics.python_ratio
-                },
-                "msgFiles": self.statistics.msg_file_count,
-                "srvFiles": self.statistics.srv_file_count,
-                "actionFiles": self.statistics.action_file_count
+                    "cppLOC": self.statistics.cpp_lines,
+                    "python": self.statistics.python_ratio,
+                    "pythonLOC": self.statistics.python_lines
+                }
             },
             "issues": {
                 "total":    self.statistics.issue_count,
@@ -440,15 +448,16 @@ class AnalysisReport(object):
             "communications": {
                 "topics":       None,
                 "remappings":   None,
-                "messages":     None,
-                "services":     None,
-                "actions":      None
+                "messages":     self.statistics.msg_file_count,
+                "services":     self.statistics.srv_file_count,
+                "actions":      self.statistics.action_file_count
             },
             "analysis": {
-                "plugins":          None,
-                "rules":            None,
-                "userRules":        None,
-                "violatedRules":    None
+                "plugins":          len(self.plugins),
+                "rules":            len(self.rules),
+                "userRules":        len(tuple(r for r in self.rules
+                                              if r.id.startswith("user:"))),
+                "violatedRules":    self.statistics.violated_rule_count
             }
         }
 

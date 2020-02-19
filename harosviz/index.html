@@ -334,12 +334,16 @@ THE SOFTWARE.
             <span class="badge-empty"><%= data.packages != null ? data.packages : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label" title="Percentage of code in C++">C++ Ratio</span>
-            <span class="badge-empty"><%= data.cppRatio != null ? ("" + data.cppRatio + "%") : "n/a" %></span>
+            <span class="label" title="Number of node executables">Nodes</span>
+            <span class="badge-empty"><%= data.nodes != null ? data.nodes + (data.nodelets != null ? data.nodelets : 0) : (data.nodelets != null ? data.nodelets : "n/a") %></span>
         </p>
         <p class="item">
-            <span class="label" title="Percentage of code in Python">Python Ratio</span>
-            <span class="badge-empty"><%= data.pythonRatio != null ? ("" + data.pythonRatio + "%") : "n/a" %></span>
+            <span class="label" title="Number of C++ lines of code">C++ Lines</span>
+            <span class="badge-empty"><%= data.cppLOC != null ? (data.cppLOC >= 1000000 ? (data.cppLOC / 1000000.0).toFixed(2) + "M" : (data.cppLOC >= 1000 ? (data.cppLOC / 1000.0).toFixed(2) + "K" : data.cppLOC)) : "n/a" %></span>
+        </p>
+        <p class="item">
+            <span class="label" title="Number of Python lines of code">Python Lines</span>
+            <span class="badge-empty"><%= data.pythonLOC != null ? (data.pythonLOC >= 1000000 ? (data.pythonLOC / 1000000.0).toFixed(2) + "M" : (data.pythonLOC >= 1000 ? (data.pythonLOC / 1000.0).toFixed(2) + "K" : data.pythonLOC)) : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Total number of launch files">Launch files</span>
@@ -347,23 +351,23 @@ THE SOFTWARE.
         </p>
         <p class="item">
             <span class="label" title="Number of .msg files">Message files</span>
-            <span class="badge-empty"><%= data.msgFiles != null ? data.msgFiles : "n/a" %></span>
+            <span class="badge-empty"><%= data.messages != null ? data.messages : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Number of .srv files">Service files</span>
-            <span class="badge-empty"><%= data.srvFiles != null ? data.srvFiles : "n/a" %></span>
+            <span class="badge-empty"><%= data.services != null ? data.services : "n/a" %></span>
         </p>
         <p class="item">
             <span class="label" title="Number of .action files">Action files</span>
-            <span class="badge-empty"><%= data.actionFiles != null ? data.actionFiles : "n/a" %></span>
+            <span class="badge-empty"><%= data.actions != null ? data.actions : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label" title="Number of user-defined configurations">Configurations</span>
+            <span class="label" title="Number of user-defined configurations (models)">Configurations</span>
             <span class="badge-empty"><%= data.configurations != null ? data.configurations : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label" title="Number of node executables">Nodes</span>
-            <span class="badge-empty"><%= data.nodes != null ? data.nodes + (data.nodelets != null ? data.nodelets : 0) : (data.nodelets != null ? data.nodelets : "n/a") %></span>
+            <span class="label" title="Number of unique package dependencies">Pkg. Dependencies</span>
+            <span class="badge-empty"><%= data.pkgDepends != null ? data.pkgDepends : "n/a" %></span>
         </p>
     </script>
 
@@ -374,7 +378,7 @@ THE SOFTWARE.
             <span class="badge-empty"><%= data.plugins != null ? data.plugins : "n/a" %></span>
         </p>
         <p class="item">
-            <span class="label" title="Total number of registered rules">Total rules</span>
+            <span class="label" title="Total number of enabled rules">Total rules</span>
             <span class="badge-empty"><%= data.rules != null ? data.rules : "n/a" %></span>
         </p>
         <p class="item">
