@@ -217,6 +217,7 @@ class Statistics(object):
         self.msg_file_count         = 0
         self.srv_file_count         = 0
         self.action_file_count      = 0
+        self.pkg_depends            = 0
     # -- Issues ---------------------------------
         self.issue_count            = 0
         self.standard_issue_count   = 0
@@ -271,6 +272,8 @@ class Statistics(object):
                                - avg([s.srv_file_count for s in previous]))
         self.action_file_count = (current.action_file_count
                                   - avg([s.action_file_count for s in previous]))
+        self.pkg_depends = (current.pkg_depends
+                            - avg([s.pkg_depends for s in previous]))
     # -- Issues ---------------------------------
         self.issue_count = (current.issue_count
                             - avg([s.issue_count for s in previous]))
@@ -323,7 +326,11 @@ class Statistics(object):
 
     def _pkg_statistics(self, reports, violated_rules=None):
         assert violated_rules is not None
+        pkg_deps = set()
+        own_pkgs = set()
         for report in reports:
+            own_pkgs.add(report.package.name)
+            pkg_deps.update(report.package.dependencies.packages)
             self.file_count += report.package.file_count
             self.issue_count += len(report.violations)
             for issue in report.violations:
@@ -342,6 +349,7 @@ class Statistics(object):
                 self.node_count += 1
                 if node.is_nodelet:
                     self.nodelet_count += 1
+        self.pkg_depends = len(pkg_deps - own_pkgs)
 
     def _file_statistics(self, reports, violated_rules=None):
         assert violated_rules is not None
@@ -429,7 +437,8 @@ class AnalysisReport(object):
                     "cppLOC": self.statistics.cpp_lines,
                     "python": self.statistics.python_ratio,
                     "pythonLOC": self.statistics.python_lines
-                }
+                },
+                "pkgDependencies": self.statistics.pkg_depends
             },
             "issues": {
                 "total":    self.statistics.issue_count,
@@ -456,7 +465,7 @@ class AnalysisReport(object):
                 "plugins":          len(self.plugins),
                 "rules":            len(self.rules),
                 "userRules":        len(tuple(r for r in self.rules
-                                              if r.id.startswith("user:"))),
+                                              if r.startswith("user:"))),
                 "violatedRules":    self.statistics.violated_rule_count
             }
         }

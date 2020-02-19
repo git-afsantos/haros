@@ -43,11 +43,9 @@ THE SOFTWARE.
                     el: $("#dashboard-panel-source"),
                     model: this.model
                 }),
-                new views.DashboardPanel({
+                new views.DashboardIssuePanel({
                     el: $("#dashboard-panel-issues"),
-                    templateId: "#dashboard-panel-issues-template",
-                    model: this.model,
-                    data: "issues"
+                    model: this.model
                 }),
                 new views.DashboardChartPanel({
                     el: $("#dashboard-panel-progress"),
@@ -92,13 +90,14 @@ THE SOFTWARE.
         },
 
         onResize: function () {
-            return this.panels[4].onResize();
+            return this.panels[2].onResize();
         },
 
         optionTemplate: _.template("<option><%= data.id %></option>", {variable: "data"})
     });
 
 
+    // currently unused, might be useful for version 4.0
     views.DashboardPanel = Backbone.View.extend({
         className: "panel",
 
@@ -132,6 +131,22 @@ THE SOFTWARE.
             data["pythonLOC"] = +(lang.pythonLOC || 0) | 0;
             data = _.extend(data, this.model.get("components"));
             data = _.extend(data, this.model.get("communications"));
+            this.$el.html(this.template(data));
+            return this;
+        }
+    });
+
+
+    views.DashboardIssuePanel = Backbone.View.extend({
+        className: "panel",
+
+        initialize: function (options) {
+            this.template = _.template($("#dashboard-panel-issues-template").html(), {variable: "data"});
+        },
+
+        render: function () {
+            var data = this.model.get("issues") || {};
+            data = _.extend(data, this.model.get("analysis"));
             this.$el.html(this.template(data));
             return this;
         }
