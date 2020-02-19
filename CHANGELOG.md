@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.9.0] - 2020-02-19
+### Changed
+- Reworked the HAROS dashboard to replace unimplemented statistics with more relevant ones.
+- Added a summary panel to the Configuration model viewer in Viz.
+
 ## [3.8.1] - 2019-11-25
 ### Changed
 - Fixed a bug that caused the `init` and `viz` commands to crash.
