@@ -111,7 +111,7 @@ THE SOFTWARE.
         optionTemplate: _.template("<option><%= data.id %></option>",
                                    {variable: "data"}),
 
-        queryTemplate: _.template("<option value=\"<%= data.rule %>\"><%= data.name %></option>",
+        queryTemplate: _.template("<option value=\"<%= data.qid %>\"><%= data.name %></option>",
                                    {variable: "data"}),
     });
 
@@ -249,17 +249,17 @@ THE SOFTWARE.
             return visibleGraph;
         },
 
-        setHighlights: function (ruleId) {
+        setHighlights: function (queryId) {
             var i, v,
                 nodes = this.graph.nodes(),
                 edges = this.graph.edges();
             for (i = nodes.length; i--;) {
                 v = this.graph.node(nodes[i]);
-                v.setClass("query-object", v.queries[ruleId] === true);
+                v.setClass("query-object", v.queries[queryId] === true);
             }
             for (i = edges.length; i--;) {
                 v = this.graph.edge(edges[i]);
-                v.d3path.classed("query-object", v.queries[ruleId] === true);
+                v.d3path.classed("query-object", v.queries[queryId] === true);
             }
         },
 
@@ -472,16 +472,16 @@ THE SOFTWARE.
                 obj = objs[i];
                 switch (obj.resourceType) {
                     case "node":
-                        this.graph.node(this.nodes[obj.uid].id).queries[query.rule] = true;
+                        this.graph.node(this.nodes[obj.uid].id).queries[query.qid] = true;
                         break;
                     case "topic":
-                        this.graph.node(this.topics[obj.uid].id).queries[query.rule] = true;
+                        this.graph.node(this.topics[obj.uid].id).queries[query.qid] = true;
                         break;
                     case "service":
-                        this.graph.node(this.services[obj.uid].id).queries[query.rule] = true;
+                        this.graph.node(this.services[obj.uid].id).queries[query.qid] = true;
                         break;
                     case "param":
-                        this.graph.node(this.params[obj.uid].id).queries[query.rule] = true;
+                        this.graph.node(this.params[obj.uid].id).queries[query.qid] = true;
                         break;
                     case "link":
                         n1 = this.nodes[obj.node_uid].id;
@@ -489,7 +489,7 @@ THE SOFTWARE.
                               || this.services[obj.service_uid]
                               || this.params[obj.param_uid]).id;
                         v = this.graph.edge(n1, n2) || this.graph.edge(n2, n1);
-                        v.queries[query.rule] = true;
+                        v.queries[query.qid] = true;
                         break;
                 }
             }

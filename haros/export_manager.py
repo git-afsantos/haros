@@ -130,7 +130,9 @@ class JsonExporter(LoggingObject):
         configs = []
         for report in config_reports:
             data = report.configuration.to_JSON_object()
-            queries = {}
+            data["unresolved"] = report.configuration.get_unresolved()
+            data["conditional"] = report.configuration.get_conditional()
+            queries = []
             for datum in report.violations:
                 if not datum.affected:
                     continue
@@ -141,15 +143,13 @@ class JsonExporter(LoggingObject):
                         objects.append(obj_json)
                 if not objects:
                     continue
-                if datum.rule.id in queries:
-                    queries[datum.rule.id]["objects"].extend(objects)
-                else:
-                    queries[datum.rule.id] = {
-                        "rule": datum.rule.id,
-                        "name": datum.rule.name,
-                        "objects": objects
-                    }
-            data["queries"] = list(queries.itervalues())
+                queries.append({
+                    "qid": len(queries),
+                    "rule": datum.rule.id,
+                    "name": datum.rule.name,
+                    "objects": objects
+                })
+            data["queries"] = queries
             configs.append(data)
         out = os.path.join(datadir, "configurations.json")
         with open(out, "w") as f:
