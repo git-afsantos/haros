@@ -1231,6 +1231,20 @@ class Configuration(MetamodelObject):
             unique.update(node.remaps.viewitems())
         return len(unique)
 
+    def get_unresolved(self):
+        return (len(self.nodes.unresolved) + len(self.topics.unresolved)
+                + len(self.services.unresolved)
+                + len(self.parameters.unresolved))
+
+    def get_conditional(self):
+        # FIXME len(self.topics.conditional) does not always work
+        n = 0
+        for c in (self.nodes, self.topics, self.services, self.parameters):
+            for r in c:
+                if r.conditions:
+                    n += 1
+        return n
+
     def add_command(self, cmd, args):
         self.launch_commands.append(LaunchCommand(cmd, args))
 
@@ -1250,6 +1264,7 @@ class Configuration(MetamodelObject):
             writes.extend(p.to_JSON_object() for p in node.writes)
         return {
             "id": self.name,
+            "launch": [f.to_JSON_object() for f in self.roslaunch],
             "collisions": self.get_collisions(),
             "remaps": self.get_remaps(),
             "dependencies": list(self.dependencies.packages),
