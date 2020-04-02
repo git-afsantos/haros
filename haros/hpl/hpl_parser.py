@@ -78,7 +78,7 @@ existential: SOME_OPERATOR CNAME "in" _quant_range ":" _logic_expr
 
 _quant_range: _msg_field | _set_value
 
-atomic_condition: _value BINARY_OPERATOR _value
+atomic_condition: _value RELATIONAL_OPERATOR _value
 
 _value: boolean
       | string
@@ -136,7 +136,7 @@ boolean: TRUE | FALSE
 TRUE = "True"
 FALSE = "False"
 
-BINARY_OPERATOR: EQ_OPERATOR | COMP_OPERATOR | IN_OPERATOR
+RELATIONAL_OPERATOR: EQ_OPERATOR | COMP_OPERATOR | IN_OPERATOR
 EQ_OPERATOR: "=" | "!="
 COMP_OPERATOR: "<" "="?
              | ">" "="?
@@ -316,7 +316,7 @@ class PropertyTransformer(Transformer):
     def event(self, children):
         assert len(children) == 1 or len(children) == 2
         ros_name, alias = children[0]
-        phi = None if len(children) == 1 else children[1]
+        phi = HplVacuousTruth() if len(children) == 1 else children[1]
         return HplEvent(ros_name, alias=alias, predicate=phi)
 
     def message(self, children):
@@ -324,13 +324,13 @@ class PropertyTransformer(Transformer):
         return (children[0], alias)
 
     def condition(self, children):
-        return self._left_recursive_bincon(children)
+        return self._lr_binop(children, HplBinaryConnective)
 
     def disjunction(self, children):
-        return self._left_recursive_bincon(children)
+        return self._lr_binop(children, HplBinaryConnective)
 
     def conjunction(self, children):
-        return self._left_recursive_bincon(children)
+        return self._lr_binop(children, HplBinaryConnective)
 
     def negation(self, (op, phi)):
         return HplUnaryConnective(op, phi)
@@ -342,36 +342,30 @@ class PropertyTransformer(Transformer):
         return HplQuantifier(qt, var, ran, phi)
 
     def atomic_condition(self, (lhs, op, rhs)):
-        return HplBinaryConnective(op, lhs, rhs)
-
-    def _left_recursive_bincon(self, children):
-        assert len(children) == 1 or len(children) == 3
-        if len(children) == 3:
-            op = children[1]
-            lhs = children[0]
-            rhs = children[2]
-            return HplBinaryConnective(op, lhs, rhs)
-        return children[0] # len(children) == 1
+        return HplRelationalOperator(op, lhs, rhs)
 
     def function_call(self, (fun, arg)):
         return HplFunctionCall(fun, (arg,))
 
     def number_expr(self, children):
-        return self._left_recursive_binop(children)
+        return self._lr_binop(children, HplBinaryOperator)
 
     def number_term(self, children):
-        return self._left_recursive_binop(children)
+        return self._lr_binop(children, HplBinaryOperator)
 
     def number_factor(self, children):
-        return self._left_recursive_binop(children)
+        return self._lr_binop(children, HplBinaryOperator)
 
-    def _left_recursive_binop(self, children):
+    _COMMUTATIVE = ("+", "*", "and", "or", "iff", "=", "!=")
+
+    def _lr_binop(self, children, cls):
         assert len(children) == 1 or len(children) == 3
         if len(children) == 3:
             op = children[1]
             lhs = children[0]
             rhs = children[2]
-            return HplBinaryOperator(op, lhs, rhs)
+            com = op in self._COMMUTATIVE
+            return cls(op, lhs, rhs, commutative=com)
         return children[0] # len(children) == 1
 
     _CONSTANTS = {

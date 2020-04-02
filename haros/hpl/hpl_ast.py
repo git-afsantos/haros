@@ -685,53 +685,217 @@ class HplChainDisjunction(HplTopLevelEvent):
 
 
 ###############################################################################
-# Message Filters and Field Conditions
+# Predicates and Conditions
 ###############################################################################
 
-class HplMessageFilter(HplAstObject):
-    __slots__ = ("conditions", "length_conditions")
-
-    def __init__(self, conditions, len_conditions=None):
-        # conditions :: [HplFieldCondition]
-        self.conditions = conditions
-        if len_conditions is None:
-            self.length_conditions = []
-        else:
-            self.length_conditions = len_conditions
+class HplCondition(HplAstObject):
+    __slots__ = ()
 
     @property
-    def is_empty(self):
-        return not self.conditions and not self.length_conditions
+    def is_atomic(self):
+        return False
+
+    @property
+    def is_trivial(self):
+        return False
+
+
+class HplVacuousTruth(HplCondition):
+    __slots__ = ()
+
+    @property
+    def is_atomic(self):
+        return True
+
+    @property
+    def is_trivial(self):
+        return True
+
+
+class HplQuantifier(HplCondition):
+    __slots__ = ("quantifier", "variable", "domain", "condition")
+
+    def __init__(self, qt, var, ran, phi):
+        self.quantifier = qt # string
+        self.variable = var # string
+        self.domain = ran # HplValue
+        self.condition = phi # HplCondition
+
+    @property
+    def u(self):
+        return self.quantifier
+
+    @property
+    def x(self):
+        return self.variable
+
+    @property
+    def d(self):
+        return self.domain
+
+    @property
+    def p(self):
+        return self.condition
+
+    @property
+    def phi(self):
+        return self.condition
 
     def __eq__(self, other):
-        if not isinstance(other, HplMessageFilter):
+        if not isinstance(other, HplQuantifier):
             return False
-        return (len(self.conditions) == len(other.conditions)
-                and all(c in other.conditions for c in self.conditions)
-                and len(self.length_conditions) == len(other.length_conditions)
-                and all(c in other.length_conditions
-                        for c in self.length_conditions))
+        return (self.quantifier == other.quantifier
+                and self.variable == other.variable
+                and self.domain == other.domain
+                and self.condition == other.condition)
 
     def __hash__(self):
-        h = 1
-        for condition in self.conditions:
-            h = 31 * h + hash(condition)
-        for condition in self.length_conditions:
-            h = 31 * h + hash(condition)
+        h = 31 * hash(self.quantifier) + hash(self.variable)
+        h = 31 * h + hash(self.domain)
+        h = 31 * h + hash(self.condition)
         return h
 
     def __str__(self):
-        conditions = ", ".join(str(c)
-            for c in iterchain(self.conditions, self.length_conditions))
-        return "{{{}}}".format(conditions)
+        return "{} {} in {}: ({})".format(self.quantifier, self.variable,
+            self.domain, self.condition)
 
     def __repr__(self):
-        return "{}({}, len_conditions={})".format(type(self).__name__,
-            repr(self.conditions), repr(self.length_conditions))
+        return "{}({}, {}, {}, {})".format(
+            type(self).__name__, repr(self.quantifier), repr(self.variable),
+            repr(self.domain), repr(self.condition))
 
 
-class HplFieldCondition(HplAstObject):
-    __slots__ = ("field", "operator", "value")
+class HplConnective(HplCondition):
+    __slots__ = ()
+
+    @property
+    def arity(self):
+        return 0
+
+    @property
+    def is_unary(self):
+        return False
+
+    @property
+    def is_binary(self):
+        return False
+
+
+class HplUnaryConnective(HplConnective):
+    __slots__ = ("connective", "condition")
+
+    def __init__(self, con, p):
+        self.connective = con # string
+        self.condition = p # HplCondition
+
+    @property
+    def is_unary(self):
+        return True
+
+    @property
+    def arity(self):
+        return 1
+
+    @property
+    def u(self):
+        return self.connective
+
+    @property
+    def p(self):
+        return self.condition
+
+    @property
+    def phi(self):
+        return self.condition
+
+    def __eq__(self, other):
+        if not isinstance(other, HplUnaryConnective):
+            return False
+        return (self.connective == other.connective
+                and self.condition == other.condition)
+
+    def __hash__(self):
+        return 31 * hash(self.connective) + hash(self.condition)
+
+    def __str__(self):
+        return "{}({})".format(self.connective, self.condition)
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.connective), repr(self.condition))
+
+
+class HplBinaryConnective(HplConnective):
+    __slots__ = ("connective", "condition1", "condition2", "commutative")
+
+    def __init__(self, con, p, q, commutative=False):
+        self.connective = con # string
+        self.condition1 = p # HplCondition
+        self.condition2 = q # HplCondition
+        self.commutative = commutative # bool
+
+    @property
+    def is_binary(self):
+        return True
+
+    @property
+    def arity(self):
+        return 2
+
+    @property
+    def b(self):
+        return self.connective
+
+    @property
+    def p(self):
+        return self.condition1
+
+    @property
+    def phi(self):
+        return self.condition1
+
+    @property
+    def q(self):
+        return self.condition2
+
+    @property
+    def psi(self):
+        return self.condition2
+
+    def __eq__(self, other):
+        if not isinstance(other, HplBinaryConnective):
+            return False
+        if self.connective != other.connective:
+            return False
+        if self.commutative != other.commutative:
+            return False
+        a = self.condition1
+        b = self.condition2
+        x = other.condition1
+        y = other.condition2
+        if self.commutative:
+            return (a == x and b == y) or (a == y and b == x)
+        return a == x and b == y
+
+    def __hash__(self):
+        h = 31 * hash(self.connective) + hash(self.condition1)
+        h = 31 * h + hash(self.condition2)
+        h = 31 * h + hash(self.commutative)
+        return h
+
+    def __str__(self):
+        a = "({})".format(self.condition1)
+        b = "({})".format(self.condition2)
+        return "{} {} {}".format(a, self.operator, b)
+
+    def __repr__(self):
+        return "{}({}, {}, {}, commutative={})".format(
+            type(self).__name__, repr(self.connective), repr(self.condition1),
+            repr(self.condition2), repr(self.commutative))
+
+
+class HplRelationalOperator(HplCondition):
+    __slots__ = ("operator", "value1", "value2", "commutative")
 
     OP_EQ = "="
     OP_NEQ = "!="
@@ -740,34 +904,20 @@ class HplFieldCondition(HplAstObject):
     OP_GT = ">"
     OP_GTE = ">="
     OP_IN = "in"
-    OP_NIN = "not in"
 
-    _NOT = {
-        OP_EQ: OP_NEQ,
-        OP_NEQ: OP_EQ,
-        OP_LT: OP_GTE,
-        OP_GT: OP_LTE,
-        OP_LTE: OP_GT,
-        OP_GTE: OP_LT,
-        OP_IN: OP_NIN,
-        OP_NIN: OP_IN
-    }
+    def __init__(self, op, value1, value2, commutative=False):
+        self.operator = op # string
+        self.value1 = value1 # HplValue
+        self.value2 = value2 # HplValue
+        self.commutative = commutative # bool
 
-    _INV = {
-        OP_EQ: OP_EQ,
-        OP_NEQ: OP_NEQ,
-        OP_LT: OP_GT,
-        OP_LTE: OP_GTE,
-        OP_GT: OP_LT,
-        OP_GTE: OP_LTE
-    }
+    @property
+    def is_atomic(self):
+        return True
 
-    def __init__(self, field_ref, op_token, hpl_value):
-        if not op_token in self._NOT:
-            raise ValueError("invalid operator token: " + str(op_token))
-        self.field = field_ref # HplFieldReference
-        self.operator = op_token # string
-        self.value = hpl_value # HplValue
+    @property
+    def infix(self):
+        return True
 
     @property
     def is_eq(self):
@@ -797,79 +947,36 @@ class HplFieldCondition(HplAstObject):
     def is_in(self):
         return self.operator == self.OP_IN
 
-    @property
-    def is_not_in(self):
-        return self.operator == self.OP_NIN
-
-    @property
-    def is_equality_test(self):
-        return self.operator == self.OP_EQ or self.operator == self.OP_NEQ
-
-    @property
-    def is_comparison_test(self):
-        return (self.operator == self.OP_LT or self.operator == self.OP_LTE
-            or self.operator == self.OP_GT or self.operator == self.OP_GTE)
-
-    @property
-    def is_inclusion_test(self):
-        return self.operator == self.OP_IN or self.operator == self.OP_NIN
-
-    @property
-    def requires_number(self):
-        return (self.operator == self.OP_LT or self.operator == self.OP_LTE
-                or self.operator == self.OP_GT or self.operator == self.OP_GTE
-                or (self.operator == self.OP_IN
-                    and isinstance(self.value, HplRange)))
-
-    @property
-    def is_invertible(self):
-        return self.operator in self._INV and self.value.is_reference
-
-    def negation(self):
-        return HplFieldCondition(
-            self.field, self._NOT[self.operator], self.value)
-
-    def inverted(self, alias):
-        if self.operator not in self._INV or not self.value.is_reference:
-            raise HplLogicError("impossible to invert: " + str(self))
-        new_value = HplFieldReference(self.field.token, message=alias)
-        new_field = HplFieldReference(self.value.token, message=None)
-        new_op = self._INV[self.operator]
-        return HplFieldCondition(new_field, new_op, new_value)
-
-    # NOTE old, unused code that might be needed later
-    def __normalise_quantifiers(self):
-        #negate = False
-        #expr = self.field.clone()
-        #for field in expr.fields:
-        #    if field.index == NO_INDEX:
-        #        field.index = SOME_INDEX if negate else ALL_INDICES
-        #        negate = not negate
-        #    elif field.index == ALL_INDICES and negate:
-        #        field.index = SOME_INDEX
-        #    elif field.index == SOME_INDEX and negate:
-        #        field.index = ALL_INDICES
-        #op = self._NOT[self.operator] if negate else self.operator
-        #return HplMsgFieldCondition(expr, op, self.value)
-        pass
-
     def __eq__(self, other):
-        if not isinstance(other, HplMsgFieldCondition):
+        if not isinstance(other, HplRelationalOperator):
             return False
-        return (self.field == other.field
-                and self.operator == other.operator
-                and self.value == other.value)
+        if self.operator != other.operator:
+            return False
+        if self.commutative != other.commutative:
+            return False
+        a = self.value1
+        b = self.value2
+        x = other.value1
+        y = other.value2
+        if self.commutative:
+            return (a == x and b == y) or (a == y and b == x)
+        return a == x and b == y
 
     def __hash__(self):
-        h = 31 * hash(self.field) + hash(self.operator)
-        return 31 * h + hash(self.value)
+        h = 31 * hash(self.operator) + hash(self.value1)
+        h = 31 * h + hash(self.value2)
+        h = 31 * h + hash(self.commutative)
+        return h
 
     def __str__(self):
-        return "{} {} {}".format(self.field, self.operator, self.value)
+        a = "({})".format(self.value1)
+        b = "({})".format(self.value2)
+        return "{} {} {}".format(a, self.operator, b)
 
     def __repr__(self):
-        return "{}({}, {}, {})".format(type(self).__name__,
-            repr(self.field), repr(self.operator), repr(self.value))
+        return "{}({}, {}, {}, commutative={})".format(
+            type(self).__name__, repr(self.operator), repr(self.value1),
+            repr(self.value2), repr(self.commutative))
 
 
 ###############################################################################
