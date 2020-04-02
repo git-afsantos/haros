@@ -324,16 +324,16 @@ class PropertyTransformer(Transformer):
         return (children[0], alias)
 
     def condition(self, children):
-        return self._left_recursive_binop(children)
+        return self._left_recursive_bincon(children)
 
     def disjunction(self, children):
-        return self._left_recursive_binop(children)
+        return self._left_recursive_bincon(children)
 
     def conjunction(self, children):
-        return self._left_recursive_binop(children)
+        return self._left_recursive_bincon(children)
 
     def negation(self, (op, phi)):
-        return HplUnaryOperator(op, phi)
+        return HplUnaryConnective(op, phi)
 
     def universal(self, (qt, var, ran, phi)):
         return HplQuantifier(qt, var, ran, phi)
@@ -342,7 +342,16 @@ class PropertyTransformer(Transformer):
         return HplQuantifier(qt, var, ran, phi)
 
     def atomic_condition(self, (lhs, op, rhs)):
-        return HplBinaryOperator(op, lhs, rhs)
+        return HplBinaryConnective(op, lhs, rhs)
+
+    def _left_recursive_bincon(self, children):
+        assert len(children) == 1 or len(children) == 3
+        if len(children) == 3:
+            op = children[1]
+            lhs = children[0]
+            rhs = children[2]
+            return HplBinaryConnective(op, lhs, rhs)
+        return children[0] # len(children) == 1
 
     def function_call(self, (fun, arg)):
         return HplFunctionCall(fun, (arg,))

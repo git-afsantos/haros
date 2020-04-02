@@ -1204,8 +1204,8 @@ class HplFieldReference(HplValue):
                 index = name[i+1:-1]
                 name = name[:i]
                 parts.append(HplFieldAccessor(name, False, False))
-                is_loop = index.startswith("*") or ":" in index
-                parts.append(HplFieldAccessor(index, True, is_loop))
+                is_var = index.startswith("@")
+                parts.append(HplFieldAccessor(index, True, is_var))
             else:
                 parts.append(HplFieldAccessor(name, False, False))
         self._parts = tuple(parts)
@@ -1225,21 +1225,6 @@ class HplFieldReference(HplValue):
     def is_reference(self):
         return True
 
-    @property
-    def is_multi_field(self):
-        return any(accessor.is_loop for accessor in self._parts)
-
-    def loops(self):
-        # ex: "a[*].b.c[*].d.e[0].f"
-        # >> [(["a"], "*"), (["b", "c"], "*")], ["d.e[0].f"]
-        arrays = [i for i in range(len(self._parts)) if self._parts[i].is_loop]
-        previous = 0
-        for i in range(len(arrays)):
-            j = arrays[i]
-            arrays[i] = (self._parts[previous:j], self._parts[j])
-            previous = j + 1
-        return arrays, self._parts[previous:]
-
     def __eq__(self, other):
         if not isinstance(other, HplFieldReference):
             return False
@@ -1251,7 +1236,7 @@ class HplFieldReference(HplValue):
 
     def __str__(self):
         return "{}{}".format(
-            "" if self.message is None else "${}.".format(self.message),
+            "" if self.message is None else "@{}.".format(self.message),
             self.token)
 
     def __repr__(self):
@@ -1260,4 +1245,4 @@ class HplFieldReference(HplValue):
 
 
 HplFieldAccessor = namedtuple("HplFieldAccessor",
-    ("key", "is_indexed", "is_loop"))
+    ("key", "is_indexed", "is_variable"))
