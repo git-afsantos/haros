@@ -72,9 +72,11 @@ negation: NOT_OPERATOR _logic_expr
 
 _quantification: universal | existential
 
-universal: ALL_OPERATOR CNAME ":" _logic_expr
+universal: ALL_OPERATOR CNAME "in" _quant_range ":" _logic_expr
 
-existential: SOME_OPERATOR CNAME ":" _logic_expr
+existential: SOME_OPERATOR CNAME "in" _quant_range ":" _logic_expr
+
+_quant_range: _msg_field | _set_value
 
 atomic_condition: _value BINARY_OPERATOR _value
 
@@ -333,17 +335,17 @@ class PropertyTransformer(Transformer):
     def negation(self, (op, phi)):
         return HplUnaryOperator(op, phi)
 
-    def universal(self, (qt, var, phi)):
-        return HplQuantifier(qt, var, phi)
+    def universal(self, (qt, var, ran, phi)):
+        return HplQuantifier(qt, var, ran, phi)
 
-    def existential(self, (qt, var, phi)):
-        return HplQuantifier(qt, var, phi)
+    def existential(self, (qt, var, ran, phi)):
+        return HplQuantifier(qt, var, ran, phi)
 
     def atomic_condition(self, (lhs, op, rhs)):
         return HplBinaryOperator(op, lhs, rhs)
 
-    def function_call(self, (fun, args)):
-        return HplFunctionCall(fun, args)
+    def function_call(self, (fun, arg)):
+        return HplFunctionCall(fun, (arg,))
 
     def number_expr(self, children):
         return self._left_recursive_binop(children)

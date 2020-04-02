@@ -895,6 +895,18 @@ class HplValue(HplAstObject):
     def is_reference(self):
         return False
 
+    @property
+    def is_variable(self):
+        return False
+
+    @property
+    def is_operator(self):
+        return False
+
+    @property
+    def is_function_call(self):
+        return False
+
 
 class HplLiteral(HplValue):
     __slots__ = ("token", "value", "ros_types")
@@ -928,12 +940,12 @@ class HplSet(HplValue):
     __slots__ = ("values", "ros_types")
 
     def __init__(self, values):
-        self.values = values # [HplLiteral | HplFieldReference]
+        self.values = values # [HplValue]
         ros_types = set(ROS_PRIMITIVE_TYPES)
-        for value in values:
-            ros_types = ros_types & set(value.ros_types)
-        if not ros_types:
-            raise TypeError("mixed incompatible types: " + repr(values))
+        #for value in values:
+        #    ros_types = ros_types & set(value.ros_types)
+        #if not ros_types:
+        #    raise TypeError("mixed incompatible types: " + repr(values))
         self.ros_types = tuple(ros_types)
 
     @property
@@ -966,8 +978,8 @@ class HplRange(HplValue):
                  "exclude_upper", "ros_types")
 
     def __init__(self, lower, upper, exc_lower=False, exc_upper=False):
-        self.lower_bound = lower # HplLiteral | HplFieldReference
-        self.upper_bound = upper # HplLiteral | HplFieldReference
+        self.lower_bound = lower # HplValue
+        self.upper_bound = upper # HplValue
         self.exclude_lower = exc_lower # bool
         self.exclude_upper = exc_upper # bool
         if not any(t in ROS_NUMBER_TYPES for t in lower.ros_types):
@@ -996,14 +1008,185 @@ class HplRange(HplValue):
         return h
 
     def __str__(self):
-        return "{}{} to {}{}".format(
-            self.lower_bound, " (exc)" if self.exclude_lower else "",
-            self.upper_bound, " (exc)" if self.exclude_upper else "")
+        lb = str(self.lower_bound)
+        if not lb.endswith(")") and self.exclude_lower:
+            lb = "({})!".format(lb)
+        ub = str(self.upper_bound)
+        if not ub.endswith(")") and self.exclude_upper:
+            ub = "({})!".format(ub)
+        return "{} to {}".format(lb, ub)
 
     def __repr__(self):
         return "{}({}, {}, exc_lower={}, exc_upper={})".format(
             type(self).__name__, repr(self.lower_bound), repr(self.upper_bound),
             repr(self.exclude_lower), repr(self.exclude_upper))
+
+
+class HplVarReference(HplValue):
+    __slots__ = ("name", "is_message", "is_quantified", "ros_types")
+
+    def __init__(self, name, msg=False, quantified=False):
+        self.name = name # string
+        self.is_message = msg
+        self.is_quantified = quantified
+        self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
+
+    @property
+    def is_variable(self):
+        return True
+
+    def __eq__(self, other):
+        if not isinstance(other, HplVarReference):
+            return False
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __str__(self):
+        return "@{}".format(self.name)
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__, repr(self.name))
+
+
+class HplOperator(HplValue):
+    __slots__ = ()
+
+    @property
+    def is_operator(self):
+        return True
+
+    @property
+    def arity(self):
+        return 0
+
+    @property
+    def is_unary(self):
+        return False
+
+    @property
+    def is_binary(self):
+        return False
+
+
+class HplUnaryOperator(HplValue):
+    __slots__ = ("operator", "value", "ros_types")
+
+    def __init__(self, op, value):
+        self.operator = op # string
+        self.value = value # HplValue
+        self.ros_types = tuple(ROS_NUMBER_TYPES)
+
+    @property
+    def is_unary(self):
+        return True
+
+    @property
+    def arity(self):
+        return 1
+
+    def __eq__(self, other):
+        if not isinstance(other, HplUnaryOperator):
+            return False
+        return (self.operator == other.operator
+                and self.value == other.value)
+
+    def __hash__(self):
+        return 31 * hash(self.operator) + hash(self.value)
+
+    def __str__(self):
+        return "{}({})".format(self.operator, self.value)
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.operator), repr(self.value))
+
+
+class HplBinaryOperator(HplValue):
+    __slots__ = ("operator", "value1", "value2", "infix",
+                 "commutative", "ros_types")
+
+    def __init__(self, op, value1, value2, infix=True, commutative=False):
+        self.operator = op # string
+        self.value1 = value1 # HplValue
+        self.value2 = value2 # HplValue
+        self.infix = infix # bool
+        self.commutative = commutative # bool
+        self.ros_types = tuple(ROS_NUMBER_TYPES)
+
+    @property
+    def is_binary(self):
+        return True
+
+    @property
+    def arity(self):
+        return 2
+
+    def __eq__(self, other):
+        if not isinstance(other, HplBinaryOperator):
+            return False
+        if self.operator != other.operator:
+            return False
+        if self.infix != other.infix or self.commutative != other.commutative:
+            return False
+        a = self.value1
+        b = self.value2
+        x = other.value1
+        y = other.value2
+        if self.commutative:
+            return (a == x and b == y) or (a == y and b == x)
+        return a == x and b == y
+
+    def __hash__(self):
+        h = 31 * hash(self.operator) + hash(self.value1)
+        h = 31 * h + hash(self.value2)
+        h = 31 * h + hash(self.infix)
+        h = 31 * h + hash(self.commutative)
+        return h
+
+    def __str__(self):
+        a = "({})".format(self.value1)
+        b = "({})".format(self.value2)
+        if self.infix:
+            return "{} {} {}".format(a, self.operator, b)
+        else:
+            return "{}({}, {})".format(self.operator, a, b)
+
+    def __repr__(self):
+        return "{}({}, {}, {}, infix={}, commutative={})".format(
+            type(self).__name__, repr(self.operator), repr(self.value1),
+            repr(self.value2), repr(self.infix), repr(self.commutative))
+
+
+class HplFunctionCall(HplValue):
+    __slots__ = ("function", "arguments", "ros_types")
+
+    def __init__(self, fun, args):
+        self.function = fun # string
+        self.arguments = args # [HplValue]
+        self.ros_types = tuple(ROS_NUMBER_TYPES)
+
+    @property
+    def is_function_call(self):
+        return True
+
+    def __eq__(self, other):
+        if not isinstance(other, HplFunctionCall):
+            return False
+        return (self.function == other.function
+                and self.arguments == other.arguments)
+
+    def __hash__(self):
+        return 31 * hash(self.function) + hash(self.arguments)
+
+    def __str__(self):
+        return "{}({})".format(self.function,
+            ", ".join(str(arg) for arg in self.arguments))
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.function), repr(self.arguments))
 
 
 class HplFieldReference(HplValue):
