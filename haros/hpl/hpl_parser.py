@@ -268,7 +268,7 @@ class PropertyTransformer(Transformer):
         assert len(children) == 1 or len(children) == 2
         p = children[0]
         if len(children) == 2:
-            return HplScope.after(p, terminator=children[1])
+            return HplScope.after_until(p, children[1])
         return HplScope.after(p)
 
     def until(self, (event,)):
@@ -317,7 +317,7 @@ class PropertyTransformer(Transformer):
         assert len(children) == 1 or len(children) == 2
         ros_name, alias = children[0]
         phi = HplVacuousTruth() if len(children) == 1 else children[1]
-        return HplEvent(ros_name, alias=alias, predicate=phi)
+        return HplEvent.publish(ros_name, alias=alias, predicate=phi)
 
     def message(self, children):
         alias = None if len(children) == 1 else children[1]

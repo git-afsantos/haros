@@ -26,7 +26,7 @@
 ###############################################################################
 
 from builtins import range # Python 2 and 3: forward-compatible
-from collections import namedtuple
+from collections import deque, namedtuple
 from itertools import chain as iterchain
 
 from .ros_types import (
@@ -57,7 +57,16 @@ class HplLogicError(Exception):
 ###############################################################################
 
 class HplAstObject(object):
-    pass
+    def children(self):
+        return ()
+
+    def iterate(self):
+        yield self
+        queue = deque(self.children())
+        while queue:
+            obj = queue.popleft()
+            yield obj
+            queue.extend(obj.children())
 
 
 class HplAssumption(HplAstObject):
@@ -66,6 +75,9 @@ class HplAssumption(HplAstObject):
     def __init__(self, topic, msg_filter):
         self.topic = topic # string
         self.msg_filter = msg_filter # HplMessageFilter
+
+    def children(self):
+        return ()
 
     def __eq__(self, other):
         if not isinstance(other, HplAssumption):
@@ -85,199 +97,144 @@ class HplAssumption(HplAstObject):
 
 
 class HplProperty(HplAstObject):
-    __slots__ = ("scope", "observable")
+    __slots__ = ("scope", "pattern")
 
-    def __init__(self, scope, observable):
+    def __init__(self, scope, pattern):
         self.scope = scope # HplScope
-        self.observable = observable # HplObservable
+        self.pattern = pattern # HplPattern
 
     @property
     def is_safety(self):
-        return self.observable.is_safety
+        return self.pattern.is_safety
 
     @property
     def is_liveness(self):
-        return self.observable.is_liveness
+        return self.pattern.is_liveness
+
+    def children(self):
+        return (self.scope, self.pattern)
 
     def events(self):
         if self.scope.activator is not None:
-            for event in self.scope.activator.events():
-                yield event
-        for event in self.observable.behaviour.events():
-            yield event
-        if self.observable.trigger is not None:
-            for event in self.observable.trigger.events():
-                yield event
+            yield self.scope.activator
+        yield self.pattern.behaviour
+        if self.pattern.trigger is not None:
+            yield self.pattern.trigger
         if self.scope.terminator is not None:
-            for event in self.scope.terminator.events():
-                yield event
+            yield self.scope.terminator
 
     def sanity_check(self):
         initial = self._check_activator()
         aliases = self._check_trigger(initial)
-        aliases = self._check_behaviour(aliases)
+        self._check_behaviour(aliases)
         self._check_terminator(initial)
-        self._check_duplicate_aliases()
 
     def _check_activator(self):
-        if self.scope.activator is not None:
-            self.scope.activator.sanity_check()
-            refs = self.scope.activator.external_references()
+        p = self.scope.activator
+        if p is not None:
+            refs = p.external_references()
             if refs:
                 raise HplSanityError(
                     "references to undefined events: " + repr(refs))
-            return self.scope.activator.aliases()
-        return set()
+            return p.aliases()
+        return ()
 
     def _check_trigger(self, available):
-        if not (self.observable.is_response or self.observable.is_requirement):
+        s = self.pattern
+        if s.is_absence or s.is_existence:
             return available
-        assert self.observable.trigger is not None
-        self.observable.trigger.sanity_check()
-        if self.observable.is_response:
-            for ref in self.observable.trigger.external_references():
-                if ref not in available:
-                    raise HplSanityError(
-                        "reference to undefined event: " + repr(ref))
-            aliases = self.observable.trigger.aliases()
-            aliases.update(available)
-            return aliases
+        a = s.trigger
+        assert a is not None
+        ext = a.external_references()
+        if s.is_response or s.is_prevention:
+            self._check_refs_defined(ext, available)
+        elif s.is_requirement:
+            aliases = available + s.behaviour.aliases()
+            self._check_refs_defined(ext, aliases)
         else:
-            future_alias = set()
-            for event in self.observable.behaviour.leaves():
-                if event.alias is not None:
-                    future_alias.add(event.alias)
-            for ref in self.observable.trigger.external_references():
-                if ref not in available and ref not in future_alias:
-                    raise HplSanityError(
-                        "reference to undefined event: " + repr(ref))
-            for event in self.observable.trigger.events():
-                for condition in event.msg_filter.conditions:
-                    v = condition.value
-                    if v.is_reference and v.message in future_alias:
-                        if not condition.is_invertible:
-                            raise HplSanityError(
-                                ("reference to future event in non-invertible "
-                                 "condition: ") + repr(v.message))
-            return available
+            assert False, "unexpected pattern type: " + repr(s.pattern_type)
+        aliases = a.aliases()
+        self._check_duplicates(aliases, available)
+        return aliases + available
 
     def _check_behaviour(self, available):
-        self.observable.behaviour.sanity_check()
-        if self.observable.is_requirement:
-            for prefix in self.observable.behaviour.prefixes():
-                for event in prefix:
-                    for ref in event.external_references():
-                        if ref not in available:
-                            raise HplSanityError(
-                                "reference to undefined event: " + repr(ref))
-            trigger = self.observable.trigger.aliases()
-            for event in self.observable.behaviour.leaves():
-                for ref in event.external_references():
-                    if ref not in available and ref not in trigger:
-                        raise HplSanityError(
-                            "reference to undefined event: " + repr(ref))
-        else:
-            for ref in self.observable.behaviour.external_references():
-                if ref not in available:
-                    raise HplSanityError(
-                        "reference to undefined event: " + repr(ref))
-            if self.observable.is_response:
-                limit = self.observable.max_time
-                if limit < INF:
-                    for chain in self.observable.behaviour.chains:
-                        delay = 0.0
-                        for event in chain.events:
-                            delay += event.delay
-                        if delay >= limit:
-                            raise HplSanityError(
-                                ("delay between behaviour events "
-                                 "is greater than ") + str(limit))
-        aliases = self.observable.behaviour.aliases()
-        aliases.update(available)
-        if self.observable.is_requirement:
-            aliases.update(self.observable.trigger.aliases())
-        return aliases
+        b = self.pattern.behaviour
+        self._check_refs_defined(b.external_references(), available)
+        self._check_duplicates(b.aliases(), available)
 
     def _check_terminator(self, available):
-        if self.scope.terminator is not None:
-            self.scope.terminator.sanity_check()
-            for ref in self.scope.terminator.external_references():
-                if not ref in available:
-                    raise HplSanityError(
-                        "reference to undefined event: " + repr(ref))
+        q = self.scope.terminator
+        if q is not None:
+            self._check_refs_defined(q.external_references(), available)
+            self._check_duplicates(q.aliases(), available)
 
-    def _check_duplicate_aliases(self):
-        events = []
-        aliases = set()
-        if self.scope.activator is not None:
-            events.extend(self.scope.activator.events())
-        if self.observable.trigger is not None:
-            events.extend(self.observable.trigger.events())
-        events.extend(self.observable.behaviour.events())
-        if self.scope.terminator is not None:
-            events.extend(self.scope.terminator.events())
-        for event in events:
-            if not event.alias:
-                continue
-            if event.alias in aliases:
-                raise HplSanityError("duplicate alias: " + event.alias)
-            aliases.add(event.alias)
+    def _check_refs_defined(self, refs, available):
+        for ref in refs:
+            if not ref in available:
+                raise HplSanityError(
+                    "reference to undefined event: " + repr(ref))
+
+    def _check_duplicates(self, aliases, available):
+        for alias in aliases:
+            if alias in available:
+                raise HplSanityError("duplicate alias: " + repr(alias))
 
     def __eq__(self, other):
         if not isinstance(other, HplProperty):
             return False
-        return (self.observable == other.observable
-                and self.scope == other.scope)
+        return self.pattern == other.pattern and self.scope == other.scope
 
     def __hash__(self):
-        return 31 * hash(self.scope) + hash(self.observable)
+        return 31 * hash(self.scope) + hash(self.pattern)
 
     def __str__(self):
-        return "{}: {}".format(self.scope, self.observable)
+        return "{}: {}".format(self.scope, self.pattern)
 
     def __repr__(self):
         return "{}({}, {})".format(type(self).__name__,
-            repr(self.scope), repr(self.observable))
+            repr(self.scope), repr(self.pattern))
 
 
 class HplScope(HplAstObject):
-    __slots__ = ("scope_type", "activator", "terminator", "timeout")
+    __slots__ = ("scope_type", "activator", "terminator")
 
     GLOBAL = 1
     AFTER_UNTIL = 2
-    AFTER_WITHIN = 3
+    AFTER = 3
+    UNTIL = 4
 
-    def __init__(self, scope, activator=None, terminator=None, timeout=INF):
+    def __init__(self, scope, activator=None, terminator=None):
         if scope == self.GLOBAL:
             if activator is not None:
                 raise ValueError(activator)
             if terminator is not None:
                 raise ValueError(terminator)
-            if timeout < INF:
-                raise ValueError(timeout)
-        elif scope == self.AFTER_UNTIL:
-            if timeout < INF:
-                raise ValueError(timeout)
-        elif scope == self.AFTER_WITHIN:
+        elif scope == self.AFTER:
             if terminator is not None:
                 raise ValueError(terminator)
-        else:
+        elif scope == self.UNTIL:
+            if activator is not None:
+                raise ValueError(activator)
+        elif scope != self.AFTER_UNTIL:
             raise ValueError(scope)
         self.scope_type = scope
-        self.activator = activator # HplTopLevelEvent | None
-        self.terminator = terminator # HplTopLevelEvent | None
-        self.timeout = timeout # float
+        self.activator = activator # HplEvent | None
+        self.terminator = terminator # HplEvent | None
 
     @classmethod
     def globally(cls):
         return cls(cls.GLOBAL)
 
     @classmethod
-    def after(cls, activator, terminator=None, timeout=INF):
-        if timeout < INF and terminator is not None:
-            raise ValueError("cannot specify both terminator and timeout")
-        if timeout < INF:
-            return cls(cls.AFTER_WITHIN, activator=activator, timeout=timeout)
+    def after(cls, activator):
+        return cls(cls.AFTER, activator=activator)
+
+    @classmethod
+    def until(cls, terminator):
+        return cls(cls.UNTIL, terminator=terminator)
+
+    @classmethod
+    def after_until(cls, activator, terminator):
         return cls(cls.AFTER_UNTIL, activator=activator, terminator=terminator)
 
     @property
@@ -286,75 +243,85 @@ class HplScope(HplAstObject):
 
     @property
     def is_after(self):
-        return (self.scope_type == self.AFTER_UNTIL
-                or self.scope_type == self.AFTER_WITHIN)
+        return self.scope_type == self.AFTER
+
+    @property
+    def is_until(self):
+        return self.scope_type == self.UNTIL
 
     @property
     def is_after_until(self):
         return self.scope_type == self.AFTER_UNTIL
 
-    @property
-    def is_after_within(self):
-        return self.scope_type == self.AFTER_WITHIN
+    def children(self):
+        if self.activator is None and self.terminator is None:
+            return ()
+        if self.activator is None:
+            return (self.terminator,)
+        if self.terminator is None:
+            return (self.activator,)
+        return (self.activator, self.terminator)
 
     def __eq__(self, other):
         if not isinstance(other, HplScope):
             return False
         return (self.scope_type == other.scope_type
                 and self.activator == other.activator
-                and self.terminator == other.terminator
-                and self.timeout == other.timeout)
+                and self.terminator == other.terminator)
 
     def __hash__(self):
         h = 31 * hash(self.scope_type) + hash(self.activator)
         h = 31 * h + hash(self.terminator)
-        return 31 * h + hash(self.timeout)
+        return h
 
     def __str__(self):
-        activator = "launch" if self.activator is None else str(self.activator)
-        terminator = ("shutdown" if self.terminator is None
-                                 else str(self.terminator))
         if self.scope_type == self.GLOBAL:
             return "globally"
+        if self.scope_type == self.AFTER:
+            return "after {}".format(self.activator)
+        if self.scope_type == self.UNTIL:
+            return "until {}".format(self.terminator)
         if self.scope_type == self.AFTER_UNTIL:
-            return "after {} until {}".format(activator, terminator)
-        if self.scope_type == self.AFTER_WITHIN:
-            return "within {} after {}".format(self.timeout, activator)
+            return "after {} until {}".format(self.activator, self.terminator)
         assert False, "unexpected scope type"
 
     def __repr__(self):
-        return "{}({}, activator={}, terminator={}, timeout={})".format(
-            type(self).__name__, self.scope_type, repr(self.activator),
-            repr(self.terminator), repr(self.timeout))
+        return "{}({}, activator={}, terminator={})".format(
+            type(self).__name__, repr(self.scope_type),
+            repr(self.activator), repr(self.terminator))
 
 
-class HplObservable(HplAstObject):
-    __slots__ = ("pattern", "behaviour", "trigger", "min_time", "max_time")
+class HplPattern(HplAstObject):
+    __slots__ = ("pattern_type", "behaviour", "trigger", "min_time", "max_time")
 
     EXISTENCE = 1
     ABSENCE = 2
     RESPONSE = 3
     REQUIREMENT = 4
+    PREVENTION = 5
 
     def __init__(self, pattern, behaviour, trigger, min_time=0.0, max_time=INF):
         if pattern == self.EXISTENCE or pattern == self.ABSENCE:
             if trigger is not None:
                 raise ValueError(trigger)
-        elif pattern != self.RESPONSE and pattern != self.REQUIREMENT:
+        elif (pattern != self.RESPONSE and pattern != self.REQUIREMENT
+                and pattern != self.PREVENTION):
             raise ValueError(pattern)
-        self.pattern = pattern
-        self.behaviour = behaviour # HplTopLevelEvent
-        self.trigger = trigger # HplTopLevelEvent | None
+        self.pattern_type = pattern
+        self.behaviour = behaviour # HplEvent
+        self.trigger = trigger # HplEvent | None
         self.min_time = min_time
         self.max_time = max_time
 
     @classmethod
-    def existence(cls, behaviour):
-        return cls(cls.EXISTENCE, behaviour, None)
+    def existence(cls, behaviour, min_time=0.0, max_time=INF):
+        return cls(cls.EXISTENCE, behaviour, None,
+            min_time=min_time, max_time=max_time)
 
     @classmethod
-    def absence(cls, behaviour):
-        return cls(cls.ABSENCE, behaviour, None)
+    def absence(cls, behaviour, min_time=0.0, max_time=INF):
+        return cls(cls.ABSENCE, behaviour, None,
+            min_time=min_time, max_time=max_time)
 
     @classmethod
     def response(cls, event, response, min_time=0.0, max_time=INF):
@@ -366,63 +333,83 @@ class HplObservable(HplAstObject):
         return cls(cls.REQUIREMENT, event, requirement,
             min_time=min_time, max_time=max_time)
 
+    @classmethod
+    def prevention(cls, event, forbidden, min_time=0.0, max_time=INF):
+        return cls(cls.PREVENTION, event, forbidden,
+            min_time=min_time, max_time=max_time)
+
     @property
     def is_safety(self):
-        return (self.pattern == self.ABSENCE
-                or self.pattern == self.REQUIREMENT)
+        return (self.pattern_type == self.ABSENCE
+                or self.pattern_type == self.REQUIREMENT
+                or self.pattern_type == self.PREVENTION)
 
     @property
     def is_liveness(self):
-        return (self.pattern == self.EXISTENCE
-                or self.pattern == self.RESPONSE)
+        return (self.pattern_type == self.EXISTENCE
+                or self.pattern_type == self.RESPONSE)
 
     @property
     def is_absence(self):
-        return self.pattern == self.ABSENCE
+        return self.pattern_type == self.ABSENCE
 
     @property
     def is_existence(self):
-        return self.pattern == self.EXISTENCE
+        return self.pattern_type == self.EXISTENCE
 
     @property
     def is_requirement(self):
-        return self.pattern == self.REQUIREMENT
+        return self.pattern_type == self.REQUIREMENT
 
     @property
     def is_response(self):
-        return self.pattern == self.RESPONSE
+        return self.pattern_type == self.RESPONSE
+
+    @property
+    def is_prevention(self):
+        return self.pattern_type == self.PREVENTION
+
+    def children(self):
+        if self.trigger is None:
+            return (self.behaviour,)
+        return (self.trigger, self.behaviour)
 
     def __eq__(self, other):
-        if not isinstance(other, HplObservable):
+        if not isinstance(other, HplPattern):
             return False
-        return (self.pattern == other.pattern
+        return (self.pattern_type == other.pattern_type
                 and self.behaviour == other.behaviour
-                and self.trigger == other.trigger)
+                and self.trigger == other.trigger
+                and self.min_time == other.min_time
+                and self.max_time == other.max_time)
 
     def __hash__(self):
-        h = 31 * hash(self.pattern) + hash(self.behaviour)
-        return 31 * h + hash(self.trigger)
+        h = 31 * hash(self.pattern_type) + hash(self.behaviour)
+        h = 31 * h + hash(self.trigger)
+        h = 31 * h + hash(self.min_time)
+        h = 31 * h + hash(self.max_time)
+        return h
 
     def __str__(self):
-        if self.pattern == self.EXISTENCE:
-            return "some {}".format(self.behaviour)
-        if self.pattern == self.ABSENCE:
-            return "no {}".format(self.behaviour)
-        if self.pattern == self.RESPONSE:
-            t = ""
-            if self.max_time < INF:
-                t = "within {}s ".format(self.max_time)
-            return "{} causes {}{}".format(self.trigger, t, self.behaviour)
-        if self.pattern == self.REQUIREMENT:
-            t = ""
-            if self.max_time < INF:
-                t = "within {}s ".format(self.max_time)
-            return "{} requires {}{}".format(self.behaviour, t, self.trigger)
+        t = ""
+        if self.max_time < INF:
+            t = " within {}s".format(self.max_time)
+        if self.pattern_type == self.EXISTENCE:
+            return "some {}{}".format(self.behaviour, t)
+        if self.pattern_type == self.ABSENCE:
+            return "no {}{}".format(self.behaviour, t)
+        if self.pattern_type == self.RESPONSE:
+            return "{} causes {}{}".format(self.trigger, self.behaviour, t)
+        if self.pattern_type == self.REQUIREMENT:
+            return "{} requires {}{}".format(self.behaviour, self.trigger, t)
+        if self.pattern_type == self.PREVENTION:
+            return "{} forbids {}{}".format(self.trigger, self.behaviour, t)
         assert False, "unexpected observable pattern"
 
     def __repr__(self):
-        return "{}({}, {}, {})".format(type(self).__name__,
-            self.pattern, repr(self.behaviour), repr(self.trigger))
+        return "{}({}, {}, {}, min_time={}, max_time={})".format(
+            type(self).__name__, repr(self.pattern_type), repr(self.behaviour),
+            repr(self.trigger), repr(self.min_time), repr(self.max_time))
 
 
 ###############################################################################
@@ -430,258 +417,76 @@ class HplObservable(HplAstObject):
 ###############################################################################
 
 class HplEvent(HplAstObject):
-    __slots__ = ("event_type", "msg_filter", "topic", "delay", "duration",
-                 "alias", "msg_type")
+    __slots__ = ("event_type", "predicate", "topic", "alias", "msg_type")
 
     PUBLISH = 1
 
-    def __init__(self, event_type, msg_filter, topic, delay=0.0, duration=INF,
-                 alias=None):
+    def __init__(self, event_type, predicate, topic, alias=None):
         if event_type != self.PUBLISH:
             raise ValueError(event_type)
         self.event_type = event_type
-        self.msg_filter = msg_filter # HplMessageFilter
+        self.predicate = predicate # HplCondition
         self.topic = topic # string
-        self.delay = delay # float >= 0
-        self.duration = duration # float >= 0
         self.alias = alias # string
         self.msg_type = None # .ros_types.TypeToken
 
     @classmethod
-    def publish(cls, topic, msg_filter=None, delay=0.0,
-                duration=INF, alias=None):
-        if msg_filter is None:
-            msg_filter = HplMessageFilter([])
-        return cls(cls.PUBLISH, msg_filter, topic, delay=delay,
-                   duration=duration, alias=alias)
+    def publish(cls, topic, predicate=None, alias=None):
+        if predicate is None:
+            predicate = HplVacuousTruth()
+        return cls(cls.PUBLISH, predicate, topic, alias=alias)
 
     @property
     def is_publish(self):
         return self.event_type == self.PUBLISH
 
+    @property
+    def phi(self):
+        return self.predicate
+
+    def children(self):
+        return (self.predicate,)
+
+    def aliases(self):
+        if self.alias is None:
+            return ()
+        return (self.alias,)
+
     def external_references(self):
         refs = set()
-        for condition in self.msg_filter.conditions:
-            if condition.value.is_set:
-                for value in condition.value.values:
-                    if value.is_reference and value.message is not None:
-                        refs.add(value.message)
-            elif condition.value.is_range:
-                value = condition.value.lower_bound
-                if value.is_reference and value.message is not None:
-                    refs.add(value.message)
-                value = condition.value.upper_bound
-                if value.is_reference and value.message is not None:
-                    refs.add(value.message)
-            elif condition.value.is_reference:
-                if condition.value.message is not None:
-                    refs.add(condition.value.message)
+        for obj in self.iterate():
+            if isinstance(obj, HplFieldReference):
+                if obj.message is not None:
+                    refs.add(obj.message)
+        if self.alias is not None:
+            refs.discard(self.alias)
         return refs
 
     def __eq__(self, other):
         if not isinstance(other, HplEvent):
             return False
         return (self.event_type == other.event_type
-                and self.msg_filter == other.msg_filter
-                and self.topic == other.topic
-                and self.delay == other.delay
-                and self.duration == other.duration)
+                and self.predicate == other.predicate
+                and self.topic == other.topic)
 
     def __hash__(self):
-        h = 31 * hash(self.event_type) + hash(self.msg_filter)
-        h = 31 * h + hash(self.topic)
-        h = 31 * h + hash(self.delay)
-        return 31 * h + hash(self.duration)
+        h = 31 * hash(self.event_type) + hash(self.predicate)
+        return 31 * h + hash(self.topic)
 
     def __str__(self):
-        timer = ""
-        if self.delay > 0.0 or self.duration < INF:
-            timer = "[{}s to {}s] ".format(self.delay, self.duration)
-        msg = ""
-        if not self.msg_filter.is_empty:
-            msg = " " + str(self.msg_filter)
+        phi = ""
+        if not self.predicate.is_trivial:
+            phi = " {{ {} }}".format(self.predicate)
         alias = (" as " + self.alias) if self.alias is not None else ""
         if self.event_type == self.PUBLISH:
-            return "{}{}{}{}".format(timer, self.topic, msg, alias)
+            return "{}{}{}".format(self.topic, alias, phi)
         else:
             assert False, "unexpected event type"
 
     def __repr__(self):
-        return "{}({}, {}, {}, delay={}, duration={}, alias={})".format(
-            type(self).__name__, self.event_type, repr(self.msg_filter),
-            self.topic, self.delay, self.duration, self.alias)
-
-
-class HplEventChain(HplAstObject):
-    __slots__ = ("events", "duration")
-
-    def __init__(self, events, duration=INF):
-        if len(events) < 1:
-            raise ValueError(events)
-        self.events = events # [HplEvent]
-        self.duration = duration
-
-    @property
-    def root(self):
-        return self.events[0]
-
-    @property
-    def leaf(self):
-        return self.events[-1]
-
-    def prefix(self):
-        return self.events[:-1]
-
-    def suffix(self):
-        return self.events[1:]
-
-    def aliases(self):
-        return set(e.alias for e in self.events if e.alias is not None)
-
-    def external_references(self):
-        # assume sanity_check
-        aliases = set(e.alias for e in self.events if e.alias is not None)
-        refs = set()
-        for event in self.events:
-            for ref in event.external_references():
-                if ref not in aliases:
-                    refs.add(ref)
-        return refs
-
-    def sanity_check(self):
-        aliases = []
-        for ev in self.events:
-            if ev.alias is not None:
-                if ev.alias in aliases:
-                    raise HplSanityError("duplicate alias: " + repr(ev.alias))
-            aliases.append(ev.alias)
-        for i in range(len(self.events)):
-            for ref in self.events[i].external_references():
-                for j in range(i + 1, len(aliases)):
-                    if ref == aliases[j]:
-                        raise HplSanityError(
-                            "reference to a future event: " + repr(ref))
-
-    def __eq__(self, other):
-        if not isinstance(other, HplEventChain):
-            return False
-        return (self.events == other.events
-                and self.duration == other.duration)
-
-    def __hash__(self):
-        h = hash(self.duration)
-        for event in self.events:
-            h = 31 * h + hash(event)
-        return h
-
-    def __str__(self):
-        timer = ""
-        if self.duration < INF:
-            timer = " within {}s".format(self.duration)
-        sequence = "; ".join(str(event) for event in self.events)
-        return "{}{}".format(sequence, timer)
-
-    def __repr__(self):
-        return "{}({}, duration={})".format(type(self).__name__,
-            repr(self.events), self.duration)
-
-
-class HplTopLevelEvent(HplAstObject):
-    def roots(self):
-        raise NotImplementedError()
-
-    def leaves(self):
-        raise NotImplementedError()
-
-    def prefixes(self):
-        raise NotImplementedError()
-
-    def suffixes(self):
-        raise NotImplementedError()
-
-    def events(self):
-        raise NotImplementedError()
-
-    def aliases(self):
-        raise NotImplementedError()
-
-    def external_references(self):
-        raise NotImplementedError()
-
-    def sanity_check(self):
-        raise NotImplementedError()
-
-
-class HplChainDisjunction(HplTopLevelEvent):
-    __slots__ = ("chains",)
-
-    def __init__(self, chains):
-        # chains :: [HplEventChain]
-        if len(chains) < 1:
-            raise ValueError(chains)
-        self.chains = chains
-
-    def roots(self):
-        return tuple(chain.root for chain in self.chains)
-
-    def leaves(self):
-        return tuple(chain.leaf for chain in self.chains)
-
-    def prefixes(self):
-        return [chain.prefix() for chain in self.chains]
-
-    def suffixes(self):
-        return [chain.suffix() for chain in self.chains]
-
-    def events(self):
-        for chain in self.chains:
-            for event in chain.events:
-                yield event
-
-    def aliases(self):
-        # cannot reference an event for sure when there is a disjunction
-        if len(self.chains) > 1:
-            return set()
-        return self.chains[0].aliases()
-
-    def external_references(self):
-        # cannot reference events across disjunctions
-        refs = set()
-        for chain in self.chains:
-            refs.update(chain.external_references())
-        return refs
-
-    def sanity_check(self):
-        aliases = set()
-        for chain in self.chains:
-            chain.sanity_check()
-            for alias in chain.aliases():
-                if alias in aliases:
-                    raise HplSanityError("duplicate alias: " + repr(alias))
-                aliases.add(alias)
-        for chain in self.chains:
-            for ref in chain.external_references():
-                if ref in aliases:
-                    raise HplSanityError(
-                        "reference across parallel chains" + repr(ref))
-
-    def __eq__(self, other):
-        if not isinstance(other, HplChainDisjunction):
-            return False
-        return (len(self.chains) == len(other.chains)
-                and all(chain in other.chains for chain in self.chains))
-
-    def __hash__(self):
-        h = 17
-        for chain in self.chains:
-            h = 31 * h + hash(chain)
-        return h
-
-    def __str__(self):
-        return " || ".join(str(chain) for chain in self.chains)
-
-    def __repr__(self):
-        return "{}({})".format(type(self).__name__, repr(self.chains))
+        return "{}({}, {}, {}, alias={})".format(
+            type(self).__name__, repr(self.event_type), repr(self.predicate),
+            repr(self.topic), repr(self.alias))
 
 
 ###############################################################################
@@ -740,6 +545,9 @@ class HplQuantifier(HplCondition):
     @property
     def phi(self):
         return self.condition
+
+    def children(self):
+        return (self.domain, self.condition)
 
     def __eq__(self, other):
         if not isinstance(other, HplQuantifier):
@@ -808,6 +616,9 @@ class HplUnaryConnective(HplConnective):
     def phi(self):
         return self.condition
 
+    def children(self):
+        return (self.condition,)
+
     def __eq__(self, other):
         if not isinstance(other, HplUnaryConnective):
             return False
@@ -861,6 +672,9 @@ class HplBinaryConnective(HplConnective):
     @property
     def psi(self):
         return self.condition2
+
+    def children(self):
+        return (self.condition1, self.condition2)
 
     def __eq__(self, other):
         if not isinstance(other, HplBinaryConnective):
@@ -947,6 +761,9 @@ class HplRelationalOperator(HplCondition):
     def is_in(self):
         return self.operator == self.OP_IN
 
+    def children(self):
+        return (self.value1, self.value2)
+
     def __eq__(self, other):
         if not isinstance(other, HplRelationalOperator):
             return False
@@ -1014,6 +831,9 @@ class HplValue(HplAstObject):
     def is_function_call(self):
         return False
 
+    def external_references(self):
+        return set()
+
 
 class HplLiteral(HplValue):
     __slots__ = ("token", "value", "ros_types")
@@ -1062,6 +882,9 @@ class HplSet(HplValue):
     def to_set(self):
         return set(self.values)
 
+    def children(self):
+        return self.values
+
     def __eq__(self, other):
         if not isinstance(other, HplSet):
             return False
@@ -1100,6 +923,9 @@ class HplRange(HplValue):
     def is_range(self):
         return True
 
+    def children(self):
+        return (self.lower_bound, self.upper_bound)
+
     def __eq__(self, other):
         if not isinstance(other, HplRange):
             return False
@@ -1130,12 +956,11 @@ class HplRange(HplValue):
 
 
 class HplVarReference(HplValue):
-    __slots__ = ("name", "is_message", "is_quantified", "ros_types")
+    __slots__ = ("name", "is_message", "ros_types")
 
-    def __init__(self, name, msg=False, quantified=False):
+    def __init__(self, name, msg=False):
         self.name = name # string
         self.is_message = msg
-        self.is_quantified = quantified
         self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
     @property
@@ -1193,6 +1018,9 @@ class HplUnaryOperator(HplValue):
     def arity(self):
         return 1
 
+    def children(self):
+        return (self.value,)
+
     def __eq__(self, other):
         if not isinstance(other, HplUnaryOperator):
             return False
@@ -1229,6 +1057,9 @@ class HplBinaryOperator(HplValue):
     @property
     def arity(self):
         return 2
+
+    def children(self):
+        return (self.value1, self.value2)
 
     def __eq__(self, other):
         if not isinstance(other, HplBinaryOperator):
@@ -1277,6 +1108,9 @@ class HplFunctionCall(HplValue):
     @property
     def is_function_call(self):
         return True
+
+    def children(self):
+        return self.arguments
 
     def __eq__(self, other):
         if not isinstance(other, HplFunctionCall):
