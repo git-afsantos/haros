@@ -568,7 +568,7 @@ class HplQuantifier(HplCondition):
         return h
 
     def __str__(self):
-        return "{} {} in {}: ({})".format(self.quantifier, self.variable,
+        return "({} {} in {}: {})".format(self.quantifier, self.variable,
             self.domain, self.condition)
 
     def __repr__(self):
@@ -635,7 +635,7 @@ class HplUnaryConnective(HplConnective):
         return 31 * hash(self.connective) + hash(self.condition)
 
     def __str__(self):
-        return "{}({})".format(self.connective, self.condition)
+        return "({} {})".format(self.connective, self.condition)
 
     def __repr__(self):
         return "{}({}, {})".format(
@@ -708,9 +708,9 @@ class HplBinaryConnective(HplConnective):
         return h
 
     def __str__(self):
-        a = "({})".format(self.condition1)
-        b = "({})".format(self.condition2)
-        return "{} {} {}".format(a, self.connective, b)
+        a = str(self.condition1)
+        b = str(self.condition2)
+        return "({} {} {})".format(a, self.connective, b)
 
     def __repr__(self):
         return "{}({}, {}, {}, commutative={})".format(
@@ -800,9 +800,7 @@ class HplRelationalOperator(HplCondition):
         return h
 
     def __str__(self):
-        a = "({})".format(self.value1)
-        b = "({})".format(self.value2)
-        return "{} {} {}".format(a, self.operator, b)
+        return "({} {} {})".format(self.value1, self.operator, self.value2)
 
     def __repr__(self):
         return "{}({}, {}, {}, commutative={})".format(
@@ -1001,7 +999,7 @@ class HplRange(HplValue):
         rp = "]!" if self.exclude_upper else "]"
         lb = str(self.lower_bound)
         ub = str(self.upper_bound)
-        return "{}({}) to ({}){}".format(lp, lb, ub, rp)
+        return "{}{} to {}{}".format(lp, lb, ub, rp)
 
     def __repr__(self):
         return "{}({}, {}, exc_lower={}, exc_upper={})".format(
@@ -1091,7 +1089,7 @@ class HplUnaryOperator(HplValue):
         return 31 * hash(self.operator) + hash(self.value)
 
     def __str__(self):
-        return "{}({})".format(self.operator, self.value)
+        return "({}{})".format(self.operator, self.value)
 
     def __repr__(self):
         return "{}({}, {})".format(
@@ -1148,10 +1146,10 @@ class HplBinaryOperator(HplValue):
         return h
 
     def __str__(self):
-        a = "({})".format(self.value1)
-        b = "({})".format(self.value2)
+        a = str(self.value1)
+        b = str(self.value2)
         if self.infix:
-            return "{} {} {}".format(a, self.operator, b)
+            return "({} {} {})".format(a, self.operator, b)
         else:
             return "{}({}, {})".format(self.operator, a, b)
 

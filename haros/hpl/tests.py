@@ -50,13 +50,29 @@ from .hpl_parser import (
 BAD_PREDICATES = [
     "a + b + c",
     "{1} and [2 to f.g.h]",
-    "(1 and 2) + (not x)"
+    "(1 and 2) + (not x)",
+    "forall 42 in D: phi",
+    "forall x in 42: phi",
+    "forall x in D: 42",
+    "a implies iff b",
+    "a implies 42",
+    "a and 42",
+    "a or 42",
+    "not 42",
+    "not a + b",
+    "-(a and b)",
+    "a < b < c",
+    "(a < b) < c",
 ]
 
 GOOD_PREDICATES = [
     "@a < 3",
     "a + b < c",
-    "a implies forall x in xs: b"
+    "a implies forall x in xs: b",
+    "a implies iff iff iff",
+    "not a + b < c",
+    "---42 = -42",
+    "a + b * c ** d = e ** -(f - g) / h",
 ]
 
 
@@ -138,9 +154,8 @@ def test_routine(parser, good, bad):
             print repr(tree)
             return 1
         except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
-            print "[ Parsing ] FAIL"
+            print "[ Parsing ] FAIL (expected)"
             print "  >>", str(e)
-            return 1
         except VisitError as e:
             # e.orig_exc
             print "[Transform] FAIL (expected)"
@@ -162,6 +177,8 @@ def test_routine(parser, good, bad):
             # e.orig_exc
             print "[Transform] FAIL"
             print " >>", str(e)
+            print ""
+            print repr(tree)
             return 1
     print "\nAll", str(len(bad) + len(good)), "tests passed."
     return 0
@@ -171,6 +188,7 @@ def test_predicates():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
                   start="condition", debug=True)
     return test_routine(parser, GOOD_PREDICATES, BAD_PREDICATES)
+    #return test_routine(parser, (), BAD_PREDICATES)
 
 def test_properties():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",

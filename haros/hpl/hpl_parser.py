@@ -75,8 +75,6 @@ _quant_range: _msg_field | enum_literal | range_literal
 
 atomic_condition: expr [RELATIONAL_OPERATOR expr]
 
-comparison: [comparison RELATIONAL_OPERATOR] expr
-
 expr: [expr ADD_OPERATOR] term
 
 term: [term MULT_OPERATOR] factor
@@ -87,7 +85,11 @@ _exponent: _atomic_value
          | negative_number
          | "(" condition ")"
 
-negative_number: MINUS_OPERATOR _exponent
+_just_expr: _atomic_value
+          | negative_number
+          | "(" expr ")"
+
+negative_number: MINUS_OPERATOR _just_expr
 
 _atomic_value: boolean
              | string
@@ -136,7 +138,7 @@ COMP_OPERATOR: "<" "="?
 IN_OPERATOR: "in"
 
 NOT_OPERATOR: "not"
-IF_OPERATOR: "implies" | "if" | "iff"
+IF_OPERATOR: "implies" | "iff"
 OR_OPERATOR: "or"
 AND_OPERATOR: "and"
 ALL_OPERATOR: "forall"
