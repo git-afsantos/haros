@@ -521,6 +521,10 @@ class HplQuantifier(HplCondition):
     __slots__ = ("quantifier", "variable", "domain", "condition")
 
     def __init__(self, qt, var, ran, phi):
+        if not isinstance(ran, HplValue):
+            raise TypeError("not a value: " + str(ran))
+        if not isinstance(phi, HplCondition):
+            raise TypeError("not a condition: " + str(phi))
         self.quantifier = qt # string
         self.variable = var # string
         self.domain = ran # HplValue
@@ -593,6 +597,8 @@ class HplUnaryConnective(HplConnective):
     __slots__ = ("connective", "condition")
 
     def __init__(self, con, p):
+        if not isinstance(p, HplCondition):
+            raise TypeError("not a condition: " + str(p))
         self.connective = con # string
         self.condition = p # HplCondition
 
@@ -640,6 +646,10 @@ class HplBinaryConnective(HplConnective):
     __slots__ = ("connective", "condition1", "condition2", "commutative")
 
     def __init__(self, con, p, q, commutative=False):
+        if not isinstance(p, HplCondition):
+            raise TypeError("not a condition: " + str(p))
+        if not isinstance(q, HplCondition):
+            raise TypeError("not a condition: " + str(q))
         self.connective = con # string
         self.condition1 = p # HplCondition
         self.condition2 = q # HplCondition
@@ -720,6 +730,10 @@ class HplRelationalOperator(HplCondition):
     OP_IN = "in"
 
     def __init__(self, op, value1, value2, commutative=False):
+        if not isinstance(value1, HplValue):
+            raise TypeError("not a value: " + str(value1))
+        if not isinstance(value2, HplValue):
+            raise TypeError("not a value: " + str(value2))
         self.operator = op # string
         self.value1 = value1 # HplValue
         self.value2 = value2 # HplValue
@@ -796,6 +810,38 @@ class HplRelationalOperator(HplCondition):
             repr(self.value2), repr(self.commutative))
 
 
+class HplBooleanCoercion(HplCondition):
+    __slots__ = ("value",)
+
+    def __init__(self, value):
+        if not isinstance(value, HplValue):
+            raise TypeError("not a value: " + str(value))
+        if not value.can_be_bool:
+            raise TypeError("not a boolean: " + str(value))
+        self.value = value
+
+    @property
+    def is_atomic(self):
+        return True
+
+    def children(self):
+        return (self.value,)
+
+    def __eq__(self, other):
+        if not isinstance(other, HplBooleanCoercion):
+            return False
+        return self.value == other.value
+
+    def __hash__(self):
+        return hash(self.value)
+
+    def __str__(self):
+        return str(self.value)
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__, repr(self.value))
+
+
 ###############################################################################
 # Values and Field References
 ###############################################################################
@@ -831,6 +877,10 @@ class HplValue(HplAstObject):
     def is_function_call(self):
         return False
 
+    @property
+    def can_be_bool(self):
+        return False
+
     def external_references(self):
         return set()
 
@@ -846,6 +896,10 @@ class HplLiteral(HplValue):
     @property
     def is_literal(self):
         return True
+
+    @property
+    def can_be_bool(self):
+        return self.value is True or self.value is False
 
     def __eq__(self, other):
         if not isinstance(other, HplLiteral):
@@ -867,13 +921,11 @@ class HplSet(HplValue):
     __slots__ = ("values", "ros_types")
 
     def __init__(self, values):
+        for value in values:
+            if not isinstance(value, HplValue):
+                raise TypeError("not a value: " + str(value))
         self.values = values # [HplValue]
-        ros_types = set(ROS_PRIMITIVE_TYPES)
-        #for value in values:
-        #    ros_types = ros_types & set(value.ros_types)
-        #if not ros_types:
-        #    raise TypeError("mixed incompatible types: " + repr(values))
-        self.ros_types = tuple(ros_types)
+        self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
     @property
     def is_set(self):
@@ -897,7 +949,7 @@ class HplSet(HplValue):
         return h
 
     def __str__(self):
-        return "[{}]".format(", ".join(str(v) for v in self.values))
+        return "{{{}}}".format(", ".join(str(v) for v in self.values))
 
     def __repr__(self):
         return "{}({})".format(type(self).__name__, repr(self.values))
@@ -907,17 +959,21 @@ class HplRange(HplValue):
     __slots__ = ("lower_bound", "upper_bound", "exclude_lower",
                  "exclude_upper", "ros_types")
 
-    def __init__(self, lower, upper, exc_lower=False, exc_upper=False):
-        self.lower_bound = lower # HplValue
-        self.upper_bound = upper # HplValue
+    def __init__(self, lb, ub, exc_lower=False, exc_upper=False):
+        if not isinstance(lb, HplValue):
+            raise TypeError("not a value: " + str(lb))
+        if not isinstance(ub, HplValue):
+            raise TypeError("not a value: " + str(ub))
+        self.lower_bound = lb # HplValue
+        self.upper_bound = ub # HplValue
         self.exclude_lower = exc_lower # bool
         self.exclude_upper = exc_upper # bool
-        if not any(t in ROS_NUMBER_TYPES for t in lower.ros_types):
-            raise TypeError("not a number: '{}'".format(lower))
-        if not any(t in ROS_NUMBER_TYPES for t in upper.ros_types):
-            raise TypeError("not a number: '{}'".format(upper))
-        self.ros_types = tuple(ros_type for ros_type in lower.ros_types
-                               if ros_type in upper.ros_types)
+        if not any(t in ROS_NUMBER_TYPES for t in lb.ros_types):
+            raise TypeError("not a number: '{}'".format(lb))
+        if not any(t in ROS_NUMBER_TYPES for t in ub.ros_types):
+            raise TypeError("not a number: '{}'".format(ub))
+        self.ros_types = tuple(ros_type for ros_type in lb.ros_types
+                               if ros_type in ub.ros_types)
 
     @property
     def is_range(self):
@@ -941,13 +997,11 @@ class HplRange(HplValue):
         return h
 
     def __str__(self):
+        lp = "![" if self.exclude_lower else "["
+        rp = "]!" if self.exclude_upper else "]"
         lb = str(self.lower_bound)
-        if not lb.endswith(")") and self.exclude_lower:
-            lb = "({})!".format(lb)
         ub = str(self.upper_bound)
-        if not ub.endswith(")") and self.exclude_upper:
-            ub = "({})!".format(ub)
-        return "{} to {}".format(lb, ub)
+        return "{}({}) to ({}){}".format(lp, lb, ub, rp)
 
     def __repr__(self):
         return "{}({}, {}, exc_lower={}, exc_upper={})".format(
@@ -965,6 +1019,10 @@ class HplVarReference(HplValue):
 
     @property
     def is_variable(self):
+        return True
+
+    @property
+    def can_be_bool(self):
         return True
 
     def __eq__(self, other):
@@ -1006,6 +1064,8 @@ class HplUnaryOperator(HplValue):
     __slots__ = ("operator", "value", "ros_types")
 
     def __init__(self, op, value):
+        if not isinstance(value, HplValue):
+            raise TypeError("not a value: " + str(value))
         self.operator = op # string
         self.value = value # HplValue
         self.ros_types = tuple(ROS_NUMBER_TYPES)
@@ -1043,6 +1103,10 @@ class HplBinaryOperator(HplValue):
                  "commutative", "ros_types")
 
     def __init__(self, op, value1, value2, infix=True, commutative=False):
+        if not isinstance(value1, HplValue):
+            raise TypeError("not a value: " + str(value1))
+        if not isinstance(value2, HplValue):
+            raise TypeError("not a value: " + str(value2))
         self.operator = op # string
         self.value1 = value1 # HplValue
         self.value2 = value2 # HplValue
@@ -1101,6 +1165,9 @@ class HplFunctionCall(HplValue):
     __slots__ = ("function", "arguments", "ros_types")
 
     def __init__(self, fun, args):
+        for arg in args:
+            if not isinstance(arg, HplValue):
+                raise TypeError("not a value: " + str(arg))
         self.function = fun # string
         self.arguments = args # [HplValue]
         self.ros_types = tuple(ROS_NUMBER_TYPES)
@@ -1108,6 +1175,10 @@ class HplFunctionCall(HplValue):
     @property
     def is_function_call(self):
         return True
+
+    @property
+    def can_be_bool(self):
+        return self.function == "bool"
 
     def children(self):
         return self.arguments
@@ -1164,6 +1235,10 @@ class HplFieldReference(HplValue):
 
     @property
     def is_reference(self):
+        return True
+
+    @property
+    def can_be_bool(self):
         return True
 
     def __eq__(self, other):

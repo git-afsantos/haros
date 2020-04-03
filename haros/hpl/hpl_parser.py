@@ -34,7 +34,7 @@ from .hpl_ast import (
     HplCondition, HplVacuousTruth, HplQuantifier, HplUnaryConnective,
     HplBinaryConnective, HplRelationalOperator, HplLiteral, HplSet, HplRange,
     HplFieldReference, HplVarReference, HplUnaryOperator, HplBinaryOperator,
-    HplFunctionCall, HplSanityError
+    HplFunctionCall, HplSanityError, HplBooleanCoercion
 )
 
 
@@ -320,7 +320,10 @@ class PropertyTransformer(Transformer):
         return (children[0], alias)
 
     def condition(self, children):
-        return self._lr_binop(children, HplBinaryConnective)
+        phi = self._lr_binop(children, HplBinaryConnective)
+        if not isinstance(phi, HplCondition):
+            raise TypeError("not a condition:" + str(phi))
+        return phi
 
     def disjunction(self, children):
         return self._lr_binop(children, HplBinaryConnective)
@@ -338,7 +341,14 @@ class PropertyTransformer(Transformer):
         return HplQuantifier(qt, var, ran, phi)
 
     def atomic_condition(self, children):
-        return self._lr_binop(children, HplRelationalOperator)
+        assert len(children) == 1 or len(children) == 3
+        if len(children) == 3:
+            op = children[1]
+            lhs = children[0]
+            rhs = children[2]
+            com = op in self._COMMUTATIVE
+            return HplRelationalOperator(op, lhs, rhs, commutative=com)
+        return HplBooleanCoercion(children[0]) # len(children) == 1
 
     def function_call(self, (fun, arg)):
         return HplFunctionCall(fun, (arg,))

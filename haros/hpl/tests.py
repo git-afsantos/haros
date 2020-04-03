@@ -26,7 +26,9 @@
 ###############################################################################
 
 from lark import Lark, Transformer
-from lark.exceptions import UnexpectedCharacters, UnexpectedToken, GrammarError
+from lark.exceptions import (
+    UnexpectedCharacters, UnexpectedToken, GrammarError, VisitError
+)
 import logging
 from sys import exit
 
@@ -45,11 +47,16 @@ from .hpl_parser import (
 # Predicate Examples
 ###############################################################################
 
-PREDICATES = [
+BAD_PREDICATES = [
     "a + b + c",
-    "@a < 3",
     "{1} and [2 to f.g.h]",
     "(1 and 2) + (not x)"
+]
+
+GOOD_PREDICATES = [
+    "@a < 3",
+    "a + b < c",
+    "a implies forall x in xs: b"
 ]
 
 
@@ -57,7 +64,7 @@ PREDICATES = [
 # Property Examples
 ###############################################################################
 
-FAILING_TESTS = [
+BAD_PROPERTIES = [
     # missing scope
     "some topic",
 
@@ -78,7 +85,7 @@ FAILING_TESTS = [
 ]
 
 
-PASSING_TESTS = [
+GOOD_PROPERTIES = [
     'globally: some topic {int < 1 and float < 2 and string = "hello"}',
 
     "globally: no topic within 1s",
@@ -118,53 +125,68 @@ PASSING_TESTS = [
 # Test Code
 ###############################################################################
 
+def test_routine(parser, good, bad):
+    transformer = PropertyTransformer()
+    for test_str in bad:
+        print "\n  #", repr(test_str)
+        try:
+            tree = parser.parse(test_str)
+            print "\n[ Parsing ] OK"
+            tree = transformer.transform(tree)
+            print "[Transform] OK (unexpected)"
+            print ""
+            print repr(tree)
+            return 1
+        except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
+            print "[ Parsing ] FAIL"
+            print "  >>", str(e)
+            return 1
+        except VisitError as e:
+            # e.orig_exc
+            print "[Transform] FAIL (expected)"
+            print "  >>", str(e)
+    for test_str in good:
+        print "\n  #", repr(test_str)
+        try:
+            tree = parser.parse(test_str)
+            print "\n[ Parsing ] OK"
+            tree = transformer.transform(tree)
+            print "[Transform] OK"
+            print ""
+            print repr(tree)
+        except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
+            print "[ Parsing ] FAIL"
+            print "  >>", str(e)
+            return 1
+        except VisitError as e:
+            # e.orig_exc
+            print "[Transform] FAIL"
+            print " >>", str(e)
+            return 1
+    print "\nAll", str(len(bad) + len(good)), "tests passed."
+    return 0
+
+
 def test_predicates():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
                   start="condition", debug=True)
-    transformer = PropertyTransformer()
-    for phi in PREDICATES:
-        print "\n>>", phi
-        tree = parser.parse(phi)
-        tree = transformer.transform(tree)
-        print ""
-        print repr(tree)
+    return test_routine(parser, GOOD_PREDICATES, BAD_PREDICATES)
 
 def test_properties():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
                   start="hpl_property", debug=True)
+    return test_routine(parser, GOOD_PROPERTIES, BAD_PROPERTIES)
 
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
     try:
-        test_predicates()
+        if test_predicates():
+            assert False
         # test_properties()
     except GrammarError as e:
         logging.error(str(e))
         return 1
-
-    """transformer = PropertyTransformer()
-
-    for test_str in FAILING_TESTS:
-        try:
-            tree = parser.parse(test_str)
-            tree = transformer.transform(tree)
-            print ""
-            print test_str
-            assert False, "expected failure"
-        except (UnexpectedToken, UnexpectedCharacters, TypeError, SyntaxError,
-                HplSanityError):
-            pass
-
-    for test_str in PASSING_TESTS:
-        print ""
-        print test_str
-        tree = parser.parse(test_str)
-        tree = transformer.transform(tree)
-        print tree
-
-    print "All", str(len(FAILING_TESTS) + len(PASSING_TESTS)), "tests passed."
-"""
     return 0
 
 
