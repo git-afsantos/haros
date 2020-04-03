@@ -25,20 +25,16 @@
 # Imports
 ###############################################################################
 
-from builtins import range # Python 2 and 3: forward-compatible
-from collections import namedtuple
 import math
 
 from lark import Lark, Transformer
-from lark.exceptions import UnexpectedCharacters, UnexpectedToken
-from lark.lexer import Token
-import logging
 
 from .hpl_ast import (
-    HplAstObject, HplProperty, HplScope, HplObservable, HplEvent,
-    HplChainDisjunction,
-    HplEventChain, HplMessageFilter, HplFieldCondition, HplValue, HplLiteral,
-    HplSet, HplRange, HplFieldReference, HplAssumption, HplSanityError
+    HplAstObject, HplAssumption, HplProperty, HplScope, HplPattern, HplEvent,
+    HplCondition, HplVacuousTruth, HplQuantifier, HplUnaryConnective,
+    HplBinaryConnective, HplRelationalOperator, HplLiteral, HplSet, HplRange,
+    HplFieldReference, HplVarReference, HplUnaryOperator, HplBinaryOperator,
+    HplFunctionCall, HplSanityError
 )
 
 
@@ -64,7 +60,6 @@ disjunction: [disjunction OR_OPERATOR] conjunction
 conjunction: [conjunction AND_OPERATOR] _logic_expr
 
 _logic_expr: atomic_condition
-           | "(" condition ")"
            | negation
            | _quantification
 
@@ -76,47 +71,45 @@ universal: ALL_OPERATOR CNAME "in" _quant_range ":" _logic_expr
 
 existential: SOME_OPERATOR CNAME "in" _quant_range ":" _logic_expr
 
-_quant_range: _msg_field | _set_value
+_quant_range: _msg_field | enum_literal | range_literal
 
-atomic_condition: _value RELATIONAL_OPERATOR _value
+atomic_condition: expr [RELATIONAL_OPERATOR expr]
 
-_value: boolean
-      | string
-      | number_expr
-      | _set_value
-      | function_call
+comparison: [comparison RELATIONAL_OPERATOR] expr
 
-function_call: BUILTIN_FUNCTION "(" _value ")"
+expr: [expr ADD_OPERATOR] term
 
-number_expr: [number_expr ADD_OPERATOR] number_term
+term: [term MULT_OPERATOR] factor
 
-number_term: [number_term MULT_OPERATOR] number_factor
+factor: [factor POWER_OPERATOR] _exponent
 
-number_factor: [number_factor POWER_OPERATOR] _number_value
+_exponent: _atomic_value
+         | negative_number
+         | "(" condition ")"
 
-_number_value: number_constant
-             | signed_number
+negative_number: MINUS_OPERATOR _exponent
+
+_atomic_value: boolean
+             | string
+             | number_constant
+             | number
              | _msg_field
              | variable
-             | "(" number_expr ")"
-             | negative_number
+             | function_call
+             | enum_literal
+             | range_literal
 
 number_constant: CONSTANT
 
-negative_number: "-" _number_value
+enum_literal: "{" _enum_member "}"
 
-_set_value: "[" _set_contents "]"
+_enum_member: [_enum_member ","] expr
 
-_set_contents: enum_literal
-             | range_literal
-
-enum_literal: _value ("," _value)*
-
-range_literal: range_limit "to" range_limit
-
-range_limit: number_expr VALUE_EXCLUSION?
+range_literal: L_RANGE expr "to" expr R_RANGE
 
 variable: VAR_REF
+
+function_call: BUILTIN_FUNCTION "(" expr ")"
 
 _msg_field: own_msg_field
           | ext_msg_field
@@ -133,14 +126,15 @@ number: NUMBER
 signed_number: SIGNED_NUMBER
 boolean: TRUE | FALSE
 
-TRUE = "True"
-FALSE = "False"
+TRUE: "True"
+FALSE: "False"
 
 RELATIONAL_OPERATOR: EQ_OPERATOR | COMP_OPERATOR | IN_OPERATOR
 EQ_OPERATOR: "=" | "!="
 COMP_OPERATOR: "<" "="?
              | ">" "="?
 IN_OPERATOR: "in"
+
 NOT_OPERATOR: "not"
 IF_OPERATOR: "implies" | "if" | "iff"
 OR_OPERATOR: "or"
@@ -152,8 +146,10 @@ CONSTANT: "PI" | "INF" | "NAN"
 ADD_OPERATOR: "+" | "-"
 MULT_OPERATOR: "*" | "/"
 POWER_OPERATOR: "**"
+MINUS_OPERATOR: "-"
 
-VALUE_EXCLUSION: "!"
+L_RANGE: "[" | "!["
+R_RANGE: "]" | "]!"
 
 ROS_NAME: /[\/~]?[a-zA-Z][0-9a-zA-Z_]*(\/[a-zA-Z][0-9a-zA-Z_]*)*/
 
@@ -341,19 +337,19 @@ class PropertyTransformer(Transformer):
     def existential(self, (qt, var, ran, phi)):
         return HplQuantifier(qt, var, ran, phi)
 
-    def atomic_condition(self, (lhs, op, rhs)):
-        return HplRelationalOperator(op, lhs, rhs)
+    def atomic_condition(self, children):
+        return self._lr_binop(children, HplRelationalOperator)
 
     def function_call(self, (fun, arg)):
         return HplFunctionCall(fun, (arg,))
 
-    def number_expr(self, children):
+    def expr(self, children):
         return self._lr_binop(children, HplBinaryOperator)
 
-    def number_term(self, children):
+    def term(self, children):
         return self._lr_binop(children, HplBinaryOperator)
 
-    def number_factor(self, children):
+    def factor(self, children):
         return self._lr_binop(children, HplBinaryOperator)
 
     _COMMUTATIVE = ("+", "*", "and", "or", "iff", "=", "!=")
@@ -368,6 +364,9 @@ class PropertyTransformer(Transformer):
             return cls(op, lhs, rhs, commutative=com)
         return children[0] # len(children) == 1
 
+    def negative_number(self, (op, n)):
+        return HplUnaryOperator(op, n)
+
     _CONSTANTS = {
         "PI": math.pi,
         "INF": INF,
@@ -377,19 +376,13 @@ class PropertyTransformer(Transformer):
     def number_constant(self, (c,)):
         return HplLiteral(c, self._CONSTANTS[c])
 
-    def negative_number(self, (n,)):
-        return HplUnaryOperator("-", n)
-
     def enum_literal(self, values):
         return HplSet(values)
 
-    def range_literal(self, (lb, ub)):
-        return HplRange(lb[0], ub[0], exc_lower=lb[1], exc_upper=lb[1])
-
-    def range_limit(self, children):
-        exclude = len(children) == 2
-        assert not exclude or children[1] == "!"
-        return (children[0], exclude)
+    def range_literal(self, (lr, lb, ub, rr)):
+        excl = lr.startswith("!")
+        excu = rr.endswith("!")
+        return HplRange(lb, ub, exc_lower=excl, exc_upper=excu)
 
     def variable(self, (var,)):
         name = var[1:] # remove lead "@"
@@ -455,117 +448,3 @@ def hpl_property_parser():
 def hpl_assumption_parser():
     return Lark(ASSUMPTION_GRAMMAR, parser="lalr", start="hpl_assumption",
             transformer=PropertyTransformer())
-
-
-###############################################################################
-# Test Code
-###############################################################################
-
-if __name__ == "__main__":
-    FAILING_TESTS = [
-        # missing scope
-        "some topic",
-
-        # use comma instead of 'and' to separate filters
-        'globally: some topic {int < 1 and float < 2 and string = "hello"}',
-
-        # filters must be non-empty
-        "globally: some topic {}",
-
-        # do not allow spaces in index operator
-        "globally: some topic {int_array [1] > 0}",
-
-        # cannot compare numbers to strings
-        'globally: some topic {int > "42"}',
-
-        # 'none' is not implemented yet
-        "globally: some topic {array1[*] = array2[none]}",
-
-        # 'some' is not implemented yet
-        "globally: some topic {array1[*] = array2[some]}",
-
-        # do not allow spaces within index operator
-        r"globally: some topic {int_array[* \ 1] > 0}",
-        r"globally: some topic {int_array[*\1, 2, 3] > 0}",
-
-        # cannot specify time for the first event
-        "globally: some [1s] topic {int > 0}",
-
-        # cannot specify time for the first event
-        "globally: some [1s] topic {int > 0}; topic",
-
-        # cannot duplicate aliases
-        "globally: input as M causes output1 as M; output2"
-    ]
-
-    PASSING_TESTS = [
-        'globally: some topic {int < 1, float < 2, string = "hello"}',
-
-        "globally: no topic",
-
-        "globally: input causes output",
-
-        "globally: input causes within 1s output",
-
-        "globally: output requires input",
-
-        "globally: output requires within 100 ms input",
-
-        """after ~events/bumper {state = PRESSED}:
-            some ~cmd_vel {linear.x < 0.0, angular.z = 0.0}""",
-
-        "after input: no output",
-
-        "globally: some topic {m.int in 0 to 10 (exc)}",
-
-        "globally: some topic {int not in 0 to 10}",
-
-        "globally: some topic {float_array[0] < float_array[1]}",
-
-        "globally: some topic {int_array[*] > 0}",
-
-        r"globally: some topic {int_array[*\1] > 0}",
-
-        r"globally: some topic {int_array[*\1,2,3] > 0}",
-
-        "globally: some topic {twist_array[*].linear.x >= 0.0}",
-
-        "globally: some topic {twist_array#length > 0}",
-
-        "after input: some output",
-
-        "within 1s after input: some output",
-
-        "globally: some t1; t2 || t1; t3",
-
-        "after input as M: some output {x = $M.x}",
-
-        """within 100ms after trigger1; [1s] trigger2; [100ms] trigger3:
-            some topic1; topic2; topic3 || topic1; topic2; topic4"""
-    ]
-
-    logging.basicConfig(level=logging.DEBUG)
-    parser = Lark(PROPERTY_GRAMMAR, parser="lalr", start="hpl_property",
-                  debug=True)
-
-    transformer = PropertyTransformer()
-
-    for test_str in FAILING_TESTS:
-        try:
-            tree = parser.parse(test_str)
-            tree = transformer.transform(tree)
-            print ""
-            print test_str
-            assert False, "expected failure"
-        except (UnexpectedToken, UnexpectedCharacters, TypeError, SyntaxError,
-                HplSanityError):
-            pass
-
-    for test_str in PASSING_TESTS:
-        print ""
-        print test_str
-        tree = parser.parse(test_str)
-        tree = transformer.transform(tree)
-        print tree
-
-    print "All", str(len(FAILING_TESTS) + len(PASSING_TESTS)), "tests passed."

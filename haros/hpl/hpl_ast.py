@@ -70,30 +70,30 @@ class HplAstObject(object):
 
 
 class HplAssumption(HplAstObject):
-    __slots__ = ("topic", "msg_filter")
+    __slots__ = ("topic", "predicate")
 
-    def __init__(self, topic, msg_filter):
+    def __init__(self, topic, phi):
         self.topic = topic # string
-        self.msg_filter = msg_filter # HplMessageFilter
+        self.predicate = phi # HplCondition
 
     def children(self):
-        return ()
+        return (self.predicate)
 
     def __eq__(self, other):
         if not isinstance(other, HplAssumption):
             return False
         return (self.topic == other.topic
-                and self.msg_filter == other.msg_filter)
+                and self.predicate == other.predicate)
 
     def __hash__(self):
-        return 31 * hash(self.topic) + hash(self.msg_filter)
+        return 31 * hash(self.topic) + hash(self.predicate)
 
     def __str__(self):
-        return "{} {}".format(self.topic, self.msg_filter)
+        return "{} {}".format(self.topic, self.predicate)
 
     def __repr__(self):
         return "{}({}, {})".format(type(self).__name__,
-            repr(self.topic), repr(self.msg_filter))
+            repr(self.topic), repr(self.predicate))
 
 
 class HplProperty(HplAstObject):
@@ -700,7 +700,7 @@ class HplBinaryConnective(HplConnective):
     def __str__(self):
         a = "({})".format(self.condition1)
         b = "({})".format(self.condition2)
-        return "{} {} {}".format(a, self.operator, b)
+        return "{} {} {}".format(a, self.connective, b)
 
     def __repr__(self):
         return "{}({}, {}, {}, commutative={})".format(
