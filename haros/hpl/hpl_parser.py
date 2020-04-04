@@ -31,7 +31,7 @@ from lark import Lark, Transformer
 
 from .hpl_ast import (
     HplAstObject, HplAssumption, HplProperty, HplScope, HplPattern, HplEvent,
-    HplExpression, HplVacuousTruth, HplBooleanCoercion, HplQuantifier,
+    HplExpression, HplVacuousTruth, HplQuantifier,
     HplUnaryOperator, HplBinaryOperator, HplSet, HplRange, HplLiteral,
     HplVarReference, HplFieldReference, HplFunctionCall
 )

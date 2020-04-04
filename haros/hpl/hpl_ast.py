@@ -49,6 +49,15 @@ class HplSanityError(Exception):
 class HplLogicError(Exception):
     pass
 
+class HplTypeError(Exception):
+    def __init__(self, msg, orig):
+        Exception.__init__(self, msg)
+        self.orig_exc = orig
+
+    def __str__(self):
+        return "{}: {}".format(
+            Exception.__str__(self), self.orig_exc.message)
+
 
 ###############################################################################
 # Top-level Classes
@@ -642,6 +651,13 @@ class HplExpression(HplAstObject):
                 type_name(t), type_name(self.types), self))
         self.types = r
 
+    def _type_check(self, x, t):
+        try:
+            x.cast(t)
+        except TypeError as e:
+            msg = "Type error in expression '{}'".format(self)
+            raise HplTypeError(msg, e)
+
     def add_type(self, t):
         self.types = self.types | t
 
@@ -706,52 +722,18 @@ class HplVacuousTruth(HplExpression):
         return True
 
 
-class HplBooleanCoercion(HplExpression):
-    __slots__ = HplExpression.__slots__ + ("value",)
-
-    def __init__(self, value):
-        value.cast(T_BOOL)
-        HplExpression.__init__(self, types=T_BOOL)
-        self.value = value
-
-    @property
-    def is_bool(self):
-        return True
-
-    @property
-    def is_implicit(self):
-        return True
-
-    def children(self):
-        return (self.value,)
-
-    def __eq__(self, other):
-        if not isinstance(other, HplBooleanCoercion):
-            return False
-        return self.value == other.value
-
-    def __hash__(self):
-        return hash(self.value)
-
-    def __str__(self):
-        return str(self.value)
-
-    def __repr__(self):
-        return "{}({})".format(type(self).__name__, repr(self.value))
-
-
 class HplQuantifier(HplExpression):
     __slots__ = HplExpression.__slots__ + (
         "quantifier", "variable", "domain", "condition")
 
     def __init__(self, qt, var, dom, p):
-        dom.cast(T_COMP)
-        p.cast(T_BOOL)
         HplExpression.__init__(self, types=T_BOOL)
         self.quantifier = qt # string
         self.variable = var # string
         self.domain = dom # HplExpression
         self.condition = p # HplExpression
+        self._type_check(dom, T_COMP)
+        self._type_check(p, T_BOOL)
 
     @property
     def is_quantifier(self):
@@ -822,10 +804,10 @@ class HplUnaryOperator(HplExpression):
 
     def __init__(self, op, arg):
         tin, tout = self._OPS[op]
-        arg.cast(tin)
         HplExpression.__init__(self, types=tout)
         self.operator = op # string
         self.operand = arg # HplExpression
+        self._type_check(arg, tin)
 
     @property
     def is_operator(self):
@@ -892,14 +874,14 @@ class HplBinaryOperator(HplExpression):
 
     def __init__(self, op, arg1, arg2):
         tin1, tin2, tout, infix, comm = self._OPS[op]
-        arg1.cast(tin1)
-        arg2.cast(tin2)
         HplExpression.__init__(self, types=tout)
         self.operator = op # string
         self.operand1 = arg1 # HplExpression
         self.operand2 = arg2 # HplExpression
         self.infix = infix # bool
         self.commutative = comm # bool
+        self._type_check(arg1, tin1)
+        self._type_check(arg2, tin2)
 
     @property
     def is_operator(self):
@@ -964,10 +946,10 @@ class HplSet(HplValue):
     __slots__ = HplValue.__slots__ + ("values", "ros_types")
 
     def __init__(self, values):
-        for value in values:
-            value.cast(T_PRIM)
         HplValue.__init__(self, types=T_SET)
         self.values = values # [HplValue]
+        for value in values:
+            self._type_check(value, T_PRIM)
         self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
     @property
@@ -1003,13 +985,13 @@ class HplRange(HplValue):
         "min_value", "max_value", "exclude_min", "exclude_max", "ros_types")
 
     def __init__(self, lb, ub, exc_min=False, exc_max=False):
-        lb.cast(T_NUM)
-        ub.cast(T_NUM)
         HplValue.__init__(self, types=T_RAN)
         self.min_value = lb # HplValue
         self.max_value = ub # HplValue
         self.exclude_min = exc_min # bool
         self.exclude_max = exc_max # bool
+        self._type_check(lb, T_NUM)
+        self._type_check(ub, T_NUM)
         #if not any(t in ROS_NUMBER_TYPES for t in lb.ros_types):
         #    raise TypeError("not a number: '{}'".format(lb))
         #if not any(t in ROS_NUMBER_TYPES for t in ub.ros_types):
@@ -1199,11 +1181,11 @@ class HplFunctionCall(HplValue):
 
     def __init__(self, fun, args):
         tin, tout = self._BUILTINS[fun]
-        for arg in args:
-            arg.cast(tin)
         HplValue.__init__(self, types=tout)
         self.function = fun # string
         self.arguments = args # [HplValue]
+        for arg in args:
+            self._type_check(arg, tin)
         self.ros_types = tuple(ROS_NUMBER_TYPES)
 
     @property
