@@ -316,7 +316,7 @@ class PropertyTransformer(Transformer):
 
     def predicate(self, (expr,)):
         assert expr.is_expression, "predicate is not an expression"
-        if not expr.is_bool:
+        if not expr.can_be_bool:
             raise TypeError("predicate must be a boolean expression: "
                             + str(expr))
         return expr
@@ -324,7 +324,7 @@ class PropertyTransformer(Transformer):
     def top_level_condition(self, (expr,)):
         # TODO remove, just for debugging
         assert expr.is_expression, "predicate is not an expression"
-        if not expr.is_bool:
+        if not expr.can_be_bool:
             raise TypeError("predicate must be a boolean expression: "
                             + str(expr))
         return expr

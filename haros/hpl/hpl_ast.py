@@ -547,35 +547,21 @@ T_NUM = 0x2
 T_STR = 0x4
 T_ARR = 0x8
 
-T_REF = 0x10
-T_VAR = 0x20
-T_RAN = 0x40
-T_SET = 0x80
+T_RAN = 0x10
+T_SET = 0x20
 
-T_FUN = 0x100
-
-T_ANY = 0x1FF
+T_ANY = T_BOOL | T_NUM | T_STR | T_ARR | T_RAN | T_SET
 T_COMP = T_ARR | T_RAN | T_SET
-T_ATOM = T_ANY & ~T_COMP
 T_PRIM = T_BOOL | T_NUM | T_STR
-
-T_ANY_BOOL = T_BOOL | T_REF | T_VAR
-T_ANY_NUM = T_NUM | T_REF | T_VAR
-T_ANY_STR = T_STR | T_REF | T_VAR
-T_ANY_PRIM = T_BOOL | T_NUM | T_STR | T_REF | T_VAR
-
-T_DOM = T_COMP | T_REF
+T_ROS = T_BOOL | T_NUM | T_STR | T_ARR
 
 _TYPE_NAMES = {
     T_BOOL: "boolean",
     T_NUM: "number",
     T_STR: "string",
     T_ARR: "array",
-    T_REF: "field reference",
-    T_VAR: "variable reference",
     T_RAN: "range",
     T_SET: "set",
-    T_FUN: "function call",
 }
 
 def type_name(t):
@@ -603,22 +589,6 @@ class HplExpression(HplAstObject):
         return True
 
     @property
-    def is_bool(self):
-        return bool(self.types & T_BOOL)
-
-    @property
-    def is_number(self):
-        return bool(self.types & T_NUM)
-
-    @property
-    def is_string(self):
-        return bool(self.types & T_STR)
-
-    @property
-    def is_array(self):
-        return bool(self.types & T_ARR)
-
-    @property
     def is_value(self):
         return False
 
@@ -638,14 +608,47 @@ class HplExpression(HplAstObject):
     def is_vacuous(self):
         return False
 
-    def is_type(self, t):
+    @property
+    def can_be_bool(self):
+        return bool(self.types & T_BOOL)
+
+    @property
+    def can_be_number(self):
+        return bool(self.types & T_NUM)
+
+    @property
+    def can_be_string(self):
+        return bool(self.types & T_STR)
+
+    @property
+    def can_be_array(self):
+        return bool(self.types & T_ARR)
+
+    @property
+    def can_be_set(self):
+        return bool(self.types & T_SET)
+
+    @property
+    def can_be_range(self):
+        return bool(self.types & T_RAN)
+
+    def can_be(self, t):
         return bool(self.types & t)
+
+    def cast(self, t):
+        r = self.types & t
+        if not r:
+            raise TypeError("expected ({}) but found ({}): {}".format(
+                type_name(t), type_name(self.types), self))
+        self.types = r
 
     def add_type(self, t):
         self.types = self.types | t
 
     def rem_type(self, t):
         self.types = self.types & ~t
+        if not self.types:
+            raise TypeError("no types left: " + str(self))
 
 
 class HplValue(HplExpression):
@@ -660,32 +663,24 @@ class HplValue(HplExpression):
         return False
 
     @property
-    def is_atomic(self):
-        return bool(self.types & T_ATOM)
-
-    @property
-    def is_primitive(self):
-        return bool(self.types & T_PRIM)
-
-    @property
     def is_set(self):
-        return bool(self.types & T_SET)
+        return False
 
     @property
     def is_range(self):
-        return bool(self.types & T_RAN)
+        return False
 
     @property
     def is_reference(self):
-        return bool(self.types & T_REF)
+        return False
 
     @property
     def is_variable(self):
-        return bool(self.types & T_VAR)
+        return False
 
     @property
     def is_function_call(self):
-        return bool(self.types & T_FUN)
+        return False
 
 
 ###############################################################################
@@ -715,8 +710,7 @@ class HplBooleanCoercion(HplExpression):
     __slots__ = HplExpression.__slots__ + ("value",)
 
     def __init__(self, value):
-        if not value.is_type(T_ANY_BOOL):
-            raise TypeError("not a boolean: " + str(value))
+        value.cast(T_BOOL)
         HplExpression.__init__(self, types=T_BOOL)
         self.value = value
 
@@ -750,13 +744,9 @@ class HplQuantifier(HplExpression):
     __slots__ = HplExpression.__slots__ + (
         "quantifier", "variable", "domain", "condition")
 
-    _BAD_TYPE = "Quantifier '{}' expected {}, got: {}"
-
     def __init__(self, qt, var, dom, p):
-        if not dom.is_type(T_DOM):
-            raise TypeError(self._BAD_TYPE.format(qt, type_name(T_DOM), dom))
-        if not p.is_type(T_ANY_BOOL):
-            raise TypeError(self._BAD_TYPE.format(qt, type_name(T_ANY_BOOL), p))
+        dom.cast(T_COMP)
+        p.cast(T_BOOL)
         HplExpression.__init__(self, types=T_BOOL)
         self.quantifier = qt # string
         self.variable = var # string
@@ -826,16 +816,13 @@ class HplUnaryOperator(HplExpression):
     __slots__ = HplExpression.__slots__ + ("operator", "operand")
 
     _OPS = {
-        "-": (T_ANY_NUM, T_NUM),
-        "not": (T_ANY_BOOL, T_BOOL)
+        "-": (T_NUM, T_NUM),
+        "not": (T_BOOL, T_BOOL)
     }
-
-    _BAD_TYPE = "Operator '{}': expected {}, got: {}"
 
     def __init__(self, op, arg):
         tin, tout = self._OPS[op]
-        if not arg.is_type(tin):
-            raise TypeError(self._BAD_TYPE.format(op, type_name(tin), arg))
+        arg.cast(tin)
         HplExpression.__init__(self, types=tout)
         self.operator = op # string
         self.operand = arg # HplExpression
@@ -843,6 +830,10 @@ class HplUnaryOperator(HplExpression):
     @property
     def is_operator(self):
         return True
+
+    @property
+    def arity(self):
+        return 1
 
     @property
     def op(self):
@@ -881,32 +872,28 @@ class HplBinaryOperator(HplExpression):
 
     # operator: (Input -> Input -> Output), infix, commutative
     _OPS = {
-        "+": (T_ANY_NUM, T_ANY_NUM, T_NUM, True, True),
-        "-": (T_ANY_NUM, T_ANY_NUM, T_NUM, True, False),
-        "*": (T_ANY_NUM, T_ANY_NUM, T_NUM, True, True),
-        "/": (T_ANY_NUM, T_ANY_NUM, T_NUM, True, False),
-        "**": (T_ANY_NUM, T_ANY_NUM, T_NUM, True, False),
-        "implies": (T_ANY_BOOL, T_ANY_BOOL, T_BOOL, True, False),
-        "iff": (T_ANY_BOOL, T_ANY_BOOL, T_BOOL, True, True),
-        "or": (T_ANY_BOOL, T_ANY_BOOL, T_BOOL, True, True),
-        "and": (T_ANY_BOOL, T_ANY_BOOL, T_BOOL, True, True),
-        "=": (T_ATOM, T_ATOM, T_BOOL, True, True),
-        "!=": (T_ATOM, T_ATOM, T_BOOL, True, True),
-        "<": (T_ANY_NUM, T_ANY_NUM, T_BOOL, True, False),
-        "<=": (T_ANY_NUM, T_ANY_NUM, T_BOOL, True, False),
-        ">": (T_ANY_NUM, T_ANY_NUM, T_BOOL, True, False),
-        ">=": (T_ANY_NUM, T_ANY_NUM, T_BOOL, True, False),
-        "in": (T_ATOM, T_DOM, T_BOOL, True, False),
+        "+": (T_NUM, T_NUM, T_NUM, True, True),
+        "-": (T_NUM, T_NUM, T_NUM, True, False),
+        "*": (T_NUM, T_NUM, T_NUM, True, True),
+        "/": (T_NUM, T_NUM, T_NUM, True, False),
+        "**": (T_NUM, T_NUM, T_NUM, True, False),
+        "implies": (T_BOOL, T_BOOL, T_BOOL, True, False),
+        "iff": (T_BOOL, T_BOOL, T_BOOL, True, True),
+        "or": (T_BOOL, T_BOOL, T_BOOL, True, True),
+        "and": (T_BOOL, T_BOOL, T_BOOL, True, True),
+        "=": (T_PRIM, T_PRIM, T_BOOL, True, True),
+        "!=": (T_PRIM, T_PRIM, T_BOOL, True, True),
+        "<": (T_NUM, T_NUM, T_BOOL, True, False),
+        "<=": (T_NUM, T_NUM, T_BOOL, True, False),
+        ">": (T_NUM, T_NUM, T_BOOL, True, False),
+        ">=": (T_NUM, T_NUM, T_BOOL, True, False),
+        "in": (T_PRIM, T_SET | T_RAN, T_BOOL, True, False),
     }
-
-    _BAD_TYPE = "Operator '{}': expected {}, got: {}"
 
     def __init__(self, op, arg1, arg2):
         tin1, tin2, tout, infix, comm = self._OPS[op]
-        if not arg1.is_type(tin1):
-            raise TypeError(self._BAD_TYPE.format(op, type_name(tin1), arg1))
-        if not arg2.is_type(tin2):
-            raise TypeError(self._BAD_TYPE.format(op, type_name(tin2), arg2))
+        arg1.cast(tin1)
+        arg2.cast(tin2)
         HplExpression.__init__(self, types=tout)
         self.operator = op # string
         self.operand1 = arg1 # HplExpression
@@ -917,6 +904,10 @@ class HplBinaryOperator(HplExpression):
     @property
     def is_operator(self):
         return True
+
+    @property
+    def arity(self):
+        return 2
 
     @property
     def op(self):
@@ -974,8 +965,7 @@ class HplSet(HplValue):
 
     def __init__(self, values):
         for value in values:
-            if not value.is_atomic:
-                raise TypeError("sets cannot contain sets: " + str(value))
+            value.cast(T_PRIM)
         HplValue.__init__(self, types=T_SET)
         self.values = values # [HplValue]
         self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
@@ -1012,14 +1002,9 @@ class HplRange(HplValue):
     __slots__ = HplValue.__slots__ + (
         "min_value", "max_value", "exclude_min", "exclude_max", "ros_types")
 
-    _BAD_TYPE = "range expected {}, got: {}"
-
     def __init__(self, lb, ub, exc_min=False, exc_max=False):
-        t = T_ANY_NUM
-        if not lb.is_type(t):
-            raise TypeError(self._BAD_TYPE.format(type_name(t), lb))
-        if not ub.is_type(t):
-            raise TypeError(self._BAD_TYPE.format(type_name(t), ub))
+        lb.cast(T_NUM)
+        ub.cast(T_NUM)
         HplValue.__init__(self, types=T_RAN)
         self.min_value = lb # HplValue
         self.max_value = ub # HplValue
@@ -1110,7 +1095,7 @@ class HplVarReference(HplValue):
     __slots__ = HplValue.__slots__ + ("name", "ros_types")
 
     def __init__(self, name):
-        HplValue.__init__(self, types=T_VAR)
+        HplValue.__init__(self, types=T_PRIM)
         self.name = name # string
         self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
@@ -1137,7 +1122,7 @@ class HplFieldReference(HplValue):
     __slots__ = HplValue.__slots__ + ("token", "message", "ros_types", "_parts")
 
     def __init__(self, token, message=None):
-        HplValue.__init__(self, types=T_REF)
+        HplValue.__init__(self, types=T_ROS)
         self.token = token # string
         self.message = message # string (HplEvent.alias)
         self.ros_types = ROS_PRIMITIVE_TYPES # [TypeToken]
@@ -1200,29 +1185,23 @@ class HplFunctionCall(HplValue):
 
     # name: Input -> Output
     _BUILTINS = {
-        "abs": (T_ANY_NUM, T_NUM),
-        "bool": (T_ANY_PRIM, T_BOOL),
-        "int": (T_ANY_PRIM, T_NUM),
-        "float": (T_ANY_PRIM, T_NUM),
-        "str": (T_ANY_PRIM, T_STR),
-        "len": (T_ARR | T_REF, T_NUM),
-        "max": (T_ARR | T_REF, T_NUM),
-        "min": (T_ARR | T_REF, T_NUM),
-        "sum": (T_ARR | T_REF, T_NUM),
-        "prod": (T_ARR | T_REF, T_NUM),
+        "abs": (T_NUM, T_NUM),
+        "bool": (T_PRIM, T_BOOL),
+        "int": (T_PRIM, T_NUM),
+        "float": (T_PRIM, T_NUM),
+        "str": (T_PRIM, T_STR),
+        "len": (T_ARR, T_NUM),
+        "max": (T_ARR, T_NUM),
+        "min": (T_ARR, T_NUM),
+        "sum": (T_ARR, T_NUM),
+        "prod": (T_ARR, T_NUM),
     }
-
-    _NOT_VAL = "Function '{}': argument is not a value: {}"
-    _BAD_TYPE = "Function '{}': expected {}, got: {}"
 
     def __init__(self, fun, args):
         tin, tout = self._BUILTINS[fun]
         for arg in args:
-            if not arg.is_type(tin):
-                n = type_name(tin)
-                raise TypeError(self._BAD_TYPE.format(fun, n, arg))
-        t = T_FUN | tout
-        HplValue.__init__(self, types=t)
+            arg.cast(tin)
+        HplValue.__init__(self, types=tout)
         self.function = fun # string
         self.arguments = args # [HplValue]
         self.ros_types = tuple(ROS_NUMBER_TYPES)

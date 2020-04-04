@@ -63,6 +63,7 @@ BAD_PREDICATES = [
     "-(a and b)",
     "a < b < c",
     "(a < b) < c",
+    "x = -{1,2,3}",
 ]
 
 GOOD_PREDICATES = [
@@ -73,7 +74,6 @@ GOOD_PREDICATES = [
     "not a + b < c",
     "---42 = -42",
     "a + b * c ** d = e ** -(f - g) / h",
-    "x = -{1,2,3}",
     "(not ((a or b) implies c) and d)",
 ]
 
