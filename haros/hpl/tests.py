@@ -73,6 +73,8 @@ GOOD_PREDICATES = [
     "not a + b < c",
     "---42 = -42",
     "a + b * c ** d = e ** -(f - g) / h",
+    "x = -{1,2,3}",
+    "(not ((a or b) implies c) and d)",
 ]
 
 
@@ -186,7 +188,7 @@ def test_routine(parser, good, bad):
 
 def test_predicates():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
-                  start="condition", debug=True)
+                  start="top_level_condition", debug=True)
     return test_routine(parser, GOOD_PREDICATES, BAD_PREDICATES)
     #return test_routine(parser, (), BAD_PREDICATES)
 

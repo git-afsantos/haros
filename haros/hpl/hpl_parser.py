@@ -31,10 +31,9 @@ from lark import Lark, Transformer
 
 from .hpl_ast import (
     HplAstObject, HplAssumption, HplProperty, HplScope, HplPattern, HplEvent,
-    HplCondition, HplVacuousTruth, HplQuantifier, HplUnaryConnective,
-    HplBinaryConnective, HplRelationalOperator, HplLiteral, HplSet, HplRange,
-    HplFieldReference, HplVarReference, HplUnaryOperator, HplBinaryOperator,
-    HplFunctionCall, HplSanityError, HplBooleanCoercion
+    HplExpression, HplVacuousTruth, HplBooleanCoercion, HplQuantifier,
+    HplUnaryOperator, HplBinaryOperator, HplSet, HplRange, HplLiteral,
+    HplVarReference, HplFieldReference, HplFunctionCall
 )
 
 
@@ -51,7 +50,9 @@ NAN = float("nan")
 ###############################################################################
 
 PREDICATE_GRAMMAR = r"""
-_predicate: "{" condition "}"
+predicate: "{" top_level_condition "}"
+
+top_level_condition: condition
 
 condition: [condition IF_OPERATOR] disjunction
 
@@ -59,19 +60,13 @@ disjunction: [disjunction OR_OPERATOR] conjunction
 
 conjunction: [conjunction AND_OPERATOR] _logic_expr
 
-_logic_expr: atomic_condition
-           | negation
-           | _quantification
+_logic_expr: negation
+           | quantification
+           | atomic_condition
 
 negation: NOT_OPERATOR _logic_expr
 
-_quantification: universal | existential
-
-universal: ALL_OPERATOR CNAME "in" _quant_range ":" _logic_expr
-
-existential: SOME_OPERATOR CNAME "in" _quant_range ":" _logic_expr
-
-_quant_range: _msg_field | enum_literal | range_literal
+quantification: QUANT_OPERATOR CNAME "in" _atomic_value ":" _logic_expr
 
 atomic_condition: expr [RELATIONAL_OPERATOR expr]
 
@@ -85,11 +80,7 @@ _exponent: _atomic_value
          | negative_number
          | "(" condition ")"
 
-_just_expr: _atomic_value
-          | negative_number
-          | "(" expr ")"
-
-negative_number: MINUS_OPERATOR _just_expr
+negative_number: MINUS_OPERATOR _exponent
 
 _atomic_value: boolean
              | string
@@ -135,16 +126,18 @@ RELATIONAL_OPERATOR: EQ_OPERATOR | COMP_OPERATOR | IN_OPERATOR
 EQ_OPERATOR: "=" | "!="
 COMP_OPERATOR: "<" "="?
              | ">" "="?
-IN_OPERATOR: "in"
+IN_OPERATOR.2: "in"
 
-NOT_OPERATOR: "not"
-IF_OPERATOR: "implies" | "iff"
-OR_OPERATOR: "or"
-AND_OPERATOR: "and"
+NOT_OPERATOR.3: "not"
+IF_OPERATOR.3: "implies" | "iff"
+OR_OPERATOR.3: "or"
+AND_OPERATOR.3: "and"
+
+QUANT_OPERATOR.4: ALL_OPERATOR | SOME_OPERATOR
 ALL_OPERATOR: "forall"
 SOME_OPERATOR: "exists"
 
-CONSTANT: "PI" | "INF" | "NAN"
+CONSTANT.5: "PI" | "INF" | "NAN"
 ADD_OPERATOR: "+" | "-"
 MULT_OPERATOR: "*" | "/"
 POWER_OPERATOR: "**"
@@ -205,7 +198,7 @@ requirement: event "requires" event _time_bound?
 
 _time_bound: "within" time_amount
 
-event: message _predicate?
+event: message predicate?
 
 message: ros_name _alias?
 
@@ -231,7 +224,7 @@ FREQ_UNIT: "hz"
 
 
 ASSUMPTION_GRAMMAR = (r"""
-hpl_assumption: ros_name _predicate
+hpl_assumption: ros_name predicate
 """
 + PREDICATE_GRAMMAR
 + r"""
@@ -321,59 +314,61 @@ class PropertyTransformer(Transformer):
         alias = None if len(children) == 1 else children[1]
         return (children[0], alias)
 
+    def predicate(self, (expr,)):
+        assert expr.is_expression, "predicate is not an expression"
+        if not expr.is_bool:
+            raise TypeError("predicate must be a boolean expression: "
+                            + str(expr))
+        return expr
+
+    def top_level_condition(self, (expr,)):
+        # TODO remove, just for debugging
+        assert expr.is_expression, "predicate is not an expression"
+        if not expr.is_bool:
+            raise TypeError("predicate must be a boolean expression: "
+                            + str(expr))
+        return expr
+
     def condition(self, children):
-        phi = self._lr_binop(children, HplBinaryConnective)
-        if not isinstance(phi, HplCondition):
-            raise TypeError("not a condition:" + str(phi))
-        return phi
+        return self._lr_binop(children)
 
     def disjunction(self, children):
-        return self._lr_binop(children, HplBinaryConnective)
+        return self._lr_binop(children)
 
     def conjunction(self, children):
-        return self._lr_binop(children, HplBinaryConnective)
+        return self._lr_binop(children)
 
     def negation(self, (op, phi)):
-        return HplUnaryConnective(op, phi)
+        return HplUnaryOperator(op, phi)
 
-    def universal(self, (qt, var, ran, phi)):
-        return HplQuantifier(qt, var, ran, phi)
-
-    def existential(self, (qt, var, ran, phi)):
-        return HplQuantifier(qt, var, ran, phi)
+    def quantification(self, (qt, var, dom, phi)):
+        return HplQuantifier(qt, var, dom, phi)
 
     def atomic_condition(self, children):
-        assert len(children) == 1 or len(children) == 3
-        if len(children) == 3:
-            op = children[1]
-            lhs = children[0]
-            rhs = children[2]
-            com = op in self._COMMUTATIVE
-            return HplRelationalOperator(op, lhs, rhs, commutative=com)
-        return HplBooleanCoercion(children[0]) # len(children) == 1
+        #expr = self._lr_binop(children)
+        #assert expr.is_expression
+        #return expr if expr.is_bool else HplBooleanCoercion(expr)
+        return self._lr_binop(children)
 
     def function_call(self, (fun, arg)):
         return HplFunctionCall(fun, (arg,))
 
     def expr(self, children):
-        return self._lr_binop(children, HplBinaryOperator)
+        return self._lr_binop(children)
 
     def term(self, children):
-        return self._lr_binop(children, HplBinaryOperator)
+        return self._lr_binop(children)
 
     def factor(self, children):
-        return self._lr_binop(children, HplBinaryOperator)
+        return self._lr_binop(children)
 
-    _COMMUTATIVE = ("+", "*", "and", "or", "iff", "=", "!=")
-
-    def _lr_binop(self, children, cls):
+    def _lr_binop(self, children):
         assert len(children) == 1 or len(children) == 3
         if len(children) == 3:
             op = children[1]
             lhs = children[0]
             rhs = children[2]
-            com = op in self._COMMUTATIVE
-            return cls(op, lhs, rhs, commutative=com)
+            return HplBinaryOperator(op, lhs, rhs)
         return children[0] # len(children) == 1
 
     def negative_number(self, (op, n)):
@@ -392,9 +387,9 @@ class PropertyTransformer(Transformer):
         return HplSet(values)
 
     def range_literal(self, (lr, lb, ub, rr)):
-        excl = lr.startswith("!")
-        excu = rr.endswith("!")
-        return HplRange(lb, ub, exc_lower=excl, exc_upper=excu)
+        exc_min = lr.startswith("!")
+        exc_max = rr.endswith("!")
+        return HplRange(lb, ub, exc_min=exc_min, exc_max=exc_max)
 
     def variable(self, (var,)):
         name = var[1:] # remove lead "@"
@@ -425,6 +420,7 @@ class PropertyTransformer(Transformer):
     def boolean(self, (b,)):
         if b == "True":
             return HplLiteral(b, True)
+        assert b == "False"
         return HplLiteral(b, False)
 
     def string(self, (s,)):
