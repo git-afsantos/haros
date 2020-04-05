@@ -73,6 +73,10 @@ class HplAstObject(object):
         return False
 
     @property
+    def is_predicate(self):
+        return False
+
+    @property
     def is_expression(self):
         return False
 
@@ -459,11 +463,8 @@ class HplEvent(HplAstObject):
     def __init__(self, event_type, predicate, topic, alias=None):
         if event_type != self.PUBLISH:
             raise ValueError(event_type)
-        if not isinstance(predicate, HplExpression):
-            raise TypeError("predicate is not an expression: " + str(predicate))
-        if not predicate.is_bool:
-            raise TypeError("predicate must be a boolean expression: "
-                            + str(predicate))
+        if not predicate.is_predicate:
+            raise TypeError("not a predicate: " + str(predicate))
         self.event_type = event_type
         self.predicate = predicate # HplExpression
         self.topic = topic # string
@@ -518,12 +519,9 @@ class HplEvent(HplAstObject):
         return 31 * h + hash(self.topic)
 
     def __str__(self):
-        phi = ""
-        if not self.predicate.is_trivial:
-            phi = " {{ {} }}".format(self.predicate)
         alias = (" as " + self.alias) if self.alias is not None else ""
         if self.event_type == self.PUBLISH:
-            return "{}{}{}".format(self.topic, alias, phi)
+            return "{}{} {}".format(self.topic, alias, self.predicate)
         else:
             assert False, "unexpected event type"
 
@@ -531,6 +529,78 @@ class HplEvent(HplAstObject):
         return "{}({}, {}, {}, alias={})".format(
             type(self).__name__, repr(self.event_type), repr(self.predicate),
             repr(self.topic), repr(self.alias))
+
+
+###############################################################################
+# Top-level Predicate
+###############################################################################
+
+class HplPredicate(HplAstObject):
+    __slots__ = ("condition",)
+
+    def __init__(self, expr):
+        if not expr.is_expression:
+            raise TypeError("not an expression: " + str(expr))
+        if not expr.can_be_bool:
+            raise TypeError("not a boolean expression: " + str(expr))
+        self.condition = expr
+        self._static_checks()
+
+    @property
+    def is_predicate(self):
+        return True
+
+    @property
+    def is_vacuous(self):
+        return False
+
+    @property
+    def phi(self):
+        return self.condition
+
+    def children(self):
+        return (self.condition,)
+
+    def _static_checks(self):
+        pass # FIXME
+
+    def __eq__(self, other):
+        if not isinstance(other, HplPredicate):
+            return False
+        return self.condition == other.condition
+
+    def __hash__(self):
+        return hash(self.condition)
+
+    def __str__(self):
+        return "{{ {} }}".format(self.condition)
+
+    def __repr__(self):
+        return "{}({})".format(type(self).__name__, repr(self.condition))
+
+
+class HplVacuousTruth(HplAstObject):
+    __slots__ = ()
+
+    @property
+    def is_predicate(self):
+        return True
+
+    @property
+    def is_vacuous(self):
+        return True
+
+    def __eq__(self, other):
+        return isinstance(other, HplVacuousTruth)
+
+    def __hash__(self):
+        return 27644437
+
+    def __str__(self):
+        return "{ True }"
+
+    def __repr__(self):
+        return "{}()".format(type(self).__name__)
 
 
 ###############################################################################
@@ -601,14 +671,6 @@ class HplExpression(HplAstObject):
 
     @property
     def is_quantifier(self):
-        return False
-
-    @property
-    def is_implicit(self):
-        return False
-
-    @property
-    def is_vacuous(self):
         return False
 
     @property
@@ -694,27 +756,8 @@ class HplValue(HplExpression):
 
 
 ###############################################################################
-# Quantifiers and Conditions
+# Quantifiers
 ###############################################################################
-
-class HplVacuousTruth(HplExpression):
-    __slots__ = HplExpression.__slots__
-
-    def __init__(self):
-        HplExpression.__init__(self, types=T_BOOL)
-
-    @property
-    def is_bool(self):
-        return True
-
-    @property
-    def is_implicit(self):
-        return True
-
-    @property
-    def is_vacuous(self):
-        return True
-
 
 class HplQuantifier(HplExpression):
     __slots__ = HplExpression.__slots__ + (
