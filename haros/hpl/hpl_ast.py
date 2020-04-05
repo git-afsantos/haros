@@ -46,18 +46,6 @@ INF = float("inf")
 class HplSanityError(Exception):
     pass
 
-class HplLogicError(Exception):
-    pass
-
-class HplTypeError(Exception):
-    def __init__(self, msg, orig):
-        Exception.__init__(self, msg)
-        self.orig_exc = orig
-
-    def __str__(self):
-        return "{}: {}".format(
-            Exception.__str__(self), self.orig_exc.message)
-
 
 ###############################################################################
 # Top-level Classes
@@ -655,8 +643,8 @@ class HplExpression(HplAstObject):
         try:
             x.cast(t)
         except TypeError as e:
-            msg = "Type error in expression '{}'".format(self)
-            raise HplTypeError(msg, e)
+            msg = "Type error in expression '{}':\n{}".format(self, e)
+            raise TypeError(msg)
 
     def add_type(self, t):
         self.types = self.types | t
