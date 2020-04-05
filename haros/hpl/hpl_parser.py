@@ -392,8 +392,7 @@ class PropertyTransformer(Transformer):
         return HplRange(lb, ub, exc_min=exc_min, exc_max=exc_max)
 
     def variable(self, (var,)):
-        name = var[1:] # remove lead "@"
-        return HplVarReference(name)
+        return HplVarReference(var)
 
     def own_msg_field(self, (ref,)):
         return HplFieldReference(ref)

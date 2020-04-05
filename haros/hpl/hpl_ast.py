@@ -726,6 +726,10 @@ class HplQuantifier(HplExpression):
     __slots__ = HplExpression.__slots__ + (
         "quantifier", "variable", "domain", "condition")
 
+    _SET_REF = "cannot reference quantified variable '{}' in the domain of:\n{}"
+    _MULTI_DEF = "multiple definitions of variable '{}' in:\n{}"
+    _UNUSED = "quantified variable '{}' is never used in:\n{}"
+
     def __init__(self, qt, var, dom, p):
         HplExpression.__init__(self, types=T_BOOL)
         self.quantifier = qt # string
@@ -734,6 +738,7 @@ class HplQuantifier(HplExpression):
         self.condition = p # HplExpression
         self._type_check(dom, T_COMP)
         self._type_check(p, T_BOOL)
+        self._check_variables()
 
     @property
     def is_quantifier(self):
@@ -765,6 +770,41 @@ class HplQuantifier(HplExpression):
 
     def children(self):
         return (self.domain, self.condition)
+
+    def _check_variables(self):
+        types = self._check_domain_vars()
+        self._check_expression_vars(types)
+
+    def _check_domain_vars(self):
+        dom = self.domain
+        for obj in dom.iterate():
+            assert obj.is_expression
+            if obj.is_value and obj.is_variable:
+                assert not obj.is_defined
+                v = obj.name
+                if self.variable == v:
+                    raise HplSanityError(self._SET_REF.format(v, self))
+        if dom.is_value:
+            if dom.is_set or dom.is_range:
+                return dom.subtypes
+        return T_PRIM
+
+    def _check_expression_vars(self, t):
+        uid = id(self)
+        used = 0
+        for obj in self.condition.iterate():
+            assert obj.is_expression
+            if obj.is_value and obj.is_variable:
+                v = obj.name
+                if self.variable == v:
+                    if obj.is_defined:
+                        assert obj.defined_at != uid
+                        raise HplSanityError(self._MULTI_DEF.format(v, self))
+                    obj.defined_at = uid
+                    self._type_check(obj, t)
+                    used += 1
+        if not used:
+            raise HplSanityError(self._UNUSED.format(self.variable, self))
 
     def __eq__(self, other):
         if not isinstance(other, HplQuantifier):
@@ -956,6 +996,13 @@ class HplSet(HplValue):
     def is_set(self):
         return True
 
+    @property
+    def subtypes(self):
+        t = 0
+        for value in self.values:
+            t = t | value.types
+        return t
+
     def to_set(self):
         return set(self.values)
 
@@ -1002,6 +1049,10 @@ class HplRange(HplValue):
     @property
     def is_range(self):
         return True
+
+    @property
+    def subtypes(self):
+        return T_NUM
 
     def children(self):
         return (self.min_value, self.max_value)
@@ -1074,30 +1125,39 @@ class HplLiteral(HplValue):
 
 
 class HplVarReference(HplValue):
-    __slots__ = HplValue.__slots__ + ("name", "ros_types")
+    __slots__ = HplValue.__slots__ + ("token", "defined_at", "ros_types")
 
-    def __init__(self, name):
+    def __init__(self, token):
         HplValue.__init__(self, types=T_PRIM)
-        self.name = name # string
+        self.token = token # string
+        self.defined_at = None
         self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
     @property
     def is_variable(self):
         return True
 
+    @property
+    def name(self):
+        return self.token[1:] # remove lead "@"
+
+    @property
+    def is_defined(self):
+        return self.defined_at is not None
+
     def __eq__(self, other):
         if not isinstance(other, HplVarReference):
             return False
-        return self.name == other.name
+        return self.token == other.token
 
     def __hash__(self):
-        return hash(self.name)
+        return hash(self.token)
 
     def __str__(self):
-        return "@{}".format(self.name)
+        return self.token
 
     def __repr__(self):
-        return "{}({})".format(type(self).__name__, repr(self.name))
+        return "{}({})".format(type(self).__name__, repr(self.token))
 
 
 class HplFieldReference(HplValue):
