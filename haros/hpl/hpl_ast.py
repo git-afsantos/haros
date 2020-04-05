@@ -27,10 +27,6 @@
 
 from collections import deque, namedtuple
 
-from .ros_types import (
-    ROS_NUMBER_TYPES, ROS_PRIMITIVE_TYPES, possible_types
-)
-
 
 ###############################################################################
 # Constants
@@ -538,6 +534,10 @@ class HplEvent(HplAstObject):
 class HplPredicate(HplAstObject):
     __slots__ = ("condition",)
 
+    _DIFF_TYPES = ("multiple occurrences of '{}' with different types: "
+                   "found ({}, line {}, column {}) "
+                   "and ({}, line {}, column {})")
+
     def __init__(self, expr):
         if not expr.is_expression:
             raise TypeError("not an expression: " + str(expr))
@@ -562,7 +562,42 @@ class HplPredicate(HplAstObject):
         return (self.condition,)
 
     def _static_checks(self):
-        pass # FIXME
+        self._all_refs_same_type()
+        self._some_field_refs()
+
+    def _all_refs_same_type(self):
+        # All references to the same field/variable have the same type.
+        table = {}
+        for obj in self.condition.iterate():
+            if not obj.is_value:
+                continue
+            if not (obj.is_variable or obj.is_reference):
+                continue
+            self._check_same_type(obj, table)
+
+    def _check_same_type(self, obj, table):
+        return True # FIXME
+        final_type = obj.types
+        key = obj.token
+        refs = table.get(key)
+        if refs is None:
+            refs = []
+            table[key] = refs
+        for tok, t in refs:
+            if not obj.can_be(t):
+                raise TypeError(self._DIFF_TYPES.format(
+                    obj, type_name(obj.types), key.line, key.column,
+                    type_name(t), tok.line, tok.column))
+            final_type = final_type & t # FIXME
+        for ref in refs:
+            ref.cast(obj.types)
+        refs.append(obj)
+        variable_indices
+
+    def _some_field_refs(self):
+        # There is, at least, one reference to a field (own).
+        #   Stricter: one reference per atomic condition.
+        pass
 
     def __eq__(self, other):
         if not isinstance(other, HplPredicate):
@@ -622,11 +657,13 @@ T_ARR = 0x8
 
 T_RAN = 0x10
 T_SET = 0x20
+T_MSG = 0x40
 
-T_ANY = T_BOOL | T_NUM | T_STR | T_ARR | T_RAN | T_SET
+T_ANY = T_BOOL | T_NUM | T_STR | T_ARR | T_RAN | T_SET | T_MSG
 T_COMP = T_ARR | T_RAN | T_SET
 T_PRIM = T_BOOL | T_NUM | T_STR
-T_ROS = T_BOOL | T_NUM | T_STR | T_ARR
+T_ROS = T_BOOL | T_NUM | T_STR | T_ARR | T_MSG
+T_ITEM = T_BOOL | T_NUM | T_STR | T_MSG
 
 _TYPE_NAMES = {
     T_BOOL: "boolean",
@@ -635,6 +672,7 @@ _TYPE_NAMES = {
     T_ARR: "array",
     T_RAN: "range",
     T_SET: "set",
+    T_MSG: "ROS msg",
 }
 
 def type_name(t):
@@ -670,7 +708,15 @@ class HplExpression(HplAstObject):
         return False
 
     @property
+    def is_function_call(self):
+        return False
+
+    @property
     def is_quantifier(self):
+        return False
+
+    @property
+    def is_accessor(self):
         return False
 
     @property
@@ -697,6 +743,10 @@ class HplExpression(HplAstObject):
     def can_be_range(self):
         return bool(self.types & T_RAN)
 
+    @property
+    def can_be_msg(self):
+        return bool(self.types & T_MSG)
+
     def can_be(self, t):
         return bool(self.types & t)
 
@@ -721,38 +771,6 @@ class HplExpression(HplAstObject):
         self.types = self.types & ~t
         if not self.types:
             raise TypeError("no types left: " + str(self))
-
-
-class HplValue(HplExpression):
-    __slots__ = HplExpression.__slots__
-
-    @property
-    def is_value(self):
-        return True
-
-    @property
-    def is_literal(self):
-        return False
-
-    @property
-    def is_set(self):
-        return False
-
-    @property
-    def is_range(self):
-        return False
-
-    @property
-    def is_reference(self):
-        return False
-
-    @property
-    def is_variable(self):
-        return False
-
-    @property
-    def is_function_call(self):
-        return False
 
 
 ###############################################################################
@@ -868,7 +886,7 @@ class HplQuantifier(HplExpression):
 
 
 ###############################################################################
-# Operators
+# Operators and Functions
 ###############################################################################
 
 class HplUnaryOperator(HplExpression):
@@ -1015,19 +1033,190 @@ class HplBinaryOperator(HplExpression):
             repr(self.operand1), repr(self.operand2))
 
 
+class HplFunctionCall(HplExpression):
+    __slots__ = HplExpression.__slots__ + ("function", "arguments",)
+
+    # name: Input -> Output
+    _BUILTINS = {
+        "abs": (T_NUM, T_NUM),
+        "bool": (T_PRIM, T_BOOL),
+        "int": (T_PRIM, T_NUM),
+        "float": (T_PRIM, T_NUM),
+        "str": (T_PRIM, T_STR),
+        "len": (T_ARR, T_NUM),
+        "max": (T_ARR, T_NUM),
+        "min": (T_ARR, T_NUM),
+        "sum": (T_ARR, T_NUM),
+        "prod": (T_ARR, T_NUM),
+    }
+
+    def __init__(self, fun, args):
+        tin, tout = self._BUILTINS[fun]
+        HplExpression.__init__(self, types=tout)
+        self.function = fun # string
+        self.arguments = args # [HplValue]
+        for arg in args:
+            self._type_check(arg, tin)
+
+    @property
+    def is_function_call(self):
+        return True
+
+    @property
+    def arity(self):
+        return len(self.arguments)
+
+    def children(self):
+        return self.arguments
+
+    def __eq__(self, other):
+        if not isinstance(other, HplFunctionCall):
+            return False
+        return (self.function == other.function
+                and self.arguments == other.arguments)
+
+    def __hash__(self):
+        return 31 * hash(self.function) + hash(self.arguments)
+
+    def __str__(self):
+        return "{}({})".format(self.function,
+            ", ".join(str(arg) for arg in self.arguments))
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.function), repr(self.arguments))
+
+
+###############################################################################
+# Message Field Access
+###############################################################################
+
+class HplFieldAccess(HplExpression):
+    __slots__ = HplExpression.__slots__ + ("message", "field")
+
+    def __init__(self, msg, field):
+        HplExpression.__init__(self, types=T_ROS)
+        self.message = msg # HplExpression
+        self.field = field # string
+        self._type_check(msg, T_MSG)
+
+    @property
+    def is_accessor(self):
+        return True
+
+    @property
+    def is_indexed(self):
+        return False
+
+    def children(self):
+        return (self.message,)
+
+    def __eq__(self, other):
+        if not isinstance(other, HplFieldAccess):
+            return False
+        return (self.message == other.message
+                and self.field == other.field)
+
+    def __hash__(self):
+        return 31 * hash(self.message) + hash(self.field)
+
+    def __str__(self):
+        msg = str(self.message)
+        if msg:
+            return "{}.{}".format(msg, self.field)
+        return str(self.field)
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.message), repr(self.field))
+
+
+class HplArrayAccess(HplExpression):
+    __slots__ = HplExpression.__slots__ + ("array", "item")
+
+    _MULTI_ARRAY = "multi-dimensional array access: '{}[{}]'"
+
+    def __init__(self, array, index):
+        if array.is_accessor and array.is_indexed:
+            raise TypeError(self._MULTI_ARRAY.format(array, index))
+        HplExpression.__init__(self, types=T_ITEM)
+        self.array = array # HplExpression
+        self.index = index # HplExpression
+        self._type_check(array, T_ARR)
+        self._type_check(index, T_NUM)
+
+    @property
+    def is_accessor(self):
+        return True
+
+    @property
+    def is_indexed(self):
+        return True
+
+    def children(self):
+        return (self.array, self.index)
+
+    def __eq__(self, other):
+        if not isinstance(other, HplArrayAccess):
+            return False
+        return (self.array == other.array
+                and self.index == other.index)
+
+    def __hash__(self):
+        return 31 * hash(self.array) + hash(self.index)
+
+    def __str__(self):
+        return "{}[{}]".format(self.array, self.index)
+
+    def __repr__(self):
+        return "{}({}, {})".format(
+            type(self).__name__, repr(self.array), repr(self.index))
+
+
+###############################################################################
+# Values
+###############################################################################
+
+class HplValue(HplExpression):
+    __slots__ = HplExpression.__slots__
+
+    @property
+    def is_value(self):
+        return True
+
+    @property
+    def is_literal(self):
+        return False
+
+    @property
+    def is_set(self):
+        return False
+
+    @property
+    def is_range(self):
+        return False
+
+    @property
+    def is_reference(self):
+        return False
+
+    @property
+    def is_variable(self):
+        return False
+
+
 ###############################################################################
 # Compound Values
 ###############################################################################
 
 class HplSet(HplValue):
-    __slots__ = HplValue.__slots__ + ("values", "ros_types")
+    __slots__ = HplValue.__slots__ + ("values",)
 
     def __init__(self, values):
         HplValue.__init__(self, types=T_SET)
         self.values = values # [HplValue]
         for value in values:
             self._type_check(value, T_PRIM)
-        self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
 
     @property
     def is_set(self):
@@ -1066,7 +1255,7 @@ class HplSet(HplValue):
 
 class HplRange(HplValue):
     __slots__ = HplValue.__slots__ + (
-        "min_value", "max_value", "exclude_min", "exclude_max", "ros_types")
+        "min_value", "max_value", "exclude_min", "exclude_max")
 
     def __init__(self, lb, ub, exc_min=False, exc_max=False):
         HplValue.__init__(self, types=T_RAN)
@@ -1076,12 +1265,6 @@ class HplRange(HplValue):
         self.exclude_max = exc_max # bool
         self._type_check(lb, T_NUM)
         self._type_check(ub, T_NUM)
-        #if not any(t in ROS_NUMBER_TYPES for t in lb.ros_types):
-        #    raise TypeError("not a number: '{}'".format(lb))
-        #if not any(t in ROS_NUMBER_TYPES for t in ub.ros_types):
-        #    raise TypeError("not a number: '{}'".format(ub))
-        #self.ros_types = tuple(ros_type for ros_type in lb.ros_types
-        #                       if ros_type in ub.ros_types)
 
     @property
     def is_range(self):
@@ -1126,7 +1309,7 @@ class HplRange(HplValue):
 ###############################################################################
 
 class HplLiteral(HplValue):
-    __slots__ = HplValue.__slots__ + ("token", "value", "ros_types")
+    __slots__ = HplValue.__slots__ + ("token", "value",)
 
     def __init__(self, token, value):
         t = T_NUM
@@ -1139,7 +1322,6 @@ class HplLiteral(HplValue):
         HplValue.__init__(self, types=t)
         self.token = token # string
         self.value = value # int | long | float | bool | string
-        self.ros_types = possible_types(value) # [TypeToken]
 
     @property
     def is_literal(self):
@@ -1161,14 +1343,40 @@ class HplLiteral(HplValue):
             repr(self.token), repr(self.value))
 
 
+class HplThisMessage(HplValue):
+    __slots__ = HplValue.__slots__
+
+    def __init__(self):
+        HplValue.__init__(self, types=T_MSG)
+
+    @property
+    def is_reference(self):
+        return True
+
+    def __eq__(self, other):
+        return isinstance(other, HplThisMessage)
+
+    def __hash__(self):
+        return 433494437
+
+    def __str__(self):
+        return ""
+
+    def __repr__(self):
+        return "{}()".format(type(self).__name__)
+
+
 class HplVarReference(HplValue):
-    __slots__ = HplValue.__slots__ + ("token", "defined_at", "ros_types")
+    __slots__ = HplValue.__slots__ + ("token", "defined_at",)
 
     def __init__(self, token):
         HplValue.__init__(self, types=T_PRIM)
         self.token = token # string
         self.defined_at = None
-        self.ros_types = tuple(ROS_PRIMITIVE_TYPES)
+
+    @property
+    def is_reference(self):
+        return True
 
     @property
     def is_variable(self):
@@ -1197,114 +1405,111 @@ class HplVarReference(HplValue):
         return "{}({})".format(type(self).__name__, repr(self.token))
 
 
-class HplFieldReference(HplValue):
-    __slots__ = HplValue.__slots__ + ("token", "message", "ros_types", "_parts")
+# FIXME
+class HplFieldReference2(HplValue):
+    __slots__ = HplValue.__slots__ + ("_token", "field", "message", "parts")
 
-    def __init__(self, token, message=None):
+    def __init__(self, token):
         HplValue.__init__(self, types=T_ROS)
         self.token = token # string
-        self.message = message # string (HplEvent.alias)
-        self.ros_types = ROS_PRIMITIVE_TYPES # [TypeToken]
+
+    @property
+    def token(self):
+        return self._token
+
+    @token.setter
+    def token(self, token):
+        self._token = token # string
+        if token.startswith("@"):
+            self.message, self.field = token[1:].split(".", 1)
+        else:
+            self.field = token
+            self.message = None # string (HplEvent.alias)
         parts = []
-        for name in token.split("."):
+        for name in self.field.split("."):
             i = name.find("[")
             if i >= 0:
                 assert name.endswith("]")
                 index = name[i+1:-1]
                 name = name[:i]
                 parts.append(HplFieldAccessor(name, False, False))
-                if index.startswith("@"):
-                    parts.append(HplFieldAccessor(index[1:], True, True))
-                else:
-                    parts.append(HplFieldAccessor(index, True, False))
+                parts.append(HplFieldAccessor(
+                    index, True, index.startswith("@")))
             else:
                 parts.append(HplFieldAccessor(name, False, False))
-        self._parts = tuple(parts)
-
-    @property
-    def parts(self):
-        return self._parts
-
-    @property
-    def ros_type(self):
-        if len(self.ros_types) != 1:
-            msg = "undetermined ROS type for field '{}'; possible types: {}"
-            raise TypeError(msg.format(self.token, self.ros_types))
-        return self.ros_types[0]
+        self.parts = tuple(parts)
 
     @property
     def is_reference(self):
         return True
 
+    def variable_indices(self):
+        return tuple(p.key for p in self.parts if p.is_variable)
+
     def __eq__(self, other):
         if not isinstance(other, HplFieldReference):
             return False
-        return (self.token == other.token
-                and self.message == other.message)
+        return self.token == other.token
 
     def __hash__(self):
-        return 31 * hash(self.token) + hash(self.message)
+        return hash(self.token)
 
     def __str__(self):
-        return "{}{}".format(
-            "" if self.message is None else "@{}.".format(self.message),
-            self.token)
+        return self.token
 
     def __repr__(self):
-        return "{}({}, message={})".format(
-            type(self).__name__, repr(self.token), repr(self.message))
+        return "{}({})".format(type(self).__name__, repr(self.token))
 
 
+# FIXME
 HplFieldAccessor = namedtuple("HplFieldAccessor",
     ("key", "is_indexed", "is_variable"))
 
 
-class HplFunctionCall(HplValue):
-    __slots__ = HplValue.__slots__ + ("function", "arguments", "ros_types")
+###############################################################################
+# Helper Classes
+###############################################################################
 
-    # name: Input -> Output
-    _BUILTINS = {
-        "abs": (T_NUM, T_NUM),
-        "bool": (T_PRIM, T_BOOL),
-        "int": (T_PRIM, T_NUM),
-        "float": (T_PRIM, T_NUM),
-        "str": (T_PRIM, T_STR),
-        "len": (T_ARR, T_NUM),
-        "max": (T_ARR, T_NUM),
-        "min": (T_ARR, T_NUM),
-        "sum": (T_ARR, T_NUM),
-        "prod": (T_ARR, T_NUM),
-    }
+# FIXME
+class HplFieldAccess2(HplAstObject):
+    __slots__ = ("token", "index")
 
-    def __init__(self, fun, args):
-        tin, tout = self._BUILTINS[fun]
-        HplValue.__init__(self, types=tout)
-        self.function = fun # string
-        self.arguments = args # [HplValue]
-        for arg in args:
-            self._type_check(arg, tin)
-        self.ros_types = tuple(ROS_NUMBER_TYPES)
+    def __init__(self, token, index=None):
+        self.token = token
+        self.index = index
 
     @property
-    def is_function_call(self):
-        return True
+    def is_accessor(self):
+        return False
+
+    @property
+    def name(self):
+        return token
+
+    @property
+    def is_indexed(self):
+        return self.index is not None
 
     def children(self):
-        return self.arguments
+        if self.index is None:
+            return ()
+        return (self.index,)
 
     def __eq__(self, other):
-        if not isinstance(other, HplFunctionCall):
+        if not isinstance(other, HplFieldAccess):
             return False
-        return (self.function == other.function
-                and self.arguments == other.arguments)
+        return (self.token == other.token
+                and self.index == other.index)
 
     def __hash__(self):
-        return 31 * hash(self.function) + hash(self.arguments)
+        return 31 * hash(self.token) + hash(self.index)
 
     def __str__(self):
-        return "{}({})".format(self.function,
-            ", ".join(str(arg) for arg in self.arguments))
+        if self.index is None:
+            return self.token
+        return "{}[{}]".format(self.token, self.index)
 
     def __repr__(self):
-        return "{}({}, {})".format(
-            type(self).__name__, repr(self.function), repr(self.arguments))
+        return "{}({}, index={})".format(
+            type(self).__name__, repr(self.token), repr(self.index))
+

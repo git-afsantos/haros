@@ -31,9 +31,10 @@ from lark import Lark, Transformer
 
 from .hpl_ast import (
     HplAstObject, HplAssumption, HplProperty, HplScope, HplPattern, HplEvent,
-    HplExpression, HplVacuousTruth, HplQuantifier,
+    HplExpression, HplPredicate, HplVacuousTruth, HplQuantifier,
     HplUnaryOperator, HplBinaryOperator, HplSet, HplRange, HplLiteral,
-    HplVarReference, HplFieldReference, HplFunctionCall
+    HplVarReference, HplFunctionCall, HplFieldAccess, HplArrayAccess,
+    HplThisMessage
 )
 
 
@@ -86,8 +87,7 @@ _atomic_value: boolean
              | string
              | number_constant
              | number
-             | _msg_field
-             | variable
+             | _reference
              | function_call
              | enum_literal
              | range_literal
@@ -104,12 +104,27 @@ variable: VAR_REF
 
 function_call: BUILTIN_FUNCTION "(" expr ")"
 
-_msg_field: own_msg_field
-          | ext_msg_field
+_base_ref: variable
+         | own_field
 
-own_msg_field: FIELD_REF
+own_field: CNAME
 
-ext_msg_field: EXT_FIELD_REF
+_reference: _base_ref
+          | field_access
+          | array_access
+
+field_access: _reference "." CNAME
+
+array_access: _reference "[" _index "]"
+
+_index: expr
+
+//_msg_field: own_msg_field
+//          | ext_msg_field
+
+//own_msg_field: FIELD_REF
+
+//ext_msg_field: EXT_FIELD_REF
 
 ros_name: ROS_NAME
 
@@ -150,13 +165,13 @@ ROS_NAME: /[\/~]?[a-zA-Z][0-9a-zA-Z_]*(\/[a-zA-Z][0-9a-zA-Z_]*)*/
 
 VAR_REF: "@" CNAME
 
-FIELD_REF: MSG_FIELD ("." MSG_FIELD)*
+//FIELD_REF: MSG_FIELD ("." MSG_FIELD)*
 
-MSG_FIELD: CNAME ARRAY_ACCESS?
+//MSG_FIELD: CNAME ARRAY_ACCESS?
 
-ARRAY_ACCESS: "[" (INT | VAR_REF) "]"
+//ARRAY_ACCESS: "[" (INT | VAR_REF) "]"
 
-EXT_FIELD_REF: VAR_REF "." FIELD_REF
+//EXT_FIELD_REF: VAR_REF "." FIELD_REF
 
 BUILTIN_FUNCTION: "len" | "abs" | "bool" | "int" | "float" | "str"
                 | "max" | "min" | "sum" | "prod"
@@ -315,18 +330,11 @@ class PropertyTransformer(Transformer):
         return (children[0], alias)
 
     def predicate(self, (expr,)):
-        assert expr.is_expression, "predicate is not an expression"
-        if not expr.can_be_bool:
-            raise TypeError("predicate must be a boolean expression: "
-                            + str(expr))
-        return expr
+        return HplPredicate(expr)
 
     def top_level_condition(self, (expr,)):
         # TODO remove, just for debugging
-        assert expr.is_expression, "predicate is not an expression"
-        if not expr.can_be_bool:
-            raise TypeError("predicate must be a boolean expression: "
-                            + str(expr))
+        phi = HplPredicate(expr)
         return expr
 
     def condition(self, children):
@@ -345,9 +353,6 @@ class PropertyTransformer(Transformer):
         return HplQuantifier(qt, var, dom, phi)
 
     def atomic_condition(self, children):
-        #expr = self._lr_binop(children)
-        #assert expr.is_expression
-        #return expr if expr.is_bool else HplBooleanCoercion(expr)
         return self._lr_binop(children)
 
     def function_call(self, (fun, arg)):
@@ -391,16 +396,17 @@ class PropertyTransformer(Transformer):
         exc_max = rr.endswith("!")
         return HplRange(lb, ub, exc_min=exc_min, exc_max=exc_max)
 
-    def variable(self, (var,)):
-        return HplVarReference(var)
+    def variable(self, (token,)):
+        return HplVarReference(token)
 
-    def own_msg_field(self, (ref,)):
-        return HplFieldReference(ref)
+    def own_field(self, (token,)):
+        return HplFieldAccess(HplThisMessage(), token)
 
-    def ext_msg_field(self, (ref,)):
-        alias, field = ref.split(".", 1)
-        name = alias[1:] # remove lead "@"
-        return HplFieldReference(field, message=name)
+    def field_access(self, (ref, token)):
+        return HplFieldAccess(ref, token)
+
+    def array_access(self, (ref, index)):
+        return HplArrayAccess(ref, index)
 
     def frequency(self, (n, unit)):
         n = float(n)
