@@ -539,6 +539,12 @@ class HplEvent(HplAstObject):
 
 # Bit Flags
 
+# These work as possible types for the expression.
+# An expression of unknown type would have "any" type (i.e., all flags on).
+# E.g., (T_NUM | T_BOOL) means the expression can be either a number or a bool.
+# Things like variables start with many possible types, and are refined as the
+# tree is built.
+
 T_BOOL = 0x1
 T_NUM = 0x2
 T_STR = 0x4
