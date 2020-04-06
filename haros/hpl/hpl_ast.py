@@ -44,6 +44,14 @@ class HplSanityError(Exception):
 
 
 ###############################################################################
+# Helper Functions
+###############################################################################
+
+def isclose(a, b, rel_tol=1e-06, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+
+###############################################################################
 # Top-level Classes
 ###############################################################################
 
@@ -415,8 +423,9 @@ class HplPattern(HplAstObject):
         return (self.pattern_type == other.pattern_type
                 and self.behaviour == other.behaviour
                 and self.trigger == other.trigger
-                and self.min_time == other.min_time
-                and self.max_time == other.max_time)
+                and isclose(self.min_time, other.min_time)
+                and ((self.max_time == INF and other.max_time == INF)
+                    or isclose(self.max_time, other.max_time)))
 
     def __hash__(self):
         h = 31 * hash(self.pattern_type) + hash(self.behaviour)

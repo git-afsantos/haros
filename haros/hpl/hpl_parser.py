@@ -51,7 +51,7 @@ NAN = float("nan")
 ###############################################################################
 
 PREDICATE_GRAMMAR = r"""
-predicate: "{" top_level_condition "}"
+predicate: "{" condition "}"
 
 top_level_condition: condition
 
@@ -442,10 +442,14 @@ class PropertyTransformer(Transformer):
 # HPL Parser
 ###############################################################################
 
-def hpl_property_parser():
+def hpl_property_parser(debug=False):
     return Lark(PROPERTY_GRAMMAR, parser="lalr", start="hpl_property",
-            transformer=PropertyTransformer())
+            transformer=PropertyTransformer(), debug=debug)
 
-def hpl_assumption_parser():
+def hpl_assumption_parser(debug=False):
     return Lark(ASSUMPTION_GRAMMAR, parser="lalr", start="hpl_assumption",
-            transformer=PropertyTransformer())
+            transformer=PropertyTransformer(), debug=debug)
+
+def hpl_predicate_parser(debug=False):
+    return Lark(PROPERTY_GRAMMAR, parser="lalr", start="top_level_condition",
+            transformer=PropertyTransformer(), debug=debug)
