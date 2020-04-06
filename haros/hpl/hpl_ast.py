@@ -534,9 +534,8 @@ class HplEvent(HplAstObject):
 class HplPredicate(HplAstObject):
     __slots__ = ("condition",)
 
-    _DIFF_TYPES = ("multiple occurrences of '{}' with different types: "
-                   "found ({}, line {}, column {}) "
-                   "and ({}, line {}, column {})")
+    _DIFF_TYPES = ("multiple occurrences of '{}' with incompatible types: "
+                   "found ({}) and ({})")
 
     def __init__(self, expr):
         if not expr.is_expression:
@@ -569,30 +568,23 @@ class HplPredicate(HplAstObject):
         # All references to the same field/variable have the same type.
         table = {}
         for obj in self.condition.iterate():
-            if not obj.is_value:
-                continue
-            if not (obj.is_variable or obj.is_reference):
-                continue
-            self._check_same_type(obj, table)
-
-    def _check_same_type(self, obj, table):
-        return True # FIXME
-        final_type = obj.types
-        key = obj.token
-        refs = table.get(key)
-        if refs is None:
-            refs = []
-            table[key] = refs
-        for tok, t in refs:
-            if not obj.can_be(t):
-                raise TypeError(self._DIFF_TYPES.format(
-                    obj, type_name(obj.types), key.line, key.column,
-                    type_name(t), tok.line, tok.column))
-            final_type = final_type & t # FIXME
-        for ref in refs:
-            ref.cast(obj.types)
-        refs.append(obj)
-        variable_indices
+            if obj.is_accessor or (obj.is_value and obj.is_variable):
+                key = str(obj)
+                refs = table.get(key)
+                if refs is None:
+                    refs = []
+                    table[key] = refs
+                refs.append(obj)
+        for key, refs in table.iteritems():
+            # must traverse twice, in case we start with the most generic
+            # and go down to the most specific
+            final_type = T_ANY
+            for ref in refs:
+                ref.cast(final_type)
+                final_type = ref.types
+            for ref in reversed(refs):
+                ref.cast(final_type)
+                final_type = ref.types
 
     def _some_field_refs(self):
         # There is, at least, one reference to a field (own).

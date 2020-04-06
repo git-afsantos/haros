@@ -66,6 +66,8 @@ BAD_PREDICATES = [
     "x = -{1,2,3}",
     "a implies forall x in xs: b",
     "a[1][2]",
+    "(a + 1) > 0 and a",
+    "exists x in xs: (a[@x] implies @x)",
 ]
 
 GOOD_PREDICATES = [
