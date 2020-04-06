@@ -536,6 +536,7 @@ class HplPredicate(HplAstObject):
 
     _DIFF_TYPES = ("multiple occurrences of '{}' with incompatible types: "
                    "found ({}) and ({})")
+    _NO_REFS = "there are no references to any fields of this message"
 
     def __init__(self, expr):
         if not expr.is_expression:
@@ -561,20 +562,20 @@ class HplPredicate(HplAstObject):
         return (self.condition,)
 
     def _static_checks(self):
-        self._all_refs_same_type()
-        self._some_field_refs()
-
-    def _all_refs_same_type(self):
-        # All references to the same field/variable have the same type.
-        table = {}
+        ref_table = {}
         for obj in self.condition.iterate():
             if obj.is_accessor or (obj.is_value and obj.is_variable):
                 key = str(obj)
-                refs = table.get(key)
+                refs = ref_table.get(key)
                 if refs is None:
                     refs = []
-                    table[key] = refs
+                    ref_table[key] = refs
                 refs.append(obj)
+        self._all_refs_same_type(ref_table)
+        self._some_field_refs(ref_table)
+
+    def _all_refs_same_type(self, table):
+        # All references to the same field/variable have the same type.
         for key, refs in table.iteritems():
             # must traverse twice, in case we start with the most generic
             # and go down to the most specific
@@ -586,10 +587,22 @@ class HplPredicate(HplAstObject):
                 ref.cast(final_type)
                 final_type = ref.types
 
-    def _some_field_refs(self):
+    def _some_field_refs(self, table):
         # There is, at least, one reference to a field (own).
-        #   Stricter: one reference per atomic condition.
-        pass
+        #   [NYI] Stricter: one reference per atomic condition.
+        for refs in table.itervalues():
+            for ref in refs:
+                if not ref.is_accessor:
+                    break
+                if ref.is_indexed:
+                    break
+                if not ref.message.is_value:
+                    break
+                assert ref.message.is_reference
+                if not ref.message.is_this_msg:
+                    break
+                return # OK
+        raise HplSanityError(self._NO_REFS)
 
     def __eq__(self, other):
         if not isinstance(other, HplPredicate):
@@ -1196,6 +1209,10 @@ class HplValue(HplExpression):
     def is_variable(self):
         return False
 
+    @property
+    def is_this_msg(self):
+        return False
+
 
 ###############################################################################
 # Compound Values
@@ -1343,6 +1360,10 @@ class HplThisMessage(HplValue):
 
     @property
     def is_reference(self):
+        return True
+
+    @property
+    def is_this_msg(self):
         return True
 
     def __eq__(self, other):

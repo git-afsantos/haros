@@ -68,15 +68,15 @@ BAD_PREDICATES = [
     "a[1][2]",
     "(a + 1) > 0 and a",
     "exists x in xs: (a[@x] implies @x)",
+    "@a < 3",
+    "---42 = -42",
 ]
 
 GOOD_PREDICATES = [
-    "@a < 3",
     "a + b < c",
     "forall x in xs: @x",
     "a implies iff iff iff",
     "not a + b < c",
-    "---42 = -42",
     "a + b * c ** d = e ** -(f - g) / h",
     "(not ((a or b) implies c) and d)",
     "a[1] = a[@i + 1]",
