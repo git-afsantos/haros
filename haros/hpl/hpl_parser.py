@@ -119,13 +119,6 @@ array_access: _reference "[" _index "]"
 
 _index: expr
 
-//_msg_field: own_msg_field
-//          | ext_msg_field
-
-//own_msg_field: FIELD_REF
-
-//ext_msg_field: EXT_FIELD_REF
-
 ros_name: ROS_NAME
 
 int_literal: INT
@@ -164,14 +157,6 @@ R_RANGE: "]" | "]!"
 ROS_NAME: /[\/~]?[a-zA-Z][0-9a-zA-Z_]*(\/[a-zA-Z][0-9a-zA-Z_]*)*/
 
 VAR_REF: "@" CNAME
-
-//FIELD_REF: MSG_FIELD ("." MSG_FIELD)*
-
-//MSG_FIELD: CNAME ARRAY_ACCESS?
-
-//ARRAY_ACCESS: "[" (INT | VAR_REF) "]"
-
-//EXT_FIELD_REF: VAR_REF "." FIELD_REF
 
 BUILTIN_FUNCTION: "len" | "abs" | "bool" | "int" | "float" | "str"
                 | "max" | "min" | "sum" | "prod"
