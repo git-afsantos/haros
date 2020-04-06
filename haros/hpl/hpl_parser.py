@@ -87,10 +87,10 @@ _atomic_value: boolean
              | string
              | number_constant
              | number
-             | _reference
              | function_call
              | enum_literal
              | range_literal
+             | _reference
 
 number_constant: CONSTANT
 
@@ -98,11 +98,15 @@ enum_literal: "{" _enum_member "}"
 
 _enum_member: [_enum_member ","] expr
 
-range_literal: L_RANGE expr "to" expr R_RANGE
+range_literal: _start_range expr "to" expr _end_range
+
+_start_range: L_RANGE_EXC | L_RANGE_INC
+
+_end_range: R_RANGE_EXC | R_RANGE_INC
 
 variable: VAR_REF
 
-function_call: BUILTIN_FUNCTION "(" expr ")"
+function_call: CNAME "(" expr ")"
 
 _base_ref: variable
          | own_field
@@ -151,15 +155,14 @@ MULT_OPERATOR: "*" | "/"
 POWER_OPERATOR: "**"
 MINUS_OPERATOR: "-"
 
-L_RANGE: "[" | "!["
-R_RANGE: "]" | "]!"
+L_RANGE_EXC: "!["
+L_RANGE_INC: "["
+R_RANGE_EXC: "]!"
+R_RANGE_INC: "]"
 
 ROS_NAME: /[\/~]?[a-zA-Z][0-9a-zA-Z_]*(\/[a-zA-Z][0-9a-zA-Z_]*)*/
 
 VAR_REF: "@" CNAME
-
-BUILTIN_FUNCTION: "len" | "abs" | "bool" | "int" | "float" | "str"
-                | "max" | "min" | "sum" | "prod"
 """
 
 

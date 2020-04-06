@@ -495,10 +495,11 @@ class HplEvent(HplAstObject):
 
     def external_references(self):
         refs = set()
-        for obj in self.iterate():
-            if isinstance(obj, HplFieldReference):
-                if obj.message is not None:
-                    refs.add(obj.message)
+        for obj in self.predicate.iterate():
+            if obj.is_expression and obj.is_accessor:
+                if obj.is_field and obj.message.is_value:
+                    if obj.message.is_variable:
+                        refs.add(obj.message.name)
         if self.alias is not None:
             refs.discard(self.alias)
         return refs
@@ -1069,7 +1070,10 @@ class HplFunctionCall(HplExpression):
     }
 
     def __init__(self, fun, args):
-        tin, tout = self._BUILTINS[fun]
+        try:
+            tin, tout = self._BUILTINS[fun]
+        except KeyError:
+            raise KeyError("undefined function '{}'".format(fun))
         HplExpression.__init__(self, types=tout)
         self.function = fun # string
         self.arguments = args # [HplValue]
@@ -1123,6 +1127,10 @@ class HplFieldAccess(HplExpression):
         return True
 
     @property
+    def is_field(self):
+        return True
+
+    @property
     def is_indexed(self):
         return False
 
@@ -1166,6 +1174,10 @@ class HplArrayAccess(HplExpression):
     @property
     def is_accessor(self):
         return True
+
+    @property
+    def is_field(self):
+        return False
 
     @property
     def is_indexed(self):
@@ -1396,7 +1408,7 @@ class HplVarReference(HplValue):
     __slots__ = HplValue.__slots__ + ("token", "defined_at",)
 
     def __init__(self, token):
-        HplValue.__init__(self, types=T_PRIM)
+        HplValue.__init__(self, types=T_ITEM)
         self.token = token # string
         self.defined_at = None
 

@@ -70,6 +70,7 @@ BAD_PREDICATES = [
     "exists x in xs: (a[@x] implies @x)",
     "@a < 3",
     "---42 = -42",
+    "f(x) > 0",
 ]
 
 GOOD_PREDICATES = [
@@ -80,6 +81,10 @@ GOOD_PREDICATES = [
     "a + b * c ** d = e ** -(f - g) / h",
     "(not ((a or b) implies c) and d)",
     "a[1] = a[@i + 1]",
+    "f.int in [0 to 10]",
+    "f.int in ![0 to 10]",
+    "f.int in [0 to 10]!",
+    "f.int in ![0 to len(array)]!",
 ]
 
 
@@ -96,9 +101,6 @@ BAD_PROPERTIES = [
 
     # filters must be non-empty
     "globally: some topic {}",
-
-    # do not allow spaces in index operator
-    "globally: some topic {int_array [1] > 0}",
 
     # cannot compare numbers to strings
     'globally: some topic {int > "42"}',
@@ -126,13 +128,13 @@ GOOD_PROPERTIES = [
 
     "after input: no output",
 
-    "globally: some topic {m.int in 0 to 10!}",
+    "globally: some topic {m.int in [0 to 10]!}",
 
-    "globally: some topic {not int in 0 to 10}",
+    "globally: some topic {not int in [0 to 10]}",
 
     "globally: some topic {float_array[0] < float_array[1]}",
 
-    "globally: some topic {forall i in [0 to len(int_array)!]: int_array[@i] > 0}",
+    "globally: some topic {forall i in [0 to len(int_array)]!: int_array[@i] > 0}",
 
     r"globally: some topic {exists x in int_array: @x > 0}",
 
@@ -174,7 +176,7 @@ def test_routine(parser, good, bad):
             print "\n[ Parsing ] OK"
             tree = transformer.transform(tree)
             print "[Transform] OK"
-            print "[Full Type]", "OK" if tree.is_fully_typed() else "FAIL"
+            #print "[Full Type]", "OK" if tree.is_fully_typed() else "FAIL"
             print ""
             print repr(tree)
         except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
@@ -207,9 +209,9 @@ def test_properties():
 def main():
     logging.basicConfig(level=logging.DEBUG)
     try:
-        if test_predicates():
+        #if test_predicates():
+        if test_properties():
             assert False
-        # test_properties()
     except GrammarError as e:
         logging.error(str(e))
         return 1
