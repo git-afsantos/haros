@@ -558,6 +558,9 @@ class HplPredicate(HplAstObject):
     def phi(self):
         return self.condition
 
+    def is_fully_typed(self):
+        return self.condition.is_fully_typed()
+
     def children(self):
         return (self.condition,)
 
@@ -628,6 +631,9 @@ class HplVacuousTruth(HplAstObject):
 
     @property
     def is_vacuous(self):
+        return True
+
+    def is_fully_typed(self):
         return True
 
     def __eq__(self, other):
@@ -754,6 +760,13 @@ class HplExpression(HplAstObject):
 
     def can_be(self, t):
         return bool(self.types & t)
+
+    def is_fully_typed(self):
+        for obj in self.iterate():
+            t = obj.types
+            if (not t) or bool(t & (t - 1)): # not a power of 2
+                return False
+        return True
 
     def cast(self, t):
         r = self.types & t

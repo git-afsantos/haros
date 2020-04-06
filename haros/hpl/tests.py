@@ -174,6 +174,7 @@ def test_routine(parser, good, bad):
             print "\n[ Parsing ] OK"
             tree = transformer.transform(tree)
             print "[Transform] OK"
+            print "[Full Type]", "OK" if tree.is_fully_typed() else "FAIL"
             print ""
             print repr(tree)
         except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
