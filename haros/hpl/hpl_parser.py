@@ -25,6 +25,7 @@
 # Imports
 ###############################################################################
 
+import logging
 import math
 
 from lark import Lark, Transformer
@@ -35,7 +36,7 @@ from .hpl_ast import (
     HplExpression, HplPredicate, HplVacuousTruth, HplQuantifier,
     HplUnaryOperator, HplBinaryOperator, HplSet, HplRange, HplLiteral,
     HplVarReference, HplFunctionCall, HplFieldAccess, HplArrayAccess,
-    HplThisMessage
+    HplThisMessage, HplSanityError, HplTypeError
 )
 
 
@@ -259,3 +260,48 @@ def hpl_assumption_parser(debug=False):
 def hpl_predicate_parser(debug=False):
     return Lark(PROPERTY_GRAMMAR, parser="lalr", start="top_level_condition",
             transformer=PropertyTransformer(), debug=debug)
+
+
+class UserSpecParser(object):
+    __slots__ = ("log", "property_parser", "assumption_parser")
+
+    def __init__(self):
+        self.log = logging.getLogger(__name__)
+        self.property_parser = hpl_property_parser()
+        self.assumption_parser = hpl_assumption_parser()
+
+    def parse_config_specs(self, config):
+        # TODO get type tokens for publishers and subscribers
+        for i in range(len(config.hpl_properties)):
+            self._parse_property(config, i) # TODO missing topic info
+        for i in range(len(config.hpl_assumptions)):
+            self._parse_assumption(config, i) # TODO missing topic info
+
+    def parse_node_specs(self, node):
+        # TODO get type tokens for publishers and subscribers
+        for i in range(len(node.hpl_properties)):
+            self._parse_property(node, i) # TODO missing topic info
+        for i in range(len(node.hpl_assumptions)):
+            self._parse_assumption(node, i) # TODO missing topic info
+
+    def _parse_property(self, obj, i): # TODO missing topic info
+        text = obj.hpl_properties[i]
+        try:
+            ast = self.property_parser.parse(text)
+            obj.hpl_properties[i] = ast
+        except (HplSanityError, HplTypeError) as e:
+            t = type(obj).__name__
+            n = obj.name
+            self.log.error(("Error in %s '%s' when parsing property\n"
+                            "'%s'\n\n%s"), t, n, text, e)
+
+    def _parse_assumption(self, obj, i): # TODO missing topic info
+        text = obj.hpl_assumptions[i]
+        try:
+            ast = self.assumption_parser.parse(text)
+            obj.hpl_assumptions[i] = ast
+        except (HplSanityError, HplTypeError) as e:
+            t = type(obj).__name__
+            n = obj.name
+            self.log.error(("Error in %s '%s' when parsing assumption\n"
+                            "'%s'\n\n%s"), t, n, text, e)
