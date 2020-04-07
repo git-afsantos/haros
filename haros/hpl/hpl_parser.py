@@ -25,10 +25,13 @@
 # Imports
 ###############################################################################
 
+from itertools import chain
 import logging
 import math
 
 from lark import Lark, Transformer
+
+from haros.metamodel import RosName
 
 from .grammar import ASSUMPTION_GRAMMAR, PREDICATE_GRAMMAR, PROPERTY_GRAMMAR
 from .hpl_ast import (
@@ -38,6 +41,7 @@ from .hpl_ast import (
     HplVarReference, HplFunctionCall, HplFieldAccess, HplArrayAccess,
     HplThisMessage, HplSanityError, HplTypeError
 )
+from .ros_types import get_type
 
 
 ###############################################################################
@@ -271,23 +275,29 @@ class UserSpecParser(object):
         self.assumption_parser = hpl_assumption_parser()
 
     def parse_config_specs(self, config):
-        # TODO get type tokens for publishers and subscribers
+        topic_types = self._get_config_topics(config)
         for i in range(len(config.hpl_properties)):
-            self._parse_property(config, i) # TODO missing topic info
+            self._parse_property(config, i, topic_types)
         for i in range(len(config.hpl_assumptions)):
-            self._parse_assumption(config, i) # TODO missing topic info
+            self._parse_assumption(config, i, topic_types)
 
     def parse_node_specs(self, node):
-        # TODO get type tokens for publishers and subscribers
+        topic_types = node._get_node_topics(node)
         for i in range(len(node.hpl_properties)):
-            self._parse_property(node, i) # TODO missing topic info
+            self._parse_property(node, i, topic_types)
         for i in range(len(node.hpl_assumptions)):
-            self._parse_assumption(node, i) # TODO missing topic info
+            self._parse_assumption(node, i, topic_types)
 
-    def _parse_property(self, obj, i): # TODO missing topic info
+    def _parse_property(self, obj, i, topic_types, pns=""):
         text = obj.hpl_properties[i]
         try:
             ast = self.property_parser.parse(text)
+            refs = {}
+            event = ast.scope.activator
+            if event is not None and event.is_publish:
+                self._type_check_event(event, topic_types, refs, obj, pns)
+                # TODO update refs if alias
+            # TODO  topics from events
             obj.hpl_properties[i] = ast
         except (HplSanityError, HplTypeError) as e:
             t = type(obj).__name__
@@ -295,13 +305,57 @@ class UserSpecParser(object):
             self.log.error(("Error in %s '%s' when parsing property\n"
                             "'%s'\n\n%s"), t, n, text, e)
 
-    def _parse_assumption(self, obj, i): # TODO missing topic info
+    def _parse_assumption(self, obj, i, topic_types):
         text = obj.hpl_assumptions[i]
         try:
             ast = self.assumption_parser.parse(text)
+            # TODO assumptions also have .topic and .predicate
             obj.hpl_assumptions[i] = ast
         except (HplSanityError, HplTypeError) as e:
             t = type(obj).__name__
             n = obj.name
             self.log.error(("Error in %s '%s' when parsing assumption\n"
                             "'%s'\n\n%s"), t, n, text, e)
+
+    def _get_config_topics(self, config):
+        topics = {} # topic -> TypeToken
+        for topic in config.topics:
+            if topic.unresolved:
+                self.log_warning(
+                    "Skipping unresolved topic '%s' in configuration '%s'.",
+                    topic.rosname.full, config.name)
+                continue
+            try:
+                topics[topic.rosname.full] = get_type(topic.type)
+            except KeyError as e:
+                self.log.warning(str(e))
+        return topics
+
+    def _get_node_topics(self, node):
+        topics = {} # topic -> TypeToken
+        for call in chain(node.advertise, node.subscribe):
+            if call.name == "?" or call.type == "?":
+                self.log_warning(
+                    "Skipping unresolved topic '%s' in node '%s'.",
+                    call.name, node.node_name)
+                continue
+            ns = "/" + node.name
+            topic = RosName.resolve(call.name, private_ns=ns)
+            try:
+                topics[topic] = get_type(call.type)
+            except KeyError as e:
+                self.log.warning(str(e))
+        return topics
+
+    def _type_check_event(self, event, topic_types, refs, obj, pns):
+        topic = RosName.resolve(event.topic, private_ns=pns)
+        try:
+            rostype = topic_types[event.topic]
+        except KeyError:
+            t = type(obj).__name__
+            n = obj.name
+            self.log.warning(
+                ("No available type information for topic "
+                 "'%s' in %s '%s'."),
+                topic, t, n)
+        event.predicate.refine_types(rostype, **refs)
