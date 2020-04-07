@@ -22,13 +22,6 @@
 
 
 ###############################################################################
-# Imports
-###############################################################################
-
-from collections import deque, namedtuple
-
-
-###############################################################################
 # Constants
 ###############################################################################
 
@@ -1150,7 +1143,7 @@ class HplFunctionCall(HplExpression):
         try:
             tin, tout = self._BUILTINS[fun]
         except KeyError:
-            raise KeyError("undefined function '{}'".format(fun))
+            raise HplTypeError("undefined function '{}'".format(fun))
         HplExpression.__init__(self, types=tout)
         self.function = fun # string
         self.arguments = args # [HplValue]
