@@ -570,7 +570,7 @@ class HplPredicate(HplAstObject):
         if not expr.is_expression:
             raise TypeError("not an expression: " + str(expr))
         if not expr.can_be_bool:
-            raise TypeError("not a boolean expression: " + str(expr))
+            raise HplTypeError("not a boolean expression: " + str(expr))
         self.condition = expr
         self._static_checks()
 
@@ -849,16 +849,16 @@ class HplExpression(HplAstObject):
     def cast(self, t):
         r = self.types & t
         if not r:
-            raise TypeError("expected ({}) but found ({}): {}".format(
+            raise HplTypeError("expected ({}) but found ({}): {}".format(
                 type_name(t), type_name(self.types), self))
         self.types = r
 
     def _type_check(self, x, t):
         try:
             x.cast(t)
-        except TypeError as e:
+        except HplTypeError as e:
             msg = "Type error in expression '{}':\n{}".format(self, e)
-            raise TypeError(msg)
+            raise HplTypeError(msg)
 
     def add_type(self, t):
         self.types = self.types | t
@@ -866,7 +866,7 @@ class HplExpression(HplAstObject):
     def rem_type(self, t):
         self.types = self.types & ~t
         if not self.types:
-            raise TypeError("no types left: " + str(self))
+            raise HplTypeError("no types left: " + str(self))
 
 
 ###############################################################################
@@ -1241,7 +1241,7 @@ class HplArrayAccess(HplExpression):
 
     def __init__(self, array, index):
         if array.is_accessor and array.is_indexed:
-            raise TypeError(self._MULTI_ARRAY.format(array, index))
+            raise HplTypeError(self._MULTI_ARRAY.format(array, index))
         HplExpression.__init__(self, types=T_ITEM)
         self.array = array # HplExpression
         self.index = index # HplExpression
