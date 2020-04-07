@@ -43,6 +43,25 @@ class HplSanityError(Exception):
     pass
 
 
+class HplTypeError(Exception):
+    pass
+
+    @classmethod
+    def ros_field(cls, rostype, field, expr):
+        return cls("ROS '{}' has no field '{}': {}".format(
+            rostype, field, expr))
+
+    @classmethod
+    def ros_array(cls, rostype, expr):
+        return cls("ROS '{}' is not an array: {}".format(
+            rostype, expr))
+
+    @classmethod
+    def ros_index(cls, rostype, idx, expr):
+        return cls("ROS '{}' index {} out of range: {}".format(
+            rostype, idx, expr))
+
+
 ###############################################################################
 # Helper Functions
 ###############################################################################
@@ -88,12 +107,11 @@ class HplAstObject(object):
         return ()
 
     def iterate(self):
-        yield self
-        queue = deque(self.children())
-        while queue:
-            obj = queue.popleft()
+        stack = [self]
+        while stack:
+            obj = stack.pop()
+            stack.extend(reversed(obj.children()))
             yield obj
-            queue.extend(obj.children())
 
 
 class HplAssumption(HplAstObject):
@@ -574,6 +592,53 @@ class HplPredicate(HplAstObject):
     def children(self):
         return (self.condition,)
 
+    def refine_types(self, rostype, **kwargs):
+        # rostype: ROS Type Token
+        # kwargs: string (alias) -> ROS Type Token
+        stack = [self.condition]
+        while stack:
+            obj = stack.pop()
+            if obj.is_accessor:
+                self._refine_type(obj, rostype, **kwargs)
+            else:
+                stack.extend(reversed(obj.children()))
+
+    def _refine_type(self, accessor, rostype, **kwargs):
+        stack = []
+        expr = accessor
+        while expr.message.is_accessor:
+            stack.append(expr)
+            expr = expr.message
+        assert expr.is_value and (expr.is_this_msg or expr.is_variable)
+        t = rostype if expr.is_this_msg else kwargs[expr.name]
+        assert t.is_message
+        while stack:
+            expr = stack.pop()
+            if expr.is_field:
+                if not t.is_message or expr.field not in t.fields:
+                    raise HplTypeError.ros_field(t, expr.field, expr)
+                t = t.fields[expr.field]
+            else:
+                assert expr.is_indexed
+                if not t.is_array:
+                    raise HplTypeError.ros_array(t, expr)
+                i = expr.index
+                if (i.is_value and i.is_literal
+                        and not t.contains_index(i.value)):
+                    raise HplTypeError.ros_index(t, expr.index, expr)
+                t = t.type_token
+            if t.is_message:
+                accessor._type_check(expr, T_MSG)
+            elif t.is_number:
+                accessor._type_check(expr, T_NUM)
+                # TODO check that values fit within types
+            elif t.is_bool:
+                accessor._type_check(expr, T_BOOL)
+            elif t.is_string:
+                accessor._type_check(expr, T_STR)
+            elif t.is_array:
+                accessor._type_check(expr, T_ARR)
+
     def _static_checks(self):
         ref_table = {}
         for obj in self.condition.iterate():
@@ -645,6 +710,9 @@ class HplVacuousTruth(HplAstObject):
 
     def is_fully_typed(self):
         return True
+
+    def refine_types(self, rostype, **kwargs):
+        pass
 
     def __eq__(self, other):
         return isinstance(other, HplVacuousTruth)
@@ -1191,6 +1259,10 @@ class HplArrayAccess(HplExpression):
     @property
     def is_indexed(self):
         return True
+
+    @property
+    def message(self):
+        return self.array
 
     def children(self):
         return (self.array, self.index)

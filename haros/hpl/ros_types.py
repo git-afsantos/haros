@@ -78,6 +78,10 @@ class TypeToken(object):
         return False
 
     @property
+    def is_message(self):
+        return False
+
+    @property
     def is_header(self):
         return False
 
@@ -114,6 +118,10 @@ class MessageType(TypeToken):
     @property
     def type_name(self):
         return self._type
+
+    @property
+    def is_message(self):
+        return True
 
     @property
     def is_builtin(self):
@@ -190,6 +198,10 @@ class ArrayType(TypeToken):
         return self.type_token.is_header
 
     @property
+    def is_message(self):
+        return False
+
+    @property
     def is_array(self):
         return True
 
@@ -224,7 +236,7 @@ class ArrayType(TypeToken):
 
 _TOKEN_PROPERTIES = ("type_name", "is_builtin", "is_primitive", "is_number",
                      "is_int", "is_float", "is_bool", "is_string", "is_time",
-                     "is_duration", "is_header", "is_array")
+                     "is_duration", "is_header", "is_message", "is_array")
 BuiltinPlainTypeToken = namedtuple("BuiltinPlainTypeToken", _TOKEN_PROPERTIES)
 BuiltinPlainTypeToken.__bases__ = (TypeToken,) + BuiltinPlainTypeToken.__bases__
 
@@ -249,6 +261,7 @@ BOOL = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     0,              # min_value
     1               # max_value
@@ -266,6 +279,7 @@ UINT8 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     0,              # min_value
     (2 ** 8) - 1    # max_value
@@ -285,6 +299,7 @@ UINT16 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     0,              # min_value
     (2 ** 16) - 1   # max_value
@@ -302,6 +317,7 @@ UINT32 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     0,              # min_value
     (2 ** 32) - 1   # max_value
@@ -319,6 +335,7 @@ UINT64 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     0,              # min_value
     (2 ** 64) - 1   # max_value
@@ -336,6 +353,7 @@ INT8 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -(2 ** 7),      # min_value
     (2 ** 7) - 1    # max_value
@@ -355,6 +373,7 @@ INT16 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -(2 ** 15),     # min_value
     (2 ** 15) - 1   # max_value
@@ -372,6 +391,7 @@ INT32 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -(2 ** 31),     # min_value
     (2 ** 31) - 1   # max_value
@@ -389,6 +409,7 @@ INT64 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -(2 ** 63),     # min_value
     (2 ** 63) - 1   # max_value
@@ -406,6 +427,7 @@ FLOAT32 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -3.3999999521443642e+38, # min_value
     3.3999999521443642e+38   # max_value
@@ -423,6 +445,7 @@ FLOAT64 = BuiltinNumTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False,          # is_array
     -1.7E+308,      # min_value
     1.7E+308        # max_value
@@ -440,6 +463,7 @@ STRING = BuiltinPlainTypeToken(
     False,          # is_time
     False,          # is_duration
     False,          # is_header
+    False,          # is_message
     False           # is_array
 )
 
@@ -455,6 +479,7 @@ TIME = BuiltinMsgTypeToken(
     True,           # is_time
     False,          # is_duration
     False,          # is_header
+    True,           # is_message
     False,          # is_array
     {               # fields
         "secs": UINT32,
@@ -475,6 +500,7 @@ DURATION = BuiltinMsgTypeToken(
     False,          # is_time
     True,           # is_duration
     False,          # is_header
+    True,           # is_message
     False,          # is_array
     {               # fields
         "secs": INT32,
@@ -495,6 +521,7 @@ HEADER = BuiltinMsgTypeToken(
     False,              # is_time
     False,              # is_duration
     True,               # is_header
+    True,               # is_message
     False,              # is_array
     {                   # fields
         "seq": UINT32,
