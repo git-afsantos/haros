@@ -707,43 +707,36 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return plugins, rules, metrics
 
     def _parse_hpl_properties(self):
-        items = []
+        configs = []
+        nodes = []
         for config in self.database.project.configurations:
             if config.hpl_properties or config.hpl_assumptions:
-                items.append(config)
-        skipped = []
+                configs.append(config)
         for pkg in self.database.project.packages:
             for node in pkg.nodes:
                 if node.hpl_properties or node.hpl_assumptions:
                     if pkg._analyse:
-                        items.append(node)
+                        nodes.append(node)
                     else:
-                        skipped.append(node.node_name)
-        if not items:
-            if skipped:
-                self.log.warning(("Found HPL specifications for nodes %s, "
-                    "but their packages are not marked for analysis."),
-                    skipped)
+                        self.log.warning((
+                            "Found HPL specifications for node %s, "
+                            "but package %s is not marked for analysis."),
+                            node.node_name, node.package.name)
+        if not configs and not nodes:
             return
-        p_parser = None
-        a_parser = None
+        parser = None
         try:
             # lazy import; this is an optional dependency
-            from .hpl.hpl_parser import (
-                hpl_property_parser, hpl_assumption_parser
-            )
-            if skipped:
-                self.log.warning(("Found HPL specifications for nodes %s, "
-                    "but their packages are not marked for analysis."),
-                    skipped)
-            p_parser = hpl_property_parser()
-            a_parser = hpl_assumption_parser()
-            for item in items:
-                item.hpl_properties = map(p_parser.parse, item.hpl_properties)
-                item.hpl_assumptions = map(a_parser.parse, item.hpl_assumptions)
+            from .hpl.hpl_parser import UserSpecParser
+            parser = UserSpecParser()
         except ImportError:
             self.log.warning(("Found HPL specifications, "
                 "but the HPL parser could not be found."))
+            return
+        for config in configs:
+            parser.parse_config_specs(config)
+        for node in nodes:
+            parser.parse_node_specs(node)
 
     def _analyse(self, plugins, rules, metrics):
         print "[HAROS] Running analysis..."
