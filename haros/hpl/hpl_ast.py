@@ -168,6 +168,12 @@ class HplProperty(HplAstObject):
     def children(self):
         return (self.scope, self.pattern)
 
+    def is_fully_typed(self):
+        for event in self.events():
+            if not event.is_fully_typed():
+                return False
+        return True
+
     def events(self):
         if self.scope.activator is not None:
             yield self.scope.activator
