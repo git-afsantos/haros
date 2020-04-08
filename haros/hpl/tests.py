@@ -25,17 +25,15 @@
 # Imports
 ###############################################################################
 
-from lark import Lark, Transformer
+from lark import Lark
 from lark.exceptions import (
     UnexpectedCharacters, UnexpectedToken, GrammarError, VisitError
 )
 import logging
 from sys import exit
 
-from .hpl_parser import (
-    PROPERTY_GRAMMAR, ASSUMPTION_GRAMMAR, PropertyTransformer,
-    hpl_property_parser, hpl_assumption_parser
-)
+from .grammar import PROPERTY_GRAMMAR, PREDICATE_GRAMMAR
+from .hpl_parser import PropertyTransformer
 
 
 ###############################################################################
@@ -190,10 +188,9 @@ def test_routine(parser, good, bad):
 
 
 def test_predicates():
-    parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
+    parser = Lark(PREDICATE_GRAMMAR, parser="lalr",
                   start="top_level_condition", debug=True)
     return test_routine(parser, GOOD_PREDICATES, BAD_PREDICATES)
-    #return test_routine(parser, (), BAD_PREDICATES)
 
 def test_properties():
     parser = Lark(PROPERTY_GRAMMAR, parser="lalr",
