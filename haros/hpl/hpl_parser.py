@@ -58,7 +58,9 @@ NAN = float("nan")
 
 class PropertyTransformer(Transformer):
     def hpl_assumption(self, (ros_name, predicate)):
-        return HplAssumption(ros_name, predicate)
+        hpl_assumption = HplAssumption(ros_name, predicate)
+        hpl_assumption.sanity_check()
+        return hpl_assumption
 
     def hpl_property(self, (scope, pattern)):
         hpl_property = HplProperty(scope, pattern)
@@ -275,87 +277,121 @@ class UserSpecParser(object):
         self.assumption_parser = hpl_assumption_parser()
 
     def parse_config_specs(self, config):
+        # changes config.hpl_properties and config.hpl_assumptions
+        # outputs only what can be parsed and type checked
+        # might end up with fewer properties or none at all
         topic_types = self._get_config_topics(config)
-        for i in range(len(config.hpl_properties)):
-            self._parse_property(config, i, topic_types)
-        for i in range(len(config.hpl_assumptions)):
-            self._parse_assumption(config, i, topic_types)
+        specs = []
+        for text in config.hpl_properties:
+            assert isinstance(text, basestring)
+            try:
+                ast = self._parse_property(text, topic_types)
+                specs.append(ast)
+            except (HplSanityError, HplTypeError) as e:
+                self.log.error(
+                    ("Error in configuration '%s' when parsing property\n"
+                     "'%s'\n\n%s"), config.name, text, e)
+        config.hpl_properties = specs
+        specs = []
+        for text in config.hpl_assumptions:
+            assert isinstance(text, basestring)
+            try:
+                ast = self._parse_assumption(text, topic_types)
+                specs.append(ast)
+            except (HplSanityError, HplTypeError) as e:
+                self.log.error(
+                    ("Error in configuration '%s' when parsing assumption\n"
+                     "'%s'\n\n%s"), config.name, text, e)
+        config.hpl_assumptions = specs
 
     def parse_node_specs(self, node):
-        topic_types = node._get_node_topics(node)
-        for i in range(len(node.hpl_properties)):
-            self._parse_property(node, i, topic_types)
-        for i in range(len(node.hpl_assumptions)):
-            self._parse_assumption(node, i, topic_types)
+        # changes node.hpl_properties and node.hpl_assumptions
+        # outputs only what can be parsed and type checked
+        # might end up with fewer properties or none at all
+        pns = "/" + node.name
+        topic_types = self._get_node_topics(node)
+        specs = []
+        for text in node.hpl_properties:
+            assert isinstance(text, basestring)
+            try:
+                ast = self._parse_property(text, topic_types, pns=pns)
+                specs.append(ast)
+            except (HplSanityError, HplTypeError) as e:
+                self.log.error(
+                    ("Error in node '%s' when parsing property\n"
+                     "'%s'\n\n%s"), node.node_name, text, e)
+        node.hpl_properties = specs
+        specs = []
+        for text in node.hpl_assumptions:
+            assert isinstance(text, basestring)
+            try:
+                ast = self._parse_assumption(text, topic_types, pns=pns)
+                specs.append(ast)
+            except (HplSanityError, HplTypeError) as e:
+                self.log.error(
+                    ("Error in node '%s' when parsing assumption\n"
+                     "'%s'\n\n%s"), node.node_name, text, e)
+        node.hpl_assumptions = specs
 
-    def _parse_property(self, obj, i, topic_types, pns=""):
-        text = obj.hpl_properties[i]
-        try:
-            ast = self.property_parser.parse(text)
-            refs = {}
-            event = ast.scope.activator
-            if event is not None and event.is_publish:
-                self._type_check_event(event, topic_types, refs, obj, pns)
-                # TODO update refs if alias
-            # TODO  topics from events
-            obj.hpl_properties[i] = ast
-        except (HplSanityError, HplTypeError) as e:
-            t = type(obj).__name__
-            n = obj.name
-            self.log.error(("Error in %s '%s' when parsing property\n"
-                            "'%s'\n\n%s"), t, n, text, e)
+    def _parse_property(self, text, topic_types, pns=""):
+        ast = self.property_parser.parse(text)
+        refs = {}
+        events = (ast.scope.activator, ast.pattern.trigger,
+                  ast.pattern.behaviour, ast.scope.terminator)
+        for event in events:
+            if event is None or not event.is_publish:
+                continue
+            topic = RosName.resolve(event.topic, private_ns=pns)
+            if topic not in topic_types:
+                raise HplTypeError(
+                    "No type information for topic '{}'".format(topic))
+            rostype = topic_types[topic]
+            if event.alias:
+                assert event.alias not in refs, "duplicate event alias"
+                assert rostype.is_message, "topic type is not a message"
+                # update refs without worries about temporal order of events
+                # prop.sanity_check() already checks that
+                refs[event.alias] = rostype
+            event.predicate.refine_types(rostype, **refs)
+        return ast
 
-    def _parse_assumption(self, obj, i, topic_types):
-        text = obj.hpl_assumptions[i]
-        try:
-            ast = self.assumption_parser.parse(text)
-            # TODO assumptions also have .topic and .predicate
-            obj.hpl_assumptions[i] = ast
-        except (HplSanityError, HplTypeError) as e:
-            t = type(obj).__name__
-            n = obj.name
-            self.log.error(("Error in %s '%s' when parsing assumption\n"
-                            "'%s'\n\n%s"), t, n, text, e)
+    def _parse_assumption(self, text, topic_types, pns=""):
+        ast = self.assumption_parser.parse(text)
+        # assumptions, like events, also have .topic and .predicate
+        topic = RosName.resolve(ast.topic, private_ns=pns)
+        if topic not in topic_types:
+            raise HplTypeError(
+                "No type information for topic '{}'".format(topic))
+        ast.predicate.refine_types(topic_types[topic])
+        return ast
 
     def _get_config_topics(self, config):
-        topics = {} # topic -> TypeToken
+        # FIXME this should be in the metamodel or extraction code
+        topic_types = {} # topic -> TypeToken
         for topic in config.topics:
-            if topic.unresolved:
+            if topic.unresolved or topic.type == "?":
                 self.log_warning(
                     "Skipping unresolved topic '%s' in configuration '%s'.",
                     topic.rosname.full, config.name)
                 continue
             try:
-                topics[topic.rosname.full] = get_type(topic.type)
+                topic_types[topic.rosname.full] = get_type(topic.type)
             except KeyError as e:
                 self.log.warning(str(e))
-        return topics
+        return topic_types
 
     def _get_node_topics(self, node):
-        topics = {} # topic -> TypeToken
+        # FIXME this should be in the metamodel or extraction code
+        topic_types = {} # topic -> TypeToken
         for call in chain(node.advertise, node.subscribe):
             if call.name == "?" or call.type == "?":
                 self.log_warning(
                     "Skipping unresolved topic '%s' in node '%s'.",
                     call.name, node.node_name)
                 continue
-            ns = "/" + node.name
-            topic = RosName.resolve(call.name, private_ns=ns)
+            topic = RosName.resolve(call.name, private_ns=pns)
             try:
-                topics[topic] = get_type(call.type)
+                topic_types[topic] = get_type(call.type)
             except KeyError as e:
                 self.log.warning(str(e))
-        return topics
-
-    def _type_check_event(self, event, topic_types, refs, obj, pns):
-        topic = RosName.resolve(event.topic, private_ns=pns)
-        try:
-            rostype = topic_types[event.topic]
-        except KeyError:
-            t = type(obj).__name__
-            n = obj.name
-            self.log.warning(
-                ("No available type information for topic "
-                 "'%s' in %s '%s'."),
-                topic, t, n)
-        event.predicate.refine_types(rostype, **refs)
+        return topic_types
