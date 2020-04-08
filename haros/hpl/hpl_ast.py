@@ -121,6 +121,14 @@ class HplAssumption(HplAstObject):
     def children(self):
         return (self.predicate)
 
+    def sanity_check(self):
+        for obj in self.predicate.iterate():
+            if obj.is_expression and obj.is_accessor:
+                if obj.is_field and obj.message.is_value:
+                    if obj.message.is_variable:
+                        raise HplSanityError(
+                            "assumptions cannot reference events: " + str(obj))
+
     def __eq__(self, other):
         if not isinstance(other, HplAssumption):
             return False
@@ -603,7 +611,13 @@ class HplPredicate(HplAstObject):
             stack.append(expr)
             expr = expr.message
         assert expr.is_value and (expr.is_this_msg or expr.is_variable)
-        t = rostype if expr.is_this_msg else kwargs[expr.name]
+        if expr.is_this_msg:
+            t = rostype
+        else:
+            if expr.name not in kwargs:
+                raise HplSanityError(
+                    "undefined message alias: '{}'".format(expr.name))
+            t = kwargs[expr.name]
         assert t.is_message
         while stack:
             expr = stack.pop()
