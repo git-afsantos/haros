@@ -599,6 +599,11 @@ class HplPredicate(HplAstObject):
     def children(self):
         return (self.condition,)
 
+    def negate_expression(self):
+        if self.condition.is_operator and self.condition.operator == "not":
+            return self.condition.operand
+        return HplUnaryOperator("not", self.condition)
+
     def refine_types(self, rostype, **kwargs):
         # rostype: ROS Type Token
         # kwargs: string (alias) -> ROS Type Token
