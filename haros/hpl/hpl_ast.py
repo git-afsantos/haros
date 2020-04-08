@@ -599,10 +599,14 @@ class HplPredicate(HplAstObject):
     def children(self):
         return (self.condition,)
 
-    def negate_expression(self):
+    def negate(self):
         if self.condition.is_operator and self.condition.operator == "not":
-            return self.condition.operand
-        return HplUnaryOperator("not", self.condition)
+            return HplPredicate(self.condition.operand)
+        return HplPredicate(HplUnaryOperator("not", self.condition))
+
+    def join(self, other):
+        expr = HplBinaryOperator("and", self.condition, other.condition)
+        return HplPredicate(expr)
 
     def refine_types(self, rostype, **kwargs):
         # rostype: ROS Type Token
