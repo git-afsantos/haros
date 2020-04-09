@@ -292,16 +292,21 @@ class UserSpecParser(object):
                     ("Error in configuration '%s' when parsing property\n"
                      "'%s'\n\n%s"), config.name, text, e)
         config.hpl_properties = specs
-        specs = []
+        specs = {}
         for text in config.hpl_assumptions:
             assert isinstance(text, basestring)
             try:
                 ast = self._parse_assumption(text, topic_types)
-                specs.append(ast)
+                if ast.topic in specs:
+                    specs[ast.topic] = False
+                    self.log.error("Multiple assumptions for '%s'", ast.topic)
+                else:
+                    specs[ast.topic] = ast
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in configuration '%s' when parsing assumption\n"
                      "'%s'\n\n%s"), config.name, text, e)
+        specs = list(s for s in specs.values() if s is not False)
         config.hpl_assumptions = specs
 
     def parse_node_specs(self, node):
@@ -321,16 +326,21 @@ class UserSpecParser(object):
                     ("Error in node '%s' when parsing property\n"
                      "'%s'\n\n%s"), node.node_name, text, e)
         node.hpl_properties = specs
-        specs = []
+        specs = {}
         for text in node.hpl_assumptions:
             assert isinstance(text, basestring)
             try:
                 ast = self._parse_assumption(text, topic_types, pns=pns)
-                specs.append(ast)
+                if ast.topic in specs:
+                    specs[ast.topic] = False
+                    self.log.error("Multiple assumptions for '%s'", ast.topic)
+                else:
+                    specs[ast.topic] = ast
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in node '%s' when parsing assumption\n"
                      "'%s'\n\n%s"), node.node_name, text, e)
+        specs = list(s for s in specs.values() if s is not False)
         node.hpl_assumptions = specs
 
     def _parse_property(self, text, topic_types, pns=""):
