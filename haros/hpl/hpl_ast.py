@@ -605,6 +605,8 @@ class HplPredicate(HplAstObject):
         return HplPredicate(HplUnaryOperator("not", self.condition))
 
     def join(self, other):
+        if other.is_vacuous:
+            return self if other.is_true else other
         expr = HplBinaryOperator("and", self.condition, other.condition)
         return HplPredicate(expr)
 
@@ -730,8 +732,18 @@ class HplVacuousTruth(HplAstObject):
     def is_vacuous(self):
         return True
 
+    @property
+    def is_true(self):
+        return True
+
     def is_fully_typed(self):
         return True
+
+    def negate(self):
+        return HplContradiction()
+
+    def join(self, other):
+        return other
 
     def refine_types(self, rostype, **kwargs):
         pass
@@ -744,6 +756,46 @@ class HplVacuousTruth(HplAstObject):
 
     def __str__(self):
         return "{ True }"
+
+    def __repr__(self):
+        return "{}()".format(type(self).__name__)
+
+
+class HplContradiction(HplAstObject):
+    __slots__ = ()
+
+    @property
+    def is_predicate(self):
+        return True
+
+    @property
+    def is_vacuous(self):
+        return True
+
+    @property
+    def is_true(self):
+        return False
+
+    def is_fully_typed(self):
+        return True
+
+    def negate(self):
+        return HplVacuousTruth()
+
+    def join(self, other):
+        return self
+
+    def refine_types(self, rostype, **kwargs):
+        pass
+
+    def __eq__(self, other):
+        return isinstance(other, HplContradiction)
+
+    def __hash__(self):
+        return 65537
+
+    def __str__(self):
+        return "{ False }"
 
     def __repr__(self):
         return "{}()".format(type(self).__name__)
