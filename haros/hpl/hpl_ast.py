@@ -636,6 +636,7 @@ class HplPredicate(HplAstObject):
                     "undefined message alias: '{}'".format(expr.name))
             t = kwargs[expr.name]
         assert t.is_message
+        expr.ros_type = t
         while stack:
             expr = stack.pop()
             if expr.is_field:
@@ -662,6 +663,7 @@ class HplPredicate(HplAstObject):
                 accessor._type_check(expr, T_STR)
             elif t.is_array:
                 accessor._type_check(expr, T_ARR)
+            expr.ros_type = t
 
     def _static_checks(self):
         ref_table = {}
@@ -1265,12 +1267,13 @@ class HplFunctionCall(HplExpression):
 ###############################################################################
 
 class HplFieldAccess(HplExpression):
-    __slots__ = HplExpression.__slots__ + ("message", "field")
+    __slots__ = HplExpression.__slots__ + ("message", "field", "ros_type")
 
     def __init__(self, msg, field):
         HplExpression.__init__(self, types=T_ROS)
         self.message = msg # HplExpression
         self.field = field # string
+        self.ros_type = None
         self._type_check(msg, T_MSG)
 
     @property
@@ -1309,7 +1312,7 @@ class HplFieldAccess(HplExpression):
 
 
 class HplArrayAccess(HplExpression):
-    __slots__ = HplExpression.__slots__ + ("array", "item")
+    __slots__ = HplExpression.__slots__ + ("array", "item", "ros_type")
 
     _MULTI_ARRAY = "multi-dimensional array access: '{}[{}]'"
 
@@ -1319,6 +1322,7 @@ class HplArrayAccess(HplExpression):
         HplExpression.__init__(self, types=T_ITEM)
         self.array = array # HplExpression
         self.index = index # HplExpression
+        self.ros_type = None
         self._type_check(array, T_ARR)
         self._type_check(index, T_NUM)
 
@@ -1533,10 +1537,11 @@ class HplLiteral(HplValue):
 
 
 class HplThisMessage(HplValue):
-    __slots__ = HplValue.__slots__
+    __slots__ = HplValue.__slots__ + ("ros_type",)
 
     def __init__(self):
         HplValue.__init__(self, types=T_MSG)
+        self.ros_type = None
 
     @property
     def is_reference(self):
@@ -1560,12 +1565,13 @@ class HplThisMessage(HplValue):
 
 
 class HplVarReference(HplValue):
-    __slots__ = HplValue.__slots__ + ("token", "defined_at",)
+    __slots__ = HplValue.__slots__ + ("token", "defined_at", "ros_type")
 
     def __init__(self, token):
         HplValue.__init__(self, types=T_ITEM)
         self.token = token # string
         self.defined_at = None
+        self.ros_type = None
 
     @property
     def is_reference(self):
