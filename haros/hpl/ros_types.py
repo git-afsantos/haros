@@ -140,8 +140,8 @@ class MessageType(TypeToken):
         return self._type.split("/")[-1]
 
     def __repr__(self):
-        return "{}({}, **{})".format(type(self).__name__,
-            repr(self.type_name), repr(self.fields))
+        return "{}({}, {}, constants={})".format(type(self).__name__,
+            repr(self.type_name), repr(self.fields), repr(self.constants))
 
 
 class ArrayType(TypeToken):
