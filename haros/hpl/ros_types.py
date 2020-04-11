@@ -140,8 +140,8 @@ class MessageType(TypeToken):
         return self._type.split("/")[-1]
 
     def leaf_fields(self, name="msg"):
-        primitives = []
-        arrays = []
+        primitives = {}
+        arrays = {}
         stack = [(name, self)]
         while stack:
             name, type_token = stack.pop()
@@ -150,10 +150,10 @@ class MessageType(TypeToken):
                     n = "{}.{}".format(name, field_name)
                     stack.append((n, field_type))
             elif type_token.is_array:
-                arrays.append((name, type_token))
+                arrays[name] = type_token
             else:
                 assert type_token.is_primitive
-                primitives.append((name, type_token))
+                primitives[name] = type_token
         return primitives, arrays
 
     def __repr__(self):
