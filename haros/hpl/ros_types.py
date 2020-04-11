@@ -139,7 +139,7 @@ class MessageType(TypeToken):
     def message(self):
         return self._type.split("/")[-1]
 
-    def leaf_fields(self, name="msg"):
+    def leaf_fields(self, name="msg", inc_arrays=False):
         primitives = {}
         arrays = {}
         stack = [(name, self)]
@@ -154,7 +154,11 @@ class MessageType(TypeToken):
             else:
                 assert type_token.is_primitive
                 primitives[name] = type_token
-        return primitives, arrays
+        if inc_arrays:
+            primitives.update(arrays)
+            return primitives
+        else:
+            return primitives, arrays
 
     def __repr__(self):
         return "{}({}, {}, constants={})".format(type(self).__name__,
