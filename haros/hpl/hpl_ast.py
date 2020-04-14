@@ -1288,6 +1288,13 @@ class HplFieldAccess(HplExpression):
     def is_indexed(self):
         return False
 
+    def base_message(self):
+        obj = self
+        while obj.is_accessor:
+            obj = obj.message
+        assert obj.is_value
+        return obj
+
     def children(self):
         return (self.message,)
 
@@ -1341,6 +1348,13 @@ class HplArrayAccess(HplExpression):
     @property
     def message(self):
         return self.array
+
+    def base_message(self):
+        obj = self
+        while obj.is_accessor:
+            obj = obj.message
+        assert obj.is_value
+        return obj
 
     def children(self):
         return (self.array, self.index)
