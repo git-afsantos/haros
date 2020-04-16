@@ -314,7 +314,7 @@ class UserSpecParser(object):
         # outputs only what can be parsed and type checked
         # might end up with fewer properties or none at all
         pns = "/" + node.name
-        topic_types = self._get_node_topics(node)
+        topic_types = self._get_node_topics(node, pns)
         specs = []
         for text in node.hpl_properties:
             assert isinstance(text, basestring)
@@ -362,6 +362,11 @@ class UserSpecParser(object):
                 # update refs without worries about temporal order of events
                 # prop.sanity_check() already checks that
                 refs[event.alias] = rostype
+        for event in events:
+            if event is None or not event.is_publish:
+                continue
+            topic = RosName.resolve(event.topic, private_ns=pns)
+            rostype = topic_types[topic]
             event.predicate.refine_types(rostype, **refs)
         return ast
 
@@ -390,7 +395,7 @@ class UserSpecParser(object):
                 self.log.warning(str(e))
         return topic_types
 
-    def _get_node_topics(self, node):
+    def _get_node_topics(self, node, pns):
         # FIXME this should be in the metamodel or extraction code
         topic_types = {} # topic -> TypeToken
         for call in chain(node.advertise, node.subscribe):

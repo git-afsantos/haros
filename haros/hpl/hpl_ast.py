@@ -170,7 +170,7 @@ class HplProperty(HplAstObject):
 
     def is_fully_typed(self):
         for event in self.events():
-            if not event.is_fully_typed():
+            if not event.predicate.is_fully_typed():
                 return False
         return True
 
@@ -622,9 +622,9 @@ class HplPredicate(HplAstObject):
                 stack.extend(reversed(obj.children()))
 
     def _refine_type(self, accessor, rostype, **kwargs):
-        stack = []
-        expr = accessor
-        while expr.message.is_accessor:
+        stack = [accessor]
+        expr = accessor.message
+        while expr.is_accessor:
             stack.append(expr)
             expr = expr.message
         assert expr.is_value and (expr.is_this_msg or expr.is_variable)
