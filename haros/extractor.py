@@ -1159,8 +1159,10 @@ class NodeExtractor(LoggingObject):
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         pub = Publication(name, ns, msg_type, queue_size, location=location,
                           control_depth=depth, conditions=conditions,
                           repeats=is_under_loop(call, recursive=True))
@@ -1176,8 +1178,10 @@ class NodeExtractor(LoggingObject):
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         sub = Subscription(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
@@ -1191,8 +1195,10 @@ class NodeExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         srv = ServiceServerCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1206,8 +1212,10 @@ class NodeExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         cli = ServiceClientCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1220,8 +1228,10 @@ class NodeExtractor(LoggingObject):
         name = self._extract_topic(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         read = ReadParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
@@ -1234,13 +1244,28 @@ class NodeExtractor(LoggingObject):
         name = self._extract_topic(call)
         depth = get_control_depth(call, recursive = True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
+        conditions = []
+        for c in get_conditions(call, recursive=True):
+            conditions.append(SourceCondition(pretty_str(c),
+                location=self._condition_location(c, location.file)))
         wrt = WriteParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
         node.write_param.append(wrt)
         self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
+
+    def _condition_location(self, condition, sf):
+        if sf is not None:
+            if sf.path != condition.file:
+                self.log.debug(("condition Location: files do not match: "
+                    "'%s', '%s'"), sf.path, condition.file)
+                if condition.file.startswith(self.package.path):
+                    for sf2 in self.package.source_files:
+                        if sf2.path == condition.file:
+                            sf = sf2
+                            break
+                            self.log.debug("Location: found correct file")
+        return Location(self.package, file=sf, line=condition.line)
 
     def _call_location(self, call):
         source_file = None
