@@ -471,8 +471,8 @@ class ProjectExtractor(LoggingObject):
                 sf = self._get_files(pkg, [filename])[0]
         except ValueError:
             return None
-        return Location(pkg, file = sf, line = datum["line"],
-                        fun = datum["function"], cls = datum["class"])
+        return Location(pkg, file=sf, line=datum["line"], col=datum["column"],
+                        fun=datum["function"], cls=datum["class"])
 
 
 ###############################################################################
@@ -1254,18 +1254,19 @@ class NodeExtractor(LoggingObject):
         node.write_param.append(wrt)
         self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
 
-    def _condition_location(self, condition, sf):
+    def _condition_location(self, bonsai_obj, sf):
         if sf is not None:
-            if sf.path != condition.file:
+            if sf.path != bonsai_obj.file:
                 self.log.debug(("condition Location: files do not match: "
-                    "'%s', '%s'"), sf.path, condition.file)
-                if condition.file.startswith(self.package.path):
+                    "'%s', '%s'"), sf.path, bonsai_obj.file)
+                if bonsai_obj.file.startswith(self.package.path):
                     for sf2 in self.package.source_files:
-                        if sf2.path == condition.file:
+                        if sf2.path == bonsai_obj.file:
                             sf = sf2
                             break
                             self.log.debug("Location: found correct file")
-        return Location(self.package, file=sf, line=condition.line)
+        return Location(self.package, file=sf, line=bonsai_obj.line,
+                        col=bonsai_obj.column)
 
     def _call_location(self, call):
         source_file = None
@@ -1277,8 +1278,8 @@ class NodeExtractor(LoggingObject):
         function = call.function
         if function:
             function = function.name
-        return Location(self.package, file = source_file,
-                        line = call.line, fun = function)
+        return Location(self.package, file=source_file,
+                        line=call.line, col=call.column, fun=function)
 
     def _resolve_node_handle(self, value):
         ns = "?"
