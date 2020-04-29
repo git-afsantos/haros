@@ -1283,8 +1283,10 @@ class NodeExtractor(LoggingObject):
                             sf = sf2
                             break
                             self.log.debug("Location: found correct file")
-        return Location(self.package, file=sf, line=bonsai_obj.line,
-                        col=bonsai_obj.column)
+        # bonsai_obj is the condition itself, the parent is the statement
+        statement = bonsai_obj.parent
+        return Location(self.package, file=sf, line=statement.line,
+                        col=statement.column)
 
     def _call_location(self, call):
         source_file = None
