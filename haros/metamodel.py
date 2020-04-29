@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 
-#Copyright (c) 2017 Andre Santos
+#Copyright (c) 2017 André Santos
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +79,8 @@ class DependencySet(object):
 
 
 class SourceCondition(object):
-    def __init__(self, condition, location = None):
+    def __init__(self, condition, location=None, statement="if"):
+        self.statement = statement
         self.condition = condition
         self.location = location
 
@@ -90,13 +92,14 @@ class SourceCondition(object):
 
     def to_JSON_object(self):
         return {
+            "statement": self.statement,
             "condition": str(self.condition),
             "location": (self.location.to_JSON_object()
                          if self.location else None)
         }
 
     def __str__(self):
-        return str(self.condition)
+        return "{} {}".format(self.statement, str(self.condition))
 
     def __repr__(self):
         return self.__str__()
@@ -203,10 +206,11 @@ class Person(object):
 
 class Location(object):
     """A location to report (package, file, line)."""
-    def __init__(self, pkg, file = None, line = None, fun = None, cls = None):
+    def __init__(self, pkg, file=None, line=None, col=None, fun=None, cls=None):
         self.package = pkg
         self.file = file
-        self.line = line
+        self.line = line    # should start at 1
+        self.column = col   # should start at 1
         self.function = fun
         self.class_ = cls
 
@@ -223,6 +227,7 @@ class Location(object):
             "package": self.package.name,
             "file": self.file.full_name if self.file else None,
             "line": self.line,
+            "column": self.column,
             "function": self.function,
             "class": self.class_
         }
@@ -234,6 +239,8 @@ class Location(object):
         s += "/" + self.file.full_name
         if not self.line is None:
             s += ":" + str(self.line)
+            if not self.column is None:
+                s += ":" + str(self.column)
             if self.function:
                 s += ", in function " + self.function
             if self.class_:
@@ -326,7 +333,7 @@ class SourceFile(SourceObject):
 
     @property
     def location(self):
-        return Location(self.package, file = self)
+        return Location(self.package, file=self)
 
     def bound_to(self, other):
         if other.scope == "node":
