@@ -362,7 +362,8 @@ class ProjectExtractor(LoggingObject):
 
     def _pub_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return Publication(datum["name"], datum["namespace"], datum["type"],
                            datum["queue"], control_depth = datum["depth"],
@@ -371,7 +372,8 @@ class ProjectExtractor(LoggingObject):
 
     def _sub_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return Subscription(datum["name"], datum["namespace"], datum["type"],
                             datum["queue"], control_depth = datum["depth"],
@@ -380,7 +382,8 @@ class ProjectExtractor(LoggingObject):
 
     def _srv_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return ServiceServerCall(datum["name"], datum["namespace"],
                                  datum["type"], control_depth = datum["depth"],
@@ -390,7 +393,8 @@ class ProjectExtractor(LoggingObject):
 
     def _client_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return ServiceClientCall(datum["name"], datum["namespace"],
                                  datum["type"], control_depth = datum["depth"],
@@ -400,7 +404,8 @@ class ProjectExtractor(LoggingObject):
 
     def _read_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return ReadParameterCall(datum["name"], datum["namespace"],
                                  datum["type"], control_depth = datum["depth"],
@@ -410,7 +415,8 @@ class ProjectExtractor(LoggingObject):
 
     def _write_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return WriteParameterCall(datum["name"], datum["namespace"],
                                   datum["type"], control_depth = datum["depth"],
@@ -861,7 +867,8 @@ class HardcodedNodeParser(LoggingObject):
                     datum["type"], datum["queue"],
                     control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.advertise.append(pub)
         for datum in node_data.get("subscribe", ()):
@@ -869,35 +876,40 @@ class HardcodedNodeParser(LoggingObject):
                     datum["type"], datum["queue"],
                     control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.subscribe.append(sub)
         for datum in node_data.get("service", ()):
             srv = ServiceServerCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.service.append(srv)
         for datum in node_data.get("client", ()):
             cli = ServiceClientCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.client.append(cli)
         for datum in node_data.get("readParam", ()):
             par = ReadParameterCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.read_param.append(par)
         for datum in node_data.get("writeParam", ()):
             par = WriteParameterCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
                                   for c in datum["conditions"]])
             node.write_param.append(par)
         return node
@@ -1162,7 +1174,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         pub = Publication(name, ns, msg_type, queue_size, location=location,
                           control_depth=depth, conditions=conditions,
                           repeats=is_under_loop(call, recursive=True))
@@ -1181,7 +1194,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         sub = Subscription(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
@@ -1198,7 +1212,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         srv = ServiceServerCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1215,7 +1230,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         cli = ServiceClientCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1231,7 +1247,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         read = ReadParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
@@ -1247,7 +1264,8 @@ class NodeExtractor(LoggingObject):
         conditions = []
         for c in get_conditions(call, recursive=True):
             conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file)))
+                location=self._condition_location(c, location.file),
+                statement=c.name))
         wrt = WriteParameterCall(name, ns, None, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
