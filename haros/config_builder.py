@@ -107,26 +107,25 @@ class LaunchScope(LoggingObject):
         target = RosName.resolve(target, self.namespace, private_ns = pns)
         self.remaps[source] = target
 
-    def make_node(self, node, name, ns, args, condition):
+    def make_node(self, node, name, ns, args, condition, line=None, col=None):
         ns = self._namespace(ns)
         name = name or node.rosname.own
         rosname = RosName(name, ns, self.private_ns)
         self.log.debug("Creating NodeInstance %s for Node %s.",
                        rosname.full, node.name)
         instance = NodeInstance(self.configuration, rosname, node,
-                                launch = self.launch_file, argv = args,
-                                remaps = dict(self.remaps),
-                                conditions = list(self.conditions))
+            launch=self.launch_file, argv = args, remaps=dict(self.remaps),
+            conditions=list(self.conditions))
+        instance._location.line = line
+        instance._location.column = col
         node.instances.append(instance)
         if not condition is True:
             instance.conditions.append(condition)
         previous = self.configuration.nodes.add(instance)
         new_scope = LaunchScope(self, self.configuration, self.launch_file,
-                                ns = ns, node = instance,
-                                remaps = instance.remaps,
-                                params = self.parameters,
-                                args = self.arguments,
-                                conditions = instance.conditions)
+            ns=ns, node=instance, remaps=instance.remaps,
+            params=self.parameters, args=self.arguments,
+            conditions=instance.conditions)
         self.children.append(new_scope)
         pns = new_scope.private_ns
         for param in self._params:
@@ -134,9 +133,9 @@ class LaunchScope(LoggingObject):
             conditions = param.conditions + instance.conditions
             self.log.debug("Creating new forward Parameter %s.", rosname.full)
             param = Parameter(self.configuration, rosname, param.type,
-                              param.value, node_scope = param.node_scope,
-                              launch = param.launch_file,
-                              conditions = conditions)
+                              param.value, node_scope=param.node_scope,
+                              launch=param.launch_file,
+                              conditions=conditions)
             self.parameters.append(param)
         return new_scope
 
@@ -853,7 +852,8 @@ class ConfigurationBuilder(LoggingObject):
                 self.errors.append(tag.text)
                 continue
             try:
-                condition = self._condition(tag.condition, sub)
+                condition = self._condition(tag.condition, sub,
+                                            tag.line, tag.column)
                 if condition is False:
                     continue
                 handler = getattr(self, "_" + tag.tag + "_tag")
@@ -870,7 +870,8 @@ class ConfigurationBuilder(LoggingObject):
         node = self._get_node(pkg, exe, args)
         name = sub.resolve(tag.name, strict = True)
         ns = sub.resolve(tag.namespace, strict = True)
-        new_scope = scope.make_node(node, name, ns, args, condition)
+        new_scope = scope.make_node(node, name, ns, args, condition,
+                                    line=tag.line, col=tag.column)
         self._analyse_tree(tag, new_scope, sub)
         hints = self._merge_hints(node.node_name, new_scope.node.rosname.full)
         config_hints = ConfigurationHints.make_hints(hints, new_scope)
@@ -982,13 +983,17 @@ class ConfigurationBuilder(LoggingObject):
     def _test_tag(self, tag, condition, scope, sub):
         pass
 
-    def _condition(self, condition, sub):
+    def _condition(self, condition, sub, line, col):
         assert isinstance(condition, tuple)
         value = sub.resolve(condition[1])
         if value is None:
+            stmt = "if" if condition[0] else "unless"
+            loc = config.roslaunch[-1].location
+            loc.line = line
+            loc.column = col
             # not sure if tag is part of the configuration
             return SourceCondition(condition[1], # UnresolvedValue
-                location = config.roslaunch[-1].location)
+                location=loc, statement=stmt)
         if value is condition[0]:
             # tag is part of the configuration
             return True

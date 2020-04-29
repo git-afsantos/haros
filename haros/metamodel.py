@@ -873,8 +873,8 @@ class Resource(MetamodelObject):
 
 
 class NodeInstance(Resource):
-    def __init__(self, config, rosname, node, launch = None, argv = None,
-                 remaps = None, conditions = None):
+    def __init__(self, config, rosname, node, launch=None, argv=None,
+                 remaps=None, conditions=None):
         Resource.__init__(self, config, rosname, conditions = conditions)
         self.node = node
         self.launch = launch
@@ -886,6 +886,7 @@ class NodeInstance(Resource):
         self.clients = []
         self.reads = []
         self.writes = []
+        self._location = launch.location if launch else None
 
     @property
     def type(self):
@@ -915,8 +916,8 @@ class NodeInstance(Resource):
         return nodes
 
     def traceability(self):
-        if self.launch:
-            return [self.launch.location]
+        if self._location:
+            return [self._location]
         return []
 
     def remap(self, rosname):
