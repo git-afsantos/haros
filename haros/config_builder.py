@@ -116,8 +116,9 @@ class LaunchScope(LoggingObject):
         instance = NodeInstance(self.configuration, rosname, node,
             launch=self.launch_file, argv = args, remaps=dict(self.remaps),
             conditions=list(self.conditions))
-        instance._location.line = line
-        instance._location.column = col
+        if instance._location is not None:
+            instance._location.line = line
+            instance._location.column = col
         node.instances.append(instance)
         if not condition is True:
             instance.conditions.append(condition)
