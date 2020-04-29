@@ -60,7 +60,13 @@ indigo:
                 depth: 3
                 location: null
                 repeats: true
-                conditions: ["if (poseUpdateSum + twistUpdateSum > 0)", "if (moreParams)", "while (moreParams)"]
+                conditions:
+                    - statement: if
+                      condition: "(poseUpdateSum + twistUpdateSum > 0)"
+                    - statement: if
+                      condition: "(moreParams)"
+                    - statement: while
+                      condition: "(moreParams)"
         service:
             -
                 name: "set_pose"
