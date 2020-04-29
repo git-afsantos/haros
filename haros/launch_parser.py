@@ -70,14 +70,14 @@ class LineNumberingParser(ET.XMLParser):
         # and copy its element position attributes into output Elements
         element = super(self.__class__, self)._start_list(*args, **kwargs)
         element._start_line_number = self.parser.CurrentLineNumber
-        element._start_column_number = self.parser.CurrentColumnNumber
+        element._start_column_number = self.parser.CurrentColumnNumber + 1
         element._start_byte_index = self.parser.CurrentByteIndex
         return element
 
     def _end(self, *args, **kwargs):
         element = super(self.__class__, self)._end(*args, **kwargs)
         element._end_line_number = self.parser.CurrentLineNumber
-        element._end_column_number = self.parser.CurrentColumnNumber
+        element._end_column_number = self.parser.CurrentColumnNumber + 1
         element._end_byte_index = self.parser.CurrentByteIndex
         return element
 
