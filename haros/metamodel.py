@@ -886,7 +886,7 @@ class NodeInstance(Resource):
         self.clients = []
         self.reads = []
         self.writes = []
-        self._location = launch.location if launch else None
+        self._location = launch.location if launch is not None else None
 
     @property
     def type(self):
