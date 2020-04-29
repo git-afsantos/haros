@@ -25,6 +25,9 @@
 
 import os
 import re
+import sys
+
+sys.modules['_elementtree'] = None
 import xml.etree.ElementTree as ET
 
 
@@ -54,6 +57,29 @@ import xml.etree.ElementTree as ET
 #       configuration.register(...)
 #   except SubstitutionError as e:
 #       configuration.errors.append(...)
+
+
+###############################################################################
+# Line and Column Numbers
+###############################################################################
+
+# courtesy of https://stackoverflow.com/a/36430270
+class LineNumberingParser(ET.XMLParser):
+    def _start_list(self, *args, **kwargs):
+        # Here we assume the default XML parser which is expat
+        # and copy its element position attributes into output Elements
+        element = super(self.__class__, self)._start_list(*args, **kwargs)
+        element._start_line_number = self.parser.CurrentLineNumber
+        element._start_column_number = self.parser.CurrentColumnNumber
+        element._start_byte_index = self.parser.CurrentByteIndex
+        return element
+
+    def _end(self, *args, **kwargs):
+        element = super(self.__class__, self)._end(*args, **kwargs)
+        element._end_line_number = self.parser.CurrentLineNumber
+        element._end_column_number = self.parser.CurrentColumnNumber
+        element._end_byte_index = self.parser.CurrentByteIndex
+        return element
 
 
 ###############################################################################
@@ -311,8 +337,10 @@ class BaseLaunchTag(object):
         "unless": bool
     }
 
-    def __init__(self, text, attributes):
+    def __init__(self, text, attributes, line, col):
         self.text = text
+        self.line = line
+        self.column = col
         self.attributes = attributes
         for key in self.REQUIRED:
             if not attributes.get(key):
@@ -373,8 +401,8 @@ class NodeTag(BaseLaunchTag):
         "launch-prefix": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.package = attributes["pkg"]
         self.type = attributes["type"]
         self.name = attributes.get("name")
@@ -406,8 +434,8 @@ class IncludeTag(BaseLaunchTag):
         "pass_all_args": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.file = attributes["file"]
         self.namespace = attributes.get("ns")
         self.clear_params = attributes.get("clear_params", False)
@@ -427,8 +455,8 @@ class RemapTag(BaseLaunchTag):
         "to": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.origin = attributes["from"]
         self.target = attributes["to"]
 
@@ -450,8 +478,8 @@ class ParamTag(BaseLaunchTag):
         "command": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes.get("value")
         self.type = attributes.get("type")
@@ -478,8 +506,8 @@ class RosParamTag(BaseLaunchTag):
         "subst_value": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.command = attributes.get("command", "load")
         self.file = attributes.get("file")
         self.name = attributes.get("param")
@@ -509,8 +537,8 @@ class GroupTag(BaseLaunchTag):
         "clear_params": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.namespace = attributes.get("ns")
         self.clear_params = attributes.get("clear_params", False)
 
@@ -530,8 +558,8 @@ class ArgTag(BaseLaunchTag):
         "doc": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes.get("value")
         self.default = attributes.get("default")
@@ -553,8 +581,8 @@ class EnvTag(BaseLaunchTag):
         "value": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes["value"]
 
@@ -577,8 +605,8 @@ class MachineTag(BaseLaunchTag):
         "timeout": float
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.address = attributes["address"]
         self.loader = attributes.get("env-loader")
@@ -611,8 +639,8 @@ class TestTag(BaseLaunchTag):
         "time-limit": float
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.test_name = attributes["test-name"]
         self.package = attributes["pkg"]
         self.type = attributes["type"]
@@ -654,7 +682,7 @@ class LaunchParser(object):
             raise LaunchParserError("not a file: " + str(filepath))
         try:
             self.sub_parser = SubstitutionParser(pkgs = self.packages)
-            xml_root = ET.parse(filepath).getroot()
+            xml_root = ET.parse(filepath, parser=LineNumberingParser()).getroot()
             if not xml_root.tag == "launch":
                 raise LaunchParserError("invalid root tag: " + xml_root.tag)
             return self._parse_tag(xml_root)
@@ -670,7 +698,8 @@ class LaunchParser(object):
         except SubstitutionError as e:
             return ErrorTag(e.value)
         text = tag.text.strip() if tag.text else ""
-        element = cls(text, attributes)
+        element = cls(text, attributes,
+            tag._start_line_number, tag._start_column_number)
         if element.tag == "arg" and isinstance(element.name, basestring):
             self.sub_parser.arguments[element.name] = element.value
         for child in tag:
