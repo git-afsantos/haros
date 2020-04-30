@@ -32,6 +32,15 @@ import SimpleHTTPServer
 from BaseHTTPServer import HTTPServer
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 
+# Known online replacements for js libraries used by the report.
+js_lib_replacements = {
+    'backbone.min.js'       : 'https://backbonejs.org/backbone-min.js',
+    'd3.min.js'             : 'https://d3js.org/d3.v4.min.js',
+    'dagre.min.js'          : 'https://dagrejs.github.io/project/dagre/latest/dagre.min.js',
+    'jquery-2.2.1.min.js'   : 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js',
+    'underscore.min.js'     : 'https://underscorejs.org/underscore-min.js',
+}
+
 class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_my_headers()
@@ -46,7 +55,7 @@ class BaseHTTPRequestHandler(SimpleHTTPRequestHandler):
 _log = logging.getLogger(__name__)
 
 
-def install(dst, source_runner, force = False):
+def install(dst, source_runner, force = False, minimal_output = False):
     if force and os.path.exists(dst):
         rmtree(dst)
     if not os.path.exists(dst):
@@ -59,6 +68,20 @@ def install(dst, source_runner, force = False):
     else:
         src = resource_filename(Requirement.parse("haros"), "harosviz")
     copy_tree(src, dst)
+
+    if minimal_output:
+        # remove external js libraries that we can link to from report
+        index_html_path = os.path.join(dst, 'index.html')
+        with open(index_html_path, 'r') as f:
+            index_html = f.read()
+        for js_lib, replacement in js_lib_replacements.items():
+            if js_lib in index_html:
+                index_html = index_html.replace('lib/js/'+js_lib, replacement)
+                os.remove(os.path.join(dst,"lib", "js", js_lib))
+        with open(index_html_path, 'w') as f:
+            f.write(index_html)
+    #
+
     data_dir = os.path.join(dst, "data")
     if not os.path.exists(data_dir):
         _log.info("Creating %s", data_dir)
