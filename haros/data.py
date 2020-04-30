@@ -214,11 +214,16 @@ class Statistics(object):
         self.script_count           = 0
         self.launch_count           = 0
         self.param_file_count       = 0
+        self.msg_file_count         = 0
+        self.srv_file_count         = 0
+        self.action_file_count      = 0
+        self.pkg_depends            = 0
     # -- Issues ---------------------------------
         self.issue_count            = 0
         self.standard_issue_count   = 0
         self.metrics_issue_count    = 0
         self.other_issue_count      = 0
+        self.violated_rule_count    = 0
     # -- ROS Configuration Objects --------------
         self.configuration_count    = 0
         self.node_count             = 0
@@ -261,6 +266,14 @@ class Statistics(object):
                              - avg([s.launch_count for s in previous]))
         self.param_file_count = (current.param_file_count
                                  - avg([s.param_file_count for s in previous]))
+        self.msg_file_count = (current.msg_file_count
+                               - avg([s.msg_file_count for s in previous]))
+        self.srv_file_count = (current.srv_file_count
+                               - avg([s.srv_file_count for s in previous]))
+        self.action_file_count = (current.action_file_count
+                                  - avg([s.action_file_count for s in previous]))
+        self.pkg_depends = (current.pkg_depends
+                            - avg([s.pkg_depends for s in previous]))
     # -- Issues ---------------------------------
         self.issue_count = (current.issue_count
                             - avg([s.issue_count for s in previous]))
@@ -270,6 +283,8 @@ class Statistics(object):
                                 - avg([s.metrics_issue_count for s in previous]))
         self.other_issue_count = (current.other_issue_count
                                   - avg([s.other_issue_count for s in previous]))
+        self.violated_rule_count = (current.violated_rule_count
+                            - avg([s.violated_rule_count for s in previous]))
     # -- ROS Configuration Objects --------------
         self.configuration_count = (current.configuration_count
                                 - avg([s.configuration_count for s in previous]))
@@ -301,17 +316,25 @@ class Statistics(object):
 
     @classmethod
     def from_reports(cls, reports):
+        violated_rules = set()
         stats = cls()
-        stats._pkg_statistics(reports)
+        stats._pkg_statistics(reports, violated_rules=violated_rules)
         file_analysis = [r for p in reports for r in p.file_analysis]
-        stats._file_statistics(file_analysis)
+        stats._file_statistics(file_analysis, violated_rules=violated_rules)
+        stats.violated_rule_count = len(violated_rules)
         return stats
 
-    def _pkg_statistics(self, reports):
+    def _pkg_statistics(self, reports, violated_rules=None):
+        assert violated_rules is not None
+        pkg_deps = set()
+        own_pkgs = set()
         for report in reports:
+            own_pkgs.add(report.package.name)
+            pkg_deps.update(report.package.dependencies.packages)
             self.file_count += report.package.file_count
             self.issue_count += len(report.violations)
             for issue in report.violations:
+                violated_rules.add(issue.rule.id)
                 other = True
                 if "code-standards" in issue.rule.tags:
                     other = False
@@ -326,8 +349,10 @@ class Statistics(object):
                 self.node_count += 1
                 if node.is_nodelet:
                     self.nodelet_count += 1
+        self.pkg_depends = len(pkg_deps - own_pkgs)
 
-    def _file_statistics(self, reports):
+    def _file_statistics(self, reports, violated_rules=None):
+        assert violated_rules is not None
         complexities = []
         fun_lines = []
         file_lines = []
@@ -345,8 +370,15 @@ class Statistics(object):
                 self.launch_count += 1
             elif sf.language == "yaml":
                 self.param_file_count += 1
+            elif sf.language == "msg":
+                self.msg_file_count += 1
+            elif sf.language == "srv":
+                self.srv_file_count += 1
+            elif sf.language == "action":
+                self.action_file_count += 1
             self.issue_count += len(report.violations)
             for issue in report.violations:
+                violated_rules.add(issue.rule.id)
                 other = True
                 if "code-standards" in issue.rule.tags:
                     other = False
@@ -375,10 +407,13 @@ class AnalysisReport(object):
     def __init__(self, project):
         self.project = project
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+        self.analysis_time = 0.0
         self.by_package = {}
         self.by_config = {}
         self.statistics = None
         self.violations = []    # unknown location
+        self.plugins = []
+        self.rules = []
 
     @property
     def package_count(self):
@@ -399,8 +434,11 @@ class AnalysisReport(object):
                 "scripts":  self.statistics.script_count,
                 "languages": {
                     "cpp": self.statistics.cpp_ratio,
-                    "python": self.statistics.python_ratio
-                }
+                    "cppLOC": self.statistics.cpp_lines,
+                    "python": self.statistics.python_ratio,
+                    "pythonLOC": self.statistics.python_lines
+                },
+                "pkgDependencies": self.statistics.pkg_depends
             },
             "issues": {
                 "total":    self.statistics.issue_count,
@@ -419,9 +457,16 @@ class AnalysisReport(object):
             "communications": {
                 "topics":       None,
                 "remappings":   None,
-                "messages":     None,
-                "services":     None,
-                "actions":      None
+                "messages":     self.statistics.msg_file_count,
+                "services":     self.statistics.srv_file_count,
+                "actions":      self.statistics.action_file_count
+            },
+            "analysis": {
+                "plugins":          len(self.plugins),
+                "rules":            len(self.rules),
+                "userRules":        len(tuple(r for r in self.rules
+                                              if r.startswith("user:"))),
+                "violatedRules":    self.statistics.violated_rule_count
             }
         }
 
@@ -434,13 +479,16 @@ class HarosSettings(object):
     DEFAULTS = {
         "environment": {
             "ROS_WORKSPACE": os.environ.get("ROS_WORKSPACE"),
-            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH")
+            "CMAKE_PREFIX_PATH": os.environ.get("CMAKE_PREFIX_PATH"),
+            "ROS_VERSION": os.environ.get("ROS_VERSION"),
+            "COLCON_PREFIX_PATH": os.environ.get("COLCON_PREFIX_PATH")
         },
         "blacklist": [],
         "workspace": None,
         "cpp": {
             "parser": "clang",
             "parser_lib": "/usr/lib/llvm-3.8/lib",
+            "parser_lib_file": None,
             "std_includes": "/usr/lib/llvm-3.8/lib/clang/3.8.0/include",
             "compile_db": None  # path to file, None (default path) or False
         },
@@ -448,27 +496,32 @@ class HarosSettings(object):
             "ignore": {
                 "tags": [],
                 "rules": [],
-                "metrics": []
+                "metrics": [],
+                "files": []
             }
         }
     }
 
     def __init__(self, env=None, blacklist=None, workspace=None,
                  cpp_parser=None, cpp_includes=None, cpp_parser_lib=None,
-                 cpp_compile_db=None, ignored_tags=None, ignored_rules=None,
-                 ignored_metrics=None):
+                 cpp_parser_lib_file=None, cpp_compile_db=None,
+                 ignored_tags=None, ignored_rules=None, ignored_metrics=None,
+                 ignored_globs=None):
         self.environment = env or dict(self.DEFAULTS["environment"])
         self.plugin_blacklist = blacklist if not blacklist is None else []
-        self.workspace = workspace or self.find_workspace()
+        self.workspace = workspace or self.find_ros_workspace()
         self.ignored_tags = (ignored_tags
                 or list(self.DEFAULTS["analysis"]["ignore"]["tags"]))
         self.ignored_rules = (ignored_rules
                 or list(self.DEFAULTS["analysis"]["ignore"]["rules"]))
         self.ignored_metrics = (ignored_metrics
                 or list(self.DEFAULTS["analysis"]["ignore"]["metrics"]))
+        self.ignored_globs = (ignored_globs
+                or list(self.DEFAULTS["analysis"]["ignore"]["files"]))
         self.ignored_lines = {}
         self.cpp_parser = cpp_parser or self.DEFAULTS["cpp"]["parser"]
         self.cpp_parser_lib = cpp_parser_lib or self.DEFAULTS["cpp"]["parser_lib"]
+        self.cpp_parser_lib_file = cpp_parser_lib_file or self.DEFAULTS["cpp"]["parser_lib_file"]
         self.cpp_includes = cpp_includes or self.DEFAULTS["cpp"]["std_includes"]
         self.cpp_compile_db = cpp_compile_db
         if cpp_compile_db is None:
@@ -496,23 +549,36 @@ class HarosSettings(object):
         ignored_tags = analysis_ignored.get("tags")
         ignored_rules = analysis_ignored.get("rules")
         ignored_metrics = analysis_ignored.get("metrics")
+        ignored_globs = analysis_ignored.get("files")
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
+        cpp_parser_lib_file = cpp.get("parser_lib_file")
         cpp_includes = cpp.get("std_includes")
         cpp_compile_db = cpp.get("compile_db")
         return cls(env=env, blacklist=blacklist, workspace=workspace,
                    cpp_parser=cpp_parser, cpp_parser_lib=cpp_parser_lib,
+                   cpp_parser_lib_file=cpp_parser_lib_file,
                    cpp_includes=cpp_includes, cpp_compile_db=cpp_compile_db,
                    ignored_tags=ignored_tags, ignored_rules=ignored_rules,
-                   ignored_metrics=ignored_metrics)
+                   ignored_metrics=ignored_metrics, ignored_globs=ignored_globs)
 
-    def find_workspace(self):
+    def find_ros_workspace(self):
         """This replicates the behaviour of `roscd`."""
+        # ROS2 
+        ros_version = self.environment.get("ROS_VERSION")
+        if ros_version == "2":
+            ws = self._find_ros2_workspace()
+            if ws:
+                return ws
         ws = self.environment.get("ROS_WORKSPACE")
         if ws:
             return ws
-        paths = self.environment.get("CMAKE_PREFIX_PATH", "").split(os.pathsep)
+        paths = self.environment.get("CMAKE_PREFIX_PATH")
+        if paths == None:
+            paths = []
+        else:
+            paths = paths.split(os.pathsep)
         for path in paths:
             if os.path.exists(os.path.join(path, ".catkin")):
                 if (path.endswith(os.sep + "devel")
@@ -523,7 +589,37 @@ class HarosSettings(object):
                     # CMAKE_PREFIX_PATH point at the devel_isolated/package path
                     # in workspaces built with catkin_make_isolated.
                     return os.path.abspath(os.path.join(path, os.pardir, os.pardir))
+        # fallback option:
+        ws = self._find_ros2_workspace()
+        if ws:
+            return ws
         raise KeyError("ROS_WORKSPACE")
+    # ^ def find_ros_workspace()
+
+    def _find_ros2_workspace(self):
+        """
+        Try to find the current ROS2 workspace root folder path.
+        :returns: [str or None] The path of the current ROS workspace root or None.
+        """
+        colcon_prefix_path = self.environment.get("COLCON_PREFIX_PATH")
+        if colcon_prefix_path:
+            # Takes the form of "<ROS2_WORKSPACE>/src/install"
+            if colcon_prefix_path.endswith(os.sep + 'src' + os.sep + 'install'):
+                path = os.path.abspath(colcon_prefix_path[:-11])
+                return os.path.abspath(path)
+        # Fallback option: current working directory or parent directory
+        path = os.getcwd()
+        if os.path.exists(os.path.join(path, "src")):
+            return os.path.abspath(path)
+        try:
+            path = path[0:path.rindex(os.sep + 'src' + os.sep)]
+            return os.path.abspath(path)
+        except ValueError:
+            pass
+        # Failed to find the workspace
+        return None
+    # ^ def _find_ros2_workspace()
+
 
 
 ###############################################################################
