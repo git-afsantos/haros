@@ -236,7 +236,11 @@ class SubstitutionParser(object):
             raise SubstitutionError("find takes exactly one argument")
         name = parts[1]
         self.pkg_depends.add(name)
-        package = self.packages.get("package:" + name)
+        try:
+            package = self.packages.get("package:" + name)
+        except KeyError:
+            package = None
+
         if package:
             if package.path:
                 return package.path

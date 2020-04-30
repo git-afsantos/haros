@@ -27,6 +27,7 @@
 from collections import Counter, namedtuple
 import os
 
+import magic as file_cmd
 
 ###############################################################################
 # Notes
@@ -305,11 +306,15 @@ class SourceObject(MetamodelObject):
 
 class SourceFile(SourceObject):
     """Represents a source code file."""
-    CPP = (".cpp", ".cc", ".h", ".hpp", ".c", ".cpp.in",
-           ".h.in", ".hpp.in", ".c.in", ".cc.in")
-    PYTHON = ".py"
-    PKG_XML = "package.xml"
-    LAUNCH = (".launch", ".launch.xml")
+    CPP = ('c source', 'c++ source')
+    PYTHON = 'python script'
+    PKG_XML = 'package.xml'
+    LAUNCH = ('.launch', '.launch.xml')
+    MSG = '.msg'
+    SRV = '.srv'
+    ACTION = '.action'
+    YAML = ('.yaml', '.yml')
+    CMAKELISTS = 'CMakeLists.txt'
 
     def __init__(self, name, directory, pkg):
         id = ("file:" + pkg.name + "/" + directory.replace(os.path.sep, "/")
@@ -380,15 +385,26 @@ class SourceFile(SourceObject):
         }
 
     def _get_language(self):
-        if self.name.endswith(self.CPP):
-            return "cpp"
-        if self.name.endswith(self.PYTHON):
-            return "py"
+        file_type = file_cmd.from_file(self.path).lower()
+        if file_type.startswith(self.CPP):
+            return 'cpp'
+        if self.PYTHON in file_type:
+            return 'python'
         if self.name.endswith(self.LAUNCH):
-            return "launch"
+            return 'launch'
         if self.name == self.PKG_XML:
-            return "package"
-        return "unknown"
+            return 'package'
+        if self.name.endswith(self.MSG):
+            return 'msg'
+        if self.name.endswith(self.SRV):
+            return 'srv'
+        if self.name.endswith(self.ACTION):
+            return 'action'
+        if self.name.endswith(self.YAML):
+            return 'yaml'
+        if self.name == self.CMAKELISTS:
+            return 'cmake'
+        return 'unknown'
 
     def __str__(self):
         return self.__repr__()
@@ -399,7 +415,7 @@ class SourceFile(SourceObject):
     def _ignore_parsers(self):
         if self.language == "cpp":
             return (_cpp_ignore_line, _cpp_ignore_next_line)
-        elif self.language == "py":
+        elif self.language == "python":
             return (_py_ignore_line, _py_ignore_next_line)
         return (_no_parser, _no_parser)
 
@@ -951,6 +967,10 @@ class NodeInstance(Resource):
 
     def __repr__(self):
         return self.__str__()
+
+    def __str__(self):
+        return ("NodeInstance " + self.configuration.name
+                + ":" + self.rosname.full)
 
 
 class Topic(Resource):
