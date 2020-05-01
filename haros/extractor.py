@@ -950,56 +950,86 @@ class HardcodedNodeParser(LoggingObject):
             node = Node(node_type, pkg, rosname = node_data.get("rosname"),
                         nodelet = node_type if node_data["nodelet"] else None)
         for datum in node_data.get("advertise", ()):
+            loc = cls._loc(pkg, datum)
             pub = Publication(datum["name"], datum["namespace"],
                     datum["type"], datum["queue"],
-                    control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c["condition"],
-                                                  statement=c["statement"])
-                                  for c in datum["conditions"]])
+                    control_depth=datum["depth"],
+                    repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
+                                                statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.advertise.append(pub)
         for datum in node_data.get("subscribe", ()):
+            loc = cls._loc(pkg, datum)
             sub = Subscription(datum["name"], datum["namespace"],
                     datum["type"], datum["queue"],
                     control_depth = datum["depth"],
                     repeats = datum["repeats"],
                     conditions = [SourceCondition(c["condition"],
                                                   statement=c["statement"])
-                                  for c in datum["conditions"]])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.subscribe.append(sub)
         for datum in node_data.get("service", ()):
+            loc = cls._loc(pkg, datum)
             srv = ServiceServerCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
                     conditions = [SourceCondition(c["condition"],
                                                   statement=c["statement"])
-                                  for c in datum["conditions"]])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.service.append(srv)
         for datum in node_data.get("client", ()):
+            loc = cls._loc(pkg, datum)
             cli = ServiceClientCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
                     conditions = [SourceCondition(c["condition"],
                                                   statement=c["statement"])
-                                  for c in datum["conditions"]])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.client.append(cli)
         for datum in node_data.get("readParam", ()):
+            loc = cls._loc(pkg, datum)
             par = ReadParameterCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
                     conditions = [SourceCondition(c["condition"],
                                                   statement=c["statement"])
-                                  for c in datum["conditions"]])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.read_param.append(par)
         for datum in node_data.get("writeParam", ()):
+            loc = cls._loc(pkg, datum)
             par = WriteParameterCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
                     conditions = [SourceCondition(c["condition"],
                                                   statement=c["statement"])
-                                  for c in datum["conditions"]])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.write_param.append(par)
         return node
+
+    @classmethod
+    def _loc(cls, pkg, data):
+        loc = data.get("location")
+        if loc is None:
+            return None
+        p = loc.get("package")
+        if p is None or p != pkg.name:
+            return None
+        f = loc["file"]
+        for sf in pkg.source_files:
+            if sf.full_name == f:
+                f = sf
+                break
+        else:
+            return None
+        return Location(pkg, file=f, line=loc["line"], col=loc["column"],
+                        fun=loc.get("function"), cls=loc.get("class"))
 
 
 ###############################################################################
