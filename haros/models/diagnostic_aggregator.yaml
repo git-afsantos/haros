@@ -29,7 +29,11 @@ indigo:
                 namespace: ""
                 queue: 1
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 70
+                    column: 17
                 repeats: false
                 conditions: []
             -
@@ -38,7 +42,11 @@ indigo:
                 namespace: ""
                 queue: 1
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 71
+                    column: 28
                 repeats: false
                 conditions: []
         subscribe:
@@ -48,10 +56,26 @@ indigo:
                 namespace: ""
                 queue: 1
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 69
+                    column: 18
                 repeats: false
                 conditions: []
-        service: []
+        service:
+            -
+                name: "/diagnostic_agg/add_diagnostics"
+                type: diagnostic_msgs/AddDiagnostics
+                namespace: ""
+                depth: 0
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 68
+                    column: 17
+                repeats: false
+                conditions: []
         client: []
         readParam:
             -
@@ -60,7 +84,11 @@ indigo:
                 default: 1.0
                 namespace: "~"
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 53
+                    column: 6
                 repeats: false
                 conditions: []
             -
@@ -69,7 +97,11 @@ indigo:
                 default: ""
                 namespace: "~"
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 49
+                    column: 6
                 repeats: false
                 conditions: []
             -
@@ -78,7 +110,11 @@ indigo:
                 default: {}
                 namespace: "~"
                 depth: 0
-                location: null
+                location:
+                    package: diagnostic_aggregator
+                    file: src/analyzer_group.cpp
+                    line: 70
+                    column: 16
                 repeats: false
                 conditions: []
         writeParam: []
