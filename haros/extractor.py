@@ -1333,9 +1333,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         pub = Publication(name, ns, msg_type, queue_size, location=location,
                           control_depth=depth, conditions=conditions,
                           repeats=is_under_loop(call, recursive=True))
@@ -1353,9 +1354,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         sub = Subscription(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
@@ -1371,9 +1373,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         srv = ServiceServerCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1389,9 +1392,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         cli = ServiceClientCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1406,9 +1410,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         read = ReadParameterCall(name, ns, param_type, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
@@ -1423,9 +1428,10 @@ class RoscppExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = []
         for c in get_conditions(call, recursive=True):
+            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
-                statement=c.name))
+                statement=stmt))
         wrt = WriteParameterCall(name, ns, param_type, location = location,
                                  control_depth = depth, conditions = conditions,
                                  repeats = is_under_loop(call, recursive = True))
