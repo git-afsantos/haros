@@ -38,7 +38,7 @@ from bonsai.model import (
     CodeGlobalScope, CodeReference, CodeFunctionCall, pretty_str
 )
 from bonsai.cpp.model import (
-    CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
+    CppEntity, CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
 )
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
@@ -1433,6 +1433,8 @@ class RoscppExtractor(LoggingObject):
         self.log.debug("Found Write on %s/%s (%s)", ns, name, param_type)
 
     def _condition_location(self, bonsai_obj, sf):
+        if not isinstance(bonsai_obj, CppEntity):
+            return Location(self.package, file=sf)
         if sf is not None:
             if sf.path != bonsai_obj.file:
                 self.log.debug(("condition Location: files do not match: "
