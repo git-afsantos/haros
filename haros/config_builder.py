@@ -133,14 +133,14 @@ class LaunchScope(LoggingObject):
             rosname = RosName(param.rosname.given, pns, pns)
             conditions = param.conditions + instance.conditions
             self.log.debug("Creating new forward Parameter %s.", rosname.full)
-            param = Parameter(self.configuration, rosname, param.type,
-                              param.value, node_scope=param.node_scope,
-                              launch=param.launch_file,
-                              conditions=conditions)
-            self.parameters.append(param)
+            new_param = Parameter(self.configuration, rosname, param.type,
+                param.value, node_scope=param.node_scope,
+                launch=param.launch_file, conditions=conditions)
+            new_param._location = param._location
+            self.parameters.append(new_param)
         return new_scope
 
-    def make_params(self, name, ptype, value, condition):
+    def make_params(self, name, ptype, value, condition, line=None, col=None):
         if not value is None:
             value = self._convert_value(str(value), ptype)
             ptype = Parameter.type_of(value)
@@ -148,19 +148,22 @@ class LaunchScope(LoggingObject):
         if not condition is True:
             conditions.append(condition)
         if ptype == "yaml" or isinstance(value, dict):
-            self._yaml_param(name, value, conditions)
+            self._yaml_param(name, value, conditions, line=line, col=col)
         else:
             rosname = RosName(name, self.private_ns, self.private_ns)
             param = Parameter(self.configuration, rosname, ptype, value,
                               node_scope = not self.node is None,
                               launch = self.launch_file,
                               conditions = conditions)
+            if param._location is not None:
+                param._location.line = line
+                param._location.column = col
             if not self.node and rosname.is_private:
                 self._params.append(param)
             else:
                 self.parameters.append(param)
 
-    def make_rosparam(self, name, ns, value, condition):
+    def make_rosparam(self, name, ns, value, condition, line=None, col=None):
     # ---- lazy rosparam import as per the oringinal roslaunch code
         global rosparam
         if rosparam is None:
@@ -182,7 +185,8 @@ class LaunchScope(LoggingObject):
         conditions = list(self.conditions)
         if not condition is True:
             conditions.append(condition)
-        self._yaml_param(name, value, conditions, private = False)
+        self._yaml_param(name, value, conditions, private=False,
+                         line=line, col=col)
 
     def remove_param(self, name, ns, condition):
         # TODO check whether "~p" = "/rosparam/p" is intended or a bug
@@ -446,7 +450,8 @@ class LaunchScope(LoggingObject):
         else:
             raise ValueError("Unknown type '{}'".format(ptype))
 
-    def _yaml_param(self, name, value, conditions, private = True):
+    def _yaml_param(self, name, value, conditions, private=True,
+                    line=None, col=None):
         private = private and name.startswith("~")
         pns = self.private_ns
         node_scope = not self.node is None
@@ -460,6 +465,9 @@ class LaunchScope(LoggingObject):
             param = Parameter(self.configuration, rosname, None, value,
                               node_scope = node_scope,
                               launch = self.launch_file, conditions = conditions)
+            if param._location is not None:
+                param._location.line = line
+                param._location.column = col
             if independent or not private:
                 self.parameters.append(param)
             else:
@@ -933,7 +941,8 @@ class ConfigurationBuilder(LoggingObject):
         elif not tag.command is None:
             value = None
         try:
-            scope.make_params(name, ptype, value, condition)
+            scope.make_params(name, ptype, value, condition,
+                              line=tag.line, col=tag.column)
         except ValueError as e:
             raise ConfigurationError(str(e))
 
@@ -954,7 +963,8 @@ class ConfigurationBuilder(LoggingObject):
                 value = tag.text
                 if sub.resolve(tag.substitute, strict = True):
                     value = sub.resolve(value, strict = True)
-            scope.make_rosparam(name, ns, value, condition)
+            scope.make_rosparam(name, ns, value, condition,
+                                line=tag.line, col=tag.column)
         elif command == "delete":
             scope.remove_param(name, ns, condition)
 

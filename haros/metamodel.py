@@ -1110,6 +1110,7 @@ class Parameter(Resource):
         self.reads = []
         self.writes = []
         self.launch = launch
+        self._location = launch.location if launch is not None else None
 
     @staticmethod
     def type_of(value):
@@ -1131,8 +1132,8 @@ class Parameter(Resource):
 
     def traceability(self):
         sl = []
-        if not self.launch is None:
-            sl.append(self.launch.location)
+        if self._location is not None:
+            sl.append(self._location)
         for p in self.reads:
             if not p.source_location is None:
                 sl.append(p.source_location)
