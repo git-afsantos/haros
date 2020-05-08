@@ -429,13 +429,13 @@ class LaunchScope(LoggingObject):
                 return self._convert_value(value, "bool")
             # string
             return value
-        elif ptype == "str" or ptype == "string":
+        elif ptype == "str":
             return value
         elif ptype == "int":
             return int(value)
         elif ptype == "double":
             return float(value)
-        elif ptype == "bool" or ptype == "boolean":
+        elif ptype == "bool":
             value = value.lower().strip()
             if value == "true" or value == "1":
                 return True

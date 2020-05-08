@@ -1121,9 +1121,9 @@ class Parameter(Resource):
         if isinstance(value, float):
             return "double"
         if isinstance(value, basestring):
-            return "string"
+            return "str"
         if isinstance(value, bool):
-            return "boolean"
+            return "bool"
         return "yaml"
 
     @property
