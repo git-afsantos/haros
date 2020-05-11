@@ -105,7 +105,7 @@ indigo:
                 conditions: []
             -
                 name: "map_frame"
-                type: string
+                type: str
                 default: "map"
                 namespace: "~"
                 depth: 0
@@ -114,7 +114,7 @@ indigo:
                 conditions: []
             -
                 name: "odom_frame"
-                type: string
+                type: str
                 default: "odom"
                 namespace: "~"
                 depth: 0
@@ -123,7 +123,7 @@ indigo:
                 conditions: []
             -
                 name: "base_link_frame"
-                type: string
+                type: str
                 default: "base_link"
                 namespace: "~"
                 depth: 0
@@ -132,7 +132,7 @@ indigo:
                 conditions: []
             -
                 name: "world_frame"
-                type: string
+                type: str
                 default: "odom"
                 namespace: "~"
                 depth: 0

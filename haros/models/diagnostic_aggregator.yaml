@@ -93,7 +93,7 @@ indigo:
                 conditions: []
             -
                 name: "base_path"
-                type: string
+                type: str
                 default: ""
                 namespace: "~"
                 depth: 0
@@ -106,7 +106,7 @@ indigo:
                 conditions: []
             -
                 name: "analyzers"
-                type: object
+                type: yaml
                 default: {}
                 namespace: "~"
                 depth: 0

@@ -38,7 +38,7 @@ indigo:
         readParam:
             -
                 name: "link_name"
-                type: string
+                type: str
                 default: "/base_link"
                 namespace: "~"
                 depth: 0
@@ -47,7 +47,7 @@ indigo:
                 conditions: []
             -
                 name: "robot_name"
-                type: string
+                type: str
                 default: "robot"
                 namespace: "~"
                 depth: 0

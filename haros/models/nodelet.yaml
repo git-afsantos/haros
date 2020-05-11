@@ -20,65 +20,70 @@
 #THE SOFTWARE.
 ---
 indigo:
-    joy_node:
+    nodelet:
+        rosname: manager
         nodelet: false
-        advertise:
+        advertise: []
+        subscribe: []
+        service:
             -
-                name: "joy"
-                type: sensor_msgs/Joy
-                namespace: ""
-                queue: 1
+                name: load_nodelet
+                type: nodelet/NodeletLoad
+                namespace: "~"
                 depth: 0
-                location: null
+                location:
+                    package: nodelet
+                    file: src/loader.cpp
+                    line: 81
+                    column: 24
                 repeats: false
                 conditions: []
-        subscribe: []
-        service: []
+            -
+                name: unload_nodelet
+                type: nodelet/NodeletUnload
+                namespace: "~"
+                depth: 0
+                location:
+                    package: nodelet
+                    file: src/loader.cpp
+                    line: 82
+                    column: 26
+                repeats: false
+                conditions: []
+            -
+                name: list
+                type: nodelet/NodeletList
+                namespace: "~"
+                depth: 0
+                location:
+                    package: nodelet
+                    file: src/loader.cpp
+                    line: 83
+                    column: 24
+                repeats: false
+                conditions: []
         client: []
         readParam:
             -
-                name: "dev"
-                type: str
-                default: "/dev/input/js0"
+                name: num_worker_threads
+                type: int
+                default: 0
                 namespace: "~"
                 depth: 0
-                location: null
-                repeats: false
-                conditions: []
-            -
-                name: "deadzone"
-                type: double
-                default: 0.05
-                namespace: "~"
-                depth: 0
-                location: null
-                repeats: false
-                conditions: []
-            -
-                name: "autorepeat_rate"
-                type: double
-                default: 0.0
-                namespace: "~"
-                depth: 0
-                location: null
-                repeats: false
-                conditions: []
-            -
-                name: "coalesce_interval"
-                type: double
-                default: 0.001
-                namespace: "~"
-                depth: 0
-                location: null
+                location:
+                    package: nodelet
+                    file: src/loader.cpp
+                    line: 231
+                    column: 15
                 repeats: false
                 conditions: []
         writeParam: []
 kinetic:
-    joy_node:
+    nodelet:
         base: indigo
 lunar:
-    joy_node:
+    nodelet:
         base: indigo
 melodic:
-    joy_node:
+    nodelet:
         base: indigo
