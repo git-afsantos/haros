@@ -100,6 +100,7 @@ import json
 import logging
 import os
 import tempfile
+from timeit import default_timer as timer
 
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
@@ -621,8 +622,14 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
-        # NOTE: this updates settings with ignore-line comments
-        extractor.index_source(settings = self.settings)
+            start_time = timer()
+            # NOTE: this updates settings with ignore-line comments
+            extractor.index_source(settings = self.settings)
+            end_time = timer()
+            self.log.debug("Parsing time: %f s", end_time - start_time)
+        else:
+            # NOTE: this updates settings with ignore-line comments
+            extractor.index_source(settings = self.settings)
         self.project = extractor.project.name
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
