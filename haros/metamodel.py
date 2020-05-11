@@ -1116,14 +1116,14 @@ class Parameter(Resource):
     def type_of(value):
         if value is None:
             return None
+        if value is True or value is False:
+            return "bool"
         if isinstance(value, int):
             return "int"
         if isinstance(value, float):
             return "double"
         if isinstance(value, basestring):
             return "str"
-        if isinstance(value, bool):
-            return "bool"
         return "yaml"
 
     @property

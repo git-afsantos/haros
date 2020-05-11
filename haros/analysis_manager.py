@@ -108,7 +108,11 @@ class PluginInterface(LoggingObject):
 
     def find_configuration(self, scope_id):
         configs = self._data.configurations
-        return configs.get(scope_id, configs.get("configuration:" + scope_id))
+        uid = "configuration:" + scope_id
+        for config in configs:
+            if config.id == scope_id or config.id == uid:
+                return config
+        return None
 
     def log_warning(self, msg):
         self.log.warning("Plugin %s issued a warning:\n%s",
