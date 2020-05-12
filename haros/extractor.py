@@ -1281,20 +1281,22 @@ class RoscppExtractor(LoggingObject):
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                param_type = None
+                param_type = default_value = None
                 if len(call.arguments) >= 2 and call.name in gets:
                     param_type = self._extract_param_type(call.arguments[1])
+                    default_value = self._extract_param_value(call, arg_pos=2)
                 self._on_read_param(node, self._resolve_node_handle(call),
-                                    call, param_type)
+                                    call, param_type, default_value)
         sets = ("setParam",)
         writes = sets + ("deleteParam",)
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
-                param_type = None
+                param_type = value = None
                 if len(call.arguments) >= 2 and call.name in sets:
                     param_type = self._extract_param_type(call.arguments[1])
+                    value = self._extract_param_value(call, arg_pos=1)
                 self._on_write_param(node, self._resolve_node_handle(call),
                                      call, param_type)
 
@@ -1306,10 +1308,11 @@ class RoscppExtractor(LoggingObject):
             if (call.full_name.startswith("ros::param")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(ros_prefix))):
-                param_type = None
+                param_type = default_value = None
                 if len(call.arguments) >= 2 and call.name in gets:
                     param_type = self._extract_param_type(call.arguments[1])
-                self._on_read_param(node, "", call, param_type)
+                    default_value = self._extract_param_value(call, arg_pos=2)
+                self._on_read_param(node, "", call, param_type, default_value)
         for call in (CodeQuery(gs).all_calls.where_name("search")
                      .where_result("bool").get()):
             if (call.full_name.startswith("ros::param")
@@ -1321,17 +1324,18 @@ class RoscppExtractor(LoggingObject):
                         ns = "?"
                 else:
                     ns = "~"
-                self._on_read_param(node, ns, call, None)
+                self._on_read_param(node, ns, call, None, None)
         sets = ("set",)
         writes = sets + ("del",)
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::param")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(ros_prefix))):
-                param_type = None
+                param_type = value = None
                 if len(call.arguments) >= 2 and call.name in sets:
                     param_type = self._extract_param_type(call.arguments[1])
-                self._on_write_param(node, "", call, param_type)
+                    value = self._extract_param_value(call, arg_pos=1)
+                self._on_write_param(node, "", call, param_type, value)
 
     def _on_publication(self, node, ns, call, topic_pos=0, queue_pos=1,
                         msg_type=None):
@@ -1413,7 +1417,7 @@ class RoscppExtractor(LoggingObject):
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
-    def _on_read_param(self, node, ns, call, param_type):
+    def _on_read_param(self, node, ns, call, param_type, default_value):
         if len(call.arguments) < 1:
             return
         name = self._extract_topic(call)
@@ -1425,13 +1429,15 @@ class RoscppExtractor(LoggingObject):
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
                 statement=stmt))
-        read = ReadParameterCall(name, ns, param_type, location = location,
-                                 control_depth = depth, conditions = conditions,
-                                 repeats = is_under_loop(call, recursive = True))
+        read = ReadParameterCall(name, ns, param_type,
+            default_value=default_value, location=location,
+            control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive = True))
         node.read_param.append(read)
-        self.log.debug("Found Read on %s/%s (%s)", ns, name, param_type)
+        self.log.debug("Found Read on %s/%s (%s) (%s)",
+            ns, name, param_type, default_value)
 
-    def _on_write_param(self, node, ns, call, param_type):
+    def _on_write_param(self, node, ns, call, param_type, value):
         if len(call.arguments) < 1:
             return
         name = self._extract_topic(call)
@@ -1443,11 +1449,12 @@ class RoscppExtractor(LoggingObject):
             conditions.append(SourceCondition(pretty_str(c),
                 location=self._condition_location(c, location.file),
                 statement=stmt))
-        wrt = WriteParameterCall(name, ns, param_type, location = location,
-                                 control_depth = depth, conditions = conditions,
-                                 repeats = is_under_loop(call, recursive = True))
+        wrt = WriteParameterCall(name, ns, param_type, value=value,
+            location=location, control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive = True))
         node.write_param.append(wrt)
-        self.log.debug("Found Write on %s/%s (%s)", ns, name, param_type)
+        self.log.debug("Found Write on %s/%s (%s) (%s)",
+            ns, name, param_type, value)
 
     def _condition_location(self, bonsai_obj, sf):
         if not isinstance(bonsai_obj, CppEntity):
@@ -1643,6 +1650,18 @@ class RoscppExtractor(LoggingObject):
         if cpp_type == "bool":
             return "bool"
         return "yaml" if cpp_type else None
+
+    def _extract_param_value(self, call, arg_pos=1):
+        self.log.debug("extract_param_value({!r}, pos={})".format(
+            call.arguments, arg_pos))
+        if len(call.arguments) <= arg_pos:
+            self.log.debug("Failed to extract param value: not enough arguments")
+            return None
+        value = resolve_expression(call.arguments[arg_pos])
+        if isinstance(value, CppEntity):
+            self.log.debug("Failed to extract param value: " + repr(value))
+            return None
+        return value
 
 
 class RospyExtractor(LoggingObject):
