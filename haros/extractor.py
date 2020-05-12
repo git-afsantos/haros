@@ -936,7 +936,9 @@ class HardcodedNodeParser(LoggingObject):
             cls.log.debug("Node does not exist for ROS %s.", cls.distro)
             return None
         cls.log.debug("Building node from YAML data.")
-        node = cls._build_node(node_type, cls.distro, Package(pkg), data)
+        pkg = Package(pkg)
+        pkg.path = "/tmp/" + pkg.name
+        node = cls._build_node(node_type, cls.distro, pkg, data)
         cls._cache[node_id] = node
         return node
 
@@ -1027,7 +1029,15 @@ class HardcodedNodeParser(LoggingObject):
                 f = sf
                 break
         else:
-            return None
+            parts = loc["file"].rsplit("/", 1)
+            if len(parts) == 1:
+                directory = ""
+                name = parts[0]
+            else:
+                assert len(parts) == 2
+                directory, name = parts
+            f = SourceFile(name, directory, pkg)
+            pkg.source_files.append(f)
         return Location(pkg, file=f, line=loc["line"], col=loc["column"],
                         fun=loc.get("function"), cls=loc.get("class"))
 

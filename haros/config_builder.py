@@ -36,6 +36,7 @@
 # Imports
 ###############################################################################
 
+from builtins import range
 from collections import namedtuple
 import logging
 import os
@@ -159,9 +160,9 @@ class LaunchScope(LoggingObject):
                 param._location.line = line
                 param._location.column = col
             if not self.node and rosname.is_private:
-                self._params.append(param)
+                self._add_param(param, self._params)
             else:
-                self.parameters.append(param)
+                self._add_param(param, self.parameters)
 
     def make_rosparam(self, name, ns, value, condition, line=None, col=None):
     # ---- lazy rosparam import as per the oringinal roslaunch code
@@ -291,7 +292,7 @@ class LaunchScope(LoggingObject):
     def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints,
                           source_location):
         collection = self.configuration.topics
-        call_name = RosName(name, ns or self.namespace, pns)
+        call_name = RosName(name, self.resolve_ns(ns), pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
         self.log.debug("Finding topic links for %s (%s).",
                        call_name.full, rosname.full)
@@ -348,7 +349,7 @@ class LaunchScope(LoggingObject):
     def _make_service_links(self, name, ns, pns, rtype, conditions, hints,
                             source_location):
         collection = self.configuration.services
-        call_name = RosName(name, ns or self.namespace, pns)
+        call_name = RosName(name, self.resolve_ns(ns), pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
         self.log.debug("Finding service links for %s (%s).",
                        call_name.full, rosname.full)
@@ -469,9 +470,9 @@ class LaunchScope(LoggingObject):
                 param._location.line = line
                 param._location.column = col
             if independent or not private:
-                self.parameters.append(param)
+                self._add_param(param, self.parameters)
             else:
-                self._params.append(param)
+                self._add_param(param, self._params)
 
     def _unfold(self, name, value):
         result = []
@@ -497,6 +498,22 @@ class LaunchScope(LoggingObject):
         if ns[-1] == "/":
             return ns + name
         return ns + "/" + name
+
+    def _add_param(self, param, collection):
+        if param.rosname.is_unresolved:
+            collection.append(param)
+        else:
+            rosname = param.rosname.full
+            for i in range(len(collection)):
+                other = collection[i]
+                if rosname == other.rosname.full:
+                    if param.disabled:
+                        if other.disabled:
+                            collection[i] = param
+                    else:
+                        collection[i] = param
+                    return
+            collection.append(param)
 
     def resolve_ns(self, ns):
         if not ns:
@@ -556,7 +573,7 @@ class FutureParamLink(object):
     def make(self):
         configuration = self.node.configuration
         collection = configuration.parameters
-        call_name = RosName(self.name, self.ns, self.pns)
+        call_name = RosName(self.name, self.resolved_ns, self.pns)
         rosname = RosName(self.name, self.resolved_ns, self.pns,
                           self.node.remaps)
         links = []

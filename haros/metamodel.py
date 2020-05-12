@@ -307,7 +307,9 @@ class SourceObject(MetamodelObject):
 class SourceFile(SourceObject):
     """Represents a source code file."""
     CPP = ('c source', 'c++ source')
+    CPP_ALT = ('.c', '.h', '.hpp', '.hxx', '.cpp', '.cc', '.cxx')
     PYTHON = 'python script'
+    PYTHON_ALT = '.py'
     PKG_XML = 'package.xml'
     LAUNCH = ('.launch', '.launch.xml')
     MSG = '.msg'
@@ -385,11 +387,17 @@ class SourceFile(SourceObject):
         }
 
     def _get_language(self):
-        file_type = file_cmd.from_file(self.path).lower()
-        if file_type.startswith(self.CPP):
-            return 'cpp'
-        if self.PYTHON in file_type:
-            return 'python'
+        try:
+            file_type = file_cmd.from_file(self.path).lower()
+            if file_type.startswith(self.CPP):
+                return 'cpp'
+            if self.PYTHON in file_type:
+                return 'python'
+        except IOError:
+            if self.name.endswith(self.CPP_ALT):
+                return 'cpp'
+            if self.name.endswith(self.PYTHON_ALT):
+                return 'python'
         if self.name.endswith(self.LAUNCH):
             return 'launch'
         if self.name == self.PKG_XML:
