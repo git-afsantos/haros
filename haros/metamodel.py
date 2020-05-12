@@ -176,10 +176,32 @@ class ServiceClientCall(RosPrimitiveCall):
     pass
 
 class ReadParameterCall(RosPrimitiveCall):
-    pass
+    def __init__(self, name, namespace, param_type, default_value=None,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
+        RosPrimitiveCall.__init__(self, name, namespace, param_type,
+            control_depth=control_depth, repeats=repeats,
+            conditions=conditions, location=location)
+        self.default_value = default_value
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["default_value"] = self.default_value
+        return data
 
 class WriteParameterCall(RosPrimitiveCall):
-    pass
+    def __init__(self, name, namespace, param_type, value=None,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
+        RosPrimitiveCall.__init__(self, name, namespace, param_type,
+            control_depth=control_depth, repeats=repeats,
+            conditions=conditions, location=location)
+        self.value = value
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["value"] = self.value
+        return data
 
 
 ###############################################################################
@@ -803,6 +825,10 @@ class RosName(object):
 
     def __str__(self):
         return self._name
+
+    def __repr__(self):
+        return "{}({!r}, ns={!r})".format(
+            type(self).__name__, self._own, self._ns)
 
 
 class RuntimeLocation(object):
@@ -1474,12 +1500,13 @@ class ClientLink(ServicePrimitive):
 
 
 class ParameterPrimitive(RosPrimitive):
-    def __init__(self, node, param, param_type, rosname, conditions = None,
-                 location = None):
+    def __init__(self, node, param, param_type, rosname, value=None,
+                 conditions=None, location=None):
         RosPrimitive.__init__(self, node, rosname, conditions = conditions,
                               location = location)
         self.parameter = param
         self.type = param_type
+        self.value = value
 
     @property
     def param_name(self):
@@ -1490,6 +1517,7 @@ class ParameterPrimitive(RosPrimitive):
         data["param"] = self.param_name
         data["param_uid"] = str(id(self.parameter))
         data["type"] = self.type
+        data["value"] = self.value
         return data
 
     def __repr__(self):
@@ -1501,10 +1529,10 @@ class ParameterPrimitive(RosPrimitive):
 
 class ReadLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None,
-             location = None):
-        link = cls(node, param, param_type, rosname, conditions = conditions,
-                   location = location)
+    def link(cls, node, param, param_type, rosname, value=None,
+             conditions=None, location=None):
+        link = cls(node, param, param_type, rosname, value=value,
+                   conditions=conditions, location=location)
         link.node.reads.append(link)
         link.parameter.reads.append(link)
         return link
@@ -1515,8 +1543,8 @@ class ReadLink(ParameterPrimitive):
 
 class WriteLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None,
-             location = None):
+    def link(cls, node, param, param_type, rosname, value=None,
+             conditions=None, location=None):
         link = cls(node, param, param_type, rosname, conditions = conditions,
                    location = location)
         link.node.writes.append(link)

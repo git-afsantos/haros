@@ -996,9 +996,9 @@ class HardcodedNodeParser(LoggingObject):
         for datum in node_data.get("readParam", ()):
             loc = cls._loc(pkg, datum)
             par = ReadParameterCall(datum["name"], datum["namespace"],
-                    datum["type"], control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c["condition"],
+                    datum["type"], default_value=datum.get("default"),
+                    control_depth=datum["depth"], repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
                                                   statement=c["statement"])
                                   for c in datum["conditions"]],
                     location=loc)
@@ -1006,13 +1006,14 @@ class HardcodedNodeParser(LoggingObject):
         for datum in node_data.get("writeParam", ()):
             loc = cls._loc(pkg, datum)
             par = WriteParameterCall(datum["name"], datum["namespace"],
-                    datum["type"], control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c["condition"],
+                    datum["type"], value=datum.get("value"),
+                    control_depth=datum["depth"], repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
                                                   statement=c["statement"])
                                   for c in datum["conditions"]],
                     location=loc)
             node.write_param.append(par)
+        cls.log.debug("Hard-coded Node: " + str(node.to_JSON_object()))
         return node
 
     @classmethod

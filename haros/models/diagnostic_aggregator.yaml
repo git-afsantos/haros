@@ -54,7 +54,7 @@ indigo:
                 name: "/diagnostics"
                 type: diagnostic_msgs/DiagnosticArray
                 namespace: ""
-                queue: 1
+                queue: 1000
                 depth: 0
                 location:
                     package: diagnostic_aggregator
@@ -107,7 +107,7 @@ indigo:
             -
                 name: "analyzers"
                 type: yaml
-                default: {}
+                default: null
                 namespace: "~"
                 depth: 0
                 location:
@@ -115,6 +115,32 @@ indigo:
                     file: src/analyzer_group.cpp
                     line: 70
                     column: 16
+                repeats: false
+                conditions: []
+            -
+                name: "other_as_errors"
+                type: bool
+                default: false
+                namespace: "~"
+                depth: 0
+                location:
+                    package: diagnostic_aggregator
+                    file: src/aggregator.cpp
+                    line: 56
+                    column: 6
+                repeats: false
+                conditions: []
+            -
+                name: "path"
+                type: str
+                default: ""
+                namespace: "~"
+                depth: 0
+                location:
+                    package: diagnostic_aggregator
+                    file: src/analyzer_group.cpp
+                    line: 53
+                    column: 5
                 repeats: false
                 conditions: []
         writeParam: []

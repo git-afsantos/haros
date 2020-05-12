@@ -705,7 +705,10 @@ class LaunchParser(object):
         element = cls(text, attributes,
             tag._start_line_number, tag._start_column_number)
         if element.tag == "arg" and isinstance(element.name, basestring):
-            self.sub_parser.arguments[element.name] = element.value
+            if element.value is None:
+                self.sub_parser.arguments[element.name] = element.default
+            else:
+                self.sub_parser.arguments[element.name] = element.value
         for child in tag:
             element.append(self._parse_tag(child))
         return element

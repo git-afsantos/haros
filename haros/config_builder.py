@@ -276,17 +276,17 @@ class LaunchScope(LoggingObject):
         pns = self.private_ns
         for call in self.node.node.read_param:
             self._future.append(FutureParamLink(
-                    self.node, call.name, call.namespace or self.namespace,
-                    self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, read or (), call.repeats, "reads",
-                    call.location
+                self.node, call.name, call.namespace or self.namespace,
+                self.resolve_ns(call.namespace), pns, call.type,
+                call.default_value, call.conditions, read or (),
+                call.repeats, "reads", call.location
             ))
         for call in self.node.node.write_param:
             self._future.append(FutureParamLink(
-                    self.node, call.name, call.namespace or self.namespace,
-                    self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, write or (), call.repeats, "writes",
-                    call.location
+                self.node, call.name, call.namespace or self.namespace,
+                self.resolve_ns(call.namespace), pns, call.type, call.value,
+                call.conditions, write or (), call.repeats, "writes",
+                call.location
             ))
 
     def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints,
@@ -554,8 +554,8 @@ class LaunchScope(LoggingObject):
             service.conditions.extend(link.conditions)
 
 
-class FutureParamLink(object):
-    def __init__(self, node, name, ns, rns, pns, rtype,
+class FutureParamLink(LoggingObject):
+    def __init__(self, node, name, ns, rns, pns, rtype, value,
                  conditions, hints, repeats, rw, location):
         self.node = node
         self.name = name
@@ -569,6 +569,7 @@ class FutureParamLink(object):
         assert rw == "reads" or rw == "writes"
         self.rw = rw
         self.source_location = location
+        self.value = value
 
     def make(self):
         configuration = self.node.configuration
@@ -582,9 +583,8 @@ class FutureParamLink(object):
             params = self._pattern_match(pattern, collection)
             for param in params:
                 links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
+                    call_name, value=self.value, conditions=self.conditions,
+                    location=self.source_location))
             params = self._pattern_match(pattern, self.hints)
             for param in params:
                 new = param.remap(RosName(param.rosname.full,
@@ -593,24 +593,23 @@ class FutureParamLink(object):
                     continue # already done in the step above
                 collection.add(new)
                 links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
+                    call_name, value=self.value, conditions=self.conditions,
+                    location=self.source_location))
         else:
             param = collection.get(rosname.full)
             if not param is None:
                 links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
+                    call_name, value=self.value, conditions=self.conditions,
+                    location=self.source_location))
         if not links:
-            param = Parameter(configuration, rosname, self.type, None)
+            param = Parameter(configuration, rosname, self.type, self.value)
             collection.add(param)
             links.append(ParameterPrimitive(self.node, param, self.type,
-                                            call_name,
-                                            conditions = self.conditions,
-                                            location = self.source_location))
+                call_name, value=self.value, conditions=self.conditions,
+                location=self.source_location))
         for link in links:
+            self.log.debug("Creating {} param link: {}".format(
+                self.rw, str(link.to_JSON_object())))
             getattr(self.node, self.rw).append(link)
             getattr(link.parameter, self.rw).append(link)
             if not self.repeats:
