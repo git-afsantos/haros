@@ -42,7 +42,7 @@ from bonsai.cpp.model import (
 )
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
-    get_conditions, is_under_loop
+    get_conditions, get_condition_paths, is_under_loop
 )
 try:
     from bonsai.cpp.clang_parser import CppAstParser
@@ -1345,11 +1345,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         pub = Publication(name, ns, msg_type, queue_size, location=location,
                           control_depth=depth, conditions=conditions,
                           repeats=is_under_loop(call, recursive=True))
@@ -1366,11 +1367,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         sub = Subscription(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
@@ -1385,11 +1387,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         srv = ServiceServerCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1404,11 +1407,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         cli = ServiceClientCall(name, ns, msg_type, location = location,
                                 control_depth = depth, conditions = conditions,
                                 repeats = is_under_loop(call, recursive = True))
@@ -1422,11 +1426,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         read = ReadParameterCall(name, ns, param_type,
             default_value=default_value, location=location,
             control_depth=depth, conditions=conditions,
@@ -1442,11 +1447,12 @@ class RoscppExtractor(LoggingObject):
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
-        for c in get_conditions(call, recursive=True):
-            stmt = c.parent.name if isinstance(c, CppEntity) else "if"
-            conditions.append(SourceCondition(pretty_str(c),
-                location=self._condition_location(c, location.file),
-                statement=stmt))
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         wrt = WriteParameterCall(name, ns, param_type, value=value,
             location=location, control_depth=depth, conditions=conditions,
             repeats=is_under_loop(call, recursive = True))
@@ -1454,24 +1460,19 @@ class RoscppExtractor(LoggingObject):
         self.log.debug("Found Write on %s/%s (%s) (%s)",
             ns, name, param_type, value)
 
-    def _condition_location(self, bonsai_obj, sf):
-        if not isinstance(bonsai_obj, CppEntity):
-            self.log.debug("weird condition object: " + repr(bonsai_obj))
-            return Location(self.package, file=sf)
+    def _condition_location(self, condition_obj, sf):
         if sf is not None:
-            if sf.path != bonsai_obj.file:
+            if sf.path != condition_obj.file:
                 self.log.debug(("condition Location: files do not match: "
-                    "'%s', '%s'"), sf.path, bonsai_obj.file)
-                if bonsai_obj.file.startswith(self.package.path):
+                    "'%s', '%s'"), sf.path, condition_obj.file)
+                if condition_obj.file.startswith(self.package.path):
                     for sf2 in self.package.source_files:
-                        if sf2.path == bonsai_obj.file:
+                        if sf2.path == condition_obj.file:
                             sf = sf2
                             break
                             self.log.debug("Location: found correct file")
-        # bonsai_obj is the condition itself, the parent is the statement
-        statement = bonsai_obj.parent
-        return Location(self.package, file=sf, line=statement.line,
-                        col=statement.column)
+        return Location(self.package, file=sf, line=condition_obj.line,
+            col=condition_obj.column, fun=condition_obj.function.name)
 
     def _call_location(self, call):
         try:
