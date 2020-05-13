@@ -1456,6 +1456,7 @@ class RoscppExtractor(LoggingObject):
 
     def _condition_location(self, bonsai_obj, sf):
         if not isinstance(bonsai_obj, CppEntity):
+            self.log.debug("weird condition object: " + repr(bonsai_obj))
             return Location(self.package, file=sf)
         if sf is not None:
             if sf.path != bonsai_obj.file:
