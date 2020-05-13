@@ -476,10 +476,9 @@ class ProjectExtractor(LoggingObject):
                               statement=c["statement"])
               for c in datum["conditions"]]
         return ReadParameterCall(datum["name"], datum["namespace"],
-                                 datum["type"], control_depth = datum["depth"],
-                                 repeats = datum["repeats"],
-                                 conditions = cs,
-                                 location = l(datum["location"]))
+            datum["type"], default_value=datum["default_value"],
+            control_depth=datum["depth"], repeats=datum["repeats"],
+            conditions=cs, location=l(datum["location"]))
 
     def _write_from_JSON(self, datum):
         l = self._location_from_JSON
@@ -487,10 +486,9 @@ class ProjectExtractor(LoggingObject):
                               statement=c["statement"])
               for c in datum["conditions"]]
         return WriteParameterCall(datum["name"], datum["namespace"],
-                                  datum["type"], control_depth = datum["depth"],
-                                  repeats = datum["repeats"],
-                                  conditions = cs,
-                                  location = l(datum["location"]))
+            datum["type"], value=datum["value"],
+            control_depth=datum["depth"], repeats=datum["repeats"],
+            conditions=cs, location=l(datum["location"]))
 
     def _pub_from_specs(self, datum, node):
         self._calls_from_specs(datum.get("advertise"), node, "advertise",
