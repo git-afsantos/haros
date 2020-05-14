@@ -519,8 +519,15 @@ class RosCMakeParser(LoggingObject):
         self.executables.update(targets)
 
     def _process_install(self, args):
-        in_directories = []
-        for dirname in self._get_option_args(args, 'DIRECTORY'):
+        # docs: http://docs.ros.org/api/catkin/html/howto/format2/index.html
+        self._install_directory(self._get_option_args(args, 'DIRECTORY'))
+        self._install_files(self._get_option_args(args, 'FILES'))
+        self._install_programs(self._get_option_args(args, 'PROGRAMS'))
+        # skip TARGETS because that should be handled by
+        #   add_library() or add_executable()
+
+    def _install_directory(self, args):
+        for dirname in args:
             tdir = os.path.join(self.directory, dirname)
             if not os.path.isdir(tdir):
                 self.log.warning(
@@ -528,19 +535,34 @@ class RosCMakeParser(LoggingObject):
                 continue
             try:
                 for filename in os.listdir(tdir):
-                    in_directories.append(os.path.join(dirname, filename))
+                    path = os.path.join(dirname, filename)
+                    if os.access(path, os.X_OK):
+                        name = os.path.basename(path)
+                        self.log.debug("CMake install() executable file "
+                                       + path)
+                        self.executables[name] = BuildTarget.new_target(
+                            name, [path], self.directory, True)
+                    else:
+                        self.log.debug("CMake install() file: " + path)
+                        self.installs.add(path)
             except OSError:
                 self.log.warning(
                     "Could not read directory %s", tdir)
-        sources = (in_directories
-                   + self._get_option_args(args, 'FILES')
-                   + self._get_option_args(args, 'PROGRAMS'))
-        names = map(os.path.basename, sources)
-        targets = {
-            name: BuildTarget.new_target(name, [filename], self.directory, True)
-            for name, filename in zip(names, sources)
-        }
-        self.executables.update(targets)
+
+    def _install_files(self, args):
+        for arg in args:
+            t = BuildTarget.new_target("temp", [arg], self.directory, False)
+            for filepath in t.files:
+                self.log.debug("CMake install() file: " + filepath)
+                self.installs.add(filepath)
+
+    def _install_programs(self, args):
+        for path in args:
+            name = os.path.basename(path)
+            if name not in self.executables:
+                self.log.debug("CMake install() program: " + path)
+                self.executables[name] = BuildTarget.new_target(
+                    name, [path], self.directory, True)
 
     def _process_library(self, args):
         n = len(args)
@@ -878,4 +900,5 @@ class RosCMakeParser(LoggingObject):
         self.system_dependencies = []
         self.libraries = {}
         self.executables = {}
+        self.installs = set()
         self.subdirectories = []

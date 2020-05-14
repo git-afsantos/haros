@@ -1145,8 +1145,14 @@ class NodeExtractor(LoggingObject):
                     sf = self._get_file(path)
                     if sf:
                         node.source_files.append(sf)
-            self.nodes.append(node)
-            self.package.nodes.append(node)
+            lang = node.language
+            if lang == "cpp" or lang == "python":
+                self.log.debug("register %s node: %s", lang, node.node_name)
+                self.nodes.append(node)
+                self.package.nodes.append(node)
+            else:
+                self.log.debug("CMake target is not a node: %s (%s) %s",
+                    node.node_name, lang, node.source_files)
 
     def _extract_primitives(self, force_when_cached=False):
         self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
