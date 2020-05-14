@@ -858,6 +858,7 @@ class ConfigurationBuilder(LoggingObject):
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
+        self._future = []
         sub = SubstitutionParser(env=config.environment,
             pkgs=self.sources.packages, dirname=launch_file.dir_path,
             pkg_depends=config.dependencies.packages,
