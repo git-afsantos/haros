@@ -114,6 +114,9 @@ class PluginInterface(LoggingObject):
                 return config
         return None
 
+    def log_debug(self, msg):
+        self.log.debug("[%s]: %s", self._plugin.name, msg)
+
     def log_warning(self, msg):
         self.log.warning("Plugin %s issued a warning:\n%s",
             self._plugin.name, msg)
