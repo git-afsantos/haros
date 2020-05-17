@@ -820,12 +820,13 @@ class ConfigurationHints(LoggingObject):
 
 class ConfigurationBuilder(LoggingObject):
     def __init__(self, name, environment, source_finder,
-                 nodes=None, hints=None):
+                 nodes=None, hints=None, no_hardcoded=False):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
         self.node_specs = nodes if nodes is not None else {}
         self.hints = hints if not hints is None else {}
+        self.no_hardcoded = no_hardcoded
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
 
@@ -1039,7 +1040,8 @@ class ConfigurationBuilder(LoggingObject):
         package = self.sources.packages.get("package:" + pkg)
         if not package:
             assert not node
-            node = HardcodedNodeParser.get(pkg, exe)
+            if not self.no_hardcoded:
+                node = HardcodedNodeParser.get(pkg, exe)
             if not node:
                 package = self._find_package(pkg)
         if not node:

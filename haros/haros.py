@@ -217,7 +217,7 @@ class HarosLauncher(object):
             use_repos=args.use_repos, parse_nodes=args.parse_nodes,
             copy_env=args.env, use_cache=(not args.no_cache),
             junit_xml_output=args.junit_xml_output,
-            minimal_output=args.minimal_output)
+            minimal_output=args.minimal_output, no_hardcoded=args.no_hardcoded)
         return analyse.run()
 
     def command_export(self, args):
@@ -342,6 +342,8 @@ class HarosLauncher(object):
                            help = "execute only these plugins")
         group.add_argument("-b", "--blacklist", nargs = "*",
                            help = "skip these plugins")
+        parser.add_argument("--no-hardcoded", action="store_true",
+                            help="do not rely on hard-coded nodes")
         parser.set_defaults(command = self.command_analyse)
 
     def _export_parser(self, parser):
@@ -552,7 +554,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                  whitelist, blacklist, log = None, run_from_source = False,
                  use_repos = False, parse_nodes = False, copy_env = False,
                  use_cache = True, settings = None, junit_xml_output = False,
-                 minimal_output = False):
+                 minimal_output = False, no_hardcoded=False):
         HarosRunner.__init__(self, haros_dir, config_path, log,
             run_from_source, junit_xml_output, minimal_output)
         self.project_file = project_file
@@ -563,6 +565,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.settings = settings
+        self.no_hardcoded = no_hardcoded
         self.project = None
         self.database = None
         self.current_dir = None
@@ -650,7 +653,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 hpl = empty_dict
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
-                    nodes=nodes, hints=data.get("hints"))
+                    nodes=nodes, hints=data.get("hints"),
+                    no_hardcoded=self.no_hardcoded)
                 launch_files = data["launch"]
                 hpl = data.get("hpl", empty_dict)
             for launch_file in launch_files:
