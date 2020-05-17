@@ -1641,9 +1641,12 @@ class RoscppExtractor(LoggingObject):
 
     def _extract_latch(self, call, latch_pos):
         expr = call.arguments[latch_pos]
+        self.log.debug("extract latched publisher from {!r}".format(expr))
         if isinstance(expr, CppDefaultArgument):
+            self.log.debug("latch is default: false")
             return False
         latch = resolve_expression(expr)
+        self.log.debug("resolve latch expr returns {!r}".format(latch))
         if not isinstance(latch, bool):
             return None
         return latch
