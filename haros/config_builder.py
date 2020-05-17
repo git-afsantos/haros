@@ -1040,7 +1040,11 @@ class ConfigurationBuilder(LoggingObject):
         package = self.sources.packages.get("package:" + pkg)
         if not package:
             assert not node
-            if not self.no_hardcoded:
+            if self.no_hardcoded:
+                self.log.debug(("skipping hard-coded node '%s/%s' "
+                                "due to user option"), pkg, exe)
+            else:
+                self.log.debug("look up hard-coded node '%s/%s'", pkg, exe)
                 node = HardcodedNodeParser.get(pkg, exe)
             if not node:
                 package = self._find_package(pkg)
