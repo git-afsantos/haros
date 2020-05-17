@@ -954,6 +954,7 @@ class HardcodedNodeParser(LoggingObject):
             loc = cls._loc(pkg, datum)
             pub = Publication(datum["name"], datum["namespace"],
                     datum["type"], datum["queue"],
+                    latched=datum.get("latched", False),
                     control_depth=datum["depth"],
                     repeats=datum["repeats"],
                     conditions=[SourceCondition(c["condition"],
@@ -1349,9 +1350,9 @@ class RoscppExtractor(LoggingObject):
         name = self._extract_topic(call, topic_pos=topic_pos)
         msg_type = msg_type or self._extract_message_type(call)
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
-        latch = False
+        latched = False
         if len(call.arguments) >= 3 and len(call.arguments) > latch_pos:
-            latch = self._extract_latch(call, latch_pos)
+            latched = self._extract_latch(call, latch_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
@@ -1361,9 +1362,9 @@ class RoscppExtractor(LoggingObject):
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
-        pub = Publication(name, ns, msg_type, queue_size, location=location,
-                          control_depth=depth, conditions=conditions,
-                          repeats=is_under_loop(call, recursive=True))
+        pub = Publication(name, ns, msg_type, queue_size, latched=latched,
+            location=location, control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive=True))
         node.advertise.append(pub)
         self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
 
