@@ -51,7 +51,8 @@ from .launch_parser import (
 )
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
-    SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive
+    SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive,
+    PublishLink
 )
 
 
@@ -217,12 +218,12 @@ class LaunchScope(LoggingObject):
         self.log.debug("Iterating advertise calls for node %s.", self.node.id)
         for call in self.node.node.advertise:
             for link in self._make_topic_links(call.name, call.namespace, pns,
-                                               call.type, call.queue_size,
-                                               call.conditions, advertise,
-                                               call.location):
+                    call.type, call.queue_size, call.conditions, advertise,
+                    call.location, cls=PublishLink):
                 self.log.debug("Linking %s to %s.", self.node.id, link.topic.id)
                 self.node.publishers.append(link)
                 link.topic.publishers.append(link)
+                link.latched = call.latched
                 self._update_topic_conditions(link.topic)
                 if not call.repeats:
                     break
@@ -290,7 +291,8 @@ class LaunchScope(LoggingObject):
             ))
 
     def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints,
-                          source_location):
+                          source_location, cls=None):
+        cls = cls or TopicPrimitive
         collection = self.configuration.topics
         call_name = RosName(name, self.resolve_ns(ns), pns)
         rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
@@ -315,9 +317,8 @@ class LaunchScope(LoggingObject):
                     self.log.debug("Creating a new Topic from hints: %s",
                                    new.rosname.full)
                     collection.add(new)
-                links.append(TopicPrimitive(self.node, new, rtype, call_name,
-                                            queue, conditions = conditions,
-                                            location = source_location))
+                links.append(cls(self.node, new, rtype, call_name, queue,
+                    conditions=conditions, location=source_location))
         elif rosname.is_unresolved:
             # This branch is needed to unify unresolved resources with
             # the same message type.
@@ -325,25 +326,22 @@ class LaunchScope(LoggingObject):
             for topic in collection.get_all(rosname.full):
                 if topic.type == rtype:
                     self.log.debug("Found link to %s.", topic.id)
-                    links.append(TopicPrimitive(self.node, topic, rtype,
-                        call_name, queue, conditions = conditions,
-                        location = source_location))
+                    links.append(cls(self.node, topic, rtype, call_name, queue,
+                        conditions=conditions, location=source_location))
                     break
         else:
             self.log.debug("Processing resolved name.")
             topic = collection.get(rosname.full)
             if topic is not None:
                 self.log.debug("Found topic %s within collection.", topic.id)
-                links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                            queue, conditions = conditions,
-                                            location = source_location))
+                links.append(cls(self.node, topic, rtype, call_name, queue,
+                    conditions=conditions, location=source_location))
         if not links:
             self.log.debug("No links were found. Creating new topic.")
             topic = Topic(self.configuration, rosname, message_type = rtype)
             collection.add(topic)
-            links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                        queue, conditions = conditions,
-                                        location = source_location))
+            links.append(cls(self.node, topic, rtype, call_name, queue,
+                conditions=conditions, location=source_location))
         return links
 
     def _make_service_links(self, name, ns, pns, rtype, conditions, hints,

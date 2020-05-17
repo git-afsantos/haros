@@ -434,7 +434,8 @@ class ProjectExtractor(LoggingObject):
                               statement=c["statement"])
               for c in datum["conditions"]]
         return Publication(datum["name"], datum["namespace"], datum["type"],
-                           datum["queue"], control_depth = datum["depth"],
+                           datum["queue"], latched=datum.get("latched", False),
+                           control_depth = datum["depth"],
                            repeats = datum["repeats"],
                            conditions = cs, location = l(datum["location"]))
 
@@ -1342,12 +1343,15 @@ class RoscppExtractor(LoggingObject):
                 self._on_write_param(node, "", call, param_type, value)
 
     def _on_publication(self, node, ns, call, topic_pos=0, queue_pos=1,
-                        msg_type=None):
+                        msg_type=None, latch_pos=-1):
         if len(call.arguments) <= 1:
             return
         name = self._extract_topic(call, topic_pos=topic_pos)
         msg_type = msg_type or self._extract_message_type(call)
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
+        latch = False
+        if len(call.arguments) >= 3 and len(call.arguments) > latch_pos:
+            latch = self._extract_latch(call, latch_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = []
@@ -1633,6 +1637,15 @@ class RoscppExtractor(LoggingObject):
         if isinstance(queue_size, (int, long, float)):
             return queue_size
         return None
+
+    def _extract_latch(self, call, latch_pos):
+        expr = call.arguments[latch_pos]
+        if isinstance(expr, CppDefaultArgument):
+            return False
+        latch = resolve_expression(expr)
+        if not isinstance(latch, bool):
+            return None
+        return latch
 
     def _extract_param_type(self, value):
         self.log.debug("extract param type from {}".format(repr(value)))

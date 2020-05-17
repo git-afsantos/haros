@@ -140,18 +140,20 @@ class RosPrimitiveCall(MetamodelObject):
         return self.__str__()
 
 class Publication(RosPrimitiveCall):
-    def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = None, repeats = False, conditions = None,
-                 location = None):
+    def __init__(self, name, namespace, msg_type, queue_size, latched=False,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
         RosPrimitiveCall.__init__(self, name, namespace, msg_type,
                                   control_depth = control_depth,
                                   repeats = repeats,
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
+        self.latched = latched
 
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["queue"] = self.queue_size
+        data["latched"] = self.latched
         return data
 
 class Subscription(RosPrimitiveCall):
@@ -1418,12 +1420,18 @@ class TopicPrimitive(RosPrimitive):
 class PublishLink(TopicPrimitive):
     @classmethod
     def link(cls, node, topic, message_type, rosname, queue_size,
-             conditions = None, location = None):
+             latched=False, conditions=None, location=None):
         link = cls(node, topic, message_type, rosname, queue_size,
                    conditions = conditions, location = location)
         link.node.publishers.append(link)
         link.topic.publishers.append(link)
+        link.latched = latched
         return link
+
+    def to_JSON_object(self):
+        data = TopicPrimitive.to_JSON_object(self)
+        data["latched"] = self.latched
+        return data
 
     def __str__(self):
         return "Publication of node '{}' to topic '{}' of type '{}'".format(
