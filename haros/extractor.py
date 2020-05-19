@@ -712,7 +712,8 @@ class PackageExtractor(LoggingObject):
         self.altstack_pkgs = None
 
     # To use with LaunchParser.
-    def get(self, pkg_id):
+    def get(self, pkg_id, populate=True):
+        self.log.debug("%s.get('%s')", type(self).__name__, pkg_id)
         if pkg_id in self._pkg_cache:
             return self._pkg_cache[pkg_id]
         for pkg in self.packages:
@@ -724,6 +725,9 @@ class PackageExtractor(LoggingObject):
             pkg = self._find(pkg_id[8:], None)
             self._pkg_cache[pkg_id] = pkg
             self._extra.append(pkg)
+            pkg._analyse = False
+            if populate:
+                self._populate_package(pkg)
         except (IOError, ET.ParseError, ResourceNotFound):
             return None
         return pkg

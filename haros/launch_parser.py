@@ -151,7 +151,9 @@ class SubstitutionParser(object):
             Otherwise, return an UnresolvedValue instance.
         """
         if value.startswith("$(eval") and value.endswith(")"):
-            return self._eval(("eval", value[7:-1]))
+            result = UnresolvedValue()
+            result.append(("eval", value[7:-1]))
+            return result
         if self.ERROR_PATTERN.search(value):
             raise SubstitutionError("'$' cannot appear within expression")
         match = self.PATTERN.search(value)
@@ -778,15 +780,18 @@ class LaunchParser(object):
         "test": TestTag
     }
 
-    def __init__(self, pkgs = None):
+    def __init__(self, pkgs=None, args=None, enable_defaults=False):
         self.sub_parser = None
-        self.packages = pkgs if not pkgs is None else {}
+        self.packages = pkgs if pkgs is not None else {}
+        self.passed_args = args if args is not None else {}
+        self.enable_defaults = enable_defaults
 
     def parse(self, filepath):
         if not filepath or not os.path.isfile(filepath):
             raise LaunchParserError("not a file: " + str(filepath))
         try:
-            self.sub_parser = SubstitutionParser(pkgs = self.packages)
+            self.sub_parser = SubstitutionParser(
+                pkgs=self.packages, args=dict(self.passed_args))
             xml_root = ET.parse(filepath, parser=LineNumberingParser()).getroot()
             if not xml_root.tag == "launch":
                 raise LaunchParserError("invalid root tag: " + xml_root.tag)
@@ -807,7 +812,10 @@ class LaunchParser(object):
             tag._start_line_number, tag._start_column_number)
         if element.tag == "arg" and isinstance(element.name, basestring):
             if element.value is None:
-                self.sub_parser.arguments[element.name] = element.default
+                if self.enable_defaults:
+                    self.sub_parser.arguments[element.name] = element.default
+                else:
+                    self.sub_parser.arguments[element.name] = None
             else:
                 self.sub_parser.arguments[element.name] = element.value
         for child in tag:
@@ -820,7 +828,7 @@ class LaunchParser(object):
         for key, value in tag.attrib.iteritems():
             if not key in schema:
                 continue # TODO raise an error vs. future compatibility
-            attributes[key] = sub(value, conversion = schema[key])
+            attributes[key] = sub(value, conversion=schema[key])
         return attributes
 
 

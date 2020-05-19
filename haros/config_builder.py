@@ -38,6 +38,7 @@
 
 from builtins import range
 from collections import namedtuple
+from itertools import chain
 import logging
 import os
 import re
@@ -913,13 +914,17 @@ class ConfigurationBuilder(LoggingObject):
         filepath = sub.resolve(tag.file, strict = True)
         ns = sub.resolve(tag.namespace, strict = True)
         pass_all_args = sub.resolve(tag.pass_all_args, strict = True)
+        self.log.debug("<include> " + str(filepath))
         launch_file = self.sources.get_file(filepath)
         if launch_file is None:
-            raise ConfigurationError("cannot find launch file: " + filepath)
+            launch_file = self._lookup_launch(filepath)
         if not launch_file.tree:
             self._parse_launch_on_the_fly(launch_file)
             if not launch_file.tree:
+                self.log.debug("unable to parse launch: " + filepath)
                 raise ConfigurationError("cannot parse: " + launch_file.id)
+        else:
+            self.log.debug("launch file '%s' is pre-parsed", launch_file.name)
         args = dict(scope.arguments) if pass_all_args else {}
         new_scope = scope.child(ns, condition, launch = launch_file,
                                 args = args)
@@ -930,6 +935,7 @@ class ConfigurationBuilder(LoggingObject):
                                      dirname = launch_file.dir_path,
                                      pkg_depends = sub.pkg_depends,
                                      env_depends = sub.env_depends)
+        self.log.debug("analyse_tree('%s')", launch_file.name)
         self._analyse_tree(launch_file.tree, new_scope, new_sub)
 
     def _remap_tag(self, tag, condition, scope, sub):
@@ -943,10 +949,10 @@ class ConfigurationBuilder(LoggingObject):
 
     def _param_tag(self, tag, condition, scope, sub):
         assert not tag.children
-        name = sub.resolve(tag.name, strict = True)
-        ptype = sub.resolve(tag.type, strict = True)
+        name = sub.resolve(tag.name, strict=True)
+        ptype = sub.resolve(tag.type, strict=True)
         if not tag.value is None:
-            value = tag.value
+            value = sub.resolve(tag.value, strict=True)
         elif not tag.textfile is None:
             try:
                 with open(tag.textfile) as f:
@@ -1013,10 +1019,10 @@ class ConfigurationBuilder(LoggingObject):
 
     def _condition(self, condition, sub, line, col):
         assert isinstance(condition, tuple)
-        value = sub.resolve(condition[1])
+        value = sub.resolve(condition[1], conversion=bool)
         if value is None:
             stmt = "if" if condition[0] else "unless"
-            loc = config.roslaunch[-1].location
+            loc = self.configuration.roslaunch[-1].location
             loc.line = line
             loc.column = col
             # not sure if tag is part of the configuration
@@ -1086,6 +1092,30 @@ class ConfigurationBuilder(LoggingObject):
                 hints[key] = result
         self.log.debug("Using mixed hints: %s", hints)
         return hints
+
+    def _lookup_launch(self, filepath):
+        self.log.debug("dynamic lookup of launch file: " + filepath)
+        for pkg in chain(self._pkg_finder.packages, self._pkg_finder._extra):
+            if not pkg.path:
+                continue
+            if (filepath.startswith(pkg.path)
+                    and filepath[len(pkg.path)] == os.path.sep):
+                self.log.debug("found package '%s' for launch file", pkg.name)
+                break
+        else:
+            # FIXME we could just open the file at the given path, but then
+            # we would not have the Package, File, Location objects.
+            # The metamodel needs to be changed.
+            self.log.debug("failed to find package for launch file")
+            raise ConfigurationError("cannot find launch file: " + filepath)
+        for sf in pkg.source_files:
+            if sf.path == filepath:
+                self.log.debug("found SourceFile '%s' for launch file", sf.name)
+                break
+        else:
+            self.log.debug("failed to find SourceFile object for launch file")
+            raise ConfigurationError("cannot find launch file: " + filepath)
+        return sf
 
     def _parse_launch_on_the_fly(self, launch_file):
         assert not launch_file.tree
