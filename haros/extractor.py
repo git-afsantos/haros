@@ -755,15 +755,15 @@ class PackageExtractor(LoggingObject):
                 if self.altstack_pkgs == None:
                     self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
                 path = self.altstack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             if self.rospack_pkgs == None:
                 self.rospack_pkgs = findRosPackages(as_stack=False)
             path = self.rospack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             if self.rosstack_pkgs == None:
                 self.rosstack_pkgs = findRosPackages(as_stack=True)
             path = self.rosstack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             raise KeyError(name)
         return PackageParser.parse(os.path.join(path, "package.xml"),
                                    project = project)
