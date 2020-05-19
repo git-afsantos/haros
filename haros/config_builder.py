@@ -829,6 +829,7 @@ class ConfigurationBuilder(LoggingObject):
         self.no_hardcoded = no_hardcoded
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
+        self._pkg_finder.packages.extend(self.sources.packages.values())
 
     def add_rosrun(self, node):
         config = self.configuration
@@ -1089,7 +1090,7 @@ class ConfigurationBuilder(LoggingObject):
     def _parse_launch_on_the_fly(self, launch_file):
         assert not launch_file.tree
         assert launch_file.language == "launch"
-        launch_parser = LaunchParser(pkgs = self.sources.packages)
+        launch_parser = LaunchParser(pkgs=self._pkg_finder)
         self.log.debug("Parsing launch file: " + launch_file.path)
         try:
             launch_file.tree = launch_parser.parse(launch_file.path)
