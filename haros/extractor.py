@@ -1534,7 +1534,13 @@ class RoscppExtractor(LoggingObject):
                 # Copy constructor
                 if len(args) == 1:
                     parent = args[0]
-                    return self._resolve_node_handle(parent)
+                    if isinstance(parent, CppFunctionCall):
+                        if parent.name == 'getNodeHandle':
+                            return ''
+                        elif parent.name == 'getPrivateNodeHandle':
+                            return '~'
+                    r = self._resolve_node_handle(parent)
+                    return r
 
                 # All other constructor have at least two arguments. The third
                 # is never meaningful
