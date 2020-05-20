@@ -216,6 +216,7 @@ class HarosLauncher(object):
             log=self.log, run_from_source=self.run_from_source,
             use_repos=args.use_repos, parse_nodes=args.parse_nodes,
             copy_env=args.env, use_cache=(not args.no_cache),
+            overwrite_cache=(not args.no_write_cache),
             junit_xml_output=args.junit_xml_output,
             minimal_output=args.minimal_output, no_hardcoded=args.no_hardcoded)
         return analyse.run()
@@ -258,6 +259,7 @@ class HarosLauncher(object):
             project_file, args.data_dir, log=self.log,
             run_from_source=self.run_from_source, use_repos=args.use_repos,
             ws=args.ws, copy_env=args.env, use_cache=(not args.no_cache),
+            overwrite_cache=(not args.no_write_cache),
             junit_xml_output=args.junit_xml_output,
             minimal_output=args.minimal_output)
         return parse.run()
@@ -333,6 +335,8 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',
@@ -384,6 +388,8 @@ class HarosLauncher(object):
         parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',
@@ -553,7 +559,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  whitelist, blacklist, log = None, run_from_source = False,
                  use_repos = False, parse_nodes = False, copy_env = False,
-                 use_cache = True, settings = None, junit_xml_output = False,
+                 use_cache = True, overwrite_cache=True,
+                 settings = None, junit_xml_output = False,
                  minimal_output = False, no_hardcoded=False):
         HarosRunner.__init__(self, haros_dir, config_path, log,
             run_from_source, junit_xml_output, minimal_output)
@@ -562,6 +569,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.parse_nodes = parse_nodes
         self.copy_env = copy_env
         self.use_cache = use_cache
+        self.overwrite_cache = overwrite_cache
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.settings = settings
@@ -824,7 +832,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if self.junit_xml_output:
             junit_exporter = JUnitExporter()
             junit_exporter.export_report(self.data_dir, self.database)
-        if self.parse_nodes and self.use_cache:
+        if self.parse_nodes and self.overwrite_cache:
             for node in self.database.nodes.itervalues():
                 node_cache[node.node_name] = node.to_JSON_object()
             parse_cache = os.path.join(self.root, "parse_cache.json")
@@ -843,13 +851,14 @@ class HarosParseRunner(HarosAnalyseRunner):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  log=None, run_from_source=False, use_repos=False, ws=None,
                  copy_env=False, use_cache=True, settings=None,
+                 overwrite_cache=True,
                  junit_xml_output = False, minimal_output = False):
         HarosAnalyseRunner.__init__(
             self, haros_dir, config_path, project_file, data_dir,
             [], [], log=log, run_from_source=run_from_source,
             use_repos=use_repos, parse_nodes=True, copy_env=copy_env,
-            use_cache=use_cache, settings=settings,
-            junit_xml_output=junit_xml_output,
+            use_cache=use_cache, overwrite_cache=overwrite_cache,
+            settings=settings, junit_xml_output=junit_xml_output,
             minimal_output=minimal_output
         )
         self.workspace = ws
