@@ -118,6 +118,18 @@ class RosPrimitiveCall(MetamodelObject):
         self.repeats = repeats and self.control_depth >= 1
         self.location = location
 
+    @property
+    def full_name(self):
+        if not self.namespace:
+            return self.name
+        if self.namespace.endswith("/"):
+            return self.namespace + self.name
+        return self.namespace + "/" + self.name
+
+    @property
+    def unresolved(self):
+        return "?" in self.name or "?" in self.namespace
+
     def to_JSON_object(self):
         return {
             "name": self.name,
@@ -760,39 +772,43 @@ class RosName(object):
 
     @property
     def pattern(self):
+        return RosName.to_pattern(self._name)
+
+    @staticmethod
+    def to_pattern(name):
         parts = []
         prev = ""
-        n = len(self._name)
+        n = len(name)
         i = 0
-        if self._name == "?":
+        if name == "?":
             return ".+$"
-        if self._name[0] == "?":
+        if name[0] == "?":
             parts.append("(.*?)")
             i = 1
             prev = "?"
-            assert self._name[1] != "?"
+            assert name[1] != "?"
         for j in xrange(i, n):
-            if self._name[j] == "?":
+            if name[j] == "?":
                 assert prev != "?"
                 if prev == "/":
                     if j == n - 1: # self._name.endswith("/?")
                         # end, whole part for sure
-                        parts.append(self._name[i:j])
+                        parts.append(name[i:j])
                         parts.append("(.+?)")
-                    elif self._name[j+1] == "/": # "/?/"
+                    elif name[j+1] == "/": # "/?/"
                         # start and middle, whole parts
-                        parts.append(self._name[i:j-1])
+                        parts.append(name[i:j-1])
                         parts.append("(/.+?)?")
                     else: # "/?a", optional part
-                        parts.append(self._name[i:j])
+                        parts.append(name[i:j])
                         parts.append("(.*?)")
                 else: # "a?/", "a?a", "/a?", optional part
-                    parts.append(self._name[i:j])
+                    parts.append(name[i:j])
                     parts.append("(.*?)")
                 i = j + 1
-            prev = self._name[j]
+            prev = name[j]
         if i < n:
-            parts.append(self._name[i:])
+            parts.append(name[i:])
         parts.append("$")
         return "".join(parts)
 
