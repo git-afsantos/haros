@@ -1194,6 +1194,10 @@ class NodeExtractor(LoggingObject):
                 self.log.debug("Node written in %s.", node.language)
 
 
+###############################################################################
+# C++ Primitive Extractor
+###############################################################################
+
 class RoscppExtractor(LoggingObject):
     def __init__(self, package, workspace):
         self.package = package
@@ -1696,6 +1700,10 @@ class RoscppExtractor(LoggingObject):
             return None
         return value
 
+
+###############################################################################
+# Python Primitive Extractor
+###############################################################################
 
 class RospyExtractor(LoggingObject):
     queue_size_pos = {
