@@ -134,6 +134,18 @@ class RosPrimitiveCall(MetamodelObject):
     def rostype(self):
         return self.type
 
+    def variables(self):
+        vs = []
+        if "?" in self.name:
+            vs.append(("name", str))
+        if "?" in self.namespace:
+            vs.append(("namespace", str))
+        if not self.type or "?" in self.type:
+            vs.append(("type", str))
+        if self.conditions:
+            vs.append(("conditions", _bool_to_conditions))
+        return vs
+
     def refine_from_JSON_specs(self, data):
         if "?" in self.name:
             self.name = data["name"]
@@ -176,6 +188,23 @@ class AdvertiseCall(RosPrimitiveCall):
         self.queue_size = queue_size
         self.latched = latched
 
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        msg_type = datum["msg_type"]
+        queue = datum["queue_size"]
+        latched = datum.get("latched", False)
+        return cls(name, ns, msg_type, queue, latched=latched)
+
+    def variables(self):
+        vs = RosPrimitiveCall.variables(self)
+        if self.queue_size is None:
+            vs.append(("queue_size", int))
+        if self.latched is None:
+            vs.append(("latched", bool))
+        return vs
+
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["msg_type"]
@@ -200,6 +229,20 @@ class SubscribeCall(RosPrimitiveCall):
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        msg_type = datum["msg_type"]
+        queue = datum["queue_size"]
+        return cls(name, ns, msg_type, queue)
+
+    def variables(self):
+        vs = RosPrimitiveCall.variables(self)
+        if self.queue_size is None:
+            vs.append(("queue_size", int))
+        return vs
+
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["msg_type"]
@@ -217,12 +260,26 @@ class AdvertiseServiceCall(RosPrimitiveCall):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["srv_type"]
 
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        srv_type = datum["srv_type"]
+        return cls(name, ns, srv_type)
+
 ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["srv_type"]
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        srv_type = datum["srv_type"]
+        return cls(name, ns, srv_type)
 
 class GetParamCall(RosPrimitiveCall):
     def __init__(self, name, namespace, param_type, default_value=None,
@@ -232,6 +289,20 @@ class GetParamCall(RosPrimitiveCall):
             control_depth=control_depth, repeats=repeats,
             conditions=conditions, location=location)
         self.default_value = default_value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        param_type = datum["param_type"]
+        v = datum.get("default_value")
+        return cls(name, ns, param_type, default_value=v)
+
+    def variables(self):
+        vs = RosPrimitiveCall.variables(self)
+        if self.default_value is None:
+            vs.append(("default_value", fpid))
+        return vs
 
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
@@ -253,6 +324,20 @@ class SetParamCall(RosPrimitiveCall):
             control_depth=control_depth, repeats=repeats,
             conditions=conditions, location=location)
         self.value = value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        param_type = datum["param_type"]
+        v = datum.get("value")
+        return cls(name, ns, param_type, value=v)
+
+    def variables(self):
+        vs = RosPrimitiveCall.variables(self)
+        if self.value is None:
+            vs.append(("value", fpid))
+        return vs
 
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
@@ -738,6 +823,31 @@ class Node(SourceObject):
     def timestamp(self):
         return max([f.timestamp for f in self.source_files] or [0])
 
+    _PRIMITIVES = (("advertise", "advertise"), ("subscribe", "subscribe"),
+        ("service", "advertiseService"), ("client", "serviceClient"),
+        ("read_param", "getParam"), ("write_param", "setParam"))
+
+    def variables(self):
+        vs = {}
+        for attr, key in self._PRIMITIVES:
+            fstr = key + "@{}"
+            collection = getattr(self, attr)
+            i = 1
+            for call in collection:
+                for v, tf in call.variables():
+                    uid = fstr.format(i)
+                    i += 1
+                    vs[uid] = (call, v, tf)
+        return vs
+
+    def resolve_variables(self, data):
+        vs = self.variables()
+        for varname, tup in vs.items():
+            truth = data.get(varname)
+            if truth is not None:
+                call, attr, tf = tup
+                setattr(call, attr, tf(truth))
+
     def to_JSON_object(self):
         return {
             "id": self.node_name,
@@ -968,6 +1078,12 @@ class Resource(MetamodelObject):
 
     def remap(self, rosname):
         raise NotImplementedError("subclasses must implement this method")
+
+    def variables(self):
+        vs = []
+        if "?" in self.rosname.full:
+            vs.append(("rosname", RosName))
+        return vs
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -1648,6 +1764,15 @@ def _py_ignore_next_line(line):
 def _no_parser(line):
     return False
 
+def _bool_to_conditions(v):
+    v = bool(v)
+    if v is True:
+        return []
+    else:
+        return [False]
+
+def fpid(v):
+    return v
 
 
 ###############################################################################
