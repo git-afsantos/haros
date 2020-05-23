@@ -130,6 +130,20 @@ class RosPrimitiveCall(MetamodelObject):
     def unresolved(self):
         return "?" in self.name or "?" in self.namespace
 
+    @property
+    def rostype(self):
+        return self.type
+
+    def refine_from_JSON_specs(self, data):
+        if "?" in self.name:
+            self.name = data["name"]
+        if "?" in self.namespace:
+            self.namespace = data.get("ns", self.namespace)
+        self.conditions = []
+        self.control_depth = 0
+        self.repeats = False
+        self.location = data.get("location", self.location)
+
     def to_JSON_object(self):
         return {
             "name": self.name,
@@ -151,7 +165,7 @@ class RosPrimitiveCall(MetamodelObject):
     def __repr__(self):
         return self.__str__()
 
-class Publication(RosPrimitiveCall):
+class AdvertiseCall(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size, latched=False,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
@@ -162,13 +176,21 @@ class Publication(RosPrimitiveCall):
         self.queue_size = queue_size
         self.latched = latched
 
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["msg_type"]
+        self.queue_size = data.get("queue_size", self.queue_size)
+        self.latched = data.get("latched", self.latched)
+
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["queue"] = self.queue_size
         data["latched"] = self.latched
         return data
 
-class Subscription(RosPrimitiveCall):
+Publication = AdvertiseCall
+
+class SubscribeCall(RosPrimitiveCall):
     def __init__(self, name, namespace, msg_type, queue_size,
                  control_depth = None, repeats = False, conditions = None,
                  location = None):
@@ -178,18 +200,31 @@ class Subscription(RosPrimitiveCall):
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["msg_type"]
+        self.queue_size = data.get("queue_size", self.queue_size)
+
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["queue"] = self.queue_size
         return data
 
-class ServiceServerCall(RosPrimitiveCall):
-    pass
+Subscription = SubscribeCall
+
+class AdvertiseServiceCall(RosPrimitiveCall):
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["srv_type"]
+
+ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
-    pass
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["srv_type"]
 
-class ReadParameterCall(RosPrimitiveCall):
+class GetParamCall(RosPrimitiveCall):
     def __init__(self, name, namespace, param_type, default_value=None,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
@@ -198,12 +233,19 @@ class ReadParameterCall(RosPrimitiveCall):
             conditions=conditions, location=location)
         self.default_value = default_value
 
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["param_type"]
+        self.default_value = data.get("default_value", self.default_value)
+
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["default_value"] = self.default_value
         return data
 
-class WriteParameterCall(RosPrimitiveCall):
+ReadParameterCall = GetParamCall
+
+class SetParamCall(RosPrimitiveCall):
     def __init__(self, name, namespace, param_type, value=None,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
@@ -212,10 +254,17 @@ class WriteParameterCall(RosPrimitiveCall):
             conditions=conditions, location=location)
         self.value = value
 
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["param_type"]
+        self.value = data.get("value", self.value)
+
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["value"] = self.value
         return data
+
+WriteParameterCall = SetParamCall
 
 
 ###############################################################################
