@@ -652,6 +652,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return extractor.configurations, extractor.node_specs, env
 
     def _extract_configurations(self, project, configs, nodes, environment):
+        # FIXME nodes is unused
         empty_dict = {}
         empty_list = ()
         for name, data in configs.iteritems():
@@ -661,8 +662,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 hpl = empty_dict
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
-                    nodes=nodes, hints=data.get("hints"),
-                    no_hardcoded=self.no_hardcoded)
+                    hints=data.get("hints"), no_hardcoded=self.no_hardcoded)
                 launch_files = data["launch"]
                 hpl = data.get("hpl", empty_dict)
             for launch_file in launch_files:
