@@ -1575,9 +1575,9 @@ class RoscppExtractor(LoggingObject):
         if type_string.startswith("boost::function"):
             type_string = type_string[52:-25]
         type_string = type_string.replace("::", "/")
-        if re.match(r"\w+/\w+", type_string):
+        if re.match(r"\w+/\w+$", type_string):
             return type_string
-        return None
+        return "?"
 
     def _extract_action(self, call):
         name = "?"
