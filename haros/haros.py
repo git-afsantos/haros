@@ -677,7 +677,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 if not launch:
                     raise ValueError("unknown launch file: " + launch_file)
                 builder.add_launch(launch)
-            cfg = builder.configuration
+            cfg = builder.build()
             for msg in builder.errors:
                 self.log.warning("Configuration %s: %s", cfg.name, msg)
             for p in hpl.get("properties", empty_list):
@@ -703,7 +703,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             builder = ConfigurationBuilder(node_name.replace("/", "_"),
                 environment, self.database, nodes=node_hints)
             builder.add_rosrun(node)
-            cfg = builder.configuration
+            cfg = builder.build()
             for msg in builder.errors:
                 self.log.warning("Configuration %s: %s", cfg.name, msg)
             cfg.hpl_properties = list(node.hpl_properties)
