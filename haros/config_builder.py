@@ -336,13 +336,10 @@ class ConfigurationBuilder(LoggingObject):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
-        self.node_specs = {} # FIXME remove
-        self.hints = {} # FIXME remove, old format
         self.no_hardcoded = no_hardcoded
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
         self._pkg_finder.packages.extend(self.sources.packages.values())
-
         hints = hints or {}
         self._fix_hints = hints.get("fix", _EMPTY_DICT)
         self._add_nodes = hints.get("nodes", _EMPTY_DICT) # TODO
@@ -363,8 +360,8 @@ class ConfigurationBuilder(LoggingObject):
         scope = LaunchScope(None, config, None)
         scope = scope.make_node(node, name, "/", (), True)
         future_node_links = FutureNodeLinks(scope.node)
-        hints = self._fix_hints.get(future_node_links.node.rosname.full)
-        future_node_links.make(hints=hints)
+        #hints = self._fix_hints.get(future_node_links.node.rosname.full)
+        future_node_links.make(hints=self._fix_hints)
 
     def add_launch(self, launch_file):
         if self._invalid:
@@ -681,35 +678,32 @@ class FutureNodeLinks(LoggingObject):
         self.pns = node.rosname.full
 
     _LINKS = (
-        ("advertise", "advertise", PublishLink, Topic, "topics"),
-        ("subscribe", "subscribe", SubscribeLink, Topic, "topics"),
-        ("advertiseService", "service", ServiceLink, Service, "services"),
-        ("serviceClient", "client", ClientLink, Service, "services"),
-        ("getParam", "read_param", ReadLink, Parameter, "parameters"),
-        ("setParam", "write_param", WriteLink, Parameter, "parameters")
+        ("advertise", PublishLink, Topic, "topics"),
+        ("subscribe", SubscribeLink, Topic, "topics"),
+        ("service", ServiceLink, Service, "services"),
+        ("client", ClientLink, Service, "services"),
+        ("read_param", ReadLink, Parameter, "parameters"),
+        ("write_param", WriteLink, Parameter, "parameters")
     )
 
     def make(self, hints=None):
         hints = hints or _EMPTY_DICT
         config = self.node.configuration
-        for key, attr, cls, rcls, col in self._LINKS:
-            self.log.debug("Iterating %s calls for node %s.", key, self.node.id)
-            # bit of duplication from metamodel.py#Node
-            fstr = key + "@{}"
-            calls = getattr(self.node.node, attr)
-            i = 1
+        for node_attr, link_cls, rcls, col in self._LINKS:
+            calls = getattr(self.node.node, node_attr)
+            if calls:
+                self.log.debug("Iterating %s calls for node %s.",
+                    calls[0].KEY, self.node.id)
             collection = getattr(config, col)
             for call in calls:
                 new_call = call.clone()
-                for call_attr, tf in new_call.variables():
-                    varname = fstr.format(i)
-                    i += 1
-                    hint_value = hints.get(varname)
+                for uv in new_call.variables():
+                    hint_value = hints.get(uv.name)
                     if hint_value is not None:
-                        self.log.debug("Apply runtime hint('%s', %s, %s)",
-                            varname, getattr(call, call_attr), hint_value)
-                        setattr(new_call, call_attr, tf(hint_value))
-                self._link_from_call(new_call, cls, rcls, collection)
+                        self.log.debug("Apply runtime hint('%s', %s)",
+                            uv.name, hint_value)
+                    uv.resolve(hint_value)
+                self._link_from_call(new_call, link_cls, rcls, collection)
 
     def _link_from_call(self, call, link_cls, resource_cls, collection):
         ns = RosName.resolve_ns(call.namespace, ns=self.ns, private_ns=self.pns)
@@ -727,6 +721,7 @@ class FutureNodeLinks(LoggingObject):
                 resource_cls.__name__, rosname.full)
             resource = self._new_resource(rosname, call, resource_cls)
             collection.add(resource)
+        resource.variables.extend(uv.name for uv in call.variables())
         link = link_cls.link_from_call(self.node, resource, call_name, call)
         return link
 

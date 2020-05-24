@@ -25,6 +25,7 @@
 ###############################################################################
 
 from collections import Counter, namedtuple
+from itertools import chain
 import os
 
 import magic as file_cmd
@@ -106,14 +107,36 @@ class SourceCondition(object):
         return self.__str__()
 
 
-UnknownValue = namedtuple("UnknownValue", ("name", "attr", "tf"))
+class _UnknownValue(object):
+    __slots__ = ("name", "_call", "_attr", "_fun")
+
+    def __init__(self, name, call, attr, fun):
+        self.name = name
+        self._call = call
+        self._attr = attr
+        self._fun = fun
+
+    @property
+    def attr(self):
+        return self._attr
+
+    def resolve(self, value):
+        if value is not None:
+            setattr(self._call, self._attr, self._fun(value))
+            return self.name in self._call._vars
+        return False
+
+    def __str__(self):
+        return self.name
+
 
 class RosPrimitiveCall(MetamodelObject):
-    _KEY = ""
+    KEY = ""
 
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = None,
                  repeats = False, conditions = None, location = None):
+        self._vars = {}
         self.name = name
         self.namespace = namespace
         self.type = msg_type
@@ -121,7 +144,6 @@ class RosPrimitiveCall(MetamodelObject):
         self.control_depth = control_depth or len(self.conditions)
         self.repeats = repeats and self.control_depth >= 1
         self.location = location
-        self._vars = {}
 
     @property
     def name(self):
@@ -189,16 +211,7 @@ class RosPrimitiveCall(MetamodelObject):
         return self.type
 
     def variables(self):
-        vs = []
-        if "?" in self.name:
-            vs.append(("name", str))
-        if "?" in self.namespace:
-            vs.append(("namespace", str))
-        if not self.type or "?" in self.type:
-            vs.append(("type", str))
-        if self.conditions:
-            vs.append(("conditions", _bool_to_conditions))
-        return vs
+        return list(self._vars.values())
 
     def refine_from_JSON_specs(self, data):
         if "?" in self.name:
@@ -235,8 +248,8 @@ class RosPrimitiveCall(MetamodelObject):
 
     def _new_var(self, attr, tf):
         self._var_counter += 1
-        name = "{}@{}".format(self._KEY, self._var_counter)
-        return UnknownValue(name, attr, tf)
+        name = "{}@{}{}".format(self.KEY, attr, self._var_counter)
+        return _UnknownValue(name, self, attr, tf)
 
     def __str__(self):
         return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
@@ -248,7 +261,7 @@ class RosPrimitiveCall(MetamodelObject):
         return self.__str__()
 
 class AdvertiseCall(RosPrimitiveCall):
-    _KEY = "advertise"
+    KEY = "advertise"
     _var_counter = 0
 
     def __init__(self, name, namespace, msg_type, queue_size, latched=False,
@@ -261,6 +274,36 @@ class AdvertiseCall(RosPrimitiveCall):
         self.queue_size = queue_size
         self.latched = latched
 
+    @property
+    def queue_size(self):
+        return self._queue_size
+
+    @queue_size.setter
+    def queue_size(self, value):
+        key = "queue_size"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, int)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._queue_size = value
+
+    @property
+    def latched(self):
+        return self._latched
+
+    @latched.setter
+    def latched(self, value):
+        key = "latched"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, bool)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._latched = value
+
     @classmethod
     def from_JSON_specs(cls, datum):
         name = datum["name"]
@@ -269,14 +312,6 @@ class AdvertiseCall(RosPrimitiveCall):
         queue = datum["queue_size"]
         latched = datum.get("latched", False)
         return cls(name, ns, msg_type, queue, latched=latched)
-
-    def variables(self):
-        vs = RosPrimitiveCall.variables(self)
-        if self.queue_size is None:
-            vs.append(("queue_size", int))
-        if self.latched is None:
-            vs.append(("latched", bool))
-        return vs
 
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
@@ -299,7 +334,7 @@ class AdvertiseCall(RosPrimitiveCall):
 Publication = AdvertiseCall
 
 class SubscribeCall(RosPrimitiveCall):
-    _KEY = "subscribe"
+    KEY = "subscribe"
     _var_counter = 0
 
     def __init__(self, name, namespace, msg_type, queue_size,
@@ -310,6 +345,21 @@ class SubscribeCall(RosPrimitiveCall):
                                   repeats = repeats,
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
+
+    @property
+    def queue_size(self):
+        return self._queue_size
+
+    @queue_size.setter
+    def queue_size(self, value):
+        key = "queue_size"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, int)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._queue_size = value
 
     @classmethod
     def from_JSON_specs(cls, datum):
@@ -344,7 +394,7 @@ class SubscribeCall(RosPrimitiveCall):
 Subscription = SubscribeCall
 
 class AdvertiseServiceCall(RosPrimitiveCall):
-    _KEY = "advertiseService"
+    KEY = "advertiseService"
     _var_counter = 0
 
     def refine_from_JSON_specs(self, data):
@@ -366,7 +416,7 @@ class AdvertiseServiceCall(RosPrimitiveCall):
 ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
-    _KEY = "serviceClient"
+    KEY = "serviceClient"
     _var_counter = 0
 
     def refine_from_JSON_specs(self, data):
@@ -386,7 +436,7 @@ class ServiceClientCall(RosPrimitiveCall):
             conditions=list(self.conditions), location=self.location)
 
 class GetParamCall(RosPrimitiveCall):
-    _KEY = "getParam"
+    KEY = "getParam"
     _var_counter = 0
 
     def __init__(self, name, namespace, param_type, default_value=None,
@@ -397,6 +447,21 @@ class GetParamCall(RosPrimitiveCall):
             conditions=conditions, location=location)
         self.default_value = default_value
 
+    @property
+    def default_value(self):
+        return self._default_value
+
+    @default_value.setter
+    def default_value(self, value):
+        key = "default_value"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, fpid)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._default_value = value
+
     @classmethod
     def from_JSON_specs(cls, datum):
         name = datum["name"]
@@ -404,12 +469,6 @@ class GetParamCall(RosPrimitiveCall):
         param_type = datum["param_type"]
         v = datum.get("default_value")
         return cls(name, ns, param_type, default_value=v)
-
-    def variables(self):
-        vs = RosPrimitiveCall.variables(self)
-        if self.default_value is None:
-            vs.append(("default_value", fpid))
-        return vs
 
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
@@ -430,7 +489,7 @@ class GetParamCall(RosPrimitiveCall):
 ReadParameterCall = GetParamCall
 
 class SetParamCall(RosPrimitiveCall):
-    _KEY = "setParam"
+    KEY = "setParam"
     _var_counter = 0
 
     def __init__(self, name, namespace, param_type, value=None,
@@ -441,6 +500,21 @@ class SetParamCall(RosPrimitiveCall):
             conditions=conditions, location=location)
         self.value = value
 
+    @property
+    def value(self):
+        return self._default_value
+
+    @value.setter
+    def value(self, value):
+        key = "value"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, fpid)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._value = value
+
     @classmethod
     def from_JSON_specs(cls, datum):
         name = datum["name"]
@@ -448,12 +522,6 @@ class SetParamCall(RosPrimitiveCall):
         param_type = datum["param_type"]
         v = datum.get("value")
         return cls(name, ns, param_type, value=v)
-
-    def variables(self):
-        vs = RosPrimitiveCall.variables(self)
-        if self.value is None:
-            vs.append(("value", fpid))
-        return vs
 
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
@@ -945,30 +1013,16 @@ class Node(SourceObject):
     def timestamp(self):
         return max([f.timestamp for f in self.source_files] or [0])
 
-    _PRIMITIVES = (("advertise", "advertise"), ("subscribe", "subscribe"),
-        ("service", "advertiseService"), ("client", "serviceClient"),
-        ("read_param", "getParam"), ("write_param", "setParam"))
-
     def variables(self):
-        vs = {}
-        for attr, key in self._PRIMITIVES:
-            fstr = key + "@{}"
-            collection = getattr(self, attr)
-            i = 1
-            for call in collection:
-                for v, tf in call.variables():
-                    uid = fstr.format(i)
-                    i += 1
-                    vs[uid] = (call, v, tf)
+        vs = []
+        for call in chain(self.advertise, self.subscribe, self.service,
+                          self.client, self.read_param, self.write_param):
+            vs.extend(v for v in call.variables())
         return vs
 
     def resolve_variables(self, data):
-        vs = self.variables()
-        for varname, tup in vs.items():
-            truth = data.get(varname)
-            if truth is not None:
-                call, attr, tf = tup
-                setattr(call, attr, tf(truth))
+        for v in self.variables():
+            v.resolve(data.get(v.name))
 
     def to_JSON_object(self):
         return {
@@ -1168,6 +1222,7 @@ class Resource(MetamodelObject):
         self.configuration = config
         self.rosname = rosname
         self.conditions = conditions if not conditions is None else []
+        self.variables = []
 
     @property
     def id(self):
@@ -1215,12 +1270,6 @@ class Resource(MetamodelObject):
         if not name:
             return self.namespace
         return RosName.resolve(name, ns=self.namespace, private_ns=self.id)
-
-    def variables(self):
-        vs = []
-        if "?" in self.rosname.full:
-            vs.append(("rosname", RosName))
-        return vs
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -1316,7 +1365,8 @@ class NodeInstance(Resource):
             "clients": [p.service.rosname.full for p in self.clients],
             "reads": [p.parameter.rosname.full for p in self.reads],
             "writes": [p.parameter.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "variables": self.variables
         }
 
     def __repr__(self):
@@ -1369,7 +1419,8 @@ class Topic(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "publishers": [p.node.rosname.full for p in self.publishers],
             "subscribers": [p.node.rosname.full for p in self.subscribers],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "variables": self.variables
         }
 
     def _get_conditions(self):
@@ -1436,7 +1487,8 @@ class Service(Resource):
             "servers": ([self.server.node.rosname.full]
                         if not self.server is None else []),
             "clients": [p.node.rosname.full for p in self.clients],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "variables": self.variables
         }
 
     def _get_conditions(self):
@@ -1513,7 +1565,8 @@ class Parameter(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "reads": [p.node.rosname.full for p in self.reads],
             "writes": [p.node.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "variables": self.variables
         }
 
 
