@@ -1312,7 +1312,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
@@ -1334,7 +1334,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
@@ -1354,7 +1354,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
@@ -1374,7 +1374,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
@@ -1393,7 +1393,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
@@ -1414,7 +1414,7 @@ class RoscppExtractor(LoggingObject):
         conditions = []
         for path in get_condition_paths(call):
             for c in path:
-                conditions.append(SourceCondition(pretty_str(c),
+                conditions.append(SourceCondition(pretty_str(c.value),
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME

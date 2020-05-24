@@ -386,8 +386,8 @@ class ConfigurationBuilder(LoggingObject):
             self.configuration.parameters.add(param)
     # ----- make node links at the end, to reuse launch parameters
         for future_node_links in self._future:
-            hints = self._fix_hints.get(future_node_links.node.rosname.full)
-            future_node_links.make(hints=hints)
+            #hints = self._fix_hints.get(future_node_links.node.rosname.full)
+            future_node_links.make(hints=self._fix_hints)
 
     def build(self):
         if not self._invalid:
@@ -396,6 +396,7 @@ class ConfigurationBuilder(LoggingObject):
             self._update_service_conditions()
             self._update_param_conditions()
             self._invalid = True
+            # TODO things to add from hints
         return self.configuration
 
     def _analyse_tree(self, tree, scope, sub):
