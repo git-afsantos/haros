@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
 <!--
-Copyright (c) 2016 Andre Santos
+Copyright (c) 2016 André Santos
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -536,11 +536,12 @@ THE SOFTWARE.
         <h4 class="title"><%= data.name %> <span class="info"><%= data.resourceType %></span></h4>
         <span class="info"><%= data.type %></span>
         <hr>
-        <p>
-            <i class="fa fa-terminal bullet-icon"></i>
-            <strong>Arguments:</strong>
-            <%= data.args || "(none)" %>
-        </p>
+        <% if (data.resourceType == "node")
+            print('<p><i class="fa fa-terminal bullet-icon"></i>'
+                  + "<strong>Arguments:</strong>"
+                  + (data.args || "(none)")
+                  + "</p>");
+        %>
         <p>
             <i class="fa fa-file-text bullet-icon"></i>
             <strong>Source Code Locations:</strong>
@@ -574,6 +575,16 @@ THE SOFTWARE.
                                 ? ", line " + data.conditions[i].location.line : ""))
                         : "unknown location</i>")
                       + "\n");
+            %>
+        </p>
+        <p>
+            <i class="fa fa-question-circle bullet-icon"></i>
+            <strong>Variables:</strong>
+            <% if (!data.variables.length) print("(none)");
+            for (var i = 0; i < data.variables.length; ++i)
+                print('<span class="code">'
+                      + data.variables[i]
+                      + "</span>\n");
             %>
         </p>
     </script>
