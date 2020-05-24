@@ -127,10 +127,6 @@ class RosPrimitiveCall(MetamodelObject):
         return self.namespace + "/" + self.name
 
     @property
-    def unresolved(self):
-        return "?" in self.name or "?" in self.namespace
-
-    @property
     def rostype(self):
         return self.type
 
@@ -217,6 +213,12 @@ class AdvertiseCall(RosPrimitiveCall):
         data["latched"] = self.latched
         return data
 
+    def clone(self):
+        return AdvertiseCall(self.name, self.namespace, self.type,
+            self.queue_size, latched=self.latched,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+
 Publication = AdvertiseCall
 
 class SubscribeCall(RosPrimitiveCall):
@@ -253,6 +255,12 @@ class SubscribeCall(RosPrimitiveCall):
         data["queue"] = self.queue_size
         return data
 
+    def clone(self):
+        return SubscribeCall(self.name, self.namespace, self.type,
+            self.queue_size, control_depth=self.control_depth,
+            repeats=self.repeats, conditions=list(self.conditions),
+            location=self.location)
+
 Subscription = SubscribeCall
 
 class AdvertiseServiceCall(RosPrimitiveCall):
@@ -267,6 +275,11 @@ class AdvertiseServiceCall(RosPrimitiveCall):
         srv_type = datum["srv_type"]
         return cls(name, ns, srv_type)
 
+    def clone(self):
+        return AdvertiseServiceCall(self.name, self.namespace, self.type,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+
 ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
@@ -280,6 +293,11 @@ class ServiceClientCall(RosPrimitiveCall):
         ns = datum.get("namespace", "")
         srv_type = datum["srv_type"]
         return cls(name, ns, srv_type)
+
+    def clone(self):
+        return ServiceClientCall(self.name, self.namespace, self.type,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
 
 class GetParamCall(RosPrimitiveCall):
     def __init__(self, name, namespace, param_type, default_value=None,
@@ -313,6 +331,12 @@ class GetParamCall(RosPrimitiveCall):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["default_value"] = self.default_value
         return data
+
+    def clone(self):
+        return GetParamCall(self.name, self.namespace, self.type,
+            default_value=self.default_value,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
 
 ReadParameterCall = GetParamCall
 
@@ -348,6 +372,12 @@ class SetParamCall(RosPrimitiveCall):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["value"] = self.value
         return data
+
+    def clone(self):
+        return SetParamCall(self.name, self.namespace, self.type,
+            value=self.value,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
 
 WriteParameterCall = SetParamCall
 
@@ -972,22 +1002,32 @@ class RosName(object):
         return "".join(parts)
 
     @staticmethod
-    def resolve(name, ns = "/", private_ns = ""):
-        if name[0] == "~":
+    def resolve(name, ns="/", private_ns=""):
+        if name.startswith("~"):
             return private_ns + "/" + name[1:]
-        elif name[0] == "/":
+        elif name.startswith("/"):
             return name
-        elif ns == "" or ns[-1] != "/":
-            return ns + "/" + name
-        else:
+        elif ns.endswith("/"):
             return ns + name
+        else:
+            return ns + "/" + name
 
     @staticmethod
-    def transform(name, ns = "/", private_ns = "", remaps = None):
-        name = RosName.resolve(name, ns = ns, private_ns = private_ns)
+    def transform(name, ns="/", private_ns="", remaps=None):
+        name = RosName.resolve(name, ns=ns, private_ns=private_ns)
         if remaps:
             return remaps.get(name, name)
         return name
+
+    @staticmethod
+    def resolve_ns(new_ns, ns="/", private_ns=""):
+        if not new_ns:
+            return ns
+        if new_ns.startswith("~"):
+            if len(new_ns) == 1:
+                return private_ns
+            return "{}/{}".format(private_ns, new_ns[1:])
+        return RosName.resolve(new_ns, ns=ns, private_ns=private_ns)
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -1078,6 +1118,11 @@ class Resource(MetamodelObject):
 
     def remap(self, rosname):
         raise NotImplementedError("subclasses must implement this method")
+
+    def resolve_name(self, name):
+        if not name:
+            return self.namespace
+        return RosName.resolve(name, ns=self.namespace, private_ns=self.id)
 
     def variables(self):
         vs = []
@@ -1609,6 +1654,17 @@ class PublishLink(TopicPrimitive):
         link.latched = latched
         return link
 
+    @classmethod
+    def link_from_call(cls, node, topic, rosname, call):
+        if not isinstance(call, AdvertiseCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, topic, call.type, rosname, call.queue_size,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.publishers.append(link)
+        link.topic.publishers.append(link)
+        link.latched = call.latched
+        return link
+
     def to_JSON_object(self):
         data = TopicPrimitive.to_JSON_object(self)
         data["latched"] = self.latched
@@ -1624,6 +1680,16 @@ class SubscribeLink(TopicPrimitive):
              conditions = None, location = None):
         link = cls(node, topic, message_type, rosname, queue_size,
                    conditions = conditions, location = location)
+        link.node.subscribers.append(link)
+        link.topic.subscribers.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, topic, rosname, call):
+        if not isinstance(call, SubscribeCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, topic, call.type, rosname, call.queue_size,
+                   conditions=list(call.conditions), location=call.location)
         link.node.subscribers.append(link)
         link.topic.subscribers.append(link)
         return link
@@ -1669,6 +1735,16 @@ class ServiceLink(ServicePrimitive):
         link.service.server = link
         return link
 
+    @classmethod
+    def link_from_call(cls, node, service, rosname, call):
+        if not isinstance(call, AdvertiseServiceCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, service, call.type, rosname,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.servers.append(link)
+        link.service.server = link
+        return link
+
     def __str__(self):
         return "Service({}, {}, {})".format(self.node.id, self.service.id,
                                             self.type)
@@ -1679,6 +1755,16 @@ class ClientLink(ServicePrimitive):
              location = None):
         link = cls(node, service, message_type, rosname,
                    conditions = conditions, location = location)
+        link.node.clients.append(link)
+        link.service.clients.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, service, rosname, call):
+        if not isinstance(call, ServiceClientCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, service, call.type, rosname,
+                   conditions=list(call.conditions), location=call.location)
         link.node.clients.append(link)
         link.service.clients.append(link)
         return link
@@ -1726,6 +1812,16 @@ class ReadLink(ParameterPrimitive):
         link.parameter.reads.append(link)
         return link
 
+    @classmethod
+    def link_from_call(cls, node, param, rosname, call):
+        if not isinstance(call, GetParamCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, param, call.type, rosname, value=call.default_value,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.reads.append(link)
+        link.parameter.reads.append(link)
+        return link
+
     def __str__(self):
         return "Read({}, {}, {})".format(self.node.id, self.parameter.id,
                                          self.type)
@@ -1736,6 +1832,16 @@ class WriteLink(ParameterPrimitive):
              conditions=None, location=None):
         link = cls(node, param, param_type, rosname, conditions = conditions,
                    location = location)
+        link.node.writes.append(link)
+        link.parameter.writes.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, param, rosname, call):
+        if not isinstance(call, SetParamCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, param, call.type, rosname, value=call.default_value,
+                   conditions=list(call.conditions), location=call.location)
         link.node.writes.append(link)
         link.parameter.writes.append(link)
         return link
