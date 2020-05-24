@@ -106,7 +106,11 @@ class SourceCondition(object):
         return self.__str__()
 
 
+UnknownValue = namedtuple("UnknownValue", ("name", "attr", "tf"))
+
 class RosPrimitiveCall(MetamodelObject):
+    _KEY = ""
+
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = None,
                  repeats = False, conditions = None, location = None):
@@ -117,6 +121,60 @@ class RosPrimitiveCall(MetamodelObject):
         self.control_depth = control_depth or len(self.conditions)
         self.repeats = repeats and self.control_depth >= 1
         self.location = location
+        self._vars = {}
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._set_str_attr("name", value)
+
+    @property
+    def namespace(self):
+        return self._namespace
+
+    @namespace.setter
+    def namespace(self, value):
+        self._set_str_attr("namespace", value)
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._set_str_attr("type", value)
+
+    @property
+    def location(self):
+        return self._location
+
+    @location.setter
+    def location(self, value):
+        if value is None or value.package is None or value.file is None:
+            if "location" not in self._vars:
+                self._vars["location"] = self._new_var("location", fpid)
+        else:
+            if "location" in self._vars:
+                del self._vars["location"]
+        self._location = value
+
+    @property
+    def conditions(self):
+        return self._conditions
+
+    @conditions.setter
+    def conditions(self, value):
+        if value:
+            if "conditions" not in self._vars:
+                self._vars["conditions"] = self._new_var(
+                    "conditions", _bool_to_conditions)
+        else:
+            if "conditions" in self._vars:
+                del self._vars["conditions"]
+        self._conditions = value
 
     @property
     def full_name(self):
@@ -164,6 +222,22 @@ class RosPrimitiveCall(MetamodelObject):
                          if self.location else None)
         }
 
+    def _set_str_attr(self, attr, value):
+        if value is None or value == "?":
+            if attr not in self._vars:
+                self._vars[attr] = self._new_var(attr, str)
+        else:
+            if attr in self._vars:
+                del self._vars[attr]
+        setattr(self, "_" + attr, value)
+
+    _var_counter = 0
+
+    def _new_var(self, attr, tf):
+        self._var_counter += 1
+        name = "{}@{}".format(self._KEY, self._var_counter)
+        return UnknownValue(name, attr, tf)
+
     def __str__(self):
         return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
             self.name, self.namespace, self.type,
@@ -174,6 +248,9 @@ class RosPrimitiveCall(MetamodelObject):
         return self.__str__()
 
 class AdvertiseCall(RosPrimitiveCall):
+    _KEY = "advertise"
+    _var_counter = 0
+
     def __init__(self, name, namespace, msg_type, queue_size, latched=False,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
@@ -222,6 +299,9 @@ class AdvertiseCall(RosPrimitiveCall):
 Publication = AdvertiseCall
 
 class SubscribeCall(RosPrimitiveCall):
+    _KEY = "subscribe"
+    _var_counter = 0
+
     def __init__(self, name, namespace, msg_type, queue_size,
                  control_depth = None, repeats = False, conditions = None,
                  location = None):
@@ -264,6 +344,9 @@ class SubscribeCall(RosPrimitiveCall):
 Subscription = SubscribeCall
 
 class AdvertiseServiceCall(RosPrimitiveCall):
+    _KEY = "advertiseService"
+    _var_counter = 0
+
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["srv_type"]
@@ -283,6 +366,9 @@ class AdvertiseServiceCall(RosPrimitiveCall):
 ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
+    _KEY = "serviceClient"
+    _var_counter = 0
+
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["srv_type"]
@@ -300,6 +386,9 @@ class ServiceClientCall(RosPrimitiveCall):
             conditions=list(self.conditions), location=self.location)
 
 class GetParamCall(RosPrimitiveCall):
+    _KEY = "getParam"
+    _var_counter = 0
+
     def __init__(self, name, namespace, param_type, default_value=None,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
@@ -341,6 +430,9 @@ class GetParamCall(RosPrimitiveCall):
 ReadParameterCall = GetParamCall
 
 class SetParamCall(RosPrimitiveCall):
+    _KEY = "setParam"
+    _var_counter = 0
+
     def __init__(self, name, namespace, param_type, value=None,
                  control_depth=None, repeats=False, conditions=None,
                  location=None):
