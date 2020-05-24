@@ -701,7 +701,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                node_name)
                 continue
             builder = ConfigurationBuilder(node_name.replace("/", "_"),
-                environment, self.database, nodes=node_hints)
+                                           environment, self.database)
             builder.add_rosrun(node)
             cfg = builder.build()
             for msg in builder.errors:
