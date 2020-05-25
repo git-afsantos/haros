@@ -1293,12 +1293,12 @@ class Resource(MetamodelObject):
 
 
 class NodeInstance(Resource):
-    def __init__(self, config, rosname, node, launch=None, argv=None,
+    def __init__(self, config, rosname, node, launch=None, argv="",
                  remaps=None, conditions=None):
         Resource.__init__(self, config, rosname, conditions = conditions)
         self.node = node
         self.launch = launch
-        self.argv = argv if not argv is None else []
+        self.argv = argv or ""
         self.remaps = remaps if not remaps is None else {}
         self.publishers = []
         self.subscribers = []
