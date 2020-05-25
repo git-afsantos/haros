@@ -232,7 +232,8 @@ class RosPrimitiveCall(MetamodelObject):
             "repeats": self.repeats,
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "location": (self.location.to_JSON_object()
-                         if self.location else None)
+                         if self.location else None),
+            "variables": {attr: uv.name for attr, uv in self._vars.items()}
         }
 
     def _set_str_attr(self, attr, value):
@@ -247,8 +248,8 @@ class RosPrimitiveCall(MetamodelObject):
     _var_counter = 0
 
     def _new_var(self, attr, tf):
-        self._var_counter += 1
-        name = "{}@{}{}".format(self.KEY, attr, self._var_counter)
+        type(self)._var_counter += 1
+        name = "{}@{}{}".format(self.KEY, attr, type(self)._var_counter)
         return _UnknownValue(name, self, attr, tf)
 
     def __str__(self):
