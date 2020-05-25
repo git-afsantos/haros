@@ -342,8 +342,8 @@ class ConfigurationBuilder(LoggingObject):
         self._pkg_finder.packages.extend(self.sources.packages.values())
         hints = hints or {}
         self._fix_hints = hints.get("fix", _EMPTY_DICT)
-        self._add_nodes = hints.get("nodes", _EMPTY_DICT) # TODO
-        self._add_params = hints.get("params", _EMPTY_DICT) # TODO
+        self._add_nodes = hints.get("nodes", _EMPTY_DICT)
+        self._add_params = hints.get("params", _EMPTY_DICT)
         self._invalid = False
 
     def add_rosrun(self, node):
@@ -359,9 +359,7 @@ class ConfigurationBuilder(LoggingObject):
         config.add_command("rosrun", [node.package.name, node.name, name])
         scope = LaunchScope(None, config, None)
         scope = scope.make_node(node, name, "/", (), True)
-        future_node_links = FutureNodeLinks(scope.node)
-        #hints = self._fix_hints.get(future_node_links.node.rosname.full)
-        future_node_links.make(hints=self._fix_hints)
+        self._future.append(FutureNodeLinks(scope.node))
 
     def add_launch(self, launch_file):
         if self._invalid:
@@ -373,7 +371,6 @@ class ConfigurationBuilder(LoggingObject):
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
-        self._future = []
         sub = SubstitutionParser(env=config.environment,
             pkgs=self.sources.packages, dirname=launch_file.dir_path,
             pkg_depends=config.dependencies.packages,
@@ -384,19 +381,20 @@ class ConfigurationBuilder(LoggingObject):
     # ----- parameters can only be added in the end, because of rosparam
         for param in scope.parameters:
             self.configuration.parameters.add(param)
-    # ----- make node links at the end, to reuse launch parameters
-        for future_node_links in self._future:
-            #hints = self._fix_hints.get(future_node_links.node.rosname.full)
-            future_node_links.make(hints=self._fix_hints)
 
     def build(self):
         if not self._invalid:
             # finishing touches
+            self._add_params_from_hints()
+            self._add_nodes_from_hints()
+        # ----- make node links at the end, to reuse launch parameters
+            for future_node_links in self._future:
+                future_node_links.make(hints=self._fix_hints)
             self._update_topic_conditions()
             self._update_service_conditions()
             self._update_param_conditions()
             self._invalid = True
-            # TODO things to add from hints
+            self._future = []
         return self.configuration
 
     def _analyse_tree(self, tree, scope, sub):
@@ -622,6 +620,29 @@ class ConfigurationBuilder(LoggingObject):
             self.log.warning("Parsing error in %s:\n%s",
                              launch_file.path, str(e))
 
+    def _add_nodes_from_hints(self):
+        for name, data in self._add_nodes.items():
+            pkg, exe = data["node_type"].split("/", 1)
+            args = data.get("args", "")
+            remaps = data.get("remaps", {})
+            node = self._get_node(pkg, exe, args)
+            rosname = RosName(name)
+            self.log.debug("[hints] Creating NodeInstance %s for Node %s.",
+                           rosname.full, node.name)
+            instance = NodeInstance(self.configuration, rosname, node,
+                                    argv=args, remaps=remaps)
+            # FIXME instance._location is None
+            node.instances.append(instance)
+            previous = self.configuration.nodes.add(instance)
+            self._future.append(FutureNodeLinks(instance))
+
+    def _add_params_from_hints(self):
+        for name, data in self._add_params.items():
+            ptype = data["param_type"]
+            value = data.get("default_value")
+            param = Parameter(self.configuration, RosName(name), ptype, value)
+            self.configuration.parameters.add(param)
+
     def _update_topic_conditions(self):
         for topic in self.configuration.topics:
             assert not topic.conditions, "{!r} {!r}".format(
@@ -690,6 +711,7 @@ class FutureNodeLinks(LoggingObject):
     def make(self, hints=None):
         hints = hints or _EMPTY_DICT
         config = self.node.configuration
+        # TODO *add* (not fix) publishers etc. from hints
         for node_attr, link_cls, rcls, col in self._LINKS:
             calls = getattr(self.node.node, node_attr)
             if calls:
