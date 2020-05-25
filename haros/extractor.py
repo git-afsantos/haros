@@ -1946,6 +1946,7 @@ class NodeHints2(LoggingObject):
                 if node is not None:
                     new_nodes.append(node)
             if node is not None:
+                self._add_primitives(node, node_hints)
                 hpl = hints.get("hpl", _EMPTY_DICT)
                 node.hpl_properties = list(hpl.get("properties", _EMPTY_LIST))
                 node.hpl_assumptions = list(hpl.get("assumptions", _EMPTY_LIST))
@@ -1960,13 +1961,15 @@ class NodeHints2(LoggingObject):
         rosname = hints.get("rosname")
         nodelet_cls = hints.get("nodelet")
         node = Node(exe, pkg, rosname=rosname, nodelet=nodelet_cls)
+        return node
+
+    def _add_primitives(self, node, hints):
         for key, attr, cls in self._PRIMITIVES:
             calls = getattr(node, attr)
             for datum in hints.get(key, _EMPTY_LIST):
                 call = cls.from_JSON_specs(datum)
                 call.location = self._location_from_JSON(datum.get("location"))
                 calls.append(call)
-        return node
 
     _PRIMITIVES = (
         ("advertise", "advertise", AdvertiseCall),
