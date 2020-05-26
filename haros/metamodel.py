@@ -24,6 +24,7 @@
 # Imports
 ###############################################################################
 
+from builtins import range
 from collections import Counter, namedtuple
 from itertools import chain
 import os
@@ -85,6 +86,7 @@ class SourceCondition(object):
         self.statement = statement
         self.condition = condition
         self.location = location
+        self.location2 = loc_to_loc2(location)
 
     @property
     def language(self):
@@ -96,8 +98,7 @@ class SourceCondition(object):
         return {
             "statement": self.statement,
             "condition": str(self.condition),
-            "location": (self.location.to_JSON_object()
-                         if self.location else None)
+            "location": loc2_to_JSON(self.location2)
         }
 
     def __str__(self):
@@ -144,6 +145,7 @@ class RosPrimitiveCall(MetamodelObject):
         self.control_depth = control_depth or len(self.conditions)
         self.repeats = repeats and self.control_depth >= 1
         self.location = location
+        self.location2 = loc_to_loc2(location)
 
     @property
     def name(self):
@@ -182,6 +184,7 @@ class RosPrimitiveCall(MetamodelObject):
             if "location" in self._vars:
                 del self._vars["location"]
         self._location = value
+        self.location2 = loc_to_loc2(value)
 
     @property
     def conditions(self):
@@ -231,8 +234,7 @@ class RosPrimitiveCall(MetamodelObject):
             "depth": self.control_depth,
             "repeats": self.repeats,
             "conditions": [c.to_JSON_object() for c in self.conditions],
-            "location": (self.location.to_JSON_object()
-                         if self.location else None),
+            "location": loc2_to_JSON(self.location2),
             "variables": {attr: uv.name for attr, uv in self._vars.items()}
         }
 
@@ -255,7 +257,7 @@ class RosPrimitiveCall(MetamodelObject):
     def __str__(self):
         return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
             self.name, self.namespace, self.type,
-            self.location, self.control_depth
+            self.location2, self.control_depth
         )
 
     def __repr__(self):
@@ -327,10 +329,12 @@ class AdvertiseCall(RosPrimitiveCall):
         return data
 
     def clone(self):
-        return AdvertiseCall(self.name, self.namespace, self.type,
+        call = AdvertiseCall(self.name, self.namespace, self.type,
             self.queue_size, latched=self.latched,
             control_depth=self.control_depth, repeats=self.repeats,
             conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
 
 Publication = AdvertiseCall
 
@@ -387,10 +391,12 @@ class SubscribeCall(RosPrimitiveCall):
         return data
 
     def clone(self):
-        return SubscribeCall(self.name, self.namespace, self.type,
+        call = SubscribeCall(self.name, self.namespace, self.type,
             self.queue_size, control_depth=self.control_depth,
             repeats=self.repeats, conditions=list(self.conditions),
             location=self.location)
+        call.location2 = self.location2
+        return call
 
 Subscription = SubscribeCall
 
@@ -410,9 +416,11 @@ class AdvertiseServiceCall(RosPrimitiveCall):
         return cls(name, ns, srv_type)
 
     def clone(self):
-        return AdvertiseServiceCall(self.name, self.namespace, self.type,
+        call = AdvertiseServiceCall(self.name, self.namespace, self.type,
             control_depth=self.control_depth, repeats=self.repeats,
             conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
 
 ServiceServerCall = AdvertiseServiceCall
 
@@ -432,9 +440,11 @@ class ServiceClientCall(RosPrimitiveCall):
         return cls(name, ns, srv_type)
 
     def clone(self):
-        return ServiceClientCall(self.name, self.namespace, self.type,
+        call = ServiceClientCall(self.name, self.namespace, self.type,
             control_depth=self.control_depth, repeats=self.repeats,
             conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
 
 class GetParamCall(RosPrimitiveCall):
     KEY = "getParam"
@@ -482,10 +492,12 @@ class GetParamCall(RosPrimitiveCall):
         return data
 
     def clone(self):
-        return GetParamCall(self.name, self.namespace, self.type,
+        call = GetParamCall(self.name, self.namespace, self.type,
             default_value=self.default_value,
             control_depth=self.control_depth, repeats=self.repeats,
             conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
 
 ReadParameterCall = GetParamCall
 
@@ -535,10 +547,12 @@ class SetParamCall(RosPrimitiveCall):
         return data
 
     def clone(self):
-        return SetParamCall(self.name, self.namespace, self.type,
+        call = SetParamCall(self.name, self.namespace, self.type,
             value=self.value,
             control_depth=self.control_depth, repeats=self.repeats,
             conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
 
 WriteParameterCall = SetParamCall
 
@@ -566,6 +580,9 @@ class Person(object):
         return self.id.__hash__()
 
 
+Location2 = namedtuple("Location2", ("package", "file", "line", "column"))
+
+# in the process of deprecation
 class Location(object):
     """A location to report (package, file, line)."""
     def __init__(self, pkg, file=None, line=None, col=None, fun=None, cls=None):
@@ -1307,6 +1324,7 @@ class NodeInstance(Resource):
         self.reads = []
         self.writes = []
         self._location = launch.location if launch is not None else None
+        self.location2 = loc_to_loc2(self._location)
 
     @property
     def type(self):
@@ -1340,6 +1358,9 @@ class NodeInstance(Resource):
             return [self._location]
         return []
 
+    def traceability2(self):
+        return [self.location2]
+
     def remap(self, rosname):
         new = NodeInstance(self.configuration, rosname, self.node,
                            launch = self.launch, argv = list(self.argv),
@@ -1351,6 +1372,7 @@ class NodeInstance(Resource):
         new.clients = list(self.clients)
         new.reads = list(self.reads)
         new.writes = list(self.writes)
+        new.location2 = self.location2
         return new
 
     def to_JSON_object(self):
@@ -1366,7 +1388,7 @@ class NodeInstance(Resource):
             "clients": [p.service.rosname.full for p in self.clients],
             "reads": [p.parameter.rosname.full for p in self.reads],
             "writes": [p.parameter.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
             "variables": self.variables
         }
 
@@ -1405,6 +1427,9 @@ class Topic(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Topic(self.configuration, rosname, message_type = self.type,
                     conditions = list(self.conditions))
@@ -1420,7 +1445,7 @@ class Topic(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "publishers": [p.node.rosname.full for p in self.publishers],
             "subscribers": [p.node.rosname.full for p in self.subscribers],
-            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
             "variables": self.variables
         }
 
@@ -1472,6 +1497,9 @@ class Service(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Service(self.configuration, rosname, message_type = self.type,
                       conditions = list(self.conditions))
@@ -1488,7 +1516,7 @@ class Service(Resource):
             "servers": ([self.server.node.rosname.full]
                         if not self.server is None else []),
             "clients": [p.node.rosname.full for p in self.clients],
-            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
             "variables": self.variables
         }
 
@@ -1518,6 +1546,7 @@ class Parameter(Resource):
         self.writes = []
         self.launch = launch
         self._location = launch.location if launch is not None else None
+        self.location2 = loc_to_loc2(self._location)
 
     @staticmethod
     def type_of(value):
@@ -1549,12 +1578,16 @@ class Parameter(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Parameter(self.configuration, rosname, self.type,
                          self.value, node_scope = self.node_scope,
                          conditions = list(self.conditions))
         new.reads = list(self.reads)
         new.writes = list(self.writes)
+        new.location2 = self.location2
         return new
 
     def to_JSON_object(self):
@@ -1566,7 +1599,7 @@ class Parameter(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "reads": [p.node.rosname.full for p in self.reads],
             "writes": [p.node.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()],
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
             "variables": self.variables
         }
 
@@ -1622,6 +1655,17 @@ class ResourceCollection(object):
             self.unresolved.append(resource)
         previous = self.counter[resource.id]
         self.counter[resource.id] += 1
+        return previous
+
+    def remove(self, name):
+        for col in (self.all, self.conditional, self.enabled, self.unresolved):
+            for i in range(len(col) - 1, -1, -1):
+                if col[i].id == name:
+                    del col[i]
+        previous = 0
+        if name in self.counter:
+            previous = self.counter[name]
+            self.counter[name] = 0
         return previous
 
 
@@ -1741,6 +1785,7 @@ class RosPrimitive(MetamodelObject):
         self.rosname = rosname # before remappings
         self.conditions = conditions if not conditions is None else []
         self.source_location = location
+        self.location2 = loc_to_loc2(location)
 
     @property
     def location(self):
@@ -1755,8 +1800,7 @@ class RosPrimitive(MetamodelObject):
             "node": self.node.rosname.full,
             "node_uid": str(id(self.node)),
             "name": self.rosname.full,
-            "location": (self.source_location.to_JSON_object()
-                         if self.source_location else None),
+            "location": loc2_to_JSON(self.location2),
             "conditions": [c.to_JSON_object() for c in self.conditions]
         }
 
@@ -2025,6 +2069,42 @@ def _bool_to_conditions(v):
 
 def fpid(v):
     return v
+
+
+def loc_to_loc2(loc):
+    if loc is None or loc.package is None:
+        return Location2(None, None, None, None)
+    pkg = loc.package.name
+    if loc.file is None:
+        return Location2(pkg, None, None, None)
+    fname = loc.file.full_name
+    if loc.line is None:
+        return Location2(pkg, fname, None, None)
+    return Location2(pkg, fname, loc.line, loc.column)
+
+def loc2_to_JSON(loc2):
+    return {
+        "package": loc2.package,
+        "file": loc2.file,
+        "line": loc2.line,
+        "column": loc2.column,
+        "function": None,
+        "class": None
+    }
+
+def JSON_to_loc2(data):
+    if data is None:
+        return Location2(None, None, None, None)
+    pkg = data.get("package")
+    if pkg is None:
+        return Location2(None, None, None, None)
+    fname = data.get("file")
+    if fname is None:
+        return Location2(pkg, None, None, None)
+    line = data.get("line")
+    if line is None:
+        return Location2(pkg, fname, None, None)
+    return Location2(pkg, fname, line, data.get("column"))
 
 
 ###############################################################################
