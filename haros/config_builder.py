@@ -54,7 +54,8 @@ from .launch_parser import (
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
     SourceCondition, PublishLink, SubscribeLink, ServiceLink, ClientLink,
-    ReadLink, WriteLink
+    ReadLink, WriteLink,
+    Location2, JSON_to_loc2
 )
 
 
@@ -90,7 +91,6 @@ class LaunchScope(LoggingObject):
         self.arguments = args if not args is None else {}
         self.conditions = conditions if not conditions is None else []
         self._params = list(parent._params) if parent else []
-        self._future = []
 
     @property
     def private_ns(self):
@@ -340,10 +340,28 @@ class ConfigurationBuilder(LoggingObject):
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
         self._pkg_finder.packages.extend(self.sources.packages.values())
-        hints = hints or {}
-        self._fix_hints = hints.get("fix", _EMPTY_DICT)
-        self._add_nodes = hints.get("nodes", _EMPTY_DICT)
-        self._add_params = hints.get("params", _EMPTY_DICT)
+        #hints = hints or {}
+        #self._fix_hints = hints.get("fix", _EMPTY_DICT)
+        #self._add_nodes = hints.get("nodes", _EMPTY_DICT)
+        #self._add_params = hints.get("params", _EMPTY_DICT)
+
+        self.hints = dict(hints) if hints is not None else {}
+        if self.hints.get("nodes") is None:
+            self.hints["nodes"] = {}
+        if self.hints.get("parameters") is None:
+            self.hints["parameter"] = {}
+        if self.hints.get("publishers") is None:
+            self.hints["publishers"] = []
+        if self.hints.get("subscribers") is None:
+            self.hints["subscribers"] = []
+        if self.hints.get("clients") is None:
+            self.hints["clients"] = []
+        if self.hints.get("servers") is None:
+            self.hints["servers"] = []
+        if self.hints.get("setters") is None:
+            self.hints["setters"] = []
+        if self.hints.get("getters") is None:
+            self.hints["getters"] = []
         self._invalid = False
 
     def add_rosrun(self, node):
@@ -621,7 +639,18 @@ class ConfigurationBuilder(LoggingObject):
                              launch_file.path, str(e))
 
     def _add_nodes_from_hints(self):
-        for name, data in self._add_nodes.items():
+        #for name, data in self._add_nodes.items():
+        r = []
+        hints = self.hints["nodes"]
+        for name, data in hints.items():
+            if not data.get("create"):
+                continue
+            if self.configuration.nodes.get(name) is not None:
+                self.log.warning(("[Configuration %s][hints]: tried to create "
+                                  "node %s, but it already exists."),
+                                 self.configuration.name, name)
+                continue
+            r.append(name)
             pkg, exe = data["node_type"].split("/", 1)
             args = data.get("args", "")
             remaps = data.get("remaps", {})
@@ -631,16 +660,58 @@ class ConfigurationBuilder(LoggingObject):
                            rosname.full, node.name)
             instance = NodeInstance(self.configuration, rosname, node,
                                     argv=args, remaps=remaps)
-            # FIXME instance._location is None
+            instance.location2 = JSON_to_loc2(data.get("traceability"))
             node.instances.append(instance)
             previous = self.configuration.nodes.add(instance)
             self._future.append(FutureNodeLinks(instance))
+        for key in r:
+            del hints[key]
 
     def _add_params_from_hints(self):
-        for name, data in self._add_params.items():
+        #for name, data in self._add_params.items():
+        r = []
+        hints = self.hints["parameters"]
+        for name, data in hints.items():
+            if not data.get("create"):
+                continue
+            if self.configuration.parameters.get(name) is not None:
+                self.log.warning(("[Configuration %s][hints]: tried to create "
+                                  "param %s, but it already exists."),
+                                 self.configuration.name, name)
+                continue
+            r.append(name)
             ptype = data["param_type"]
             value = data.get("default_value")
             param = Parameter(self.configuration, RosName(name), ptype, value)
+            param.location2 = JSON_to_loc2(data.get("traceability"))
+            self.configuration.parameters.add(param)
+        for key in r:
+            del hints[key]
+
+    def _add_publishers_from_hints(self):
+        #for name, data in self._add_params.items():
+        hints = self.hints["publishers"]
+        for i in range(len(hints) - 1, -1, -1):
+            data = hints[i]
+            if not data.get("create"):
+                continue
+            nodes = self.configuration.nodes.get_all(data["node"])
+            if not nodes:
+                self.log.warning(("[Configuration %s][hints]: tried to create "
+                    "publisher for node %s, but it does not exist."),
+                    self.configuration.name, data["node"])
+                continue
+            topics = self.configuration.topics.get_all(data["topic"])
+            if not topics:
+                self.log.warning(("[Configuration %s][hints]: tried to create "
+                    "publisher for topic %s, but it does not exist."),
+                    self.configuration.name, data["topic"])
+                continue
+            del hints[i]
+            msg_type = data["msg_type"]
+            value = data.get("default_value")
+            param = Parameter(self.configuration, RosName(name), ptype, value)
+            param.location2 = JSON_to_loc2(data.get("traceability"))
             self.configuration.parameters.add(param)
 
     def _update_topic_conditions(self):
@@ -699,6 +770,13 @@ class FutureNodeLinks(LoggingObject):
         self.ns = node.namespace
         self.pns = node.rosname.full
 
+        self.advertise = []
+        self.subscribe = []
+        self.service = []
+        self.client = []
+        self.read_param = []
+        self.write_param = []
+
     _LINKS = (
         ("advertise", PublishLink, Topic, "topics"),
         ("subscribe", SubscribeLink, Topic, "topics"),
@@ -718,8 +796,11 @@ class FutureNodeLinks(LoggingObject):
                 self.log.debug("Iterating %s calls for node %s.",
                     calls[0].KEY, self.node.id)
             collection = getattr(config, col)
-            for call in calls:
-                new_call = call.clone()
+            new_calls = [call.clone() for call in calls]
+            # BY FIRE BE PURGED -----------------------------------------------
+            getattr(self, "_apply_" + node_attr + "_shints")(new_calls)
+            # -----------------------------------------------------------------
+            for new_call in new_calls:
                 for uv in new_call.variables():
                     hint_value = hints.get(uv.name)
                     if hint_value is not None:
@@ -757,3 +838,179 @@ class FutureNodeLinks(LoggingObject):
         elif cls is Parameter:
             return Parameter(config, rosname, call.type, None)
         assert False, "Unknown Resource class {}".format(cls.__name__)
+
+    # BY FIRE BE PURGED -------------------------------------------------------
+
+    _W_NO_EXISTS = "[Configuration '%s'][hints]: there is no %s '%s' to fix."
+
+    _W_AMBIGUOUS = ("[Configuration '%s'][hints]: there are multiple %ss that "
+                    "match '%s'.")
+
+    def _apply_advertise_shints(self, calls):
+        config = self.node.configuration
+        for shint in self.advertise:
+            g = shint["topic"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if not matches:
+                self.log.warning("No matches: %s", shint)
+                continue
+            if len(matches) > 1:
+                self.log.warning("Many matches: %s", shint)
+                continue
+            call = matches[0]
+            if "original_name" in shint:
+                call.name = shint["original_name"] or "/?"
+                call.namespace = "/"
+            if "msg_type" in shint:
+                call.type = shint["msg_type"]
+            if "queue_size" in shint:
+                call.queue_size = shint["queue_size"]
+            if "latched" in shint:
+                call.latched = shint["latched"]
+            if "traceability" in shint:
+                call.location2 = JSON_to_loc2(shint["traceability"])
+
+
+class ConfigHints2(LoggingObject):
+    def __init__(self, hints, find_node):
+        self._build_hint_dict(hints, "nodes")
+        self._build_hint_dict(hints, "parameters")
+        self.find_node = find_node
+
+    def apply(self, config, futures):
+        for name, datum in self.fix_parameters.items():
+            self._fix_param(config, name, datum)
+        for name, datum in self.fix_nodes.items():
+            self._fix_node(config, futures, name, datum)
+        for name, datum in self.add_parameters.items():
+            self._add_param(config, name, datum)
+        for name, datum in self.add_nodes.items():
+            self._add_node(config, name, datum)
+
+    def _build_hint_dict(self, top_lvl_hints, key):
+        to_fix = {}
+        to_add = {}
+        setattr(self, "fix_" + key, to_fix)
+        setattr(self, "add_" + key, to_add)
+        hints = top_lvl_hints.get(key)
+        if hints:
+            for name, datum in hints.items():
+                if data.get("create"):
+                    to_add[name] = datum
+                else:
+                    to_fix[name] = datum
+
+    _W_NO_EXISTS = "[Configuration '%s'][hints]: there is no %s '%s' to fix."
+
+    _W_AMBIGUOUS = ("[Configuration '%s'][hints]: there are multiple %s that "
+                    "match '%s'.")
+
+    _W_COLLIDES = ("[Configuration '%s'][hints]: %s name '%s' already exists "
+                   "for another resource.")
+
+    _W_UNSUPPORTED = ("[Configuration '%s'][hints]: fixing %s '%s' "
+                      "is not supported yet.")
+
+    _W_EXISTS = ("[Configuration '%s'][hints]: tried to create "
+                 "%s '%s', but it already exists.")
+
+    def _fix_param(self, config, name, datum):
+        params = config.parameters.get_all(name)
+        if not params:
+            self.log.warning(self._W_NO_EXISTS, config.name, "param", name)
+            return False
+        if len(params) > 1:
+            self.log.warning(self._W_AMBIGUOUS, config.name, "param", name)
+            return False
+        param = params[0]
+        if "rosname" in datum:
+            new_name = datum["rosname"] or "/?"
+            if config.parameters.get(new_name) is not None:
+                self.log.warning(self._W_COLLIDES, config.name, "param", new_name)
+                return False
+            config.parameters.remove(name)
+            param.rosname = RosName(new_name)
+            config.parameters.add(param)
+        if "param_type" in datum:
+            param.type = datum["param_type"]
+        if "default_value" in datum:
+            param.value = datum["default_value"]
+        if "traceability" in datum:
+            param.location2 = JSON_to_loc2(datum["traceability"])
+        return True
+
+    def _fix_node(self, config, futures, name, datum):
+        nodes = config.nodes.get_all(name)
+        if not nodes:
+            self.log.warning(self._W_NO_EXISTS, config.name, "node", name)
+            return False
+        if len(nodes) > 1:
+            self.log.warning(self._W_AMBIGUOUS, config.name, "node", name)
+            return False
+        node = nodes[0]
+        if "rosname" in datum:
+            new_name = datum["rosname"] or "/?"
+            if config.nodes.get(new_name) is not None:
+                self.log.warning(self._W_COLLIDES, config.name, "node", new_name)
+                return False
+            config.nodes.remove(name)
+            node.rosname = RosName(new_name)
+            config.nodes.add(node)
+        if "node_type" in datum:
+            self.log.warning(self._W_UNSUPPORTED, config.name,
+                             "node", "node_type")
+        if "args" in datum:
+            node.argv = datum["args"]
+        if "remaps" in datum:
+            node.remaps = dict(datum["remaps"])
+        if "traceability" in datum:
+            node.location2 = JSON_to_loc2(datum["traceability"])
+        # BY FIRE BE PURGED ---------------------------------------------------
+        for fnl in futures:
+            if fnl.node is not node:
+                continue
+            fnl.advertise.extend(data.get("publishers", ()))
+            fnl.subscribe.extend(data.get("subscribers", ()))
+            fnl.service.extend(data.get("servers", ()))
+            fnl.client.extend(data.get("clients", ()))
+            fnl.read_param.extend(data.get("getters", ()))
+            fnl.write_param.extend(data.get("setters", ()))
+        # ---------------------------------------------------------------------
+        return True
+
+    def _add_param(self, config, name, datum):
+        if config.parameters.get(name) is not None:
+            self.log.warning(self._W_EXISTS, config.name, "param", name)
+            return False
+        ptype = data["param_type"]
+        value = data.get("default_value")
+        param = Parameter(config, RosName(name), ptype, value)
+        param.location2 = JSON_to_loc2(data.get("traceability"))
+        config.parameters.add(param)
+        return True
+
+    def _add_node(self, config, name, datum):
+        if config.nodes.get(name) is not None:
+            self.log.warning(self._W_EXISTS, config.name, "node", name)
+            return False
+        pkg, exe = data["node_type"].split("/", 1)
+        args = data.get("args", "")
+        remaps = data.get("remaps", {})
+        node = self.find_node(pkg, exe, args)
+        rosname = RosName(name)
+        self.log.debug("[hints] Creating NodeInstance %s for Node %s.",
+                       rosname.full, node.name)
+        instance = NodeInstance(self.configuration, rosname, node,
+                                argv=args, remaps=remaps)
+        instance.location2 = JSON_to_loc2(data.get("traceability"))
+        node.instances.append(instance)
+        previous = self.configuration.nodes.add(instance)
+        self._future.append(FutureNodeLinks(instance)) # FIXME
+        return True
