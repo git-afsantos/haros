@@ -55,7 +55,8 @@ from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
     SourceCondition, PublishLink, SubscribeLink, ServiceLink, ClientLink,
     ReadLink, WriteLink,
-    Location2, JSON_to_loc2
+    AdvertiseCall, SubscribeCall, AdvertiseServiceCall, ServiceClientCall,
+    GetParamCall, SetParamCall, Location2, JSON_to_loc2
 )
 
 
@@ -340,28 +341,12 @@ class ConfigurationBuilder(LoggingObject):
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
         self._pkg_finder.packages.extend(self.sources.packages.values())
-        #hints = hints or {}
-        #self._fix_hints = hints.get("fix", _EMPTY_DICT)
+        hints = hints or {}
+        self._fix_hints = hints.get("fix", _EMPTY_DICT)
         #self._add_nodes = hints.get("nodes", _EMPTY_DICT)
         #self._add_params = hints.get("params", _EMPTY_DICT)
 
-        self.hints = dict(hints) if hints is not None else {}
-        if self.hints.get("nodes") is None:
-            self.hints["nodes"] = {}
-        if self.hints.get("parameters") is None:
-            self.hints["parameter"] = {}
-        if self.hints.get("publishers") is None:
-            self.hints["publishers"] = []
-        if self.hints.get("subscribers") is None:
-            self.hints["subscribers"] = []
-        if self.hints.get("clients") is None:
-            self.hints["clients"] = []
-        if self.hints.get("servers") is None:
-            self.hints["servers"] = []
-        if self.hints.get("setters") is None:
-            self.hints["setters"] = []
-        if self.hints.get("getters") is None:
-            self.hints["getters"] = []
+        self.hints = ConfigHints2(hints, self._get_node)
         self._invalid = False
 
     def add_rosrun(self, node):
@@ -403,16 +388,28 @@ class ConfigurationBuilder(LoggingObject):
     def build(self):
         if not self._invalid:
             # finishing touches
-            self._add_params_from_hints()
-            self._add_nodes_from_hints()
-        # ----- make node links at the end, to reuse launch parameters
+            # BY FIRE BE PURGED
+            # fix params: harmless
+            self.hints.apply_param_fixes(self.configuration)
+            # add params: harmless
+            self.hints.create_new_params(self.configuration)
+            # fix nodes: can use new params
+            self.hints.apply_node_fixes(self.configuration, self._future)
+            # make links after fixing stuff
             for future_node_links in self._future:
                 future_node_links.make(hints=self._fix_hints)
+            # reset futures and add more nodes and links
+            self._future = []
+            self.hints.create_new_nodes(self.configuration, self._future)
+            # make links again for the new nodes
+            for future_node_links in self._future:
+                future_node_links.make(hints=self._fix_hints)
+            self._future = []
+            # fix conditions from links
             self._update_topic_conditions()
             self._update_service_conditions()
             self._update_param_conditions()
             self._invalid = True
-            self._future = []
         return self.configuration
 
     def _analyse_tree(self, tree, scope, sub):
@@ -638,82 +635,6 @@ class ConfigurationBuilder(LoggingObject):
             self.log.warning("Parsing error in %s:\n%s",
                              launch_file.path, str(e))
 
-    def _add_nodes_from_hints(self):
-        #for name, data in self._add_nodes.items():
-        r = []
-        hints = self.hints["nodes"]
-        for name, data in hints.items():
-            if not data.get("create"):
-                continue
-            if self.configuration.nodes.get(name) is not None:
-                self.log.warning(("[Configuration %s][hints]: tried to create "
-                                  "node %s, but it already exists."),
-                                 self.configuration.name, name)
-                continue
-            r.append(name)
-            pkg, exe = data["node_type"].split("/", 1)
-            args = data.get("args", "")
-            remaps = data.get("remaps", {})
-            node = self._get_node(pkg, exe, args)
-            rosname = RosName(name)
-            self.log.debug("[hints] Creating NodeInstance %s for Node %s.",
-                           rosname.full, node.name)
-            instance = NodeInstance(self.configuration, rosname, node,
-                                    argv=args, remaps=remaps)
-            instance.location2 = JSON_to_loc2(data.get("traceability"))
-            node.instances.append(instance)
-            previous = self.configuration.nodes.add(instance)
-            self._future.append(FutureNodeLinks(instance))
-        for key in r:
-            del hints[key]
-
-    def _add_params_from_hints(self):
-        #for name, data in self._add_params.items():
-        r = []
-        hints = self.hints["parameters"]
-        for name, data in hints.items():
-            if not data.get("create"):
-                continue
-            if self.configuration.parameters.get(name) is not None:
-                self.log.warning(("[Configuration %s][hints]: tried to create "
-                                  "param %s, but it already exists."),
-                                 self.configuration.name, name)
-                continue
-            r.append(name)
-            ptype = data["param_type"]
-            value = data.get("default_value")
-            param = Parameter(self.configuration, RosName(name), ptype, value)
-            param.location2 = JSON_to_loc2(data.get("traceability"))
-            self.configuration.parameters.add(param)
-        for key in r:
-            del hints[key]
-
-    def _add_publishers_from_hints(self):
-        #for name, data in self._add_params.items():
-        hints = self.hints["publishers"]
-        for i in range(len(hints) - 1, -1, -1):
-            data = hints[i]
-            if not data.get("create"):
-                continue
-            nodes = self.configuration.nodes.get_all(data["node"])
-            if not nodes:
-                self.log.warning(("[Configuration %s][hints]: tried to create "
-                    "publisher for node %s, but it does not exist."),
-                    self.configuration.name, data["node"])
-                continue
-            topics = self.configuration.topics.get_all(data["topic"])
-            if not topics:
-                self.log.warning(("[Configuration %s][hints]: tried to create "
-                    "publisher for topic %s, but it does not exist."),
-                    self.configuration.name, data["topic"])
-                continue
-            del hints[i]
-            msg_type = data["msg_type"]
-            value = data.get("default_value")
-            param = Parameter(self.configuration, RosName(name), ptype, value)
-            param.location2 = JSON_to_loc2(data.get("traceability"))
-            self.configuration.parameters.add(param)
-
     def _update_topic_conditions(self):
         for topic in self.configuration.topics:
             assert not topic.conditions, "{!r} {!r}".format(
@@ -847,6 +768,7 @@ class FutureNodeLinks(LoggingObject):
                     "match '%s'.")
 
     def _apply_advertise_shints(self, calls):
+        create = []
         config = self.node.configuration
         for shint in self.advertise:
             g = shint["topic"]
@@ -858,24 +780,211 @@ class FutureNodeLinks(LoggingObject):
                     remaps=self.node.remaps)
                 if g == rosname.full:
                     matches.append(call)
-            if not matches:
-                self.log.warning("No matches: %s", shint)
-                continue
-            if len(matches) > 1:
-                self.log.warning("Many matches: %s", shint)
-                continue
-            call = matches[0]
-            if "original_name" in shint:
-                call.name = shint["original_name"] or "/?"
-                call.namespace = "/"
-            if "msg_type" in shint:
-                call.type = shint["msg_type"]
-            if "queue_size" in shint:
-                call.queue_size = shint["queue_size"]
-            if "latched" in shint:
-                call.latched = shint["latched"]
-            if "traceability" in shint:
-                call.location2 = JSON_to_loc2(shint["traceability"])
+            if shint.get("create", False):
+                call = AdvertiseCall(g, "/", shint["msg_type"],
+                    shint["queue_size"], latched=shint.get("latched", False))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "msg_type" in shint:
+                    call.type = shint["msg_type"]
+                if "queue_size" in shint:
+                    call.queue_size = shint["queue_size"]
+                if "latched" in shint:
+                    call.latched = shint["latched"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+
+    def _apply_subscribe_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.subscribe:
+            g = shint["topic"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = SubscribeCall(g, "/", shint["msg_type"],
+                    shint["queue_size"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "msg_type" in shint:
+                    call.type = shint["msg_type"]
+                if "queue_size" in shint:
+                    call.queue_size = shint["queue_size"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+
+    def _apply_service_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.service:
+            g = shint["service"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = AdvertiseServiceCall(g, "/", shint["srv_type"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "srv_type" in shint:
+                    call.type = shint["srv_type"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+
+    def _apply_client_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.client:
+            g = shint["service"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = ServiceClientCall(g, "/", shint["srv_type"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "srv_type" in shint:
+                    call.type = shint["srv_type"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+
+    def _apply_read_param_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.read_param:
+            g = shint["parameter"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = GetParamCall(g, "/", shint["param_type"],
+                    default_value=shint.get("default_value"))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "param_type" in shint:
+                    call.type = shint["param_type"]
+                if "default_value" in shint:
+                    call.default_value = shint["default_value"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+
+    def _apply_write_param_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.write_param:
+            g = shint["parameter"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = SetParamCall(g, "/", shint["param_type"],
+                    value=shint.get("value"))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "param_type" in shint:
+                    call.type = shint["param_type"]
+                if "value" in shint:
+                    call.value = shint["value"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+        calls.extend(create)
+    # -------------------------------------------------------------------------
 
 
 class ConfigHints2(LoggingObject):
@@ -884,15 +993,21 @@ class ConfigHints2(LoggingObject):
         self._build_hint_dict(hints, "parameters")
         self.find_node = find_node
 
-    def apply(self, config, futures):
+    def apply_param_fixes(self, config):
         for name, datum in self.fix_parameters.items():
             self._fix_param(config, name, datum)
+
+    def apply_node_fixes(self, config, futures):
         for name, datum in self.fix_nodes.items():
             self._fix_node(config, futures, name, datum)
+
+    def create_new_params(self, config):
         for name, datum in self.add_parameters.items():
             self._add_param(config, name, datum)
+
+    def create_new_nodes(self, config, futures):
         for name, datum in self.add_nodes.items():
-            self._add_node(config, name, datum)
+            self._add_node(config, futures, name, datum)
 
     def _build_hint_dict(self, top_lvl_hints, key):
         to_fix = {}
@@ -902,7 +1017,7 @@ class ConfigHints2(LoggingObject):
         hints = top_lvl_hints.get(key)
         if hints:
             for name, datum in hints.items():
-                if data.get("create"):
+                if datum.get("create"):
                     to_add[name] = datum
                 else:
                     to_fix[name] = datum
@@ -976,12 +1091,12 @@ class ConfigHints2(LoggingObject):
         for fnl in futures:
             if fnl.node is not node:
                 continue
-            fnl.advertise.extend(data.get("publishers", ()))
-            fnl.subscribe.extend(data.get("subscribers", ()))
-            fnl.service.extend(data.get("servers", ()))
-            fnl.client.extend(data.get("clients", ()))
-            fnl.read_param.extend(data.get("getters", ()))
-            fnl.write_param.extend(data.get("setters", ()))
+            fnl.advertise.extend(datum.get("publishers", ()))
+            fnl.subscribe.extend(datum.get("subscribers", ()))
+            fnl.service.extend(datum.get("servers", ()))
+            fnl.client.extend(datum.get("clients", ()))
+            fnl.read_param.extend(datum.get("getters", ()))
+            fnl.write_param.extend(datum.get("setters", ()))
         # ---------------------------------------------------------------------
         return True
 
@@ -989,28 +1104,35 @@ class ConfigHints2(LoggingObject):
         if config.parameters.get(name) is not None:
             self.log.warning(self._W_EXISTS, config.name, "param", name)
             return False
-        ptype = data["param_type"]
-        value = data.get("default_value")
+        ptype = datum["param_type"]
+        value = datum.get("default_value")
         param = Parameter(config, RosName(name), ptype, value)
-        param.location2 = JSON_to_loc2(data.get("traceability"))
+        param.location2 = JSON_to_loc2(datum.get("traceability"))
         config.parameters.add(param)
         return True
 
-    def _add_node(self, config, name, datum):
+    def _add_node(self, config, futures, name, datum):
         if config.nodes.get(name) is not None:
             self.log.warning(self._W_EXISTS, config.name, "node", name)
             return False
-        pkg, exe = data["node_type"].split("/", 1)
-        args = data.get("args", "")
-        remaps = data.get("remaps", {})
+        pkg, exe = datum["node_type"].split("/", 1)
+        args = datum.get("args", "")
+        remaps = datum.get("remaps", {})
         node = self.find_node(pkg, exe, args)
         rosname = RosName(name)
         self.log.debug("[hints] Creating NodeInstance %s for Node %s.",
                        rosname.full, node.name)
         instance = NodeInstance(self.configuration, rosname, node,
                                 argv=args, remaps=remaps)
-        instance.location2 = JSON_to_loc2(data.get("traceability"))
+        instance.location2 = JSON_to_loc2(datum.get("traceability"))
         node.instances.append(instance)
         previous = self.configuration.nodes.add(instance)
-        self._future.append(FutureNodeLinks(instance)) # FIXME
+        fnl = FutureNodeLinks(instance)
+        fnl.advertise.extend(datum.get("publishers", ()))
+        fnl.subscribe.extend(datum.get("subscribers", ()))
+        fnl.service.extend(datum.get("servers", ()))
+        fnl.client.extend(datum.get("clients", ()))
+        fnl.read_param.extend(datum.get("getters", ()))
+        fnl.write_param.extend(datum.get("setters", ()))
+        futures.append(fnl)
         return True

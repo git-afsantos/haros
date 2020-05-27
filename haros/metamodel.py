@@ -515,7 +515,7 @@ class SetParamCall(RosPrimitiveCall):
 
     @property
     def value(self):
-        return self._default_value
+        return self._value
 
     @value.setter
     def value(self, value):
@@ -2030,7 +2030,7 @@ class WriteLink(ParameterPrimitive):
     def link_from_call(cls, node, param, rosname, call):
         if not isinstance(call, SetParamCall):
             raise ValueError("wrong call type: " + type(call).__name__)
-        link = cls(node, param, call.type, rosname, value=call.default_value,
+        link = cls(node, param, call.type, rosname, value=call.value,
                    conditions=list(call.conditions), location=call.location)
         link.node.writes.append(link)
         link.parameter.writes.append(link)
