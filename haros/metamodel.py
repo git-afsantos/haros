@@ -1853,6 +1853,7 @@ class PublishLink(TopicPrimitive):
         link.node.publishers.append(link)
         link.topic.publishers.append(link)
         link.latched = call.latched
+        link.location2 = call.location2
         return link
 
     def to_JSON_object(self):
@@ -1882,6 +1883,7 @@ class SubscribeLink(TopicPrimitive):
                    conditions=list(call.conditions), location=call.location)
         link.node.subscribers.append(link)
         link.topic.subscribers.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -1933,6 +1935,7 @@ class ServiceLink(ServicePrimitive):
                    conditions=list(call.conditions), location=call.location)
         link.node.servers.append(link)
         link.service.server = link
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -1957,6 +1960,7 @@ class ClientLink(ServicePrimitive):
                    conditions=list(call.conditions), location=call.location)
         link.node.clients.append(link)
         link.service.clients.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -2010,6 +2014,7 @@ class ReadLink(ParameterPrimitive):
                    conditions=list(call.conditions), location=call.location)
         link.node.reads.append(link)
         link.parameter.reads.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -2034,6 +2039,7 @@ class WriteLink(ParameterPrimitive):
                    conditions=list(call.conditions), location=call.location)
         link.node.writes.append(link)
         link.parameter.writes.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
