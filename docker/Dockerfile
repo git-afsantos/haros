@@ -1,24 +1,26 @@
 # Use an official Python runtime as a parent image
-FROM ros:kinetic-ros-base
+FROM ros:melodic
 
 RUN apt-get update && apt-get install -y \
     cppcheck \
     cccc \
-    clang-3.8 \
-    libclang-3.8-dev \
+    clang-4.0 \
+    libclang-4.0-dev \
     python-pip \
-    llvm-3.8-dev \
-    wget
+    llvm-4.0-dev \
+    wget \
+    netbase \
+    libmagic-dev
 
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/llvm-4.0/lib
 
 RUN pip install --upgrade pip
-RUN pip install -Iv clang==3.8
+RUN pip install -Iv clang==4.0
 RUN pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 RUN pip install haros
 RUN pip install bonsai-code
 
-RUN apt-get update && apt-get install -y ros-kinetic-desktop
+RUN apt-get update && apt-get install -y ros-melodic-desktop
 
 SHELL ["bash", "-c"]
 
@@ -27,9 +29,9 @@ RUN mkdir -p ~/catkin_ws/src
 # Set the working directory
 WORKDIR .
 
-ENV CMAKE_CXX_COMPILER /usr/lib/llvm-3.8/bin/clang++
+ENV CMAKE_CXX_COMPILER /usr/lib/llvm-4.0/bin/clang++
 
-RUN source /opt/ros/kinetic/setup.bash;\
+RUN source /opt/ros/melodic/setup.bash;\
  cd ~/catkin_ws/src;\
  catkin_init_workspace;\
  cd ~/catkin_ws;\
