@@ -56,7 +56,7 @@ from .metamodel import (
     SourceCondition, PublishLink, SubscribeLink, ServiceLink, ClientLink,
     ReadLink, WriteLink,
     AdvertiseCall, SubscribeCall, AdvertiseServiceCall, ServiceClientCall,
-    GetParamCall, SetParamCall, Location2, JSON_to_loc2
+    GetParamCall, SetParamCall, Location2, JSON_to_loc2, _bool_to_conditions
 )
 
 
@@ -804,6 +804,9 @@ class FutureNodeLinks(LoggingObject):
                     call.latched = shint["latched"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
 
     def _apply_subscribe_shints(self, calls):
@@ -841,6 +844,9 @@ class FutureNodeLinks(LoggingObject):
                     call.queue_size = shint["queue_size"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
 
     def _apply_service_shints(self, calls):
@@ -875,6 +881,9 @@ class FutureNodeLinks(LoggingObject):
                     call.type = shint["srv_type"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
 
     def _apply_client_shints(self, calls):
@@ -909,6 +918,9 @@ class FutureNodeLinks(LoggingObject):
                     call.type = shint["srv_type"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
 
     def _apply_read_param_shints(self, calls):
@@ -946,6 +958,9 @@ class FutureNodeLinks(LoggingObject):
                     call.default_value = shint["default_value"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
 
     def _apply_write_param_shints(self, calls):
@@ -983,6 +998,9 @@ class FutureNodeLinks(LoggingObject):
                     call.value = shint["value"]
                 if "traceability" in shint:
                     call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
         calls.extend(create)
     # -------------------------------------------------------------------------
 
@@ -1059,6 +1077,9 @@ class ConfigHints2(LoggingObject):
             param.value = datum["default_value"]
         if "traceability" in datum:
             param.location2 = JSON_to_loc2(datum["traceability"])
+        if "conditional" in datum:
+            v = _bool_to_conditions(not datum["conditional"])
+            param.conditions = v
         return True
 
     def _fix_node(self, config, futures, name, datum):
@@ -1087,6 +1108,9 @@ class ConfigHints2(LoggingObject):
             node.remaps = dict(datum["remaps"])
         if "traceability" in datum:
             node.location2 = JSON_to_loc2(datum["traceability"])
+        if "conditional" in datum:
+            v = _bool_to_conditions(not datum["conditional"])
+            node.conditions = v
         # BY FIRE BE PURGED ---------------------------------------------------
         for fnl in futures:
             if fnl.node is not node:
