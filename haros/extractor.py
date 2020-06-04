@@ -827,12 +827,15 @@ class PackageParser(LoggingObject):
                 nodelets = el.find("nodelet").get("plugin")
                 nodelets = nodelets.replace("${prefix}", package.path)
                 with open(nodelets, "r") as handle:
-                    root = ET.parse(handle).getroot()
+                    xmltext = "<export>{}</export>".format(handle.read())
+                    root = ET.fromstring(xmltext)
                 PackageParser.log.info("Found nodelets at %s", nodelets)
-                if root.tag == "library":
-                    libs = (root,)
-                else:
-                    libs = root.findall("library")
+                libs = []
+                for child in root:
+                    if child.tag == "library":
+                        libs.append(child)
+                    else:
+                        libs.extend(child.findall("library"))
                 for el in libs:
                     libname = el.get("path").rsplit(os.sep)[-1]
                     for cl in el.findall("class"):
