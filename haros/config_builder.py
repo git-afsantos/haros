@@ -516,6 +516,7 @@ class ConfigurationBuilder(LoggingObject):
             else:
                 value = tag.text
                 if sub.resolve(tag.substitute, strict = True):
+                    value = sub.sub(value)
                     value = sub.resolve(value, strict = True)
             scope.make_rosparam(name, ns, value, condition,
                                 line=tag.line, col=tag.column)

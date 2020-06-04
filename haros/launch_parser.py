@@ -807,7 +807,9 @@ class LaunchParser(object):
             attributes = self._attributes(tag, cls.ATTRIBUTES)
         except SubstitutionError as e:
             return ErrorTag(e.value)
-        text = tag.text.strip() if tag.text else ""
+        text = tag.text if tag.text else ""
+        if tag.tag != "rosparam":
+            text = text.strip()
         element = cls(text, attributes,
             tag._start_line_number, tag._start_column_number)
         if element.tag == "arg" and isinstance(element.name, basestring):
