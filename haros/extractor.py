@@ -1619,12 +1619,12 @@ class RoscppExtractor(LoggingObject):
 
     def _extract_param_type(self, value):
         self.log.debug("extract param type from {}".format(repr(value)))
+        if value is True or value is False:
+            return "bool"
         if isinstance(value, (int, long)):
             return "int"
         if isinstance(value, float):
             return "double"
-        if value is True or value is False:
-            return "bool"
         if isinstance(value, basestring):
             return "str"
         cpp_type = getattr(value, "result", None)
