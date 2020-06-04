@@ -1245,9 +1245,15 @@ class RoscppExtractor(LoggingObject):
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
                 param_type = default_value = None
-                if len(call.arguments) >= 2 and call.name in gets:
+                if call.name in gets:
                     param_type = self._extract_param_type(call.arguments[1])
-                    default_value = self._extract_param_value(call, arg_pos=2)
+                if call.name == "param":
+                    if len(call.arguments) > 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=2)
+                    elif len(call.arguments) == 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=1)
                 self._on_read_param(node, self._resolve_node_handle(call),
                                     call, param_type, default_value)
         sets = ("setParam",)
@@ -1272,9 +1278,15 @@ class RoscppExtractor(LoggingObject):
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(ros_prefix))):
                 param_type = default_value = None
-                if len(call.arguments) >= 2 and call.name in gets:
+                if call.name in gets:
                     param_type = self._extract_param_type(call.arguments[1])
-                    default_value = self._extract_param_value(call, arg_pos=2)
+                if call.name == "param":
+                    if len(call.arguments) > 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=2)
+                    elif len(call.arguments) == 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=1)
                 self._on_read_param(node, "", call, param_type, default_value)
         for call in (CodeQuery(gs).all_calls.where_name("search")
                      .where_result("bool").get()):
