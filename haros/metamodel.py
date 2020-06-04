@@ -374,12 +374,6 @@ class SubscribeCall(RosPrimitiveCall):
         queue = datum["queue_size"]
         return cls(name, ns, msg_type, queue)
 
-    def variables(self):
-        vs = RosPrimitiveCall.variables(self)
-        if self.queue_size is None:
-            vs.append(("queue_size", int))
-        return vs
-
     def refine_from_JSON_specs(self, data):
         RosPrimitiveCall.refine_from_JSON_specs(self, data)
         self.type = data["msg_type"]
