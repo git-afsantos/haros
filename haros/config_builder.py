@@ -601,6 +601,17 @@ class ConfigurationBuilder(LoggingObject):
             raise ConfigurationError("cannot find package: " + name)
         return pkg
 
+    def _find_package_by_path(self, filepath):
+        prev = filepath
+        curr = os.path.dirname(filepath)
+        while prev != curr:
+            pkg = self._pkg_finder.find_package_at(curr, populate=True)
+            if pkg is not None:
+                return pkg
+            prev = curr
+            curr = os.path.dirname(curr)
+        raise ConfigurationError("cannot find package for file: " + filepath)
+
     def _lookup_launch(self, filepath):
         self.log.debug("dynamic lookup of launch file: " + filepath)
         for pkg in chain(self._pkg_finder.packages, self._pkg_finder._extra):
@@ -611,11 +622,12 @@ class ConfigurationBuilder(LoggingObject):
                 self.log.debug("found package '%s' for launch file", pkg.name)
                 break
         else:
+            pkg = self._find_package_by_path(filepath)
             # FIXME we could just open the file at the given path, but then
             # we would not have the Package, File, Location objects.
             # The metamodel needs to be changed.
-            self.log.debug("failed to find package for launch file")
-            raise ConfigurationError("cannot find launch file: " + filepath)
+            #self.log.debug("failed to find package for launch file")
+            #raise ConfigurationError("cannot find launch file: " + filepath)
         for sf in pkg.source_files:
             if sf.path == filepath:
                 self.log.debug("found SourceFile '%s' for launch file", sf.name)

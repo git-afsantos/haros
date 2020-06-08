@@ -695,6 +695,23 @@ class PackageExtractor(LoggingObject):
             return None
         return pkg
 
+    def find_package_at(self, dirpath, populate=True):
+        try:
+            manifest = os.path.join(dirpath, "package.xml")
+            pkg = PackageParser.parse(manifest)
+            if pkg.id in self._pkg_cache:
+                return self._pkg_cache[pkg.id]
+            else:
+                self._pkg_cache[pkg.id] = pkg
+            if pkg not in self._extra:
+                self._extra.append(pkg)
+            pkg._analyse = False
+            if populate:
+                self._populate_package(pkg)
+        except (IOError, ET.ParseError, KeyError):
+            return None
+        return pkg
+
     def _find(self, name, project):
         path = None
         if self.alt_paths:
