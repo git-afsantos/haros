@@ -1,0 +1,44 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/source_file.yaml"
+title: Source File
+description: A Source File specification.
+type: object
+properties:
+    name:
+        description: The relative path of the file within the package.
+        $ref: "common.yaml#/definitions/file_name"
+    package:
+        description: The name of the ROS package this file belongs to.
+        $ref: "common.yaml#/definitions/package_name"
+    language:
+        description: |
+            The programming, configuration or data serialisation
+            language this file is written in.
+        type: string
+        enum:
+            - cpp
+            - python
+            - launch
+            - package
+            - cmake
+            - msg
+            - srv
+            - action
+            - cfg
+            - yaml
+            - unknown
+    source_tree:
+        description: An Abstract Syntax Tree of the file.
+        $ref: "common.yaml#/definitions/source_tree"
+    dependencies:
+        description: A set of dependencies on other files, e.g., included files.
+        type: array
+        uniqueItems: true
+        items:
+            $ref: "common.yaml#/definitions/file_ref"
+required:
+    - name
+    - package
+    - language

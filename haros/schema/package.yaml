@@ -1,0 +1,71 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/package.yaml"
+title: Package
+description: A ROS Package specification.
+type: object
+properties:
+    name:
+        description: The name of the ROS package.
+        $ref: "common.yaml#/definitions/package_name"
+    authors:
+        description: The set of authors of this package.
+        type: array
+        uniqueItems: true
+        items:
+            $ref: "common.yaml#/definitions/person"
+    maintainers:
+        description: The set of maintainers of this package.
+        type: array
+        uniqueItems: true
+        items:
+            $ref: "common.yaml#/definitions/person"
+    version:
+        description: The version number of this package.
+        type: string
+        minLength: 1
+    path:
+        description: The file system path pointing to the root of this package.
+        type: string
+        minLength: 1
+    is_metapackage:
+        description: Whether this is a metapackage.
+        type: boolean
+    dependencies:
+        description: A set of dependencies on other packages.
+        type: array
+        uniqueItems: true
+        items:
+            $ref: "common.yaml#/definitions/package_name"
+    project:
+        description: The name of the project this package belongs to.
+        type: string
+    repository:
+        description: The name of the repository this package belongs to.
+        type: string
+    files:
+        description: A set of files that this package includes.
+        type: array
+        uniqueItems: true
+        minItems: 1
+        items:
+            $ref: "common.yaml#/definitions/file_name"
+    nodes:
+        description: |
+            A set of ROS nodes built from this package.
+            The set contains only the executable name,
+            since the package is always the same.
+            E.g., the 'move_base' package builds the 'move_base' node.
+        type: array
+        uniqueItems: true
+        items:
+            type: string
+            minLength: 1
+required:
+    - name
+    - version
+    - path
+    - is_metapackage
+    - project
+    - files

@@ -1,0 +1,68 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/node_instance.yaml"
+title: Node Instance
+description: A ROS Node Instance specification.
+allOf:
+  - $ref: "common.yaml#/definitions/ros_resource"
+  - properties:
+        node_type:
+            description: The executable from which this node is spawned.
+            $ref: "common.yaml#/definitions/ros_type"
+        args:
+            description: Provided command-line arguments.
+            type: string
+        remaps:
+            description: Provided name remappings.
+            type: object
+            patternProperties:
+                # global ROS name
+                "^/[a-zA-Z][0-9a-zA-Z_]*(/[a-zA-Z][0-9a-zA-Z_]*)*$":
+                    $ref: "common.yaml#/definitions/global_ros_name"
+        traceability:
+            description: |
+                Location where the `<node>` tag begins in the
+                respective launch file.
+                If spawned via `rosrun`, set to `null`.
+            oneOf:
+                - $ref: "common.yaml#/definitions/source_location"
+                - type: null
+        conditions:
+            description: Unresolved launch file conditions that affect this node.
+            $ref: "common.yaml#/definitions/control_flow_graph"
+        publishers:
+            description: A list of publishers created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/publisher_link"
+        subscribers:
+            description: A list of subscribers created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/subscriber_link"
+        clients:
+            description: A list of service clients created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/client_link"
+        servers:
+            description: A list of service servers created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/server_link"
+        setters:
+            description: A list of parameter setters created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/setter_link"
+        getters:
+            description: A list of parameter getters created by this node.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/getter_link"
+    required:
+        - node_type
+        - traceability
+  - if: { properties: { traceability: { const: null }}}
+    then: { properties: { conditions: { const: [] }}}

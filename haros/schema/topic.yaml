@@ -1,0 +1,22 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/topic.yaml"
+title: Topic
+description: A ROS Topic specification.
+allOf:
+  - $ref: "common.yaml#/definitions/ros_resource"
+  - properties:
+        publishers:
+            description: A list of publishers connected to this topic.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/publisher_link"
+        subscribers:
+            description: A list of subscribers connected to this topic.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/subscriber_link"
+    required:
+        - publishers
+        - subscribers

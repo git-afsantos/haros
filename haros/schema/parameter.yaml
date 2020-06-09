@@ -1,0 +1,48 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/parameter.yaml"
+title: Parameter
+description: A ROS Parameter specification.
+allOf:
+  - $ref: "common.yaml#/definitions/ros_resource"
+  - properties:
+        param_type:
+            description: The default type for this parameter.
+            $ref: "common.yaml#/definitions/param_type"
+        default_value:
+            description: The default value for this parameter, set at launch.
+        traceability:
+            description: |
+                Location where the `<param>` or `<rosparam>` tag begins
+                in the respective launch file.
+                If set via command-line, set to `null`.
+            oneOf:
+                - $ref: "common.yaml#/definitions/source_location"
+                - type: null
+        conditions:
+            description: Unresolved launch file conditions that affect this parameter.
+            $ref: "common.yaml#/definitions/control_flow_graph"
+        setters:
+            description: A list of parameter writers.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/setter_link"
+        getters:
+            description: A list of parameter readers.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/getter_link"
+    required:
+        - param_type
+        - traceability
+  - if: { properties: { param_type: { const: bool }}}
+    then: { properties: { default_value: { type: [boolean, null] }}}
+  - if: { properties: { param_type: { const: int }}}
+    then: { properties: { default_value: { type: [integer, null] }}}
+  - if: { properties: { param_type: { const: double }}}
+    then: { properties: { default_value: { type: [number, null] }}}
+  - if: { properties: { param_type: { const: str }}}
+    then: { properties: { default_value: { type: [string, null] }}}
+  - if: { properties: { param_type: { const: yaml }}}
+    then: { properties: { default_value: { type: [object, array, null] }}}
