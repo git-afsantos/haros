@@ -40,32 +40,32 @@ properties:
         # uniqueItems: true
         # items:
             # type: string
-    publishers:
+    advertise:
         description: A list of publishers created by this node.
         type: array
         items:
             $ref: "common.yaml#/definitions/advertise"
-    subscribers:
+    subscribe:
         description: A list of subscribers created by this node.
         type: array
         items:
             $ref: "common.yaml#/definitions/subscribe"
-    clients:
+    service_client:
         description: A list of service clients created by this node.
         type: array
         items:
             $ref: "common.yaml#/definitions/service_client"
-    servers:
+    advertise_service:
         description: A list of service servers created by this node.
         type: array
         items:
             $ref: "common.yaml#/definitions/advertise_service"
-    setters:
+    set_param:
         description: A list of parameter setters created by this node.
         type: array
         items:
             $ref: "common.yaml#/definitions/set_param"
-    getters:
+    get_param:
         description: A list of parameter getters created by this node.
         type: array
         items:
