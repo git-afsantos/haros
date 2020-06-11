@@ -28,12 +28,12 @@ properties:
         type: array
         items:
             $ref: "parameter.yaml#"
-    launch_files:
-        description: A list of launch files required to start this configuration.
+    launch_commands:
+        description: A list of launch commands required to start this configuration.
         type: array
         minItems: 1
         items:
-            $ref: "common.yaml#/definitions/file_ref"
+            $ref: "#/definitions/launch_command"
     properties:
         description: A list of behavioural properties that this configuration satisfies.
         type: array
@@ -50,3 +50,15 @@ required:
     - nodes
     - parameters
     - launch_files
+definitions:
+    launch_command:
+        type: object
+        properties:
+            command:
+                type: string
+                enum: [roslaunch, rosrun]
+            args:
+                type: array
+        required:
+            - command
+            - args
