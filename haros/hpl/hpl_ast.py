@@ -403,7 +403,7 @@ class HplPattern(HplAstObject):
 
     @classmethod
     def prevention(cls, event, forbidden, min_time=0.0, max_time=INF):
-        return cls(cls.PREVENTION, event, forbidden,
+        return cls(cls.PREVENTION, forbidden, event,
             min_time=min_time, max_time=max_time)
 
     @property
