@@ -370,7 +370,7 @@ class ConfigurationBuilder(LoggingObject):
         assert launch_file.language == "launch"
         config = self.configuration
         config.roslaunch.append(launch_file)
-        config.add_command("roslaunch", [launch_file])
+        config.add_command("roslaunch", [launch_file.path])
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
