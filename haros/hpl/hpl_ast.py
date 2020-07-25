@@ -640,9 +640,14 @@ class HplPredicate(HplAstObject):
         while stack:
             expr = stack.pop()
             if expr.is_field:
-                if not t.is_message or expr.field not in t.fields:
+                if not (t.is_message or expr.field in t.fields
+                        or expr.field in t.constants):
                     raise HplTypeError.ros_field(t, expr.field, expr)
-                t = t.fields[expr.field]
+                if expr.field in t.fields:
+                    t = t.fields[expr.field]
+                else:
+                    assert expr.field in t.constants
+                    t = t.constants[expr.field].ros_type
             else:
                 assert expr.is_indexed
                 if not t.is_array:
