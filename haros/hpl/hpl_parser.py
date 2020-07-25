@@ -385,7 +385,7 @@ class UserSpecParser(object):
         topic_types = {} # topic -> TypeToken
         for topic in config.topics:
             if topic.unresolved or topic.type == "?":
-                self.log_warning(
+                self.log.warning(
                     "Skipping unresolved topic '%s' in configuration '%s'.",
                     topic.rosname.full, config.name)
                 continue
@@ -400,7 +400,7 @@ class UserSpecParser(object):
         topic_types = {} # topic -> TypeToken
         for call in chain(node.advertise, node.subscribe):
             if call.name == "?" or call.type == "?":
-                self.log_warning(
+                self.log.warning(
                     "Skipping unresolved topic '%s' in node '%s'.",
                     call.name, node.node_name)
                 continue
