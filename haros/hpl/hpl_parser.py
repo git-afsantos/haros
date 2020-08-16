@@ -35,6 +35,7 @@ from .hpl_transformer import (
     PropertyTransformer,
     hpl_property_parser, hpl_assumption_parser, hpl_predicate_parser
 )
+from .ros_types import get_type
 
 
 ###############################################################################
