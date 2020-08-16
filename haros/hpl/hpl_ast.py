@@ -646,7 +646,9 @@ class HplPredicate(HplAstObject):
                 if expr.field in t.fields:
                     t = t.fields[expr.field]
                 else:
-                    assert expr.field in t.constants
+                    assert expr.field in t.constants, \
+                        "'{}' not in {} or {}".format(
+                            expr.field, t.fields, t.constants)
                     t = t.constants[expr.field].ros_type
             else:
                 assert expr.is_indexed

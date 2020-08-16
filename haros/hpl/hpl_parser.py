@@ -29,6 +29,7 @@ from itertools import chain
 import logging
 
 from haros.metamodel import RosName
+from lark.exceptions import UnexpectedCharacters, UnexpectedToken
 
 from .hpl_ast import HplSanityError, HplTypeError
 from .hpl_transformer import (
@@ -61,6 +62,10 @@ class UserSpecParser(object):
             try:
                 ast = self._parse_property(text, topic_types)
                 specs.append(ast)
+            except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as se:
+                self.log.error(
+                    ("Syntax error in configuration '%s' when parsing "
+                     "property\n'%s'\n\n%s"), config.name, text, se)
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in configuration '%s' when parsing property\n"
@@ -76,6 +81,10 @@ class UserSpecParser(object):
                     self.log.error("Multiple assumptions for '%s'", ast.topic)
                 else:
                     specs[ast.topic] = ast
+            except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as se:
+                self.log.error(
+                    ("Syntax error in configuration '%s' when parsing "
+                     "assumption\n'%s'\n\n%s"), config.name, text, se)
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in configuration '%s' when parsing assumption\n"
@@ -95,6 +104,10 @@ class UserSpecParser(object):
             try:
                 ast = self._parse_property(text, topic_types, pns=pns)
                 specs.append(ast)
+            except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as se:
+                self.log.error(
+                    ("Syntax error in node '%s' when parsing "
+                     "property\n'%s'\n\n%s"), node.node_name, text, se)
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in node '%s' when parsing property\n"
@@ -110,6 +123,10 @@ class UserSpecParser(object):
                     self.log.error("Multiple assumptions for '%s'", ast.topic)
                 else:
                     specs[ast.topic] = ast
+            except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as se:
+                self.log.error(
+                    ("Syntax error in node '%s' when parsing "
+                     "assumption\n'%s'\n\n%s"), node.node_name, text, se)
             except (HplSanityError, HplTypeError) as e:
                 self.log.error(
                     ("Error in node '%s' when parsing assumption\n"
