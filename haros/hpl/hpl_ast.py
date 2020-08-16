@@ -659,6 +659,8 @@ class HplPredicate(HplAstObject):
                 t = t.type_token
             if t.is_message:
                 accessor._type_check(expr, T_MSG)
+            elif t.is_array:
+                accessor._type_check(expr, T_ARR)
             elif t.is_number:
                 accessor._type_check(expr, T_NUM)
                 # TODO check that values fit within types
@@ -666,8 +668,6 @@ class HplPredicate(HplAstObject):
                 accessor._type_check(expr, T_BOOL)
             elif t.is_string:
                 accessor._type_check(expr, T_STR)
-            elif t.is_array:
-                accessor._type_check(expr, T_ARR)
             expr.ros_type = t
 
     def _static_checks(self):
