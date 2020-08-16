@@ -33,7 +33,7 @@ import logging
 from sys import exit
 
 from .grammar import PROPERTY_GRAMMAR, PREDICATE_GRAMMAR
-from .hpl_parser import PropertyTransformer
+from .hpl_transformer import PropertyTransformer
 
 
 ###############################################################################
@@ -78,6 +78,7 @@ GOOD_PREDICATES = [
     "f.int in ![0 to 10]",
     "f.int in [0 to 10]!",
     "f.int in ![0 to len(array)]!",
+    "not array[0] in {0, 1, 2}",
 ]
 
 
@@ -136,6 +137,10 @@ GOOD_PROPERTIES = [
     "until input: some output",
 
     "after input as M: some output {x = @M.x}",
+
+    "globally: no /joy_teleop/joy {not buttons[0] in {0, 1}}",
+
+    "globally: no /agrob/agrob_mode {not mode in {0,1,2,3}}",
 ]
 
 
