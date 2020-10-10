@@ -1348,7 +1348,9 @@ class RoscppExtractor(LoggingObject):
             std_alloc = re.search("_<std::allocator<void>", template)
             if std_alloc is not None:
                 template = template[:std_alloc.start()]
-            assert re.match(r"\w+::\w+$", template)
+            #assert re.match(r"\w+::\w+$", template)
+            if not re.match(r"\w+::\w+$", template):
+                self.log.debug("Weird message type: " + repr(template))
             return template.replace("::", "/")
 
         if (call.name not in ("subscribe", "advertiseService")
