@@ -34,12 +34,12 @@ properties:
     ros_name:
         description: The default ROS name of the node in runtime.
         $ref: "common.yaml#/definitions/ros_name"
-    # instances:
-        # description: The set of runtime instances of this node.
-        # type: array
-        # uniqueItems: true
-        # items:
-            # type: string
+    instances:
+        description: The set of runtime instances of this node.
+        type: array
+        uniqueItems: true
+        items:
+            type: string
     advertise:
         description: A list of publishers created by this node.
         type: array

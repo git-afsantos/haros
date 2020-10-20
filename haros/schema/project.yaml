@@ -17,13 +17,13 @@ properties:
         minItems: 1
         items:
             $ref: "common.yaml#/definitions/package_name"
-    repositories:
-        description: The set of repositories that are part of this project.
-        type: array
-        uniqueItems: true
-        items:
-            type: string
-            minLength: 1
+    # repositories:
+        # description: The set of repositories that are part of this project.
+        # type: array
+        # uniqueItems: true
+        # items:
+            # type: string
+            # minLength: 1
     configurations:
         description: The set of configurations that are part of this project.
         type: array

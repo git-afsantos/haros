@@ -25,9 +25,9 @@ properties:
         description: The version of the repository (e.g., 'master' branch).
         type: string
         minLength: 1
-    project:
-        description: The name of the project this repository belongs to.
-        type: string
+    # project:
+        # description: The name of the project this repository belongs to.
+        # type: string
     packages:
         description: A set of ROS packages that this repository includes.
         type: array
