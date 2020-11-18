@@ -1284,7 +1284,7 @@ class RoscppExtractor(LoggingObject):
                     param_type = self._extract_param_type(call.arguments[1])
                     value = self._extract_param_value(call, arg_pos=1)
                 self._on_write_param(node, self._resolve_node_handle(call),
-                                     call, param_type)
+                                     call, param_type, value)
 
     def _query_param_primitives(self, node, gs):
         ros_prefix = "c:@N@ros@N@param@"
