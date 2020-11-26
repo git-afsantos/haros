@@ -20,9 +20,9 @@ Hence the appeal of static analysis.
 Current Status
 --------------
 
-HAROS is still being developed, as of June 2019.
+HAROS is still being developed, as of June 2020.
 
-There is a demo page available on [GitHub](https://git-afsantos.github.io/haros) and a demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
+There is a demo page available on [GitHub](https://git-afsantos.github.io/haros) and a (slightly outdated) demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
 
 Please use the issue tracker on this repository for issues or feature requests directly related to HAROS.
 For issues related to plugins, use the [plugin repository](https://github.com/git-afsantos/haros_plugins) instead.
@@ -136,6 +136,8 @@ the `libclang.so` shared library. Example:
 ```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 ```
+
+NB: you might need to specify in ~/.haros/configs.yaml the library file and the includes in case you are using a non-zero minor release (e.g., libclang 3.8.1)
 
 If you do not perform this step and your library is installed in a different path,
 you will need to specify it in the configuration file located in
@@ -355,6 +357,9 @@ another with a previous modification date.
 
 Use a full copy of your environment variables for the analysis.
 
+#### haros analyse --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros export
 
@@ -378,6 +383,9 @@ Previous versions deleted any existing files within `DATA_DIR`.*
 Export a specific project's data, instead of the default one.
 A special project name, `all`, can be used to export all available projects.
 
+#### haros export --minimal-output
+
+Only export those files necessary for viewing the HTML report.
 
 ### haros viz
 
@@ -600,3 +608,9 @@ access to the following variables.
 - `topics` - the set of topics belonging to the configuration (`Topic`).
 - `services` - the set of services belonging to the configuration (`Service`).
 - `parameters` - the set of parameters belonging to the configuration (`Parameter`).
+
+
+Acknowledgments
+---------------
+
+This work is financed by the ERDF – European Regional Development Fund through the Operational Programme for Competitiveness and Internationalisation - COMPETE 2020 Programme and by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia within project PTDC/CCI-INF/29583/2017 (POCI-01-0145-FEDER-029583). 

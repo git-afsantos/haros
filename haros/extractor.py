@@ -1390,9 +1390,9 @@ class RoscppExtractor(LoggingObject):
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
-        srv = AdvertiseServiceCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions,
-                                repeats = is_under_loop(call, recursive = True))
+        srv = AdvertiseServiceCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
         node.service.append(srv)
         self.log.debug("Found Service on %s/%s (%s)", ns, name, msg_type)
 
@@ -1410,9 +1410,9 @@ class RoscppExtractor(LoggingObject):
                     location=self._condition_location(c, location.file),
                     statement=c.statement))
             break # FIXME
-        cli = ServiceClientCall(name, ns, msg_type, location = location,
-                                control_depth = depth, conditions = conditions,
-                                repeats = is_under_loop(call, recursive = True))
+        cli = ServiceClientCall(name, ns, msg_type, location=location,
+                                control_depth=depth, conditions=conditions,
+                                repeats=is_under_loop(call, recursive=True))
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
@@ -1567,7 +1567,9 @@ class RoscppExtractor(LoggingObject):
             std_alloc = re.search("_<std::allocator<void>", template)
             if std_alloc is not None:
                 template = template[:std_alloc.start()]
-            assert re.match(r"\w+::\w+$", template)
+            #assert re.match(r"\w+::\w+$", template)
+            if not re.match(r"\w+::\w+$", template):
+                self.log.debug("Weird message type: " + repr(template))
             return template.replace("::", "/")
 
         if (call.name not in ("subscribe", "advertiseService")
@@ -1610,6 +1612,23 @@ class RoscppExtractor(LoggingObject):
         if re.match(r"\w+/\w+$", type_string):
             return type_string
         return "?"
+
+    def _extract_action(self, call):
+        name = "?"
+        if "SimpleActionServer" in call.canonical_type and len(call.arguments) > 2:
+            arg = call.arguments[1]
+            if not isinstance(arg, basestring):
+                arg = resolve_expression(arg)
+            if isinstance(arg, basestring):
+                name = arg.split()[-1].replace("'", "")
+        elif "SimpleActionClient" in call.canonical_type and len(call.arguments) > 1:
+            if isinstance(call.arguments[0], basestring):
+                name = call.arguments[0]
+        return name
+
+    def _extract_action_type(self, call):
+        type_string = call.template[0]
+        return type_string.replace("::", "/")
 
     def _extract_action(self, call):
         name = "?"
@@ -2037,4 +2056,4 @@ class NodeHints2(LoggingObject):
         return Location(pkg, file=source_file,
             line=datum["line"], col=datum["column"],
             fun=datum.get("function"), cls=datum.get("class"))
-            
+

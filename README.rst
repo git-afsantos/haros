@@ -291,6 +291,11 @@ haros analyse --env
 
 Use a full copy of your environment variables for the analysis.
 
+haros analyse --minimal-output
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Only export those files necessary for viewing the HTML report.
+
 haros export
 ~~~~~~~~~~~~
 
@@ -311,6 +316,11 @@ Export visualisation files along with analysis data.
 
 **Note:** it is advised to use an empty/dedicated directory for this purpose.
 Previous versions deleted any existing files within ``DATA_DIR``.
+
+haros export --minimal-output
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Only export those files necessary for viewing the HTML report.
 
 haros export -p PROJECT_NAME
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

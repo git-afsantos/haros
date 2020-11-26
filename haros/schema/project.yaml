@@ -1,0 +1,35 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/project.yaml"
+title: Project
+description: A ROS Project specification.
+type: object
+properties:
+    name:
+        description: The name of the ROS project.
+        type: string
+        minLength: 1
+    packages:
+        description: The set of packages that are part of this project.
+        type: array
+        uniqueItems: true
+        minItems: 1
+        items:
+            $ref: "common.yaml#/definitions/package_name"
+    # repositories:
+        # description: The set of repositories that are part of this project.
+        # type: array
+        # uniqueItems: true
+        # items:
+            # type: string
+            # minLength: 1
+    configurations:
+        description: The set of configurations that are part of this project.
+        type: array
+        uniqueItems: true
+        items:
+            $ref: "common.yaml#/definitions/config_ref"
+required:
+    - name
+    - packages

@@ -1,0 +1,76 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/node.yaml"
+title: Node
+description: A ROS Node specification.
+type: object
+properties:
+    name:
+        description: The name of the ROS node.
+        type: string
+        minLength: 1
+    package:
+        description: The name of the ROS package this node belongs to.
+        $ref: "common.yaml#/definitions/package_name"
+    files:
+        description: A set of files that build this node.
+        type: array
+        uniqueItems: true
+        minItems: 1
+        items:
+            $ref: "common.yaml#/definitions/file_name"
+    source_tree:
+        description: An Abstract Syntax Tree of the node.
+        $ref: "common.yaml#/definitions/source_tree"
+    is_nodelet:
+        description: Whether this is a nodelet.
+        type: boolean
+    properties:
+        description: A list of behavioural properties that this node satisfies.
+        type: array
+        items:
+            type: string
+    ros_name:
+        description: The default ROS name of the node in runtime.
+        $ref: "common.yaml#/definitions/ros_name"
+    instances:
+        description: The set of runtime instances of this node.
+        type: array
+        uniqueItems: true
+        items:
+            type: string
+    advertise:
+        description: A list of publishers created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/advertise"
+    subscribe:
+        description: A list of subscribers created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/subscribe"
+    service_client:
+        description: A list of service clients created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/service_client"
+    advertise_service:
+        description: A list of service servers created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/advertise_service"
+    set_param:
+        description: A list of parameter setters created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/set_param"
+    get_param:
+        description: A list of parameter getters created by this node.
+        type: array
+        items:
+            $ref: "common.yaml#/definitions/get_param"
+required:
+    - name
+    - package
+    - files

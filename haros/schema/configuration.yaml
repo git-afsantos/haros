@@ -1,0 +1,64 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/configuration.yaml"
+title: Configuration
+description: A ROS Configuration specification.
+type: object
+properties:
+    uid:
+        description: A unique identifier for the configuration.
+        $ref: "common.yaml#/definitions/config_ref"
+    name:
+        description: |
+            A human-readable name for the configuration.
+            Defaults to the `uid`.
+        type: string
+        minLength: 1
+    project:
+        description: The name of the project this configuration belongs to.
+        type: string
+    nodes:
+        description: A list of node instances that are part of this configuration.
+        type: array
+        items:
+            $ref: "node_instance.yaml#"
+    parameters:
+        description: A list of parameters that are part of this configuration.
+        type: array
+        items:
+            $ref: "parameter.yaml#"
+    launch_commands:
+        description: A list of launch commands required to start this configuration.
+        type: array
+        minItems: 1
+        items:
+            $ref: "#/definitions/launch_command"
+    properties:
+        description: A list of behavioural properties that this configuration satisfies.
+        type: array
+        items:
+            type: string
+    environment:
+        description: A mapping of necessary environment variables for this configuration.
+        type: object
+        additionalProperties:
+            type: string
+required:
+    - uid
+    - project
+    - nodes
+    - parameters
+    - launch_files
+definitions:
+    launch_command:
+        type: object
+        properties:
+            command:
+                type: string
+                enum: [roslaunch, rosrun]
+            args:
+                type: array
+        required:
+            - command
+            - args

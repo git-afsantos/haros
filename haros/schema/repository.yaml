@@ -1,0 +1,44 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/repository.yaml"
+title: Repository
+description: A source code repository specification.
+type: object
+properties:
+    name:
+        description: The name of the repository.
+        type: string
+        minLength: 1
+    vcs:
+        description: The version control system used for this repository.
+        type: string
+        enum:
+            - git
+            - svn
+            - hg
+    path:
+        description: The file system path pointing to the root of this repository.
+        type: string
+        minLength: 1
+    version:
+        description: The version of the repository (e.g., 'master' branch).
+        type: string
+        minLength: 1
+    # project:
+        # description: The name of the project this repository belongs to.
+        # type: string
+    packages:
+        description: A set of ROS packages that this repository includes.
+        type: array
+        uniqueItems: true
+        minItems: 1
+        items:
+            $ref: "common.yaml#/definitions/package_name"
+required:
+    - name
+    - vcs
+    - version
+    - path
+    - project
+    - packages

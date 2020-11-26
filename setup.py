@@ -25,7 +25,7 @@ extra_files.append("models/*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.8.0",
+    version         = "3.9.0",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
@@ -39,7 +39,8 @@ setup(
     install_requires = [
         "pyyaml",
         "rospkg",
-        "bonsai-code>=0.4.10,<1.0.0",
+        'python-magic',
+        "bonsai-code>=0.5.0,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0"
     ],
     extras_require = {

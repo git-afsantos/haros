@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Fixed viz/export bug where multiple queries with the same rule id were aggregated; each query report is now highlighted individually.
 
+## [3.9.0] - 2020-02-19
+### Changed
+- Reworked the HAROS dashboard to replace unimplemented statistics with more relevant ones.
+- Added a summary panel to the Configuration model viewer in Viz.
+
+## [3.8.1] - 2019-11-25
+### Changed
+- Fixed a bug that caused the `init` and `viz` commands to crash.
+- Fixed a bug that caused the CMake parser to crash when trying to read directories that do not exist.
+
+## [3.8.0] - 2019-11-24
+### Added
+- `--junit-xml-output` option to `full`, `analyse`, `export` and `parse` commands to output JUnit XML reports.
+- Support to detect ROS2 workspaces.
+- Ability to exclude directories from the analysis by including a `COLCON_IGNORE`, `AMENT_IGNORE` or `CATKIN_IGNORE` file within.
+- Pure Python packages in ROS2 that do not have a `CMakeLists.txt` use Python files that contain a `def main()` function to identify nodes.
+- `--minimal-output` option to `full`, `analyse` and `export` commands, to export just the bare minimum files to view the HTML report.
+- Experimental support to parse Python nodes.
+- Setting in the `~/.haros/configs.yaml` file to skip the analysis for certain files based on glob patterns.
+
 ## [3.7.0] - 2019-09-08
 ### Added
 - Command `parse`, a convenience command to run model extraction without running plugin analysis.

@@ -1,0 +1,22 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/git-afsantos/haros/tree/master/haros/schema/service.yaml"
+title: Service
+description: A ROS Service specification.
+allOf:
+  - $ref: "common.yaml#/definitions/ros_resource"
+  - properties:
+        clients:
+            description: A list of clients connected to this service.
+            type: array
+            items:
+                $ref: "common.yaml#/definitions/client_link"
+        server:
+            description: The server that provides this service.
+            oneOf:
+              - $ref: "common.yaml#/definitions/server_link"
+              - type: null
+    required:
+        - clients
+        - server
