@@ -101,7 +101,7 @@ indigo:
                 conditions: []
             -
                 name: "port"
-                type: string
+                type: str
                 default: "/dev/prolific"
                 namespace: "~"
                 depth: 0

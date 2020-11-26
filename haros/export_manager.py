@@ -209,6 +209,7 @@ class JUnitExporter(LoggingObject):
     # ^ def _write_report_file(out, package_analysis, database, srf)
 # ^ class JUnitExporter
 
+
 class JsonExporter(LoggingObject):
     def export_projects(self, datadir, projects, overwrite = True):
         self.log.info("Exporting project data.")

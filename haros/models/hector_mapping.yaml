@@ -92,7 +92,7 @@ indigo:
         readParam:
             -
                 name: "base_frame"
-                type: string
+                type: str
                 default: "base_link"
                 namespace: "~"
                 depth: 0
@@ -101,7 +101,7 @@ indigo:
                 conditions: []
             -
                 name: "map_frame"
-                type: string
+                type: str
                 default: "map_link"
                 namespace: "~"
                 depth: 0
@@ -110,7 +110,7 @@ indigo:
                 conditions: []
             -
                 name: "odom_frame"
-                type: string
+                type: str
                 default: "odom"
                 namespace: "~"
                 depth: 0
@@ -281,7 +281,7 @@ indigo:
                 conditions: []
             -
                 name: "tf_map_scanmatch_transform_frame_name"
-                type: string
+                type: str
                 default: "scanmatcher_frame"
                 namespace: "~"
                 depth: 0

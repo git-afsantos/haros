@@ -23,8 +23,12 @@
 # Imports
 ###############################################################################
 
+import math
 import os
 import re
+import sys
+
+sys.modules['_elementtree'] = None
 import xml.etree.ElementTree as ET
 
 
@@ -57,6 +61,29 @@ import xml.etree.ElementTree as ET
 
 
 ###############################################################################
+# Line and Column Numbers
+###############################################################################
+
+# courtesy of https://stackoverflow.com/a/36430270
+class LineNumberingParser(ET.XMLParser):
+    def _start_list(self, *args, **kwargs):
+        # Here we assume the default XML parser which is expat
+        # and copy its element position attributes into output Elements
+        element = super(self.__class__, self)._start_list(*args, **kwargs)
+        element._start_line_number = self.parser.CurrentLineNumber
+        element._start_column_number = self.parser.CurrentColumnNumber + 1
+        element._start_byte_index = self.parser.CurrentByteIndex
+        return element
+
+    def _end(self, *args, **kwargs):
+        element = super(self.__class__, self)._end(*args, **kwargs)
+        element._end_line_number = self.parser.CurrentLineNumber
+        element._end_column_number = self.parser.CurrentColumnNumber + 1
+        element._end_byte_index = self.parser.CurrentByteIndex
+        return element
+
+
+###############################################################################
 # Substitution Expressions
 ###############################################################################
 
@@ -86,13 +113,13 @@ class UnresolvedValue(object):
         return self.__str__()
 
     def __str__(self):
-        s = ""
+        ss = []
         for part in self.parts:
             if isinstance(part, tuple):
-                s += "$(" + " ".join(part) + ")"
+                ss.append("$({})".format(" ".join(part)))
             else:
-                s += part
-        return s
+                ss.append(part)
+        return "".join(ss)
 
 
 class SubstitutionError(Exception):
@@ -123,8 +150,7 @@ class SubstitutionParser(object):
             Return a literal value if resolution is possible.
             Otherwise, return an UnresolvedValue instance.
         """
-        if value.startswith("$(eval ") and value.endswith(")"):
-            # eval has special handling in roslaunch
+        if value.startswith("$(eval") and value.endswith(")"):
             result = UnresolvedValue()
             result.append(("eval", value[7:-1]))
             return result
@@ -136,13 +162,17 @@ class SubstitutionParser(object):
         result = UnresolvedValue()
         rest = value
         while match:
-            parts = [part for part in match.group(1).split() if part]
+            parts = filter(bool, map(str.strip, match.group(1).split(None, 1)))
+            assert len(parts) == 1 or len(parts) == 2
             if not parts[0] in self.COMMANDS:
                 raise SubstitutionError("invalid command: " + parts[0])
             prefix = rest[:match.start()]
             if prefix:
+                if parts[0] == "eval":
+                    raise SubstitutionError("eval must appear at the start")
                 result.append(prefix)
-            result.append(getattr(self, "_" + parts[0])(parts))
+            cmd = getattr(self, "_" + parts[0])
+            result.append(cmd(parts))
             rest = rest[match.end():]
             match = self.PATTERN.search(rest)
         if rest:
@@ -249,10 +279,12 @@ class SubstitutionParser(object):
         return self.environment.get(parts[1], tuple(parts))
 
     def _optenv(self, parts):
-        if len(parts) != 2 and len(parts) != 3:
-            raise SubstitutionError("optenv takes one or two arguments")
-        self.env_depends.add(parts[1])
-        return self.environment.get(parts[1], tuple(parts))
+        if len(parts) != 2:
+            raise SubstitutionError("optenv expects at least one argument")
+        args = parts[1].split(None, 1)
+        self.env_depends.add(args[0])
+        default = args[1] if len(args) == 2 else ""
+        return self.environment.get(parts[1], default)
 
     def _dirname(self, parts):
         if len(parts) > 1:
@@ -261,8 +293,44 @@ class SubstitutionParser(object):
             return ("dirname",)
         return self.dirname
 
+    # Create a dictionary of global symbols that will be available in eval.
+    # Copied from roslaunch.
+    _EVAL_DICT = {
+        'true': True, 'false': False,
+        'True': True, 'False': False,
+        '__builtins__': {k: __builtins__[k]
+            for k in ('list', 'dict', 'map', 'str', 'float', 'int')},
+    }
+
     def _eval(self, parts):
-        raise SubstitutionError("eval must appear at the start")
+        if len(parts) != 2:
+            raise SubstitutionError("eval takes exactly one argument")
+        s = parts[1]
+        functions = {
+            "arg": self._eval_arg,
+            "find": self._eval_find,
+            "anon": self._eval_anon,
+            "env": self._eval_env,
+            "optenv": self._eval_optenv,
+            "dirname": self._eval_dirname
+        }
+        functions.update(self._EVAL_DICT)
+        # ignore values containing double underscores (for safety)
+        # http://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html
+        if s.find('__') >= 0:
+            raise SubstitutionError(
+                "$(eval ...) may not contain double underscore expressions")
+        try:
+            r = eval(s, {}, _DictWrapper(self.arguments, functions))
+            if isinstance(r, UnresolvedValue):
+                return r
+            return str(r)
+        except SubstitutionError as e:
+            raise e
+        except TypeError:
+            r = UnresolvedValue()
+            r.append(("eval", s))
+            return r
 
     def _anonymous_name(self, name):
         try:
@@ -276,6 +344,67 @@ class SubstitutionParser(object):
             name = "{}_{}_{}_{}".format(name, socket.gethostname(),
                 os.getpid(), random.randint(0, sys.maxsize))
             return name.replace('.', '_').replace('-', '_').replace(':', '_')
+
+    def _eval_arg(self, name):
+        return _convert_value(self._arg(("arg", name)))
+
+    def _eval_find(self, name):
+        return self._find(("find", name))
+
+    def _eval_anon(self, name):
+        return self._anon(("anon", name))
+
+    def _eval_env(self, name):
+        return self._env(("env", name))
+
+    def _eval_optenv(self, name, default=""):
+        self.env_depends.add(name)
+        return self.environment.get(name, default)
+
+    def _eval_dirname(self):
+        return ("dirname",) if self.dirname is None else self.dirname
+
+
+SubstitutionParser._EVAL_DICT.update(math.__dict__)
+
+
+# basically copied from roslaunch
+class _DictWrapper(object):
+    def __init__(self, args, functions):
+        self._args = args
+        self._functions = functions
+
+    def __getitem__(self, key):
+        try:
+            return self._functions[key]
+        except KeyError:
+            if key in self._args:
+                value = self._args[key]
+                if value is None or isinstance(value, UnresolvedValue):
+                    return ("arg", key)
+                return _convert_value(value)
+            raise SubstitutionError("undeclared arg: " + key)
+
+
+def _convert_value(value):
+    if isinstance(value, tuple):
+        return value
+    #attempt numeric conversion
+    try:
+        if '.' in value:
+            return float(value)
+        else:
+            return int(value)
+    except ValueError as e:
+        pass
+    #bool
+    lval = value.lower()
+    if lval == 'true':
+        return True
+    if lval == 'false':
+        return False
+    #string
+    return value
 
 
 ###############################################################################
@@ -315,8 +444,10 @@ class BaseLaunchTag(object):
         "unless": bool
     }
 
-    def __init__(self, text, attributes):
+    def __init__(self, text, attributes, line, col):
         self.text = text
+        self.line = line
+        self.column = col
         self.attributes = attributes
         for key in self.REQUIRED:
             if not attributes.get(key):
@@ -377,8 +508,8 @@ class NodeTag(BaseLaunchTag):
         "launch-prefix": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.package = attributes["pkg"]
         self.type = attributes["type"]
         self.name = attributes.get("name")
@@ -410,8 +541,8 @@ class IncludeTag(BaseLaunchTag):
         "pass_all_args": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.file = attributes["file"]
         self.namespace = attributes.get("ns")
         self.clear_params = attributes.get("clear_params", False)
@@ -431,8 +562,8 @@ class RemapTag(BaseLaunchTag):
         "to": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.origin = attributes["from"]
         self.target = attributes["to"]
 
@@ -454,8 +585,8 @@ class ParamTag(BaseLaunchTag):
         "command": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes.get("value")
         self.type = attributes.get("type")
@@ -482,8 +613,8 @@ class RosParamTag(BaseLaunchTag):
         "subst_value": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.command = attributes.get("command", "load")
         self.file = attributes.get("file")
         self.name = attributes.get("param")
@@ -513,8 +644,8 @@ class GroupTag(BaseLaunchTag):
         "clear_params": bool
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.namespace = attributes.get("ns")
         self.clear_params = attributes.get("clear_params", False)
 
@@ -534,8 +665,8 @@ class ArgTag(BaseLaunchTag):
         "doc": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes.get("value")
         self.default = attributes.get("default")
@@ -557,8 +688,8 @@ class EnvTag(BaseLaunchTag):
         "value": str
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.value = attributes["value"]
 
@@ -581,8 +712,8 @@ class MachineTag(BaseLaunchTag):
         "timeout": float
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.name = attributes["name"]
         self.address = attributes["address"]
         self.loader = attributes.get("env-loader")
@@ -615,8 +746,8 @@ class TestTag(BaseLaunchTag):
         "time-limit": float
     }
 
-    def __init__(self, text, attributes):
-        BaseLaunchTag.__init__(self, text, attributes)
+    def __init__(self, text, attributes, line, col):
+        BaseLaunchTag.__init__(self, text, attributes, line, col)
         self.test_name = attributes["test-name"]
         self.package = attributes["pkg"]
         self.type = attributes["type"]
@@ -649,16 +780,19 @@ class LaunchParser(object):
         "test": TestTag
     }
 
-    def __init__(self, pkgs = None):
+    def __init__(self, pkgs=None, args=None, enable_defaults=False):
         self.sub_parser = None
-        self.packages = pkgs if not pkgs is None else {}
+        self.packages = pkgs if pkgs is not None else {}
+        self.passed_args = args if args is not None else {}
+        self.enable_defaults = enable_defaults
 
     def parse(self, filepath):
         if not filepath or not os.path.isfile(filepath):
             raise LaunchParserError("not a file: " + str(filepath))
         try:
-            self.sub_parser = SubstitutionParser(pkgs = self.packages)
-            xml_root = ET.parse(filepath).getroot()
+            self.sub_parser = SubstitutionParser(
+                pkgs=self.packages, args=dict(self.passed_args))
+            xml_root = ET.parse(filepath, parser=LineNumberingParser()).getroot()
             if not xml_root.tag == "launch":
                 raise LaunchParserError("invalid root tag: " + xml_root.tag)
             return self._parse_tag(xml_root)
@@ -673,10 +807,19 @@ class LaunchParser(object):
             attributes = self._attributes(tag, cls.ATTRIBUTES)
         except SubstitutionError as e:
             return ErrorTag(e.value)
-        text = tag.text.strip() if tag.text else ""
-        element = cls(text, attributes)
+        text = tag.text if tag.text else ""
+        if tag.tag != "rosparam":
+            text = text.strip()
+        element = cls(text, attributes,
+            tag._start_line_number, tag._start_column_number)
         if element.tag == "arg" and isinstance(element.name, basestring):
-            self.sub_parser.arguments[element.name] = element.value
+            if element.value is None:
+                if self.enable_defaults:
+                    self.sub_parser.arguments[element.name] = element.default
+                else:
+                    self.sub_parser.arguments[element.name] = None
+            else:
+                self.sub_parser.arguments[element.name] = element.value
         for child in tag:
             element.append(self._parse_tag(child))
         return element
@@ -687,7 +830,7 @@ class LaunchParser(object):
         for key, value in tag.attrib.iteritems():
             if not key in schema:
                 continue # TODO raise an error vs. future compatibility
-            attributes[key] = sub(value, conversion = schema[key])
+            attributes[key] = sub(value, conversion=schema[key])
         return attributes
 
 

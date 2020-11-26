@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 
-#Copyright (c) 2017 Andre Santos
+#Copyright (c) 2017 André Santos
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +37,9 @@
 # Imports
 ###############################################################################
 
+from builtins import range
 from collections import namedtuple
+from itertools import chain
 import logging
 import os
 import re
@@ -50,7 +53,10 @@ from .launch_parser import (
 )
 from .metamodel import (
     Node, Configuration, RosName, NodeInstance, Parameter, Topic, Service,
-    SourceCondition, TopicPrimitive, ServicePrimitive, ParameterPrimitive
+    SourceCondition, PublishLink, SubscribeLink, ServiceLink, ClientLink,
+    ReadLink, WriteLink,
+    AdvertiseCall, SubscribeCall, AdvertiseServiceCall, ServiceClientCall,
+    GetParamCall, SetParamCall, Location2, JSON_to_loc2, _bool_to_conditions
 )
 
 
@@ -62,6 +68,10 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
+_EMPTY_DICT = {}
+_EMPTY_LIST = ()
+
+
 ###############################################################################
 # Launch File Analysis
 ###############################################################################
@@ -69,8 +79,8 @@ class LoggingObject(object):
 class LaunchScope(LoggingObject):
     TempParam = namedtuple("TempParam", ["name", "type", "value", "ifs"])
 
-    def __init__(self, parent, config, launch_file, ns = "/", node = None,
-                 remaps = None, params = None, args = None, conditions = None):
+    def __init__(self, parent, config, launch_file, ns="/", node=None,
+                 remaps=None, params=None, args=None, conditions=None):
         self.parent = parent
         self.children = []
         self.configuration = config
@@ -82,7 +92,6 @@ class LaunchScope(LoggingObject):
         self.arguments = args if not args is None else {}
         self.conditions = conditions if not conditions is None else []
         self._params = list(parent._params) if parent else []
-        self._future = []
 
     @property
     def private_ns(self):
@@ -107,40 +116,40 @@ class LaunchScope(LoggingObject):
         target = RosName.resolve(target, self.namespace, private_ns = pns)
         self.remaps[source] = target
 
-    def make_node(self, node, name, ns, args, condition):
+    def make_node(self, node, name, ns, args, condition, line=None, col=None):
         ns = self._namespace(ns)
         name = name or node.rosname.own
         rosname = RosName(name, ns, self.private_ns)
         self.log.debug("Creating NodeInstance %s for Node %s.",
                        rosname.full, node.name)
         instance = NodeInstance(self.configuration, rosname, node,
-                                launch = self.launch_file, argv = args,
-                                remaps = dict(self.remaps),
-                                conditions = list(self.conditions))
+            launch=self.launch_file, argv = args, remaps=dict(self.remaps),
+            conditions=list(self.conditions))
+        if instance._location is not None:
+            instance._location.line = line
+            instance._location.column = col
         node.instances.append(instance)
         if not condition is True:
             instance.conditions.append(condition)
         previous = self.configuration.nodes.add(instance)
         new_scope = LaunchScope(self, self.configuration, self.launch_file,
-                                ns = ns, node = instance,
-                                remaps = instance.remaps,
-                                params = self.parameters,
-                                args = self.arguments,
-                                conditions = instance.conditions)
+            ns=ns, node=instance, remaps=instance.remaps,
+            params=self.parameters, args=self.arguments,
+            conditions=instance.conditions)
         self.children.append(new_scope)
         pns = new_scope.private_ns
         for param in self._params:
             rosname = RosName(param.rosname.given, pns, pns)
             conditions = param.conditions + instance.conditions
             self.log.debug("Creating new forward Parameter %s.", rosname.full)
-            param = Parameter(self.configuration, rosname, param.type,
-                              param.value, node_scope = param.node_scope,
-                              launch = param.launch_file,
-                              conditions = conditions)
-            self.parameters.append(param)
+            new_param = Parameter(self.configuration, rosname, param.type,
+                param.value, node_scope=param.node_scope,
+                launch=param.launch_file, conditions=conditions)
+            new_param._location = param._location
+            self.parameters.append(new_param)
         return new_scope
 
-    def make_params(self, name, ptype, value, condition):
+    def make_params(self, name, ptype, value, condition, line=None, col=None):
         if not value is None:
             value = self._convert_value(str(value), ptype)
             ptype = Parameter.type_of(value)
@@ -148,19 +157,22 @@ class LaunchScope(LoggingObject):
         if not condition is True:
             conditions.append(condition)
         if ptype == "yaml" or isinstance(value, dict):
-            self._yaml_param(name, value, conditions)
+            self._yaml_param(name, value, conditions, line=line, col=col)
         else:
             rosname = RosName(name, self.private_ns, self.private_ns)
             param = Parameter(self.configuration, rosname, ptype, value,
                               node_scope = not self.node is None,
                               launch = self.launch_file,
                               conditions = conditions)
+            if param._location is not None:
+                param._location.line = line
+                param._location.column = col
             if not self.node and rosname.is_private:
-                self._params.append(param)
+                self._add_param(param, self._params)
             else:
-                self.parameters.append(param)
+                self._add_param(param, self.parameters)
 
-    def make_rosparam(self, name, ns, value, condition):
+    def make_rosparam(self, name, ns, value, condition, line=None, col=None):
     # ---- lazy rosparam import as per the oringinal roslaunch code
         global rosparam
         if rosparam is None:
@@ -182,7 +194,8 @@ class LaunchScope(LoggingObject):
         conditions = list(self.conditions)
         if not condition is True:
             conditions.append(condition)
-        self._yaml_param(name, value, conditions, private = False)
+        self._yaml_param(name, value, conditions, private=False,
+                         line=line, col=col)
 
     def remove_param(self, name, ns, condition):
         # TODO check whether "~p" = "/rosparam/p" is intended or a bug
@@ -203,210 +216,6 @@ class LaunchScope(LoggingObject):
         if private:
             return RosName.resolve(ns, pns, private_ns = pns)
         return RosName.resolve(ns, self.namespace)
-
-    def make_topics(self, advertise = None, subscribe = None):
-        assert not self.node is None
-        pns = self.private_ns
-        advertise = advertise or ()
-        subscribe = subscribe or ()
-        self.log.debug("Iterating advertise calls for node %s.", self.node.id)
-        for call in self.node.node.advertise:
-            for link in self._make_topic_links(call.name, call.namespace, pns,
-                                               call.type, call.queue_size,
-                                               call.conditions, advertise,
-                                               call.location):
-                self.log.debug("Linking %s to %s.", self.node.id, link.topic.id)
-                self.node.publishers.append(link)
-                link.topic.publishers.append(link)
-                self._update_topic_conditions(link.topic)
-                if not call.repeats:
-                    break
-        self.log.debug("Iterating subscribe calls for node %s.", self.node.id)
-        for call in self.node.node.subscribe:
-            for link in self._make_topic_links(call.name, call.namespace, pns,
-                                               call.type, call.queue_size,
-                                               call.conditions, subscribe,
-                                               call.location):
-                self.log.debug("Linking %s to %s.", self.node.id, link.topic.id)
-                self.node.subscribers.append(link)
-                link.topic.subscribers.append(link)
-                self._update_topic_conditions(link.topic)
-                if not call.repeats:
-                    break
-
-    def make_services(self, service = None, client = None):
-        assert not self.node is None
-        pns = self.private_ns
-        service = service or ()
-        client = client or ()
-        self.log.debug("Iterating Srv server calls for node %s.", self.node.id)
-        for call in self.node.node.service:
-            for link in self._make_service_links(call.name, call.namespace,
-                                                 pns, call.type,
-                                                 call.conditions, service,
-                                                 call.location):
-                self.log.debug("Linking %s to %s.",
-                               self.node.id, link.service.id)
-                self.node.servers.append(link)
-                link.service.server = link
-                self._update_service_conditions(link.service)
-                if not call.repeats:
-                    break
-        self.log.debug("Iterating Srv client calls for node %s.", self.node.id)
-        for call in self.node.node.client:
-            for link in self._make_service_links(call.name, call.namespace,
-                                                 pns, call.type,
-                                                 call.conditions, client,
-                                                 call.location):
-                self.log.debug("Linking %s to %s.",
-                               self.node.id, link.service.id)
-                self.node.clients.append(link)
-                link.service.clients.append(link)
-                self._update_service_conditions(link.service)
-                if not call.repeats:
-                    break
-
-    def _make_param_links(self, read = None, write = None):
-        assert not self.node is None
-        pns = self.private_ns
-        for call in self.node.node.read_param:
-            self._future.append(FutureParamLink(
-                    self.node, call.name, call.namespace or self.namespace,
-                    self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, read or (), call.repeats, "reads",
-                    call.location
-            ))
-        for call in self.node.node.write_param:
-            self._future.append(FutureParamLink(
-                    self.node, call.name, call.namespace or self.namespace,
-                    self.resolve_ns(call.namespace), pns, call.type,
-                    call.conditions, write or (), call.repeats, "writes",
-                    call.location
-            ))
-
-    def _make_topic_links(self, name, ns, pns, rtype, queue, conditions, hints,
-                          source_location):
-        collection = self.configuration.topics
-        call_name = RosName(name, ns or self.namespace, pns)
-        rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
-        self.log.debug("Finding topic links for %s (%s).",
-                       call_name.full, rosname.full)
-        links = []
-        if rosname.is_unresolved and hints:
-            # We should only try to unify unresolved names with
-            # names provided by hints. If there is a hint that matches
-            # the name pattern, message type and primitive type, merge.
-            self.log.debug("Processing unresolved name with hints.")
-            topics = self._pattern_match(rosname.pattern, rtype, hints)
-            for topic in topics:
-                self.log.debug("Found link to %s from hints.", topic.id)
-                new = topic.remap(RosName(topic.rosname.full,
-                                          remaps = self.node.remaps))
-                if new.id in collection:
-                    self.log.debug("Reusing Topic from collection.")
-                    new = collection.get(new.rosname.full)
-                    assert new is not None
-                else:
-                    self.log.debug("Creating a new Topic from hints: %s",
-                                   new.rosname.full)
-                    collection.add(new)
-                links.append(TopicPrimitive(self.node, new, rtype, call_name,
-                                            queue, conditions = conditions,
-                                            location = source_location))
-        elif rosname.is_unresolved:
-            # This branch is needed to unify unresolved resources with
-            # the same message type.
-            self.log.debug("Processing unresolved name without hints.")
-            for topic in collection.get_all(rosname.full):
-                if topic.type == rtype:
-                    self.log.debug("Found link to %s.", topic.id)
-                    links.append(TopicPrimitive(self.node, topic, rtype,
-                        call_name, queue, conditions = conditions,
-                        location = source_location))
-                    break
-        else:
-            self.log.debug("Processing resolved name.")
-            topic = collection.get(rosname.full)
-            if topic is not None:
-                self.log.debug("Found topic %s within collection.", topic.id)
-                links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                            queue, conditions = conditions,
-                                            location = source_location))
-        if not links:
-            self.log.debug("No links were found. Creating new topic.")
-            topic = Topic(self.configuration, rosname, message_type = rtype)
-            collection.add(topic)
-            links.append(TopicPrimitive(self.node, topic, rtype, call_name,
-                                        queue, conditions = conditions,
-                                        location = source_location))
-        return links
-
-    def _make_service_links(self, name, ns, pns, rtype, conditions, hints,
-                            source_location):
-        collection = self.configuration.services
-        call_name = RosName(name, ns or self.namespace, pns)
-        rosname = RosName(name, self.resolve_ns(ns), pns, self.node.remaps)
-        self.log.debug("Finding service links for %s (%s).",
-                       call_name.full, rosname.full)
-        links = []
-        if rosname.is_unresolved and hints:
-            # We should only try to unify unresolved names with
-            # names provided by hints. If there is a hint that matches
-            # the name pattern, message type and primitive type, merge.
-            self.log.debug("Processing unresolved name with hints.")
-            services = self._pattern_match(rosname.pattern, rtype, hints)
-            for srv in services:
-                self.log.debug("Found link to %s from hints.", srv.id)
-                new = srv.remap(RosName(srv.rosname.full,
-                                        remaps = self.node.remaps))
-                if new.id in collection:
-                    self.log.debug("Reusing Service from collection.")
-                    new = collection.get(new.rosname.full)
-                    assert new is not None
-                else:
-                    self.log.debug("Creating a new Service from hints: %s",
-                                   new.rosname.full)
-                    collection.add(new)
-                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions,
-                                              location = source_location))
-        elif rosname.is_unresolved:
-            self.log.debug("Processing unresolved name without hints.")
-            for srv in collection.get_all(rosname.full):
-                if srv.type == rtype:
-                    self.log.debug("Found link to %s.", srv.id)
-                    links.append(ServicePrimitive(self.node, srv, rtype,
-                            call_name, conditions = conditions,
-                            location = source_location))
-                    break
-        else:
-            self.log.debug("Processing resolved name.")
-            srv = collection.get(rosname.full)
-            if srv is not None:
-                self.log.debug("Found service %s within collection.", srv.id)
-                links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                              conditions = conditions,
-                                              location = source_location))
-        if not links:
-            self.log.debug("No links were found. Creating new service.")
-            srv = Service(self.configuration, rosname, message_type = rtype)
-            collection.add(srv)
-            links.append(ServicePrimitive(self.node, srv, rtype, call_name,
-                                          conditions = conditions,
-                                          location = source_location))
-        return links
-
-    def _pattern_match(self, pattern, rtype, collection):
-        candidates = []
-        for resource in collection:
-            self.log.debug("[?] pattern_match: '%s' (%s), '%s' (%s)",
-                           pattern, rtype, resource.rosname.full,
-                           resource.type)
-            if re.match(pattern, resource.rosname.full):
-                if resource.type == rtype:
-                    self.log.debug("[+] found a match")
-                    candidates.append(resource)
-        return candidates
 
     # as seen in roslaunch code, sans a few details
     def _convert_value(self, value, ptype):
@@ -431,7 +240,7 @@ class LaunchScope(LoggingObject):
             return int(value)
         elif ptype == "double":
             return float(value)
-        elif ptype == "bool" or ptype == "boolean":
+        elif ptype == "bool":
             value = value.lower().strip()
             if value == "true" or value == "1":
                 return True
@@ -446,7 +255,8 @@ class LaunchScope(LoggingObject):
         else:
             raise ValueError("Unknown type '{}'".format(ptype))
 
-    def _yaml_param(self, name, value, conditions, private = True):
+    def _yaml_param(self, name, value, conditions, private=True,
+                    line=None, col=None):
         private = private and name.startswith("~")
         pns = self.private_ns
         node_scope = not self.node is None
@@ -460,10 +270,13 @@ class LaunchScope(LoggingObject):
             param = Parameter(self.configuration, rosname, None, value,
                               node_scope = node_scope,
                               launch = self.launch_file, conditions = conditions)
+            if param._location is not None:
+                param._location.line = line
+                param._location.column = col
             if independent or not private:
-                self.parameters.append(param)
+                self._add_param(param, self.parameters)
             else:
-                self._params.append(param)
+                self._add_param(param, self._params)
 
     def _unfold(self, name, value):
         result = []
@@ -490,113 +303,21 @@ class LaunchScope(LoggingObject):
             return ns + name
         return ns + "/" + name
 
-    def resolve_ns(self, ns):
-        if not ns:
-            return self.namespace
-        if ns == "~":
-            return self.private_ns
-        return RosName.resolve(ns, self.namespace, self.private_ns)
-
-    def _update_topic_conditions(self, topic):
-        topic.conditions = []
-        for link in topic.publishers:
-            if not link.node.conditions:
-                topic.conditions = link.conditions
-                break
-            topic.conditions.extend(link.node.conditions)
-            topic.conditions.extend(link.conditions)
-        for link in topic.subscribers:
-            if not link.node.conditions:
-                topic.conditions = link.conditions
-                break
-            topic.conditions.extend(link.node.conditions)
-            topic.conditions.extend(link.conditions)
-
-    def _update_service_conditions(self, service):
-        service.conditions = []
-        link = service.server
-        if link:
-            if not link.node.conditions:
-                service.conditions = link.conditions
-            else:
-                service.conditions.extend(link.node.conditions)
-                service.conditions.extend(link.conditions)
-        for link in service.clients:
-            if not link.node.conditions:
-                service.conditions = link.conditions
-                break
-            service.conditions.extend(link.node.conditions)
-            service.conditions.extend(link.conditions)
-
-
-class FutureParamLink(object):
-    def __init__(self, node, name, ns, rns, pns, rtype,
-                 conditions, hints, repeats, rw, location):
-        self.node = node
-        self.name = name
-        self.ns = ns
-        self.resolved_ns = rns
-        self.pns = pns
-        self.type = rtype
-        self.conditions = conditions
-        self.hints = hints
-        self.repeats = repeats
-        assert rw == "reads" or rw == "writes"
-        self.rw = rw
-        self.source_location = location
-
-    def make(self):
-        configuration = self.node.configuration
-        collection = configuration.parameters
-        call_name = RosName(self.name, self.ns, self.pns)
-        rosname = RosName(self.name, self.resolved_ns, self.pns,
-                          self.node.remaps)
-        links = []
-        if rosname.is_unresolved and self.hints:
-            pattern = rosname.pattern
-            params = self._pattern_match(pattern, collection)
-            for param in params:
-                links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
-            params = self._pattern_match(pattern, self.hints)
-            for param in params:
-                new = param.remap(RosName(param.rosname.full,
-                                          remaps = self.node.remaps))
-                if new.id in collection:
-                    continue # already done in the step above
-                collection.add(new)
-                links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
+    def _add_param(self, param, collection):
+        if param.rosname.is_unresolved:
+            collection.append(param)
         else:
-            param = collection.get(rosname.full)
-            if not param is None:
-                links.append(ParameterPrimitive(self.node, param, self.type,
-                                                call_name,
-                                                conditions = self.conditions,
-                                                location = self.source_location))
-        if not links:
-            param = Parameter(configuration, rosname, self.type, None)
-            collection.add(param)
-            links.append(ParameterPrimitive(self.node, param, self.type,
-                                            call_name,
-                                            conditions = self.conditions,
-                                            location = self.source_location))
-        for link in links:
-            getattr(self.node, self.rw).append(link)
-            getattr(link.parameter, self.rw).append(link)
-            if not self.repeats:
-                return
-
-    def _pattern_match(self, pattern, collection):
-        candidates = []
-        for resource in collection:
-            if re.match(pattern, resource.rosname.full):
-                candidates.append(resource)
-        return candidates
+            rosname = param.rosname.full
+            for i in range(len(collection)):
+                other = collection[i]
+                if rosname == other.rosname.full:
+                    if param.disabled:
+                        if other.disabled:
+                            collection[i] = param
+                    else:
+                        collection[i] = param
+                    return
+            collection.append(param)
 
 
 ###############################################################################
@@ -610,207 +331,46 @@ class ConfigurationError(Exception):
         return repr(self.value)
 
 
-# NOTE: hints are always taken as true, so the topics in the hints will always
-# be created. The strategy here is to create the topics as soon as we find a
-# matching node. This way, the automated extraction can match against those
-# topics. After the extraction takes place, we manually create the missing
-# links to the topics in the hints.
-
-class ConfigurationHints(LoggingObject):
-    defaults = {
-        "advertise": {},
-        "subscribe": {},
-        "service": {},
-        "client": {}
-    }
-
-    def __init__(self):
-        self.advertise = []
-        self.subscribe = []
-        self.service = []
-        self.client = []
-
-    def topics(self):
-        return self.advertise + self.subscribe
-
-    def services(self):
-        return self.service + self.client
-
-    hint_types = (("advertise", Topic), ("subscribe", Topic),
-                  ("service", Service), ("client", Service))
-
-    @classmethod
-    def make_hints(cls, hints, scope):
-        node_name = scope.node.rosname.full
-        cls.log.debug("making hints for node %s", node_name)
-        instance = cls()
-        pns = scope.private_ns
-        hints = hints or cls.defaults
-        no_hints = {}
-        for key, rcls in cls.hint_types:
-            for name, msg_type in hints.get(key, no_hints).iteritems():
-                if not instance._valid_msg_type(msg_type, node_name):
-                    continue
-                parts = name.rsplit("/", 1)
-                own_name = parts[-1]
-                ns = parts[0] if len(parts) > 1 else "/"
-    # ----- NOTE: we do not remap before using the hints for lookup
-                rosname = RosName(own_name, scope.resolve_ns(ns), pns)
-                cls.log.debug("%s hint: %s", key, rosname.full)
-                getattr(instance, key).append(rcls(scope.configuration, rosname,
-                                                   message_type=msg_type))
-        return instance
-
-    def make_missing_links(self, scope):
-        self.log.debug("making missing links for %s", scope.node.rosname.full)
-        pns = scope.private_ns
-        for topic in self.advertise:
-            self.log.debug("hint topic %s", topic.rosname.full)
-            remap_name = scope.node.remaps.get(topic.rosname.full,
-                                               topic.rosname.full)
-            for link in scope.node.publishers:
-                if link.topic.rosname.full == remap_name:
-                    if link.topic.type is None:
-                        self.log.debug("Refining %s with type %s.",
-                                       link.topic.rosname.full, topic.type)
-                        link.topic.type = topic.type
-                    elif link.topic.type != topic.type:
-                        self.log.warning(
-                            ("Extraction hint for node %s advertises topic %s "
-                             "(%s), but extractor found %s (%s)."),
-                            scope.node.id, topic.id, topic.type,
-                            link.topic.id, link.topic.type)
-                        break
-                    else:
-                        self.log.debug("%s (%s) is already extracted",
-                                       link.topic.rosname.full, link.topic.type)
-                        break
-            else:
-                for link in scope._make_topic_links(topic.rosname.full,
-                                                    scope.namespace, pns,
-                                                    topic.type, None,
-                                                    None, (), None):
-                    link.node.publishers.append(link)
-                    link.topic.publishers.append(link)
-                    link.topic.conditions.extend(link.node.conditions)
-        for topic in self.subscribe:
-            self.log.debug("hint topic %s", topic.rosname.full)
-            remap_name = scope.node.remaps.get(topic.rosname.full,
-                                               topic.rosname.full)
-            for link in scope.node.subscribers:
-                if link.topic.rosname.full == remap_name:
-                    if link.topic.type is None:
-                        self.log.debug("Refining %s with type %s.",
-                                       link.topic.rosname.full, topic.type)
-                        link.topic.type = topic.type
-                    elif link.topic.type != topic.type:
-                        self.log.warning(
-                            ("Extraction hint for node %s subscribes topic %s "
-                             "(%s), but extractor found %s (%s)."),
-                            scope.node.id, topic.id, topic.type,
-                            link.topic.id, link.topic.type)
-                        break
-                    else:
-                        self.log.debug("%s (%s) is already extracted",
-                                       link.topic.rosname.full, link.topic.type)
-                        break
-            else:
-                for link in scope._make_topic_links(topic.rosname.full,
-                                                    scope.namespace, pns,
-                                                    topic.type, None,
-                                                    None, (), None):
-                    link.node.subscribers.append(link)
-                    link.topic.subscribers.append(link)
-                    link.topic.conditions.extend(link.node.conditions)
-        for service in self.service:
-            self.log.debug("hint service %s", service.rosname.full)
-            remap_name = scope.node.remaps.get(service.rosname.full,
-                                               service.rosname.full)
-            for link in scope.node.servers:
-                if link.service.rosname.full == remap_name:
-                    if link.service.type is None:
-                        self.log.debug("Refining %s with type %s.",
-                                       link.service.rosname.full, service.type)
-                        link.service.type = service.type
-                    elif link.service.type != service.type:
-                        self.log.warning(
-                            ("Extraction hint for node %s advertises service "
-                             "%s (%s), but extractor found %s (%s)."),
-                            scope.node.id, service.id, service.type,
-                            link.service.id, link.service.type)
-                        break
-                    else:
-                        self.log.debug("%s (%s) is already extracted",
-                                       link.service.rosname.full, link.service.type)
-                        break
-            else:
-                for link in scope._make_service_links(service.rosname.full,
-                                                      scope.namespace, pns,
-                                                      service.type,
-                                                      None, None, (), None):
-                    link.node.servers.append(link)
-                    link.service.server = link
-                    link.service.conditions.extend(link.node.conditions)
-        for service in self.client:
-            self.log.debug("hint service %s", service.rosname.full)
-            remap_name = scope.node.remaps.get(service.rosname.full,
-                                               service.rosname.full)
-            for link in scope.node.clients:
-                if link.service.rosname.full == remap_name:
-                    if link.service.type is None:
-                        self.log.debug("Refining %s with type %s.",
-                                       link.service.rosname.full, service.type)
-                        link.service.type = service.type
-                    elif link.service.type != service.type:
-                        self.log.warning(
-                            ("Extraction hint for node %s is client of service "
-                             "%s (%s), but extractor found %s (%s)."),
-                            scope.node.id, service.id, service.type,
-                            link.service.id, link.service.type)
-                        break
-                    else:
-                        self.log.debug("%s (%s) is already extracted",
-                                       link.service.rosname.full, link.service.type)
-                        break
-            else:
-                for link in scope._make_service_links(service.rosname.full,
-                                                      scope.namespace, pns,
-                                                      service.type,
-                                                      None, None, (), None):
-                    link.node.clients.append(link)
-                    link.service.clients.append(link)
-                    link.service.conditions.extend(link.node.conditions)
-
-    def _valid_msg_type(self, msg_type, node_name):
-        parts = msg_type.split("::")
-        if len(parts) > 1:
-            self.log.error("Invalid message type hint for node '%s': '%s'; "
-                           "do not use the 'pkg::Msg' format, "
-                           "use 'pkg/Msg' instead.", node_name, msg_type)
-            return False
-        parts = msg_type.split("/")
-        if not len(parts) == 2:
-            self.log.error("Invalid message type hint for node '%s': '%s'; "
-                           "use the 'pkg/Msg' format.", node_name, msg_type)
-            return False
-        return True
-
-
 class ConfigurationBuilder(LoggingObject):
     def __init__(self, name, environment, source_finder,
-                 nodes=None, hints=None):
+                 hints=None, no_hardcoded=False):
         self.configuration = Configuration(name, env = environment)
         self.sources = source_finder
         self.errors = []
-        self.node_specs = nodes if nodes is not None else {}
-        self.hints = hints if not hints is None else {}
+        self.no_hardcoded = no_hardcoded
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
+        self._pkg_finder.packages.extend(self.sources.packages.values())
+        hints = hints or {}
+        self._fix_hints = hints.get("fix", _EMPTY_DICT)
+        #self._add_nodes = hints.get("nodes", _EMPTY_DICT)
+        #self._add_params = hints.get("params", _EMPTY_DICT)
+
+        self.hints = ConfigHints2(hints, self._get_node)
+        self._invalid = False
+
+    def add_rosrun(self, node):
+        if self._invalid:
+            raise ConfigurationError("invalid state")
+        config = self.configuration
+        self.log.debug("Adding rosrun command to configuration. Node: %s",
+                       node.node_name)
+        if node.is_nodelet:
+            raise ValueError("Cannot add a nodelet via 'rosrun' configuration.")
+            # ^ because in this case we do not have the args
+        name = node.name if not node.rosname else node.rosname.own
+        config.add_command("rosrun", [node.package.name, node.name, name])
+        scope = LaunchScope(None, config, None)
+        scope = scope.make_node(node, name, "/", (), True)
+        self._future.append(FutureNodeLinks(scope.node))
 
     def add_launch(self, launch_file):
+        if self._invalid:
+            raise ConfigurationError("invalid state")
         assert launch_file.language == "launch"
         config = self.configuration
         config.roslaunch.append(launch_file)
+        config.add_command("roslaunch", [launch_file.path])
         if not launch_file.tree:
             self.errors.append("missing parse tree: " + launch_file.id)
             return False
@@ -824,8 +384,33 @@ class ConfigurationBuilder(LoggingObject):
     # ----- parameters can only be added in the end, because of rosparam
         for param in scope.parameters:
             self.configuration.parameters.add(param)
-        for link in self._future:
-            link.make()
+
+    def build(self):
+        if not self._invalid:
+            # finishing touches
+            # BY FIRE BE PURGED
+            # fix params: harmless
+            self.hints.apply_param_fixes(self.configuration)
+            # add params: harmless
+            self.hints.create_new_params(self.configuration)
+            # fix nodes: can use new params
+            self.hints.apply_node_fixes(self.configuration, self._future)
+            # make links after fixing stuff
+            for future_node_links in self._future:
+                future_node_links.make(hints=self._fix_hints)
+            # reset futures and add more nodes and links
+            self._future = []
+            self.hints.create_new_nodes(self.configuration, self._future)
+            # make links again for the new nodes
+            for future_node_links in self._future:
+                future_node_links.make(hints=self._fix_hints)
+            self._future = []
+            # fix conditions from links
+            self._update_topic_conditions()
+            self._update_service_conditions()
+            self._update_param_conditions()
+            self._invalid = True
+        return self.configuration
 
     def _analyse_tree(self, tree, scope, sub):
         for tag in tree.children:
@@ -833,7 +418,8 @@ class ConfigurationBuilder(LoggingObject):
                 self.errors.append(tag.text)
                 continue
             try:
-                condition = self._condition(tag.condition, sub)
+                condition = self._condition(tag.condition, sub,
+                                            tag.line, tag.column)
                 if condition is False:
                     continue
                 handler = getattr(self, "_" + tag.tag + "_tag")
@@ -850,29 +436,26 @@ class ConfigurationBuilder(LoggingObject):
         node = self._get_node(pkg, exe, args)
         name = sub.resolve(tag.name, strict = True)
         ns = sub.resolve(tag.namespace, strict = True)
-        new_scope = scope.make_node(node, name, ns, args, condition)
+        new_scope = scope.make_node(node, name, ns, args, condition,
+                                    line=tag.line, col=tag.column)
+        self._future.append(FutureNodeLinks(new_scope.node))
         self._analyse_tree(tag, new_scope, sub)
-        hints = self._merge_hints(node.node_name, new_scope.node.rosname.full)
-        config_hints = ConfigurationHints.make_hints(hints, new_scope)
-        new_scope.make_topics(advertise = config_hints.advertise,
-                              subscribe = config_hints.subscribe)
-        new_scope.make_services(service = config_hints.service,
-                                client = config_hints.client)
-        config_hints.make_missing_links(new_scope)
-        new_scope._make_param_links()
-        self._future.extend(new_scope._future)
 
     def _include_tag(self, tag, condition, scope, sub):
         filepath = sub.resolve(tag.file, strict = True)
         ns = sub.resolve(tag.namespace, strict = True)
         pass_all_args = sub.resolve(tag.pass_all_args, strict = True)
+        self.log.debug("<include> " + str(filepath))
         launch_file = self.sources.get_file(filepath)
         if launch_file is None:
-            raise ConfigurationError("cannot find launch file: " + filepath)
+            launch_file = self._lookup_launch(filepath)
         if not launch_file.tree:
             self._parse_launch_on_the_fly(launch_file)
             if not launch_file.tree:
+                self.log.debug("unable to parse launch: " + filepath)
                 raise ConfigurationError("cannot parse: " + launch_file.id)
+        else:
+            self.log.debug("launch file '%s' is pre-parsed", launch_file.name)
         args = dict(scope.arguments) if pass_all_args else {}
         new_scope = scope.child(ns, condition, launch = launch_file,
                                 args = args)
@@ -883,6 +466,7 @@ class ConfigurationBuilder(LoggingObject):
                                      dirname = launch_file.dir_path,
                                      pkg_depends = sub.pkg_depends,
                                      env_depends = sub.env_depends)
+        self.log.debug("analyse_tree('%s')", launch_file.name)
         self._analyse_tree(launch_file.tree, new_scope, new_sub)
 
     def _remap_tag(self, tag, condition, scope, sub):
@@ -896,10 +480,10 @@ class ConfigurationBuilder(LoggingObject):
 
     def _param_tag(self, tag, condition, scope, sub):
         assert not tag.children
-        name = sub.resolve(tag.name, strict = True)
-        ptype = sub.resolve(tag.type, strict = True)
+        name = sub.resolve(tag.name, strict=True)
+        ptype = sub.resolve(tag.type, strict=True)
         if not tag.value is None:
-            value = tag.value
+            value = sub.resolve(tag.value, strict=True)
         elif not tag.textfile is None:
             try:
                 with open(tag.textfile) as f:
@@ -911,7 +495,8 @@ class ConfigurationBuilder(LoggingObject):
         elif not tag.command is None:
             value = None
         try:
-            scope.make_params(name, ptype, value, condition)
+            scope.make_params(name, ptype, value, condition,
+                              line=tag.line, col=tag.column)
         except ValueError as e:
             raise ConfigurationError(str(e))
 
@@ -931,8 +516,10 @@ class ConfigurationBuilder(LoggingObject):
             else:
                 value = tag.text
                 if sub.resolve(tag.substitute, strict = True):
+                    value = sub.sub(value)
                     value = sub.resolve(value, strict = True)
-            scope.make_rosparam(name, ns, value, condition)
+            scope.make_rosparam(name, ns, value, condition,
+                                line=tag.line, col=tag.column)
         elif command == "delete":
             scope.remove_param(name, ns, condition)
 
@@ -962,13 +549,17 @@ class ConfigurationBuilder(LoggingObject):
     def _test_tag(self, tag, condition, scope, sub):
         pass
 
-    def _condition(self, condition, sub):
+    def _condition(self, condition, sub, line, col):
         assert isinstance(condition, tuple)
-        value = sub.resolve(condition[1])
+        value = sub.resolve(condition[1], conversion=bool)
         if value is None:
+            stmt = "if" if condition[0] else "unless"
+            loc = self.configuration.roslaunch[-1].location
+            loc.line = line
+            loc.column = col
             # not sure if tag is part of the configuration
             return SourceCondition(condition[1], # UnresolvedValue
-                location = self.configuration.roslaunch[-1].location)
+                location=loc, statement=stmt)
         if value is condition[0]:
             # tag is part of the configuration
             return True
@@ -989,7 +580,12 @@ class ConfigurationBuilder(LoggingObject):
         package = self.sources.packages.get("package:" + pkg)
         if not package:
             assert not node
-            node = HardcodedNodeParser.get(pkg, exe)
+            if self.no_hardcoded:
+                self.log.debug(("skipping hard-coded node '%s/%s' "
+                                "due to user option"), pkg, exe)
+            else:
+                self.log.debug("look up hard-coded node '%s/%s'", pkg, exe)
+                node = HardcodedNodeParser.get(pkg, exe)
             if not node:
                 package = self._find_package(pkg)
         if not node:
@@ -1006,37 +602,575 @@ class ConfigurationBuilder(LoggingObject):
             raise ConfigurationError("cannot find package: " + name)
         return pkg
 
-    def _merge_hints(self, node_name, instance_name):
-        self.log.debug("merging hints for %s (%s)", instance_name, node_name)
-        node_hints = self.node_specs.get(node_name)
-        cfg_hints = self.hints.get(instance_name)
-        if node_hints is None:
-            self.log.debug("Using configuration hints: %s", cfg_hints)
-            return cfg_hints
-        if cfg_hints is None:
-            self.log.debug("Using node hints: %s", node_hints)
-            return node_hints
-        hints = {}
-        for key in ConfigurationHints.defaults:
-            result = {}
-            value = node_hints.get(key)
-            if value is not None:
-                result.update(value)
-            value = cfg_hints.get(key)
-            if value is not None:
-                result.update(value)
-            if result:
-                hints[key] = result
-        self.log.debug("Using mixed hints: %s", hints)
-        return hints
+    def _find_package_by_path(self, filepath):
+        prev = filepath
+        curr = os.path.dirname(filepath)
+        while prev != curr:
+            pkg = self._pkg_finder.find_package_at(curr, populate=True)
+            if pkg is not None:
+                return pkg
+            prev = curr
+            curr = os.path.dirname(curr)
+        raise ConfigurationError("cannot find package for file: " + filepath)
+
+    def _lookup_launch(self, filepath):
+        self.log.debug("dynamic lookup of launch file: " + filepath)
+        for pkg in chain(self._pkg_finder.packages, self._pkg_finder._extra):
+            if not pkg.path:
+                continue
+            if (filepath.startswith(pkg.path)
+                    and filepath[len(pkg.path)] == os.path.sep):
+                self.log.debug("found package '%s' for launch file", pkg.name)
+                break
+        else:
+            pkg = self._find_package_by_path(filepath)
+            # FIXME we could just open the file at the given path, but then
+            # we would not have the Package, File, Location objects.
+            # The metamodel needs to be changed.
+            #self.log.debug("failed to find package for launch file")
+            #raise ConfigurationError("cannot find launch file: " + filepath)
+        for sf in pkg.source_files:
+            if sf.path == filepath:
+                self.log.debug("found SourceFile '%s' for launch file", sf.name)
+                break
+        else:
+            self.log.debug("failed to find SourceFile object for launch file")
+            raise ConfigurationError("cannot find launch file: " + filepath)
+        return sf
 
     def _parse_launch_on_the_fly(self, launch_file):
         assert not launch_file.tree
         assert launch_file.language == "launch"
-        launch_parser = LaunchParser(pkgs = self.sources.packages)
+        launch_parser = LaunchParser(pkgs=self._pkg_finder)
         self.log.debug("Parsing launch file: " + launch_file.path)
         try:
             launch_file.tree = launch_parser.parse(launch_file.path)
         except LaunchParserError as e:
             self.log.warning("Parsing error in %s:\n%s",
                              launch_file.path, str(e))
+
+    def _update_topic_conditions(self):
+        for topic in self.configuration.topics:
+            assert not topic.conditions, "{!r} {!r}".format(
+                topic.id, topic.conditions)
+            for link in topic.publishers:
+                if not link.conditions:
+                    break
+                topic.conditions.extend(link.conditions)
+            else:
+                for link in topic.subscribers:
+                    if not link.conditions:
+                        topic.conditions = []
+                        break
+                    topic.conditions.extend(link.conditions)
+
+    def _update_service_conditions(self):
+        for service in self.configuration.services:
+            assert not service.conditions
+            link = service.server
+            if link:
+                if not link.conditions:
+                    continue
+                else:
+                    service.conditions.extend(link.conditions)
+            for link in service.clients:
+                if not link.conditions:
+                    service.conditions = []
+                    break
+                service.conditions.extend(link.conditions)
+
+    def _update_param_conditions(self):
+        for param in self.configuration.parameters:
+            if param.launch is not None:
+                if not param.conditions:
+                    continue
+            for link in param.reads:
+                if not link.conditions:
+                    param.conditions = []
+                    break
+                param.conditions.extend(link.conditions)
+            else:
+                for link in param.writes:
+                    if not link.conditions:
+                        param.conditions = []
+                        break
+                    param.conditions.extend(link.conditions)
+
+
+class FutureNodeLinks(LoggingObject):
+    __slots__ = ("node", "ns", "pns")
+
+    def __init__(self, node):
+        self.node = node
+        self.ns = node.namespace
+        self.pns = node.rosname.full
+
+        self.advertise = []
+        self.subscribe = []
+        self.service = []
+        self.client = []
+        self.read_param = []
+        self.write_param = []
+
+    _LINKS = (
+        ("advertise", PublishLink, Topic, "topics"),
+        ("subscribe", SubscribeLink, Topic, "topics"),
+        ("service", ServiceLink, Service, "services"),
+        ("client", ClientLink, Service, "services"),
+        ("read_param", ReadLink, Parameter, "parameters"),
+        ("write_param", WriteLink, Parameter, "parameters")
+    )
+
+    def make(self, hints=None):
+        hints = hints or _EMPTY_DICT
+        config = self.node.configuration
+        # TODO *add* (not fix) publishers etc. from hints
+        for node_attr, link_cls, rcls, col in self._LINKS:
+            calls = getattr(self.node.node, node_attr)
+            if calls:
+                self.log.debug("Iterating %s calls for node %s.",
+                    calls[0].KEY, self.node.id)
+            collection = getattr(config, col)
+            new_calls = [call.clone() for call in calls]
+            # BY FIRE BE PURGED -----------------------------------------------
+            getattr(self, "_apply_" + node_attr + "_shints")(new_calls)
+            # -----------------------------------------------------------------
+            for new_call in new_calls:
+                for uv in new_call.variables():
+                    hint_value = hints.get(uv.name)
+                    if hint_value is not None:
+                        self.log.debug("Apply runtime hint('%s', %s)",
+                            uv.name, hint_value)
+                    uv.resolve(hint_value)
+                self._link_from_call(new_call, link_cls, rcls, collection)
+
+    def _link_from_call(self, call, link_cls, resource_cls, collection):
+        ns = RosName.resolve_ns(call.namespace, ns=self.ns, private_ns=self.pns)
+        call_name = RosName(call.name, ns=ns, private_ns=self.pns)
+        rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                          remaps=self.node.remaps)
+        self.log.debug("Creating %s link for %s (%s).",
+            resource_cls.__name__, call_name.full, rosname.full)
+        resource = collection.get(rosname.full)
+        if resource is not None:
+            self.log.debug("Found %s '%s' within collection.",
+                resource_cls.__name__, resource.id)
+        else:
+            self.log.debug("No %s named '%s' was found. Creating new Resource.",
+                resource_cls.__name__, rosname.full)
+            resource = self._new_resource(rosname, call, resource_cls)
+            collection.add(resource)
+        resource.variables.extend(uv.name for uv in call.variables())
+        link = link_cls.link_from_call(self.node, resource, call_name, call)
+        return link
+
+    def _new_resource(self, rosname, call, cls):
+        config = self.node.configuration
+        if cls is Topic:
+            return Topic(config, rosname, message_type=call.type)
+        elif cls is Service:
+            return Service(config, rosname, message_type=call.type)
+        elif cls is Parameter:
+            return Parameter(config, rosname, call.type, None)
+        assert False, "Unknown Resource class {}".format(cls.__name__)
+
+    # BY FIRE BE PURGED -------------------------------------------------------
+
+    _W_NO_EXISTS = "[Configuration '%s'][hints]: there is no %s '%s' to fix."
+
+    _W_AMBIGUOUS = ("[Configuration '%s'][hints]: there are multiple %ss that "
+                    "match '%s'.")
+
+    def _apply_advertise_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.advertise:
+            g = shint["topic"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = AdvertiseCall(g, "/", shint["msg_type"],
+                    shint["queue_size"], latched=shint.get("latched", False))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "msg_type" in shint:
+                    call.type = shint["msg_type"]
+                if "queue_size" in shint:
+                    call.queue_size = shint["queue_size"]
+                if "latched" in shint:
+                    call.latched = shint["latched"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+
+    def _apply_subscribe_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.subscribe:
+            g = shint["topic"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = SubscribeCall(g, "/", shint["msg_type"],
+                    shint["queue_size"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "msg_type" in shint:
+                    call.type = shint["msg_type"]
+                if "queue_size" in shint:
+                    call.queue_size = shint["queue_size"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+
+    def _apply_service_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.service:
+            g = shint["service"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = AdvertiseServiceCall(g, "/", shint["srv_type"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "srv_type" in shint:
+                    call.type = shint["srv_type"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+
+    def _apply_client_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.client:
+            g = shint["service"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = ServiceClientCall(g, "/", shint["srv_type"])
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "srv_type" in shint:
+                    call.type = shint["srv_type"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+
+    def _apply_read_param_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.read_param:
+            g = shint["parameter"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = GetParamCall(g, "/", shint["param_type"],
+                    default_value=shint.get("default_value"))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "param_type" in shint:
+                    call.type = shint["param_type"]
+                if "default_value" in shint:
+                    call.default_value = shint["default_value"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+
+    def _apply_write_param_shints(self, calls):
+        create = []
+        config = self.node.configuration
+        for shint in self.write_param:
+            g = shint["parameter"]
+            matches = []
+            for call in calls:
+                ns = RosName.resolve_ns(call.namespace,
+                    ns=self.ns, private_ns=self.pns)
+                rosname = RosName(call.name, ns=ns, private_ns=self.pns,
+                    remaps=self.node.remaps)
+                if g == rosname.full:
+                    matches.append(call)
+            if shint.get("create", False):
+                call = SetParamCall(g, "/", shint["param_type"],
+                    value=shint.get("value"))
+                call.location2 = JSON_to_loc2(shint.get("traceability"))
+                create.append(call)
+            else:
+                if not matches:
+                    self.log.warning("No matches: %s", shint)
+                    continue
+                if len(matches) > 1:
+                    self.log.warning("Many matches: %s", shint)
+                    continue
+                call = matches[0]
+                if "original_name" in shint:
+                    call.name = shint["original_name"] or "/?"
+                    call.namespace = "/"
+                if "param_type" in shint:
+                    call.type = shint["param_type"]
+                if "value" in shint:
+                    call.value = shint["value"]
+                if "traceability" in shint:
+                    call.location2 = JSON_to_loc2(shint["traceability"])
+                if "conditional" in shint:
+                    v = _bool_to_conditions(not shint["conditional"])
+                    call.conditions = v
+        calls.extend(create)
+    # -------------------------------------------------------------------------
+
+
+class ConfigHints2(LoggingObject):
+    def __init__(self, hints, find_node):
+        self._build_hint_dict(hints, "nodes")
+        self._build_hint_dict(hints, "parameters")
+        self.find_node = find_node
+
+    def apply_param_fixes(self, config):
+        for name, datum in self.fix_parameters.items():
+            self._fix_param(config, name, datum)
+
+    def apply_node_fixes(self, config, futures):
+        for name, datum in self.fix_nodes.items():
+            self._fix_node(config, futures, name, datum)
+
+    def create_new_params(self, config):
+        for name, datum in self.add_parameters.items():
+            self._add_param(config, name, datum)
+
+    def create_new_nodes(self, config, futures):
+        for name, datum in self.add_nodes.items():
+            self._add_node(config, futures, name, datum)
+
+    def _build_hint_dict(self, top_lvl_hints, key):
+        to_fix = {}
+        to_add = {}
+        setattr(self, "fix_" + key, to_fix)
+        setattr(self, "add_" + key, to_add)
+        hints = top_lvl_hints.get(key)
+        if hints:
+            for name, datum in hints.items():
+                if datum.get("create"):
+                    to_add[name] = datum
+                else:
+                    to_fix[name] = datum
+
+    _W_NO_EXISTS = "[Configuration '%s'][hints]: there is no %s '%s' to fix."
+
+    _W_AMBIGUOUS = ("[Configuration '%s'][hints]: there are multiple %s that "
+                    "match '%s'.")
+
+    _W_COLLIDES = ("[Configuration '%s'][hints]: %s name '%s' already exists "
+                   "for another resource.")
+
+    _W_UNSUPPORTED = ("[Configuration '%s'][hints]: fixing %s '%s' "
+                      "is not supported yet.")
+
+    _W_EXISTS = ("[Configuration '%s'][hints]: tried to create "
+                 "%s '%s', but it already exists.")
+
+    def _fix_param(self, config, name, datum):
+        params = config.parameters.get_all(name)
+        if not params:
+            self.log.warning(self._W_NO_EXISTS, config.name, "param", name)
+            return False
+        if len(params) > 1:
+            self.log.warning(self._W_AMBIGUOUS, config.name, "param", name)
+            return False
+        param = params[0]
+        if "rosname" in datum:
+            new_name = datum["rosname"] or "/?"
+            if config.parameters.get(new_name) is not None:
+                self.log.warning(self._W_COLLIDES, config.name, "param", new_name)
+                return False
+            config.parameters.remove(name)
+            param.rosname = RosName(new_name)
+            config.parameters.add(param)
+        if "param_type" in datum:
+            param.type = datum["param_type"]
+        if "default_value" in datum:
+            param.value = datum["default_value"]
+        if "traceability" in datum:
+            param.location2 = JSON_to_loc2(datum["traceability"])
+        if "conditional" in datum:
+            v = _bool_to_conditions(not datum["conditional"])
+            param.conditions = v
+        return True
+
+    def _fix_node(self, config, futures, name, datum):
+        nodes = config.nodes.get_all(name)
+        if not nodes:
+            self.log.warning(self._W_NO_EXISTS, config.name, "node", name)
+            return False
+        if len(nodes) > 1:
+            self.log.warning(self._W_AMBIGUOUS, config.name, "node", name)
+            return False
+        node = nodes[0]
+        if "rosname" in datum:
+            new_name = datum["rosname"] or "/?"
+            if config.nodes.get(new_name) is not None:
+                self.log.warning(self._W_COLLIDES, config.name, "node", new_name)
+                return False
+            config.nodes.remove(name)
+            node.rosname = RosName(new_name)
+            config.nodes.add(node)
+        if "node_type" in datum:
+            self.log.warning(self._W_UNSUPPORTED, config.name,
+                             "node", "node_type")
+        if "args" in datum:
+            node.argv = datum["args"]
+        if "remaps" in datum:
+            node.remaps = dict(datum["remaps"])
+        if "traceability" in datum:
+            node.location2 = JSON_to_loc2(datum["traceability"])
+        if "conditional" in datum:
+            v = _bool_to_conditions(not datum["conditional"])
+            node.conditions = v
+        # BY FIRE BE PURGED ---------------------------------------------------
+        for fnl in futures:
+            if fnl.node is not node:
+                continue
+            fnl.advertise.extend(datum.get("publishers", ()))
+            fnl.subscribe.extend(datum.get("subscribers", ()))
+            fnl.service.extend(datum.get("servers", ()))
+            fnl.client.extend(datum.get("clients", ()))
+            fnl.read_param.extend(datum.get("getters", ()))
+            fnl.write_param.extend(datum.get("setters", ()))
+        # ---------------------------------------------------------------------
+        return True
+
+    def _add_param(self, config, name, datum):
+        if config.parameters.get(name) is not None:
+            self.log.warning(self._W_EXISTS, config.name, "param", name)
+            return False
+        ptype = datum["param_type"]
+        value = datum.get("default_value")
+        param = Parameter(config, RosName(name), ptype, value)
+        param.location2 = JSON_to_loc2(datum.get("traceability"))
+        config.parameters.add(param)
+        return True
+
+    def _add_node(self, config, futures, name, datum):
+        if config.nodes.get(name) is not None:
+            self.log.warning(self._W_EXISTS, config.name, "node", name)
+            return False
+        pkg, exe = datum["node_type"].split("/", 1)
+        args = datum.get("args", "")
+        remaps = datum.get("remaps", {})
+        node = self.find_node(pkg, exe, args)
+        rosname = RosName(name)
+        self.log.debug("[hints] Creating NodeInstance %s for Node %s.",
+                       rosname.full, node.name)
+        instance = NodeInstance(self.configuration, rosname, node,
+                                argv=args, remaps=remaps)
+        instance.location2 = JSON_to_loc2(datum.get("traceability"))
+        node.instances.append(instance)
+        previous = self.configuration.nodes.add(instance)
+        fnl = FutureNodeLinks(instance)
+        fnl.advertise.extend(datum.get("publishers", ()))
+        fnl.subscribe.extend(datum.get("subscribers", ()))
+        fnl.service.extend(datum.get("servers", ()))
+        fnl.client.extend(datum.get("clients", ()))
+        fnl.read_param.extend(datum.get("getters", ()))
+        fnl.write_param.extend(datum.get("setters", ()))
+        futures.append(fnl)
+        return True

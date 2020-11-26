@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 
-#Copyright (c) 2017 Andre Santos
+#Copyright (c) 2017 André Santos
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
 #of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +24,9 @@
 # Imports
 ###############################################################################
 
-from collections import Counter
+from builtins import range
+from collections import Counter, namedtuple
+from itertools import chain
 import os
 
 import magic as file_cmd
@@ -79,9 +82,11 @@ class DependencySet(object):
 
 
 class SourceCondition(object):
-    def __init__(self, condition, location = None):
+    def __init__(self, condition, location=None, statement="if"):
+        self.statement = statement
         self.condition = condition
         self.location = location
+        self.location2 = loc_to_loc2(location)
 
     @property
     def language(self):
@@ -91,22 +96,48 @@ class SourceCondition(object):
 
     def to_JSON_object(self):
         return {
+            "statement": self.statement,
             "condition": str(self.condition),
-            "location": (self.location.to_JSON_object()
-                         if self.location else None)
+            "location": loc2_to_JSON(self.location2)
         }
 
     def __str__(self):
-        return str(self.condition)
+        return "{} {}".format(self.statement, str(self.condition))
 
     def __repr__(self):
         return self.__str__()
 
 
+class _UnknownValue(object):
+    __slots__ = ("name", "_call", "_attr", "_fun")
+
+    def __init__(self, name, call, attr, fun):
+        self.name = name
+        self._call = call
+        self._attr = attr
+        self._fun = fun
+
+    @property
+    def attr(self):
+        return self._attr
+
+    def resolve(self, value):
+        if value is not None:
+            setattr(self._call, self._attr, self._fun(value))
+            return self.name in self._call._vars
+        return False
+
+    def __str__(self):
+        return self.name
+
+
 class RosPrimitiveCall(MetamodelObject):
+    KEY = ""
+
     """"Base class for calls to ROS primitives."""
     def __init__(self, name, namespace, msg_type, control_depth = None,
                  repeats = False, conditions = None, location = None):
+        self._vars = {}
         self.name = name
         self.namespace = namespace
         self.type = msg_type
@@ -114,6 +145,86 @@ class RosPrimitiveCall(MetamodelObject):
         self.control_depth = control_depth or len(self.conditions)
         self.repeats = repeats and self.control_depth >= 1
         self.location = location
+        self.location2 = loc_to_loc2(location)
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._set_str_attr("name", value)
+
+    @property
+    def namespace(self):
+        return self._namespace
+
+    @namespace.setter
+    def namespace(self, value):
+        self._set_str_attr("namespace", value)
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._set_str_attr("type", value)
+
+    @property
+    def location(self):
+        return self._location
+
+    @location.setter
+    def location(self, value):
+        if value is None or value.package is None or value.file is None:
+            if "location" not in self._vars:
+                self._vars["location"] = self._new_var("location", fpid)
+        else:
+            if "location" in self._vars:
+                del self._vars["location"]
+        self._location = value
+        self.location2 = loc_to_loc2(value)
+
+    @property
+    def conditions(self):
+        return self._conditions
+
+    @conditions.setter
+    def conditions(self, value):
+        if value:
+            if "conditions" not in self._vars:
+                self._vars["conditions"] = self._new_var(
+                    "conditions", _bool_to_conditions)
+        else:
+            if "conditions" in self._vars:
+                del self._vars["conditions"]
+        self._conditions = value
+
+    @property
+    def full_name(self):
+        if not self.namespace:
+            return self.name
+        if self.namespace.endswith("/"):
+            return self.namespace + self.name
+        return self.namespace + "/" + self.name
+
+    @property
+    def rostype(self):
+        return self.type
+
+    def variables(self):
+        return list(self._vars.values())
+
+    def refine_from_JSON_specs(self, data):
+        if "?" in self.name:
+            self.name = data["name"]
+        if "?" in self.namespace:
+            self.namespace = data.get("ns", self.namespace)
+        self.conditions = []
+        self.control_depth = 0
+        self.repeats = False
+        self.location = data.get("location", self.location)
 
     def to_JSON_object(self):
         return {
@@ -123,20 +234,114 @@ class RosPrimitiveCall(MetamodelObject):
             "depth": self.control_depth,
             "repeats": self.repeats,
             "conditions": [c.to_JSON_object() for c in self.conditions],
-            "location": (self.location.to_JSON_object()
-                         if self.location else None)
+            "location": loc2_to_JSON(self.location2),
+            "variables": {attr: uv.name for attr, uv in self._vars.items()}
         }
+
+    def _set_str_attr(self, attr, value):
+        if value is None or value == "?":
+            if attr not in self._vars:
+                self._vars[attr] = self._new_var(attr, str)
+        else:
+            if attr in self._vars:
+                del self._vars[attr]
+        setattr(self, "_" + attr, value)
+
+    _var_counter = 0
+
+    def _new_var(self, attr, tf):
+        type(self)._var_counter += 1
+        name = "{}@{}{}".format(self.KEY, attr, type(self)._var_counter)
+        return _UnknownValue(name, self, attr, tf)
 
     def __str__(self):
         return "RosPrimitiveCall({}, {}, {}) {} (depth {})".format(
             self.name, self.namespace, self.type,
-            self.location, self.control_depth
+            self.location2, self.control_depth
         )
 
     def __repr__(self):
         return self.__str__()
 
-class Publication(RosPrimitiveCall):
+class AdvertiseCall(RosPrimitiveCall):
+    KEY = "advertise"
+    _var_counter = 0
+
+    def __init__(self, name, namespace, msg_type, queue_size, latched=False,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
+        RosPrimitiveCall.__init__(self, name, namespace, msg_type,
+                                  control_depth = control_depth,
+                                  repeats = repeats,
+                                  conditions = conditions, location = location)
+        self.queue_size = queue_size
+        self.latched = latched
+
+    @property
+    def queue_size(self):
+        return self._queue_size
+
+    @queue_size.setter
+    def queue_size(self, value):
+        key = "queue_size"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, int)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._queue_size = value
+
+    @property
+    def latched(self):
+        return self._latched
+
+    @latched.setter
+    def latched(self, value):
+        key = "latched"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, bool)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._latched = value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        msg_type = datum["msg_type"]
+        queue = datum["queue_size"]
+        latched = datum.get("latched", False)
+        return cls(name, ns, msg_type, queue, latched=latched)
+
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["msg_type"]
+        self.queue_size = data.get("queue_size", self.queue_size)
+        self.latched = data.get("latched", self.latched)
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["queue"] = self.queue_size
+        data["latched"] = self.latched
+        return data
+
+    def clone(self):
+        call = AdvertiseCall(self.name, self.namespace, self.type,
+            self.queue_size, latched=self.latched,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
+
+Publication = AdvertiseCall
+
+class SubscribeCall(RosPrimitiveCall):
+    KEY = "subscribe"
+    _var_counter = 0
+
     def __init__(self, name, namespace, msg_type, queue_size,
                  control_depth = None, repeats = False, conditions = None,
                  location = None):
@@ -146,37 +351,204 @@ class Publication(RosPrimitiveCall):
                                   conditions = conditions, location = location)
         self.queue_size = queue_size
 
+    @property
+    def queue_size(self):
+        return self._queue_size
+
+    @queue_size.setter
+    def queue_size(self, value):
+        key = "queue_size"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, int)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._queue_size = value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        msg_type = datum["msg_type"]
+        queue = datum["queue_size"]
+        return cls(name, ns, msg_type, queue)
+
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["msg_type"]
+        self.queue_size = data.get("queue_size", self.queue_size)
+
     def to_JSON_object(self):
         data = RosPrimitiveCall.to_JSON_object(self)
         data["queue"] = self.queue_size
         return data
 
-class Subscription(RosPrimitiveCall):
-    def __init__(self, name, namespace, msg_type, queue_size,
-                 control_depth = None, repeats = False, conditions = None,
-                 location = None):
-        RosPrimitiveCall.__init__(self, name, namespace, msg_type,
-                                  control_depth = control_depth,
-                                  repeats = repeats,
-                                  conditions = conditions, location = location)
-        self.queue_size = queue_size
+    def clone(self):
+        call = SubscribeCall(self.name, self.namespace, self.type,
+            self.queue_size, control_depth=self.control_depth,
+            repeats=self.repeats, conditions=list(self.conditions),
+            location=self.location)
+        call.location2 = self.location2
+        return call
 
-    def to_JSON_object(self):
-        data = RosPrimitiveCall.to_JSON_object(self)
-        data["queue"] = self.queue_size
-        return data
+Subscription = SubscribeCall
 
-class ServiceServerCall(RosPrimitiveCall):
-    pass
+class AdvertiseServiceCall(RosPrimitiveCall):
+    KEY = "advertiseService"
+    _var_counter = 0
+
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["srv_type"]
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        srv_type = datum["srv_type"]
+        return cls(name, ns, srv_type)
+
+    def clone(self):
+        call = AdvertiseServiceCall(self.name, self.namespace, self.type,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
+
+ServiceServerCall = AdvertiseServiceCall
 
 class ServiceClientCall(RosPrimitiveCall):
-    pass
+    KEY = "serviceClient"
+    _var_counter = 0
 
-class ReadParameterCall(RosPrimitiveCall):
-    pass
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["srv_type"]
 
-class WriteParameterCall(RosPrimitiveCall):
-    pass
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        srv_type = datum["srv_type"]
+        return cls(name, ns, srv_type)
+
+    def clone(self):
+        call = ServiceClientCall(self.name, self.namespace, self.type,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
+
+class GetParamCall(RosPrimitiveCall):
+    KEY = "getParam"
+    _var_counter = 0
+
+    def __init__(self, name, namespace, param_type, default_value=None,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
+        RosPrimitiveCall.__init__(self, name, namespace, param_type,
+            control_depth=control_depth, repeats=repeats,
+            conditions=conditions, location=location)
+        self.default_value = default_value
+
+    @property
+    def default_value(self):
+        return self._default_value
+
+    @default_value.setter
+    def default_value(self, value):
+        key = "default_value"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, fpid)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._default_value = value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        param_type = datum["param_type"]
+        v = datum.get("default_value")
+        return cls(name, ns, param_type, default_value=v)
+
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["param_type"]
+        self.default_value = data.get("default_value", self.default_value)
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["default_value"] = self.default_value
+        return data
+
+    def clone(self):
+        call = GetParamCall(self.name, self.namespace, self.type,
+            default_value=self.default_value,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
+
+ReadParameterCall = GetParamCall
+
+class SetParamCall(RosPrimitiveCall):
+    KEY = "setParam"
+    _var_counter = 0
+
+    def __init__(self, name, namespace, param_type, value=None,
+                 control_depth=None, repeats=False, conditions=None,
+                 location=None):
+        RosPrimitiveCall.__init__(self, name, namespace, param_type,
+            control_depth=control_depth, repeats=repeats,
+            conditions=conditions, location=location)
+        self.value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        key = "value"
+        if value is None:
+            if key not in self._vars:
+                self._vars[key] = self._new_var(key, fpid)
+        else:
+            if key in self._vars:
+                del self._vars[key]
+        self._value = value
+
+    @classmethod
+    def from_JSON_specs(cls, datum):
+        name = datum["name"]
+        ns = datum.get("namespace", "")
+        param_type = datum["param_type"]
+        v = datum.get("value")
+        return cls(name, ns, param_type, value=v)
+
+    def refine_from_JSON_specs(self, data):
+        RosPrimitiveCall.refine_from_JSON_specs(self, data)
+        self.type = data["param_type"]
+        self.value = data.get("value", self.value)
+
+    def to_JSON_object(self):
+        data = RosPrimitiveCall.to_JSON_object(self)
+        data["value"] = self.value
+        return data
+
+    def clone(self):
+        call = SetParamCall(self.name, self.namespace, self.type,
+            value=self.value,
+            control_depth=self.control_depth, repeats=self.repeats,
+            conditions=list(self.conditions), location=self.location)
+        call.location2 = self.location2
+        return call
+
+WriteParameterCall = SetParamCall
 
 
 ###############################################################################
@@ -202,12 +574,16 @@ class Person(object):
         return self.id.__hash__()
 
 
+Location2 = namedtuple("Location2", ("package", "file", "line", "column"))
+
+# in the process of deprecation
 class Location(object):
     """A location to report (package, file, line)."""
-    def __init__(self, pkg, file = None, line = None, fun = None, cls = None):
+    def __init__(self, pkg, file=None, line=None, col=None, fun=None, cls=None):
         self.package = pkg
         self.file = file
-        self.line = line
+        self.line = line    # should start at 1
+        self.column = col   # should start at 1
         self.function = fun
         self.class_ = cls
 
@@ -224,6 +600,7 @@ class Location(object):
             "package": self.package.name,
             "file": self.file.full_name if self.file else None,
             "line": self.line,
+            "column": self.column,
             "function": self.function,
             "class": self.class_
         }
@@ -235,6 +612,8 @@ class Location(object):
         s += "/" + self.file.full_name
         if not self.line is None:
             s += ":" + str(self.line)
+            if not self.column is None:
+                s += ":" + str(self.column)
             if self.function:
                 s += ", in function " + self.function
             if self.class_:
@@ -300,7 +679,9 @@ class SourceObject(MetamodelObject):
 class SourceFile(SourceObject):
     """Represents a source code file."""
     CPP = ('c source', 'c++ source')
+    CPP_ALT = ('.c', '.h', '.hpp', '.hxx', '.cpp', '.cc', '.cxx')
     PYTHON = 'python script'
+    PYTHON_ALT = '.py'
     PKG_XML = 'package.xml'
     LAUNCH = ('.launch', '.launch.xml')
     MSG = '.msg'
@@ -331,7 +712,7 @@ class SourceFile(SourceObject):
 
     @property
     def location(self):
-        return Location(self.package, file = self)
+        return Location(self.package, file=self)
 
     def bound_to(self, other):
         if other.scope == "node":
@@ -378,11 +759,17 @@ class SourceFile(SourceObject):
         }
 
     def _get_language(self):
-        file_type = file_cmd.from_file(self.path).lower()
-        if file_type.startswith(self.CPP):
-            return 'cpp'
-        if self.PYTHON in file_type:
-            return 'python'
+        try:
+            file_type = file_cmd.from_file(self.path).lower()
+            if file_type.startswith(self.CPP):
+                return 'cpp'
+            if self.PYTHON in file_type:
+                return 'python'
+        except IOError:
+            if self.name.endswith(self.CPP_ALT):
+                return 'cpp'
+            if self.name.endswith(self.PYTHON_ALT):
+                return 'python'
         if self.name.endswith(self.LAUNCH):
             return 'launch'
         if self.name == self.PKG_XML:
@@ -540,10 +927,28 @@ class Project(SourceObject):
         self.packages = []
         self.repositories = []
         self.configurations = []
+        self.node_specs = {}
 
     @property
     def scope(self):
         return "project"
+
+    def get_node(self, node_name):
+        parts = node_name.split("/")
+        if not len(parts) == 2:
+            raise ValueError("Expected '<pkg>/<node>' string, got {}.".format(
+                repr(node_name)))
+        for pkg in self.packages:
+            if pkg.name == parts[0]:
+                break
+        else:
+            raise ValueError("Package is not part of the project: " + parts[0])
+        for node in pkg.nodes:
+            if node.name == parts[1]:
+                break
+        else:
+            raise ValueError("Unknown node: " + node_name)
+        return node
 
     def bound_to(self, other):
         if other.scope == "package":
@@ -578,6 +983,8 @@ class Node(SourceObject):
         id = "node:" + pkg.name + "/" + (nodelet or name)
         SourceObject.__init__(self, id, name)
         self.package = pkg
+        if isinstance(rosname, basestring):
+            rosname = RosName(rosname)
         self.rosname = rosname
         self.nodelet_class = nodelet
         self.source_files = []
@@ -589,6 +996,8 @@ class Node(SourceObject):
         self.client = []
         self.read_param = []
         self.write_param = []
+        self.hpl_properties = [] # [string | HplAstObject]
+        self.hpl_assumptions = [] # [string | HplAstObject]
 
     @property
     def scope(self):
@@ -616,6 +1025,17 @@ class Node(SourceObject):
     def timestamp(self):
         return max([f.timestamp for f in self.source_files] or [0])
 
+    def variables(self):
+        vs = []
+        for call in chain(self.advertise, self.subscribe, self.service,
+                          self.client, self.read_param, self.write_param):
+            vs.extend(v for v in call.variables())
+        return vs
+
+    def resolve_variables(self, data):
+        for v in self.variables():
+            v.resolve(data.get(v.name))
+
     def to_JSON_object(self):
         return {
             "id": self.node_name,
@@ -630,7 +1050,11 @@ class Node(SourceObject):
             "client": [p.to_JSON_object() for p in self.client],
             "readParam": [p.to_JSON_object() for p in self.read_param],
             "writeParam": [p.to_JSON_object() for p in self.write_param],
-            "timestamp": self.timestamp
+            "timestamp": self.timestamp,
+            "hpl": {
+                "properties": map(str, self.hpl_properties),
+                "assumptions": map(str, self.hpl_assumptions)
+            }
         }
 
     def bound_to(self, other):
@@ -695,59 +1119,73 @@ class RosName(object):
 
     @property
     def pattern(self):
+        return RosName.to_pattern(self._name)
+
+    @staticmethod
+    def to_pattern(name):
         parts = []
         prev = ""
-        n = len(self._name)
+        n = len(name)
         i = 0
-        if self._name == "?":
+        if name == "?":
             return ".+$"
-        if self._name[0] == "?":
+        if name[0] == "?":
             parts.append("(.*?)")
             i = 1
             prev = "?"
-            assert self._name[1] != "?"
+            assert name[1] != "?"
         for j in xrange(i, n):
-            if self._name[j] == "?":
+            if name[j] == "?":
                 assert prev != "?"
                 if prev == "/":
                     if j == n - 1: # self._name.endswith("/?")
                         # end, whole part for sure
-                        parts.append(self._name[i:j])
+                        parts.append(name[i:j])
                         parts.append("(.+?)")
-                    elif self._name[j+1] == "/": # "/?/"
+                    elif name[j+1] == "/": # "/?/"
                         # start and middle, whole parts
-                        parts.append(self._name[i:j-1])
+                        parts.append(name[i:j-1])
                         parts.append("(/.+?)?")
                     else: # "/?a", optional part
-                        parts.append(self._name[i:j])
+                        parts.append(name[i:j])
                         parts.append("(.*?)")
                 else: # "a?/", "a?a", "/a?", optional part
-                    parts.append(self._name[i:j])
+                    parts.append(name[i:j])
                     parts.append("(.*?)")
                 i = j + 1
-            prev = self._name[j]
+            prev = name[j]
         if i < n:
-            parts.append(self._name[i:])
+            parts.append(name[i:])
         parts.append("$")
         return "".join(parts)
 
     @staticmethod
-    def resolve(name, ns = "/", private_ns = ""):
-        if name[0] == "~":
+    def resolve(name, ns="/", private_ns=""):
+        if name.startswith("~"):
             return private_ns + "/" + name[1:]
-        elif name[0] == "/":
+        elif name.startswith("/"):
             return name
-        elif ns == "" or ns[-1] != "/":
-            return ns + "/" + name
-        else:
+        elif ns.endswith("/"):
             return ns + name
+        else:
+            return ns + "/" + name
 
     @staticmethod
-    def transform(name, ns = "/", private_ns = "", remaps = None):
-        name = RosName.resolve(name, ns = ns, private_ns = private_ns)
+    def transform(name, ns="/", private_ns="", remaps=None):
+        name = RosName.resolve(name, ns=ns, private_ns=private_ns)
         if remaps:
             return remaps.get(name, name)
         return name
+
+    @staticmethod
+    def resolve_ns(new_ns, ns="/", private_ns=""):
+        if not new_ns:
+            return ns
+        if new_ns.startswith("~"):
+            if len(new_ns) == 1:
+                return private_ns
+            return "{}/{}".format(private_ns, new_ns[1:])
+        return RosName.resolve(new_ns, ns=ns, private_ns=private_ns)
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -759,6 +1197,13 @@ class RosName(object):
 
     def __hash__(self):
         return self._name.__hash__()
+
+    def __str__(self):
+        return self._name
+
+    def __repr__(self):
+        return "{}({!r}, ns={!r})".format(
+            type(self).__name__, self._own, self._ns)
 
 
 class RuntimeLocation(object):
@@ -789,6 +1234,7 @@ class Resource(MetamodelObject):
         self.configuration = config
         self.rosname = rosname
         self.conditions = conditions if not conditions is None else []
+        self.variables = []
 
     @property
     def id(self):
@@ -832,6 +1278,11 @@ class Resource(MetamodelObject):
     def remap(self, rosname):
         raise NotImplementedError("subclasses must implement this method")
 
+    def resolve_name(self, name):
+        if not name:
+            return self.namespace
+        return RosName.resolve(name, ns=self.namespace, private_ns=self.id)
+
     def __eq__(self, other):
         if isinstance(self, other.__class__):
             return (self.configuration == other.configuration
@@ -844,14 +1295,21 @@ class Resource(MetamodelObject):
     def __hash__(self):
         return self.rosname.__hash__()
 
+    def __str__(self):
+        return "{}('{}', {})".format(self.__class__.__name__,
+            self.rosname.full, self.type)
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class NodeInstance(Resource):
-    def __init__(self, config, rosname, node, launch = None, argv = None,
-                 remaps = None, conditions = None):
+    def __init__(self, config, rosname, node, launch=None, argv="",
+                 remaps=None, conditions=None):
         Resource.__init__(self, config, rosname, conditions = conditions)
         self.node = node
         self.launch = launch
-        self.argv = argv if not argv is None else []
+        self.argv = argv or ""
         self.remaps = remaps if not remaps is None else {}
         self.publishers = []
         self.subscribers = []
@@ -859,6 +1317,12 @@ class NodeInstance(Resource):
         self.clients = []
         self.reads = []
         self.writes = []
+        self._location = launch.location if launch is not None else None
+        self.location2 = loc_to_loc2(self._location)
+
+    @property
+    def type(self):
+        return self.node.node_name
 
     @property
     def resource_type(self):
@@ -884,7 +1348,12 @@ class NodeInstance(Resource):
         return nodes
 
     def traceability(self):
-        return [self.launch.location]
+        if self._location:
+            return [self._location]
+        return []
+
+    def traceability2(self):
+        return [self.location2]
 
     def remap(self, rosname):
         new = NodeInstance(self.configuration, rosname, self.node,
@@ -897,6 +1366,7 @@ class NodeInstance(Resource):
         new.clients = list(self.clients)
         new.reads = list(self.reads)
         new.writes = list(self.writes)
+        new.location2 = self.location2
         return new
 
     def to_JSON_object(self):
@@ -912,7 +1382,8 @@ class NodeInstance(Resource):
             "clients": [p.service.rosname.full for p in self.clients],
             "reads": [p.parameter.rosname.full for p in self.reads],
             "writes": [p.parameter.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
+            "variables": self.variables
         }
 
     def __repr__(self):
@@ -950,6 +1421,9 @@ class Topic(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Topic(self.configuration, rosname, message_type = self.type,
                     conditions = list(self.conditions))
@@ -965,7 +1439,8 @@ class Topic(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "publishers": [p.node.rosname.full for p in self.publishers],
             "subscribers": [p.node.rosname.full for p in self.subscribers],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
+            "variables": self.variables
         }
 
     def _get_conditions(self):
@@ -1016,6 +1491,9 @@ class Service(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Service(self.configuration, rosname, message_type = self.type,
                       conditions = list(self.conditions))
@@ -1032,7 +1510,8 @@ class Service(Resource):
             "servers": ([self.server.node.rosname.full]
                         if not self.server is None else []),
             "clients": [p.node.rosname.full for p in self.clients],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
+            "variables": self.variables
         }
 
     def _get_conditions(self):
@@ -1060,19 +1539,21 @@ class Parameter(Resource):
         self.reads = []
         self.writes = []
         self.launch = launch
+        self._location = launch.location if launch is not None else None
+        self.location2 = loc_to_loc2(self._location)
 
     @staticmethod
     def type_of(value):
         if value is None:
             return None
+        if value is True or value is False:
+            return "bool"
         if isinstance(value, int):
             return "int"
         if isinstance(value, float):
             return "double"
         if isinstance(value, basestring):
-            return "string"
-        if isinstance(value, bool):
-            return "boolean"
+            return "str"
         return "yaml"
 
     @property
@@ -1081,8 +1562,8 @@ class Parameter(Resource):
 
     def traceability(self):
         sl = []
-        if not self.launch is None:
-            sl.append(self.launch.location)
+        if self._location is not None:
+            sl.append(self._location)
         for p in self.reads:
             if not p.source_location is None:
                 sl.append(p.source_location)
@@ -1091,12 +1572,16 @@ class Parameter(Resource):
                 sl.append(p.source_location)
         return sl
 
+    def traceability2(self):
+        return [loc_to_loc2(l) for l in self.traceability()]
+
     def remap(self, rosname):
         new = Parameter(self.configuration, rosname, self.type,
                          self.value, node_scope = self.node_scope,
                          conditions = list(self.conditions))
         new.reads = list(self.reads)
         new.writes = list(self.writes)
+        new.location2 = self.location2
         return new
 
     def to_JSON_object(self):
@@ -1108,7 +1593,8 @@ class Parameter(Resource):
             "conditions": [c.to_JSON_object() for c in self.conditions],
             "reads": [p.node.rosname.full for p in self.reads],
             "writes": [p.node.rosname.full for p in self.writes],
-            "traceability": [l.to_JSON_object() for l in self.traceability()]
+            "traceability": [loc2_to_JSON(l) for l in self.traceability2()],
+            "variables": self.variables
         }
 
 
@@ -1165,6 +1651,20 @@ class ResourceCollection(object):
         self.counter[resource.id] += 1
         return previous
 
+    def remove(self, name):
+        for col in (self.all, self.conditional, self.enabled, self.unresolved):
+            for i in range(len(col) - 1, -1, -1):
+                if col[i].id == name:
+                    del col[i]
+        previous = 0
+        if name in self.counter:
+            previous = self.counter[name]
+            self.counter[name] = 0
+        return previous
+
+
+LaunchCommand = namedtuple("LaunchCommand", ("command", "args"))
+
 
 class Configuration(MetamodelObject):
     """A configuration is more or less equivalent to an application.
@@ -1183,6 +1683,10 @@ class Configuration(MetamodelObject):
         self.services = ResourceCollection(services)
         self.parameters = ResourceCollection(parameters)
         self.dependencies = DependencySet()
+        self.launch_commands = [] # [LaunchCommand]
+        self.hpl_properties = [] # [string | HplAstObject]
+        self.hpl_assumptions = [] # [string | HplAstObject]
+        self.user_attributes = {}
 
     @property
     def location(self):
@@ -1216,6 +1720,9 @@ class Configuration(MetamodelObject):
                     n += 1
         return n
 
+    def add_command(self, cmd, args):
+        self.launch_commands.append(LaunchCommand(cmd, args))
+
     def to_JSON_object(self):
         publishers = []
         subscribers = []
@@ -1248,6 +1755,10 @@ class Configuration(MetamodelObject):
                 "clients": clients,
                 "reads": reads,
                 "writes": writes
+            },
+            "hpl": {
+                "properties": map(str, self.hpl_properties),
+                "assumptions": map(str, self.hpl_assumptions)
             }
         }
 
@@ -1268,6 +1779,7 @@ class RosPrimitive(MetamodelObject):
         self.rosname = rosname # before remappings
         self.conditions = conditions if not conditions is None else []
         self.source_location = location
+        self.location2 = loc_to_loc2(location)
 
     @property
     def location(self):
@@ -1282,8 +1794,7 @@ class RosPrimitive(MetamodelObject):
             "node": self.node.rosname.full,
             "node_uid": str(id(self.node)),
             "name": self.rosname.full,
-            "location": (self.source_location.to_JSON_object()
-                         if self.source_location else None),
+            "location": loc2_to_JSON(self.location2),
             "conditions": [c.to_JSON_object() for c in self.conditions]
         }
 
@@ -1319,12 +1830,30 @@ class TopicPrimitive(RosPrimitive):
 class PublishLink(TopicPrimitive):
     @classmethod
     def link(cls, node, topic, message_type, rosname, queue_size,
-             conditions = None, location = None):
+             latched=False, conditions=None, location=None):
         link = cls(node, topic, message_type, rosname, queue_size,
                    conditions = conditions, location = location)
         link.node.publishers.append(link)
         link.topic.publishers.append(link)
+        link.latched = latched
         return link
+
+    @classmethod
+    def link_from_call(cls, node, topic, rosname, call):
+        if not isinstance(call, AdvertiseCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, topic, call.type, rosname, call.queue_size,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.publishers.append(link)
+        link.topic.publishers.append(link)
+        link.latched = call.latched
+        link.location2 = call.location2
+        return link
+
+    def to_JSON_object(self):
+        data = TopicPrimitive.to_JSON_object(self)
+        data["latched"] = self.latched
+        return data
 
     def __str__(self):
         return "Publication of node '{}' to topic '{}' of type '{}'".format(
@@ -1338,6 +1867,17 @@ class SubscribeLink(TopicPrimitive):
                    conditions = conditions, location = location)
         link.node.subscribers.append(link)
         link.topic.subscribers.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, topic, rosname, call):
+        if not isinstance(call, SubscribeCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, topic, call.type, rosname, call.queue_size,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.subscribers.append(link)
+        link.topic.subscribers.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -1381,6 +1921,17 @@ class ServiceLink(ServicePrimitive):
         link.service.server = link
         return link
 
+    @classmethod
+    def link_from_call(cls, node, service, rosname, call):
+        if not isinstance(call, AdvertiseServiceCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, service, call.type, rosname,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.servers.append(link)
+        link.service.server = link
+        link.location2 = call.location2
+        return link
+
     def __str__(self):
         return "Service({}, {}, {})".format(self.node.id, self.service.id,
                                             self.type)
@@ -1395,18 +1946,30 @@ class ClientLink(ServicePrimitive):
         link.service.clients.append(link)
         return link
 
+    @classmethod
+    def link_from_call(cls, node, service, rosname, call):
+        if not isinstance(call, ServiceClientCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, service, call.type, rosname,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.clients.append(link)
+        link.service.clients.append(link)
+        link.location2 = call.location2
+        return link
+
     def __str__(self):
         return "Client({}, {}, {})".format(self.node.id, self.service.id,
                                            self.type)
 
 
 class ParameterPrimitive(RosPrimitive):
-    def __init__(self, node, param, param_type, rosname, conditions = None,
-                 location = None):
+    def __init__(self, node, param, param_type, rosname, value=None,
+                 conditions=None, location=None):
         RosPrimitive.__init__(self, node, rosname, conditions = conditions,
                               location = location)
         self.parameter = param
         self.type = param_type
+        self.value = value
 
     @property
     def param_name(self):
@@ -1417,6 +1980,7 @@ class ParameterPrimitive(RosPrimitive):
         data["param"] = self.param_name
         data["param_uid"] = str(id(self.parameter))
         data["type"] = self.type
+        data["value"] = self.value
         return data
 
     def __repr__(self):
@@ -1428,12 +1992,23 @@ class ParameterPrimitive(RosPrimitive):
 
 class ReadLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None,
-             location = None):
-        link = cls(node, param, param_type, rosname, conditions = conditions,
-                   location = location)
+    def link(cls, node, param, param_type, rosname, value=None,
+             conditions=None, location=None):
+        link = cls(node, param, param_type, rosname, value=value,
+                   conditions=conditions, location=location)
         link.node.reads.append(link)
         link.parameter.reads.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, param, rosname, call):
+        if not isinstance(call, GetParamCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, param, call.type, rosname, value=call.default_value,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.reads.append(link)
+        link.parameter.reads.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -1442,12 +2017,23 @@ class ReadLink(ParameterPrimitive):
 
 class WriteLink(ParameterPrimitive):
     @classmethod
-    def link(cls, node, param, param_type, rosname, conditions = None,
-             location = None):
+    def link(cls, node, param, param_type, rosname, value=None,
+             conditions=None, location=None):
         link = cls(node, param, param_type, rosname, conditions = conditions,
                    location = location)
         link.node.writes.append(link)
         link.parameter.writes.append(link)
+        return link
+
+    @classmethod
+    def link_from_call(cls, node, param, rosname, call):
+        if not isinstance(call, SetParamCall):
+            raise ValueError("wrong call type: " + type(call).__name__)
+        link = cls(node, param, call.type, rosname, value=call.value,
+                   conditions=list(call.conditions), location=call.location)
+        link.node.writes.append(link)
+        link.parameter.writes.append(link)
+        link.location2 = call.location2
         return link
 
     def __str__(self):
@@ -1474,6 +2060,51 @@ def _py_ignore_next_line(line):
 def _no_parser(line):
     return False
 
+def _bool_to_conditions(v):
+    v = bool(v)
+    if v is True:
+        return []
+    else:
+        return [False]
+
+def fpid(v):
+    return v
+
+
+def loc_to_loc2(loc):
+    if loc is None or loc.package is None:
+        return Location2(None, None, None, None)
+    pkg = loc.package.name
+    if loc.file is None:
+        return Location2(pkg, None, None, None)
+    fname = loc.file.full_name
+    if loc.line is None:
+        return Location2(pkg, fname, None, None)
+    return Location2(pkg, fname, loc.line, loc.column)
+
+def loc2_to_JSON(loc2):
+    return {
+        "package": loc2.package,
+        "file": loc2.file,
+        "line": loc2.line,
+        "column": loc2.column,
+        "function": None,
+        "class": None
+    }
+
+def JSON_to_loc2(data):
+    if data is None:
+        return Location2(None, None, None, None)
+    pkg = data.get("package")
+    if pkg is None:
+        return Location2(None, None, None, None)
+    fname = data.get("file")
+    if fname is None:
+        return Location2(pkg, None, None, None)
+    line = data.get("line")
+    if line is None:
+        return Location2(pkg, fname, None, None)
+    return Location2(pkg, fname, line, data.get("column"))
 
 
 ###############################################################################

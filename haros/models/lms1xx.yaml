@@ -38,7 +38,7 @@ indigo:
         readParam:
             -
                 name: "host"
-                type: string
+                type: str
                 default: "192.168.1.2"
                 namespace: "~"
                 depth: 0
@@ -47,7 +47,7 @@ indigo:
                 conditions: []
             -
                 name: "frame_id"
-                type: string
+                type: str
                 default: "laser"
                 namespace: "~"
                 depth: 0

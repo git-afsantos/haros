@@ -43,5 +43,8 @@ setup(
         "bonsai-code>=0.5.0,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0"
     ],
+    extras_require = {
+        "hpl": ["future", "lark-parser<1.0.0"]
+    },
     zip_safe        = True
 )

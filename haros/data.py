@@ -732,8 +732,13 @@ class HarosDatabase(LoggingObject):
         # storing bonsai source trees can sometimes hit the recursion limit
         for node in self.nodes.itervalues():
             node.source_tree = None
+            node.hpl_properties = map(str, node.hpl_properties)
+            node.hpl_assumptions = map(str, node.hpl_assumptions)
         for sf in self.files.itervalues():
             sf.tree = None
+        for config in self.configurations:
+            config.hpl_properties = map(str, config.hpl_properties)
+            config.hpl_assumptions = map(str, config.hpl_assumptions)
 
     def _cached_nodes(self, nodes):
         for id, node in self.nodes.iteritems():

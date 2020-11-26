@@ -60,7 +60,13 @@ indigo:
                 depth: 3
                 location: null
                 repeats: true
-                conditions: ["if (poseUpdateSum + twistUpdateSum > 0)", "if (moreParams)", "while (moreParams)"]
+                conditions:
+                    - statement: if
+                      condition: "(poseUpdateSum + twistUpdateSum > 0)"
+                    - statement: if
+                      condition: "(moreParams)"
+                    - statement: while
+                      condition: "(moreParams)"
         service:
             -
                 name: "set_pose"
@@ -99,7 +105,7 @@ indigo:
                 conditions: []
             -
                 name: "map_frame"
-                type: string
+                type: str
                 default: "map"
                 namespace: "~"
                 depth: 0
@@ -108,7 +114,7 @@ indigo:
                 conditions: []
             -
                 name: "odom_frame"
-                type: string
+                type: str
                 default: "odom"
                 namespace: "~"
                 depth: 0
@@ -117,7 +123,7 @@ indigo:
                 conditions: []
             -
                 name: "base_link_frame"
-                type: string
+                type: str
                 default: "base_link"
                 namespace: "~"
                 depth: 0
@@ -126,7 +132,7 @@ indigo:
                 conditions: []
             -
                 name: "world_frame"
-                type: string
+                type: str
                 default: "odom"
                 namespace: "~"
                 depth: 0

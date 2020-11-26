@@ -38,11 +38,11 @@ from bonsai.model import (
     CodeGlobalScope, CodeReference, CodeFunctionCall, pretty_str
 )
 from bonsai.cpp.model import (
-    CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
+    CppEntity, CppFunctionCall, CppDefaultArgument, CppOperator, CppReference
 )
 from bonsai.analysis import (
     CodeQuery, resolve_reference, resolve_expression, get_control_depth,
-    get_conditions, is_under_loop
+    get_conditions, get_condition_paths, is_under_loop
 )
 try:
     from bonsai.cpp.clang_parser import CppAstParser
@@ -57,8 +57,8 @@ from .cmake_parser import RosCMakeParser
 from .launch_parser import LaunchParser, LaunchParserError
 from .metamodel import (
     Project, Repository, Package, SourceFile, Node, Person, SourceCondition,
-    Publication, Subscription, ServiceServerCall, ServiceClientCall, Location,
-    ReadParameterCall, WriteParameterCall
+    AdvertiseCall, SubscribeCall, AdvertiseServiceCall,
+    ServiceClientCall, Location, GetParamCall, SetParamCall
 )
 from .util import cwd
 
@@ -122,6 +122,10 @@ def findRosPackages(paths = None, as_stack = False):
     return pkgs
 # ^ findRosPackages(paths)
 
+_EMPTY_DICT = {}
+_EMPTY_LIST = ()
+
+
 ###############################################################################
 # Source Extractor
 ###############################################################################
@@ -148,6 +152,7 @@ class ProjectExtractor(LoggingObject):
         self.configurations = None
         self.node_specs = None
         self.rules = None
+        self._extra_packages = set()
 
     def index_source(self, settings=None):
         self.log.debug("ProjectExtractor.index_source()")
@@ -163,6 +168,7 @@ class ProjectExtractor(LoggingObject):
         self._populate_packages_and_dependencies(settings=settings)
         self._update_node_cache()
         self._find_nodes(settings)
+        self._update_nodes_from_specs()
 
     def _setup(self):
         try:
@@ -173,11 +179,18 @@ class ProjectExtractor(LoggingObject):
         self.project = Project(data.get("project", "default"))
         self.repositories = data.get("repositories", {})
         self.packages = set(data.get("packages")
-                             or list(findRosPackages(["."])))
+                            or list(findRosPackages(["."])))
         self.missing = set(self.packages)
         self.configurations = data.get("configurations", {})
         self.node_specs = data.get("nodes", {})
+        self.project.node_specs = self.node_specs
         self.rules = data.get("rules", {})
+        for node_name in self.node_specs:
+            if not "/" in node_name:
+                raise ValueError("expected '<pkg>/<node>' in node specs")
+            pkg, exe = node_name.split("/")
+            self._extra_packages.add(pkg)
+        self.missing.update(self._extra_packages)
 
     def _load_user_repositories(self):
         self.log.info("Looking up user provided repositories.")
@@ -205,12 +218,17 @@ class ProjectExtractor(LoggingObject):
         extractor.refresh_package_cache()
         found = []
         for name in self.missing:
+            analyse = name in self.packages
             pkg = self.package_cache.get(name)
             if pkg:
                 self.project.packages.append(pkg)
                 found.append(name)
-            elif extractor.find_package(name, project = self.project):
-                found.append(name)
+                pkg._analyse = analyse
+            else:
+                pkg = extractor.find_package(name, project=self.project)
+                if pkg:
+                    found.append(name)
+                    pkg._analyse = analyse
         self.missing.difference_update(found)
 
     def _load_distro_repositories(self):
@@ -323,6 +341,8 @@ class ProjectExtractor(LoggingObject):
         self.log.debug("Importing cached Nodes.")
         data = [datum for datum in self.node_cache.itervalues()]
         self.node_cache = {}
+        empty_dict = {}
+        empty_list = ()
         for datum in data:
             try:
                 pkg = self._get_package(datum["package"])
@@ -351,7 +371,31 @@ class ProjectExtractor(LoggingObject):
                 node.read_param.append(self._read_from_JSON(p))
             for p in datum["writeParam"]:
                 node.write_param.append(self._write_from_JSON(p))
+            hpl = datum.get("hpl", empty_dict)
+            for p in hpl.get("properties", empty_list):
+                node.hpl_properties.append(p)
+            for a in hpl.get("assumptions", empty_list):
+                node.hpl_assumptions.append(a)
             self.node_cache[node.node_name] = node
+
+    def _update_nodes_from_specs(self):
+        self.log.debug("Loading Nodes from specs.")
+        pkg_finder = PackageExtractor()
+        pkg_finder.packages.extend(self.project.packages)
+        nhm = NodeHints2(self.node_specs, pkg_finder=pkg_finder)
+        nodes = dict(self.node_cache)
+        for pkg in self.project.packages:
+            for node in pkg.nodes:
+                node_type = node.node_name
+                if node_type not in nodes:
+                    self.log.debug(
+                        "WARNING node %s is not in node cache!", node_type)
+                    nodes[node_type] = node
+        new_nodes = nhm.apply_to(nodes, create=True)
+        for node in new_nodes:
+            assert node.node_name not in self.node_cache
+            self.node_cache[node.node_name] = node
+            node.package.nodes.append(node)
 
     def _get_package(self, name):
         for pkg in self.project.packages:
@@ -374,27 +418,31 @@ class ProjectExtractor(LoggingObject):
 
     def _pub_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
-        return Publication(datum["name"], datum["namespace"], datum["type"],
-                           datum["queue"], control_depth = datum["depth"],
+        return AdvertiseCall(datum["name"], datum["namespace"], datum["type"],
+                           datum["queue"], latched=datum.get("latched", False),
+                           control_depth = datum["depth"],
                            repeats = datum["repeats"],
                            conditions = cs, location = l(datum["location"]))
 
     def _sub_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
-        return Subscription(datum["name"], datum["namespace"], datum["type"],
+        return SubscribeCall(datum["name"], datum["namespace"], datum["type"],
                             datum["queue"], control_depth = datum["depth"],
                             repeats = datum["repeats"],
                             conditions = cs, location = l(datum["location"]))
 
     def _srv_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
-        return ServiceServerCall(datum["name"], datum["namespace"],
+        return AdvertiseServiceCall(datum["name"], datum["namespace"],
                                  datum["type"], control_depth = datum["depth"],
                                  repeats = datum["repeats"],
                                  conditions = cs,
@@ -402,7 +450,8 @@ class ProjectExtractor(LoggingObject):
 
     def _client_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
         return ServiceClientCall(datum["name"], datum["namespace"],
                                  datum["type"], control_depth = datum["depth"],
@@ -412,25 +461,27 @@ class ProjectExtractor(LoggingObject):
 
     def _read_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
-        return ReadParameterCall(datum["name"], datum["namespace"],
-                                 datum["type"], control_depth = datum["depth"],
-                                 repeats = datum["repeats"],
-                                 conditions = cs,
-                                 location = l(datum["location"]))
+        return GetParamCall(datum["name"], datum["namespace"],
+            datum["type"], default_value=datum["default_value"],
+            control_depth=datum["depth"], repeats=datum["repeats"],
+            conditions=cs, location=l(datum["location"]))
 
     def _write_from_JSON(self, datum):
         l = self._location_from_JSON
-        cs = [SourceCondition(c["condition"], location = l(c["location"]))
+        cs = [SourceCondition(c["condition"], location=l(c["location"]),
+                              statement=c["statement"])
               for c in datum["conditions"]]
-        return WriteParameterCall(datum["name"], datum["namespace"],
-                                  datum["type"], control_depth = datum["depth"],
-                                  repeats = datum["repeats"],
-                                  conditions = cs,
-                                  location = l(datum["location"]))
+        return SetParamCall(datum["name"], datum["namespace"],
+            datum["type"], value=datum["value"],
+            control_depth=datum["depth"], repeats=datum["repeats"],
+            conditions=cs, location=l(datum["location"]))
 
     def _location_from_JSON(self, datum):
+        if datum is None:
+            return None
         try:
             pkg = self._get_package(datum["package"])
             sf = None
@@ -439,8 +490,8 @@ class ProjectExtractor(LoggingObject):
                 sf = self._get_files(pkg, [filename])[0]
         except ValueError:
             return None
-        return Location(pkg, file = sf, line = datum["line"],
-                        fun = datum["function"], cls = datum["class"])
+        return Location(pkg, file=sf, line=datum["line"], col=datum["column"],
+                        fun=datum["function"], cls=datum["class"])
 
 
 ###############################################################################
@@ -607,7 +658,8 @@ class PackageExtractor(LoggingObject):
         self.altstack_pkgs = None
 
     # To use with LaunchParser.
-    def get(self, pkg_id):
+    def get(self, pkg_id, populate=True):
+        self.log.debug("%s.get('%s')", type(self).__name__, pkg_id)
         if pkg_id in self._pkg_cache:
             return self._pkg_cache[pkg_id]
         for pkg in self.packages:
@@ -619,6 +671,9 @@ class PackageExtractor(LoggingObject):
             pkg = self._find(pkg_id[8:], None)
             self._pkg_cache[pkg_id] = pkg
             self._extra.append(pkg)
+            pkg._analyse = False
+            if populate:
+                self._populate_package(pkg)
         except (IOError, ET.ParseError, ResourceNotFound):
             return None
         return pkg
@@ -640,6 +695,23 @@ class PackageExtractor(LoggingObject):
             return None
         return pkg
 
+    def find_package_at(self, dirpath, populate=True):
+        try:
+            manifest = os.path.join(dirpath, "package.xml")
+            pkg = PackageParser.parse(manifest)
+            if pkg.id in self._pkg_cache:
+                return self._pkg_cache[pkg.id]
+            else:
+                self._pkg_cache[pkg.id] = pkg
+            if pkg not in self._extra:
+                self._extra.append(pkg)
+            pkg._analyse = False
+            if populate:
+                self._populate_package(pkg)
+        except (IOError, ET.ParseError, KeyError):
+            return None
+        return pkg
+
     def _find(self, name, project):
         path = None
         if self.alt_paths:
@@ -650,15 +722,15 @@ class PackageExtractor(LoggingObject):
                 if self.altstack_pkgs == None:
                     self.altstack_pkgs = findRosPackages(paths=self.alt_paths, as_stack=True)
                 path = self.altstack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             if self.rospack_pkgs == None:
                 self.rospack_pkgs = findRosPackages(as_stack=False)
             path = self.rospack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             if self.rosstack_pkgs == None:
                 self.rosstack_pkgs = findRosPackages(as_stack=True)
             path = self.rosstack_pkgs.get(name, None)
-        if path == None:
+        if path is None:
             raise KeyError(name)
         return PackageParser.parse(os.path.join(path, "package.xml"),
                                    project = project)
@@ -772,12 +844,15 @@ class PackageParser(LoggingObject):
                 nodelets = el.find("nodelet").get("plugin")
                 nodelets = nodelets.replace("${prefix}", package.path)
                 with open(nodelets, "r") as handle:
-                    root = ET.parse(handle).getroot()
+                    xmltext = "<export>{}</export>".format(handle.read())
+                    root = ET.fromstring(xmltext)
                 PackageParser.log.info("Found nodelets at %s", nodelets)
-                if root.tag == "library":
-                    libs = (root,)
-                else:
-                    libs = root.findall("library")
+                libs = []
+                for child in root:
+                    if child.tag == "library":
+                        libs.append(child)
+                    else:
+                        libs.extend(child.findall("library"))
                 for el in libs:
                     libname = el.get("path").rsplit(os.sep)[-1]
                     for cl in el.findall("class"):
@@ -830,7 +905,9 @@ class HardcodedNodeParser(LoggingObject):
             cls.log.debug("Node does not exist for ROS %s.", cls.distro)
             return None
         cls.log.debug("Building node from YAML data.")
-        node = cls._build_node(node_type, cls.distro, Package(pkg), data)
+        pkg = Package(pkg)
+        pkg.path = "/tmp/" + pkg.name
+        node = cls._build_node(node_type, cls.distro, pkg, data)
         cls._cache[node_id] = node
         return node
 
@@ -844,50 +921,96 @@ class HardcodedNodeParser(LoggingObject):
             node = Node(node_type, pkg, rosname = node_data.get("rosname"),
                         nodelet = node_type if node_data["nodelet"] else None)
         for datum in node_data.get("advertise", ()):
-            pub = Publication(datum["name"], datum["namespace"],
+            loc = cls._loc(pkg, datum)
+            pub = AdvertiseCall(datum["name"], datum["namespace"],
                     datum["type"], datum["queue"],
-                    control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+                    latched=datum.get("latched", False),
+                    control_depth=datum["depth"],
+                    repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
+                                                statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.advertise.append(pub)
         for datum in node_data.get("subscribe", ()):
-            sub = Subscription(datum["name"], datum["namespace"],
+            loc = cls._loc(pkg, datum)
+            sub = SubscribeCall(datum["name"], datum["namespace"],
                     datum["type"], datum["queue"],
                     control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.subscribe.append(sub)
         for datum in node_data.get("service", ()):
-            srv = ServiceServerCall(datum["name"], datum["namespace"],
+            loc = cls._loc(pkg, datum)
+            srv = AdvertiseServiceCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.service.append(srv)
         for datum in node_data.get("client", ()):
+            loc = cls._loc(pkg, datum)
             cli = ServiceClientCall(datum["name"], datum["namespace"],
                     datum["type"], control_depth = datum["depth"],
                     repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+                    conditions = [SourceCondition(c["condition"],
+                                                  statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.client.append(cli)
         for datum in node_data.get("readParam", ()):
-            par = ReadParameterCall(datum["name"], datum["namespace"],
-                    datum["type"], control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+            loc = cls._loc(pkg, datum)
+            par = GetParamCall(datum["name"], datum["namespace"],
+                    datum["type"], default_value=datum.get("default"),
+                    control_depth=datum["depth"], repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
+                                                  statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.read_param.append(par)
         for datum in node_data.get("writeParam", ()):
-            par = WriteParameterCall(datum["name"], datum["namespace"],
-                    datum["type"], control_depth = datum["depth"],
-                    repeats = datum["repeats"],
-                    conditions = [SourceCondition(c)
-                                  for c in datum["conditions"]])
+            loc = cls._loc(pkg, datum)
+            par = SetParamCall(datum["name"], datum["namespace"],
+                    datum["type"], value=datum.get("value"),
+                    control_depth=datum["depth"], repeats=datum["repeats"],
+                    conditions=[SourceCondition(c["condition"],
+                                                  statement=c["statement"])
+                                  for c in datum["conditions"]],
+                    location=loc)
             node.write_param.append(par)
+        cls.log.debug("Hard-coded Node: " + str(node.to_JSON_object()))
         return node
+
+    @classmethod
+    def _loc(cls, pkg, data):
+        loc = data.get("location")
+        if loc is None:
+            return None
+        p = loc.get("package")
+        if p is None or p != pkg.name:
+            return None
+        f = loc["file"]
+        for sf in pkg.source_files:
+            if sf.full_name == f:
+                f = sf
+                break
+        else:
+            parts = loc["file"].rsplit("/", 1)
+            if len(parts) == 1:
+                directory = ""
+                name = parts[0]
+            else:
+                assert len(parts) == 2
+                directory, name = parts
+            f = SourceFile(name, directory, pkg)
+            pkg.source_files.append(f)
+        return Location(pkg, file=f, line=loc["line"], col=loc["column"],
+                        fun=loc.get("function"), cls=loc.get("class"))
 
 
 ###############################################################################
@@ -994,8 +1117,14 @@ class NodeExtractor(LoggingObject):
                     sf = self._get_file(path)
                     if sf:
                         node.source_files.append(sf)
-            self.nodes.append(node)
-            self.package.nodes.append(node)
+            lang = node.language
+            if lang == "cpp" or lang == "python":
+                self.log.debug("register %s node: %s", lang, node.node_name)
+                self.nodes.append(node)
+                self.package.nodes.append(node)
+            else:
+                self.log.debug("CMake target is not a node: %s (%s) %s",
+                    node.node_name, lang, node.source_files)
 
     def _extract_primitives(self, force_when_cached=False):
         self.roscpp_extractor = RoscppExtractor(self.package, self.workspace)
@@ -1030,6 +1159,10 @@ class NodeExtractor(LoggingObject):
             else:
                 self.log.debug("Node written in %s.", node.language)
 
+
+###############################################################################
+# C++ Primitive Extractor
+###############################################################################
 
 class RoscppExtractor(LoggingObject):
     def __init__(self, package, workspace):
@@ -1122,31 +1255,56 @@ class RoscppExtractor(LoggingObject):
 
     def _query_nh_param_primitives(self, node, gs):
         nh_prefix = "c:@N@ros@S@NodeHandle@"
-        reads = ("getParam", "getParamCached", "param", "hasParam",
-                 "searchParam")
+        gets = ("getParam", "getParamCached", "param")
+        reads = gets + ("hasParam", "searchParam")
         for call in CodeQuery(gs).all_calls.where_name(reads).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
+                param_type = default_value = None
+                if call.name in gets:
+                    param_type = self._extract_param_type(call.arguments[1])
+                if call.name == "param":
+                    if len(call.arguments) > 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=2)
+                    elif len(call.arguments) == 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=1)
                 self._on_read_param(node, self._resolve_node_handle(call),
-                                    call)
-
-        writes = ("setParam", "deleteParam")
+                                    call, param_type, default_value)
+        sets = ("setParam",)
+        writes = sets + ("deleteParam",)
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::NodeHandle")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(nh_prefix))):
+                param_type = value = None
+                if len(call.arguments) >= 2 and call.name in sets:
+                    param_type = self._extract_param_type(call.arguments[1])
+                    value = self._extract_param_value(call, arg_pos=1)
                 self._on_write_param(node, self._resolve_node_handle(call),
-                                     call)
+                                     call, param_type, value)
 
     def _query_param_primitives(self, node, gs):
         ros_prefix = "c:@N@ros@N@param@"
-        reads = ("get", "getCached", "param", "has")
+        gets = ("get", "getCached", "param")
+        reads = gets + ("has",)
         for call in CodeQuery(gs).all_calls.where_name(reads).get():
             if (call.full_name.startswith("ros::param")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(ros_prefix))):
-                self._on_read_param(node, "", call)
+                param_type = default_value = None
+                if call.name in gets:
+                    param_type = self._extract_param_type(call.arguments[1])
+                if call.name == "param":
+                    if len(call.arguments) > 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=2)
+                    elif len(call.arguments) == 2:
+                        default_value = self._extract_param_value(
+                            call, arg_pos=1)
+                self._on_read_param(node, "", call, param_type, default_value)
         for call in (CodeQuery(gs).all_calls.where_name("search")
                      .where_result("bool").get()):
             if (call.full_name.startswith("ros::param")
@@ -1158,30 +1316,43 @@ class RoscppExtractor(LoggingObject):
                         ns = "?"
                 else:
                     ns = "~"
-                self._on_read_param(node, ns, call)
-        writes = ("set", "del")
+                self._on_read_param(node, ns, call, None, None)
+        sets = ("set",)
+        writes = sets + ("del",)
         for call in CodeQuery(gs).all_calls.where_name(writes).get():
             if (call.full_name.startswith("ros::param")
                     or (isinstance(call.reference, str)
                         and call.reference.startswith(ros_prefix))):
-                self._on_write_param(node, "", call)
+                param_type = value = None
+                if len(call.arguments) >= 2 and call.name in sets:
+                    param_type = self._extract_param_type(call.arguments[1])
+                    value = self._extract_param_value(call, arg_pos=1)
+                self._on_write_param(node, "", call, param_type, value)
 
     def _on_publication(self, node, ns, call, topic_pos=0, queue_pos=1,
-                        msg_type=None):
+                        msg_type=None, latch_pos=-1):
         if len(call.arguments) <= 1:
             return
         name = self._extract_topic(call, topic_pos=topic_pos)
         msg_type = msg_type or self._extract_message_type(call)
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
+        latched = False
+        if len(call.arguments) >= 3 and len(call.arguments) > latch_pos:
+            latched = self._extract_latch(call, latch_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
-        pub = Publication(name, ns, msg_type, queue_size, location=location,
-                          control_depth=depth, conditions=conditions,
-                          repeats=is_under_loop(call, recursive=True))
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
+        pub = AdvertiseCall(name, ns, msg_type, queue_size, latched=latched,
+            location=location, control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive=True))
         node.advertise.append(pub)
-        self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
+        self.log.debug("Found AdvertiseCall on %s/%s (%s)", ns, name, msg_type)
 
     def _on_subscription(self, node, ns, call, topic_pos=0, queue_pos=1,
                          msg_type=None):
@@ -1192,13 +1363,18 @@ class RoscppExtractor(LoggingObject):
         queue_size = self._extract_queue_size(call, queue_pos=queue_pos)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
-        sub = Subscription(name, ns, msg_type, queue_size, location=location,
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
+        sub = SubscribeCall(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
         node.subscribe.append(sub)
-        self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
+        self.log.debug("Found SubscribeCall on %s/%s (%s)", ns, name, msg_type)
 
     def _on_service(self, node, ns, call):
         if len(call.arguments) <= 1:
@@ -1207,9 +1383,14 @@ class RoscppExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
-        srv = ServiceServerCall(name, ns, msg_type, location=location,
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
+        srv = AdvertiseServiceCall(name, ns, msg_type, location=location,
                                 control_depth=depth, conditions=conditions,
                                 repeats=is_under_loop(call, recursive=True))
         node.service.append(srv)
@@ -1222,41 +1403,73 @@ class RoscppExtractor(LoggingObject):
         msg_type = self._extract_message_type(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
         cli = ServiceClientCall(name, ns, msg_type, location=location,
                                 control_depth=depth, conditions=conditions,
                                 repeats=is_under_loop(call, recursive=True))
         node.client.append(cli)
         self.log.debug("Found Client on %s/%s (%s)", ns, name, msg_type)
 
-    def _on_read_param(self, node, ns, call):
-        if len(call.arguments) < 1:
-            return
-        name = self._extract_topic(call)
-        depth = get_control_depth(call, recursive = True)
-        location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location = location)
-                      for c in get_conditions(call, recursive = True)]
-        read = ReadParameterCall(name, ns, None, location = location,
-                                 control_depth = depth, conditions = conditions,
-                                 repeats = is_under_loop(call, recursive = True))
-        node.read_param.append(read)
-        self.log.debug("Found Read on %s/%s (%s)", ns, name, "string")
-
-    def _on_write_param(self, node, ns, call):
+    def _on_read_param(self, node, ns, call, param_type, default_value):
         if len(call.arguments) < 1:
             return
         name = self._extract_topic(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
-        conditions = [SourceCondition(pretty_str(c), location=location)
-                      for c in get_conditions(call, recursive=True)]
-        wrt = WriteParameterCall(name, ns, None, location=location,
-                                 control_depth=depth, conditions=conditions,
-                                 repeats=is_under_loop(call, recursive=True))
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
+        read = GetParamCall(name, ns, param_type,
+            default_value=default_value, location=location,
+            control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive = True))
+        node.read_param.append(read)
+        self.log.debug("Found Read on %s/%s (%s) (%s)",
+            ns, name, param_type, default_value)
+
+    def _on_write_param(self, node, ns, call, param_type, value):
+        if len(call.arguments) < 1:
+            return
+        name = self._extract_topic(call)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = []
+        for path in get_condition_paths(call):
+            for c in path:
+                conditions.append(SourceCondition(pretty_str(c.value),
+                    location=self._condition_location(c, location.file),
+                    statement=c.statement))
+            break # FIXME
+        wrt = SetParamCall(name, ns, param_type, value=value,
+            location=location, control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive = True))
         node.write_param.append(wrt)
-        self.log.debug("Found Write on %s/%s (%s)", ns, name, "string")
+        self.log.debug("Found Write on %s/%s (%s) (%s)",
+            ns, name, param_type, value)
+
+    def _condition_location(self, condition_obj, sf):
+        if sf is not None:
+            if sf.path != condition_obj.file:
+                self.log.debug(("condition Location: files do not match: "
+                    "'%s', '%s'"), sf.path, condition_obj.file)
+                if condition_obj.file.startswith(self.package.path):
+                    for sf2 in self.package.source_files:
+                        if sf2.path == condition_obj.file:
+                            sf = sf2
+                            break
+                            self.log.debug("Location: found correct file")
+        return Location(self.package, file=sf, line=condition_obj.line,
+            col=condition_obj.column, fun=condition_obj.function.name)
 
     def _call_location(self, call):
         try:
@@ -1270,8 +1483,8 @@ class RoscppExtractor(LoggingObject):
         function = call.function
         if function:
             function = function.name
-        return Location(self.package, file=source_file, line=call.line,
-                        fun=function)
+        return Location(self.package, file=source_file,
+                        line=call.line, col=call.column, fun=function)
 
     def _resolve_it_node_handle(self, value):
         value = resolve_expression(value)
@@ -1303,7 +1516,13 @@ class RoscppExtractor(LoggingObject):
                 # Copy constructor
                 if len(args) == 1:
                     parent = args[0]
-                    return self._resolve_node_handle(parent)
+                    if isinstance(parent, CppFunctionCall):
+                        if parent.name == 'getNodeHandle':
+                            return ''
+                        elif parent.name == 'getPrivateNodeHandle':
+                            return '~'
+                    r = self._resolve_node_handle(parent)
+                    return r
 
                 # All other constructor have at least two arguments. The third
                 # is never meaningful
@@ -1389,6 +1608,26 @@ class RoscppExtractor(LoggingObject):
                 type_string = type_string[:-9]
         if type_string.startswith("boost::function"):
             type_string = type_string[52:-25]
+        type_string = type_string.replace("::", "/")
+        if re.match(r"\w+/\w+$", type_string):
+            return type_string
+        return "?"
+
+    def _extract_action(self, call):
+        name = "?"
+        if "SimpleActionServer" in call.canonical_type and len(call.arguments) > 2:
+            arg = call.arguments[1]
+            if not isinstance(arg, basestring):
+                arg = resolve_expression(arg)
+            if isinstance(arg, basestring):
+                name = arg.split()[-1].replace("'", "")
+        elif "SimpleActionClient" in call.canonical_type and len(call.arguments) > 1:
+            if isinstance(call.arguments[0], basestring):
+                name = call.arguments[0]
+        return name
+
+    def _extract_action_type(self, call):
+        type_string = call.template[0]
         return type_string.replace("::", "/")
 
     def _extract_action(self, call):
@@ -1414,6 +1653,57 @@ class RoscppExtractor(LoggingObject):
             return queue_size
         return None
 
+    def _extract_latch(self, call, latch_pos):
+        expr = call.arguments[latch_pos]
+        self.log.debug("extract latched publisher from {!r}".format(expr))
+        if isinstance(expr, CppDefaultArgument):
+            self.log.debug("latch is default: false")
+            return False
+        latch = resolve_expression(expr)
+        self.log.debug("resolve latch expr returns {!r}".format(latch))
+        if not isinstance(latch, bool):
+            return None
+        return latch
+
+    def _extract_param_type(self, value):
+        self.log.debug("extract param type from {}".format(repr(value)))
+        if value is True or value is False:
+            return "bool"
+        if isinstance(value, (int, long)):
+            return "int"
+        if isinstance(value, float):
+            return "double"
+        if isinstance(value, basestring):
+            return "str"
+        cpp_type = getattr(value, "result", None)
+        if cpp_type:
+            self.log.debug("param type from C++ type {}".format(repr(cpp_type)))
+        if cpp_type == "std::string" or cpp_type == "char *":
+            return "str"
+        if cpp_type == "int":
+            return "int"
+        if cpp_type == "double":
+            return "double"
+        if cpp_type == "bool":
+            return "bool"
+        return "yaml" if cpp_type else None
+
+    def _extract_param_value(self, call, arg_pos=1):
+        self.log.debug("extract_param_value({!r}, pos={})".format(
+            call.arguments, arg_pos))
+        if len(call.arguments) <= arg_pos:
+            self.log.debug("Failed to extract param value: not enough arguments")
+            return None
+        value = resolve_expression(call.arguments[arg_pos])
+        if isinstance(value, CppEntity):
+            self.log.debug("Failed to extract param value: " + repr(value))
+            return None
+        return value
+
+
+###############################################################################
+# Python Primitive Extractor
+###############################################################################
 
 class RospyExtractor(LoggingObject):
     queue_size_pos = {
@@ -1535,11 +1825,11 @@ class RospyExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
                       for c in get_conditions(call, recursive=True)]
-        pub = Publication(name, ns, msg_type, queue_size, location=location,
+        pub = AdvertiseCall(name, ns, msg_type, queue_size, location=location,
                           control_depth=depth, conditions=conditions,
                           repeats=is_under_loop(call, recursive=True))
         node.advertise.append(pub)
-        self.log.debug("Found Publication on %s/%s (%s)", ns, name, msg_type)
+        self.log.debug("Found AdvertiseCall on %s/%s (%s)", ns, name, msg_type)
 
     def _on_service(self, node, call):
         if self.invalid_call(call):
@@ -1550,7 +1840,7 @@ class RospyExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
                       for c in get_conditions(call, recursive=True)]
-        srv = ServiceServerCall(name, ns, msg_type, location=location,
+        srv = AdvertiseServiceCall(name, ns, msg_type, location=location,
                                 control_depth=depth, conditions=conditions,
                                 repeats=is_under_loop(call, recursive=True))
         node.service.append(srv)
@@ -1566,11 +1856,11 @@ class RospyExtractor(LoggingObject):
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
                       for c in get_conditions(call, recursive=True)]
-        sub = Subscription(name, ns, msg_type, queue_size, location=location,
+        sub = SubscribeCall(name, ns, msg_type, queue_size, location=location,
                            control_depth=depth, conditions=conditions,
                            repeats=is_under_loop(call, recursive=True))
         node.subscribe.append(sub)
-        self.log.debug("Found Subscription on %s/%s (%s)", ns, name, msg_type)
+        self.log.debug("Found SubscribeCall on %s/%s (%s)", ns, name, msg_type)
 
     def _query_comm_primitives(self, node, gs):
         ##################################
@@ -1657,3 +1947,113 @@ class RospyExtractor(LoggingObject):
         # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
         # self._query_param_primitives(node, parser.global_scope)
+
+
+###############################################################################
+# Node Hints
+###############################################################################
+
+class NodeHints2(LoggingObject):
+    # pkg/node:
+    #   fix: (fix variables)
+    #       advertise@1: name
+    #       getParam@1: true
+    #   advertise: (always adds)
+    #     - full JSON spec
+    #     - full JSON spec
+
+    def __init__(self, hints, pkg_finder=None):
+        if not isinstance(hints, dict):
+            raise ValueError("expected dict of hints, got " + repr(hints))
+        for key, value in hints.items():
+            if not isinstance(key, basestring) or key.count("/") != 1:
+                raise ValueError("expected 'pkg/node' key, found " + repr(key))
+            if not isinstance(value, dict):
+                raise ValueError("expected dict value, found " + repr(value))
+        self.hints = hints
+        self.pkg_finder = pkg_finder
+
+    def apply_to(self, nodes, create=False):
+        if not self.hints:
+            return []
+        nodes = self._list_to_dict(nodes)
+        if create and not self.pkg_finder:
+            raise ValueError("received create=True but no pkg_finder")
+        new_nodes = []
+        for node_type, node_hints in self.hints.items():
+            node = nodes.get(node_type)
+            if node is not None:
+                fix_hints = node_hints.get("fix", _EMPTY_DICT)
+                if not isinstance(fix_hints, dict):
+                    raise ValueError("expected dict in {}:fix; got {!r}".format(
+                        node_type, fix_hints))
+                self.log.info("Merging extracted Node with hints: " + node_type)
+                self.log.debug("node specs %s %s", node, node_hints)
+                node.resolve_variables(fix_hints)
+            elif create:
+                self.log.info("Creating new Node from hints: " + node_type)
+                self.log.debug("node specs %s %s", node_type, node_hints)
+                node = self._create(node_type, node_hints)
+                if node is not None:
+                    new_nodes.append(node)
+            if node is not None:
+                self._add_primitives(node, node_hints)
+                hpl = hints.get("hpl", _EMPTY_DICT)
+                node.hpl_properties = list(hpl.get("properties", _EMPTY_LIST))
+                node.hpl_assumptions = list(hpl.get("assumptions", _EMPTY_LIST))
+        return new_nodes
+
+    def _create(self, node_type, hints):
+        pkg_name, exe = node_type.split("/")
+        pkg = self.pkg_finder.get("package:" + pkg_name)
+        if pkg is None:
+            self.log.error("Unable to find package: " + repr(pkg_name))
+            return None
+        rosname = hints.get("rosname")
+        nodelet_cls = hints.get("nodelet")
+        node = Node(exe, pkg, rosname=rosname, nodelet=nodelet_cls)
+        return node
+
+    def _add_primitives(self, node, hints):
+        for key, attr, cls in self._PRIMITIVES:
+            calls = getattr(node, attr)
+            for datum in hints.get(key, _EMPTY_LIST):
+                call = cls.from_JSON_specs(datum)
+                call.location = self._location_from_JSON(datum.get("location"))
+                calls.append(call)
+
+    _PRIMITIVES = (
+        ("advertise", "advertise", AdvertiseCall),
+        ("subscribe", "subscribe", SubscribeCall),
+        ("advertiseService", "service", AdvertiseServiceCall),
+        ("serviceClient", "client", ServiceClientCall),
+        ("getParam", "read_param", GetParamCall),
+        ("setParam", "write_param", SetParamCall)
+    )
+
+    def _list_to_dict(self, nodes):
+        if isinstance(nodes, dict):
+            return nodes
+        return {node.node_name: node for node in nodes}
+
+    # FIXME code duplication
+    def _location_from_JSON(self, datum):
+        if datum is None:
+            return None
+        pkg = self.pkg_finder.get("package:" + datum["package"])
+        if pkg is None:
+            self.log.error("Unable to find package: " + repr(datum["package"]))
+            return None
+        source_file = None
+        filename = datum["file"]
+        if filename:
+            try:
+                source_file = next(sf for sf in pkg.source_files
+                                      if sf.full_name == filename)
+            except StopIteration:
+                self.log.error("Unable to find file: '{}/{}'".format(
+                    datum["package"], filename))
+        return Location(pkg, file=source_file,
+            line=datum["line"], col=datum["column"],
+            fun=datum.get("function"), cls=datum.get("class"))
+

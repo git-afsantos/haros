@@ -56,7 +56,7 @@ indigo:
         readParam:
             -
                 name: "robot_description"
-                type: string
+                type: str
                 namespace: ""
                 depth: 0
                 location: null
@@ -64,7 +64,7 @@ indigo:
                 conditions: []
             -
                 name: "tf_prefix"
-                type: string
+                type: str
                 namespace: ""
                 depth: 0
                 location: null
@@ -125,7 +125,7 @@ indigo:
         readParam:
             -
                 name: "robot_description"
-                type: string
+                type: str
                 namespace: ""
                 depth: 0
                 location: null
@@ -133,7 +133,7 @@ indigo:
                 conditions: []
             -
                 name: "tf_prefix"
-                type: string
+                type: str
                 namespace: ""
                 depth: 0
                 location: null

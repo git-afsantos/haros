@@ -100,6 +100,7 @@ import json
 import logging
 import os
 import tempfile
+from timeit import default_timer as timer
 
 from shutil import copyfile, rmtree
 from pkg_resources import Requirement, resource_filename
@@ -215,8 +216,9 @@ class HarosLauncher(object):
             log=self.log, run_from_source=self.run_from_source,
             use_repos=args.use_repos, parse_nodes=args.parse_nodes,
             copy_env=args.env, use_cache=(not args.no_cache),
+            overwrite_cache=(not args.no_write_cache),
             junit_xml_output=args.junit_xml_output,
-            minimal_output=args.minimal_output)
+            minimal_output=args.minimal_output, no_hardcoded=args.no_hardcoded)
         return analyse.run()
 
     def command_export(self, args):
@@ -257,6 +259,7 @@ class HarosLauncher(object):
             project_file, args.data_dir, log=self.log,
             run_from_source=self.run_from_source, use_repos=args.use_repos,
             ws=args.ws, copy_env=args.env, use_cache=(not args.no_cache),
+            overwrite_cache=(not args.no_write_cache),
             junit_xml_output=args.junit_xml_output,
             minimal_output=args.minimal_output)
         return parse.run()
@@ -332,6 +335,8 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',
@@ -341,6 +346,8 @@ class HarosLauncher(object):
                            help = "execute only these plugins")
         group.add_argument("-b", "--blacklist", nargs = "*",
                            help = "skip these plugins")
+        parser.add_argument("--no-hardcoded", action="store_true",
+                            help="do not rely on hard-coded nodes")
         parser.set_defaults(command = self.command_analyse)
 
     def _export_parser(self, parser):
@@ -381,6 +388,8 @@ class HarosLauncher(object):
         parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',
@@ -550,8 +559,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  whitelist, blacklist, log = None, run_from_source = False,
                  use_repos = False, parse_nodes = False, copy_env = False,
-                 use_cache = True, settings = None, junit_xml_output = False,
-                 minimal_output = False):
+                 use_cache = True, overwrite_cache=True,
+                 settings = None, junit_xml_output = False,
+                 minimal_output = False, no_hardcoded=False):
         HarosRunner.__init__(self, haros_dir, config_path, log,
             run_from_source, junit_xml_output, minimal_output)
         self.project_file = project_file
@@ -559,9 +569,11 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.parse_nodes = parse_nodes
         self.copy_env = copy_env
         self.use_cache = use_cache
+        self.overwrite_cache = overwrite_cache
         self.whitelist = whitelist
         self.blacklist = blacklist
         self.settings = settings
+        self.no_hardcoded = no_hardcoded
         self.project = None
         self.database = None
         self.current_dir = None
@@ -601,6 +613,8 @@ class HarosAnalyseRunner(HarosCommonExporter):
         self.current_dir = os.path.join(self.io_projects_dir, self.project)
         self._load_history()
         self._extract_configurations(self.database.project, configs, nodes, env)
+        self._make_node_configurations(self.database.project, nodes, env)
+        self._parse_hpl_properties()
         self._analyse(plugins, rules, metrics)
         self._save_results(node_cache)
         self.database = None
@@ -619,8 +633,14 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
             print "  > Parsing nodes might take some time."
-        # NOTE: this updates settings with ignore-line comments
-        extractor.index_source(settings = self.settings)
+            start_time = timer()
+            # NOTE: this updates settings with ignore-line comments
+            extractor.index_source(settings = self.settings)
+            end_time = timer()
+            self.log.debug("Parsing time: %f s", end_time - start_time)
+        else:
+            # NOTE: this updates settings with ignore-line comments
+            extractor.index_source(settings = self.settings)
         self.project = extractor.project.name
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
@@ -632,14 +652,19 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return extractor.configurations, extractor.node_specs, env
 
     def _extract_configurations(self, project, configs, nodes, environment):
+        # FIXME nodes is unused
+        empty_dict = {}
+        empty_list = ()
         for name, data in configs.iteritems():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
-                launch_files = data if isinstance(data, list) else data["launch"]
+                launch_files = data
+                hpl = empty_dict
             else:
                 builder = ConfigurationBuilder(name, environment, self.database,
-                    nodes=nodes, hints=data.get("hints"))
+                    hints=data.get("hints"), no_hardcoded=self.no_hardcoded)
                 launch_files = data["launch"]
+                hpl = data.get("hpl", empty_dict)
             for launch_file in launch_files:
                 parts = launch_file.split(os.sep, 1)
                 if not len(parts) == 2:
@@ -652,11 +677,40 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 if not launch:
                     raise ValueError("unknown launch file: " + launch_file)
                 builder.add_launch(launch)
+            cfg = builder.build()
             for msg in builder.errors:
-                self.log.warning("Configuration %s: %s",
-                                 builder.configuration.name, msg)
-            project.configurations.append(builder.configuration)
-            self.database.configurations.append(builder.configuration)
+                self.log.warning("Configuration %s: %s", cfg.name, msg)
+            for p in hpl.get("properties", empty_list):
+                cfg.hpl_properties.append(p)
+            for a in hpl.get("assumptions", empty_list):
+                cfg.hpl_assumptions.append(a)
+            cfg.user_attributes = data.get("user_data", {})
+            project.configurations.append(cfg)
+            self.database.configurations.append(cfg)
+
+    def _make_node_configurations(self, project, nodes, environment):
+        self.log.debug("Creating Configurations for node specs.")
+        for node_name, node_hints in nodes.iteritems():
+            try:
+                node = project.get_node(node_name)
+            except ValueError as e:
+                self.log.error(str(e))
+                continue
+            if not node.package._analyse:
+                self.log.debug("Skipping %s; package not marked for analysis",
+                               node_name)
+                continue
+            builder = ConfigurationBuilder(node_name.replace("/", "_"),
+                                           environment, self.database)
+            builder.add_rosrun(node)
+            cfg = builder.build()
+            for msg in builder.errors:
+                self.log.warning("Configuration %s: %s", cfg.name, msg)
+            cfg.hpl_properties = list(node.hpl_properties)
+            cfg.hpl_assumptions = list(node.hpl_assumptions)
+            cfg.user_attributes = node_hints.get("user_data", {})
+            project.configurations.append(cfg)
+            self.database.configurations.append(cfg)
 
     def _load_history(self):
         """
@@ -710,6 +764,38 @@ class HarosAnalyseRunner(HarosCommonExporter):
             metrics.update(ms)
         return plugins, rules, metrics
 
+    def _parse_hpl_properties(self):
+        configs = []
+        nodes = []
+        for config in self.database.project.configurations:
+            if config.hpl_properties or config.hpl_assumptions:
+                configs.append(config)
+        for pkg in self.database.project.packages:
+            for node in pkg.nodes:
+                if node.hpl_properties or node.hpl_assumptions:
+                    if pkg._analyse:
+                        nodes.append(node)
+                    else:
+                        self.log.warning((
+                            "Found HPL specifications for node %s, "
+                            "but package %s is not marked for analysis."),
+                            node.node_name, node.package.name)
+        if not configs and not nodes:
+            return
+        parser = None
+        try:
+            # lazy import; this is an optional dependency
+            from .hpl.hpl_parser import UserSpecParser
+            parser = UserSpecParser()
+        except ImportError:
+            self.log.warning(("Found HPL specifications, "
+                "but the HPL parser could not be found."))
+            return
+        for config in configs:
+            parser.parse_config_specs(config)
+        for node in nodes:
+            parser.parse_node_specs(node)
+
     def _analyse(self, plugins, rules, metrics):
         print "[HAROS] Running analysis..."
         self._empty_dir(self.export_dir)
@@ -746,7 +832,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if self.junit_xml_output:
             junit_exporter = JUnitExporter()
             junit_exporter.export_report(self.data_dir, self.database)
-        if self.parse_nodes and self.use_cache:
+        if self.parse_nodes and self.overwrite_cache:
             for node in self.database.nodes.itervalues():
                 node_cache[node.node_name] = node.to_JSON_object()
             parse_cache = os.path.join(self.root, "parse_cache.json")
@@ -765,14 +851,14 @@ class HarosParseRunner(HarosAnalyseRunner):
     def __init__(self, haros_dir, config_path, project_file, data_dir,
                  log=None, run_from_source=False, use_repos=False, ws=None,
                  copy_env=False, use_cache=True, settings=None,
-                 junit_xml_output = False,
-                 minimal_output = False):
+                 overwrite_cache=True,
+                 junit_xml_output = False, minimal_output = False):
         HarosAnalyseRunner.__init__(
             self, haros_dir, config_path, project_file, data_dir,
             [], [], log=log, run_from_source=run_from_source,
             use_repos=use_repos, parse_nodes=True, copy_env=copy_env,
-            use_cache=use_cache, settings=settings,
-            junit_xml_output=junit_xml_output,
+            use_cache=use_cache, overwrite_cache=overwrite_cache,
+            settings=settings, junit_xml_output=junit_xml_output,
             minimal_output=minimal_output
         )
         self.workspace = ws
