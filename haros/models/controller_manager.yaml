@@ -33,7 +33,9 @@ indigo:
                 depth: 1
                 location: null
                 repeats: false
-                conditions: ["if wait_for_topic"]
+                conditions:
+                    - statement: if
+                      condition: "wait_for_topic"
         service: []
         client:
             -
@@ -64,13 +66,17 @@ indigo:
         writeParam:
             -
                 name: "?"
-                type: object
+                type: yaml
                 default: {}
                 namespace: ""
                 depth: 2
                 location: null
                 repeats: true
-                conditions: ["for name in args.controllers", "if os.path.exists(name)"]
+                conditions:
+                    - statement: for
+                      condition: "name in args.controllers"
+                    - statement: if
+                      condition: "os.path.exists(name)"
 kinetic:
     spawner:
         base: indigo

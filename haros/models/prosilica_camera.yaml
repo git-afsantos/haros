@@ -63,7 +63,7 @@ indigo:
         readParam:
             -
                 name: "ip_address"
-                type: string
+                type: str
                 namespace: "~"
                 depth: 0
                 location: null
@@ -71,7 +71,7 @@ indigo:
                 conditions: []
             -
                 name: "guid"
-                type: string
+                type: str
                 namespace: "~"
                 depth: 0
                 location: null

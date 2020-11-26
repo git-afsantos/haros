@@ -37,6 +37,7 @@
 from distutils.version import LooseVersion
 import glob
 import logging
+import itertools
 import os
 import re
 
@@ -343,28 +344,32 @@ class BuildTarget(object):
     def output_name(self):
         return self.prefix + self.base_name + self.suffix
 
+    @staticmethod
+    def replace_file(file):
+        if os.path.isfile(file):
+            return file
+
+        replacement = None
+        parent = os.path.dirname(file)
+        if os.path.isdir(parent):
+            _, _, prefix = file.rpartition(os.sep)
+            for sibling in os.listdir(parent):
+                sibling_path = os.path.join(parent, sibling)
+                if sibling.startswith(prefix) and os.path.isfile(sibling_path):
+                    return sibling
+
     @classmethod
     def new_target(cls, name, files, directory, is_executable):
-        files = [os.path.join(directory, f) for fs in files \
-                                            for f in fs.split(";") if f]
-        i = 0
-        while i < len(files):
-            if not os.path.isfile(files[i]):
-                replacement = None
-                parent = os.path.dirname(files[i])
-                prefix = files[i].rsplit(os.sep, 1)[-1]
-                if os.path.isdir(parent):
-                    for f in os.listdir(parent):
-                        joined = os.path.join(parent, f)
-                        if f.startswith(prefix) and os.path.isfile(joined):
-                            replacement = joined
-                            break
-                if replacement:
-                    files[i] = replacement
-                else:
-                    del files[i]
-                    i -= 1
-            i += 1
+        if isinstance(files, basestring):
+            files = [files]
+
+        files = (
+            os.path.join(directory, f)
+            for fs in files
+            for f in fs.split(";")
+            if f
+        )
+        files = filter(bool, map(cls.replace_file, files))
         return cls(name, files, is_executable)
 
     def apply_property(self, prop, value):
@@ -378,6 +383,15 @@ class BuildTarget(object):
 
 
 class RosCMakeParser(LoggingObject):
+    @staticmethod
+    def _get_option_args(args, option):
+        try:
+            option_index = args.index(option)
+            return list(itertools.takewhile(lambda c: not c.isupper(),
+                                            args[option_index + 1:]))
+        except ValueError:
+            return []
+
     def __init__(self, srcdir, bindir, pkgs = None, env = None, vars = None):
         self.parser = CMakeParser()
         self.source_dir = srcdir
@@ -464,6 +478,10 @@ class RosCMakeParser(LoggingObject):
             self._process_set_target_properties(args)
         elif command == "target_link_libraries":
             self._process_link_libraries(args)
+        elif command == 'catkin_install_python':
+            self._process_catkin_install_python(args)
+        elif command == 'install':
+            self._process_install(args)
 
     def _process_include_directories(self, args):
         n = len(args)
@@ -484,6 +502,67 @@ class RosCMakeParser(LoggingObject):
                 arg = os.path.join(self.directory, arg)
                 self.include_dirs.append(arg)
             i += 1
+
+    def _process_catkin_install_python(self, args):
+        n = len(args)
+        assert n > 1
+
+        files = list(itertools.chain.from_iterable(
+            self.variables.get(arg, arg).split()
+            for arg in args[1:-2]
+        ))
+        names = map(os.path.basename, files)
+        targets = {
+            name: BuildTarget.new_target(name, [file], self.directory, True)
+            for name, file in zip(names, files)
+        }
+        self.executables.update(targets)
+
+    def _process_install(self, args):
+        # docs: http://docs.ros.org/api/catkin/html/howto/format2/index.html
+        self._install_directory(self._get_option_args(args, 'DIRECTORY'))
+        self._install_files(self._get_option_args(args, 'FILES'))
+        self._install_programs(self._get_option_args(args, 'PROGRAMS'))
+        # skip TARGETS because that should be handled by
+        #   add_library() or add_executable()
+
+    def _install_directory(self, args):
+        for dirname in args:
+            tdir = os.path.join(self.directory, dirname)
+            if not os.path.isdir(tdir):
+                self.log.warning(
+                    "CMake install() directory does not exist: %s", tdir)
+                continue
+            try:
+                for filename in os.listdir(tdir):
+                    path = os.path.join(dirname, filename)
+                    if os.access(path, os.X_OK):
+                        name = os.path.basename(path)
+                        self.log.debug("CMake install() executable file "
+                                       + path)
+                        self.executables[name] = BuildTarget.new_target(
+                            name, [path], self.directory, True)
+                    else:
+                        self.log.debug("CMake install() file: " + path)
+                        self.installs.add(path)
+            except OSError:
+                self.log.warning(
+                    "Could not read directory %s", tdir)
+
+    def _install_files(self, args):
+        for arg in args:
+            t = BuildTarget.new_target("temp", [arg], self.directory, False)
+            for filepath in t.files:
+                self.log.debug("CMake install() file: " + filepath)
+                self.installs.add(filepath)
+
+    def _install_programs(self, args):
+        for path in args:
+            name = os.path.basename(path)
+            if name not in self.executables:
+                self.log.debug("CMake install() program: " + path)
+                self.executables[name] = BuildTarget.new_target(
+                    name, [path], self.directory, True)
 
     def _process_library(self, args):
         n = len(args)
@@ -821,4 +900,5 @@ class RosCMakeParser(LoggingObject):
         self.system_dependencies = []
         self.libraries = {}
         self.executables = {}
+        self.installs = set()
         self.subdirectories = []

@@ -80,7 +80,7 @@ indigo:
         readParam:
             -
                 name: "base_global_planner"
-                type: string
+                type: str
                 default: "navfn/NavfnROS"
                 namespace: "~"
                 depth: 0
@@ -89,7 +89,7 @@ indigo:
                 conditions: []
             -
                 name: "base_local_planner"
-                type: string
+                type: str
                 default: "base_local_planner/TrajectoryPlannerROS"
                 namespace: "~"
                 depth: 0

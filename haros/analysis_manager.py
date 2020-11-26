@@ -30,6 +30,7 @@ from pkg_resources import resource_filename
 import shutil
 import sys
 import traceback
+import time
 
 from .metamodel import (
     Configuration, MetamodelObject, Location, Resource, RosPrimitive,
@@ -107,7 +108,14 @@ class PluginInterface(LoggingObject):
 
     def find_configuration(self, scope_id):
         configs = self._data.configurations
-        return configs.get(scope_id, configs.get("configuration:" + scope_id))
+        uid = "configuration:" + scope_id
+        for config in configs:
+            if config.id == scope_id or config.id == uid:
+                return config
+        return None
+
+    def log_debug(self, msg):
+        self.log.debug("[%s]: %s", self._plugin.name, msg)
 
     def log_warning(self, msg):
         self.log.warning("Plugin %s issued a warning:\n%s",
@@ -407,6 +415,7 @@ class AnalysisManager(LoggingObject):
     def run(self, plugins, allowed_rules=None, allowed_metrics=None,
             ignored_lines=None):
         self.log.info("Running plugins on collected data.")
+        start_time = time.time()
         if allowed_rules is None:
             allowed_rules = set(self.database.rules)
         if allowed_metrics is None:
@@ -420,9 +429,12 @@ class AnalysisManager(LoggingObject):
         self._analysis(iface, plugins)
         self._processing(iface, plugins)
         self._exports(iface._exported)
+        self.report.plugins = [p.name for p in plugins]
+        self.report.rules = list(allowed_rules)
         self.report.calculate_statistics()
         stats = self.report.statistics
         stats.configuration_count = len(project.configurations)
+        self.report.analysis_time = time.time() - start_time
 
     def _prepare_directories(self, plugins):
         for plugin in plugins:

@@ -27,6 +27,8 @@ from collections import Counter
 import json
 import logging
 import os
+import datetime
+from xml.sax.saxutils import escape
 
 from .metamodel import (
     Resource, TopicPrimitive, ServicePrimitive, ParameterPrimitive
@@ -44,6 +46,169 @@ class LoggingObject(object):
 ################################################################################
 # Export Manager
 ################################################################################
+
+class JUnitExporter(LoggingObject):
+    """
+    Utility class for outputting analysis result data
+    in a JUnit XML format text file.
+    """
+    def export_report(self, datadir, database):
+        """
+        Output the analysis data in a JUnit XML format text file.
+        @param datadir:   [str] The folder / file system path where to store the output.
+        @param database:  [.data.HarosDatabase] Database with analysis result data.
+        """
+        self.log.info("Exporting JUnit XML format report data.")
+        if database.report == None:
+            return
+        report = database.report # .data.AnalysisReport
+        summary_report_filename = os.path.join(
+            datadir,
+            database.project.name,
+            "compliance",
+            database.project.name+".xml"
+        )
+        with open(summary_report_filename, "w") as srf:
+            # count how many rules have been violated
+            # and how long all reports together took to create
+            violated_rules = {}
+            total_analysis_time = 0
+            for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+                for violation in package_analysis.violations:
+                    violated_rules[violation.rule.id] = violation.rule.name
+                # ^ for violation in package_analysis.violations
+                # Per-file violations:
+                for file_analysis in package_analysis.file_analysis:
+                    for violation in file_analysis.violations:
+                        violated_rules[violation.rule.id] = violation.rule.name
+                    # ^ for violation in file_analysis.violations
+                # ^ for file_analysis in package_analysis.file_analysis
+                total_analysis_time += report.analysis_time
+            # ^ for package_analysis in report.by_package.viewvalues()
+            summary_timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+            srf.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+            srf.write('<testsuites id="HAROS_%s_%s"' % (database.project, summary_timestamp))
+            srf.write(' name="HAROS analysis result for %s (%s)"' % (database.project, summary_timestamp))
+            srf.write(' tests="%i"' % (len(database.rules) * len(report.by_package)))
+            srf.write(' failures="%i"' % len(violated_rules))
+            srf.write(' time="%f">\n' % total_analysis_time)
+
+            for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+                out = os.path.join(datadir,
+                                   database.project.name,
+                                   "compliance",
+                                   "source",
+                                   package_analysis.package.name + ".xml")
+                try:
+                    self._export_package_report(out, package_analysis, database, srf)
+                except:
+                    self.log.error("Failed to write JUnit XML report file: " + out)
+            # ^ for package_analysis in report.by_package.viewvalues()
+            srf.write('</testsuites>\n')
+    # ^ def export_report(self, datadir, report)
+    
+    def _export_package_report(self, out, package_analysis, database, srf):
+        """
+        Output the analysis data for one package in a JUnit XML format text file.
+        :param out:             [str] The file system path where to store the output.
+        :param package_analysis [.data.PackageAnalysis] Analysis data for this package.
+        :param database:        [.data.HarosDatabase] Database with analysis result data.
+        :param srf              [file] Summary report file.
+        """
+        report = database.report # .data.AnalysisReport
+        with open(out, "w") as prf:
+            # count how many rules have been violated
+            violated_rules = {}
+            for violation in package_analysis.violations:
+                violated_rules[violation.rule.id] = violation.rule.name
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    violated_rules[violation.rule.id] = violation.rule.name
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            prf.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+            prf.write('<testsuites id="HAROS_%s_%s"' % (package_analysis.package.name, report.timestamp))
+            prf.write(' name="HAROS analysis result for %s (%s)"' % (package_analysis.package.name, report.timestamp))
+            prf.write(' tests="%i"' % len(database.rules))
+            prf.write(' failures="%i"' % len(violated_rules))
+            prf.write(' time="%f">\n' % report.analysis_time)
+            prf.write('  <testsuite id="HAROS.AnalysisReport.%s"' % package_analysis.package.name)
+            srf.write('  <testsuite id="HAROS.AnalysisReport.%s"' % package_analysis.package.name)
+            prf.write(' name="HAROS package analysis for %s"' % package_analysis.package.name)
+            srf.write(' name="HAROS package analysis for %s"' % package_analysis.package.name)
+            prf.write(' tests="%i"' % len(database.rules))
+            srf.write(' tests="%i"' % len(database.rules))
+            prf.write(' failures="%i"' % len(violated_rules))
+            srf.write(' failures="%i"' % len(violated_rules))
+            prf.write(' time="%f">\n' % report.analysis_time)
+            srf.write(' time="%f">\n' % report.analysis_time)
+            #
+            # Global violations
+            for violation in package_analysis.violations:
+                _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;'})
+                prf.write('    <testcase id="%s"' % violation.rule.id)
+                srf.write('    <testcase id="%s"' % violation.rule.id)
+                prf.write(' name="%s">\n' % violation.rule.name)
+                srf.write(' name="%s">\n' % violation.rule.name)
+                prf.write('      <failure message="%s"' % _description)
+                srf.write('      <failure message="%s"' % _description)
+                prf.write(' type="%s">\n' % violation.rule.id)
+                srf.write(' type="%s">\n' % violation.rule.id)
+                prf.write('%s\n' % _description)
+                srf.write('%s\n' % _description)
+                prf.write('Category: %s\n' % violation.rule.id)
+                srf.write('Category: %s\n' % violation.rule.id)
+                prf.write('File: [GLOBAL]\n')
+                srf.write('File: [GLOBAL]\n')
+                prf.write('Line: 0\n')
+                srf.write('Line: 0\n')
+                prf.write('      </failure>\n')
+                srf.write('      </failure>\n')
+                prf.write('    </testcase>\n')
+                srf.write('    </testcase>\n')
+            # ^ for violation in package_analysis.violations
+            # Per-file violations:
+            for file_analysis in package_analysis.file_analysis:
+                for violation in file_analysis.violations:
+                    filename = "[UNKNOWN]"
+                    line = 0
+                    if violation.location != None:
+                        if violation.location.file != None and violation.location.file.full_name != None:
+                            filename = violation.location.file.full_name
+                        if violation.location.line != None:
+                            line = violation.location.line
+                    _description = escape(violation.rule.description, {'"':'&quot;', "'":'&apos;'})
+                    prf.write('    <testcase id="%s"' % violation.rule.id)
+                    srf.write('    <testcase id="%s"' % violation.rule.id)
+                    prf.write(' name="%s">\n' % violation.rule.name)
+                    srf.write(' name="%s">\n' % violation.rule.name)
+                    prf.write('      <failure message="%s"' % _description)
+                    srf.write('      <failure message="%s"' % _description)
+                    prf.write(' type="%s">\n' % violation.rule.id)
+                    srf.write(' type="%s">\n' % violation.rule.id)
+                    prf.write('%s\n' % _description)
+                    srf.write('%s\n' % _description)
+                    prf.write('Category: %s\n' % violation.rule.id)
+                    srf.write('Category: %s\n' % violation.rule.id)
+                    prf.write('File: %s\n' % filename)
+                    srf.write('File: %s\n' % filename)
+                    prf.write('Line: %i\n' % line)
+                    srf.write('Line: %i\n' % line)
+                    prf.write('      </failure>\n')
+                    srf.write('      </failure>\n')
+                    prf.write('    </testcase>\n')
+                    srf.write('    </testcase>\n')
+                # ^ for violation in file_analysis.violations
+            # ^ for file_analysis in package_analysis.file_analysis
+            prf.write('  </testsuite>\n')
+            srf.write('  </testsuite>\n')
+            prf.write('</testsuites>\n')
+        # ^ with open(out, "w") as f
+    # ^ def _write_report_file(out, package_analysis, database, srf)
+# ^ class JUnitExporter
+
 
 class JsonExporter(LoggingObject):
     def export_projects(self, datadir, projects, overwrite = True):
