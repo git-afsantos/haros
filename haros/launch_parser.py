@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
 from builtins import filter
 from builtins import str
 from builtins import map

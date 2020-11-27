@@ -25,6 +25,8 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+
 import math
 
 from lark import Lark, Transformer
