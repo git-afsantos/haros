@@ -26,6 +26,7 @@
 ###############################################################################
 
 # Python 2 and 3: forward-compatible
+from __future__ import unicode_literals
 from builtins import str
 from past.builtins import basestring
 from builtins import object
