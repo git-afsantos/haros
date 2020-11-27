@@ -23,8 +23,15 @@
 # Imports
 ###############################################################################
 
+from __future__ import division
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
+from past.utils import old_div
+from builtins import object
+
 from collections import Counter
-import cPickle
+import pickle
 import datetime
 import logging
 import os
@@ -420,9 +427,9 @@ class AnalysisReport(object):
         return len(self.by_package)
 
     def calculate_statistics(self):
-        reports = self.by_package.viewvalues()
+        reports = self.by_package.values()
         self.statistics = Statistics.from_reports(reports)
-        for pkg_report in self.by_package.itervalues():
+        for pkg_report in self.by_package.values():
             pkg_report.statistics = None
             pkg_report.get_statistics()
 
@@ -651,7 +658,7 @@ class HarosDatabase(LoggingObject):
         self.history = []
 
     def get_file(self, filepath):
-        for sf in self.files.itervalues():
+        for sf in self.files.values():
             if sf.path == filepath:
                 return sf
         return None
@@ -684,7 +691,7 @@ class HarosDatabase(LoggingObject):
     def register_rules(self, rules, prefix="", ignored_rules=None,
                        ignored_tags=None):
         allowed = []
-        for ident, rule in rules.iteritems():
+        for ident, rule in rules.items():
             rule_id = prefix + ident
             tags = rule["tags"]
             self.log.debug("HarosDatabase.register rule " + rule_id)
@@ -703,7 +710,7 @@ class HarosDatabase(LoggingObject):
 
     def register_metrics(self, metrics, prefix="", ignored_metrics=None):
         allowed = []
-        for ident, metric in metrics.iteritems():
+        for ident, metric in metrics.items():
             metric_id = prefix + ident
             minv = metric.get("min")
             minv = float(minv) if not minv is None else None
@@ -724,13 +731,13 @@ class HarosDatabase(LoggingObject):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)
         self._compact()
         with open(file_path, "wb") as handle:
-            cPickle.dump(self, handle, cPickle.HIGHEST_PROTOCOL)
+            pickle.dump(self, handle, pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
     def load_state(file_path):
         HarosDatabase.log.debug("HarosDatabase.load_state(%s)", file_path)
         with open(file_path, "rb") as handle:
-            return cPickle.load(handle)
+            return pickle.load(handle)
 
     def _compact(self):
         for report in self.history:
@@ -738,18 +745,18 @@ class HarosDatabase(LoggingObject):
             report.by_package = {}
         # NOTE IMPORTANT!
         # storing bonsai source trees can sometimes hit the recursion limit
-        for node in self.nodes.itervalues():
+        for node in self.nodes.values():
             node.source_tree = None
-            node.hpl_properties = map(str, node.hpl_properties)
-            node.hpl_assumptions = map(str, node.hpl_assumptions)
-        for sf in self.files.itervalues():
+            node.hpl_properties = list(map(str, node.hpl_properties))
+            node.hpl_assumptions = list(map(str, node.hpl_assumptions))
+        for sf in self.files.values():
             sf.tree = None
         for config in self.configurations:
-            config.hpl_properties = map(str, config.hpl_properties)
-            config.hpl_assumptions = map(str, config.hpl_assumptions)
+            config.hpl_properties = list(map(str, config.hpl_properties))
+            config.hpl_assumptions = list(map(str, config.hpl_assumptions))
 
     def _cached_nodes(self, nodes):
-        for id, node in self.nodes.iteritems():
+        for id, node in self.nodes.items():
             previous = nodes.get(id)
             if not previous is None:
                 node.advertise = list(previous.advertise)
@@ -793,4 +800,4 @@ def avg(numbers, float_ = False):
         return 0.0 if float_ else 0
     if float_:
         return sum(numbers) / float(len(numbers))
-    return sum(numbers) / len(numbers)
+    return old_div(sum(numbers), len(numbers))

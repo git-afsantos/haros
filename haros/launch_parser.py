@@ -23,6 +23,12 @@
 # Imports
 ###############################################################################
 
+from builtins import filter
+from builtins import str
+from builtins import map
+from past.builtins import basestring
+from builtins import object
+
 import math
 import os
 import re
@@ -162,7 +168,7 @@ class SubstitutionParser(object):
         result = UnresolvedValue()
         rest = value
         while match:
-            parts = filter(bool, map(str.strip, match.group(1).split(None, 1)))
+            parts = list(filter(bool, list(map(str.strip, match.group(1).split(None, 1)))))
             assert len(parts) == 1 or len(parts) == 2
             if not parts[0] in self.COMMANDS:
                 raise SubstitutionError("invalid command: " + parts[0])
@@ -454,7 +460,7 @@ class BaseLaunchTag(object):
                 raise LaunchParserError("missing required attribute: " + key)
         self.children = []
         self.unknown = []
-        for key, value in attributes.iteritems():
+        for key, value in attributes.items():
             if isinstance(value, UnresolvedValue):
                 self.unknown.append(key)
         if "if" in attributes and "unless" in attributes:
@@ -827,7 +833,7 @@ class LaunchParser(object):
     def _attributes(self, tag, schema):
         attributes = {}
         sub = self.sub_parser.sub # shortcut to make line below shorter
-        for key, value in tag.attrib.iteritems():
+        for key, value in tag.attrib.items():
             if not key in schema:
                 continue # TODO raise an error vs. future compatibility
             attributes[key] = sub(value, conversion=schema[key])

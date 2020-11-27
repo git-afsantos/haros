@@ -25,7 +25,12 @@
 # Imports
 ###############################################################################
 
-from builtins import range # Python 2 and 3: forward-compatible
+# Python 2 and 3: forward-compatible
+from builtins import str
+from past.builtins import basestring
+from builtins import object
+from builtins import range
+
 from collections import namedtuple
 import importlib
 
@@ -694,7 +699,7 @@ class RosInt(RosLiteral):
         if not type_token in ROS_INT_TYPES:
             raise ValueError("expected an int type: " + repr(type_token))
         if (value is True or value is False
-                or not isinstance(value, (int, long))):
+                or not isinstance(value, int)):
             raise TypeError("expected an int value: " + repr(value))
         if value < type_token.min_value or value > type_token.max_value:
             raise ValueError("value out of range: " + repr(value))
@@ -721,7 +726,7 @@ class RosFloat(RosLiteral):
         if not type_token in ROS_FLOAT_TYPES:
             raise ValueError("expected a float type: " + repr(type_token))
         if (value is True or value is False
-                or not isinstance(value, (float, int, long))):
+                or not isinstance(value, (float, int))):
             raise TypeError("expected a float value: " + repr(value))
         if value < type_token.min_value or value > type_token.max_value:
             raise ValueError("value out of range: " + repr(value))
@@ -795,7 +800,7 @@ def possible_types(value):
     if isinstance(value, float):
         return tuple(ros_type for ros_type in ROS_FLOAT_TYPES
             if value >= ros_type.min_value and value <= ros_type.max_value)
-    assert isinstance(value, (int, long))
+    assert isinstance(value, int)
     return tuple(ros_type for ros_type in ROS_NUMBER_TYPES
         if value >= ros_type.min_value and value <= ros_type.max_value)
 
