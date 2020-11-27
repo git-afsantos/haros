@@ -23,6 +23,9 @@
 # Imports
 ###############################################################################
 
+from builtins import str
+from builtins import object
+
 import importlib
 import logging
 import os

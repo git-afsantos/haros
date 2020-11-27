@@ -23,6 +23,7 @@
 # Imports
 ###############################################################################
 
+from builtins import object
 import logging
 import os
 
@@ -35,7 +36,7 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
-class cwd:
+class cwd(object):
     """Run a block of code from a specified working directory"""
     def __init__(self, path):
         self.path = path

@@ -97,6 +97,9 @@
 
 from __future__ import print_function
 
+from builtins import str
+from past.builtins import basestring
+from builtins import object
 from argparse import ArgumentParser
 import json
 import logging
@@ -427,7 +430,7 @@ class HarosLauncher(object):
     def _generate_dir(self, path, dir_dict, overwrite=True):
         """Recursively create a given directory structure."""
         self.log.debug("HarosRunner._generate_dir %s %s", path, str(dir_dict))
-        for name, contents in dir_dict.iteritems():
+        for name, contents in dir_dict.items():
             new_path = os.path.join(path, name)
             exists = os.path.exists(new_path)
             if isinstance(contents, basestring):
@@ -657,7 +660,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         # FIXME nodes is unused
         empty_dict = {}
         empty_list = ()
-        for name, data in configs.iteritems():
+        for name, data in configs.items():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
                 launch_files = data
@@ -692,7 +695,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def _make_node_configurations(self, project, nodes, environment):
         self.log.debug("Creating Configurations for node specs.")
-        for node_name, node_hints in nodes.iteritems():
+        for node_name, node_hints in nodes.items():
             try:
                 node = project.get_node(node_name)
             except ValueError as e:
@@ -835,7 +838,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             junit_exporter = JUnitExporter()
             junit_exporter.export_report(self.data_dir, self.database)
         if self.parse_nodes and self.overwrite_cache:
-            for node in self.database.nodes.itervalues():
+            for node in self.database.nodes.values():
                 node_cache[node.node_name] = node.to_JSON_object()
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:

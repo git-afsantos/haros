@@ -22,6 +22,15 @@
 
 
 ###############################################################################
+# Imports
+###############################################################################
+
+from builtins import str
+from past.builtins import basestring
+from builtins import object
+
+
+###############################################################################
 # Constants
 ###############################################################################
 
@@ -687,7 +696,7 @@ class HplPredicate(HplAstObject):
 
     def _all_refs_same_type(self, table):
         # All references to the same field/variable have the same type.
-        for key, refs in table.iteritems():
+        for key, refs in table.items():
             # must traverse twice, in case we start with the most generic
             # and go down to the most specific
             final_type = T_ANY
@@ -701,7 +710,7 @@ class HplPredicate(HplAstObject):
     def _some_field_refs(self, table):
         # There is, at least, one reference to a field (own).
         #   [NYI] Stricter: one reference per atomic condition.
-        for refs in table.itervalues():
+        for refs in table.values():
             for ref in refs:
                 if not ref.is_accessor:
                     break
@@ -1531,7 +1540,7 @@ class HplLiteral(HplValue):
             t = T_BOOL
         elif isinstance(value, basestring):
             t = T_STR
-        elif not isinstance(value, (int, long, float)):
+        elif not isinstance(value, (int, float)):
             return TypeError("not a literal: " + repr(value))
         HplValue.__init__(self, types=t)
         self.token = token # string

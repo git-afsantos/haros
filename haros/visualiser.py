@@ -20,6 +20,9 @@
 #THE SOFTWARE.
 
 from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import input
 
 import logging
 import os
@@ -30,9 +33,9 @@ from distutils.dir_util import copy_tree
 from pkg_resources import Requirement, resource_filename
 from shutil import rmtree
 
-import SimpleHTTPServer
-from BaseHTTPServer import HTTPServer
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+import http.server
+from http.server import HTTPServer
+from http.server import SimpleHTTPRequestHandler
 
 # Known online replacements for js libraries used by the report.
 js_lib_replacements = {
@@ -110,7 +113,7 @@ def serve(directory, host_str, headless = False):
             with open(os.devnull, "wb") as devnull:
                 p = subprocess.Popen(cmd, stdout = devnull,
                                      stderr = subprocess.STDOUT)
-                raw_input("[HAROS] Press enter to shutdown the viz server:")
+                input("[HAROS] Press enter to shutdown the viz server:")
         else:
             server.serve_forever()
         return True
