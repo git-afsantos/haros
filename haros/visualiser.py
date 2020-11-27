@@ -19,6 +19,8 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 
+from __future__ import print_function
+
 import logging
 import os
 import subprocess
@@ -98,7 +100,7 @@ def serve(directory, host_str, headless = False):
     try:
         os.chdir(directory)
         server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
-        print "[HAROS] Serving visualisation at", host_str
+        print("[HAROS] Serving visualisation at", host_str)
         if not headless:            
             thread = threading.Thread(target = server.serve_forever)
             thread.daemon = True

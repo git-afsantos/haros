@@ -25,6 +25,8 @@
 # Imports
 ###############################################################################
 
+from __future__ import print_function
+
 from lark import Lark
 from lark.exceptions import (
     UnexpectedCharacters, UnexpectedToken, GrammarError, VisitError
@@ -151,44 +153,44 @@ GOOD_PROPERTIES = [
 def test_routine(parser, good, bad):
     transformer = PropertyTransformer()
     for test_str in bad:
-        print "\n  #", repr(test_str)
+        print("\n  #", repr(test_str))
         try:
             tree = parser.parse(test_str)
-            print "\n[ Parsing ] OK"
+            print("\n[ Parsing ] OK")
             tree = transformer.transform(tree)
-            print "[Transform] OK (unexpected)"
-            print ""
-            print repr(tree)
+            print("[Transform] OK (unexpected)")
+            print("")
+            print(repr(tree))
             return 1
         except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
-            print "[ Parsing ] FAIL (expected)"
-            print "  >>", str(e)
+            print("[ Parsing ] FAIL (expected)")
+            print("  >>", str(e))
         except VisitError as e:
             # e.orig_exc
-            print "[Transform] FAIL (expected)"
-            print "  >>", str(e)
+            print("[Transform] FAIL (expected)")
+            print("  >>", str(e))
     for test_str in good:
-        print "\n  #", repr(test_str)
+        print("\n  #", repr(test_str))
         try:
             tree = parser.parse(test_str)
-            print "\n[ Parsing ] OK"
+            print("\n[ Parsing ] OK")
             tree = transformer.transform(tree)
-            print "[Transform] OK"
+            print("[Transform] OK")
             #print "[Full Type]", "OK" if tree.is_fully_typed() else "FAIL"
-            print ""
-            print repr(tree)
+            print("")
+            print(repr(tree))
         except (UnexpectedToken, UnexpectedCharacters, SyntaxError) as e:
-            print "[ Parsing ] FAIL"
-            print "  >>", str(e)
+            print("[ Parsing ] FAIL")
+            print("  >>", str(e))
             return 1
         except VisitError as e:
             # e.orig_exc
-            print "[Transform] FAIL"
-            print " >>", str(e)
-            print ""
-            print repr(tree)
+            print("[Transform] FAIL")
+            print(" >>", str(e))
+            print("")
+            print(repr(tree))
             return 1
-    print "\nAll", str(len(bad) + len(good)), "tests passed."
+    print("\nAll", str(len(bad) + len(good)), "tests passed.")
     return 0
 
 
