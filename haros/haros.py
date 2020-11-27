@@ -729,6 +729,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
             haros_db = HarosDatabase.load_state(haros_db_path)
         except IOError:
             self.log.info("No previous analysis data for " + self.project)
+        except ValueError:
+            self.log.info("Previous analysis data for " + self.project
+                          + " uses an incompatible format.")
         else:
             self.database.history = haros_db.history
             # Commit the previous report (the report generated during the
@@ -965,7 +968,10 @@ class HarosExportRunner(HarosCommonExporter):
         if not os.path.isfile(self.haros_db):
             self.log.error("There is no analysis data for " + self.project)
             return False
-        self.database = HarosDatabase.load_state(self.haros_db)
+        try:
+            self.database = HarosDatabase.load_state(self.haros_db)
+        except (IOError, ValueError):
+            return False
         self.project_data_list.append(self.database.project)
         return True
 
