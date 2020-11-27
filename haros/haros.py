@@ -95,6 +95,8 @@
 #   Imports
 ###############################################################################
 
+from __future__ import print_function
+
 from argparse import ArgumentParser
 import json
 import logging
@@ -184,8 +186,8 @@ class HarosLauncher(object):
             return args.command(args)
         except KeyError as err:
             if str(err) == "ROS_WORKSPACE":
-                print "[HAROS] You must have a workspace set up."
-                print "  Make sure to source its `devel/setup.bash`."
+                print("[HAROS] You must have a workspace set up.")
+                print("  Make sure to source its `devel/setup.bash`.")
             self.log.error(str(err))
             return False
         except RuntimeError as err:
@@ -408,7 +410,7 @@ class HarosLauncher(object):
             self.config_path = os.path.join(self.haros_dir, "configs.yaml")
 
     def _init_haros_dir(self, overwrite=False):
-        print "[HAROS] Running setup operations..."
+        print("[HAROS] Running setup operations...")
         exists = os.path.exists(self.haros_dir)
         if exists and not os.path.isdir(self.haros_dir):
             raise RuntimeError(("Could not initialise; " + self.haros_dir
@@ -621,7 +623,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return True
 
     def _extract_metamodel(self, node_cache, rules):
-        print "[HAROS] Reading project and indexing source code..."
+        print("[HAROS] Reading project and indexing source code...")
         self.log.debug("Project file %s", self.project_file)
         env = dict(os.environ) if self.copy_env else self.settings.environment
         distro = self.distro_url if self.use_repos else None
@@ -632,7 +634,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      node_cache = node_cache,
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
-            print "  > Parsing nodes might take some time."
+            print("  > Parsing nodes might take some time.")
             start_time = timer()
             # NOTE: this updates settings with ignore-line comments
             extractor.index_source(settings = self.settings)
@@ -732,14 +734,14 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _load_definitions_and_plugins(self):
         rules = set()
         metrics = set()
-        print "[HAROS] Loading common definitions..."
+        print("[HAROS] Loading common definitions...")
         rs, ms = self.database.load_definitions(self.definitions_file,
                 ignored_rules=self.settings.ignored_rules,
                 ignored_tags=self.settings.ignored_tags,
                 ignored_metrics=self.settings.ignored_metrics)
         rules.update(rs)
         metrics.update(ms)
-        print "[HAROS] Loading plugins..."
+        print("[HAROS] Loading plugins...")
         blacklist = self.blacklist or self.settings.plugin_blacklist
         plugins = Plugin.load_plugins(whitelist=self.whitelist,
                                       blacklist=blacklist,
@@ -753,7 +755,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 msg = "Could not find any analysis plugins."
             raise RuntimeError(msg)
         for plugin in plugins:
-            print "  > Loaded " + plugin.name
+            print("  > Loaded " + plugin.name)
             prefix = plugin.name + ":"
             rs = self.database.register_rules(plugin.rules, prefix=prefix,
                     ignored_rules=self.settings.ignored_rules,
@@ -797,7 +799,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             parser.parse_node_specs(node)
 
     def _analyse(self, plugins, rules, metrics):
-        print "[HAROS] Running analysis..."
+        print("[HAROS] Running analysis...")
         self._empty_dir(self.export_dir)
         temp_path = tempfile.mkdtemp()
         analysis = AnalysisManager(self.database, temp_path, self.export_dir,
@@ -810,7 +812,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             rmtree(temp_path)
 
     def _save_results(self, node_cache):
-        print "[HAROS] Saving analysis results..."
+        print("[HAROS] Saving analysis results...")
         if self.export_viz:
             viz.install(self.viz_dir, self.run_from_source, minimal_output=self.minimal_output)
         self._ensure_dir(self.data_dir)
@@ -873,7 +875,7 @@ class HarosParseRunner(HarosAnalyseRunner):
     def _load_definitions_and_plugins(self):
         rules = set()
         metrics = set()
-        print "[HAROS] Loading common definitions..."
+        print("[HAROS] Loading common definitions...")
         rs, ms = self.database.load_definitions(self.definitions_file,
                 ignored_rules=self.settings.ignored_rules,
                 ignored_tags=self.settings.ignored_tags,
@@ -922,7 +924,7 @@ class HarosExportRunner(HarosCommonExporter):
             self.io_projects_dir = data_dir
 
     def run(self):
-        print "[HAROS] Exporting analysis results..."
+        print("[HAROS] Exporting analysis results...")
         self._prepare_directory()
         exporter = JsonExporter()
         for project in self._project_list():

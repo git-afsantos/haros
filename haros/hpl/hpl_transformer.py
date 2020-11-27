@@ -52,12 +52,14 @@ NAN = float("nan")
 ###############################################################################
 
 class PropertyTransformer(Transformer):
-    def hpl_assumption(self, (ros_name, predicate)):
+    def hpl_assumption(self, children):
+        (ros_name, predicate) = children
         hpl_assumption = HplAssumption(ros_name, predicate)
         hpl_assumption.sanity_check()
         return hpl_assumption
 
-    def hpl_property(self, (scope, pattern)):
+    def hpl_property(self, children):
+        (scope, pattern) = children
         hpl_property = HplProperty(scope, pattern)
         hpl_property.sanity_check()
         return hpl_property
@@ -73,13 +75,16 @@ class PropertyTransformer(Transformer):
             return HplScope.after_until(p, children[1])
         return HplScope.after(p)
 
-    def until(self, (event,)):
+    def until(self, children):
+        (event,) = children
         return HplScope.until(event)
 
-    def activator(self, (event,)):
+    def activator(self, children):
+        (event,) = children
         return event
 
-    def terminator(self, (event,)):
+    def terminator(self, children):
+        (event,) = children
         return event
 
     def existence(self, children):
@@ -125,11 +130,13 @@ class PropertyTransformer(Transformer):
         alias = None if len(children) == 1 else children[1]
         return (children[0], alias)
 
-    def predicate(self, (expr,)):
+    def predicate(self, children):
+        (expr,) = children
         return HplPredicate(expr)
 
-    def top_level_condition(self, (expr,)):
+    def top_level_condition(self, children):
         # TODO remove, just for debugging
+        (expr,) = children
         phi = HplPredicate(expr)
         return expr
 
@@ -142,16 +149,19 @@ class PropertyTransformer(Transformer):
     def conjunction(self, children):
         return self._lr_binop(children)
 
-    def negation(self, (op, phi)):
+    def negation(self, children):
+        (op, phi) = children
         return HplUnaryOperator(op, phi)
 
-    def quantification(self, (qt, var, dom, phi)):
+    def quantification(self, children):
+        (qt, var, dom, phi) = children
         return HplQuantifier(qt, var, dom, phi)
 
     def atomic_condition(self, children):
         return self._lr_binop(children)
 
-    def function_call(self, (fun, arg)):
+    def function_call(self, children):
+        (fun, arg) = children
         return HplFunctionCall(fun, (arg,))
 
     def expr(self, children):
@@ -172,7 +182,8 @@ class PropertyTransformer(Transformer):
             return HplBinaryOperator(op, lhs, rhs)
         return children[0] # len(children) == 1
 
-    def negative_number(self, (op, n)):
+    def negative_number(self, children):
+        (op, n) = children
         return HplUnaryOperator(op, n)
 
     _CONSTANTS = {
@@ -181,36 +192,44 @@ class PropertyTransformer(Transformer):
         "NAN": NAN
     }
 
-    def number_constant(self, (c,)):
+    def number_constant(self, children):
+        (c,) = children
         return HplLiteral(c, self._CONSTANTS[c])
 
     def enum_literal(self, values):
         return HplSet(values)
 
-    def range_literal(self, (lr, lb, ub, rr)):
+    def range_literal(self, children):
+        (lr, lb, ub, rr) = children
         exc_min = lr.startswith("!")
         exc_max = rr.endswith("!")
         return HplRange(lb, ub, exc_min=exc_min, exc_max=exc_max)
 
-    def variable(self, (token,)):
+    def variable(self, children):
+        (token,) = children
         return HplVarReference(token)
 
-    def own_field(self, (token,)):
+    def own_field(self, children):
+        (token,) = children
         return HplFieldAccess(HplThisMessage(), token)
 
-    def field_access(self, (ref, token)):
+    def field_access(self, children):
+        (ref, token) = children
         return HplFieldAccess(ref, token)
 
-    def array_access(self, (ref, index)):
+    def array_access(self, children):
+        (ref, index) = children
         return HplArrayAccess(ref, index)
 
-    def frequency(self, (n, unit)):
+    def frequency(self, children):
+        (n, unit) = children
         n = float(n)
         assert unit == "hz"
         n = 1.0 / n # seconds
         return n
 
-    def time_amount(self, (n, unit)):
+    def time_amount(self, children):
+        (n, unit) = children
         n = float(n)
         if unit == "ms":
             n = n / 1000.0
@@ -218,31 +237,37 @@ class PropertyTransformer(Transformer):
             assert unit == "s"
         return n
 
-    def boolean(self, (b,)):
+    def boolean(self, children):
+        (b,) = children
         if b == "True":
             return HplLiteral(b, True)
         assert b == "False"
         return HplLiteral(b, False)
 
-    def string(self, (s,)):
+    def string(self, children):
+        (s,) = children
         return HplLiteral(s, s)
 
-    def number(self, (n,)):
+    def number(self, children):
+        (n,) = children
         try:
             return HplLiteral(n, int(n))
         except ValueError as e:
             return HplLiteral(n, float(n))
 
-    def signed_number(self, (n,)):
+    def signed_number(self, children):
+        (n,) = children
         try:
             return HplLiteral(n, int(n))
         except ValueError as e:
             return HplLiteral(n, float(n))
 
-    def int_literal(self, (n,)):
+    def int_literal(self, children):
+        (n,) = children
         return HplLiteral(n, int(n))
 
-    def ros_name(self, (n,)):
+    def ros_name(self, children):
+        (n,) = children
         return n
 
 
