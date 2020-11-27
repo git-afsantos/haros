@@ -55,6 +55,10 @@ class LoggingObject(object):
     log = logging.getLogger(__name__)
 
 
+def cmp_replacement(a, b):
+    return (a > b) - (a < b)
+
+
 ###############################################################################
 # Exceptions
 ###############################################################################
@@ -260,7 +264,7 @@ class QueryEngine(LoggingObject):
         "None": None,
         "abs": abs,
         "bool": bool,
-        "cmp": cmp,
+        "cmp": cmp_replacement,
         "divmod": divmod,
         "float": float,
         "int": int,
