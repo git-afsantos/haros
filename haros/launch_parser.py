@@ -72,22 +72,40 @@ import xml.etree.ElementTree as ET
 ###############################################################################
 
 # courtesy of https://stackoverflow.com/a/36430270
-class LineNumberingParser(ET.XMLParser):
-    def _start_list(self, *args, **kwargs):
-        # Here we assume the default XML parser which is expat
-        # and copy its element position attributes into output Elements
-        element = super(self.__class__, self)._start_list(*args, **kwargs)
-        element._start_line_number = self.parser.CurrentLineNumber
-        element._start_column_number = self.parser.CurrentColumnNumber + 1
-        element._start_byte_index = self.parser.CurrentByteIndex
-        return element
+if sys.version_info >= (3, 0):
+    class LineNumberingParser(ET.XMLParser):
+        def _start(self, *args, **kwargs):
+            # Here we assume the default XML parser which is expat
+            # and copy its element position attributes into output Elements
+            element = super(self.__class__, self)._start(*args, **kwargs)
+            element._start_line_number = self.parser.CurrentLineNumber
+            element._start_column_number = self.parser.CurrentColumnNumber + 1
+            element._start_byte_index = self.parser.CurrentByteIndex
+            return element
 
-    def _end(self, *args, **kwargs):
-        element = super(self.__class__, self)._end(*args, **kwargs)
-        element._end_line_number = self.parser.CurrentLineNumber
-        element._end_column_number = self.parser.CurrentColumnNumber + 1
-        element._end_byte_index = self.parser.CurrentByteIndex
-        return element
+        def _end(self, *args, **kwargs):
+            element = super(self.__class__, self)._end(*args, **kwargs)
+            element._end_line_number = self.parser.CurrentLineNumber
+            element._end_column_number = self.parser.CurrentColumnNumber + 1
+            element._end_byte_index = self.parser.CurrentByteIndex
+            return element
+else:
+    class LineNumberingParser(ET.XMLParser):
+        def _start_list(self, *args, **kwargs):
+            # Here we assume the default XML parser which is expat
+            # and copy its element position attributes into output Elements
+            element = super(self.__class__, self)._start_list(*args, **kwargs)
+            element._start_line_number = self.parser.CurrentLineNumber
+            element._start_column_number = self.parser.CurrentColumnNumber + 1
+            element._start_byte_index = self.parser.CurrentByteIndex
+            return element
+
+        def _end(self, *args, **kwargs):
+            element = super(self.__class__, self)._end(*args, **kwargs)
+            element._end_line_number = self.parser.CurrentLineNumber
+            element._end_column_number = self.parser.CurrentColumnNumber + 1
+            element._end_byte_index = self.parser.CurrentByteIndex
+            return element
 
 
 ###############################################################################
@@ -817,8 +835,12 @@ class LaunchParser(object):
         text = tag.text if tag.text else ""
         if tag.tag != "rosparam":
             text = text.strip()
-        element = cls(text, attributes,
-            tag._start_line_number, tag._start_column_number)
+        # FIXME
+        # sometimes in Python3 the C accelerator XMLParser class from
+        # `_elementtree` does not have the `_start` or `_start_list` methods
+        nline = getattr(tag, "_start_line_number", 1)
+        ncol = getattr(tag, "_start_column_number", 1)
+        element = cls(text, attributes, nline, ncol)
         if element.tag == "arg" and isinstance(element.name, basestring):
             if element.value is None:
                 if self.enable_defaults:

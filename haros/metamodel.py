@@ -114,8 +114,6 @@ class SourceCondition(object):
 
 
 class _UnknownValue(object):
-    __slots__ = ("name", "_call", "_attr", "_fun")
-
     def __init__(self, name, call, attr, fun):
         self.name = name
         self._call = call
