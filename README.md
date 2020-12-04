@@ -344,6 +344,8 @@ This options produces a result similar to `rqt_graph`, but without executing cod
 **Note:** this option requires that you have the appropriate parsing libraries
 installed (e.g. `libclang` for C++).
 
+For issues with model extraction be sure to check [MODEL_EXTRACTION.md](./MODEL_EXTRACTION.md).
+
 #### haros analyse --no-cache
 
 Do not use cached data. This is useful, for instance, if you want to force nodes
