@@ -327,6 +327,8 @@ class HarosLauncher(object):
                            help = "skip these plugins")
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
+        parser.add_argument("--no-hardcoded", action="store_true",
+                            help="do not rely on hard-coded nodes")
         parser.set_defaults(command = self.command_full)
 
     def _analyse_parser(self, parser):
