@@ -38,6 +38,8 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash;\
  source ~/catkin_ws/devel/setup.bash; \
  haros init
 
+RUN apt-get install -y python-is-python3
+
 COPY ./haros_call.sh /
 
 EXPOSE 4000
