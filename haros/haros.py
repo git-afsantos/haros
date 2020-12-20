@@ -314,6 +314,8 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',

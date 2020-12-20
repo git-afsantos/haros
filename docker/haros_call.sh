@@ -3,7 +3,7 @@ source /root/catkin_ws/devel/setup.bash
 cd /root/catkin_ws/src/
 git clone $1
 
-rosdep install -y -i -r --from-path /root/catkin_ws/src
+sudo apt-get update && rosdep update --rosdistro $ROS_DISTRO && rosdep install -y -i -r --from-path /root/catkin_ws/src
 cd /root/catkin_ws
 catkin_make
 
