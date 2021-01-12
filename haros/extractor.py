@@ -1998,7 +1998,7 @@ class NodeHints2(LoggingObject):
                     new_nodes.append(node)
             if node is not None:
                 self._add_primitives(node, node_hints)
-                hpl = hints.get("hpl", _EMPTY_DICT)
+                hpl = self.hints.get("hpl", _EMPTY_DICT)
                 node.hpl_properties = list(hpl.get("properties", _EMPTY_LIST))
                 node.hpl_assumptions = list(hpl.get("assumptions", _EMPTY_LIST))
         return new_nodes
@@ -2054,6 +2054,6 @@ class NodeHints2(LoggingObject):
                 self.log.error("Unable to find file: '{}/{}'".format(
                     datum["package"], filename))
         return Location(pkg, file=source_file,
-            line=datum["line"], col=datum["column"],
+            line=datum.get("line", 1), col=datum.get("column", 1),
             fun=datum.get("function"), cls=datum.get("class"))
 
