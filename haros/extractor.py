@@ -310,6 +310,7 @@ class ProjectExtractor(LoggingObject):
         ws = settings.workspace
         if not ws:
             ws = settings.find_ros_workspace()
+        ws = os.path.abspath(ws)
         if CppAstParser is None:
             self.log.warning("C++ AST parser not found.")
         extractor = NodeExtractor(pkgs, self.environment, ws = ws,
