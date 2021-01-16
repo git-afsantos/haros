@@ -553,9 +553,17 @@ class HarosSettings(object):
         cpp = data.get("cpp", cls.DEFAULTS["cpp"])
         cpp_parser = cpp.get("parser")
         cpp_parser_lib = cpp.get("parser_lib")
+        if cpp_parser_lib:
+            cpp_parser_lib = os.path.abspath(cpp_parser_lib)
         cpp_parser_lib_file = cpp.get("parser_lib_file")
+        if cpp_parser_lib_file:
+            cpp_parser_lib_file = os.path.abspath(cpp_parser_lib_file)
         cpp_includes = cpp.get("std_includes")
+        if cpp_includes:
+            cpp_includes = os.path.abspath(cpp_includes)
         cpp_compile_db = cpp.get("compile_db")
+        if cpp_compile_db:
+            cpp_compile_db = os.path.abspath(cpp_compile_db)
         return cls(env=env, blacklist=blacklist, workspace=workspace,
                    cpp_parser=cpp_parser, cpp_parser_lib=cpp_parser_lib,
                    cpp_parser_lib_file=cpp_parser_lib_file,
