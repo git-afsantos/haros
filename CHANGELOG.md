@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Fixed viz/export bug where multiple queries with the same rule id were aggregated; each query report is now highlighted individually.
+- Added `--ws` option to `analyse`
 
 ## [3.9.0] - 2020-02-19
 ### Changed
