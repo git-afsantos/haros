@@ -39,7 +39,7 @@ indigo:
         readParam:
             -
                 name: "param_name"
-                type: string
+                type: str
                 default: "value"
                 namespace: "~"
                 depth: 0
