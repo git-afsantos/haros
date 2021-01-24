@@ -34,7 +34,7 @@ See [USAGE](./docs/USAGE.md) for basic commands and usage instructions.
 
 Check whether your question has an answer in the [FAQ](./docs/FAQ.md).
 
-Please use the [issue tracker](https://github.com/git-afsantos/hpl-specs/issues) for issues or feature requests directly related to HAROS.
+Please use the [issue tracker](https://github.com/git-afsantos/haros/issues) for issues or feature requests directly related to HAROS.
 
 For issues related to plugins, please use the respective plugin repository.
 
