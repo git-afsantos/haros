@@ -700,7 +700,10 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 cfg.hpl_properties.append(p)
             for a in hpl.get("assumptions", empty_list):
                 cfg.hpl_assumptions.append(a)
-            cfg.user_attributes = data.get("user_data", {})
+            if isinstance(data, list):
+                cfg.user_attributes = {}
+            else:
+                cfg.user_attributes = data.get("user_data", {})
             project.configurations.append(cfg)
             self.database.configurations.append(cfg)
 
