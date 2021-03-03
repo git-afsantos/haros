@@ -25,7 +25,7 @@ extra_files.append("models/*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.9.0",
+    version         = "3.9.2",
     author          = "Andre Santos",
     author_email    = "andre.f.santos@inesctec.pt",
     description     = "Static analysis framework for ROS.",
