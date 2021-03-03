@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/27440980.svg)](https://zenodo.org/badge/latestdoi/27440980)
+
 ![HAROS](logo.png?raw=true "HAROS Logo")
 
 HAROS is a framework for quality assurance of ROS-based code, mostly based on static analysis.
