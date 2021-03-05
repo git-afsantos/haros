@@ -306,7 +306,23 @@ UINT8 = BuiltinNumTypeToken(
     (2 ** 8) - 1    # max_value
 )
 
-CHAR = UINT8
+CHAR = BuiltinNumTypeToken(
+    "char",         # type_name
+    True,           # is_builtin
+    True,           # is_primitive
+    True,           # is_number
+    True,           # is_int
+    False,          # is_float
+    False,          # is_bool
+    False,          # is_string
+    False,          # is_time
+    False,          # is_duration
+    False,          # is_header
+    False,          # is_message
+    False,          # is_array
+    0,              # min_value
+    (2 ** 8) - 1    # max_value
+)
 
 UINT16 = BuiltinNumTypeToken(
     "uint16",       # type_name
@@ -380,7 +396,23 @@ INT8 = BuiltinNumTypeToken(
     (2 ** 7) - 1    # max_value
 )
 
-BYTE = INT8
+BYTE = BuiltinNumTypeToken(
+    "byte",         # type_name
+    True,           # is_builtin
+    True,           # is_primitive
+    True,           # is_number
+    True,           # is_int
+    False,          # is_float
+    False,          # is_bool
+    False,          # is_string
+    False,          # is_time
+    False,          # is_duration
+    False,          # is_header
+    False,          # is_message
+    False,          # is_array
+    -(2 ** 7),      # min_value
+    (2 ** 7) - 1    # max_value
+)
 
 INT16 = BuiltinNumTypeToken(
     "int16",        # type_name
