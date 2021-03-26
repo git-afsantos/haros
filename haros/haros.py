@@ -317,6 +317,7 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-write-cache", action = "store_true",
                             help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
