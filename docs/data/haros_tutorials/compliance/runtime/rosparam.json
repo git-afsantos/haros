@@ -1,1 +1,28 @@
-[{"comment": "Query found: PubSub(/fictibase, /stop_cmd, std_msgs/Empty)\nReported in configuration rosparam", "resources": [], "location": {"configuration": "rosparam"}, "rule": "user:subscriber_queue_enough"}, {"comment": "Query found: PubSub(/fictibase, /teleop_cmd, std_msgs/Float64)\nReported in configuration rosparam", "resources": [], "location": {"configuration": "rosparam"}, "rule": "user:subscriber_queue_enough"}]
+[
+  {
+    "comment":"Query found: NodeInstance rosparam:/fictibase",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/fictibase"
+      }
+    ],
+    "location":{
+      "configuration":"rosparam"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance rosparam:/ficticontrol",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/ficticontrol"
+      }
+    ],
+    "location":{
+      "configuration":"rosparam"
+    },
+    "rule":"user:match_multiple_times"
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "description":"Cyclomatic Complexity is a quantitative measure of the number of linearly independent paths through a program's source code.",
+    "maximum":null,
+    "minimum":1.0,
+    "scope":"file",
+    "id":"cyclomatic_complexity",
+    "name":"Cyclomatic Complexity"
+  },
+  {
+    "description":"How many parameters a function takes.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"function",
+    "id":"function_parameters",
+    "name":"Number of Function Parameters"
+  },
+  {
+    "description":"Logical lines of code",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"lloc",
+    "name":"Logical Lines of Code"
+  },
+  {
+    "description":"Maintainability Index is a software metric which measures how maintainable (easy to support and change) the source code is. The maintainability index is calculated as a factored formula consisting of Lines Of Code, Cyclomatic Complexity and Halstead volume.",
+    "maximum":100.0,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"maintainability_index",
+    "name":"Maintainability Index"
+  },
+  {
+    "description":"Estimate of the time required to change or understand this code.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"halstead_time",
+    "name":"Time Required to Program"
+  },
+  {
+    "description":"Level of nesting of control structures",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"function",
+    "id":"nested_control",
+    "name":"Nesting of Control Structures"
+  },
+  {
+    "description":"Number of exposed methods in a class.",
+    "maximum":null,
+    "minimum":1.0,
+    "scope":"file",
+    "id":"methods_available",
+    "name":"Methods Available in Class"
+  },
+  {
+    "description":"Ratio between comments and lines of code. How much of the total lines is comments.",
+    "maximum":1.0,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"comment_ratio",
+    "name":"Comment Ratio"
+  },
+  {
+    "description":"How many distinct functions a function calls.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"function",
+    "id":"unique_function_calls",
+    "name":"Number of Distinct Function Calls"
+  },
+  {
+    "description":"Number of lines of comments",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"comments",
+    "name":"Lines of Comments"
+  },
+  {
+    "description":"Number of Children in Tree (NOC) measures the number of direct subclasses of a class.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"number_of_children",
+    "name":"Number of Immediate Children"
+  },
+  {
+    "description":"Coupling between objects.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"coupling",
+    "name":"Coupling Between Objects"
+  },
+  {
+    "description":"Estimated number of static program paths inside a function",
+    "maximum":null,
+    "minimum":1.0,
+    "scope":"function",
+    "id":"static_path_count",
+    "name":"Estimated Static Path Count"
+  },
+  {
+    "description":"How many functions a function calls.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"function",
+    "id":"function_calls",
+    "name":"Number of Function Calls"
+  },
+  {
+    "description":"Number of executable lines (e.g. in a function).",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"eloc",
+    "name":"Executable Lines of Code"
+  },
+  {
+    "description":"Lines of real code (no comments or blank lines).",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"ploc",
+    "name":"Program Lines of Code"
+  },
+  {
+    "description":"Source lines of code (code and comments, no blank lines).",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"sloc",
+    "name":"Source Lines of Code"
+  },
+  {
+    "description":"The WMC metric is the sum of the complexities of all class methods.",
+    "maximum":null,
+    "minimum":1.0,
+    "scope":"file",
+    "id":"weighted_methods",
+    "name":"Weighted Methods per Class"
+  },
+  {
+    "description":"Estimate of the number of delivered bugs, according to the Halstead metrics.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"halstead_bugs",
+    "name":"Number of Delivered Bugs"
+  },
+  {
+    "description":"Halstead's Volume metric, related to the number of operators and operands in a program.",
+    "maximum":null,
+    "minimum":0.0,
+    "scope":"file",
+    "id":"halstead_volume",
+    "name":"Halstead's Volume"
+  },
+  {
+    "description":"This metric calculates how far down a class is declared in the inheritance hierarchy.",
+    "maximum":null,
+    "minimum":1.0,
+    "scope":"file",
+    "id":"depth_in_tree",
+    "name":"Deepest Level of Inheritance"
+  }
+]

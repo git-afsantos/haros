@@ -1,0 +1,264 @@
+[
+  {
+    "comment":"Found [Publication of node '/mobile_base' to topic '/tf' of type 'tf2_msgs/TFMessage'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/mobile_base' to topic '/diagnostics' of type 'diagnostic_msgs/DiagnosticArray'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/cmd_vel_mux' to topic '/mobile_base/commands/velocity' of type 'geometry_msgs/Twist'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/diagnostic_aggregator' to topic '/diagnostics_agg' of type 'diagnostic_msgs/DiagnosticArray'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/diagnostic_aggregator' to topic '/diagnostics_toplevel_state' of type 'diagnostic_msgs/DiagnosticStatus'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/cmd_vel_mux' to topic '/cmd_vel_mux/parameter_descriptions' of type 'dynamic_reconfigure/ConfigDescription'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Publication of node '/cmd_vel_mux' to topic '/cmd_vel_mux/parameter_updates' of type 'dynamic_reconfigure/Config'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Subscription of node '/diagnostic_aggregator' to topic '/diagnostics' of type 'diagnostic_msgs/DiagnosticArray'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Subscription of node '/cmd_vel_mux' to topic '/cmd_vel_mux/safety_controller' of type 'geometry_msgs/Twist'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Subscription of node '/cmd_vel_mux' to topic '/cmd_vel_mux/random_walker' of type 'geometry_msgs/Twist'] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Service(/diagnostic_aggregator, /diagnostic_agg/add_diagnostics, diagnostic_msgs/AddDiagnostics)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Service(/cmd_vel_mux, /cmd_vel_mux/set_parameters, dynamic_reconfigure/Reconfigure)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Read(/cmd_vel_mux, /cmd_vel_mux/yaml_cfg_file, str)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Read(/mobile_base, /mobile_base/diagnostic_period, double)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Read(/cmd_vel_mux, /cmd_vel_mux/yaml_cfg_data, str)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Write(/cmd_vel_mux, /cmd_vel_mux/yaml_cfg_file, str)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Write(/cmd_vel_mux, /cmd_vel_mux/yaml_cfg_data, str)] using global names.",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/mobile_base' to topic '/diagnostics' of type 'diagnostic_msgs/DiagnosticArray']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/diagnostic_aggregator' to topic '/diagnostics_agg' of type 'diagnostic_msgs/DiagnosticArray']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/diagnostic_aggregator' to topic '/diagnostics_toplevel_state' of type 'diagnostic_msgs/DiagnosticStatus']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/cmd_vel_mux' to topic '/cmd_vel_mux/active' of type 'std_msgs/String']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/cmd_vel_mux' to topic '/cmd_vel_mux/parameter_descriptions' of type 'dynamic_reconfigure/ConfigDescription']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/cmd_vel_mux' to topic '/cmd_vel_mux/parameter_updates' of type 'dynamic_reconfigure/Config']",
+    "resources":[],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/mobile_base/commands/reset_odometry', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/mobile_base/commands/reset_odometry"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/kobuki_safety_controller/enable', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/kobuki_safety_controller/enable"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/kobuki_safety_controller/disable', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/kobuki_safety_controller/disable"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/kobuki_safety_controller/reset', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/kobuki_safety_controller/reset"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/kobuki_random_walker_controller/enable', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/kobuki_random_walker_controller/enable"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/kobuki_random_walker_controller/disable', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/kobuki_random_walker_controller/disable"
+      }
+    ],
+    "location":{
+      "configuration":"random_walker_hints"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  }
+]

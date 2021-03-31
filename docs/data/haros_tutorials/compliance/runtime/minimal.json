@@ -1,1 +1,28 @@
-[{"comment": "Query found: PubSub(/fictibase, /stop_cmd, std_msgs/Empty)\nReported in configuration minimal", "resources": [], "location": {"configuration": "minimal"}, "rule": "user:subscriber_queue_enough"}, {"comment": "Query found: PubSub(/fictibase, /teleop_cmd, std_msgs/Float64)\nReported in configuration minimal", "resources": [], "location": {"configuration": "minimal"}, "rule": "user:subscriber_queue_enough"}]
+[
+  {
+    "comment":"Query found: NodeInstance minimal:/fictibase",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/fictibase"
+      }
+    ],
+    "location":{
+      "configuration":"minimal"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance minimal:/ficticontrol",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/ficticontrol"
+      }
+    ],
+    "location":{
+      "configuration":"minimal"
+    },
+    "rule":"user:match_multiple_times"
+  }
+]

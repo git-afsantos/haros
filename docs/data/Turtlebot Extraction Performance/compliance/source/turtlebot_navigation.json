@@ -1,0 +1,28 @@
+[
+  {
+    "comment":"Query found: RosPrimitiveCall(/scan_filtered, ~, sensor_msgs/LaserScan) Location2(package='turtlebot_navigation', file='src/laser_footprint_filter.cpp', line=46, column=26) (depth 0)\nReported in turtlebot_navigation/src/laser_footprint_filter.cpp:46:26",
+    "resources":[],
+    "location":{
+      "function":null,
+      "package":"turtlebot_navigation",
+      "column":26,
+      "file":"src/laser_footprint_filter.cpp",
+      "line":46,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/scan, ~, sensor_msgs/LaserScan) Location2(package='turtlebot_navigation', file='src/laser_footprint_filter.cpp', line=47, column=17) (depth 0)\nReported in turtlebot_navigation/src/laser_footprint_filter.cpp:47:17",
+    "resources":[],
+    "location":{
+      "function":null,
+      "package":"turtlebot_navigation",
+      "column":17,
+      "file":"src/laser_footprint_filter.cpp",
+      "line":47,
+      "class":null
+    },
+    "rule":"no_global_names"
+  }
+]

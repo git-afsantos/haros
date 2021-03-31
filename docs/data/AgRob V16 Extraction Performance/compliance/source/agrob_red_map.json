@@ -1,0 +1,67 @@
+[
+  {
+    "comment":"Query found: RosPrimitiveCall(/rectangle_map, ~, geometry_msgs/PoseArray) Location2(package='agrob_red_map', file='src/agrob_red_map_node.cpp', line=126, column=26) (depth 0)\nReported in agrob_red_map/src/agrob_red_map_node.cpp:126:26, in function map_red",
+    "resources":[],
+    "location":{
+      "function":"map_red",
+      "package":"agrob_red_map",
+      "column":26,
+      "file":"src/agrob_red_map_node.cpp",
+      "line":126,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/astar_gps_goal, ~, geographic_msgs/GeoPoint) Location2(package='agrob_red_map', file='src/agrob_red_map_node.cpp', line=128, column=16) (depth 0)\nReported in agrob_red_map/src/agrob_red_map_node.cpp:128:16, in function map_red",
+    "resources":[],
+    "location":{
+      "function":"map_red",
+      "package":"agrob_red_map",
+      "column":16,
+      "file":"src/agrob_red_map_node.cpp",
+      "line":128,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/obstacle_map, ~, geometry_msgs/PointStamped) Location2(package='agrob_red_map', file='src/agrob_red_map_node.cpp', line=130, column=20) (depth 0)\nReported in agrob_red_map/src/agrob_red_map_node.cpp:130:20, in function map_red",
+    "resources":[],
+    "location":{
+      "function":"map_red",
+      "package":"agrob_red_map",
+      "column":20,
+      "file":"src/agrob_red_map_node.cpp",
+      "line":130,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/map, ~, nav_msgs/OccupancyGrid) Location2(package='agrob_red_map', file='src/agrob_red_map_node.cpp', line=122, column=15) (depth 0)\nReported in agrob_red_map/src/agrob_red_map_node.cpp:122:15, in function map_red",
+    "resources":[],
+    "location":{
+      "function":"map_red",
+      "package":"agrob_red_map",
+      "column":15,
+      "file":"src/agrob_red_map_node.cpp",
+      "line":122,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/plan_pub, ~, nav_msgs/Path) Location2(package='agrob_red_map', file='src/agrob_red_map_node.cpp', line=124, column=18) (depth 0)\nReported in agrob_red_map/src/agrob_red_map_node.cpp:124:18, in function map_red",
+    "resources":[],
+    "location":{
+      "function":"map_red",
+      "package":"agrob_red_map",
+      "column":18,
+      "file":"src/agrob_red_map_node.cpp",
+      "line":124,
+      "class":null
+    },
+    "rule":"no_global_names"
+  }
+]

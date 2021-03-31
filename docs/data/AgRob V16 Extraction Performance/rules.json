@@ -1,0 +1,409 @@
+[
+  {
+    "description":"Maximum Coupling Between Objects of 5",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "coupling",
+      "cbo"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_coupling_objects_5",
+    "name":"Maximum Coupling Between Objects of 5"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 80",
+    "tags":[
+      "metrics",
+      "his",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_80",
+    "name":"Maximum Estimated Static Path Count of 80"
+  },
+  {
+    "description":"Avoid using global ROS names (e.g. '/odom')",
+    "tags":[
+      "code-standards",
+      "ros",
+      "naming"
+    ],
+    "query":"nodes/advertise[is_rosglobal(self.name)] | nodes/subscribe[is_rosglobal(self.name)] | nodes/service[is_rosglobal(self.name)] | nodes/client[is_rosglobal(self.name)]",
+    "scope":"file",
+    "id":"no_global_names",
+    "name":"No Global ROS Names"
+  },
+  {
+    "description":"Maintainability Index below 20",
+    "tags":[
+      "metrics",
+      "microsoft",
+      "maintainability",
+      "mi",
+      "maintainability-index"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"mi_below_20",
+    "name":"Maintainability Index Below 20"
+  },
+  {
+    "description":"Maximum Nesting of Control Structures of 5",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "nesting",
+      "control-structures",
+      "control-flow"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_control_nesting_5",
+    "name":"Maximum Nesting of Control Structures of 5"
+  },
+  {
+    "description":"Maximum Nesting of Control Structures of 4",
+    "tags":[
+      "metrics",
+      "his",
+      "nesting",
+      "control-structures",
+      "control-flow"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_control_nesting_4",
+    "name":"Maximum Nesting of Control Structures of 4"
+  },
+  {
+    "description":"Maximum Executable Lines of Code of 70",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "eloc",
+      "loc",
+      "lines-of-code"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_eloc_70",
+    "name":"Maximum Executable Lines of Code of 70"
+  },
+  {
+    "description":"Maximum Executable Lines of Code of 50",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "eloc",
+      "loc",
+      "lines-of-code"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_eloc_50",
+    "name":"Maximum Executable Lines of Code of 50"
+  },
+  {
+    "description":"Maximum Function Calls of 10",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "function-calls"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_function_calls_10",
+    "name":"Maximum Function Calls of 10"
+  },
+  {
+    "description":"Halstead Bugs above 2",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "halstead",
+      "bugs",
+      "halstead-bugs"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"halstead_bugs_above_2",
+    "name":"Halstead Bugs Above 2"
+  },
+  {
+    "description":"Minimum Comment Ratio of 20%",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "unak",
+      "ros",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"min_comment_ratio_20",
+    "name":"Minimum Comment Ratio of 20%"
+  },
+  {
+    "description":"Maximum Weighted Methods per Class of 50",
+    "tags":[
+      "metrics",
+      "unak",
+      "wmc",
+      "weighted-methods",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_weighted_methods_50",
+    "name":"Maximum Weighted Methods per Class of 50"
+  },
+  {
+    "description":"Halstead Volume above 8000",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "halstead",
+      "halstead-volume"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"halstead_volume_above_8000",
+    "name":"Halstead Volume Above 8000"
+  },
+  {
+    "description":"Maximum number of function parameters of 6",
+    "tags":[
+      "code-standards",
+      "functions",
+      "parameters",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"max_function_parameters_6",
+    "name":"Maximum Function Parameters of 6"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 200",
+    "tags":[
+      "metrics",
+      "hicpp",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_200",
+    "name":"Maximum Estimated Static Path Count of 200"
+  },
+  {
+    "description":"Maximum Deepest Level of Inheritance of 5",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "unak",
+      "dit",
+      "inheritance"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_deepest_inheritance_5",
+    "name":"Maximum Deepest Level of Inheritance of 5"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 250",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_250",
+    "name":"Maximum Estimated Static Path Count of 250"
+  },
+  {
+    "description":"Maximum Comment Ratio of 30%",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_comment_ratio_30",
+    "name":"Maximum Comment Ratio of 30%"
+  },
+  {
+    "description":"Maximum Cyclomatic Complexity of 15",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "cyclomatic-complexity"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_cyclomatic_complexity_15",
+    "name":"Maximum Cyclomatic Complexity of 15"
+  },
+  {
+    "description":"Maximum number of function lines of code of 40",
+    "tags":[
+      "code-standards",
+      "metrics",
+      "functions",
+      "loc",
+      "lines-of-code",
+      "google-cpp",
+      "verifysoft"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"max_function_length_40",
+    "name":"Maximum Function Length of 40"
+  },
+  {
+    "description":"Maximum Cyclomatic Complexity of 10",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "cyclomatic-complexity"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_cyclomatic_complexity_10",
+    "name":"Maximum Cyclomatic Complexity of 10"
+  },
+  {
+    "description":"Maintainability Index below 65",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "maintainability",
+      "mi",
+      "maintainability-index"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"mi_below_65",
+    "name":"Maintainability Index Below 65"
+  },
+  {
+    "description":"[INFO] Performance for HAROS Configuration extraction",
+    "tags":[
+      "metrics",
+      "custom",
+      "models"
+    ],
+    "query":null,
+    "scope":"configuration",
+    "id":"haros_plugin_model_ged:reportPerformance",
+    "name":"Model Extraction Performance"
+  },
+  {
+    "description":"[INFO] Graph Edit Distance for HAROS Configuration",
+    "tags":[
+      "metrics",
+      "custom",
+      "models"
+    ],
+    "query":null,
+    "scope":"configuration",
+    "id":"haros_plugin_model_ged:reportGED",
+    "name":"Graph Edit Distance"
+  },
+  {
+    "description":"Maximum Weighted Methods per Class of 100",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "wmc",
+      "weighted-methods",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_weighted_methods_100",
+    "name":"Maximum Weighted Methods per Class of 100"
+  },
+  {
+    "description":"Maximum Comment Ratio of 40%",
+    "tags":[
+      "metrics",
+      "unak",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_comment_ratio_40",
+    "name":"Maximum Comment Ratio of 40%"
+  },
+  {
+    "description":"Maximum Number of Immediate Children of 10",
+    "tags":[
+      "metrics",
+      "unak",
+      "immediate-children",
+      "noc"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_immediate_children_10",
+    "name":"Maximum Number of Immediate Children of 10"
+  },
+  {
+    "description":"Maximum Methods Available in Class of 20",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "mac",
+      "methods-available",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_methods_available_20",
+    "name":"Maximum Methods Available in Class of 20"
+  },
+  {
+    "description":"Maximum number of program lines of code in a file of 400",
+    "tags":[
+      "metrics",
+      "loc",
+      "lines-of-code",
+      "verifysoft"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_file_length_400",
+    "name":"Maximum File Length of 400"
+  },
+  {
+    "description":"Maximum Function Calls of 7",
+    "tags":[
+      "metrics",
+      "his",
+      "function-calls"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_function_calls_7",
+    "name":"Maximum Function Calls of 7"
+  }
+]

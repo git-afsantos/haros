@@ -1,0 +1,133 @@
+[
+  {
+    "comment":"Query found: NodeInstance multiplex:/fictibase",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/fictibase"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance multiplex:/fictiplex",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/fictiplex"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance multiplex:/ficticontrol",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/ficticontrol"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query None found 1 matches:\n[Publication of node '/ficticontrol' to topic '/normal_priority_stop' of type 'std_msgs/Empty']",
+    "resources":[],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Subscription of node '/ficticontrol' to topic '/custom_noparam' of type 'fictibot_msgs/Custom'] under a conditional statement.",
+    "resources":[],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found [Subscription of node '/ficticontrol' to topic '/custom_w_param' of type 'fictibot_msgs/Custom'] under a conditional statement.",
+    "resources":[],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with infinite queues - [Publication of node '/ficticontrol' to topic '/normal_priority_stop' of type 'std_msgs/Empty']",
+    "resources":[],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics with queues of size 1 - [Publication of node '/ficticontrol' to topic '/normal_priority_cmd' of type 'std_msgs/Float64']",
+    "resources":[],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/stop_cmd', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/stop_cmd"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/high_priority_stop', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/high_priority_stop"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/normal_priority_stop', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/normal_priority_stop"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  },
+  {
+    "comment":"Found 1 topics of type std_msgs/Empty - [Topic('/low_priority_stop', std_msgs/Empty)]",
+    "resources":[
+      {
+        "resourceType":"topic",
+        "name":"/low_priority_stop"
+      }
+    ],
+    "location":{
+      "configuration":"multiplex"
+    },
+    "rule":"haros_plugin_pyflwor:query"
+  }
+]

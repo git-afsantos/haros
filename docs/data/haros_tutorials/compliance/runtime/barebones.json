@@ -1,1 +1,28 @@
-[{"comment": "Query found: NodeInstance barebones:/talker\nReported in configuration barebones", "resources": [{"resourceType": "node", "name": "/talker"}], "location": {"configuration": "barebones"}, "rule": "user:whatever"}]
+[
+  {
+    "comment":"Query found: NodeInstance barebones:/listener",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/listener"
+      }
+    ],
+    "location":{
+      "configuration":"barebones"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance barebones:/talker",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/talker"
+      }
+    ],
+    "location":{
+      "configuration":"barebones"
+    },
+    "rule":"user:match_multiple_times"
+  }
+]

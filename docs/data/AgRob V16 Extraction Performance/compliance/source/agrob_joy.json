@@ -1,0 +1,28 @@
+[
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrob/cmd_vel_joy, ~, geometry_msgs/TwistStamped) Location2(package='agrob_joy', file='src/teleop_joy.cpp', line=62, column=14) (depth 0)\nReported in agrob_joy/src/teleop_joy.cpp:62:14, in function TeleopJoy",
+    "resources":[],
+    "location":{
+      "function":"TeleopJoy",
+      "package":"agrob_joy",
+      "column":14,
+      "file":"src/teleop_joy.cpp",
+      "line":62,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrob/agrob_mode, ~, agrob_supervisor/agrob_mode) Location2(package='agrob_joy', file='src/teleop_joy.cpp', line=63, column=15) (depth 0)\nReported in agrob_joy/src/teleop_joy.cpp:63:15, in function TeleopJoy",
+    "resources":[],
+    "location":{
+      "function":"TeleopJoy",
+      "package":"agrob_joy",
+      "column":15,
+      "file":"src/teleop_joy.cpp",
+      "line":63,
+      "class":null
+    },
+    "rule":"no_global_names"
+  }
+]

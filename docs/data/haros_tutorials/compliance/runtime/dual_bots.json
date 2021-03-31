@@ -1,1 +1,54 @@
-[{"comment": "Query found: (Configuration dual_bots, ({u'sub': PubSub(/one/fictibase, /one/stop_cmd, std_msgs/Empty), u'pub': PubSub(/one/ficticontrol, /stop_cmd, std_msgs/Empty)}, {u'sub': PubSub(/two/fictibase, /two/stop_cmd, std_msgs/Empty), u'pub': PubSub(/one/ficticontrol, /stop_cmd, std_msgs/Empty)}, {u'sub': PubSub(/one/fictibase, /one/stop_cmd, std_msgs/Empty), u'pub': PubSub(/two/ficticontrol, /stop_cmd, std_msgs/Empty)}, {u'sub': PubSub(/two/fictibase, /two/stop_cmd, std_msgs/Empty), u'pub': PubSub(/two/ficticontrol, /stop_cmd, std_msgs/Empty)}))\nReported in configuration dual_bots", "resources": [], "location": {"configuration": "dual_bots"}, "rule": "user:disconnected_similar_topics"}]
+[
+  {
+    "comment":"Query found: NodeInstance dual_bots:/one/fictibase",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/one/fictibase"
+      }
+    ],
+    "location":{
+      "configuration":"dual_bots"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance dual_bots:/one/ficticontrol",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/one/ficticontrol"
+      }
+    ],
+    "location":{
+      "configuration":"dual_bots"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance dual_bots:/two/fictibase",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/two/fictibase"
+      }
+    ],
+    "location":{
+      "configuration":"dual_bots"
+    },
+    "rule":"user:match_multiple_times"
+  },
+  {
+    "comment":"Query found: NodeInstance dual_bots:/two/ficticontrol",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/two/ficticontrol"
+      }
+    ],
+    "location":{
+      "configuration":"dual_bots"
+    },
+    "rule":"user:match_multiple_times"
+  }
+]

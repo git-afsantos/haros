@@ -1,0 +1,2100 @@
+[
+  {
+    "description":"Do not use the verboten C basic types.",
+    "tags":[
+      "code-standards",
+      "types",
+      "deprecation",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:c_types",
+    "name":"Do Not Use C Types"
+  },
+  {
+    "description":"Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.",
+    "tags":[
+      "code-standards",
+      "overload",
+      "operators",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosOverrideBinaryOr",
+    "name":"Operator Overload"
+  },
+  {
+    "description":"Wrap use of the C Standard Library.",
+    "tags":[
+      "code-standards",
+      "c",
+      "libraries",
+      "c-standard-library",
+      "hicpp",
+      "misra-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosUsingErrno",
+    "name":"C Standard Library"
+  },
+  {
+    "description":"Maintainability Index below 20",
+    "tags":[
+      "metrics",
+      "microsoft",
+      "maintainability",
+      "mi",
+      "maintainability-index"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"mi_below_20",
+    "name":"Maintainability Index Below 20"
+  },
+  {
+    "description":"Do not leave whitespace at the end of a line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_end_line",
+    "name":"Whitespace at the End of Line"
+  },
+  {
+    "description":"You shouldn't have spaces before your brackets, except maybe after 'delete []' or 'return []() {};'",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "brackets",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_before_brackets",
+    "name":"Whitespace Before Brackets"
+  },
+  {
+    "description":"To check for equality, use CHECK_EQ(a, b) instead of CHECK(a == b).",
+    "tags":[
+      "code-standards",
+      "macros",
+      "equality",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:check_eq",
+    "name":"CHECK_EQ Instead of CHECK"
+  },
+  {
+    "description":"Do not use namespace using-directives. Use using-declarations instead.",
+    "tags":[
+      "code-standards",
+      "namespace",
+      "using-directives",
+      "using-declarations",
+      "google-cpp",
+      "hicpp",
+      "misra-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:using_directives",
+    "name":"Avoid Namespace Using-Directives"
+  },
+  {
+    "description":"Either omit template arguments from make_pair, or use pair directly, or construct a pair directly.",
+    "tags":[
+      "code-standards",
+      "cpp11",
+      "compatibility",
+      "templates",
+      "pair",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:make_pair_template",
+    "name":"make_pair Template"
+  },
+  {
+    "description":"Non-ASCII characters should be rare, and must use UTF-8 formatting.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "character-encoding",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:non_ascii",
+    "name":"Non-ASCII Characters"
+  },
+  {
+    "description":"No file should mix LF and CRLF line endings.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "newline"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:line_endings",
+    "name":"Mixed Line Endings"
+  },
+  {
+    "description":"Maximum number of function parameters: 6",
+    "tags":[
+      "code-standards",
+      "functions",
+      "parameters",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosSixParams",
+    "name":"Maximum of 6 Function Parameters"
+  },
+  {
+    "description":"Maximum Executable Lines of Code of 50",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "eloc",
+      "loc",
+      "lines-of-code"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_eloc_50",
+    "name":"Maximum Executable Lines of Code of 50"
+  },
+  {
+    "description":"There should be a space after a closing brace, if it does not end the line (for instance, '} else {').",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "curly-braces",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_close_brace",
+    "name":"Whitespace After Closing Curly Brace"
+  },
+  {
+    "description":"Avoid using variables as format string arguments. Use 'printf(\"%s\", var)' instead.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "strings",
+      "potential-bugs",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:format_string_var",
+    "name":"Avoid Format String Variables"
+  },
+  {
+    "description":"Halstead Bugs above 2",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "halstead",
+      "bugs",
+      "halstead-bugs"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"halstead_bugs_above_2",
+    "name":"Halstead Bugs Above 2"
+  },
+  {
+    "description":"At least two spaces is best between code and comments.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "comments",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_before_comments",
+    "name":"Whitespace Before Comments"
+  },
+  {
+    "description":"Do not use unapproved C++11 classes and functions.",
+    "tags":[
+      "code-standards",
+      "class",
+      "functions",
+      "invalid-code",
+      "cpp11",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:unapproved_functions",
+    "name":"Avoid Unapproved Classes and Functions"
+  },
+  {
+    "description":"Avoid using thread-unsafe functions, when thread-safe variants are available.",
+    "tags":[
+      "code-standards",
+      "multi-threading",
+      "thread-safety",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:thread_safe_functions",
+    "name":"Avoid Thread-Unsafe Functions"
+  },
+  {
+    "description":"Do not use meaningless empty statements.",
+    "tags":[
+      "code-standards",
+      "empty-statement",
+      "ambiguous-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:redundant_empty_statement",
+    "name":"Redundant Empty Statement"
+  },
+  {
+    "description":"Do not use non-standard or deprecated operators (e.g. &gt;? and &lt;?).",
+    "tags":[
+      "code-standards",
+      "invalid-code",
+      "deprecation",
+      "operators",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:deprecated_operators",
+    "name":"Do Not Use Deprecated Operators"
+  },
+  {
+    "description":"The open curly brace is always on its own line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "curly-braces",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:opening_brace_line",
+    "name":"Opening Curly Brace On Its Own Line"
+  },
+  {
+    "description":"Inner-style forward declarations are invalid.",
+    "tags":[
+      "code-standards",
+      "invalid-code",
+      "forward-declaration",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:invalid_forward_declaration",
+    "name":"Invalid Forward Declaration"
+  },
+  {
+    "description":"Storage class should come before the type.",
+    "tags":[
+      "code-standards",
+      "invalid-code",
+      "storage-class",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:storage_before_type",
+    "name":"Storage Class Before Type"
+  },
+  {
+    "description":"Uncommented text after",
+    "tags":[
+      "code-standards",
+      "preprocessor",
+      "invalid-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:text_after_endif",
+    "name":"No Text After ENDIF"
+  },
+  {
+    "description":"Closing brace should be aligned with the beginning of class or structure.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "curly-braces",
+      "indentation",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:close_brace_alignment",
+    "name":"Closing Curly Brace Alignment"
+  },
+  {
+    "description":"No line should exceed 80 characters in length.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "line-length",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:max_line_length_80",
+    "name":"Max. Line Length of 80"
+  },
+  {
+    "description":"Declarations should be at the smallest feasible scope.",
+    "tags":[
+      "code-standards",
+      "scope",
+      "declarations",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:variableScope",
+    "name":"Smallest Feasible Scope"
+  },
+  {
+    "description":"Assignment operators should be preceeded and followed by whitespace.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "assignment",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_assign",
+    "name":"Whitespace Around Assignment"
+  },
+  {
+    "description":"Avoid non-const reference parameters. Use const or pointers.",
+    "tags":[
+      "code-standards",
+      "parameters",
+      "const",
+      "pointers",
+      "references",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:non_const_ref",
+    "name":"Avoid Non-const Reference Parameters"
+  },
+  {
+    "description":"No line should exceed 120 characters in length.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "line-length",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:max_line_length_120",
+    "name":"Max. Line Length of 120"
+  },
+  {
+    "description":"Do not include the same file twice.",
+    "tags":[
+      "code-standards",
+      "include",
+      "headers",
+      "preprocessor",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:include_twice",
+    "name":"Do Not Include Twice"
+  },
+  {
+    "description":"Do not use throw exception specifications. Use noexcept instead.",
+    "tags":[
+      "code-standards",
+      "deprecation",
+      "cpp11",
+      "exceptions",
+      "throw",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosThrowSpecification",
+    "name":"Use noexcept"
+  },
+  {
+    "description":"Maximum Weighted Methods per Class of 100",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "wmc",
+      "weighted-methods",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_weighted_methods_100",
+    "name":"Maximum Weighted Methods per Class of 100"
+  },
+  {
+    "description":"The else statement should be on the same line as the preceeding closing brace.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "if-else",
+      "curly-braces",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:else_line",
+    "name":"Else Statement Line"
+  },
+  {
+    "description":"Do not use deprecated or unconventional string formattings.",
+    "tags":[
+      "code-standards",
+      "strings",
+      "string-formatting",
+      "deprecation",
+      "invalid-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:string_format",
+    "name":"Deprecated String Formatting"
+  },
+  {
+    "description":"Avoid using dangerous addresses, such as addresses from casts, or addresses dereferenced from casts.",
+    "tags":[
+      "code-standards",
+      "potential-bugs",
+      "addresses",
+      "casting",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:dangerous_addresses",
+    "name":"Avoid Dangerous Addresses"
+  },
+  {
+    "description":"Use one space before comment text.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "comments",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_before_comment_text",
+    "name":"Whitespace Before Comment Text"
+  },
+  {
+    "description":"Do not use variable-length arrays.",
+    "tags":[
+      "code-standards",
+      "arrays",
+      "variables",
+      "constants",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:variable_length_array",
+    "name":"Variable Length Arrays"
+  },
+  {
+    "description":"Zero-parameter constructors, single-parameter constructors and constructors callable with one argument should be marked explicit.",
+    "tags":[
+      "code-standards",
+      "explicit",
+      "constructors",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:explicit_constructors",
+    "name":"Make Constructors Explicit"
+  },
+  {
+    "description":"Include the directory when naming header files.",
+    "tags":[
+      "code-standards",
+      "naming",
+      "headers",
+      "include",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:dir_in_header",
+    "name":"Include Directory in Header"
+  },
+  {
+    "description":"Unary operators should have no whitespace around them.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "unary-operator",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_unary_op",
+    "name":"Whitespace Around Unary Operator"
+  },
+  {
+    "description":"Except in if/for/while/switch, there should never be space immediately inside parens (eg \"f( 3, 4 )\"). We make an exception for nested parens ( (a+b) + c ).",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "parenthesis",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_after_paren",
+    "name":"No Whitespace After Parenthesis"
+  },
+  {
+    "description":"Avoid using global ROS names (e.g. '/odom')",
+    "tags":[
+      "code-standards",
+      "ros",
+      "naming"
+    ],
+    "query":"nodes/advertise[is_rosglobal(self.name)] | nodes/subscribe[is_rosglobal(self.name)] | nodes/service[is_rosglobal(self.name)] | nodes/client[is_rosglobal(self.name)]",
+    "scope":"file",
+    "id":"no_global_names",
+    "name":"No Global ROS Names"
+  },
+  {
+    "description":"Use VLOG with a numeric argument.",
+    "tags":[
+      "code-standards",
+      "logging",
+      "library",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:logging_levels",
+    "name":"Logging Levels"
+  },
+  {
+    "description":"There should be a space after a semicolon, if it does not end the line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "semicolon",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_after_semicolon",
+    "name":"Whitespace After Semicolon"
+  },
+  {
+    "description":"Leave no redundant blank lines in code blocks.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "functions",
+      "code-blocks",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:blank_code_line",
+    "name":"No Blank Lines In Code Blocks"
+  },
+  {
+    "description":"In general, every .cc file should have an associated .h file.",
+    "tags":[
+      "code-standards",
+      "header",
+      "include",
+      "preprocessor",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:include_own_header",
+    "name":"Include Your Own header"
+  },
+  {
+    "description":"Avoid more than one command per line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:one_command_per_line",
+    "name":"One Command Per Line"
+  },
+  {
+    "description":"The format of the symbol name should be &lt;PACKAGE&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H.",
+    "tags":[
+      "code-standards",
+      "header",
+      "header-guard",
+      "preprocessor",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:header_guard_format",
+    "name":"Header Guard Format"
+  },
+  {
+    "description":"Colons in range-based for loops should be preceeded and followed by a whitespace.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "colon",
+      "for-loop",
+      "range-based-for",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_colon",
+    "name":"Whitespace Around Colon"
+  },
+  {
+    "description":"do/while clauses should not be on a single line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "do-while",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:do_while_line",
+    "name":"Single Do-While Line"
+  },
+  {
+    "description":"Maximum Executable Lines of Code of 70",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "eloc",
+      "loc",
+      "lines-of-code"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_eloc_70",
+    "name":"Maximum Executable Lines of Code of 70"
+  },
+  {
+    "description":"There should be a space after a comma.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "comma",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_after_comma",
+    "name":"Whitespace After Comma"
+  },
+  {
+    "description":"Include files in alphabetical order, and in the following order. 1. preferred location 2. c system files 3. cpp system files 4. deprecated location 5. other headers",
+    "tags":[
+      "code-standards",
+      "include",
+      "preprocessor",
+      "formatting",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:include_order",
+    "name":"Include in Order"
+  },
+  {
+    "description":"Use C-style strings for static and global string constants.",
+    "tags":[
+      "code-standards",
+      "strings",
+      "constants",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:string_constants",
+    "name":"C-style String Constants"
+  },
+  {
+    "description":"Include all required headers for what you use.",
+    "tags":[
+      "code-standards",
+      "include",
+      "headers",
+      "preprocessor",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:include_what_you_use",
+    "name":"Include What You Use"
+  },
+  {
+    "description":"Do not declare a function as both \"virtual\" and \"override\" or \"final\".",
+    "tags":[
+      "code-standards",
+      "functions",
+      "virtual",
+      "override",
+      "final",
+      "rendundancy",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:redundant_virtual_decl",
+    "name":"Redundant Virtual Declaration"
+  },
+  {
+    "description":"Maximum Function Calls of 10",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "function-calls"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_function_calls_10",
+    "name":"Maximum Function Calls of 10"
+  },
+  {
+    "description":"Do not use integer types directly. Use size-specific typedefs, for instance from &lt;cstdint&gt;.",
+    "tags":[
+      "code-standards",
+      "integer-types",
+      "type-safety",
+      "portability",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosIntegerTypes",
+    "name":"Integer Types"
+  },
+  {
+    "description":"Statements that are not part of an if body should have an indentation level equal to or less than the if statement.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "indentation",
+      "if-else",
+      "ambiguous-indentation",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:if_else_indentation",
+    "name":"Ambiguous If-Else Indentation"
+  },
+  {
+    "description":"Maximum number of function parameters of 6",
+    "tags":[
+      "code-standards",
+      "functions",
+      "parameters",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"max_function_parameters_6",
+    "name":"Maximum Function Parameters of 6"
+  },
+  {
+    "description":"The format of the guard's end should be \"#endif  // &lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_\" or \"#endif  /* &lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_ */\".",
+    "tags":[
+      "code-standards",
+      "header",
+      "header-guard",
+      "preprocessor",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:header_guard_close",
+    "name":"Header Guard Must Close"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 250",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_250",
+    "name":"Maximum Estimated Static Path Count of 250"
+  },
+  {
+    "description":"Do not include non-header files from other packages.",
+    "tags":[
+      "code-standards",
+      "include",
+      "preprocessor",
+      "implementation-files",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:include_cpp",
+    "name":"Do Not Include Non-header Files"
+  },
+  {
+    "description":"Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.",
+    "tags":[
+      "code-standards",
+      "overload",
+      "operators",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosOverrideBinaryAnd",
+    "name":"Operator Overload"
+  },
+  {
+    "description":"An if should start on its own line. Avoid constructs such as '} if'.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "if-else",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:if_line",
+    "name":"If On Its Own Line"
+  },
+  {
+    "description":"Do not use RValue references.",
+    "tags":[
+      "code-standards",
+      "invalid-code",
+      "rvalue-reference",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:rvalue_ref",
+    "name":"Avoid Rvalue References"
+  },
+  {
+    "description":"Do not use alternative tokens instead of operators (e.g. 'and', 'or').",
+    "tags":[
+      "code-standards",
+      "tokens",
+      "alternative-tokens",
+      "operators",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:alternative_tokens",
+    "name":"Alternative Tokens"
+  },
+  {
+    "description":"Multi-line comments must have a terminator.",
+    "tags":[
+      "code-standards",
+      "comments",
+      "invalid-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:comments_must_end",
+    "name":"Multi-line Comments Must End"
+  },
+  {
+    "description":"Use at most one level of pointer indirection.",
+    "tags":[
+      "code-standards",
+      "pointers",
+      "multiple-pointers",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosDoublePointer",
+    "name":"Pointer Indirection"
+  },
+  {
+    "description":"Ensure that no expression is redundant.",
+    "tags":[
+      "code-standards",
+      "redundancy",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:unreadVariable",
+    "name":"No Redundant Variables"
+  },
+  {
+    "description":"Binary operators should be preceeded and followed by whitespace.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "binary-operator",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_binary_op",
+    "name":"Whitespace Around Binary Operator"
+  },
+  {
+    "description":"Do not use the unary operator&.",
+    "tags":[
+      "code-standards",
+      "operators",
+      "overload",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:unary_and",
+    "name":"operator& Overload"
+  },
+  {
+    "description":"Do not use std::vector<bool>. It does not conform to the requirements of a container.",
+    "tags":[
+      "code-standards",
+      "std-vector",
+      "boolean",
+      "hicpp",
+      "misra-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosBooleanVector",
+    "name":"No Boolean Vectors"
+  },
+  {
+    "description":"Maximum Comment Ratio of 30%",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_comment_ratio_30",
+    "name":"Maximum Comment Ratio of 30%"
+  },
+  {
+    "description":"Maximum Function Calls of 7",
+    "tags":[
+      "metrics",
+      "his",
+      "function-calls"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_function_calls_7",
+    "name":"Maximum Function Calls of 7"
+  },
+  {
+    "description":"Maintainability Index below 65",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "maintainability",
+      "mi",
+      "maintainability-index"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"mi_below_65",
+    "name":"Maintainability Index Below 65"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 80",
+    "tags":[
+      "metrics",
+      "his",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_80",
+    "name":"Maximum Estimated Static Path Count of 80"
+  },
+  {
+    "description":"Don't use deprecated casting styles.",
+    "tags":[
+      "code-standards",
+      "casting",
+      "deprecation",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:deprecated_casting",
+    "name":"Deprecated Casting"
+  },
+  {
+    "description":"Do not indent within a namespace.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "indentation",
+      "namespace",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:namespace_indent",
+    "name":"No Namespace Indentation"
+  },
+  {
+    "description":"Whitespace inside parenthesis should be consistent, and should consist of either zero or one space.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "parenthesis",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_inside_paren",
+    "name":"Whitespace Inside Parenthesis"
+  },
+  {
+    "description":"The else clause of an else-if clause should be on its own line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "if-else",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:else_if_else_line",
+    "name":"Single Else-If Else Line"
+  },
+  {
+    "description":"Use at most two levels of pointer indirection.",
+    "tags":[
+      "code-standards",
+      "pointers",
+      "multiple-pointers",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosTriplePointer",
+    "name":"Pointer Indirection"
+  },
+  {
+    "description":"Access modifiers should be indented by one space.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "indentation",
+      "access-modifiers",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:indent_access_mod",
+    "name":"Indent Access Modifiers"
+  },
+  {
+    "description":"Do not use the deprecated register keyword.",
+    "tags":[
+      "code-standards",
+      "deprecation",
+      "register",
+      "cpp11",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosRegisterKeyword",
+    "name":"Do Not Use register"
+  },
+  {
+    "description":"Minimum Comment Ratio of 20%",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "unak",
+      "ros",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"min_comment_ratio_20",
+    "name":"Minimum Comment Ratio of 20%"
+  },
+  {
+    "description":"A switch should have at least two cases distinct from the default case.",
+    "tags":[
+      "code-standards",
+      "switch",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosBooleanCase",
+    "name":"At Least Two Cases"
+  },
+  {
+    "description":"Don't leave spaces before a semicolon at the end of a line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "semicolon",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_before_semicolon",
+    "name":"Whitespace Before Semicolon"
+  },
+  {
+    "description":"Do not use asm declarations.",
+    "tags":[
+      "code-standards",
+      "assembly",
+      "asm",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosInlineAssembly",
+    "name":"No ASM Declarations"
+  },
+  {
+    "description":"Maximum Weighted Methods per Class of 50",
+    "tags":[
+      "metrics",
+      "unak",
+      "wmc",
+      "weighted-methods",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_weighted_methods_50",
+    "name":"Maximum Weighted Methods per Class of 50"
+  },
+  {
+    "description":"Ensure that an enum has a specified base type able to accomodate all its values.",
+    "tags":[
+      "code-standards",
+      "enum",
+      "types",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosEnumWithoutBase",
+    "name":"Enum With No Base Type"
+  },
+  {
+    "description":"Maximum Deepest Level of Inheritance of 5",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "unak",
+      "dit",
+      "inheritance"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_deepest_inheritance_5",
+    "name":"Maximum Deepest Level of Inheritance of 5"
+  },
+  {
+    "description":"Do not use the invalid increment form *count++.",
+    "tags":[
+      "code-standards",
+      "increment",
+      "pointer",
+      "invalid-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:invalid_increment",
+    "name":"Invalid Increment Form"
+  },
+  {
+    "description":"Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.",
+    "tags":[
+      "code-standards",
+      "overload",
+      "operators",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosOverrideUnaryAnd",
+    "name":"Operator Overload"
+  },
+  {
+    "description":"Strings and /**/-comments should not extend beyond one line.",
+    "tags":[
+      "code-standards",
+      "comments",
+      "strings",
+      "multiline-comments",
+      "multiline-strings",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:complex_comment",
+    "name":"Complex Multi-line Comments and Strings"
+  },
+  {
+    "description":"All member variables of a class should be initialized after calling the constructor.",
+    "tags":[
+      "code-standards",
+      "classes",
+      "member-variables",
+      "uninitialized-variables",
+      "constructors",
+      "google-cpp",
+      "jsf-av-cpp",
+      "misra-cpp",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cppcheck:uninitMemberVar",
+    "name":"No Uninitialized Member Variables"
+  },
+  {
+    "description":"Do not use default arguments.",
+    "tags":[
+      "code-standards",
+      "functions",
+      "default-arguments",
+      "arguments",
+      "parameters",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosDefaultArguments",
+    "name":"No Default Arguments"
+  },
+  {
+    "description":"Maximum number of function lines of code of 40",
+    "tags":[
+      "code-standards",
+      "metrics",
+      "functions",
+      "loc",
+      "lines-of-code",
+      "google-cpp",
+      "verifysoft"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"max_function_length_40",
+    "name":"Maximum Function Length of 40"
+  },
+  {
+    "description":"Do not use unions. Use a safe polymorphic abstraction, instead.",
+    "tags":[
+      "code-standards",
+      "unions",
+      "polymorphism",
+      "type-safety",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosUnion",
+    "name":"No Unions"
+  },
+  {
+    "description":"All headers must be protected against multiple inclusion by",
+    "tags":[
+      "code-standards",
+      "header",
+      "header-guard",
+      "preprocessor",
+      "google-cpp",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:header_guard",
+    "name":"No Header Guard"
+  },
+  {
+    "description":"Do not include the C standard headers. Use the C++ headers instead.",
+    "tags":[
+      "code-standards",
+      "include",
+      "headers",
+      "preprocessor",
+      "deprecation",
+      "c",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:c_headers",
+    "name":"Avoid C System Headers"
+  },
+  {
+    "description":"Do not use invalid escape sequences.",
+    "tags":[
+      "code-standards",
+      "strings",
+      "escape-sequences",
+      "invalid-code",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:invalid_escape",
+    "name":"Invalid Escape Sequences"
+  },
+  {
+    "description":"Except after an opening parenthesis, or after another opening brace (in case of an initializer list, for instance), you should have spaces before your braces.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "curly-braces",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_open_brace",
+    "name":"Whitespace Before Opening Curly Brace"
+  },
+  {
+    "description":"Maximum Number of Immediate Children of 10",
+    "tags":[
+      "metrics",
+      "unak",
+      "immediate-children",
+      "noc"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_immediate_children_10",
+    "name":"Maximum Number of Immediate Children of 10"
+  },
+  {
+    "description":"If copying and assignment are disabled with a macro such as DISALLOW_COPY_AND_ASSIGN, it should be at the end of the private section, and should be the last thing in the class.",
+    "tags":[
+      "code-standards",
+      "macros",
+      "class",
+      "constructors",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:disallow_macro",
+    "name":"Disallow Macro"
+  },
+  {
+    "description":"Do not rely on the sequence of evaluation within an expression.",
+    "tags":[
+      "code-standards",
+      "evaluation-order",
+      "expressions",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosAssignIncrement",
+    "name":"Order of Evaluation"
+  },
+  {
+    "description":"Do not include unapproved C++11 headers.",
+    "tags":[
+      "code-standards",
+      "include",
+      "headers",
+      "preprocessor",
+      "invalid-code",
+      "cpp11",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:unapproved_headers",
+    "name":"Avoid Unapproved Headers"
+  },
+  {
+    "description":"Maximum Methods Available in Class of 20",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "mac",
+      "methods-available",
+      "methods"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_methods_available_20",
+    "name":"Maximum Methods Available in Class of 20"
+  },
+  {
+    "description":"DISALLOW macros must be in the private section.",
+    "tags":[
+      "code-standards",
+      "macros",
+      "class",
+      "private",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:disallow_in_private",
+    "name":"Disallow Macro In Private"
+  },
+  {
+    "description":"Maximum number of program lines of code in a file of 400",
+    "tags":[
+      "metrics",
+      "loc",
+      "lines-of-code",
+      "verifysoft"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_file_length_400",
+    "name":"Maximum File Length of 400"
+  },
+  {
+    "description":"Non-empty case blocks must not fall through to the next case.",
+    "tags":[
+      "code-standards",
+      "switch",
+      "case",
+      "fall-through",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosCaseWithoutBreak",
+    "name":"Unexpected Case Fall Through"
+  },
+  {
+    "description":"Do not rely on the sequence of evaluation within an expression.",
+    "tags":[
+      "code-standards",
+      "evaluation-order",
+      "expressions",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosAssignAssignment",
+    "name":"Order of Evaluation"
+  },
+  {
+    "description":"Files should end with a newline character.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "newline",
+      "end-of-file",
+      "google-cpp",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:newline_terminator",
+    "name":"Newline at End of File"
+  },
+  {
+    "description":"Do not use deprecated STL library features.",
+    "tags":[
+      "code-standards",
+      "deprecation",
+      "functions",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosDeprecatedSTL",
+    "name":"Deprecated Functions"
+  },
+  {
+    "description":"Maximum Coupling Between Objects of 5",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "ros",
+      "coupling",
+      "cbo"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_coupling_objects_5",
+    "name":"Maximum Coupling Between Objects of 5"
+  },
+  {
+    "description":"Do not write code that expects floating point calculations to yield exact results.",
+    "tags":[
+      "code-standards",
+      "floats",
+      "floating-point",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosFloatEquality",
+    "name":"Float Accuracy"
+  },
+  {
+    "description":"Do not create an rvalue reference of std::array.",
+    "tags":[
+      "code-standards",
+      "std-array",
+      "rvalue-reference",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosRvalueStdArray",
+    "name":"Array Reference"
+  },
+  {
+    "description":"To-do comments should look like '// TODO(my_username): Stuff.'.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "comments",
+      "todo-comment",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:todo_format",
+    "name":"TODO Comment Format"
+  },
+  {
+    "description":"Maximum Nesting of Control Structures of 5",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "nesting",
+      "control-structures",
+      "control-flow"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_control_nesting_5",
+    "name":"Maximum Nesting of Control Structures of 5"
+  },
+  {
+    "description":"Maximum Nesting of Control Structures of 4",
+    "tags":[
+      "metrics",
+      "his",
+      "nesting",
+      "control-structures",
+      "control-flow"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_control_nesting_4",
+    "name":"Maximum Nesting of Control Structures of 4"
+  },
+  {
+    "description":"Do not use unnamed namespaces in header files.",
+    "tags":[
+      "code-standards",
+      "namespace",
+      "unnamed-namespace",
+      "headers",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:unnamed_namespace",
+    "name":"Unnamed Namespace"
+  },
+  {
+    "description":"The open curly brace should almost never be on its own line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "curly-braces",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:opening_curly_brace",
+    "name":"Opening Curly Brace"
+  },
+  {
+    "description":"The closing curly brace is always on its own line.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "curly-braces",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:closing_brace_line",
+    "name":"Closing Curly Brace On Its Own Line"
+  },
+  {
+    "description":"Avoid using literals as the second argument for snprintf.",
+    "tags":[
+      "code-standards",
+      "literals",
+      "potential-bugs",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:snprintf_args",
+    "name":"snprintf Arguments"
+  },
+  {
+    "description":"Error reported by CppCheck.",
+    "tags":[
+      "code-standards",
+      "cppcheck"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:cppcheckRule",
+    "name":"CppCheck Check"
+  },
+  {
+    "description":"Halstead Volume above 8000",
+    "tags":[
+      "metrics",
+      "verifysoft",
+      "halstead",
+      "halstead-volume"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"halstead_volume_above_8000",
+    "name":"Halstead Volume Above 8000"
+  },
+  {
+    "description":"Ensure that no expression is redundant.",
+    "tags":[
+      "code-standards",
+      "redundancy",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:redundantAssignment",
+    "name":"No Redundant Expressions"
+  },
+  {
+    "description":"Constructors that require multiple arguments should not be marked explicit.",
+    "tags":[
+      "code-standards",
+      "explicit",
+      "constructors",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:non_explicit_constructors",
+    "name":"Do Not Make Constructors Explicit"
+  },
+  {
+    "description":"Do not overload operators with special semantics, such as '&&', '||', ',' or '&'.",
+    "tags":[
+      "code-standards",
+      "overload",
+      "operators",
+      "hicpp",
+      "misra-cpp",
+      "jsf-av-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:harosOverrideComma",
+    "name":"Operator Overload"
+  },
+  {
+    "description":"The line before an access modifier (public, private, protected) should be blank, unless it is the beginning of the class.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "access-modifiers",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"class",
+    "id":"haros_plugin_cpplint:blank_before_section",
+    "name":"Blank Lines Before Section"
+  },
+  {
+    "description":"All parameters should be named in a function.",
+    "tags":[
+      "code-standards",
+      "parameters",
+      "functions",
+      "naming",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:unnamed_params",
+    "name":"Avoid Unnamed Parameters"
+  },
+  {
+    "description":"Maximum Estimated Static Path Count of 200",
+    "tags":[
+      "metrics",
+      "hicpp",
+      "static-path"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_static_path_200",
+    "name":"Maximum Estimated Static Path Count of 200"
+  },
+  {
+    "description":"Avoid string printing C functions (sprintf, strcpy, strcat). Use snprintf instead.",
+    "tags":[
+      "code-standards",
+      "deprecation",
+      "library",
+      "strings",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:c_string_print",
+    "name":"Avoid String Printing C Functions"
+  },
+  {
+    "description":"There should never be a space before a ( when it is a function argument. Closing parenthesis should not be preceded only by whitespaces.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "parenthesis",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:whitespace_before_paren",
+    "name":"No Whitespace Before Parenthesis"
+  },
+  {
+    "description":"Namespaces should have a comment at the end.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "comments",
+      "namespace",
+      "google-cpp",
+      "ros",
+      "ros-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:namespace_end_comment",
+    "name":"End of Namespace Comment"
+  },
+  {
+    "description":"Do not use default lambda captures.",
+    "tags":[
+      "code-standards",
+      "invalid-code",
+      "lambda",
+      "default-lambda-capture",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:default_lambda_captures",
+    "name":"Default Lambda Captures"
+  },
+  {
+    "description":"Maximum Cyclomatic Complexity of 15",
+    "tags":[
+      "metrics",
+      "kth",
+      "ros",
+      "cyclomatic-complexity"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_cyclomatic_complexity_15",
+    "name":"Maximum Cyclomatic Complexity of 15"
+  },
+  {
+    "description":"Do not use const string& members. Use pointers or simple constants instead.",
+    "tags":[
+      "code-standards",
+      "strings",
+      "references",
+      "constants",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:const_string_ref",
+    "name":"Const String References"
+  },
+  {
+    "description":"Maximum Cyclomatic Complexity of 10",
+    "tags":[
+      "metrics",
+      "nasa-satc",
+      "his",
+      "cyclomatic-complexity"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_cyclomatic_complexity_10",
+    "name":"Maximum Cyclomatic Complexity of 10"
+  },
+  {
+    "description":"There should be a space before a ( when it is preceeded by an if, switch, for or while.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "parenthesis",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:whitespace_before_paren_if",
+    "name":"Whitespace Before Parenthesis"
+  },
+  {
+    "description":"Do not declare a function as both \"override\" and \"final\".",
+    "tags":[
+      "code-standards",
+      "functions",
+      "override",
+      "final",
+      "rendundancy",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:redundant_override_decl",
+    "name":"Redundant Override Declaration"
+  },
+  {
+    "description":"Don't use a semicolon to denote an empty statement. Use {} instead.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "empty-statement",
+      "semicolon",
+      "empty-block",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:empty_statement",
+    "name":"Empty Semicolon Statement"
+  },
+  {
+    "description":"Every source and header file must contain a license and copyright statement at the beginning of the file.",
+    "tags":[
+      "code-standards",
+      "comments",
+      "license",
+      "copyright",
+      "google-cpp",
+      "ros"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:no_copyright",
+    "name":"No Copyright Statement"
+  },
+  {
+    "description":"Maximum Comment Ratio of 40%",
+    "tags":[
+      "metrics",
+      "unak",
+      "comments",
+      "comment-ratio"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"max_comment_ratio_40",
+    "name":"Maximum Comment Ratio of 40%"
+  },
+  {
+    "description":"There should not be more than one semicolon statement in a single-line if or else statement, unless it is part of a lambda expression, or the if/else body is enclosed in curly braces.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "if-else",
+      "single-line-statements",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:single_if_else",
+    "name":"Single Statement If-Else"
+  },
+  {
+    "description":"Do not pass a std::unique_ptr by const reference.",
+    "tags":[
+      "code-standards",
+      "pointers",
+      "std-unique-ptr",
+      "const",
+      "references",
+      "hicpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cppcheck:harosConstUniquePtr",
+    "name":"No unique_ptr by Const Reference"
+  },
+  {
+    "description":"Indent each block by 2 spaces. Never insert literal tab characters.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "whitespace",
+      "indentation",
+      "ros",
+      "ros-cpp",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cpplint:two_space_indent",
+    "name":"Indent With 2 Whitespace"
+  },
+  {
+    "description":"If an else has a brace on one side, it should have it on both.",
+    "tags":[
+      "code-standards",
+      "formatting",
+      "if-else",
+      "curly-braces",
+      "google-cpp"
+    ],
+    "query":null,
+    "scope":"function",
+    "id":"haros_plugin_cpplint:else_braces",
+    "name":"Else Braces"
+  },
+  {
+    "description":"There shall be no unused variables.",
+    "tags":[
+      "code-standards",
+      "variables",
+      "unused-variables",
+      "misra-cpp"
+    ],
+    "query":null,
+    "scope":"file",
+    "id":"haros_plugin_cppcheck:unusedFunction",
+    "name":"No Unused Variables"
+  }
+]

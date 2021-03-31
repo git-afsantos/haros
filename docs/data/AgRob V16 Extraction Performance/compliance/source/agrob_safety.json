@@ -1,0 +1,54 @@
+[
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrob/safe_mode, /, agrob_supervisor/agrob_safe_mode) Location2(package='agrob_safety', file='src/agrob_safety.cpp', line=335, column=24) (depth 0)\nReported in agrob_safety/src/agrob_safety.cpp:335:24, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrob_safety",
+      "column":24,
+      "file":"src/agrob_safety.cpp",
+      "line":335,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/velodyne_points, /, sensor_msgs/PointCloud2) Location2(package='agrob_safety', file='src/agrob_safety.cpp', line=327, column=25) (depth 0)\nReported in agrob_safety/src/agrob_safety.cpp:327:25, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrob_safety",
+      "column":25,
+      "file":"src/agrob_safety.cpp",
+      "line":327,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/darknet_ros/bounding_boxes, /, darknet_ros_msgs/BoundingBoxes) Location2(package='agrob_safety', file='src/agrob_safety.cpp', line=332, column=32) (depth 0)\nReported in agrob_safety/src/agrob_safety.cpp:332:32, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrob_safety",
+      "column":32,
+      "file":"src/agrob_safety.cpp",
+      "line":332,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/imu_um7/rpy, /, geometry_msgs/Vector3Stamped) Location2(package='agrob_safety', file='src/agrob_safety.cpp', line=333, column=30) (depth 0)\nReported in agrob_safety/src/agrob_safety.cpp:333:30, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrob_safety",
+      "column":30,
+      "file":"src/agrob_safety.cpp",
+      "line":333,
+      "class":null
+    },
+    "rule":"no_global_names"
+  }
+]

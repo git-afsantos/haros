@@ -1,0 +1,80 @@
+[
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrobv16/max_velocity, /, std_msgs/Float32MultiArray) Location2(package='agrobv16_supervisor', file='src/twist_mux.cpp', line=65, column=14) (depth 0)\nReported in agrobv16_supervisor/src/twist_mux.cpp:65:14, in function TwistMux",
+    "resources":[],
+    "location":{
+      "function":"TwistMux",
+      "package":"agrobv16_supervisor",
+      "column":14,
+      "file":"src/twist_mux.cpp",
+      "line":65,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrobv16/max_velocity, /, std_msgs/Float32MultiArray) Location2(package='agrobv16_supervisor', file='src/agrobv16_supervisor_node.cpp', line=523, column=29) (depth 0)\nReported in agrobv16_supervisor/src/agrobv16_supervisor_node.cpp:523:29, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrobv16_supervisor",
+      "column":29,
+      "file":"src/agrobv16_supervisor_node.cpp",
+      "line":523,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrobv16/states, /, std_msgs/String) Location2(package='agrobv16_supervisor', file='src/agrobv16_supervisor_node.cpp', line=524, column=33) (depth 0)\nReported in agrobv16_supervisor/src/agrobv16_supervisor_node.cpp:524:33, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrobv16_supervisor",
+      "column":33,
+      "file":"src/agrobv16_supervisor_node.cpp",
+      "line":524,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/agrobv16/current_state, /, std_msgs/Int16MultiArray) Location2(package='agrobv16_supervisor', file='src/agrobv16_supervisor_node.cpp', line=525, column=36) (depth 0)\nReported in agrobv16_supervisor/src/agrobv16_supervisor_node.cpp:525:36, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrobv16_supervisor",
+      "column":36,
+      "file":"src/agrobv16_supervisor_node.cpp",
+      "line":525,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/joy_teleop/joy, /, sensor_msgs/Joy) Location2(package='agrobv16_supervisor', file='src/agrobv16_supervisor_node.cpp', line=500, column=30) (depth 0)\nReported in agrobv16_supervisor/src/agrobv16_supervisor_node.cpp:500:30, in function main",
+    "resources":[],
+    "location":{
+      "function":"main",
+      "package":"agrobv16_supervisor",
+      "column":30,
+      "file":"src/agrobv16_supervisor_node.cpp",
+      "line":500,
+      "class":null
+    },
+    "rule":"no_global_names"
+  },
+  {
+    "comment":"Query found: RosPrimitiveCall(/husky_velocity_controller/odom, ~, nav_msgs/Odometry) Location2(package='agrobv16_supervisor', file='src/imu_attitude_to_tf_node.cpp', line=82, column=20) (depth 0)\nReported in agrobv16_supervisor/src/imu_attitude_to_tf_node.cpp:82:20, in function imu_to_tf",
+    "resources":[],
+    "location":{
+      "function":"imu_to_tf",
+      "package":"agrobv16_supervisor",
+      "column":20,
+      "file":"src/imu_attitude_to_tf_node.cpp",
+      "line":82,
+      "class":null
+    },
+    "rule":"no_global_names"
+  }
+]

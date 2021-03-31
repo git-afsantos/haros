@@ -1,1 +1,15 @@
-[{"comment": "Query found: PubSub(/node, /stop_cmd, std_msgs/Empty)\nReported in configuration name_collision", "resources": [], "location": {"configuration": "name_collision"}, "rule": "user:subscriber_queue_enough"}, {"comment": "Query found: PubSub(/node, /teleop_cmd, std_msgs/Float64)\nReported in configuration name_collision", "resources": [], "location": {"configuration": "name_collision"}, "rule": "user:subscriber_queue_enough"}]
+[
+  {
+    "comment":"Query found: NodeInstance name_collision:/node",
+    "resources":[
+      {
+        "resourceType":"node",
+        "name":"/node"
+      }
+    ],
+    "location":{
+      "configuration":"name_collision"
+    },
+    "rule":"user:match_multiple_times"
+  }
+]
