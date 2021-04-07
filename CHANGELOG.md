@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.9.3] - 2021-04-07
+### Fixed
+- added missing `--ws` argument to the `full` command.
+
 ## [3.9.2] - 2021-03-03
 ### Fixed
 - viz/export bug where multiple queries with the same rule id were aggregated; each query report is now highlighted individually.
