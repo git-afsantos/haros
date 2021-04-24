@@ -11,7 +11,7 @@ This allows **early detection of problems** in the software development life cyc
 Needless to say, sometimes in robotics it is very hard (or very expensive) to properly test software, not to talk about possible risks.
 Hence the appeal of static analysis.
 
-There is a demo page of the HAROS visualizer available on [GitHub](https://git-afsantos.github.io/haros) and a (slightly outdated) demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4).
+There is a demo page of the HAROS visualizer available on [GitHub](https://git-afsantos.github.io/haros), a short video presentation of the current state of HAROS on [YouTube](https://www.youtube.com/watch?v=s_Zmch8xjzQ) and a (slightly outdated) demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4) as well.
 
 ## Current Status
 
