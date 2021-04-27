@@ -564,8 +564,11 @@ THE SOFTWARE.
             <strong>Conditions:</strong>
             <% if (!data.conditions.length) print("(none)");
             for (var i = 0; i < data.conditions.length; ++i)
-                print('<br/><span class="code">' + data.conditions[i].condition
-                      + "</span> in <i>"
+                print('<br/><span class="code">'
+                      + data.conditions[i].statement
+                      + ' ('
+                      + data.conditions[i].condition
+                      + ")</span> in <i>"
                       + (data.conditions[i].location
                         ? (data.conditions[i].location.package
                             + (data.conditions[i].location.file
