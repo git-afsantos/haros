@@ -384,15 +384,15 @@ class ProjectExtractor(LoggingObject):
         pkg_finder = PackageExtractor()
         pkg_finder.packages.extend(self.project.packages)
         nhm = NodeHints2(self.node_specs, pkg_finder=pkg_finder)
-        nodes = dict(self.node_cache)
+        # nodes = dict(self.node_cache)
         for pkg in self.project.packages:
             for node in pkg.nodes:
                 node_type = node.node_name
-                if node_type not in nodes:
+                if node_type not in self.node_cache:
                     self.log.debug(
                         "WARNING node %s is not in node cache!", node_type)
-                    nodes[node_type] = node
-        new_nodes = nhm.apply_to(nodes, create=True)
+                    self.node_cache[node_type] = node
+        new_nodes = nhm.apply_to(self.node_cache, create=True)
         for node in new_nodes:
             assert node.node_name not in self.node_cache
             self.node_cache[node.node_name] = node
@@ -1999,7 +1999,7 @@ class NodeHints2(LoggingObject):
                     new_nodes.append(node)
             if node is not None:
                 self._add_primitives(node, node_hints)
-                hpl = self.hints.get("hpl", _EMPTY_DICT)
+                hpl = node_hints.get("hpl", _EMPTY_DICT)
                 node.hpl_properties = list(hpl.get("properties", _EMPTY_LIST))
                 node.hpl_assumptions = list(hpl.get("assumptions", _EMPTY_LIST))
         return new_nodes
