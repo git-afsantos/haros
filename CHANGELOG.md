@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Viz now shows which conditional statement is associated with each conditional expression (e.g., `if`, `for`, etc.).
+- Node HPL properties were not being properly read from project files.
 
 ### Changed
 - Docker files moved over to the `make-haros-easy` repository. New and improved files have been added in that repository, thanks to @ipa-nhg.
