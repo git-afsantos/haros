@@ -807,13 +807,16 @@ class HarosAnalyseRunner(HarosCommonExporter):
             # lazy import; this is an optional dependency
             from .hpl_parser import UserSpecParser
             parser = UserSpecParser()
-        except ImportError:
+        except ImportError as e:
             self.log.warning(("Found HPL specifications, "
                 "but the HPL parser could not be found."))
+            self.log.error(repr(e))
             return
         for config in configs:
+            self.log.debug("Parsing HPL properties for %s", config.id)
             parser.parse_config_specs(config)
         for node in nodes:
+            self.log.debug("Parsing HPL properties for %s", node.id)
             parser.parse_node_specs(node)
 
     def _analyse(self, plugins, rules, metrics):
