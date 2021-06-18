@@ -28,10 +28,11 @@
 from itertools import chain
 import logging
 
-from haros.metamodel import RosName
 from hpl.parser import property_parser
 from hpl.exceptions import HplSanityError, HplSyntaxError, HplTypeError
 from rostypes.loader import get_type
+
+from .metamodel import RosName
 
 ###############################################################################
 # HPL Parser
@@ -64,7 +65,7 @@ class UserSpecParser(object):
                     self.log.error(
                         ("Error in configuration '%s' when parsing property\n"
                          "'%s'\n\n%s"), config.name, text, e)
-            col.clear()
+            del col[:]
             col.extend(specs)
 
     def parse_node_specs(self, node):
@@ -88,7 +89,7 @@ class UserSpecParser(object):
                     self.log.error(
                         ("Error in node '%s' when parsing property\n"
                          "'%s'\n\n%s"), node.node_name, text, e)
-            col.clear()
+            del col[:]
             col.extend(specs)
 
     def _parse_property(self, text, topic_types, pns=""):
