@@ -122,8 +122,12 @@ class PluginInterface(LoggingObject):
             self._plugin.name, msg)
 
     def log_error(self, msg):
-        self.log.error("Plugin %s reported an error:\n%s",
-            self._plugin.name, msg)
+        if isinstance(msg, Exception):
+            self.log.error("Plugin %s reported an error:", self._plugin.name)
+            self.log.exception(msg)
+        else:
+            self.log.error("Plugin %s reported an error:\n%s",
+                self._plugin.name, msg)
 
     def report_violation(self, rule_id, msg, scope = None,
                          line = None, function = None, class_ = None):
