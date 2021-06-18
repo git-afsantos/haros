@@ -25,10 +25,10 @@ extra_files.append("models/*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.9.3",
+    version         = "3.10.0",
     author          = "Andre Santos",
-    author_email    = "andre.f.santos@inesctec.pt",
-    description     = "Static analysis framework for ROS.",
+    author_email    = "contact.andre.santos@gmail.com",
+    description     = "Static analysis framework for ROS",
     long_description= read("README.md"),
     long_description_content_type = "text/markdown",
     license         = "MIT",
@@ -42,10 +42,10 @@ setup(
         "rospkg",
         'python-magic',
         "bonsai-code>=0.5.0,<1.0.0",
-        "haros-plugins>=1.0.3,<2.0.0"
+        "haros-plugins>=1.0.3,<2.0.0",
+        "hpl-specs",
+        "ros-type-tokens",
     ],
-    extras_require = {
-        "hpl": ["future", "lark-parser<1.0.0"]
-    },
+    extras_require = {},
     zip_safe        = True
 )

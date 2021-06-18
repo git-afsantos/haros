@@ -5,12 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.10.0] - 2021-06-18
 ### Fixed
 - Viz now shows which conditional statement is associated with each conditional expression (e.g., `if`, `for`, etc.).
 - Node HPL properties were not being properly read from project files.
 
 ### Changed
 - Docker files moved over to the `make-haros-easy` repository. New and improved files have been added in that repository, thanks to @ipa-nhg.
+- HPL parsing is now delegated to the external `hpl-specs` package.
 
 ## [3.9.3] - 2021-04-07
 ### Fixed

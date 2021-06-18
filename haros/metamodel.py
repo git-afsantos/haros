@@ -203,7 +203,7 @@ class RosPrimitiveCall(MetamodelObject):
 
     @property
     def full_name(self):
-        if not self.namespace:
+        if not self.namespace or self.name.startswith("/"):
             return self.name
         if self.namespace.endswith("/"):
             return self.namespace + self.name
