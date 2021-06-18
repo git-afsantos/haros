@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Docker files moved over to the `make-haros-easy` repository. New and improved files have been added in that repository, thanks to @ipa-nhg.
+- HPL parsing is now delegated to the external `hpl-specs` package.
 
 ## [3.9.3] - 2021-04-07
 ### Fixed
