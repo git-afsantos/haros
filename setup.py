@@ -44,6 +44,7 @@ setup(
         "bonsai-code>=0.5.0,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0",
         "hpl-specs",
+        "ros-type-tokens",
     ],
     extras_require = {},
     zip_safe        = True
