@@ -805,7 +805,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         parser = None
         try:
             # lazy import; this is an optional dependency
-            from .hpl.hpl_parser import UserSpecParser
+            from .hpl_parser import UserSpecParser
             parser = UserSpecParser()
         except ImportError:
             self.log.warning(("Found HPL specifications, "
