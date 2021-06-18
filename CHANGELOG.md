@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.10.0] - 2021-06-18
 ### Fixed
 - Viz now shows which conditional statement is associated with each conditional expression (e.g., `if`, `for`, etc.).
 - Node HPL properties were not being properly read from project files.
