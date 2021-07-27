@@ -749,6 +749,8 @@ class FutureNodeLinks(LoggingObject):
         call_name = RosName(call.name, ns=ns, private_ns=self.pns)
         rosname = RosName(call.name, ns=ns, private_ns=self.pns,
                           remaps=self.node.remaps)
+        self.log.debug("_link_from_call: %s, %s, %s, %s", repr(call.namespace),
+            repr(self.ns), repr(self.pns), repr(ns))
         self.log.debug("Creating %s link for %s (%s).",
             resource_cls.__name__, call_name.full, rosname.full)
         resource = collection.get(rosname.full)

@@ -152,11 +152,13 @@ class ProjectExtractor(LoggingObject):
         self.configurations = None
         self.node_specs = None
         self.rules = None
+        self.analysis = None
         self._extra_packages = set()
 
     def index_source(self, settings=None):
         self.log.debug("ProjectExtractor.index_source()")
         self._setup()
+        settings.update_analysis_preferences(self.analysis)
         self._load_user_repositories()
         self._find_local_packages()
         if self.missing and self.distribution:
@@ -185,6 +187,7 @@ class ProjectExtractor(LoggingObject):
         self.node_specs = data.get("nodes", {})
         self.project.node_specs = self.node_specs
         self.rules = data.get("rules", {})
+        self.analysis = data.get("analysis", {})
         for node_name in self.node_specs:
             if not "/" in node_name:
                 raise ValueError("expected '<pkg>/<node>' in node specs")
@@ -1522,29 +1525,27 @@ class RoscppExtractor(LoggingObject):
                             return ''
                         elif parent.name == 'getPrivateNodeHandle':
                             return '~'
-                    r = self._resolve_node_handle(parent)
-                    return r
+                    return self._resolve_node_handle(parent)
 
                 # All other constructor have at least two arguments. The third
                 # is never meaningful
 
                 # If a parent NodeHande is passed, it is the first argument
-                parent = None if isinstance(args[0], basestring) else args[0]
-                prefix = ('/' + self._resolve_node_handle(parent)
-                          if parent
-                          else '')
-
                 # If a namespace argument is passed, it is either first or
                 # second parameter. Only the first has an empty default value.
-                passed_ns = '?'
+                prefix = ''
                 if isinstance(args[0], basestring):
-                    passed_ns = args[0]
+                    ns = args[0]
                 elif isinstance(args[0], CppDefaultArgument):
-                    passed_ns = ''
+                    ns = ''
                 elif isinstance(args[1], basestring):
-                    passed_ns = args[1]
+                    prefix = self._resolve_node_handle(args[0])
+                    ns = args[1]
+                else:
+                    ns = "?"
 
-                ns = prefix + passed_ns
+                if prefix:
+                    ns = prefix + "/" + ns
 
             elif node_handle_def.name == 'getNodeHandle':
                 ns = ''

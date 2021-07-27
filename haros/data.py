@@ -628,6 +628,12 @@ class HarosSettings(object):
         return None
     # ^ def _find_ros2_workspace()
 
+    def update_analysis_preferences(self, analysis):
+        analysis_ignored = analysis.get("ignore", {})
+        self.ignored_tags.extend(analysis_ignored.get("tags", ()))
+        self.ignored_rules.extend(analysis_ignored.get("rules", ()))
+        self.ignored_metrics.extend(analysis_ignored.get("metrics", ()))
+        self.ignored_globs.extend(analysis_ignored.get("files", ()))
 
 
 ###############################################################################
@@ -719,6 +725,18 @@ class HarosDatabase(LoggingObject):
                 continue
             allowed.append(metric_id)
         return allowed
+
+    def update_analysis_preferences(self, settings):
+        new_rules = {}
+        for rule_id, rule in self.rules.items():
+            if rule_id in settings.ignored_rules:
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            if any(t in settings.ignored_tags for t in rule.tags):
+                self.log.debug("Ignored rule: " + rule_id)
+                continue
+            new_rules[rule_id] = rule
+        self.rules = new_rules
 
     def save_state(self, file_path):
         self.log.debug("HarosDatabase.save_state(%s)", file_path)

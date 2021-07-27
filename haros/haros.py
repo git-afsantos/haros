@@ -662,6 +662,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         if not extractor.project.packages:
             raise RuntimeError("There are no packages to analyse.")
         self.database.register_project(extractor.project)
+        self.database.update_analysis_preferences(self.settings)
         rs = self.database.register_rules(extractor.rules, prefix="user:",
             ignored_rules=self.settings.ignored_rules,
             ignored_tags=self.settings.ignored_tags)

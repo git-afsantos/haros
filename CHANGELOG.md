@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- bug with namespace resolution when extracting topic/service/param function calls.
+
+## [3.10.1] - 2021-07-19
+### Added
+- `analysis` section to project files, same as in `~/.haros/configs.yaml`.
 
 ## [3.10.0] - 2021-06-18
 ### Fixed
