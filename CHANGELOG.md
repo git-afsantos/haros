@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- bug with namespace resolution when extracting topic/service/param function calls.
+- Fixed a bug with namespace resolution when extracting topic/service/param function calls.
+
+### Added
+- Added convenience methods to some metamodel classes.
 
 ## [3.10.1] - 2021-07-19
 ### Added

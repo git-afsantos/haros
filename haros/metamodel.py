@@ -1411,6 +1411,12 @@ class Topic(Resource):
     def resource_type(self):
         return "topic"
 
+    @property
+    def types(self):
+        types = set(p.type for p in self.publishers)
+        types.update(s.type for s in self.subscribers)
+        return types
+
     def traceability(self):
         sl = []
         for p in self.publishers:
@@ -1480,6 +1486,12 @@ class Service(Resource):
     @property
     def resource_type(self):
         return "service"
+
+    @property
+    def types(self):
+        types = set(s.type for s in self.servers)
+        types.update(c.type for c in self.clients)
+        return types
 
     def traceability(self):
         sl = []
@@ -1559,6 +1571,12 @@ class Parameter(Resource):
     @property
     def resource_type(self):
         return "param"
+
+    @property
+    def types(self):
+        types = set(r.type for r in self.reads)
+        types.update(w.type for w in self.writes)
+        return types
 
     def traceability(self):
         sl = []
