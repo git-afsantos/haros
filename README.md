@@ -16,6 +16,7 @@ There is a demo page of the HAROS visualizer available on [GitHub](https://git-a
 ## Current Status
 
 HAROS is still being developed, as of August 2021.
+Help improve HAROS by participating in a short [user survey](https://docs.google.com/forms/d/e/1FAIpQLSdD0nC2tb_IBjvasoWDOR_LzplTYF4cGkI5ZQqJtgDAe8ZQsQ/viewform?usp=sf_link).
 
 ## Installing
 
