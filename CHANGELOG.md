@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.3] - 2021-08-03
+### Added
+- Added the `news` command, to print out some news updates.
+
 ## [3.10.2] - 2021-08-02
 ### Fixed
 - Fixed a bug with namespace resolution when extracting topic/service/param function calls.
