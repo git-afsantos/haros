@@ -168,7 +168,7 @@ class HarosLauncher(object):
 
     def launch(self, argv=None):
         args = self.parse_arguments(argv)
-        self.minimal_output = args.minimal_output
+        self.minimal_output = getattr(args, "minimal_output", False)
         self._set_directories(args)
         if args.debug:
             logging.basicConfig(filename=self.log_path, filemode="w",
@@ -193,6 +193,9 @@ class HarosLauncher(object):
             return False
         finally:
             os.chdir(original_path)
+            if args.command != self.command_news:
+                print "[HAROS] Check news updates with:"
+                print "  $ haros news"
 
     def command_init(self, args):
         if not self.initialised:
@@ -267,6 +270,21 @@ class HarosLauncher(object):
             minimal_output=args.minimal_output)
         return parse.run()
 
+    def command_news(self, args):
+        print ""
+        print "[2021-08-03] A new major version is under development!"
+        print ("It will redesign some features and will include "
+               "support for ROS2.")
+        print ("Contribute by participating "
+               "in a short survey on Google Forms:")
+        print "    https://forms.gle/Ni415XYAQwyDbHE89"
+        print ""
+        print "[2021-08-03] HAROS Tutorial at IROS 2021"
+        print "There will be a tutorial session on how to use HAROS,"
+        print " as part of the IROS 2021 conference."
+        print "For more details:"
+        print "    http://haslab.github.io/SAFER/iros21-tutorial.html"
+
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
                                 description = "ROS quality assurance.")
@@ -287,6 +305,7 @@ class HarosLauncher(object):
         self._export_parser(subparsers.add_parser("export"))
         self._viz_parser(subparsers.add_parser("viz"))
         self._parse_parser(subparsers.add_parser("parse"))
+        self._news_parser(subparsers.add_parser("news"))
         return parser.parse_args(argv)
 
     def _init_parser(self, parser):
@@ -404,6 +423,9 @@ class HarosLauncher(object):
         parser.add_argument("--minimal-output", action='store_true',
                             help = "output only those file(s) required to view the report")
         parser.set_defaults(command = self.command_parse)
+
+    def _news_parser(self, parser):
+        parser.set_defaults(command=self.command_news)
 
     def _set_directories(self, args):
         if args.home:
@@ -1005,8 +1027,8 @@ class HarosVizRunner(HarosRunner):
 #   HAROS Main Function
 ###############################################################################
 
-def main(argv = None, source_runner = False):
-    launcher = HarosLauncher(run_from_source = source_runner)
-    if launcher.launch(argv = argv):
+def main(argv=None, source_runner=False):
+    launcher = HarosLauncher(run_from_source=source_runner)
+    if launcher.launch(argv=argv):
         return 0
     return 1
