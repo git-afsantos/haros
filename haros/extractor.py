@@ -23,6 +23,15 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import next
+from builtins import str
+from builtins import range
+from past.builtins import basestring
+from builtins import object
+
 from fnmatch import fnmatch
 import itertools
 import logging
@@ -30,7 +39,8 @@ from operator import attrgetter
 import os
 import re
 import subprocess
-from urllib2 import urlopen, URLError
+from urllib.request import urlopen
+from urllib.error import URLError
 import xml.etree.ElementTree as ET
 import yaml
 
@@ -198,7 +208,7 @@ class ProjectExtractor(LoggingObject):
     def _load_user_repositories(self):
         self.log.info("Looking up user provided repositories.")
         extractor = RepositoryExtractor()
-        for name, data in self.repositories.iteritems():
+        for name, data in self.repositories.items():
             repo = self.repo_cache.get(name)
             if repo:
                 self.project.repositories.append(repo)
@@ -343,7 +353,7 @@ class ProjectExtractor(LoggingObject):
 
     def _update_node_cache(self):
         self.log.debug("Importing cached Nodes.")
-        data = [datum for datum in self.node_cache.itervalues()]
+        data = [datum for datum in self.node_cache.values()]
         self.node_cache = {}
         empty_dict = {}
         empty_list = ()
@@ -551,7 +561,7 @@ class RepositoryExtractor(LoggingObject):
         if not pkgs:
             return True
         remaining = set(pkgs)
-        for name, info in data.iteritems():
+        for name, info in data.items():
             if not "release" in info:
                 continue
             for pkg in info["release"].get("packages", [name]):
@@ -776,7 +786,7 @@ class PackageExtractor(LoggingObject):
                         "File %s was ignored due to glob pattern", sfn)
                     continue # skip this file
                 ignore = source.set_file_stats()
-                if any(v for v in ignore.itervalues()):
+                if any(v for v in ignore.values()):
                     analysis_ignore[source.id] = ignore
                 if pkg._analyse and source.language == "launch":
                     self.log.info("Parsing launch file: " + source.path)
@@ -1091,7 +1101,7 @@ class NodeExtractor(LoggingObject):
 
     def _update_nodelets(self, libraries):
         lib_files = {}
-        for target in libraries.itervalues():
+        for target in libraries.values():
             files = []
             for path in target.files:
                 sf = self._get_file(path)
@@ -1110,7 +1120,7 @@ class NodeExtractor(LoggingObject):
                 nodelet.source_files = lib_files[nodelet.name]
 
     def _register_nodes(self, executables):
-        for target in executables.itervalues():
+        for target in executables.values():
             node = Node(target.output_name, self.package)
             for path in target.files:
                 sf = self._get_file(path)
@@ -1651,7 +1661,7 @@ class RoscppExtractor(LoggingObject):
 
     def _extract_queue_size(self, call, queue_pos=1):
         queue_size = resolve_expression(call.arguments[queue_pos])
-        if isinstance(queue_size, (int, long, float)):
+        if isinstance(queue_size, (int, float)):
             return queue_size
         return None
 
@@ -1671,7 +1681,7 @@ class RoscppExtractor(LoggingObject):
         self.log.debug("extract param type from {}".format(repr(value)))
         if value is True or value is False:
             return "bool"
-        if isinstance(value, (int, long)):
+        if isinstance(value, int):
             return "int"
         if isinstance(value, float):
             return "double"
@@ -1773,7 +1783,7 @@ class RospyExtractor(LoggingObject):
 
         try:
             queue_size = resolve_expression(queue_size_arg)
-            assert(isinstance(queue_size, (int, long, float)))
+            assert(isinstance(queue_size, (int, float)))
             return queue_size
         except AssertionError:
             return None

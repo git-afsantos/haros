@@ -23,6 +23,13 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from builtins import filter
+from builtins import str
+from builtins import map
+from past.builtins import basestring
+from builtins import object
+
 import math
 import os
 import re
@@ -65,22 +72,40 @@ import xml.etree.ElementTree as ET
 ###############################################################################
 
 # courtesy of https://stackoverflow.com/a/36430270
-class LineNumberingParser(ET.XMLParser):
-    def _start_list(self, *args, **kwargs):
-        # Here we assume the default XML parser which is expat
-        # and copy its element position attributes into output Elements
-        element = super(self.__class__, self)._start_list(*args, **kwargs)
-        element._start_line_number = self.parser.CurrentLineNumber
-        element._start_column_number = self.parser.CurrentColumnNumber + 1
-        element._start_byte_index = self.parser.CurrentByteIndex
-        return element
+if sys.version_info >= (3, 0):
+    class LineNumberingParser(ET.XMLParser):
+        def _start(self, *args, **kwargs):
+            # Here we assume the default XML parser which is expat
+            # and copy its element position attributes into output Elements
+            element = super(self.__class__, self)._start(*args, **kwargs)
+            element._start_line_number = self.parser.CurrentLineNumber
+            element._start_column_number = self.parser.CurrentColumnNumber + 1
+            element._start_byte_index = self.parser.CurrentByteIndex
+            return element
 
-    def _end(self, *args, **kwargs):
-        element = super(self.__class__, self)._end(*args, **kwargs)
-        element._end_line_number = self.parser.CurrentLineNumber
-        element._end_column_number = self.parser.CurrentColumnNumber + 1
-        element._end_byte_index = self.parser.CurrentByteIndex
-        return element
+        def _end(self, *args, **kwargs):
+            element = super(self.__class__, self)._end(*args, **kwargs)
+            element._end_line_number = self.parser.CurrentLineNumber
+            element._end_column_number = self.parser.CurrentColumnNumber + 1
+            element._end_byte_index = self.parser.CurrentByteIndex
+            return element
+else:
+    class LineNumberingParser(ET.XMLParser):
+        def _start_list(self, *args, **kwargs):
+            # Here we assume the default XML parser which is expat
+            # and copy its element position attributes into output Elements
+            element = super(self.__class__, self)._start_list(*args, **kwargs)
+            element._start_line_number = self.parser.CurrentLineNumber
+            element._start_column_number = self.parser.CurrentColumnNumber + 1
+            element._start_byte_index = self.parser.CurrentByteIndex
+            return element
+
+        def _end(self, *args, **kwargs):
+            element = super(self.__class__, self)._end(*args, **kwargs)
+            element._end_line_number = self.parser.CurrentLineNumber
+            element._end_column_number = self.parser.CurrentColumnNumber + 1
+            element._end_byte_index = self.parser.CurrentByteIndex
+            return element
 
 
 ###############################################################################
@@ -162,7 +187,7 @@ class SubstitutionParser(object):
         result = UnresolvedValue()
         rest = value
         while match:
-            parts = filter(bool, map(str.strip, match.group(1).split(None, 1)))
+            parts = list(filter(bool, list(map(str.strip, match.group(1).split(None, 1)))))
             assert len(parts) == 1 or len(parts) == 2
             if not parts[0] in self.COMMANDS:
                 raise SubstitutionError("invalid command: " + parts[0])
@@ -454,7 +479,7 @@ class BaseLaunchTag(object):
                 raise LaunchParserError("missing required attribute: " + key)
         self.children = []
         self.unknown = []
-        for key, value in attributes.iteritems():
+        for key, value in attributes.items():
             if isinstance(value, UnresolvedValue):
                 self.unknown.append(key)
         if "if" in attributes and "unless" in attributes:
@@ -810,8 +835,12 @@ class LaunchParser(object):
         text = tag.text if tag.text else ""
         if tag.tag != "rosparam":
             text = text.strip()
-        element = cls(text, attributes,
-            tag._start_line_number, tag._start_column_number)
+        # FIXME
+        # sometimes in Python3 the C accelerator XMLParser class from
+        # `_elementtree` does not have the `_start` or `_start_list` methods
+        nline = getattr(tag, "_start_line_number", 1)
+        ncol = getattr(tag, "_start_column_number", 1)
+        element = cls(text, attributes, nline, ncol)
         if element.tag == "arg" and isinstance(element.name, basestring):
             if element.value is None:
                 if self.enable_defaults:
@@ -827,7 +856,7 @@ class LaunchParser(object):
     def _attributes(self, tag, schema):
         attributes = {}
         sub = self.sub_parser.sub # shortcut to make line below shorter
-        for key, value in tag.attrib.iteritems():
+        for key, value in tag.attrib.items():
             if not key in schema:
                 continue # TODO raise an error vs. future compatibility
             attributes[key] = sub(value, conversion=schema[key])

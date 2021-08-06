@@ -19,6 +19,12 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
 
+from __future__ import print_function
+from __future__ import unicode_literals
+from future import standard_library
+standard_library.install_aliases()
+from builtins import input
+
 import logging
 import os
 import subprocess
@@ -28,9 +34,9 @@ from distutils.dir_util import copy_tree
 from pkg_resources import Requirement, resource_filename
 from shutil import rmtree
 
-import SimpleHTTPServer
-from BaseHTTPServer import HTTPServer
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+import http.server
+from http.server import HTTPServer
+from http.server import SimpleHTTPRequestHandler
 
 # Known online replacements for js libraries used by the report.
 js_lib_replacements = {
@@ -98,7 +104,7 @@ def serve(directory, host_str, headless = False):
     try:
         os.chdir(directory)
         server = HTTPServer((host[0], int(host[1])), BaseHTTPRequestHandler)
-        print "[HAROS] Serving visualisation at", host_str
+        print("[HAROS] Serving visualisation at", host_str)
         if not headless:            
             thread = threading.Thread(target = server.serve_forever)
             thread.daemon = True
@@ -108,7 +114,7 @@ def serve(directory, host_str, headless = False):
             with open(os.devnull, "wb") as devnull:
                 p = subprocess.Popen(cmd, stdout = devnull,
                                      stderr = subprocess.STDOUT)
-                raw_input("[HAROS] Press enter to shutdown the viz server:")
+                input("[HAROS] Press enter to shutdown the viz server:")
         else:
             server.serve_forever()
         return True

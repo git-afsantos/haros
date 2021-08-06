@@ -24,6 +24,10 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from builtins import str
+from builtins import object
+
 import logging
 import os
 from pkg_resources import resource_filename
@@ -49,6 +53,10 @@ from .util import cwd
 
 class LoggingObject(object):
     log = logging.getLogger(__name__)
+
+
+def cmp_replacement(a, b):
+    return (a > b) - (a < b)
 
 
 ###############################################################################
@@ -260,13 +268,13 @@ class QueryEngine(LoggingObject):
         "None": None,
         "abs": abs,
         "bool": bool,
-        "cmp": cmp,
+        "cmp": cmp_replacement,
         "divmod": divmod,
         "float": float,
         "int": int,
         "isinstance": isinstance,
         "len": len,
-        "long": long,
+        "long": int,
         "max": max,
         "min": min,
         "pow": pow,
@@ -278,9 +286,9 @@ class QueryEngine(LoggingObject):
         self.pyflwor = pyflwor
         self.data = dict(self.query_data)
         self.data["is_rosglobal"] = QueryEngine.is_rosglobal
-        self.data["files"] = list(database.files.itervalues())
-        self.data["packages"] = list(database.packages.itervalues())
-        self.data["nodes"] = list(database.nodes.itervalues())
+        self.data["files"] = list(database.files.values())
+        self.data["packages"] = list(database.packages.values())
+        self.data["nodes"] = list(database.nodes.values())
         self.data["configs"] = list(database.configurations)
 
     def execute(self, rules, reports):
@@ -360,7 +368,7 @@ class QueryEngine(LoggingObject):
         elif isinstance(match, dict):
             # assume tuple<dict<str, object>> for FLWR queries named return
             parts = []
-            for key, item in match.iteritems():
+            for key, item in match.items():
                 parts.append(str(key) + ": " + str(item))
                 if isinstance(item, MetamodelObject):
                     location = item.location
@@ -383,7 +391,7 @@ class QueryEngine(LoggingObject):
             report = reports[default_location.smallest_scope.id]
             location = default_location
         elif locations:
-            locations = list(locations.itervalues())
+            locations = list(locations.values())
             for item in locations:
                 details += "\nReported " + str(item)
                 scope = item.smallest_scope
@@ -479,7 +487,7 @@ class AnalysisManager(LoggingObject):
             return
         self.log.debug("Creating query engine.")
         query_engine = QueryEngine(self.database, pyflwor)
-        rules = tuple(r for r in self.database.rules.viewvalues()
+        rules = tuple(r for r in self.database.rules.values()
                       if r.id in allowed_rules)
         query_engine.execute(rules, reports)
 
@@ -549,7 +557,7 @@ class AnalysisManager(LoggingObject):
         iface._commit_buffers()
 
     def _exports(self, exported):
-        for plugin_name, files in exported.iteritems():
+        for plugin_name, files in exported.items():
             dirpath = os.path.join(self.export_dir, plugin_name)
             try:
                 os.makedirs(dirpath)

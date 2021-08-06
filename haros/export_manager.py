@@ -23,6 +23,11 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from builtins import str
+from builtins import range
+from builtins import object
+
 from collections import Counter
 import json
 import logging
@@ -73,7 +78,7 @@ class JUnitExporter(LoggingObject):
             # and how long all reports together took to create
             violated_rules = {}
             total_analysis_time = 0
-            for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+            for package_analysis in report.by_package.values(): # .data.PackageAnalysis
                 for violation in package_analysis.violations:
                     violated_rules[violation.rule.id] = violation.rule.name
                 # ^ for violation in package_analysis.violations
@@ -93,7 +98,7 @@ class JUnitExporter(LoggingObject):
             srf.write(' failures="%i"' % len(violated_rules))
             srf.write(' time="%f">\n' % total_analysis_time)
 
-            for package_analysis in report.by_package.viewvalues(): # .data.PackageAnalysis
+            for package_analysis in report.by_package.values(): # .data.PackageAnalysis
                 out = os.path.join(datadir,
                                    database.project.name,
                                    "compliance",
@@ -219,7 +224,7 @@ class JsonExporter(LoggingObject):
                 data = json.load(f)
             for p in projects:
                 is_new = True
-                for i in xrange(len(data)):
+                for i in range(len(data)):
                     if data[i]["id"] == p.name:
                         is_new = False
                         data[i] = p.to_JSON_object()
@@ -236,7 +241,7 @@ class JsonExporter(LoggingObject):
         self.log.info("Exporting package data.")
         out = os.path.join(datadir, "packages.json")
         if isinstance(packages, dict):
-            packages = packages.viewvalues()
+            packages = packages.values()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
             json.dump([self._pkg_analysis_JSON(pkg) for pkg in packages], f,
@@ -253,7 +258,7 @@ class JsonExporter(LoggingObject):
     def export_source_violations(self, datadir, pkg_reports):
         self.log.info("Exporting reported source rule violations.")
         if isinstance(pkg_reports, dict):
-            pkg_reports = pkg_reports.viewvalues()
+            pkg_reports = pkg_reports.values()
         for report in pkg_reports:
             out = os.path.join(datadir, report.package.name + ".json")
             data = [v.to_JSON_object() for v in report.violations]
@@ -266,7 +271,7 @@ class JsonExporter(LoggingObject):
     def export_runtime_violations(self, datadir, config_reports):
         self.log.info("Exporting reported runtime rule violations.")
         if isinstance(config_reports, dict):
-            config_reports = config_reports.viewvalues()
+            config_reports = config_reports.values()
         for report in config_reports:
             self._export_collection(datadir, report.violations,
                                     report.configuration.name + ".json")
@@ -278,7 +283,7 @@ class JsonExporter(LoggingObject):
     def export_measurements(self, datadir, pkg_reports):
         self.log.info("Exporting metrics measurements.")
         if isinstance(pkg_reports, dict):
-            pkg_reports = pkg_reports.viewvalues()
+            pkg_reports = pkg_reports.values()
         for report in pkg_reports:
             out = os.path.join(datadir, report.package.name + ".json")
             data = [m.to_JSON_object() for m in report.metrics]
@@ -291,7 +296,7 @@ class JsonExporter(LoggingObject):
     def export_configurations(self, datadir, config_reports):
         self.log.info("Exporting launch configurations.")
         if isinstance(config_reports, dict):
-            config_reports = config_reports.viewvalues()
+            config_reports = config_reports.values()
         configs = []
         for report in config_reports:
             data = report.configuration.to_JSON_object()
@@ -352,7 +357,7 @@ class JsonExporter(LoggingObject):
     def _export_collection(self, datadir, items, filename):
         out = os.path.join(datadir, filename)
         if isinstance(items, dict):
-            items = items.viewvalues()
+            items = items.values()
         with open(out, "w") as f:
             self.log.debug("Writing to %s", out)
             json.dump([item.to_JSON_object() for item in items], f,

@@ -34,6 +34,14 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from builtins import zip
+from builtins import filter
+from builtins import map
+from builtins import range
+from past.builtins import basestring
+from builtins import object
+
 from distutils.version import LooseVersion
 import glob
 import logging
@@ -127,7 +135,7 @@ class CMakeGrammar(object):
 
     _reBlockBeginnings = (r"(?ix)"
                           + r"(?P<BlockBeginnings>"
-                          + "|".join(_blockTagsDict.keys())
+                          + "|".join(list(_blockTagsDict.keys()))
                           + r")")
 
     reBlockBeginnings = re.compile(_reBlockBeginnings, re.IGNORECASE)
@@ -137,7 +145,7 @@ class CMakeGrammar(object):
          re.compile(r"(?ix)^(?P<BlockEnding>"
                     + r"|".join(ends)
                     + r")$", re.IGNORECASE)
-        ) for beginning, ends in _blockTagsDict.iteritems()
+        ) for beginning, ends in _blockTagsDict.items()
     ])
 
     @staticmethod
@@ -188,7 +196,7 @@ class InputExhaustedError(Exception):
     pass
 
 
-class ParseInput():
+class ParseInput(object):
     """Class providing an iterable interface to the parser's input"""
 
     def __init__(self, strdata):
@@ -204,7 +212,7 @@ class ParseInput():
         """Be usable as an iterator."""
         return self
 
-    def next(self):
+    def __next__(self):
         """Return the current line each time we are iterated.
         We don't go to the next line unless we've been accepted."""
 
@@ -244,7 +252,7 @@ class ParseInput():
         return self._data[ln]
 
 
-class CMakeParser():
+class CMakeParser(object):
     def __init__(self):
         self.input = None
         self.parsetree = None
@@ -369,7 +377,7 @@ class BuildTarget(object):
             for f in fs.split(";")
             if f
         )
-        files = filter(bool, map(cls.replace_file, files))
+        files = list(filter(bool, list(map(cls.replace_file, files))))
         return cls(name, files, is_executable)
 
     def apply_property(self, prop, value):
@@ -511,7 +519,7 @@ class RosCMakeParser(LoggingObject):
             self.variables.get(arg, arg).split()
             for arg in args[1:-2]
         ))
-        names = map(os.path.basename, files)
+        names = list(map(os.path.basename, files))
         targets = {
             name: BuildTarget.new_target(name, [file], self.directory, True)
             for name, file in zip(names, files)
@@ -620,18 +628,18 @@ class RosCMakeParser(LoggingObject):
         t = self.libraries.get(t, self.executables.get(t))
         if not t:
             return
-        for i in xrange(1, len(args)):
+        for i in range(1, len(args)):
             t.links.append(args[i])
 
     def _link_targets(self):
-        for target in self.libraries.itervalues():
+        for target in self.libraries.values():
             candidates = target.links
             target.links = []
             for other in candidates:
                 d = self.libraries.get(other, self.executables.get(other))
                 if d:
                     target.links.append(d)
-        for target in self.executables.itervalues():
+        for target in self.executables.values():
             candidates = target.links
             target.links = []
             for other in candidates:

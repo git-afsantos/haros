@@ -37,6 +37,9 @@
 # Imports
 ###############################################################################
 
+from __future__ import unicode_literals
+from builtins import str
+from builtins import object
 from builtins import range
 from collections import namedtuple
 from itertools import chain
@@ -287,7 +290,7 @@ class LaunchScope(LoggingObject):
             if not isinstance(value, dict):
                 result.append((name, value, name == key)) #FIXME sometimes not independent: ~ns/p + a != a
             else:
-                for key, other in value.iteritems():
+                for key, other in value.items():
                     stack.append((name, key, other))
         return result
 
@@ -340,7 +343,7 @@ class ConfigurationBuilder(LoggingObject):
         self.no_hardcoded = no_hardcoded
         self._future = []
         self._pkg_finder = PackageExtractor() # FIXME should this be given?
-        self._pkg_finder.packages.extend(self.sources.packages.values())
+        self._pkg_finder.packages.extend(list(self.sources.packages.values()))
         hints = hints or {}
         self._fix_hints = hints.get("fix", _EMPTY_DICT)
         #self._add_nodes = hints.get("nodes", _EMPTY_DICT)

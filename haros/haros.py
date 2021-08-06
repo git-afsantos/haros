@@ -95,6 +95,12 @@
 #   Imports
 ###############################################################################
 
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from builtins import str
+from past.builtins import basestring
+from builtins import object
 from argparse import ArgumentParser
 import json
 import logging
@@ -184,8 +190,8 @@ class HarosLauncher(object):
             return args.command(args)
         except KeyError as err:
             if str(err) == "ROS_WORKSPACE":
-                print "[HAROS] You must have a workspace set up."
-                print "  Make sure to source its `devel/setup.bash`."
+                print("[HAROS] You must have a workspace set up.")
+                print("  Make sure to source its `devel/setup.bash`.")
             self.log.error(str(err))
             return False
         except RuntimeError as err:
@@ -346,6 +352,8 @@ class HarosLauncher(object):
                             help="do not rely on hard-coded nodes")
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
+        parser.add_argument("--no-hardcoded", action="store_true",
+                            help="do not rely on hard-coded nodes")
         parser.set_defaults(command = self.command_full)
 
     def _analyse_parser(self, parser):
@@ -363,6 +371,7 @@ class HarosLauncher(object):
         parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--ws", help = "set the catkin workspace directory")
         parser.add_argument("--no-write-cache", action = "store_true",
                             help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
@@ -439,7 +448,7 @@ class HarosLauncher(object):
             self.config_path = os.path.join(self.haros_dir, "configs.yaml")
 
     def _init_haros_dir(self, overwrite=False):
-        print "[HAROS] Running setup operations..."
+        print("[HAROS] Running setup operations...")
         exists = os.path.exists(self.haros_dir)
         if exists and not os.path.isdir(self.haros_dir):
             raise RuntimeError(("Could not initialise; " + self.haros_dir
@@ -456,7 +465,7 @@ class HarosLauncher(object):
     def _generate_dir(self, path, dir_dict, overwrite=True):
         """Recursively create a given directory structure."""
         self.log.debug("HarosRunner._generate_dir %s %s", path, str(dir_dict))
-        for name, contents in dir_dict.iteritems():
+        for name, contents in dir_dict.items():
             new_path = os.path.join(path, name)
             exists = os.path.exists(new_path)
             if isinstance(contents, basestring):
@@ -660,7 +669,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         return True
 
     def _extract_metamodel(self, node_cache, rules):
-        print "[HAROS] Reading project and indexing source code..."
+        print("[HAROS] Reading project and indexing source code...")
         self.log.debug("Project file %s", self.project_file)
         env = dict(os.environ) if self.copy_env else self.settings.environment
         distro = self.distro_url if self.use_repos else None
@@ -671,7 +680,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                                      node_cache = node_cache,
                                      parse_nodes = self.parse_nodes)
         if self.parse_nodes:
-            print "  > Parsing nodes might take some time."
+            print("  > Parsing nodes might take some time.")
             start_time = timer()
             # NOTE: this updates settings with ignore-line comments
             extractor.index_source(settings = self.settings)
@@ -695,7 +704,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
         # FIXME nodes is unused
         empty_dict = {}
         empty_list = ()
-        for name, data in configs.iteritems():
+        for name, data in configs.items():
             if isinstance(data, list):
                 builder = ConfigurationBuilder(name, environment, self.database)
                 launch_files = data
@@ -733,7 +742,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
 
     def _make_node_configurations(self, project, nodes, environment):
         self.log.debug("Creating Configurations for node specs.")
-        for node_name, node_hints in nodes.iteritems():
+        for node_name, node_hints in nodes.items():
             try:
                 node = project.get_node(node_name)
             except ValueError as e:
@@ -766,6 +775,9 @@ class HarosAnalyseRunner(HarosCommonExporter):
             haros_db = HarosDatabase.load_state(haros_db_path)
         except IOError:
             self.log.info("No previous analysis data for " + self.project)
+        except ValueError:
+            self.log.info("Previous analysis data for " + self.project
+                          + " uses an incompatible format.")
         else:
             self.database.history = haros_db.history
             # Commit the previous report (the report generated during the
@@ -775,14 +787,14 @@ class HarosAnalyseRunner(HarosCommonExporter):
     def _load_definitions_and_plugins(self):
         rules = set()
         metrics = set()
-        print "[HAROS] Loading common definitions..."
+        print("[HAROS] Loading common definitions...")
         rs, ms = self.database.load_definitions(self.definitions_file,
                 ignored_rules=self.settings.ignored_rules,
                 ignored_tags=self.settings.ignored_tags,
                 ignored_metrics=self.settings.ignored_metrics)
         rules.update(rs)
         metrics.update(ms)
-        print "[HAROS] Loading plugins..."
+        print("[HAROS] Loading plugins...")
         blacklist = self.blacklist or self.settings.plugin_blacklist
         plugins = Plugin.load_plugins(whitelist=self.whitelist,
                                       blacklist=blacklist,
@@ -796,7 +808,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
                 msg = "Could not find any analysis plugins."
             raise RuntimeError(msg)
         for plugin in plugins:
-            print "  > Loaded " + plugin.name
+            print("  > Loaded " + plugin.name)
             prefix = plugin.name + ":"
             rs = self.database.register_rules(plugin.rules, prefix=prefix,
                     ignored_rules=self.settings.ignored_rules,
@@ -843,7 +855,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             parser.parse_node_specs(node)
 
     def _analyse(self, plugins, rules, metrics):
-        print "[HAROS] Running analysis..."
+        print("[HAROS] Running analysis...")
         self._empty_dir(self.export_dir)
         temp_path = tempfile.mkdtemp()
         analysis = AnalysisManager(self.database, temp_path, self.export_dir,
@@ -856,7 +868,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             rmtree(temp_path)
 
     def _save_results(self, node_cache):
-        print "[HAROS] Saving analysis results..."
+        print("[HAROS] Saving analysis results...")
         if self.export_viz:
             viz.install(self.viz_dir, self.run_from_source, minimal_output=self.minimal_output)
         self._ensure_dir(self.data_dir)
@@ -879,7 +891,7 @@ class HarosAnalyseRunner(HarosCommonExporter):
             junit_exporter = JUnitExporter()
             junit_exporter.export_report(self.data_dir, self.database)
         if self.parse_nodes and self.overwrite_cache:
-            for node in self.database.nodes.itervalues():
+            for node in self.database.nodes.values():
                 node_cache[node.node_name] = node.to_JSON_object()
             parse_cache = os.path.join(self.root, "parse_cache.json")
             try:
@@ -911,7 +923,7 @@ class HarosParseRunner(HarosAnalyseRunner):
     def _load_definitions_and_plugins(self):
         rules = set()
         metrics = set()
-        print "[HAROS] Loading common definitions..."
+        print("[HAROS] Loading common definitions...")
         rs, ms = self.database.load_definitions(self.definitions_file,
                 ignored_rules=self.settings.ignored_rules,
                 ignored_tags=self.settings.ignored_tags,
@@ -960,7 +972,7 @@ class HarosExportRunner(HarosCommonExporter):
             self.io_projects_dir = data_dir
 
     def run(self):
-        print "[HAROS] Exporting analysis results..."
+        print("[HAROS] Exporting analysis results...")
         self._prepare_directory()
         exporter = JsonExporter()
         for project in self._project_list():
@@ -997,7 +1009,10 @@ class HarosExportRunner(HarosCommonExporter):
         if not os.path.isfile(self.haros_db):
             self.log.error("There is no analysis data for " + self.project)
             return False
-        self.database = HarosDatabase.load_state(self.haros_db)
+        try:
+            self.database = HarosDatabase.load_state(self.haros_db)
+        except (IOError, ValueError):
+            return False
         self.project_data_list.append(self.database.project)
         return True
 
