@@ -314,6 +314,8 @@ class HarosLauncher(object):
                             help = "load/export using the given directory")
         parser.add_argument("--no-cache", action = "store_true",
                             help = "do not use available caches")
+        parser.add_argument("--no-write-cache", action = "store_true",
+                            help = "do not update parsing cache")
         parser.add_argument("--junit-xml-output", action='store_true',
                             help = "output JUnit XML report file(s)")
         parser.add_argument("--minimal-output", action='store_true',
@@ -325,6 +327,8 @@ class HarosLauncher(object):
                            help = "skip these plugins")
         parser.add_argument("--headless", action = "store_true",
                             help = "start server without web browser")
+        parser.add_argument("--no-hardcoded", action="store_true",
+                            help="do not rely on hard-coded nodes")
         parser.set_defaults(command = self.command_full)
 
     def _analyse_parser(self, parser):
