@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.4] - 2021-08-06
+### Changed
+- Internal code changes to support Python 3 environments.
+
 ## [3.10.3] - 2021-08-03
 ### Added
 - Added the `news` command, to print out some news updates.
