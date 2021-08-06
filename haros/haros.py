@@ -200,8 +200,8 @@ class HarosLauncher(object):
         finally:
             os.chdir(original_path)
             if args.command != self.command_news:
-                print "[HAROS] Check news updates with:"
-                print "  $ haros news"
+                print("[HAROS] Check news updates with:")
+                print("  $ haros news")
 
     def command_init(self, args):
         if not self.initialised:
@@ -277,19 +277,19 @@ class HarosLauncher(object):
         return parse.run()
 
     def command_news(self, args):
-        print ""
-        print "[2021-08-03] A new major version is under development!"
-        print ("It will redesign some features and will include "
-               "support for ROS2.")
-        print ("Contribute by participating "
-               "in a short survey on Google Forms:")
-        print "    https://forms.gle/Ni415XYAQwyDbHE89"
-        print ""
-        print "[2021-08-03] HAROS Tutorial at IROS 2021"
-        print "There will be a tutorial session on how to use HAROS,"
-        print " as part of the IROS 2021 conference."
-        print "For more details:"
-        print "    http://haslab.github.io/SAFER/iros21-tutorial.html"
+        print("")
+        print("[2021-08-03] A new major version is under development!")
+        print("It will redesign some features and will include "
+              "support for ROS2.")
+        print("Contribute by participating "
+              "in a short survey on Google Forms:")
+        print("    https://forms.gle/Ni415XYAQwyDbHE89")
+        print("")
+        print("[2021-08-03] HAROS Tutorial at IROS 2021")
+        print("There will be a tutorial session on how to use HAROS,")
+        print(" as part of the IROS 2021 conference.")
+        print("For more details:")
+        print("    http://haslab.github.io/SAFER/iros21-tutorial.html")
 
     def parse_arguments(self, argv = None):
         parser = ArgumentParser(prog = "haros",
