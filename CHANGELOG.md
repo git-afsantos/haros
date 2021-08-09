@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.5] - 2021-08-09
+### Fixed
+- Fixed a bug when parsing launch files that complained about unicode strings.
+
 ## [3.10.4] - 2021-08-06
 ### Changed
 - Internal code changes to support Python 3 environments.
