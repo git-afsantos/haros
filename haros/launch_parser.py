@@ -187,7 +187,11 @@ class SubstitutionParser(object):
         result = UnresolvedValue()
         rest = value
         while match:
-            parts = list(filter(bool, list(map(str.strip, match.group(1).split(None, 1)))))
+            # this map is to avoid python 2/3 issues
+            parts = list(map(str, match.group(1).split(None, 1)))
+            parts = list(map(str.strip, parts))
+            parts = list(filter(bool, parts))
+
             assert len(parts) == 1 or len(parts) == 2
             if not parts[0] in self.COMMANDS:
                 raise SubstitutionError("invalid command: " + parts[0])
