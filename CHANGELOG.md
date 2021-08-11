@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.6] - 2021-08-11
+### Fixed
+- Fixed a bug when parsing XML tags without text in *package.xml* files, e.g., `<author email="name@example.com" />`.
+
 ## [3.10.5] - 2021-08-09
 ### Fixed
 - Fixed a bug when parsing launch files that complained about unicode strings.
