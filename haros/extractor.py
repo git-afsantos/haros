@@ -823,17 +823,17 @@ class PackageParser(LoggingObject):
 
     @staticmethod
     def _parse_metadata(xml, package):
-        package.description = xml.find("description").text.strip()
+        package.description = (xml.find("description").text or "").strip()
         for el in xml.findall("maintainer"):
-            name = el.text.strip() or "?"
+            name = (el.text or "?").strip()
             email = el.get("email") or "email@example.com"
             package.maintainers.add(Person(name, email))
         for el in xml.findall("author"):
-            name = el.text.strip() or "?"
+            name = (el.text or "?").strip()
             email = el.get("email") or "email@example.com"
             package.authors.add(Person(name, email))
         for el in xml.findall("license"):
-            package.licenses.add(el.text.strip())
+            package.licenses.add((el.text or "?").strip())
         for el in xml.findall("url"):
             value = el.get("type")
             if value is None or value == "website":
@@ -847,7 +847,7 @@ class PackageParser(LoggingObject):
                     package.bug_url = el.text.strip()
         el = xml.find("version")
         if el is not None:
-            package.version = el.text.strip()
+            package.version = (el.text or "?").strip()
 
     @staticmethod
     def _parse_export(xml, package):
