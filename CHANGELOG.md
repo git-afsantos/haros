@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.10] - 2021-08-12
+### Fixed
+- Fixed a crash when plugins reported ignored rules.
+
 ## [3.10.9] - 2021-08-12
 ### Fixed
 - Fixed an issue when analysing Python bytecode files not encoded in UTF-8 (bytecode should not be treated as text files).
