@@ -751,6 +751,7 @@ class PackageExtractor(LoggingObject):
 
     EXCLUDED = (".git", "doc", "cmake", ".eggs", "__pycache__")
     _START_GLOB = (os.path.sep, '*', '?', '[')
+    _BYTE_CODE = (".pyc", ".pyd", ".pyo")
 
     def _populate_package(self, pkg, ignored_globs=None):
         self.log.debug("PackageExtractor.populate(%s, %s)", pkg, ignored_globs)
@@ -780,6 +781,11 @@ class PackageExtractor(LoggingObject):
                 self.log.debug("Found file %s at %s", filename, path)
                 source = SourceFile(filename, path, pkg)
                 sfn = os.path.join(pkg.name, source.full_name)
+                if source.language == "python":
+                    if source.name.endswith(self._BYTE_CODE):
+                        self.log.debug("Python bytecode file %s was ignored",
+                            sfn)
+                    continue # skip this file
                 if any(fnmatch(sfn, pattern)
                        for pattern in ignored_globs):
                     self.log.debug(
