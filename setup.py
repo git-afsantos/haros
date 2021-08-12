@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from setuptools import setup, find_packages
 
@@ -25,8 +27,8 @@ extra_files.append("models/*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.10.7",
-    author          = "Andre Santos",
+    version         = "3.10.8",
+    author          = u"André Santos",
     author_email    = "haros.framework@gmail.com",
     description     = "Static analysis framework for ROS",
     long_description= read("README.md"),

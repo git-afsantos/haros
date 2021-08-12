@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.8] - 2021-08-12
+### Fixed
+- Fixed an issue when analysing Python bytecode files not encoded in UTF-8 (bytecode should not be treated as text files).
+
 ## [3.10.7] - 2021-08-12
 ### Fixed
 - Fixed a Python packaging issue.
