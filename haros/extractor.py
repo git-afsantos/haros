@@ -780,9 +780,10 @@ class PackageExtractor(LoggingObject):
             for filename in files:
                 self.log.debug("Found file %s at %s", filename, path)
                 source = SourceFile(filename, path, pkg)
+                self.log.debug("File language: %s", source.language)
                 sfn = os.path.join(pkg.name, source.full_name)
-                if source.language == "python":
-                    if source.name.endswith(self._BYTE_CODE):
+                if source.language == "unknown":
+                    if filename.endswith(self._BYTE_CODE):
                         self.log.debug("Python bytecode file %s was ignored",
                             sfn)
                     continue # skip this file
