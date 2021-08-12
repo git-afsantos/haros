@@ -227,7 +227,11 @@ class PluginInterface(LoggingObject):
         if not property_id in data:
             ident = self._plugin.name + ":" + property_id
             if not ident in data:
-                raise UndefinedPropertyError(property_id)
+                self.log.debug(
+                    "Plugin {!r} reported unknown property ID: {!r}".format(
+                        self._plugin.name, property_id))
+                # raise UndefinedPropertyError(property_id)
+                return None
         return data[ident] if ident in allowed else None
 
     def _check_metric_value(self, metric, value):
