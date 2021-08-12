@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.7] - 2021-08-12
+### Fixed
+- Fixed a Python packaging issue.
+
 ## [3.10.6] - 2021-08-11
 ### Fixed
 - Fixed a bug when parsing XML tags without text in *package.xml* files, e.g., `<author email="name@example.com" />`.
