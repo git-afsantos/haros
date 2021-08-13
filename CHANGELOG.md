@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.11] - 2021-08-13
+### Fixed
+- Fixed a crash when running `haros` without arguments.
+
 ## [3.10.10] - 2021-08-12
 ### Fixed
 - Fixed a crash when plugins reported ignored rules.
