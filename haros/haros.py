@@ -174,6 +174,9 @@ class HarosLauncher(object):
 
     def launch(self, argv=None):
         args = self.parse_arguments(argv)
+        command = getattr(args, "command", None)
+        if command is None:
+            return True
         self.minimal_output = getattr(args, "minimal_output", False)
         self._set_directories(args)
         if args.debug:
@@ -187,7 +190,7 @@ class HarosLauncher(object):
             if args.cwd:
                 os.chdir(args.cwd)
             self.log.info("Executing selected command.")
-            return args.command(args)
+            return command(args)
         except KeyError as err:
             if str(err) == "ROS_WORKSPACE":
                 print("[HAROS] You must have a workspace set up.")
@@ -199,7 +202,7 @@ class HarosLauncher(object):
             return False
         finally:
             os.chdir(original_path)
-            if args.command != self.command_news:
+            if command != self.command_news:
                 print("[HAROS] Check news updates with:")
                 print("  $ haros news")
 
