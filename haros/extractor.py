@@ -369,28 +369,29 @@ class ProjectExtractor(LoggingObject):
             for sf in source_files:
                 if sf.timestamp > mtime:
                     # a file was modified, needs to be parsed again
-                    continue
-            node = Node(datum["name"], pkg, rosname = datum["rosname"],
-                        nodelet = datum["nodelet"])
-            node.source_files = source_files
-            for p in datum["advertise"]:
-                node.advertise.append(self._pub_from_JSON(p))
-            for p in datum["subscribe"]:
-                node.subscribe.append(self._sub_from_JSON(p))
-            for p in datum["service"]:
-                node.service.append(self._srv_from_JSON(p))
-            for p in datum["client"]:
-                node.client.append(self._client_from_JSON(p))
-            for p in datum["readParam"]:
-                node.read_param.append(self._read_from_JSON(p))
-            for p in datum["writeParam"]:
-                node.write_param.append(self._write_from_JSON(p))
-            hpl = datum.get("hpl", empty_dict)
-            for p in hpl.get("properties", empty_list):
-                node.hpl_properties.append(p)
-            for a in hpl.get("assumptions", empty_list):
-                node.hpl_assumptions.append(a)
-            self.node_cache[node.node_name] = node
+                    break
+            else:
+                node = Node(datum["name"], pkg, rosname = datum["rosname"],
+                            nodelet = datum["nodelet"])
+                node.source_files = source_files
+                for p in datum["advertise"]:
+                    node.advertise.append(self._pub_from_JSON(p))
+                for p in datum["subscribe"]:
+                    node.subscribe.append(self._sub_from_JSON(p))
+                for p in datum["service"]:
+                    node.service.append(self._srv_from_JSON(p))
+                for p in datum["client"]:
+                    node.client.append(self._client_from_JSON(p))
+                for p in datum["readParam"]:
+                    node.read_param.append(self._read_from_JSON(p))
+                for p in datum["writeParam"]:
+                    node.write_param.append(self._write_from_JSON(p))
+                hpl = datum.get("hpl", empty_dict)
+                for p in hpl.get("properties", empty_list):
+                    node.hpl_properties.append(p)
+                for a in hpl.get("assumptions", empty_list):
+                    node.hpl_assumptions.append(a)
+                self.node_cache[node.node_name] = node
 
     def _update_nodes_from_specs(self):
         self.log.debug("Loading Nodes from specs.")
