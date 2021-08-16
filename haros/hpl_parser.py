@@ -34,6 +34,8 @@ from rostypes.loader import get_type
 
 from .metamodel import RosName
 
+if not hasattr(__builtins__, "basestring"): basestring = (str, bytes)
+
 ###############################################################################
 # HPL Parser
 ###############################################################################
