@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.13] - 2021-08-16
+### Fixed
+- Fixed a Python 2/3 compatibility bug.
+
 ## [3.10.12] - 2021-08-16
 ### Fixed
 - Fixed bug that prevented parsing caches from being invalidated.
