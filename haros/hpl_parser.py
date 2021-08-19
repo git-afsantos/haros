@@ -34,11 +34,13 @@ from rostypes.loader import get_type
 
 from .metamodel import RosName
 
-if not hasattr(__builtins__, "basestring"): basestring = (str, bytes)
 
 ###############################################################################
 # HPL Parser
 ###############################################################################
+
+STRINGS = (type(""), type(u""), type(b""))
+
 
 class UserSpecParser(object):
     __slots__ = ("log", "property_parser",)
@@ -55,7 +57,8 @@ class UserSpecParser(object):
         for col in (config.hpl_properties, config.hpl_assumptions):
             specs = []
             for text in col:
-                assert isinstance(text, basestring)
+                assert isinstance(text, STRINGS), ("{} is not {}".format(
+                    str(type(text)), STRINGS))
                 try:
                     ast = self._parse_property(text, topic_types)
                     specs.append(ast)
@@ -79,7 +82,8 @@ class UserSpecParser(object):
         for col in (node.hpl_properties, node.hpl_assumptions):
             specs = []
             for text in col:
-                assert isinstance(text, basestring)
+                assert isinstance(text, STRINGS), ("{} is not {}".format(
+                    str(type(text)), STRINGS))
                 try:
                     ast = self._parse_property(text, topic_types, pns=pns)
                     specs.append(ast)
