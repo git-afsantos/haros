@@ -179,6 +179,7 @@ class HarosLauncher(object):
             return True
         self.minimal_output = getattr(args, "minimal_output", False)
         self._set_directories(args)
+        self._ensure_haros_home()
         if args.debug:
             logging.basicConfig(filename=self.log_path, filemode="w",
                                 level=logging.DEBUG)
@@ -482,6 +483,13 @@ class HarosLauncher(object):
                     self.log.info("Creating %s", new_path)
                     os.mkdir(new_path)
                 self._generate_dir(new_path, contents, overwrite=overwrite)
+
+    def _ensure_haros_home(self):
+        self.log.debug("HarosRunner._ensure_haros_home(%s)", self.haros_dir)
+        if not os.path.isdir(self.haros_dir):
+            if os.path.isfile(self.haros_dir):
+                raise RuntimeError("Could not create dir: " + self.haros_dir)
+            os.makedirs(self.haros_dir)
 
 
 ###############################################################################
