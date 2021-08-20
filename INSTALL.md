@@ -2,8 +2,8 @@
 
 Here are some instructions to help you get HAROS running in your machine.
 This assumes that you already have a **working installation of ROS**.
-HAROS has been tested with *ROS Indigo*, *ROS Kinetic* and *ROS Melodic*, on *Linux Mint* and *Linux Ubuntu*.
-These setups should provide you with most of the basic dependencies of HAROS, namely **Python 2.7** and a **Web browser** (if you want to use the visualiser).
+HAROS has been tested with *ROS Indigo*, *ROS Kinetic*, *ROS Melodic* and *ROS Noetic*, on *Linux Mint* and *Linux Ubuntu*.
+These setups should provide you with most of the basic dependencies of HAROS, namely **Python 2.7+** (or **Python 3.6+**) and a **web browser** (if you want to use the visualiser).
 
 **NOTE** This tool depends on other analysis tools.
 If you would rather install these dependencies first, then `Ctrl+F` *$dependencies$*.
@@ -40,10 +40,10 @@ python -m haros <args>
 ### Method 2: Installing HAROS on Your Machine
 
 HAROS is available on [PyPi](https://pypi.python.org/pypi/haros).
-You can install it from source or from a wheel.
+You can install it from source or from a wheel with `pip`.
 
 ```bash
-pip install haros
+[sudo] pip install haros
 ```
 
 The command above will install HAROS for you.
@@ -55,68 +55,59 @@ python setup.py install
 
 After installation, you should be able to run the command `haros` in your terminal.
 
+**Note:** To install via `pip` you might be asked to provide `sudo` privileges.
+If not, it is possible that the main [executable is not found](https://stackoverflow.com/a/59436732) after installing locally, due to an issue with `pip` in Debian/Ubuntu. This issue causes executables to be placed at `~/.local/bin`, which is not part of the default `$PATH`.
+A *recommended alternative* is to install `haros` within a `virtualenv` **virtual environment**.
+
 ### Requirements
 
-Before running any kind of analysis, you need to install some analysis tools and plugins that HAROS uses behind the curtains.
-Install these *$dependencies$* with the following commands.
-
-Python [requirements](requirements.txt):
-*(Not necessary if you install HAROS from `pip`)*
+Before using HAROS, you need to install some additional *$dependencies$* from the Python [requirements file](requirements.txt).
+*(Not necessary if you install HAROS via `pip`)*
 
 ```bash
-pip install -r requirements.txt
+[sudo] pip install -r requirements.txt
 ```
 
-Additional analysis tools:
+In addition, you need to perform some initialisation operations.
+Do so with:
+
+```bash
+haros init
+```
+
+**Note:** if you opted for running HAROS without installing it, replace `haros` with your preferred method.
+
+HAROS is now installed and ready to use. The rest of the instructions depend on the type of analysis you want to perform.
+
+Additional *$dependencies$* for **internal code quality**:
 
 ```bash
 [sudo] apt-get install cppcheck
 [sudo] apt-get install cccc
 ```
 
-Optionally, install `pyflwor` to enable queries to run on extracted models later on.
+If you want to use the model extraction features of HAROS, you must install additional *$dependencies$*.
+These features are only working for C++ code as of now. Python code has limited support in the current version.
 
 ```bash
-pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
-```
-
-or, if you have a `virtualenv`
-
-```bash
-pip install pyflwor-ext
-```
-
-If you want to use the model extraction features of HAROS, you must install
-additional *$dependencies$*.
-These features are only available for C++ code as of now.
-
-```bash
-[sudo] pip install -Iv clang==3.8
 [sudo] apt-get install libclang-3.8-dev
+[sudo] pip install -Iv clang==3.8
 ```
 
-Optional step: set up the `LD_LIBRARY_PATH` environment variable to point to
-the `libclang.so` shared library.
+Other versions of `libclang` are tested and supported, up to `libclang-10-dev`, at least.
+Just **make sure** that the versions of `libclang` and Python's `clang` match, as in the example above.
+
+**(Optional)** If you want to ensure that your code compiles with Clang, you might want to install `clang++` in addition to `libclang-dev` (for the same version).
+
+**(Optional)** Set up the `LD_LIBRARY_PATH` environment variable to point to the `libclang.so` shared library.
 Example:
 
 ```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/llvm-3.8/lib
 ```
 
-NB: you might need to specify in `~/.haros/configs.yaml` the library file and the includes in case you are using a non-zero minor release (e.g., libclang 3.8.1)
-
-If you do not perform this step and your library is installed in a different path, you will need to specify it in the configuration file located in `~/.haros/configs.yaml`.
-This file becomes available after running HAROS for the first time.
-
-The same applies if you want to use a version of `libclang.so` other than 3.8.
-Preliminary tests suggest that 3.9, 4.0, 5.0 and 6.0 also work (as long as the versions of `libclang-X.Y-dev` and Python's `clang` package match).
-
-**Example for version 4.0:**
-
-```bash
-[sudo] apt-get install libclang-4.0-dev
-[sudo] pip install -Iv clang==4.0
-```
+**After running HAROS `init`:** Open the `configs.yaml` file in the HAROS home directory (default: `~/.haros/configs.yaml`) and provide the paths to the library and the include directories of your `libclang` version (uncomment any commented lines).
+Example:
 
 `~/.haros/configs.yaml`:
 
@@ -130,13 +121,11 @@ cpp:
     compile_db: '/home/me/ros/ws/build'
 ```
 
-Finally, you need to perform some initialisation operations.
-Do so with:
+**(Optional)** Install `pyflwor` to enable queries to run on extracted models later on.
 
 ```bash
-haros init
+# without virtualenv
+[sudo] pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
+# with virtualenv
+pip install pyflwor-ext
 ```
-
-**Note:** if you opted for running HAROS without installing it, replace `haros` with your preferred method.
-
-HAROS is now installed and ready to use.
