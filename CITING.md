@@ -2,13 +2,15 @@
 
 ## The Framework
 
-Please cite the original IROS 2016 paper:
+Please cite the original [IROS 2016 paper](https://repositorium.sdum.uminho.pt/bitstream/1822/51442/1/P-00M-8D0.pdf),
 
 > Santos A, Cunha A, Macedo N, Lourenço C. *A framework for quality assessment of ROS repositories.* In 2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2016 Oct 9 (pp. 4491-4496). IEEE.
 
-You can find the paper [here](https://repositorium.sdum.uminho.pt/bitstream/1822/51442/1/P-00M-8D0.pdf).
+Or the more recent [RoSE 2021 tool paper](https://arxiv.org/pdf/2103.01603.pdf).
 
-Here follows a BibTeX entry:
+> Santos A, Cunha A, Macedo N. *The high-assurance ROS framework.* In 3rd IEEE/ACM International Workshop on Robotics Software Engineering, RoSE@ICSE 2021 June 2 (pp. 37-40). IEEE.
+
+Here follow the BibTeX entries:
 
 ```bibtex
 @inproceedings{SantosCML:16,
@@ -18,6 +20,16 @@ Here follows a BibTeX entry:
     pages = {4491--4496},
     year = {2016},
     doi = {10.1109/IROS.2016.7759661},
+}
+
+@inproceedings{SantosCM:21,
+    author = {Andr{\'{e}} Santos and Alcino Cunha and Nuno Macedo},
+    title = {The High-Assurance {ROS} Framework},
+    booktitle = {{IEEE/ACM} International Workshop on Robotics Software Engineering, {RoSE@ICSE}},
+    pages = {37--40},
+    publisher = {{IEEE}},
+    year = {2021},
+    doi = {10.1109/RoSE52553.2021.00013},
 }
 ```
 
