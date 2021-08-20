@@ -1,7 +1,9 @@
 # Installing HAROS
 
-Here are some instructions to help you get HAROS running in your machine.
-This assumes that you already have a **working installation of ROS**.
+Here are some instructions to help you get HAROS running manually in your machine.
+A simplified version of these instructions, with convenience scripts, can be found at [make-haros-easy](https://github.com/git-afsantos/make-haros-easy).
+
+These instructions assume that you already have a **working installation of ROS**.
 HAROS has been tested with *ROS Indigo*, *ROS Kinetic*, *ROS Melodic* and *ROS Noetic*, on *Linux Mint* and *Linux Ubuntu*.
 These setups should provide you with most of the basic dependencies of HAROS, namely **Python 2.7+** (or **Python 3.6+**) and a **web browser** (if you want to use the visualiser).
 
