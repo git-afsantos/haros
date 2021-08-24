@@ -20,14 +20,7 @@ Help improve HAROS by participating in a short [user survey](https://docs.google
 
 ## Installing
 
-To install HAROS, make sure that you have Python 2.7 or greater.
-Simply run the command:
-
-```
-pip install haros
-```
-
-For alternative methods, and to install external dependencies required for some features, see [INSTALL](./INSTALL.md).
+See [INSTALL](./INSTALL.md) for installation methods and instructions.
 
 ## How to Use
 
