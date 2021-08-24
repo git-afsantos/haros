@@ -7,14 +7,18 @@ These instructions assume that you already have a **working installation of ROS*
 HAROS has been tested with *ROS Indigo*, *ROS Kinetic*, *ROS Melodic* and *ROS Noetic*, on *Linux Mint* and *Linux Ubuntu*.
 These setups should provide you with most of the basic dependencies of HAROS, namely **Python 2.7+** (or **Python 3.6+**) and a **web browser** (if you want to use the visualiser).
 
-**NOTE** This tool depends on other analysis tools.
-If you would rather install these dependencies first, then `Ctrl+F` *$dependencies$*.
-Otherwise, just keep reading.
+For a full list of dependencies, see the [Requirements section](#requirements).
 
-**NOTE** This tool assumes that the current terminal shell has a `source /opt/ros/<distro>/setup.bash` and a `source /path/to/workspace/devel/setup.bash`.
-In other words, you need a working ROS installation and a catkin workspace.
+Quick links:
 
-### Method 1: Running Without Installation
+1. [Running From Source](#method-1-running-from-source)
+2. [Installing HAROS](#method-2-installing-haros)
+3. [Running With Docker](#method-3-running-with-docker)
+
+> **NOTE** This tool assumes that the current terminal shell has a `source /opt/ros/<distro>/setup.bash` and a `source /path/to/workspace/devel/setup.bash`.
+> In other words, you need a working ROS installation and a catkin workspace.
+
+## Method 1: Running From Source
 
 Open a terminal, and move to a directory where you want to clone this repository.
 
@@ -30,22 +34,22 @@ Make sure that your terminal is at the root of the repository.
 
 ```bash
 cd haros
-python haros-runner.py <args>
+python haros-runner.py ARGS
 ```
 
 You can also run it with the executable package syntax.
 
 ```bash
-python -m haros <args>
+python -m haros ARGS
 ```
 
-### Method 2: Installing HAROS on Your Machine
+## Method 2: Installing HAROS
 
 HAROS is available on [PyPi](https://pypi.python.org/pypi/haros).
 You can install it from source or from a wheel with `pip`.
 
 ```bash
-[sudo] pip install haros
+pip install haros
 ```
 
 The command above will install HAROS for you.
@@ -57,17 +61,22 @@ python setup.py install
 
 After installation, you should be able to run the command `haros` in your terminal.
 
-**Note:** To install via `pip` you might be asked to provide `sudo` privileges.
-If not, it is possible that the main [executable is not found](https://stackoverflow.com/a/59436732) after installing locally, due to an issue with `pip` in Debian/Ubuntu. This issue causes executables to be placed at `~/.local/bin`, which is not part of the default `$PATH`.
-A *recommended alternative* is to install `haros` within a `virtualenv` **virtual environment**.
+> **Note:** To install via `pip` you might be asked to provide `sudo` privileges.
+> If not, it is possible that the main [executable is not found](https://stackoverflow.com/a/59436732) after installing locally, due to an issue with `pip` in Debian/Ubuntu.
+> This issue causes executables to be placed at `~/.local/bin`, which is not part of the default `$PATH`.
+> A *recommended alternative* is to install `haros` within a `virtualenv` **virtual environment**.
 
-### Requirements
+## Method 3: Running With Docker
 
-Before using HAROS, you need to install some additional *$dependencies$* from the Python [requirements file](requirements.txt).
+See the [*Make HAROS Easy* repository](https://github.com/git-afsantos/make-haros-easy) or the [*HAROS Tutorials* repository](https://github.com/git-afsantos/haros_tutorials).
+
+## Requirements
+
+Before using HAROS, you need to install some additional dependencies from the Python [requirements file](requirements.txt).  
 *(Not necessary if you install HAROS via `pip`)*
 
 ```bash
-[sudo] pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 In addition, you need to perform some initialisation operations.
@@ -77,23 +86,28 @@ Do so with:
 haros init
 ```
 
-**Note:** if you opted for running HAROS without installing it, replace `haros` with your preferred method.
+> **Note:** if you opted for running HAROS from source, replace `haros` with the appropriate command.
 
-HAROS is now installed and ready to use. The rest of the instructions depend on the type of analysis you want to perform.
+HAROS is now installed and ready to use.
+The rest of the instructions depend on the type of analysis you want to perform.
 
-Additional *$dependencies$* for **internal code quality**:
+### Internal Code Quality
+
+Analysis based on *linters*, code quality metrics, coding style, etc..
 
 ```bash
 [sudo] apt-get install cppcheck
 [sudo] apt-get install cccc
 ```
 
-If you want to use the model extraction features of HAROS, you must install additional *$dependencies$*.
-These features are only working for C++ code as of now. Python code has limited support in the current version.
+### Model Extraction
+
+These features are only working for C++ code as of now.
+Python code has limited support in the current version.
 
 ```bash
 [sudo] apt-get install libclang-3.8-dev
-[sudo] pip install -Iv clang==3.8
+pip install -Iv clang==3.8
 ```
 
 Other versions of `libclang` are tested and supported, up to `libclang-10-dev`, at least.
@@ -123,11 +137,23 @@ cpp:
     compile_db: '/home/me/ros/ws/build'
 ```
 
-**(Optional)** Install `pyflwor` to enable queries to run on extracted models later on.
+### Computation Graph Model Queries
+
+Install `pyflwor` to enable queries to run on extracted models.
 
 ```bash
 # without virtualenv
-[sudo] pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
+pip install -e git+https://github.com/timtadh/pyflwor.git#egg=pyflwor
 # with virtualenv
 pip install pyflwor-ext
 ```
+
+Install also the respective [HAROS plugin](https://github.com/git-afsantos/haros-plugin-pyflwor).
+
+### Runtime Monitor Generation
+
+> TODO
+
+### Property-based Test Generator
+
+> TODO
