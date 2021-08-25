@@ -83,8 +83,6 @@ By default, HAROS uses `~/.haros` as the HOME_DIR.
 
 ### haros init
 
-*(Deprecated since v3.9)*
-
 This command runs setup operations.
 This command will **create directories** and **overwrite some files** (if there are some already with the same name).
 
@@ -129,13 +127,13 @@ repositories:
 The only supported repository type, for now, is `git`.
 There is partial support for `hg` and `svn`, but these have not been fully tested.
 
-#### haros analyse -w PLUGIN [-w PLUGIN, ...]
+#### haros analyse -w PLUGIN [PLUGIN2 PLUGIN3 ...]
 
 Whitelist the given plugins.
 The analysis will **only** run these plugins.
 This option does not work with `-b`.
 
-#### haros analyse -b PLUGIN [-b PLUGIN, ...]
+#### haros analyse -b PLUGIN [PLUGIN2 PLUGIN3 ...]
 
 Blacklist the given plugins.
 The analysis will **not** run these plugins.
@@ -147,15 +145,15 @@ Export analysis results to the given directory, instead of the default one.
 This option will also install the visualisation files.
 If `DATA_DIR` contains a previous analysis database for the current project within its tree, it will be loaded and new results will be added to that database.
 
-* **Note:** it is advised to use an empty/dedicated directory for this purpose.
-Previous versions deleted any existing files within `DATA_DIR`.*
+> **Note:** it is advised to use an empty/dedicated directory for this purpose.
+> Previous versions deleted any existing files within `DATA_DIR`.
 
 #### haros analyse -n
 
 Parse the source code of ROS nodes when possible, so as to extract a model from it.
 This options produces a result similar to `rqt_graph`, but without executing code.
 
-**Note:** this option requires that you have the appropriate parsing libraries installed (e.g., `libclang` for C++).
+> **Note:** this option requires that you have the appropriate parsing libraries installed (e.g., `libclang` for C++).
 
 For issues with model extraction be sure to check [FAQ](./FAQ.md).
 
@@ -189,8 +187,8 @@ This command will create files and directories within the given directory.
 
 Export visualisation files along with analysis data.
 
-* **Note:** it is advised to use an empty/dedicated directory for this purpose.
-Previous versions deleted any existing files within `DATA_DIR`.*
+> **Note:** it is advised to use an empty/dedicated directory for this purpose.
+> Previous versions deleted any existing files within `DATA_DIR`.
 
 #### haros export -p PROJECT_NAME
 
@@ -248,6 +246,11 @@ cpp:
     parser_lib: "/usr/lib/llvm-3.8/lib"
     std_includes: "/usr/lib/llvm-3.8/lib/clang/3.8.0/include"
     compile_db: "/path/to/catkin_ws/build"
+analysis:
+    ignore:
+        tags: []
+        rules: []
+        metrics: []
 ```
 
 ### workspace
@@ -277,7 +280,7 @@ Under this mapping there are settings related to parsing C++ files.
 Specifies the path to the directory containing your installation of `libclang`.
 By default, this is under `/usr/lib/llvm-3.8/lib`.
 
-**Note:** this is a required setting by the clang compiler.
+> **Note:** this is a required setting by the clang compiler.
 
 #### std_includes
 
