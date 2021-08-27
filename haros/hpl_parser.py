@@ -101,19 +101,20 @@ class UserSpecParser(object):
     def _parse_property(self, text, topic_types, pns=""):
         ast = self.property_parser.parse(text)
         refs = {}
-        for event in ast.events():
-            topic = RosName.resolve(event.topic, private_ns=pns)
-            if topic not in topic_types:
-                raise HplTypeError(
-                    "No type information for topic '{}'".format(topic))
-            rostype = topic_types[topic]
-            event.topic = topic
-            if event.alias:
-                assert event.alias not in refs, "duplicate event alias"
-                assert rostype.is_message, "topic type is not a message"
-                # update refs without worries about temporal order of events
-                # prop.sanity_check() already checks that
-                refs[event.alias] = rostype
+        for complex_event in ast.events():
+            for event in complex_event.simple_events():
+                topic = RosName.resolve(event.topic, private_ns=pns)
+                if topic not in topic_types:
+                    raise HplTypeError(
+                        "No type information for topic '{}'".format(topic))
+                rostype = topic_types[topic]
+                event.topic = topic
+                if event.alias:
+                    assert event.alias not in refs, "duplicate event alias"
+                    assert rostype.is_message, "topic type is not a message"
+                    # update refs without worries about temporal order of events
+                    # prop.sanity_check() already checks that
+                    refs[event.alias] = rostype
         ast.refine_types(topic_types, aliases=refs)
         return ast
 
