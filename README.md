@@ -2,16 +2,14 @@
 
 ![HAROS](logo.png?raw=true "HAROS Logo")
 
-HAROS is a framework for quality assurance of ROS-based code, mostly based on static analysis.
+HAROS is a framework for quality assurance of ROS-based code, mostly based on **static analysis** - which consists on *extracting information* from the source code *without executing it* (and, sometimes, even without compiling it).
+Its main goal is the **early detection of problems** in the software development life cycle, which would otherwise go unnoticed into later stages or even into production.
 
-*Static analysis* consists on **extracting information** from the source code **without executing** it (and, sometimes, even without compiling it).
-The kind of properties that can be verified include simple conformity checks, such as checking whether a variable is initialised, to more complex properties, such as functional behaviour of the program.
-This allows **early detection of problems** in the software development life cycle, which would otherwise go unnoticed into later stages or even into production.
+**Try it yourself:** there is a demo page of the HAROS visualizer available on [GitHub](https://git-afsantos.github.io/haros).
 
-Needless to say, sometimes in robotics it is very hard (or very expensive) to properly test software, not to talk about possible risks.
-Hence the appeal of static analysis.
+**Tutorials:** [on GitHub](https://github.com/git-afsantos/haros_tutorials/) and [on YouTube](https://youtube.com/playlist?list=PLrXxXaugT0cwVhjhlnxY6DU0_WYPLEmgq).
 
-There is a demo page of the HAROS visualizer available on [GitHub](https://git-afsantos.github.io/haros), a short video presentation of the current state of HAROS on [YouTube](https://www.youtube.com/watch?v=s_Zmch8xjzQ) and a (slightly outdated) demo video on [YouTube](https://www.youtube.com/watch?v=Y1JbzvaS3J4) as well.
+**More info:** short video presentation [on YouTube](https://www.youtube.com/watch?v=s_Zmch8xjzQ).
 
 ## Current Status
 
