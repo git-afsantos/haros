@@ -31,6 +31,7 @@ from past.builtins import basestring
 from builtins import object
 from builtins import range
 from collections import Counter, namedtuple
+from io import open as io_open
 from itertools import chain
 import os
 
@@ -737,7 +738,7 @@ class SourceFile(SourceObject):
         ignore_all = []
         to_ignore = {"*": ignore_all}
         ilp, inlp = self._ignore_parsers()
-        with open(self.path, "r") as handle:
+        with io_open(self.path, "r", encoding="utf-8") as handle:
             for line in handle:
                 self.lines += 1
                 sline = line.strip()
