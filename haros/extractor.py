@@ -1176,10 +1176,11 @@ class NodeExtractor(LoggingObject):
 
             if node.language == "cpp" and CppAstParser is not None:
                 self.roscpp_extractor.extract(node)
-            elif node.language == 'py':
+            elif node.language == "python":
                 self.rospy_extractor.extract(node)
             else:
                 self.log.debug("Node written in %s.", node.language)
+                self.log.debug("Skipping parsing and primitive extraction.")
 
 
 ###############################################################################
