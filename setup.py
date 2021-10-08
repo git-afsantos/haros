@@ -27,7 +27,7 @@ extra_files.append("models/*.yaml")
 
 setup(
     name            = "haros",
-    version         = "3.10.16",
+    version         = "3.10.17",
     author          = u"André Santos",
     author_email    = "haros.framework@gmail.com",
     description     = "Static analysis framework for ROS",
@@ -43,7 +43,7 @@ setup(
         "pyyaml",
         "rospkg",
         'python-magic',
-        "bonsai-code>=0.5.0,<1.0.0",
+        "bonsai-code>=0.6.6,<1.0.0",
         "haros-plugins>=1.0.3,<2.0.0",
         "hpl-specs",
         "ros-type-tokens",
