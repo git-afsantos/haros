@@ -1758,9 +1758,9 @@ class RospyExtractor(LoggingObject):
                 return None
 
     @staticmethod
-    def invalid_call(call):
+    def invalid_call(call, n=1):
         return (len(call.arguments) + len(call.named_args)
-                + bool(call.star_args) + bool(call.kw_args)) <= 1
+                + bool(call.star_args) + bool(call.kw_args)) <= n
 
     @staticmethod
     def split_ns_name(full_name):
@@ -1915,6 +1915,63 @@ class RospyExtractor(LoggingObject):
             self._on_client(node, call)
 
 
+    def _on_param_getter(self, node, call):
+        if self.invalid_call(call, n=0):
+            return
+        name = resolve_expression(self.get_arg(call, 0, 'param_name'))
+        if not isinstance(name, basestring):
+            name = '?'
+        ns, name = self.split_ns_name(name)
+        param_type = None
+        default_value = self.get_arg(call, 1, 'default')
+        if default_value is not None:
+            default_value = resolve_expression(default_value)
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        getter = GetParamCall(name, ns, param_type,
+            default_value=default_value, location=location,
+            control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive=True))
+        node.read_param.append(getter)
+        self.log.debug("Found GetParamCall on %s/%s", ns, name)
+
+    def _on_param_setter(self, node, call):
+        if self.invalid_call(call):
+            return
+        name = resolve_expression(self.get_arg(call, 0, 'param_name'))
+        if not isinstance(name, basestring):
+            name = '?'
+        ns, name = self.split_ns_name(name)
+        param_type = None
+        value = resolve_expression(self.get_arg(call, 1, 'param_value'))
+        depth = get_control_depth(call, recursive=True)
+        location = self._call_location(call)
+        conditions = [SourceCondition(pretty_str(c), location=location)
+                      for c in get_conditions(call, recursive=True)]
+        setter = SetParamCall(name, ns, param_type, value=value,
+            location=location, control_depth=depth, conditions=conditions,
+            repeats=is_under_loop(call, recursive=True))
+        node.write_param.append(setter)
+        self.log.debug("Found SetParamCall on %s/%s", ns, name)
+
+    def _query_param_primitives(self, node, gs):
+        getters = (CodeQuery(gs).all_calls
+                   .where_name(('get_param', 'rospy.get_param'))
+                   .get())
+        setters = (CodeQuery(gs).all_calls
+                   .where_name(('set_param', 'rospy.set_param'))
+                   .get())
+        for call in getters:
+            self._on_param_getter(node, call)
+        for call in setters:
+            self._on_param_setter(node, call)
+        # FIXME: missing:
+        #   rospy.has_param(param_name)
+        #   rospy.delete_param(param_name)
+
+
     def _setup_path(self):
         setup_file = os.path.join(self.package.path, 'setup.py')
         if not os.path.isfile(setup_file):
@@ -1951,6 +2008,8 @@ class RospyExtractor(LoggingObject):
 
     def extract(self, node):
         self.log.debug("Parsing Python files for node %s", node.id)
+        self.log.debug("PyAstParser(pythonpath={!r}, workspace={!r})".format(
+            self.pythonpath, self.workspace))
         parser = PyAstParser(pythonpath=self.pythonpath,
                              workspace=self.workspace)
         for sf in node.source_files:
@@ -1967,7 +2026,7 @@ class RospyExtractor(LoggingObject):
 
         # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
-        # self._query_param_primitives(node, parser.global_scope)
+        self._query_param_primitives(node, parser.global_scope)
 
 
 ###############################################################################
