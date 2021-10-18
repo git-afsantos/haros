@@ -1798,19 +1798,25 @@ class RospyExtractor(LoggingObject):
             return None
 
     @classmethod
-    def _extract_message_type(cls, call, arg_name, msgs_imports, arg_pos=1):
+    def _extract_message_type(cls, call, arg_name, msgs_imports, pkgs_imports, arg_pos=1):
         msg_type = cls.get_arg(call, 1, arg_name)
-        for msg in msgs_imports:
-            if str(msg_type).replace("#","") in msg[1]:
-                msg_type = msg[0]+"/"+str(msg_type).replace("#","")
         # Very common case of calling type() on a message class
         if isinstance(msg_type, CodeFunctionCall) and msg_type.name == 'type':
             msg_type = msg_type.arguments[0].name
-
         if isinstance(msg_type, CodeReference):
             msg_type = resolve_reference(msg_type) or msg_type
-
-        return str(msg_type)
+        if isinstance(msg_type, CodeReference):
+            if msg_type.field_of is None:
+                for pkg_name, msg_name in msgs_imports:
+                    if msg_name == msg_type.name:
+                        return pkg_name + "/" + msg_name
+            else:
+                maybe_pkg = msg_type.field_of
+                if isinstance(maybe_pkg, CodeReference):
+                    pkg_name = maybe_pkg.name
+                    if pkg_name in pkgs_imports:
+                        return pkg_name + "/" + msg_type.name
+        return "?"
 
     @classmethod
     def _extract_topic(cls, call):
@@ -1824,7 +1830,7 @@ class RospyExtractor(LoggingObject):
             return
 
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list)
+        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list, self.pkgs_list)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
@@ -1840,7 +1846,7 @@ class RospyExtractor(LoggingObject):
             return
 
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list)
+        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list, self.pkgs_list)
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -1856,7 +1862,7 @@ class RospyExtractor(LoggingObject):
         if self.invalid_call(call):
             return
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list)
+        msg_type = self._extract_message_type(call, 'service_class', self.msgs_list, self.pkgs_list)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
         conditions = [SourceCondition(pretty_str(c), location=location)
@@ -1871,7 +1877,7 @@ class RospyExtractor(LoggingObject):
         if self.invalid_call(call):
             return
         ns, name = self._extract_topic(call)
-        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list)
+        msg_type = self._extract_message_type(call, 'data_class', self.msgs_list, self.pkgs_list)
         queue_size = self._extract_queue_size(call)
         depth = get_control_depth(call, recursive=True)
         location = self._call_location(call)
@@ -2019,10 +2025,22 @@ class RospyExtractor(LoggingObject):
         node.source_tree = parser.global_scope
 
         # In theory the imported names list should not be needed here, this is a fix to be able to locate the complete description of ros msgs types (i.e. PkgName/MsgName
-        self.msgs_list =[]
-        for i in parser.imported_names_list:
-            if "msg" in str(i) or "srv" in str(i):
-                self.msgs_list.append((i.split(".")[0],i.split(".")[2]))
+        self.msgs_list = []
+        self.pkgs_list = []
+        for imp_name in parser.imported_names_list:
+            s = str(imp_name)
+            if "msg" in s or "srv" in s:
+                ss = s.split(".")
+                if len(ss) < 2:
+                    continue
+                if ss[-1] == "msg" or ss[-1] == "srv":
+                    self.pkgs_list.append(ss[0])
+                elif ss[1] == "msg" or ss[1] == "srv":
+                    self.msgs_list.append((ss[0], ss[2]))
+                else:
+                    self.log.debug(("Python import with 'msg' or 'srv', "
+                                    "but unable to process it: ")
+                                   + s)
 
         # ----- queries after parsing, since global scope is reused -----------
         self._query_comm_primitives(node, parser.global_scope)
