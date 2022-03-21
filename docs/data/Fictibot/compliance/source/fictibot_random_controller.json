@@ -1,0 +1,28 @@
+[
+  {
+    "rule":"no_global_names",
+    "comment":"Query found: RosPrimitiveCall(/cmd_vel, , fictibot_msgs/VelocityCommand) Location2(package='fictibot_random_controller', file='src/random_controller.cpp', line=23, column=26) (depth 0)\nReported in fictibot_random_controller/src/random_controller.cpp:23:26",
+    "location":{
+      "package":"fictibot_random_controller",
+      "file":"src/random_controller.cpp",
+      "line":23,
+      "column":26,
+      "function":null,
+      "class":null
+    },
+    "resources":[]
+  },
+  {
+    "rule":"haros_plugin_cppcheck:harosIntegerTypes",
+    "comment":"Found implementation defined integer type.",
+    "location":{
+      "package":"fictibot_random_controller",
+      "file":"src/controller_node.cpp",
+      "line":5,
+      "column":null,
+      "function":null,
+      "class":null
+    },
+    "resources":[]
+  }
+]

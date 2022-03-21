@@ -1,0 +1,15 @@
+[
+  {
+    "rule":"haros_plugin_pbt_gen:pbtest",
+    "comment":"<p>The following property is false.</p><p><span class=\"code\">globally: /laser { (data <= 32) } causes /cmd_stop { True } within 0.2s</span></p><p><b>Counterexample:</b></p><ol><li><i class=\"fa fa-arrow-alt-circle-up\"></i> @868ms sent witness on /laser<br><span class=\"code\">data:&nbsp;0</span></li></ol>",
+    "location":{
+      "configuration":"fictibot_safety_controller_fictibot_safety_controller"
+    },
+    "resources":[
+      {
+        "name":"/laser",
+        "resourceType":"topic"
+      }
+    ]
+  }
+]

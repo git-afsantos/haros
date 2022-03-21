@@ -1,0 +1,15 @@
+[
+  {
+    "rule":"haros_plugin_cppcheck:harosIntegerTypes",
+    "comment":"Found implementation defined integer type.",
+    "location":{
+      "package":"fictibot_safety_controller",
+      "file":"src/controller_node.cpp",
+      "line":5,
+      "column":null,
+      "function":null,
+      "class":null
+    },
+    "resources":[]
+  }
+]

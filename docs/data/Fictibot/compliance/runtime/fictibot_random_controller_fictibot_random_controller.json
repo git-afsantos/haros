@@ -1,0 +1,15 @@
+[
+  {
+    "rule":"haros_plugin_pbt_gen:pbtest",
+    "comment":"<p>The following property is false.</p><p><span class=\"code\">globally: /bumper { ((left or center) or right) } causes /cmd_vel { True } within 0.2s</span></p><p><b>Counterexample:</b></p><ol><li><i class=\"fa fa-arrow-alt-circle-up\"></i> @665ms sent witness on /bumper<br><span class=\"code\">left:&nbsp;True<br>center:&nbsp;False<br>right:&nbsp;False</span></li><li><i class=\"fa fa-arrow-alt-circle-up\"></i> @665ms sent spam on /bumper<br><span class=\"code\">left:&nbsp;False<br>center:&nbsp;False<br>right:&nbsp;False</span></li></ol>",
+    "location":{
+      "configuration":"fictibot_random_controller_fictibot_random_controller"
+    },
+    "resources":[
+      {
+        "name":"/bumper",
+        "resourceType":"topic"
+      }
+    ]
+  }
+]

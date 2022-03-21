@@ -1,5 +1,17 @@
 [
   {
+    "id":"Fictibot",
+    "packages":[
+      "fictibot_msgs",
+      "fictibot_drivers",
+      "fictibot_random_controller",
+      "fictibot_safety_controller",
+      "fictibot_multiplex",
+      "fictibot_launch"
+    ],
+    "repositories":[]
+  },
+  {
     "packages":[
       "fictibot_drivers",
       "minimal_example",

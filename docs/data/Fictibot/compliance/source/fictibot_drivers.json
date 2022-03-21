@@ -1,0 +1,28 @@
+[
+  {
+    "rule":"haros_plugin_cppcheck:redundantAssignment",
+    "comment":"Variable 'wheel_msg.left' is reassigned a value before the old one has been used.",
+    "location":{
+      "package":"fictibot_drivers",
+      "file":"src/sensor_manager.cpp",
+      "line":63,
+      "column":null,
+      "function":null,
+      "class":null
+    },
+    "resources":[]
+  },
+  {
+    "rule":"haros_plugin_cppcheck:harosIntegerTypes",
+    "comment":"Found implementation defined integer type.",
+    "location":{
+      "package":"fictibot_drivers",
+      "file":"src/driver_node.cpp",
+      "line":8,
+      "column":null,
+      "function":null,
+      "class":null
+    },
+    "resources":[]
+  }
+]

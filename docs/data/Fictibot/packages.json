@@ -1,0 +1,185 @@
+[
+  {
+    "id":"fictibot_msgs",
+    "metapackage":false,
+    "version":"1.0.0",
+    "description":"The fictibot_msgs package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "std_msgs",
+      "message_runtime",
+      "message_generation",
+      "rospy",
+      "roscpp"
+    ],
+    "size":"1.78",
+    "lines":83,
+    "sloc":68,
+    "analysis":{
+      "violations":{},
+      "metrics":{}
+    }
+  },
+  {
+    "id":"fictibot_drivers",
+    "metapackage":false,
+    "version":"1.0.0",
+    "description":"The fictibot_drivers package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "roscpp",
+      "fictibot_msgs",
+      "std_msgs",
+      "rospy"
+    ],
+    "size":"10.79",
+    "lines":452,
+    "sloc":370,
+    "analysis":{
+      "violations":{
+        "haros_plugin_cppcheck:redundantAssignment":1,
+        "haros_plugin_cppcheck:harosIntegerTypes":1
+      },
+      "metrics":{}
+    }
+  },
+  {
+    "id":"fictibot_random_controller",
+    "metapackage":false,
+    "version":"1.0.0",
+    "description":"The fictibot_random_controller package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "roscpp",
+      "fictibot_msgs",
+      "std_msgs",
+      "rospy"
+    ],
+    "size":"7.31",
+    "lines":312,
+    "sloc":255,
+    "analysis":{
+      "violations":{
+        "no_global_names":1,
+        "haros_plugin_cppcheck:harosIntegerTypes":1
+      },
+      "metrics":{}
+    }
+  },
+  {
+    "id":"fictibot_safety_controller",
+    "metapackage":false,
+    "version":"1.0.0",
+    "description":"The fictibot_safety_controller package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "roscpp",
+      "fictibot_msgs",
+      "std_msgs",
+      "rospy"
+    ],
+    "size":"6.31",
+    "lines":262,
+    "sloc":201,
+    "analysis":{
+      "violations":{
+        "haros_plugin_cppcheck:harosIntegerTypes":1
+      },
+      "metrics":{}
+    }
+  },
+  {
+    "id":"fictibot_multiplex",
+    "metapackage":false,
+    "version":"1.0.0",
+    "description":"The fictibot_multiplex package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "fictibot_drivers",
+      "std_msgs",
+      "rospy",
+      "roscpp",
+      "fictibot_msgs"
+    ],
+    "size":"8.37",
+    "lines":298,
+    "sloc":240,
+    "analysis":{
+      "violations":{
+        "haros_plugin_cppcheck:harosIntegerTypes":1
+      },
+      "metrics":{}
+    }
+  },
+  {
+    "id":"fictibot_launch",
+    "metapackage":false,
+    "version":"0.3.0",
+    "description":"The fictibot_launch package",
+    "wiki":null,
+    "repository":null,
+    "bugTracker":null,
+    "authors":[
+      "Andre Santos"
+    ],
+    "maintainers":[
+      "Andre Santos"
+    ],
+    "dependencies":[
+      "fictibot_multiplex",
+      "fictibot_safety_controller",
+      "fictibot_drivers",
+      "std_msgs",
+      "fictibot_random_controller",
+      "roscpp",
+      "fictibot_msgs"
+    ],
+    "size":"4.39",
+    "lines":136,
+    "sloc":111,
+    "analysis":{
+      "violations":{},
+      "metrics":{}
+    }
+  }
+]
