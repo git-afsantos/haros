@@ -1501,7 +1501,7 @@ class RoscppExtractor(LoggingObject):
                 for sf in self.package.source_files
                 if sf.path == call.file)
         except StopIteration:
-            souce_file = None
+            source_file = None
 
         function = call.function
         if function:
