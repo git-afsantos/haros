@@ -547,7 +547,9 @@ class HarosSettings(object):
         if env == "copy" or env == "all" or env is True:
             env = dict(os.environ)
         elif isinstance(env, dict):
-            env = (dict(cls.DEFAULTS["environment"])).update(env)
+            default_env = dict(cls.DEFAULTS["environment"])
+            default_env.update(env)
+            env = default_env
         elif not env is None:
             raise ValueError("invalid value for environment")
         blacklist = data.get("plugin_blacklist", [])
