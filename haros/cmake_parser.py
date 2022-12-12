@@ -673,7 +673,8 @@ class RosCMakeParser(LoggingObject):
         env = var.startswith("ENV{")
         var = var[4:-1] if env else var
         data = self.environment if env else self.variables
-        del data[var]
+        if var in data:
+            del data[var]
 
     def _process_find_package(self, args):
         if args[0] != "catkin":
