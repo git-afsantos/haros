@@ -258,7 +258,7 @@ class CMakeParser(object):
         self.parsetree = None
 
     def parse(self, filename):
-        with open(filename, "r") as cmakefile:
+        with open(filename, "r", encoding="utf-8-sig") as cmakefile:
             self.input = ParseInput(cmakefile.read())
         self.parsetree = self.parse_block_children(None)
         if self.parsetree is None:
