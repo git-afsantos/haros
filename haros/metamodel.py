@@ -687,7 +687,7 @@ class SourceFile(SourceObject):
     PYTHON = 'python script'
     PYTHON_ALT = '.py'
     PKG_XML = 'package.xml'
-    LAUNCH = ('.launch', '.launch.xml')
+    LAUNCH = ('.launch', '.launch.xml', '.xml')
     MSG = '.msg'
     SRV = '.srv'
     ACTION = '.action'
@@ -774,10 +774,10 @@ class SourceFile(SourceObject):
                 return 'cpp'
             if self.name.endswith(self.PYTHON_ALT):
                 return 'python'
-        if self.name.endswith(self.LAUNCH):
-            return 'launch'
         if self.name == self.PKG_XML:
             return 'package'
+        if self.name.endswith(self.LAUNCH):
+            return 'launch'
         if self.name.endswith(self.MSG):
             return 'msg'
         if self.name.endswith(self.SRV):
